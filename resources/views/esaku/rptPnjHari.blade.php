@@ -42,7 +42,7 @@ function drawRptPage(data,res,from,to){
             html += "</div>"
             html += "</div>";
             html += "<div class='col-md-12'>";
-            html += "<div class='table-responsive mt-40' style='clear: both;'>";
+            html += "<div class='table-responsive mt-40'>";
             html += "<table class='table table-hover'>";
             html += "<thead>";
             html += "<tr>";
@@ -78,6 +78,11 @@ function drawRptPage(data,res,from,to){
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.bonus)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.total)+"</td>";
                     html += "</tr>";
+                    if(no == 36) {
+                        html += "<tr>";
+                        html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
+                        html += "</tr>";
+                    }
                     no++;
                 }
             }

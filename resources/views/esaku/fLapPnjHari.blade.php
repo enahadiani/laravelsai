@@ -1,11 +1,10 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
 <style>
-    table {
-        page-break-before: always;
-    }
-    tr {
-        page-break-inside: avoid; 
-        page-break-after: auto;
+    @media print {
+        #break_page {
+            clear: both;
+            page-break-after: always;
+        }
     }
 </style>
 <div class="row" id="saku-filter">
