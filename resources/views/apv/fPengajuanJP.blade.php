@@ -1,83 +1,84 @@
 <style>
-.form-group{
-    margin-bottom:15px !important;
-}
-.hidden{
-    display:none;
-}
-
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
-#print-area
-{
-    font-family: 'Roboto', sans-serif !important;
-}
-
-#print-area h3, #print-area h6
-{
-    font-family: 'Roboto', sans-serif !important;
-}
-
-.datepicker{
-    padding: inherit !important;
-}
-
-@media print{
-    #print-area
-    {
-        background: white;color: black !important;
-        padding:0 50px;
+    .form-group {
+        margin-bottom: 15px !important;
     }
-}
+
+    .hidden {
+        display: none;
+    }
+
+    @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+    #print-area {
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    #print-area h3,
+    #print-area h6 {
+        font-family: 'Roboto', sans-serif !important;
+    }
+
+    .datepicker {
+        padding: inherit !important;
+    }
+
+    @media print {
+        #print-area {
+            background: white;
+            color: black !important;
+            padding: 0 50px;
+        }
+    }
 </style>
-    <div class="container-fluid mt-3">
-        <div class="row" id="saku-datatable">
-            <div class="col-12">
-                <div class="card" style="min-height:560px">
-                    <div class="card-body">
-                        <!-- <h4 class="card-title" style="position:absolute">Data Pengajuan </h4>
+<div class="container-fluid mt-3">
+    <div class="row" id="saku-datatable">
+        <div class="col-12">
+            <div class="card" style="min-height:560px">
+                <div class="card-body">
+                    <!-- <h4 class="card-title" style="position:absolute">Data Pengajuan </h4>
                         <ul class="nav nav-tabs float-right" role="tablist">
                             <li class="nav-item"><a href="#sai-tab-finish" class='nav-link' data-toggle='tab' aria-selected="false"><i class="fa fa-check-circle"></i> Finish</a></li>
-                            <li class="nav-item"><a href="#sai-tab-new" class='nav-link active' data-toggle='tab' role="tab" aria-selected="true"><i class="fa fa-inbox"></i> New</a></li>  
+                            <li class="nav-item"><a href="#sai-tab-new" class='nav-link active' data-toggle='tab' role="tab" aria-selected="true"><i class="fa fa-inbox"></i> New</a></li>
                         </ul> -->
-                        <div class='row'>   
-                            <div class="col-md-12">
-                                <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Justifikasi Pengadaan
-                                </h4>
-                                <hr>
-                            </div>
-                            <!-- <div class='col-md-6'>
+                    <div class='row'>
+                        <div class="col-md-12">
+                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Data Justifikasi Pengadaan
+                            </h4>
+                            <hr>
+                        </div>
+                        <!-- <div class='col-md-6'>
                                 <ul class="nav nav-tabs customtab float-right" role="tablist">
                                     <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#sai-tab-finish" role="tab" aria-selected="true"><span class="hidden-xs-down">Finish</span></a> </li>
                                     <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#sai-tab-new" role="tab" aria-selected="false"><span class="hidden-xs-down">New</span></a> </li>
                                 </ul>
                             </div> -->
-                        </div>
-                        <div class='row'>
-                            <div class='col-md-12'>
-                                <!-- <div class="tab-content">
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            <!-- <div class="tab-content">
                                     <div class="tab-pane active" id="sai-tab-new"> -->
-                                        <div class="table-responsive ">
-                                            <table id="table-data" class="table table-bordered table-striped" width='100%'>
-                                                <thead>
-                                                    <tr>
-                                                        <th>No Juskeb</th>
-                                                        <th>No Dokumen</th>
-                                                        <th>Regional</th>
-                                                        <th>Waktu</th>
-                                                        <th>Kegiatan</th>
-                                                        <th>Nilai</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
+                            <div class="table-responsive ">
+                                <table id="table-data" class="table table-bordered table-striped" width='100%'>
+                                    <thead>
+                                        <tr>
+                                            <th>No Juskeb</th>
+                                            <th>No Dokumen</th>
+                                            <th>Regional</th>
+                                            <th>Waktu</th>
+                                            <th>Kegiatan</th>
+                                            <th>Nilai</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    <!-- </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- </div>
                                     <div class="tab-pane" id="sai-tab-finish" > -->
-                                        <!-- <div class="table-responsive ">
+                            <!-- <div class="table-responsive ">
                                             <table id="table-app" class="table table-bordered table-striped" width='100%'>
                                                 <thead>
                                                     <tr>
@@ -99,147 +100,168 @@
                                         </div>
                                     </div>
                                 </div> -->
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="saku-form" style="display:none;">
-            <div class="col-sm-12">
-                <div class="card">
-                    <form class="form" id="form-tambah">
-                        <div class="card-body pb-0 title-form">
-                            <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Pengadaan
-                            <button type="submit" class="btn btn-success ml-2"  style="float:right;" id="btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                            </h4>
-                            <hr>
+    </div>
+    <div class="row" id="saku-form" style="display:none;">
+        <div class="col-sm-12">
+            <div class="card">
+                <form class="form" id="form-tambah">
+                    <div class="card-body pb-0 title-form">
+                        <h4 class="card-title mb-4"><i class='fas fa-cube'></i> Form Justifikasi Pengadaan
+                            <button type="submit" class="btn btn-success ml-2" style="float:right;" id="btn-save"><i
+                                    class="fa fa-save"></i> Simpan</button>
+                            <button type="button" class="btn btn-secondary ml-2" id="btn-kembali"
+                                style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                        </h4>
+                        <hr>
+                    </div>
+                    <div class="card-body table-responsive pt-0 body-form">
+                        <input type="hidden" id="method" name="_method" value="post">
+                        <div class="form-group row" id="row-id">
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="id" name="id" readonly hidden>
+                            </div>
                         </div>
-                        <div class="card-body table-responsive pt-0 body-form" >
-                            <input type="hidden" id="method" name="_method" value="post">
-                            <div class="form-group row" id="row-id">
-                                <div class="col-9">
-                                    <input class="form-control" type="text" id="id" name="id" readonly hidden>
-                                </div>
+                        <div class="form-group row">
+                            <div class="col-3">
+                                <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti"
+                                    name="no_bukti" hidden>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-3">
-                                    <input class="form-control" type="text" placeholder="No Bukti" id="no_bukti" name="no_bukti" hidden>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
+                            <div class="col-3">
+                                <!-- <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required> -->
+                                <input class="form-control datepicker" type="text" id="tanggal" name="tanggal"
+                                    placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
+
+                                <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb"
+                                    name="tgl_juskeb" value="{{ date('Y-m-d') }}" required>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal Pengajuan</label>
-                                <div class="col-3">
-                                    <!-- <input class="form-control" type="date" placeholder="tanggal" id="tanggal" name="tanggal" value="{{ date('Y-m-d') }}" required> -->
-                                    <input class="form-control datepicker" type="text" id="tanggal" name="tanggal" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}">
-                                    
-                                    <input class="form-control hidden" type="date" placeholder="tgl_juskeb" id="tgl_juskeb" name="tgl_juskeb" value="{{ date('Y-m-d') }}" required>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Status</label>
+                            <div class="col-3">
+                                <select class='form-control' id="status" name="status" required>
+                                </select>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Status</label>
-                                <div class="col-3">
-                                    <select class='form-control' id="status" name="status" required>
-                                    </select>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Keterangan</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Keterangan" id="keterangan"
+                                    name="keterangan" required>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Keterangan</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan" required>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
+                            <div class="col-3">
+                                <!-- <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required> -->
+                                <input class="form-control datepicker" type="text" id="waktu" name="waktu"
+                                    placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}" readonly>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Tanggal Kebutuhan</label>
-                                <div class="col-3">
-                                    <!-- <input class="form-control" type="date" placeholder="Waktu" id="waktu" name="waktu" readonly required> -->
-                                    <input class="form-control datepicker" type="text" id="waktu" name="waktu" placeholder="dd/mm/yyyy" required value="{{ date('d/m/Y')}}" readonly>
-                                </div>
+                        </div>
+                        @if(Session::get('kodePP') == "7")
+                        <div class="form-group row">
+                            <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
+                            <div class="col-3">
+                                <select class='form-control' id="kode_pp" name="kode_pp" required>
+                                    <option value=''>--- Pilih Regional ---</option>
+                                </select>
                             </div>
-                            @if(Session::get('kodePP') == "7")
-                                <div class="form-group row">
-                                    <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
-                                    <div class="col-3">
-                                        <select class='form-control' id="kode_pp" name="kode_pp" required>
-                                        <option value=''>--- Pilih Regional ---</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="kode_kota" class="col-3 col-form-label">Kota</label>
-                                    <div class="col-3">
-                                        <select class='form-control' id="kode_kota" name="kode_kota" required>
-                                        <option value=''>--- Pilih Kota ---</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            @else
-                                <div class="form-group row">
-                                    <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp" name="kode_pp" required readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="kode_kota" class="col-3 col-form-label">Kota</label>
-                                    <div class="col-3">
-                                        <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota" name="kode_kota" required readonly>
-                                    </div>
-                                </div>
-                            @endif
-                            <div class="form-group row">
-                                <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen" name="no_dokumen" required readonly>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                            <div class="col-3">
+                                <select class='form-control' id="kode_kota" name="kode_kota" required>
+                                    <option value=''>--- Pilih Kota ---</option>
+                                </select>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">No Justifikasi Kebutuhan</label>
-                                <div class="col-3">
-                                    <input class="form-control" type="text" id="no_juskeb" name="no_juskeb" readonly required>
-                                </div>
+                        </div>
+                        @else
+                        <div class="form-group row">
+                            <label for="kode_pp" class="col-3 col-form-label">Kode Regional</label>
+                            <div class="col-3">
+                                <input class="form-control" type="text" placeholder="Kode Regional" id="kode_pp"
+                                    name="kode_pp" required readonly>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Justifikasi Pengadaan</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan" name="kegiatan" required readonly>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="kode_kota" class="col-3 col-form-label">Kota</label>
+                            <div class="col-3">
+                                <input class="form-control" type="text" placeholder="Kode Regional" id="kode_kota"
+                                    name="kode_kota" required readonly>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Dasar</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" placeholder="Dasar" id="dasar" name="dasar" required readonly>
-                                </div>
+                        </div>
+                        @endif
+                        <div class="form-group row">
+                            <label for="no_dokumen" class="col-3 col-form-label">No Dokumen</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="No Dokumen" id="no_dokumen"
+                                    name="no_dokumen" required readonly>
                             </div>
-                            <div class="form-group row">
-                                <label for="pic" class="col-3 col-form-label">PIC</label>
-                                <div class="col-9">
-                                    <input class="form-control" type="text" id="pic" name="pic" readonly>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">No Justifikasi Kebutuhan</label>
+                            <div class="col-3">
+                                <input class="form-control" type="text" id="no_juskeb" name="no_juskeb" readonly
+                                    required>
                             </div>
-                            <div class="form-group row">
-                                <label for="nama" class="col-3 col-form-label">Total Barang</label>
-                                <div class="col-3">
-                                    <input class="form-control text-right" type="text"  id="total" name="total" required readonly>
-                                </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Justifikasi Pengadaan</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Kegiatan" id="kegiatan"
+                                    name="kegiatan" required readonly>
                             </div>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab" aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab" aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
-                            </ul>
-                            <div class="tab-content tabcontent-border">
-                                <div class="tab-pane active" id="det" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-grid2">
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Dasar</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" placeholder="Dasar" id="dasar" name="dasar"
+                                    required readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="pic" class="col-3 col-form-label">PIC</label>
+                            <div class="col-9">
+                                <input class="form-control" type="text" id="pic" name="pic" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="nama" class="col-3 col-form-label">Total Barang</label>
+                            <div class="col-3">
+                                <input class="form-control text-right" type="text" id="total" name="total" required
+                                    readonly>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#det" role="tab"
+                                    aria-selected="true"><span class="hidden-xs-down">Barang</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok" role="tab"
+                                    aria-selected="false"><span class="hidden-xs-down">Dokumen PO</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#dok2" role="tab"
+                                    aria-selected="false"><span class="hidden-xs-down">Dokumen Pembanding</span></a>
+                            </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#catt" role="tab"
+                                    aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a> </li>
+                        </ul>
+                        <div class="tab-content tabcontent-border">
+                            <div class="tab-pane active" id="det" role="tabpanel">
+                                <div class='col-xs-12 mt-2'
+                                    style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th,
+                                        td {
+                                            padding: 8px !important;
+                                            vertical-align: middle !important;
+                                        }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed" id="input-grid2">
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
@@ -249,70 +271,85 @@
                                                 <th width="7%">Qty</th>
                                                 <th width="15%">Subtotal</th>
                                                 <th width="10%">PPN</th>
-                                                <th width="20%">Grand Total</th> 
-                                                <th width="5%"><button type="button" href="#" id="add-row" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                                <th width="20%">Grand Total</th>
+                                                <th width="5%"><button type="button" href="#" id="add-row"
+                                                        class="btn btn-default"><i
+                                                            class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
-                                <div class="tab-pane" id="dok" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-dok" style='width:100%'>
+                            </div>
+                            <div class="tab-pane" id="dok" role="tabpanel">
+                                <div class='col-xs-12 mt-2'
+                                    style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th,
+                                        td {
+                                            padding: 8px !important;
+                                            vertical-align: middle !important;
+                                        }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed" id="input-dok"
+                                        style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th width="30%">Nama Dokumen</th>
                                                 <th width="30%">Nama File Upload</th>
                                                 <th width="30%">Upload File</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row-dok" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok"
+                                                        class="btn btn-default"><i
+                                                            class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
-                                <div class="tab-pane" id="dok2" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-dok2" style='width:100%'>
+                            </div>
+                            <div class="tab-pane" id="dok2" role="tabpanel">
+                                <div class='col-xs-12 mt-2'
+                                    style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th,
+                                        td {
+                                            padding: 8px !important;
+                                            vertical-align: middle !important;
+                                        }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed" id="input-dok2"
+                                        style='width:100%'>
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
                                                 <th width="30%">Nama Dokumen</th>
                                                 <th width="30%">Nama File Upload</th>
                                                 <th width="30%">Upload File</th>
-                                                <th width="5%"><button type="button" href="#" id="add-row-dok2" class="btn btn-default"><i class="fa fa-plus-circle"></i></button></th>
+                                                <th width="5%"><button type="button" href="#" id="add-row-dok2"
+                                                        class="btn btn-default"><i
+                                                            class="fa fa-plus-circle"></i></button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
-                                <div class="tab-pane" id="catt" role="tabpanel">
-                                    <div class='col-xs-12 mt-2' style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
-                                        <style>
-                                            th,td{
-                                                padding:8px !important;
-                                                vertical-align:middle !important;
-                                            }
-                                        </style>
-                                        <table class="table table-striped table-bordered table-condensed" id="input-histori">
+                            </div>
+                            <div class="tab-pane" id="catt" role="tabpanel">
+                                <div class='col-xs-12 mt-2'
+                                    style='overflow-y: scroll; height:300px; margin:0px; padding:0px;'>
+                                    <style>
+                                        th,
+                                        td {
+                                            padding: 8px !important;
+                                            vertical-align: middle !important;
+                                        }
+                                    </style>
+                                    <table class="table table-striped table-bordered table-condensed"
+                                        id="input-histori">
                                         <thead>
                                             <tr>
                                                 <th width="5%">No</th>
@@ -324,50 +361,52 @@
                                         </thead>
                                         <tbody>
                                         </tbody>
-                                        </table>
-                                    </div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-        <div class="row" id="slide-history" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <div class="profiletimeline mt-5">
-                        </div>
+    </div>
+    <div class="row" id="slide-history" style="display:none;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i
+                            class="fa fa-undo"></i> Kembali</button>
+                    <div class="profiletimeline mt-5">
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row" id="slide-print" style="display:none;">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                        <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i class="fa fa-print"></i> Print</button>
-                        <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
-                        </div>
+    </div>
+    <div class="row" id="slide-print" style="display:none;">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <button type="button" class="btn btn-secondary ml-2" id="btn-kembali" style="float:right;"><i
+                            class="fa fa-undo"></i> Kembali</button>
+                    <button type="button" class="btn btn-info ml-2" id="btn-aju-print" style="float:right;"><i
+                            class="fa fa-print"></i> Print</button>
+                    <div id="print-area" class="mt-5" width='100%' style='border:none;min-height:480px'>
                     </div>
                 </div>
             </div>
         </div>
-    </div>     
-    
-    <script>
-    
+    </div>
+</div>
+
+<script>
     setHeightForm();
 
-    
+
     function reverseDateNew(date_str, separator, newseparator){
         if(typeof separator === 'undefined'){separator = '-'}
         date_str = date_str.split(' ');
         var str = date_str[0].split(separator);
-        
+
         return str[2]+newseparator+str[1]+newseparator+str[0];
     }
 
@@ -403,7 +442,7 @@
             var sub = toNilai($(this).closest('tr').find('.inp-grand_total').val());
             var this_val = sub;
             total += +this_val;
-            
+
             $('#total').val(sepNum(total));
         });
     }
@@ -472,7 +511,7 @@
             url: "{{ url('apv/juspo_app_status') }}",
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(result){
                 var select = $('#status').selectize();
                 select = select[0];
                 var control = select.selectize;
@@ -494,8 +533,8 @@
             url: "{{ url('apv/juspo_preview') }}/"+id+"/"+kd,
             dataType: 'json',
             async:false,
-            success:function(res){  
-                var result = res.data;  
+            success:function(res){
+                var result = res.data;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         var det='';
@@ -639,7 +678,7 @@
             dataType: 'json',
             async:false,
             success:function(res){
-                var result = res.data;    
+                var result = res.data;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         var select = $('.'+param).selectize();
@@ -674,10 +713,10 @@
                     var line = res.daftar;
                     var status = res.status;
                 }else{
-                    
+
                     var line = res.data.data;
                     var status = res.data.status;
-                }   
+                }
                 var select = $('#kode_pp').selectize();
                 select = select[0];
                 var control = select.selectize;
@@ -705,7 +744,7 @@
             data:{'kode_pp':kode_pp},
             async:false,
             success:function(res){
-                var result = res.data;    
+                var result = res.data;
                 var select = $('#kode_kota').selectize();
                 select = select[0];
                 var control = select.selectize;
@@ -732,7 +771,8 @@
             'type': 'GET',
             'dataSrc' : function(json) {
                 if(json.status){
-                    return json.daftar;   
+                    return json.daftar;
+                    console.log(json.daftar)
                 }else{
                     Swal.fire({
                         title: 'Session telah habis',
@@ -742,13 +782,13 @@
                         window.location.href = "{{ url('apv/logout') }}";
                     })
                     return [];
-                }  
+                }
             }
         },
         'columnDefs': [
-            {   'targets': [5], 
+            {   'targets': [5],
                 'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             }
         ],
         'columns': [
@@ -769,13 +809,13 @@
     //         'async':false,
     //         'type': 'GET',
     //         'dataSrc' : function(json) {
-    //             return json.daftar;   
+    //             return json.daftar;
     //         }
     //     },
     //     'columnDefs': [
-    //         {   'targets': 7, 
+    //         {   'targets': 7,
     //             'className': 'text-right',
-    //             'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
+    //             'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
     //         }
     //     ],
     //     'columns': [
@@ -805,7 +845,7 @@
             var pp = $('#kode_pp')[0].selectize.getValue();
             getKota(pp);
         });
-    
+
         $('#kode_kota').change(function(){
             // var tmp = $("#kode_pp option:selected").text();
             // tmp = tmp.split(" - ");
@@ -842,7 +882,7 @@
         $('#form-tambah')[0].reset();
     });
 
-   
+
     $('#saku-form').on('click', '#add-row-dok', function(){
         var no=$('#input-dok .row-dok:last').index();
         no=no+2;
@@ -999,7 +1039,7 @@
             hitungBrg();
         // }
     });
-    
+
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
         $.ajax({
@@ -1008,7 +1048,7 @@
             dataType: 'json',
             async:false,
             success:function(res){
-                var result= res.data;    
+                var result= res.data;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('');
@@ -1031,8 +1071,8 @@
                         $('#waktu').val(reverseDateNew(result.data[0].waktu,"-","/"));
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
-                        $('#total').val(toRp(result.data[0].nilai)); 
-                        $('#pic').val(result.data[0].pic); 
+                        $('#total').val(toRp(result.data[0].nilai));
+                        $('#pic').val(result.data[0].pic);
                         var input="";
                         var no=1;
                         if(result.data_detail.length > 0){
@@ -1092,7 +1132,7 @@
                     }
 
                         $('#input-grid2 tbody').html(input);
-                        
+
                         var no =1;
                         for(var i=0;i<result.data_detail.length;i++){
                             var line =result.data_detail[i];
@@ -1127,7 +1167,7 @@
                                 no++;
                             }
                         }
-                        
+
                         $('#input-histori tbody').html(input);
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
@@ -1155,7 +1195,7 @@
             dataType: 'json',
             async:false,
             success:function(res){
-                var result= res.data;    
+                var result= res.data;
                 if(result.status){
                     if(typeof result.data !== 'undefined' && result.data.length>0){
                         $('#id').val('edit');
@@ -1170,8 +1210,8 @@
                         $('#waktu').val(reverseDateNew(result.data[0].waktu,"-","/"));
                         $('#kegiatan').val(result.data[0].kegiatan);
                         $('#dasar').val(result.data[0].dasar);
-                        $('#total').val(toRp(result.data[0].nilai)); 
-                        $('#pic').val(result.data[0].pic); 
+                        $('#total').val(toRp(result.data[0].nilai));
+                        $('#pic').val(result.data[0].pic);
                         var input="";
                         var no=1;
                         if(result.data_detail.length > 0){
@@ -1264,7 +1304,7 @@
                                 no++;
                             }
                         }
-                        
+
                         $('#input-histori tbody').html(input);
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
@@ -1309,12 +1349,12 @@
             url: "{{ url('apv/juspo_history') }}/"+id,
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(result){
                 if(result.data.status){
                     if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
                         var html='';
                         for(var i=0;i<result.data.data.length;i++){
-                            html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid #03a9f3;border-radius: 50%;background: #03a9f3;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div> 
+                            html +=`<div class="sl-item"> <div class="sl-left" style="margin-left: -65px;"> <div style="padding: 10px;border: 1px solid #03a9f3;border-radius: 50%;background: #03a9f3;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-clipboard-check"></i> </div>
                                 </div>
                                 <div class="sl-right">
                                     <div><a href="javascript:void(0)" class="link">`+result.data.data[i].nama+`</a> <span class="sl-date">`+result.data.data[i].tanggal+`</span>
@@ -1328,7 +1368,7 @@
                             </div>
                             <hr>`;
                         }
-                        
+
                         $('.profiletimeline').html(html);
                         $('#slide-history').show();
                         $('#saku-datatable').hide();
@@ -1344,10 +1384,10 @@
                     })
                 }else{
                     var html = `
-                    <div class="sl-item"> 
-                        <div class="sl-left" style="margin-left: -65px;"> 
-                            <div style="padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-envelope"></i> 
-                            </div> 
+                    <div class="sl-item">
+                        <div class="sl-left" style="margin-left: -65px;">
+                            <div style="padding: 10px;border: 1px solid #959595;border-radius: 50%;background: #959595;color: white;width: 50px;text-align: center;"><i style="font-size: 25px;" class="fas fa-envelope"></i>
+                            </div>
                         </div>
                         <div class="sl-right">
                             Belum ada proses approval.
@@ -1360,7 +1400,7 @@
                     $('#slide-history').show();
                     $('#saku-datatable').hide();
                     $('#saku-form').hide();
-                
+
                 }
             }
         });
@@ -1373,7 +1413,7 @@
         printAju(id,kode);
     });
 
-    
+
     $('#saku-datatable').on('click','#btn-delete',function(e){
         Swal.fire({
         title: 'Are you sure?',
@@ -1385,8 +1425,8 @@
         confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
-                var kode = $(this).closest('tr').find('td:eq(0)').html();        
-                
+                var kode = $(this).closest('tr').find('td:eq(0)').html();
+
                 $.ajax({
                     type: 'DELETE',
                     url: "{{ url('apv/juspo') }}/"+kode,
@@ -1411,7 +1451,7 @@
                         }
                     }
                 });
-                
+
             }else{
                 return false;
             }
@@ -1427,7 +1467,7 @@
             var pesan = 'updated';
             var url = "{{ url('apv/juspo') }}/"+id;
         }else{
-            
+
             var pesan = 'saved';
             var url = "{{ url('apv/juspo') }}";
         }
@@ -1440,7 +1480,7 @@
             console.log('parameter:tambah');
             var formData = new FormData(this);
             for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
+                    console.log(pair[0]+ ', '+ pair[1]);
             }
 
             $.ajax({
@@ -1451,7 +1491,7 @@
                 async:false,
                 contentType: false,
                 cache: false,
-                processData: false, 
+                processData: false,
                 success:function(result){
                     if(result.data.status){
                         dataTable.ajax.reload();
@@ -1462,7 +1502,7 @@
                             'success'
                             )
                         printAju(result.data.no_aju,result.data.no_juskeb);
-                        
+
                     }
                     else if(!result.data.status && result.data.message == 'Unauthorized'){
                         Swal.fire({
@@ -1485,11 +1525,11 @@
                 fail: function(xhr, textStatus, errorThrown){
                     alert('request failed:'+textStatus);
                 }
-            });   
-        }     
+            });
+        }
         $iconLoad.hide();
     });
-    
+
 
     $('.inp-hrg').inputmask("numeric", {
         radixPoint: ",",
@@ -1501,7 +1541,7 @@
     });
 
     $('#input-dok').on('change','input[type=file]',function(e){
-        
+
         e.preventDefault();
         var i = $(this).parents('tr').index()+1;
         var file = $(this)[0].files[0].size;
@@ -1519,7 +1559,7 @@
     });
 
     $('#input-dok2').on('change','input[type=file]',function(e){
-        
+
         e.preventDefault();
         var i = $(this).parents('tr').index()+1;
         var file = $(this)[0].files[0].size;
@@ -1535,7 +1575,7 @@
             $(this).replaceWith($(this).val('').clone(true));
         }
     })
-    
+
     $('#input-grid2').on('click', '.hapus-item', function(){
         $(this).closest('tr').remove();
         no=1;
@@ -1590,7 +1630,7 @@
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
             idx--;
-            if(idx != -1){ 
+            if(idx != -1){
                 $('#'+nxt[idx]).focus();
             }
         }
@@ -1658,6 +1698,4 @@
     });
 
 
-    </script>
-
-    
+</script>

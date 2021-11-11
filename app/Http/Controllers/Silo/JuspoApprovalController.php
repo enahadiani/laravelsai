@@ -17,18 +17,21 @@ class JuspoApprovalController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __contruct(){
-        if(!Session::get('login')){
-            return redirect('saku/login')->with('alert','Session telah habis !');
+    public function __contruct()
+    {
+        if (!Session::get('login')) {
+            return redirect('saku/login')->with('alert', 'Session telah habis !');
         }
     }
 
-    public function reverseDate($ymd_or_dmy_date, $org_sep='-', $new_sep='-'){
+    public function reverseDate($ymd_or_dmy_date, $org_sep = '-', $new_sep = '-')
+    {
         $arr = explode($org_sep, $ymd_or_dmy_date);
-        return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
+        return $arr[2] . $new_sep . $arr[1] . $new_sep . $arr[0];
     }
 
-    function sendNotif($title,$content,$token_player){ 	
+    function sendNotif($title, $content, $token_player)
+    {
 
         try {
 
@@ -36,7 +39,7 @@ class JuspoApprovalController extends Controller
             // $content = "Notif send from laravelsai";
             // $token_player = array("6681074c-a789-46f5-a278-e1052d592ed1");
             // $title = $title;
-            
+
             $fields = array(
                 'app_id' => "5f0781d5-8856-4f3e-a2c7-0f95695def7e", //appid laravelsai
                 'include_player_ids' => $token_player,
@@ -51,7 +54,7 @@ class JuspoApprovalController extends Controller
                     'en' => $title
                 )
             );
-            
+
             $url = "https://onesignal.com/api/v1/notifications";
             $client = new Client();
             $response = $client->request('POST', $url, [
@@ -64,35 +67,34 @@ class JuspoApprovalController extends Controller
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-            }
-            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
-            return $result;
 
+                $data = json_decode($response_data, true);
+            }
+            $result = array('result' => $data, 'status' => true, 'fields' => $fields, 'message' => 'Send notif success!');
+            return $result;
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            $res = json_decode($response->getBody(), true);
+            $result = array('message' => $res, 'status' => false, 'fields' => $fields);
             return $result;
         }
-
     }
 
-    function sendPusher($data){ 	
+    function sendPusher($data)
+    {
         try {
-            
+
             $fields = array(
-                'id' => array($data['id']), 
+                'id' => array($data['id']),
                 'title' => $data['title'],
                 'message' => $data['message'],
                 'sts_insert' => $data['sts_insert']
             );
-            
+
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'apv/notif-pusher', [
+            $response = $client->request('POST',  config('api.url') . 'apv/notif-pusher', [
                 'headers' => [
-                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Authorization' =>  'Bearer ' . Session::get('token'),
                     'Content-Type'     => 'application/json; charset=utf-8'
                 ],
                 'body' => json_encode($fields)
@@ -100,18 +102,16 @@ class JuspoApprovalController extends Controller
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                $data = json_decode($response_data,true);
+                $data = json_decode($response_data, true);
             }
-            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            $result = array('result' => $data, 'status' => true, 'fields' => $fields, 'message' => 'Send notif success!');
             return $result;
-
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            $res = json_decode($response->getBody(), true);
+            $result = array('message' => $res, 'status' => false, 'fields' => $fields);
             return $result;
         }
-
     }
 
     /**
@@ -120,60 +120,61 @@ class JuspoApprovalController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function joinNum($num){
+    public function joinNum($num)
+    {
         // menggabungkan angka yang di-separate(10.000,75) menjadi 10000.00
         $num = str_replace(".", "", $num);
         $num = str_replace(",", ".", $num);
         return $num;
     }
 
-    public function index(){
+    public function index()
+    {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_app',[
+            $response = $client->request('GET',  config('api.url') . 'apv/juspo_app', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $res = json_decode($response_data,true);
+
+                $res = json_decode($response_data, true);
                 $data = $res["success"]["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true, 'res'=>$res], 200); 
-
+            return response()->json(['daftar' => $data, 'status' => true, 'res' => $res], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
 
-    public function getPengajuan(){
+    public function getPengajuan()
+    {
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_app_aju',[
+            $response = $client->request('GET',  config('api.url') . 'apv/juspo_app_aju', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $res = json_decode($response_data,true);
+
+                $res = json_decode($response_data, true);
                 $data = $res["success"]["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true, 'res'=>$res], 200); 
-
+            return response()->json(['daftar' => $data, 'status' => true, 'res' => $res], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
 
@@ -183,7 +184,8 @@ class JuspoApprovalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $this->validate($request, [
             'tanggal' => 'required',
             'no_aju' => 'required',
@@ -191,13 +193,14 @@ class JuspoApprovalController extends Controller
             'keterangan' => 'required',
             'nu' => 'required'
         ]);
-            
-        try{
-           
+
+        try {
+
             $fields = [
                 [
                     'name' => 'tanggal',
-                    'contents' => $this->reverseDate($request->tanggal,"/","-"),
+                    'contents' => $this->reverseDate($request->tanggal, "/", "-"),
+
                 ],
                 [
                     'name' => 'no_aju',
@@ -221,6 +224,7 @@ class JuspoApprovalController extends Controller
                 ]
             ];
 
+
             $send_data = $fields;
 
             $fields_foto = array();
@@ -229,20 +233,20 @@ class JuspoApprovalController extends Controller
             $fields_jenis_dok = array();
             $fields_nik_input = array();
             $cek = $request->file_dok;
-            if(!empty($cek)){
+            if (!empty($cek)) {
 
-                if(count($request->file_dok) > 0){
+                if (count($request->file_dok) > 0) {
 
-                    for($i=0;$i<count($request->nama_dok);$i++){
-                        if(isset($request->file('file_dok')[$i])){
+                    for ($i = 0; $i < count($request->nama_dok); $i++) {
+                        if (isset($request->file('file_dok')[$i])) {
                             $image_path = $request->file('file_dok')[$i]->getPathname();
                             $image_mime = $request->file('file_dok')[$i]->getmimeType();
                             $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
                             $fields_foto[$i] = array(
-                                'name'     => 'file['.$i.']',
+                                'name'     => 'file[' . $i . ']',
                                 'filename' => $image_org,
-                                'Mime-Type'=> $image_mime,
-                                'contents' => fopen( $image_path, 'r' ),
+                                'Mime-Type' => $image_mime,
+                                'contents' => fopen($image_path, 'r'),
                             );
                         }
                         $nama_file = $request->nama_dok[$i];
@@ -264,34 +268,34 @@ class JuspoApprovalController extends Controller
                             'contents' => $request->nik_input[$i],
                         );
                     }
-                    $send_data = array_merge($send_data,$fields_foto);
-                    $send_data = array_merge($send_data,$fields_nama_file);
-                    $send_data = array_merge($send_data,$fields_nama_file_seb);
-                    $send_data = array_merge($send_data,$fields_jenis_dok);
-                    $send_data = array_merge($send_data,$fields_nik_input);
+                    $send_data = array_merge($send_data, $fields_foto);
+                    $send_data = array_merge($send_data, $fields_nama_file);
+                    $send_data = array_merge($send_data, $fields_nama_file_seb);
+                    $send_data = array_merge($send_data, $fields_jenis_dok);
+                    $send_data = array_merge($send_data, $fields_nik_input);
                 }
             }
-
+            // dd($send_data);
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'apv/juspo_app',[
+            $response = $client->request('POST',  config('api.url') . 'apv/juspo_app', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'multipart' => $send_data
             ]);
-            
+
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
-                if($data['success']['approval'] == "Approve"){
+
+                $data = json_decode($response_data, true);
+                if ($data['success']['approval'] == "Approve") {
                     $title = "Approval Pengajuan Justifikasi Pengadaan [LaravelSAI]";
-                    $content = "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." telah di approve oleh ".$data['success']['nik_app']." , Menunggu approval anda.";
+                    $content = "Pengajuan Justifikasi Pengadaan " . $data['success']['no_aju'] . " telah di approve oleh " . $data['success']['nik_app'] . " , Menunggu approval anda.";
 
                     $title2 = "Approval Pengajuan Justifikasi Pengadaan [LaravelSAI]";
-                    $content2 = "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." Anda telah di approve oleh ".$data['success']['nik_app'];
-                    
+                    $content2 = "Pengajuan Justifikasi Pengadaan " . $data['success']['no_aju'] . " Anda telah di approve oleh " . $data['success']['nik_app'];
+
                     $notif = array(
                         'id' => $data['success']['nik_device_app'],
                         'title' => $title,
@@ -299,19 +303,18 @@ class JuspoApprovalController extends Controller
                         'sts_insert' => 0
                     );
                     $pusher = $this->sendPusher($notif);
-    
-                    if($pusher["status"]){
+
+                    if ($pusher["status"]) {
                         $data["success"]["message"] .= " Notif success";
-                    }else{
+                    } else {
                         $data["success"]["message"] .= " Notif failed";
                     }
-
-                }else{
+                } else {
                     $title = "Return Pengajuan Justifikasi Pengadaan [LaravelSAI]";
-                    $content = "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." telah di return oleh ".$data['success']['nik_app'];
+                    $content = "Pengajuan Justifikasi Pengadaan " . $data['success']['no_aju'] . " telah di return oleh " . $data['success']['nik_app'];
 
                     $title2 = "Return Pengajuan Justifikasi Pengadaan [LaravelSAI]";
-                    $content2 = "Pengajuan Justifikasi Pengadaan ".$data['success']['no_aju']." Anda telah di return oleh ".$data['success']['nik_app'];
+                    $content2 = "Pengajuan Justifikasi Pengadaan " . $data['success']['no_aju'] . " Anda telah di return oleh " . $data['success']['nik_app'];
                 }
 
                 // if(isset($data['success']['token_players_app'])){
@@ -331,11 +334,11 @@ class JuspoApprovalController extends Controller
                 //         $data["success"]["message"] .= " Notif2 failed";
                 //     }
                 // }
-                return response()->json(['data' => $data['success']], 200);  
+                return response()->json(['data' => $data['success']], 200);
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
+            $res = json_decode($response->getBody(), true);
             $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
@@ -350,25 +353,25 @@ class JuspoApprovalController extends Controller
      */
     public function show($no_bukti)
     {
-        try{
+        try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_app/'.$no_bukti,[
+            $response = $client->request('GET',  config('api.url') . 'apv/juspo_app/' . $no_bukti, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
+
+                $data = json_decode($response_data, true);
                 $data = $data["success"];
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['data' => $data], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
+            $res = json_decode($response->getBody(), true);
             $data['message'] = $res['message'];
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
@@ -377,56 +380,55 @@ class JuspoApprovalController extends Controller
 
     public function getStatus()
     {
-        try{
+        try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_app_status',[
+            $response = $client->request('GET',  config('api.url') . 'apv/juspo_app_status', [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
+
+                $data = json_decode($response_data, true);
                 $data = $data["success"]["data"];
             }
-            return response()->json(['daftar' => $data,'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'status' => true], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
+            $res = json_decode($response->getBody(), true);
             $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
     }
 
-    public function getPreview($no_bukti,$id)
+    public function getPreview($no_bukti, $id)
     {
-        try{
+        try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'apv/juspo_app_preview/'.$no_bukti.'/'.$id,[
+            $response = $client->request('GET',  config('api.url') . 'apv/juspo_app_preview/' . $no_bukti . '/' . $id, [
                 'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
                 ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
-                
-                $data = json_decode($response_data,true);
+
+                $data = json_decode($response_data, true);
                 $data = $data["success"];
             }
-            return response()->json(['data' => $data], 200); 
+            return response()->json(['data' => $data], 200);
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
+            $res = json_decode($response->getBody(), true);
             $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
     }
-
 }
