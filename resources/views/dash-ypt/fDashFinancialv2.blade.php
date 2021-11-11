@@ -272,7 +272,6 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                         {
                             minorGridLineWidth: 0,
                             gridLineWidth: 0,   
-                            min: 0,
                             title: '',
                             labels: {
                                 enabled: false

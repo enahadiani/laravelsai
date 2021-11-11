@@ -301,9 +301,9 @@ body {
     /* END TOUR STYLES */
 
     /* CHART */
-    .chart-no-grid .highcharts-grid {
+    /* .chart-no-grid .highcharts-grid {
         display: none;
-    }
+    } */
     /* END CHART */
 }
 
