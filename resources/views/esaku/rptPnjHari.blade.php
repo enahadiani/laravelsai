@@ -83,7 +83,6 @@ function drawRptPage(data,res,from,to){
             }
             html += "</tbody>";
             html += "</table>";
-            html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
             html += "</div>";
             html += "</div>"
             html += "<div class='col-md-12'>";
