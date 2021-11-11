@@ -95,8 +95,8 @@ function drawRptPage(data,res,from,to){
             html += "</div>";
             html += "</div>";
             html += "</div>";
+            html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
         }
-        html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
         html += "</div>";
     }
     $('#canvasPreview').html(html);
