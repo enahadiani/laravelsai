@@ -78,6 +78,10 @@ function drawRptPage(data,res,from,to){
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.bonus)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.total)+"</td>";
                     html += "</tr>";
+
+                    if(no == 36) {
+                        html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
+                    }
                     no++;
                 }
             }
