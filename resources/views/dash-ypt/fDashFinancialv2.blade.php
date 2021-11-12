@@ -15,6 +15,7 @@ var $filter2_kode = "09";
 var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
+var orChart = null;
 var lrChart = null;
 var $render = 0;
 
@@ -274,7 +275,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             gridLineWidth: 0,   
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                         },
                         {
@@ -282,7 +286,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             gridLineWidth: 0,
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                             opposite: true,
                         }
@@ -366,7 +373,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             min: 0,
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                         },
                         {
@@ -374,7 +384,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             gridLineWidth: 0,
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                             opposite: true,
                         }
@@ -458,7 +471,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             min: 0,
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                         },
                         {
@@ -466,7 +482,10 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                             gridLineWidth: 0,
                             title: '',
                             labels: {
-                                enabled: false
+                                enabled: true,
+                                formatter: function() {
+                                    return singkatNilai(this.value);
+                                }
                             },
                             opposite: true,
                         }
@@ -506,6 +525,104 @@ $('.card-r-2').css('height', `${$height - 300}px`);
         });
     })();
     // END SHU
+    // OR
+    (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "tahun": $tahun,
+                "jenis": $filter1_kode
+            },
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var data = result.data;
+                orChart = Highcharts.chart('or-chart', {
+                    chart: {
+                        height: 150,
+                        type: 'column',
+                        spacing: [0, 0, 0, 0],
+			            backgroundColor: null
+                    },
+                    credits:{
+                        enabled:false
+                    },
+                    exporting:{ 
+                        enabled: false,
+                    },
+                    legend:{ 
+                        enabled: false,
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: data.kategori,
+                    },
+                    yAxis: [
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,   
+                            min: 0,
+                            title: '',
+                            labels: {
+                                enabled: true,
+                                formatter: function() {
+                                    return `${this.value}%`;
+                                }
+                            },
+                        },
+                        {
+                            minorGridLineWidth: 0,
+                            gridLineWidth: 0,
+                            title: '',
+                            labels: {
+                                enabled: true,
+                                formatter: function() {
+                                    return `${this.value}%`;
+                                }
+                            },
+                            opposite: true,
+                        }
+                    ],
+                    tooltip: {
+                        formatter: function () {   
+                            var tmp = this.x.split("|");   
+                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+                        }
+                    },
+                    plotOptions: {
+                        column: {
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Anggaran',
+                            color: '#b91c1c',
+                            data: data.anggaran,
+                            pointPadding: 0.1,
+                            pointPlacement: 0,
+                        },
+                        {
+                            name: 'Realisasi',
+                            color: '#064E3B',
+                            data: data.realisasi,
+                            pointPadding: 0.3,
+                            pointPlacement: 0,
+                            yAxis: 1
+                        }
+                    ]
+                })
+            }
+        });
+    })();
+    // END OR
 // END DATA CHART
 
 // CHART LABA RUGI
@@ -931,43 +1048,31 @@ function updateChart() {
     });
     // END SHU
     // OR
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/data-fp-or') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var html = "";
-    //         var data = result.data;
-    //         if(data.length > 0) {
-    //            $('#table-or tbody').empty()
-    //            var colorText = '#ffffff';
-    //            for(var i=0;i<data.length;i++) {
-    //                var row = data[i];
-    //                if(row.y < 5) {
-    //                     colorText = '#000000';
-    //                } else {
-    //                     colorText = '#ffffff';
-    //                }
-    //                html += `<tr>
-    //                     <td class="w-25">${row.name}</td>
-    //                     <td>
-    //                         <div class="progress h-20">
-    //                             <div class="progress-bar bg-red" role="progressbar" style="width: ${row.y}%; color: ${colorText}" aria-valuenow="${row.y}" aria-valuemin="0" aria-valuemax="100">${row.y}%</div>
-    //                         </div>
-    //                     </td>
-    //                 </tr>`;
-    //            }
-    //            $('#table-or tbody').append(html)
-    //         }
-    //     }
-    // });
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            orChart.series[0].update({
+                data: data.anggaran
+            }, false) // true untuk redraw
+
+            orChart.series[1].update({
+                data: data.realisasi
+            }, false) // true untuk redraw
+
+            // re render chart
+            orChart.redraw()
+        }
+    });
     // // END OR
     // LR
     $.ajax({
@@ -1539,6 +1644,84 @@ $('.icon-menu').click(function(event) {
     $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
 })
 // MENAMPILKAN LIST CUSTOM EXPORT HIGHCHART
+    // OR
+    $('#export-or.menu-chart-custom ul li').click(function(event) {
+        event.stopPropagation()
+        var idParent = $(this).parents('#or-box').attr('id')
+        var jenis = $(this).text()
+        if(jenis == 'View in full screen') {
+            orChart.update({
+                title: {
+                    text: 'Operating Ratio Lembaga',
+                    floating: true,
+                    x: 40,
+                    y: 90
+                }
+            })
+            orChart.fullscreen.toggle();
+        } else if(jenis == 'Print chart') {
+            orChart.print()
+        } else if(jenis == 'Download PNG image') {
+            orChart.exportChart({
+                type: 'image/png',
+                filename: 'chart-png'
+            }, {
+                title: {
+                    text: 'Operating Ratio Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download JPEG image') {
+            orChart.exportChart({
+                type: 'image/jpeg',
+                filename: 'chart-jpg'
+            }, {
+                title: {
+                    text: 'Operating Ratio Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download PDF document') {
+            orChart.exportChart({
+                type: 'application/pdf',
+                filename: 'chart-pdf'
+            }, {
+                title: {
+                    text: 'Operating Ratio Lembaga'
+                },
+                subtitle: {
+                    text: ''
+                }
+            });
+        } else if(jenis == 'Download SVG vector image') {
+            orChart.exportChart({
+                type: 'image/svg+xml',
+                filename: 'chart-svg'
+            }, {
+                title: {
+                    text: 'Operating Ratio Lembaga'
+                },
+                subtitle: {
+                text: ''
+                }
+            });
+        } else if(jenis == 'View table data') {
+            $(this).text('Hide table data')
+            orChart.viewData()
+            var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+            if(!cek) {
+                $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+            }
+        } else if(jenis == 'Hide table data') {
+            $(this).text('View table data')
+            $('.highcharts-data-table').hide()
+        }
+    })
+    // END OR
     // SHU
     $('#export-shu.menu-chart-custom ul li').click(function(event) {
         event.stopPropagation()

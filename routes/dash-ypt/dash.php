@@ -12,6 +12,7 @@ Route::get('v2/data-fp-beban', 'DashYpt\DashboardFPV2Controller@getDataBeban');
 Route::get('data-fp-shu', 'DashYpt\DashboardFPController@getDataBoxShu');
 Route::get('v2/data-fp-shu', 'DashYpt\DashboardFPV2Controller@getDataShu');
 Route::get('data-fp-or', 'DashYpt\DashboardFPController@getDataBoxShu');
+Route::get('v2/data-fp-or', 'DashYpt\DashboardFPV2Controller@getDataOR');
 Route::get('data-fp-lr', 'DashYpt\DashboardFPController@getDataBoxLabaRugi');
 Route::get('data-fp-pl', 'DashYpt\DashboardFPController@getDataBoxPerformLembaga');
 
