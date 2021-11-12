@@ -38,7 +38,10 @@
         },
         credits: { enabled: false },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
+            title: {
+                enabled: false
+            }
         },
         yAxis: {
             minorGridLineWidth: 0,
@@ -53,7 +56,8 @@
         plotOptions: {
             series: {
                 label: {
-                    connectorAllowed: false
+                    connectorAllowed: false,
+                    enabled: false
                 },
                 marker:{
                     enabled:false
@@ -63,6 +67,7 @@
         series: [
             {
                 name: 'Rata-rata',
+                "showInLegend": false,
                 data: [20, 18, 16, 14, 12, 10, 25, 23, 21, 18, 16, 14],
                 color: '#457B9D'
             },
@@ -87,7 +92,7 @@
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
             tickmarkPlacement: 'on',
-             title: {
+            title: {
                 enabled: false
             }
         },
