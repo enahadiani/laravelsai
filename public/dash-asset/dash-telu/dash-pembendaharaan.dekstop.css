@@ -1,0 +1,75 @@
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    /* HEADER */
+    section.header {
+        background-color: #ffffff;
+        margin-top: -32px;
+        padding: 16px 8px 8px 8px;
+        width: calc(100vw - 155px);
+    }
+    .header .title-dash {
+        margin-bottom: 0;
+        margin-top: 12px;
+        font-size: 22px !important;
+    }
+    /* END HEADER */
+
+    /* CARD */
+    .card.card-dash {
+        box-shadow: none;
+        border: 1px solid #e5e5e5;
+    }
+    .card.card-dash .card-header {
+        padding-bottom: 0;
+    }
+    .card.card-dash .card-header h4 {
+        font-size: 16px !important;
+    }
+    .card.card-dash .card-body {
+        padding: 0 8px 8px 20px;
+    }
+    .card.card-dash .card-body .value-card {
+        color: #e63946;
+        font-size: 40px !important;
+        font-weight: 700;
+    }
+    .card.card-dash .card-body .circle-bar {
+        position: relative;
+        text-align: center;
+        vertical-align: top;
+    }
+    .card.card-dash .card-body .circle-bar .value-circle {
+        position: absolute;
+        top: 40px;
+        left: 4px;
+        width: 100%;
+        text-align: center;
+    }
+    .card.card-dash .card-body .circle-bar .value-circle .text-circle {
+        font-size: 16px !important;
+        line-height: 20px;
+    }
+    /* END CARD */
+
+    /* TABLE */
+    .table.table-no-mb {
+        margin-bottom: 0;
+    }
+    .table-no-padding tbody tr td {
+        padding-left: 2px;
+        padding-top: 0;
+        padding-bottom: 8px;
+    }
+    .table-no-padding tbody tr td:first-child {
+        height: 20px;
+    }
+    /* END TABLE */
+
+    /* CHART */
+    .chart-no-grid .highcharts-grid {
+        display: none;
+    }
+    /* END CHART */
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}

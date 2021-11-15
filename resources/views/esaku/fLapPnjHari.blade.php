@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    @media print {
+        #break_page {
+            clear: both;
+            page-break-after: always;
+        }
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >

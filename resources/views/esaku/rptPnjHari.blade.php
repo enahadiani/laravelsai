@@ -42,7 +42,7 @@ function drawRptPage(data,res,from,to){
             html += "</div>"
             html += "</div>";
             html += "<div class='col-md-12'>";
-            html += "<div class='table-responsive mt-40' style='clear: both;'>";
+            html += "<div class='table-responsive mt-40'>";
             html += "<table class='table table-hover'>";
             html += "<thead>";
             html += "<tr>";
