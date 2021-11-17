@@ -1,6 +1,6 @@
     <link rel="stylesheet" href="{{ asset('trans.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Setting Grafik" tambah="true" :thead="array('Kode','Nama','Kode Klp','Format','Jenis','Tgl Input','Action')" :thwidth="array(15,30,15,15,15,0,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Pendukung" tambah="true" :thead="array('Kode','Nama','Tgl Input','Action')" :thwidth="array(15,75,0,10)" :thclass="array('','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -8,7 +8,7 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;">
+                    <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;">
                         <h6 id="judul-form" style="position:absolute;top:25px"></h6>
                         <button type="submit" class="btn btn-primary ml-2"  style="float:right;" id="btn-save" ><i class="fa fa-save"></i> Simpan</button>
                         <button type="button" class="btn btn-light ml-2" id="btn-kembali" style="float:right;"><i class="fa fa-undo"></i> Keluar</button>
@@ -23,57 +23,37 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-lg-6 col-sm-12">
-                                <div class="row">
+                                <div class="row mb-1">
                                     <div class="col-lg-3 col-sm-12">
-                                        <label for="kode_grafik">Kode</label>
-                                        <input class='form-control' type="text" id="kode_grafik" name="kode_grafik" required> 
+                                        <label for="kode_dash">Kode</label>
+                                        <input class='form-control' type="text" id="kode_dash" name="kode_dash" required> 
                                     </div>
                                     <div class="col-lg-9 col-sm-12">
                                         <label for="nama">Nama</label>
                                         <input class="form-control" type="text" id="nama" name="nama" required></input>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-lg-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-lg-6 col-sm-12 div-kode_klp">
-                                        <label for="kode_klp">Kelompok</label>
+                                    
+                                    <div class="col-lg-6 col-sm-12 div-kode_fs">
+                                        <label for="kode_fs">Kode FS</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_klp" readonly="readonly" title=""></span>
+                                                <span class="input-group-text info-code_kode_fs" readonly="readonly" title=""></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-kode_klp" id="kode_klp" name="kode_klp" value="" title="">
-                                            <span class="info-name_kode_klp hidden">
+                                            <input type="text" class="form-control inp-label-kode_fs" id="kode_fs" name="kode_fs" value="" title="">
+                                            <span class="info-name_kode_fs hidden">
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2 search-item" id="search_kode_klp"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_kode_fs"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-12">
-                                        <label for="format">Format</label>
-                                        <select class='form-control selectize' id="format" name="format">
-                                        <option value=''>--- Pilih Format ---</option>
-                                        <option value='Satuan' selected>Satuan</option>
-                                        <option value='Jutaan'>Jutaan</option>
-                                        <option value='Miliaran'>Miliaran</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-3 col-sm-12">
-                                        <label for="jenis">Jenis</label>
-                                        <select class='form-control selectize' id="jenis" name="jenis">
-                                        <option value=''>--- Pilih Jenis ---</option>
-                                        <option value='Summary' selected>Summary</option>
-                                        <option value='Posting'>Posting</option>
-                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 nav-grid" role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Grafik</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-grid" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Detail</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-grid" role="tabpanel">
@@ -95,12 +75,10 @@
                                     <table class="table table-bordered table-condensed gridexample table-grid" id="input-grid">
                                         <thead style="background:#F8F8F8">
                                             <tr>
-                                                <th style="width:5%; text-align:center;">No</th>
-                                                <th style="width:5%; text-align:center;"></th>
-                                                <th style="width:15%; text-align:center;">Kode FS</th>
-                                                <th style="width:30%; text-align:center;">Nama FS</th>
-                                                <th style="width:15%; text-align:center;">Kode Neraca</th>
-                                                <th style="width:30%; text-align:center;">Nama Neraca</th>
+                                                <th style="width:2%; text-align:center;">No</th>
+                                                <th style="width:3%; text-align:center;"></th>
+                                                <th style="width:25%; text-align:center;">Kode Neraca</th>
+                                                <th style="width:35%; text-align:center;">Nama Neraca</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -118,6 +96,7 @@
     <!-- FORM INPUT  -->
     
     @include('modal_upload')
+    
     <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
@@ -126,12 +105,9 @@
     // DEFAULT SETTING //
     $('#process-upload').addClass('disabled');
     $('#process-upload').prop('disabled', true);
-
-    
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
-    
     
     var $iconLoad = $('.preloader');
     var $target = "";
@@ -169,53 +145,6 @@
     }
     // END FUNCTION HELPERS //
 
-    // FUNCTION GET DATA //
-    function getKlp(id,pp=null){
-        var tmp = id.split(" - ");
-        kode = tmp[0];
-        var toUrl = "{{ url('dash-ypt-trans/setting-grafik-klp') }}";
-        $.ajax({
-            type: 'GET',
-            url: toUrl,
-            dataType: 'json',
-            data:{kode_klp:kode},
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        showInfoField('kode_klp',result.daftar[0].kode_klp,result.daftar[0].nama);
-                    }else{
-                        $('#kode_klp').attr('readonly',false);
-                        $('#kode_klp').css('border-left','1px solid #d7d7d7');
-                        $('#kode_klp').val('');
-                        $('#kode_klp').focus();
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('dash-ypt/sesi-habis') }}";
-                }
-            }
-        });
-    }
-
-    function last_add(param,isi){
-        var rowIndexes = [];
-        dataTable.rows( function ( idx, data, node ) {             
-            if(data[param] === isi){
-                rowIndexes.push(idx);                  
-            }
-            return false;
-        }); 
-        dataTable.row(rowIndexes).select();
-        $('.selected td:eq(0)').addClass('last-add');
-        console.log('last-add');
-        setTimeout(function() {
-            console.log('timeout');
-            $('.selected td:eq(0)').removeClass('last-add');
-            dataTable.row(rowIndexes).deselect();
-        }, 1000 * 60 * 10);
-    }
-
     function getDataTypeAhead(url,param,kode){
         $.ajax({
             type: 'GET',
@@ -249,16 +178,16 @@
         });
     }
 
-    getDataTypeAhead("{{ url('telu-master/fs') }}","kode_fs","kode_fs");
-    getDataTypeAhead("{{ url('dash-ypt-trans/setting-grafik-neraca') }}","kode_neraca","kode_neraca");
+    getDataTypeAhead("{{ url('dash-ypt-master/fs') }}","kode_fs","kode_fs");
 
     function getNeraca(id,target1,target2,target3,jenis){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/dash-ypt-trans/setting-grafik-neraca') }}/" + kode,
+            url: "{{ url('/dash-ypt-trans/pendukung-neraca') }}",
             dataType: 'json',
+            data:{kode_neraca:id},
             async:false,
             success:function(result){
                 if(result.status){
@@ -269,8 +198,6 @@
 
                             $('.'+target2).val(result.daftar[0].nama);
                             $('.td'+target2).text(result.daftar[0].nama);
-                            // $('.'+target3)[0].selectize.focus();
-                            $('.td'+target3).text('D');
                         }else{
 
                             $("#input-grid td").removeClass("px-0 py-0 aktif");
@@ -287,7 +214,6 @@
                             $('.'+target2).show();
                             $('.td'+target2).hide();
                             $('.'+target2).focus();
-                            $('.td'+target3).text('D');
                         }
                     }
                 }
@@ -318,7 +244,7 @@
         kode = tmp[0];
         $.ajax({
             type: 'GET',
-            url: "{{ url('/telu-master/fs') }}/"+ kode,
+            url: "{{ url('/dash-ypt-master/fs') }}/"+ kode,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -369,9 +295,9 @@
     // END FUNCTION GET DATA //
 
     // EVENT ACTION //
-    $('#kode,#nama,#kode_klp,#format,#jenis').keydown(function(e){
+    $('#kode,#nama,#kode_fs').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode','nama','kode_klp','format','jenis'];
+        var nxt = ['kode','nama','kode_fs'];
         if (code == 13 || code == 40) { // 13 = Enter 40 = Arrow Down 38 = Up Arrow
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -408,34 +334,22 @@
     
     var dataTable = generateTable(
         "table-data",
-        "{{ url('dash-ypt-trans/setting-grafik') }}", 
+        "{{ url('dash-ypt-trans/pendukung') }}", 
         [
             {
-                "targets": 0,
-                "createdCell": function (td, cellData, rowData, row, col) {
-                    if ( rowData.status == "baru" ) {
-                        $(td).parents('tr').addClass('selected');
-                        $(td).addClass('last-add');
-                    }
-                }
-            },
-            {
-                "targets": [5],
+                "targets": [2],
                 "visible": false,
                 "searchable": false
             },
-            {'targets': 6, data: null, 'defaultContent': action_html, 'className': 'text-center' }
+            {'targets': 3, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
-            { data: 'kode_grafik' },
+            { data: 'kode_dash' },
             { data: 'nama'},
-            { data: 'kode_klp' },
-            { data: 'format' },
-            { data: 'jenis' },
             { data: 'tgl_input' }
         ],
         "{{ url('dash-ypt/sesi-habis') }}",
-        [[5 ,"desc"]]
+        [[2 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -455,7 +369,7 @@
         $('#row-id').hide();
         $('.information').hide();
         $('#method').val('post');
-        $('#judul-form').html('Tambah Data Setting Grafik');
+        $('#judul-form').html('Tambah Data Pendukung');
         $('#btn-update').attr('id','btn-save');
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
@@ -484,26 +398,64 @@
         $(this).addClass('hidden');
     });
 
+    
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         switch(id){
-            case 'kode_klp' :
+            case 'kode_fs' :
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('dash-ypt-trans/setting-grafik-klp') }}",
+                    url : "{{ url('dash-ypt-master/fs') }}",
                     columns : [
-                        { data: 'kode_klp' },
+                        { data: 'kode_fs' },
                         { data: 'nama' }
                     ],
-                    judul : "Daftar Kelompok",
-                    pilih : "kelompok",
+                    judul : "Daftar FS",
+                    pilih : "fs",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
                     target2 : ".info-name_"+id,
                     target3 : "",
                     target4 : "",
+                    width : ["30%","70%"],
+                };
+            break;
+        }
+        showInpFilterBSheet(settings);
+    });
+
+    $('#input-grid').on('click', '.search-item', function(){
+        var id = $(this).closest('td').find('input').attr('name');
+        console.log(id);
+        switch(id){
+            case 'kode_neraca[]' :
+                var tmp = $(this).closest('tr').find('input[name="kode_neraca[]"]').attr('class');
+                var tmp2 = tmp.split(" ");
+                target1 = tmp2[2];
+                
+                tmp = $(this).closest('tr').find('input[name="nama_neraca[]"]').attr('class');
+                tmp2 = tmp.split(" ");
+                target2 = tmp2[2];
+
+                var settings = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('dash-ypt-trans/pendukung-neraca') }}",
+                    columns : [
+                        { data: 'kode_neraca' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Unit",
+                    pilih : "unit",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    parameter: {kode_fs:$('#kode_fs').val()},
                     width : ["30%","70%"],
                 };
             break;
@@ -527,13 +479,11 @@
         if(param == "copy"){
             var kode_neraca = $('#input-grid tbody tr.selected-row').find(".inp-kode").val();
             var nama_neraca = $('#input-grid tbody tr.selected-row').find(".inp-nama").val();
-            var kode_fs = $('#input-grid tbody tr.selected-row').find(".inp-fs").val();
-            var nama_fs = $('#input-grid tbody tr.selected-row').find(".inp-nama_fs").val();
+            var nama2 = $('#input-grid tbody tr.selected-row').find(".inp-nama2").val();
         }else{
             var kode_neraca = "";
             var nama_neraca = "";
-            var kode_fs = "";
-            var nama_fs = "";
+            var nama2 = "";
         }
 
         var no=$('#input-grid .row-grid:last').index();
@@ -542,8 +492,6 @@
         input += "<tr class='row-grid'>";
         input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input type='hidden' class='no-grid' name='no_urut[]' value='"+no+"'></td>";
         input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+kode_fs+"</span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs search-fske"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+nama_fs+"' readonly></td>";
         input += "<td><span class='td-kode tdneracake"+no+" tooltip-span'>"+kode_neraca+"</span><input autocomplete='off' type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+kode_neraca+"' required='' style='z-index: 1;position: relative;'  id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+nama_neraca+"</span><input autocomplete='off' type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+nama_neraca+"' readonly></td>";
         input += "</tr>";
@@ -567,28 +515,15 @@
                 console.log(item.id);
             }
         });
-        $('#fskode'+no).typeahead({
-            source:$dtkode_fs,
-            displayText:function(item){
-                return item.id+' - '+item.name;
-            },
-            autoSelect:false,
-            changeInputOnSelect:false,
-            changeInputOnMove:false,
-            selectOnBlur:false,
-            afterSelect: function (item) {
-                console.log(item.id);
-            }
-        });
 
         if(param == "satu"){
 
             $('#input-grid td').removeClass('px-0 py-0 aktif');
             $('#input-grid tbody tr:last').find("td:eq(1)").addClass('px-0 py-0 aktif');
-            $('#input-grid tbody tr:last').find(".inp-fs").show();
-            $('#input-grid tbody tr:last').find(".td-fs").hide();
-            $('#input-grid tbody tr:last').find(".search-fs").show();
-            $('#input-grid tbody tr:last').find(".inp-fs").focus();
+            $('#input-grid tbody tr:last').find(".inp-kode").show();
+            $('#input-grid tbody tr:last').find(".td-kode").hide();
+            $('#input-grid tbody tr:last').find(".search-neraca").show();
+            $('#input-grid tbody tr:last').find(".inp-kode").focus();
         } 
         $('.tooltip-span').tooltip({
             title: function(){
@@ -604,79 +539,10 @@
         addRowGrid("satu");
     });
 
-    $('#input-grid').on('click', '.search-item', function(){
-        var id = $(this).closest('td').find('input').attr('name');
-        var par = $(this).closest('td').find('input').attr('name');
-        
-        switch(par){
-            case 'kode_fs[]': 
-                var par2 = "nama_fs[]";
-                
-            break;
-            case 'kode_neraca[]': 
-                var par2 = "nama_neraca[]";
-            break;
-        }
-        
-        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-        
-        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-        switch(id){
-            case 'kode_fs[]' :
-
-                var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('dash-ypt-master/fs') }}",
-                    columns : [
-                        { data: 'kode_fs' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar FS",
-                    pilih : "FS",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : ".td"+target2,
-                    target4 : "",
-                    width : ["30%","70%"],
-                };
-            break;
-            case 'kode_neraca[]' :
-
-                var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('dash-ypt-trans/setting-grafik-neraca') }}",
-                    columns : [
-                        { data: 'kode_neraca' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar Neraca",
-                    pilih : "neraca",
-                    jTarget1 : "val",
-                    jTarget2 : "val",
-                    target1 : "."+target1,
-                    target2 : "."+target2,
-                    target3 : ".td"+target2,
-                    target4 : "",
-                    parameter: {kode_fs:$(this).closest('tr').find('.inp-fs').val()},
-                    width : ["30%","70%"],
-                };
-            break;
-        }
-        showInpFilterBSheet(settings);
-    });
-
-    $('#input-grid').on('keydown','.inp-fs, .inp-nama_fs,.inp-kode, .inp-nama',function(e){
+    $('#input-grid').on('keydown','.inp-kode, .inp-nama',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-fs','.inp-nama_fs','.inp-fs','.inp-nama'];
-        var nxt2 = ['.td-fs','.td-nama_fs','.td-fs','.td-nama'];
+        var nxt = ['.inp-kode','.inp-nama'];
+        var nxt2 = ['.td-kode','.td-nama'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
@@ -687,10 +553,10 @@
                 case 0:
                     var noidx = $(this).parents("tr").find("span.no-grid").text();
                     var kode = $(this).val();
-                    var target1 = "fske"+noidx;
-                    var target2 = "nmfske"+noidx;
+                    var target1 = "neracake"+noidx;
+                    var target2 = "nmneracake"+noidx;
                     var target3 = "";
-                    getFS(kode,target1,target2,target3,'tab');                    
+                    getNeraca(kode,target1,target2,target3,'tab');                    
                     break;
                 case 1:
                     $("#input-grid td").removeClass("px-0 py-0 aktif");
@@ -698,101 +564,9 @@
                     $(this).closest('tr').find(nxt[idx]).hide();
                     $(this).closest('tr').find(nxt2[idx]).show();
 
-                    $(this).parents("tr").find(".selectize-control").show();
-                    $(this).closest('tr').find(nxt[idx_next])[0].selectize.focus();
-                    $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    
-                    break;
-                case 2:
-                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
-                    if(isi == 'D' || isi == 'C'){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi);
-                        $(this).parents("tr").find(nxt2[idx]).text(isi);
-                        $(this).parents("tr").find(".selectize-control").hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    }else{
-                        alert('Posisi yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 3:
-                    if($.trim($(this).val()).length){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                    }else{
-                        alert('Keterangan yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 4:
-                    if(isi != "" && isi != 0){
-                        $("#input-grid td").removeClass("px-0 py-0 aktif");
-                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                        $(this).closest('tr').find(nxt[idx]).val(isi);
-                        $(this).closest('tr').find(nxt2[idx]).text(isi);
-                        $(this).closest('tr').find(nxt[idx]).hide();
-                        $(this).closest('tr').find(nxt2[idx]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).show();
-                        $(this).closest('tr').find(nxt[idx_next]).focus();
-                        $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        $(this).closest('tr').find('.search-pp').show();
-                        ;
-                    }else{
-                        alert('Nilai yang dimasukkan tidak valid');
-                        return false;
-                    }
-                    break;
-                case 5:
-                    var noidx = $(this).parents("tr").find("span.no-grid").text();
-                    var kode = $(this).val();
-                    var target1 = "ppke"+noidx;
-                    var target2 = "nmppke"+noidx;
-                    getPP(kode,target1,target2,'tab');
-                    break;
-                case 6:
-                    console.log('PP nama');
-                    console.log({nxt, nxt2, idx, kunci});
-                    console.log(nxt[idx]);
-                    console.log(nxt[idx_next]);
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
                     $(this).closest('tr').find(nxt[idx_next]).show();
-                    $(this).closest('tr').find(nxt[idx_next]).focus();
                     $(this).closest('tr').find(nxt2[idx_next]).hide();
-                    break;
-                case 7:
-                    console.log('FS');
-                    var noidx = $(this).parents("tr").find("span.no-grid").text();
-                    var kode = $(this).val();
-                    var target1 = "fske"+noidx;
-                    var target2 = "nmfske"+noidx;
-                    getFS(kode,target1,target2,'tab');
-                    break;
-                case 8:
-                    $("#input-grid td").removeClass("px-0 py-0 aktif");
-                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
-                    $(this).closest('tr').find(nxt[idx]).val(isi);
-                    $(this).closest('tr').find(nxt2[idx]).text(isi);
-                    $(this).closest('tr').find(nxt[idx]).hide();
-                    $(this).closest('tr').find(nxt2[idx]).show();
-                    // $('.add-row').click();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
                     var cek = $(this).parents('tr').next('tr').find('.td-kode');
                     if(cek.length > 0){
                         cek.click();
@@ -800,7 +574,6 @@
                         $('.add-row').click();
                     }
                     break;
-
                 default:
                     break;
             }
@@ -816,28 +589,18 @@
             if(!$(row).hasClass('selected-row')) {
                 var kode_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
                 var nama_neraca = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
-                var kode_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val();
-                var nama_fs = $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val();
 
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_neraca);
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_neraca);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").val(kode_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").text(kode_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").val(nama_fs);
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").text(nama_fs);
-
+                
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-kode").show();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-neraca").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
                 $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-fs").show();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".search-fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".inp-nama_fs").hide();
-                $('#input-grid > tbody > tr:eq('+index+') > td').find(".td-nama_fs").show();
+                
             }
         })
     }
@@ -854,10 +617,9 @@
         var noidx =  $(this).parents('tr').find('span.no-grid').text();
         target1 = "neracake"+noidx;
         target2 = "nmneracake"+noidx;
-        target3 = "dcke"+noidx;
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getNeraca(kode,target1,target2,target3,'change');
+            getNeraca(kode,target1,target2,'','change');
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             alert('Neraca yang dimasukkan tidak valid');
@@ -877,36 +639,6 @@
         }
     });
 
-    $('#input-grid').on('change', '.inp-fs', function(e){
-        e.preventDefault();
-        var noidx =  $(this).closest('tr').find('span.no-grid').text();
-        target1 = "fske"+noidx;
-        target2 = "nmfske"+noidx;
-        if($.trim($(this).closest('tr').find('.inp-fs').val()).length){
-            
-            var kode = $(this).val();
-            getFS(kode,target1,target2,'change');
-            // ;
-        }else{
-            alert('FS yang dimasukkan tidak valid');
-            return false;
-        }
-    });
-
-    $('#input-grid').on('keypress', '.inp-fs', function(e){
-        var this_index = $(this).closest('tbody tr').index();
-        if (e.which == 42) {
-            e.preventDefault();
-            var noidx =  $(this).closest('tr').find('span.no-grid').text();
-            
-            if($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val() != undefined){
-                $(this).val($("#input-grid tbody tr:eq("+(this_index - 1)+")").find('.inp-fs').val());
-            }else{
-                $(this).val('');
-            }
-        }
-    });
-
     $('#input-grid').on('click', 'td', function(){
         var idx = $(this).index();
         if(idx == 0){
@@ -920,38 +652,12 @@
                 console.log(idx);
                 var kode_neraca = $(this).parents("tr").find(".inp-kode").val();
                 var nama_neraca = $(this).parents("tr").find(".inp-nama").val();
-                var kode_fs = $(this).parents("tr").find(".inp-fs").val();
-                var nama_fs = $(this).parents("tr").find(".inp-nama_fs").val();
+                
                 var no = $(this).parents("tr").find("span.no-grid").text();
-                $(this).parents("tr").find(".inp-fs").val(kode_fs);
-                $(this).parents("tr").find(".td-fs").text(kode_fs);
-                if(idx == 2){
-                    $(this).parents("tr").find(".inp-fs").show();
-                    $(this).parents("tr").find(".td-fs").hide();
-                    $(this).parents("tr").find(".search-fs").show();
-                    $(this).parents("tr").find(".inp-fs").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-fs").hide();
-                    $(this).parents("tr").find(".td-fs").show();
-                    $(this).parents("tr").find(".search-fs").hide();
-                    
-                }
-        
-                $(this).parents("tr").find(".inp-nama_fs").val(nama_fs);
-                $(this).parents("tr").find(".td-nama_fs").text(nama_fs);
-                if(idx == 3){
-                    $(this).parents("tr").find(".inp-nama_fs").show();
-                    $(this).parents("tr").find(".td-nama_fs").hide();
-                    $(this).parents("tr").find(".inp-nama_fs").focus();
-                }else{
-                    
-                    $(this).parents("tr").find(".inp-nama_fs").hide();
-                    $(this).parents("tr").find(".td-nama_fs").show();
-                }
 
                 $(this).parents("tr").find(".inp-kode").val(kode_neraca);
                 $(this).parents("tr").find(".td-kode").text(kode_neraca);
-                if(idx == 4){
+                if(idx == 2){
                     $(this).parents("tr").find(".inp-kode").show();
                     $(this).parents("tr").find(".td-kode").hide();
                     $(this).parents("tr").find(".search-neraca").show();
@@ -966,7 +672,7 @@
                 
                 $(this).parents("tr").find(".inp-nama").val(nama_neraca);
                 $(this).parents("tr").find(".td-nama").text(nama_neraca);
-                if(idx == 5){
+                if(idx == 3){
                     
                     $(this).parents("tr").find(".inp-nama").show();
                     $(this).parents("tr").find(".td-nama").hide();
@@ -976,7 +682,6 @@
                     $(this).parents("tr").find(".inp-nama").hide();
                     $(this).parents("tr").find(".td-nama").show();
                 }
-                ;
             }
         }
     });
@@ -1016,6 +721,21 @@
     // SUBMIT ACTION //
     $('#form-tambah').validate({
         ignore: [],
+        rules: 
+        {
+            kode_dash:{
+                required: true,
+                maxlength:10   
+            },
+            nama:{
+                required: true,
+                maxlength:50   
+            },
+            kode_fs:
+            {
+                required: true
+            }
+        },
         errorElement: "label",
         submitHandler: function (form) {
 
@@ -1028,11 +748,10 @@
             var param = $('#id').val();
             // $iconLoad.show();
             if(param == "edit"){
-                var url = "{{ url('/dash-ypt-trans/setting-grafik') }}";
+                var url = "{{ url('/dash-ypt-trans/pendukung') }}";
             }else{
-                var url = "{{ url('/dash-ypt-trans/setting-grafik') }}";
+                var url = "{{ url('/dash-ypt-trans/pendukung') }}";
             }
-
                 $.ajax({
                     type: 'POST',
                     url: url,
@@ -1051,18 +770,16 @@
                             $('#form-tambah').validate().resetForm();
                             $('#row-id').hide();
                             $('#method').val('post');
-                            $('#judul-form').html('Tambah Data Setting Grafik');
+                            $('#judul-form').html('Tambah Data Pendukung');
                             $('#id').val('');
                             $('#input-grid tbody').html('');
                             $('[id^=label]').html('');
                             addRowGrid("dua");
                             
                             msgDialog({
-                                id:result.data.kode_grafik,
+                                id:result.data.kode_dash,
                                 type:'simpan'
                             });
-                            
-                            last_add("kode_grafik",result.data.kode_grafik);
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){
                             window.location.href = "{{ url('dash-ypt/sesi-habis') }}";
@@ -1097,7 +814,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#informasi').show();
-        $('#judul-form').html('Edit Data Setting Grafik');
+        $('#judul-form').html('Edit Data Pendukung');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $iconLoad.show();
@@ -1109,7 +826,7 @@
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
         $('#informasi').show();
-        $('#judul-form').html('Edit Data Setting Grafik');
+        $('#judul-form').html('Edit Data Pendukung');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         editData(id);
@@ -1148,13 +865,13 @@
 
     // PREVIEW DATA //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 5){
+        if($(this).index() != 2){
             var id = $(this).closest('tr').find('td').eq(0).html();
             $.ajax({
                 type: 'GET',
-                url: "{{ url('/dash-ypt-trans/setting-grafik-detail') }}",
+                url: "{{ url('/dash-ypt-trans/pendukung-detail') }}",
                 dataType: 'json',
-                data:{kode_grafik: id},
+                data:{kode_dash: id},
                 async:false,
                 success:function(result){
                     if(result.data.status){
@@ -1168,16 +885,8 @@
                             <td>`+form[0].nama+`</td>
                         </tr>
                         <tr>
-                            <td>Kelompok</td>
-                            <td>`+form[0].kode_klp+`</td>
-                        </tr>
-                        <tr>
-                            <td>Format</td>
-                            <td>`+form[0].format+`</td>
-                        </tr>
-                        <tr>
-                            <td>Jenis</td>
-                            <td>`+form[0].jenis+`</td>
+                            <td>Kode FS</td>
+                            <td>`+form[0].kode_fs+`</td>
                         </tr>
                         <tr>
                             <td colspan='2'>
@@ -1185,10 +894,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width:10%; text-align:center;">No</th>
-                                            <th style="width:15%; text-align:center;">Kode FS</th>
-                                            <th style="width:30%; text-align:center;">Nama FS</th>
-                                            <th style="width:15%; text-align:center;">Kode Neraca</th>
-                                            <th style="width:30%; text-align:center;">Nama Neraca</th>
+                                            <th style="width:20%; text-align:center;">Kode Neraca</th>
+                                            <th style="width:70%; text-align:center;">Nama Neraca</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1206,8 +913,6 @@
                                 var line =grid[i];
                                 input += "<tr>";
                                 input += "<td>"+no+"</td>";
-                                input += "<td >"+line.kode_fs+"</td>";
-                                input += "<td >"+line.nama_fs+"</td>";
                                 input += "<td >"+line.kode_neraca+"</td>";
                                 input += "<td >"+line.nama_neraca+"</td>";
                                 input += "</tr>";
@@ -1232,14 +937,14 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('dash-ypt-trans/setting-grafik') }}",
+            url: "{{ url('dash-ypt-trans/pendukung') }}",
             dataType: 'json',
-            data:{kode_grafik:id},
+            data:{kode_dash:id},
             async:false,
             success:function(result){
                 if(result.data.status){
                     dataTable.ajax.reload();                    
-                    showNotification("top", "center", "success",'Hapus Data','Data Setting Grafik ('+id+') berhasil dihapus ');
+                    showNotification("top", "center", "success",'Hapus Data','Data Pendukung ('+id+') berhasil dihapus ');
                     $('#modal-preview-id').html('');
                     $('#table-delete tbody').html('');
                     $('#modal-delete').modal('hide');
@@ -1262,32 +967,29 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('/dash-ypt-trans/setting-grafik-detail') }}",
+            url: "{{ url('/dash-ypt-trans/pendukung-detail') }}",
             dataType: 'json',
-            data:{kode_grafik:id},
+            data:{kode_dash:id},
             async:false,
             success:function(result){
                 if(result.data.status) {
                     var form = result.data.data;
                     $('#id').val('edit');
                     $('#method').val('put');
-                    $('#kode_grafik').val(id);
+                    $('#kode_dash').val(id);
                     $('#nama').val(form[0].nama);
-                    $('#kode_klp').val(form[0].kode_klp);
-                    $('#format')[0].selectize.setValue(form[0].format);
-                    $('#jenis')[0].selectize.setValue(form[0].jenis);
+                    $('#kode_fs').val(form[0].kode_fs);
                     var grid = result.data.detail;
+                    var input = "";
+                    $('#input-grid tbody').html(input);
                     if(grid.length > 0) {
-                        var input = "";
                         var no = 1;
                         for(var i=0;i<grid.length;i++) {
                             var data = grid[i];
                             input += "<tr class='row-grid'>";
                             input += "<td class='text-center'><span class='no-grid'>"+no+"</span><input class='no-grid' type='hidden' name='no_urut[]' value='"+no+"'></td>";
                             input += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "<td><span class='td-fs tdfske"+no+" tooltip-span'>"+data.kode_fs+"</span><input autocomplete='off' type='text'  id='fskode"+no+"' name='kode_fs[]' class='form-control inp-fs fske"+no+" hidden' value='"+data.kode_fs+"' required=''  style='z-index: 1;position: relative;'><a href='#' class='search-item search-fs search-fske"+no+" hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-                            input += "<td><span class='td-nama_fs tdnmfske"+no+" tooltip-span'>"+data.nama_fs+"</span><input autocomplete='off' type='text' name='nama_fs[]' class='form-control inp-nama_fs nmfske"+no+" hidden'  value='"+data.nama_fs+"' readonly></td>";
-                            input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca search-neracake"+no+"  hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td ><span class='td-kode tdneracake"+no+" tooltip-span'>"+data.kode_neraca+"</span><input type='text' name='kode_neraca[]' class='form-control inp-kode neracake"+no+" hidden' value='"+data.kode_neraca+"' required='' style='z-index: 1;position: relative;' id='neracakode"+no+"'><a href='#' class='search-item search-neraca hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama tdnmneracake"+no+" tooltip-span'>"+data.nama_neraca+"</span><input type='text' name='nama_neraca[]' class='form-control inp-nama nmneracake"+no+" hidden'  value='"+data.nama_neraca+"' readonly></td>";
                             input += "</tr>";
 
@@ -1302,13 +1004,6 @@
                         var no = 1;
                         for(var i=0;i<grid.length;i++){
                             var row = grid[i];
-                            $('.dcke'+no).selectize({
-                                selectOnTab:true,
-                                onChange: function(value) {
-                                    $('.tddcke'+no).text(value);
-                                    ;
-                                }
-                            });
                             $('#neracakode'+no).typeahead({
                                 source:$dtkode_neraca,
                                 displayText:function(item){
@@ -1322,13 +1017,17 @@
                                     console.log(item.id);
                                 }
                             });
+
+                            
                             no++;
                         }
                     }
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('kode_klp',form[0].kode_klp,form[0].nama_klp);
+                    showInfoField('kode_fs',form[0].kode_fs,form[0].nama_fs);
+                    
+                    ;
                     hitungTotalRow();
                 }else if(!result.status && result.message == 'Unauthorized') {
                     window.location.href = "{{ url('dash-ypt/sesi-habis') }}";

@@ -165,7 +165,24 @@
             color:white;
             background:red;
         }
+        #saku-datatable .card-body
+        {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            min-height:49px !important;
+        }
 
+        #saku-form .form-header
+        {
+            padding-top: 0.5rem !important;
+            padding-bottom: 0.5rem !important;
+            min-height:49px !important;
+        }
+
+        #saku-form .form-header #judul-form
+        {
+            top: 15px !important;
+        }
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -1241,7 +1258,7 @@
         // var tinggi = content-header-40;
         var title = 69;
         // var body = tinggi-title;
-        var height = content-header-title-40;
+        var height = content-header-title-65;
     
         if($('#saku-form').length > 0){
             
