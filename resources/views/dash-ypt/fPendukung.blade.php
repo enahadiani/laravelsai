@@ -1025,6 +1025,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    setHeightForm();
                     showInfoField('kode_fs',form[0].kode_fs,form[0].nama_fs);
                     
                     ;

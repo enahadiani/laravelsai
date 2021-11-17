@@ -1360,6 +1360,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    setHeightForm();
                     showInfoField('kode_klp',form[0].klp_rasio,form[0].nama_klp);
                     showInfoField('kode_fs',form[0].kode_fs,form[0].nama_fs);
                     

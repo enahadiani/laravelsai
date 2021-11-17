@@ -1328,6 +1328,7 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    setHeightForm();
                     showInfoField('kode_klp',form[0].kode_klp,form[0].nama_klp);
                     hitungTotalRow();
                 }else if(!result.status && result.message == 'Unauthorized') {
