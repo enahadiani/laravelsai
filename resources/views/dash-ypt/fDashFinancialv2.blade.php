@@ -247,7 +247,7 @@ $('.card-r-2').css('height', `${$height - 300}px`);
             async: false,
             success: function(result) {
                 var data = result.data;
-                lrChart = Highcharts.chart('pdpt-chart', {
+                pdptChart = Highcharts.chart('pdpt-chart', {
                     chart: {
                         height: 150,
                         width: 270,
