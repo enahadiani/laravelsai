@@ -250,6 +250,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 lrChart = Highcharts.chart('pdpt-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -347,6 +349,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 bebanChart = Highcharts.chart('beban-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -445,6 +449,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 shuChart = Highcharts.chart('shu-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -543,6 +549,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 orChart = Highcharts.chart('or-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -2131,7 +2139,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="pdpt-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
+                        <div id="pdpt-chart" class="chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>
