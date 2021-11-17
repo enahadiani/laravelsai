@@ -68,7 +68,8 @@
 <script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     // DEFAULT SETTING //
-
+    
+    setHeightForm();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
