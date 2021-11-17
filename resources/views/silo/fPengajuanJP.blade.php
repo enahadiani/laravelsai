@@ -3,7 +3,9 @@
 <link rel="stylesheet" href="{{ asset('asset_silo/css/trans.css') }}" />
 
 <!-- LIST DATA -->
-<x-list-data judul="Data Justifikasi Pengadaan" tambah="" :thead="array('No Juspo', 'No Juskeb', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Nilai', 'Status', 'Aksi', 'ID')" :thwidth="array(10,10,20,15,10,25,10,20,10,5)" :thclass="array('','','','','','','','','text-center','')" />
+<x-list-data judul="Data Justifikasi Pengadaan" tambah=""
+    :thead="array('No Juspo', 'No Juskeb', 'No Dokumen', 'Regional', 'Waktu', 'Kegiatan', 'Nilai', 'Status', 'Aksi', 'ID')"
+    :thwidth="array(10,10,20,15,10,25,10,20,10,5)" :thclass="array('','','','','','','','','text-center','')" />
 <!-- END LIST DATA -->
 
 <!-- FORM  -->
@@ -29,8 +31,10 @@
                                 <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal Justifikasi Kebutuhan</label>
                                     <span class="span-tanggal" id="span-tanggal"></span>
-                                    <input class='form-control datepicker' id="tanggal" name="tanggal" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    <input class='form-control datepicker' id="tanggal" name="tanggal"
+                                        autocomplete="off" value="{{ date('d/m/Y') }}">
+                                    <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                        class="simple-icon-calendar date-search"></i>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="status">Status</label>
@@ -45,11 +49,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="keterangan">Keterangan</label>
-                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan" name="keterangan" autocomplete="off" required >
+                                    <input class="form-control" type="text" placeholder="Keterangan" id="keterangan"
+                                        name="keterangan" autocomplete="off" required>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="waktu">Tanggal Kebutuhan</label>
-                                    <input class="form-control" type="text" placeholder="Tanggal Kebutuhan" id="waktu" name="waktu" autocomplete="off" value="{{ date('Y-m-d') }}" readonly required >
+                                    <input class="form-control" type="text" placeholder="Tanggal Kebutuhan" id="waktu"
+                                        name="waktu" autocomplete="off" value="{{ date('Y-m-d') }}" readonly required>
                                 </div>
                             </div>
                         </div>
@@ -62,11 +68,14 @@
                                     <label for="kode_pp">Regional</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_kode_pp" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" autocomplete="off" name="kode_pp" data-input="cbbl" value="" title="" required readonly>
+                                        <input type="text" class="form-control inp-label-kode_pp" id="kode_pp"
+                                            autocomplete="off" name="kode_pp" data-input="cbbl" value="" title=""
+                                            required readonly>
                                         <span class="info-name_kode_pp hidden">
-                                            <span></span> 
+                                            <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                         <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
@@ -76,11 +85,14 @@
                                     <label for="kode_kota">Kota</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_kota" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_kode_kota" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_kota" id="kode_kota" name="kode_kota" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                        <input type="text" class="form-control inp-label-kode_kota" id="kode_kota"
+                                            name="kode_kota" autocomplete="off" data-input="cbbl" value="" title=""
+                                            required readonly>
                                         <span class="info-name_kode_kota hidden">
-                                            <span></span> 
+                                            <span></span>
                                         </span>
                                         <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                         <i class="simple-icon-magnifier search-item2" id="search_kode_kota"></i>
@@ -91,11 +103,14 @@
                                     <label for="kode_pp">Regional</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_kode_pp" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" autocomplete="off" name="kode_pp" data-input="cbbl" value="" title="" required readonly>
+                                        <input type="text" class="form-control inp-label-kode_pp" id="kode_pp"
+                                            autocomplete="off" name="kode_pp" data-input="cbbl" value="" title=""
+                                            required readonly>
                                         <span class="info-name_kode_pp hidden">
-                                            <span></span> 
+                                            <span></span>
                                         </span>
                                     </div>
                                 </div>
@@ -103,11 +118,14 @@
                                     <label for="kode_kota">Kota</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                            <span class="input-group-text info-code_kode_kota" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            <span class="input-group-text info-code_kode_kota" readonly="readonly"
+                                                title="" data-toggle="tooltip" data-placement="top"></span>
                                         </div>
-                                        <input type="text" class="form-control inp-label-kode_kota" id="kode_kota" name="kode_kota" autocomplete="off" data-input="cbbl" value="" title="" required readonly>
+                                        <input type="text" class="form-control inp-label-kode_kota" id="kode_kota"
+                                            name="kode_kota" autocomplete="off" data-input="cbbl" value="" title=""
+                                            required readonly>
                                         <span class="info-name_kode_kota hidden">
-                                            <span></span> 
+                                            <span></span>
                                         </span>
                                     </div>
                                 </div>
@@ -118,11 +136,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" value="-" readonly autocomplete="off" required readonly>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen"
+                                        name="no_dokumen" value="-" readonly autocomplete="off" required readonly>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_juskeb">Nomor Justifikasi Kebutuhan</label>
-                                    <input class="form-control" type="text" placeholder="Nomor Justifikasi Kebutahan" id="no_juskeb" name="no_juskeb" autocomplete="off" required readonly>
+                                    <input class="form-control" type="text" placeholder="Nomor Justifikasi Kebutahan"
+                                        id="no_juskeb" name="no_juskeb" autocomplete="off" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -132,11 +152,13 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="kegiatan">Justifikasi Pengadaan</label>
-                                    <input class="form-control" type="text" placeholder="Justifikasi Kebutahan" id="kegiatan" name="kegiatan" autocomplete="off" required readonly>
+                                    <input class="form-control" type="text" placeholder="Justifikasi Kebutahan"
+                                        id="kegiatan" name="kegiatan" autocomplete="off" required readonly>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="dasar">Dasar/Latar Belakang</label>
-                                    <input class="form-control" type="text" placeholder="Dasar/Latar Belakang" id="dasar" name="dasar" autocomplete="off" required readonly>
+                                    <input class="form-control" type="text" placeholder="Dasar/Latar Belakang"
+                                        id="dasar" name="dasar" autocomplete="off" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -144,28 +166,39 @@
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="pic">PIC</label>
-                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic" autocomplete="off" value="0" required readonly>
+                                    <input class="form-control" type="text" placeholder="PIC" id="pic" name="pic"
+                                        autocomplete="off" value="0" required readonly>
                                 </div>
                                 <div class="col-md-6 col-sm-12">
                                     <label for="total">Total Barang</label>
-                                    <input class="form-control currency" type="text" placeholder="Total Barang" id="total" name="total" autocomplete="off" value="0" required readonly>
+                                    <input class="form-control currency" type="text" placeholder="Total Barang"
+                                        id="total" name="total" autocomplete="off" value="0" required readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab" aria-selected="false"><span class="hidden-xs-down">Data PO</span></a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-compare" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen Pembanding</span></a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Data Barang</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab"
+                                aria-selected="false"><span class="hidden-xs-down">Data PO</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-compare"
+                                role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen
+                                    Pembanding</span></a></li>
+                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab"
+                                aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
                         <div class="tab-pane active row" id="data-barang" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-barang"></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data barang" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample input-grid"
+                                    id="input-barang" data-table="Tab data barang"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%;">No</th>
@@ -181,15 +214,21 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                                <a type="button" id="add-barang" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                <a type="button" id="add-barang" href="#" data-id="0" title="add-row"
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-dokumen-po" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-po"></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-dokumen-po"></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-po" data-table="Tab data dokumen PO" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample input-grid"
+                                    id="input-dokumen-po" data-table="Tab data dokumen PO"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%;">No</th>
@@ -201,15 +240,21 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                                <a type="button" id="add-dokumen-po" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                <a type="button" id="add-dokumen-po" href="#" data-id="0" title="add-row"
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-dokumen-compare" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-compare" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-dokumen-compare"></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-compare" data-table="Tab data dokumen pembanding" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample input-grid"
+                                    id="input-dokumen-compare" data-table="Tab data dokumen pembanding"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%;">No</th>
@@ -221,15 +266,21 @@
                                     </thead>
                                     <tbody></tbody>
                                 </table>
-                                <a type="button" id="add-dokumen-compare" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                <a type="button" id="add-dokumen-compare" href="#" data-id="0" title="add-row"
+                                    class="add-row btn btn-light2 btn-block btn-sm"><i
+                                        class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-approve" role="tabpanel">
                             <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-approve" ></span></a>
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span
+                                        style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                        id="total-approve"></span></a>
                             </div>
                             <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-approve" data-table="Tabel catatan approve" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <table class="table table-bordered table-condensed gridexample input-grid"
+                                    id="input-approve" data-table="Tabel catatan approve"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
                                     <thead style="background:#F8F8F8">
                                         <tr>
                                             <th style="width:3%;">No</th>
@@ -251,7 +302,8 @@
                             <p class="text-success"></p>
                         </div>
                         <div class="action-footer">
-                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                            <button type="submit" style="margin-top: 10px;" class="btn btn-primary btn-save"><i
+                                    class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -262,24 +314,27 @@
 <!-- END FORM  -->
 
 {{-- PRINT PREVIEW --}}
-    <div id="saku-print" class="row" style="display: none;">
-        <div class="col-12">
-            <div class="card" style="height: 100%;">
-                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
-                    <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
-                    <button type="button" class="btn btn-info ml-2" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="card-body" id="print-content">
+<div id="saku-print" class="row" style="display: none;">
+    <div class="col-12">
+        <div class="card" style="height: 100%;">
+            <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                <button type="button" class="btn btn-secondary ml-2" id="btn-back" style="float:right;"><i
+                        class="fa fa-undo"></i> Kembali</button>
+                <button type="button" class="btn btn-info ml-2" id="btn-cetak" style="float:right;"><i
+                        class="fa fa-print"></i> Print</button>
+            </div>
+            <div class="separator mb-2"></div>
+            <div class="card-body" id="print-content">
 
-                </div>
             </div>
         </div>
     </div>
+</div>
 {{-- END PRINT PREVIEW --}}
 
 <!-- MODAL FILTER -->
-<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog" aria-labelledby="modalFilter" aria-hidden="true">
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog" aria-labelledby="modalFilter"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="form-filter">
@@ -298,7 +353,8 @@
                     </div>
                     <div class="form-group row">
                         <label>Regional</label>
-                        <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
+                        <select class="form-control" data-width="100%" name="inp-filter_regional"
+                            id="inp-filter_regional">
                             <option value=''>--- Pilih Regional ---</option>
                         </select>
                     </div>
@@ -328,7 +384,7 @@
     var actionHtmlOnlyE = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('apv/juspo_aju') }}", 
+        "{{ url('apv/juspo_aju') }}",
         [
             {
                 "targets": 0,
@@ -339,13 +395,13 @@
                     }
                 }
             },
-            {   
-                'targets': [6], 
+            {
+                'targets': [6],
                 'className': 'text-right',
-                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )  
+                'render': $.fn.dataTable.render.number( '.', ',', 0, '' )
             },
-            {   
-                'targets': [9], 
+            {
+                'targets': [9],
                 'visible': false
             },
             {'targets': 7 ,'className': 'text-center' }
@@ -359,8 +415,14 @@
             { data: 'kegiatan' },
             { data: 'nilai' },
             { data: 'status' },
-            { data: 'progress', render: function(data) {
-                if(data == 'A') {
+            // { data: 'progress', render: function(data) {
+            //     if(data == 'S') { //sebelumnya progress A
+            //         return actionHtmlOnlyE
+            //     }
+            //     return actionHtmlOnlyP
+            // } },
+            { data: 'status', render: function(data) {
+                if(data == '-') { //sebelumnya progress A
                     return actionHtmlOnlyE
                 }
                 return actionHtmlOnlyP
@@ -392,7 +454,7 @@
             id:kode,
             type:'keluar'
         });
-    }); 
+    });
     // END BTN KEMBALI
 
     // OPTIONAL CONFIG
@@ -407,10 +469,10 @@
             dataType: 'json',
             async:false,
             success:function(res) {
-                var result = res;    
+                var result = res;
                 if(result.status) {
                     for(i=0;i<result.daftar.length;i++){
-                        $dtKlpBarang[i] = {id:result.daftar[i].kode_barang,name:result.daftar[i].nama};  
+                        $dtKlpBarang[i] = {id:result.daftar[i].kode_barang,name:result.daftar[i].nama};
                     }
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('silo-auth/sesi-habis') }}";
@@ -460,7 +522,7 @@
             }
         });
     })();
-    
+
     function setRegional(kode_cbbl, value){
         $.ajax({
             type: 'GET',
@@ -508,7 +570,7 @@
 
     function openFilter() {
         var element = $('#mySidepanel');
-                
+
         var x = $('#mySidepanel').attr('class');
         var y = x.split(' ');
         if(y[1] == 'close'){
@@ -519,7 +581,7 @@
             element.addClass('close');
         }
     }
-        
+
     $('.sidepanel').on('click', '#btnClose', function(e){
         e.preventDefault();
         openFilter();
@@ -569,7 +631,7 @@
         var regional = $('#kode_pp').val()
 
         switch(id) {
-            case 'kode_pp': 
+            case 'kode_pp':
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -589,7 +651,7 @@
                     width : ["30%","70%"],
                 }
             break;
-            case 'kode_kota': 
+            case 'kode_kota':
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -668,7 +730,7 @@
                 $(td).children('a').not('.hapus-item, .download-item').hide()
                 $(td).children('span').not('.not-show').show()
             })
-        }) 
+        })
     }
 
     function hideUnselectedCell(tr) {
@@ -688,7 +750,7 @@
                 $(td).children('a').not('.hapus-item, .download-item').hide()
                 $(td).children('span').not('.not-show').show()
             }
-        }) 
+        })
     }
 
     function nextSelectedCell(tr, td, index) {
@@ -699,7 +761,7 @@
         $(td).children('input').hide()
         $(td).children('a').not('.hapus-item, .download-item').hide()
 
-        var nextindex = index + 1; 
+        var nextindex = index + 1;
         var tdnext = $(tr).find('td').eq(nextindex)
         var cekReadonly = $(tdnext).hasClass('readonly')
         if(cekReadonly) {
@@ -741,10 +803,10 @@
                 $('#'+target).find('#kode-'+target).hide()
                 $('#'+target).find('.search-item').hide()
                 $('#'+target).find('#text-'+target).show(kode)
-            } 
+            }
 
             setTimeout(function() {
-                nextSelectedCell(trTable, target, tdindex)   
+                nextSelectedCell(trTable, target, tdindex)
             }, 400)
         }
     }
@@ -753,7 +815,7 @@
             var total_row = $('#input-barang tbody tr').length;
             $('#total-barang').html(total_row+' Baris');
         }
-        
+
         function addRowBarang() {
             var no= $('#input-barang tbody > tr').length;
             no = no + 1;
@@ -806,7 +868,7 @@
             $('#input-barang tbody').append(html)
             $('#input-barang tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
-            
+
             // $(`#kode-${idBarang}`).typeahead({
             //     source:$dtKlpBarang,
             //     displayText:function(item){
@@ -830,7 +892,7 @@
                 rightAlign: true,
                 oncleared: function () { return false; }
             });
-            
+
             $('.tooltip-span').tooltip({
                 title: function(){
                     return $(this).text();
@@ -905,9 +967,9 @@
                 } else {
                     nextSelectedCell(tr, td, tdindex)
                 }
-            } 
+            }
         });
-            
+
         $('#input-barang tbody').on('change blur', '.currency', function() {
             var td = $(this).parent('td');
             var tr = $(td).parent('tr')
@@ -961,7 +1023,7 @@
             $('#input-dokumen-po tbody').append(html)
             $('#input-dokumen-po tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
-            
+
             $('.tooltip-span').tooltip({
                 title: function(){
                     return $(this).text();
@@ -1041,7 +1103,7 @@
                     var download = tdAction.children('a.download-item')
                     download.attr('href', `https://app.simkug.com/silo-auth/storage/${data}`)
                     download.show()
-                    
+
                 }
             })
         })
@@ -1084,7 +1146,7 @@
             $('#input-dokumen-compare tbody').append(html)
             $('#input-dokumen-compare tbody tr').not(':last').removeClass('selected-row');
             $('.row-grid:last').addClass('selected-row');
-            
+
             $('.tooltip-span').tooltip({
                 title: function(){
                     return $(this).text();
@@ -1164,7 +1226,7 @@
                     var download = tdAction.children('a.download-item')
                     download.attr('href', `https://app.simkug.com/silo-auth/storage/${data}`)
                     download.show()
-                    
+
                 }
             })
         })
@@ -1183,7 +1245,7 @@
 
         switch(parameter) {
             case 'kelompok[]':
-                var options = { 
+                var options = {
                     id : parameter,
                     header : ['Kode', 'Nama'],
                     url : "{{ url('silo-trans/filter-klp') }}",
@@ -1261,7 +1323,7 @@
                             kolom = $('#input-dokumen-po thead > tr th').eq($(this).index()).text()
                             error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong  di ${nama}`
                             return false;
-                        } 
+                        }
                     })
                     if(empty) {
                         return false
@@ -1294,7 +1356,7 @@
                             kolom = $('#input-dokumen-compare thead > tr th').eq($(this).index()).text()
                             error = `Data pada kolom ${kolom} di baris nomor ${baris} tidak boleh kosong di ${nama}`
                             return false;
-                        } 
+                        }
                     })
                     if(empty) {
                         return false
@@ -1344,12 +1406,12 @@
                     setKota(result.data[0].kode_pp, 'kode_kota', result.data[0].kode_kota);
                     generateDok(result.data[0].tanggal, result.data[0].kode_pp, result.data[0].kode_kota)
 
-                    if(result.data_detail.length > 0) { 
+                    if(result.data_detail.length > 0) {
                         var html = "";
                         var no = 1;
 
-                        for(var i=0;i<result.data_detail.length;i++) { 
-                            var data = result.data_detail[i];   
+                        for(var i=0;i<result.data_detail.length;i++) {
+                            var data = result.data_detail[i];
                             var brg = setBarang(data.barang_klp)
                             var idBarang = 'barang-ke__'+no
                             var idDesk = 'deskripsi-ke__'+no
@@ -1410,7 +1472,7 @@
                             rightAlign: true,
                             oncleared: function () { return false; }
                         });
-                            
+
                         $('.tooltip-span').tooltip({
                             title: function(){
                                 return $(this).text();
@@ -1420,10 +1482,10 @@
                         hitungTotalRowBarang()
                     }
 
-                    if(result.data_dokumen.length > 0) { 
+                    if(result.data_dokumen.length > 0) {
                         var html = "";
                         var no = 1;
-                        for(var i=0;i<result.data_dokumen.length;i++) { 
+                        for(var i=0;i<result.data_dokumen.length;i++) {
                             var data = result.data_dokumen[i];
                             var idDokumen = 'dokumenpo-ke__'+no
                             var idFile = 'filepo-ke__'+no
@@ -1460,10 +1522,10 @@
                         hitungTotalRowDokumenPO()
                     }
 
-                    if(result.data_dokumen2.length > 0) { 
+                    if(result.data_dokumen2.length > 0) {
                         var html = "";
                         var no = 1;
-                        for(var i=0;i<result.data_dokumen2.length;i++) { 
+                        for(var i=0;i<result.data_dokumen2.length;i++) {
                             var data = result.data_dokumen2[i];
                             var idDokumen = 'dokumencp-ke__'+no
                             var idFile = 'filecp-ke__'+no
@@ -1500,10 +1562,10 @@
                         hitungTotalRowDokumenCompare()
                     }
 
-                    if(result.data_histori.length > 0) { 
+                    if(result.data_histori.length > 0) {
                         var html = "";
                         var no = 1;
-                        for(var i=0;i<result.data_histori.length;i++) { 
+                        for(var i=0;i<result.data_histori.length;i++) {
                             var data = result.data_histori[i];
                             var idNik = 'nik-ke__'+no
                             var idNama = 'nama-ke__'+no
@@ -1550,7 +1612,7 @@
     }
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(0).html();
+        var id= $(this).closest('tr').find('td').eq(1).html();
         editData(id)
     });
     // END EDIT
@@ -1560,31 +1622,31 @@
         ignore: [],
         rules: {
             tanggal: {
-                required: true,   
+                required: true,
             },
             waktu: {
-                required: true,   
+                required: true,
             },
             kode_pp: {
-                required: true,   
+                required: true,
             },
             kode_kota: {
-                required: true,   
+                required: true,
             },
             no_dokumen: {
-                required: true,   
+                required: true,
             },
             kegiatan: {
-                required: true,   
+                required: true,
             },
             dasar: {
-                required: true,   
+                required: true,
             },
             pic: {
-                required: true,   
+                required: true,
             },
             total:{
-                required: true,   
+                required: true,
             },
             },
         errorElement: "label",
@@ -1598,21 +1660,21 @@
 
             var formData = new FormData(form);
             for(var pair of formData.entries()) {
-                console.log(pair[0]+ ', '+ pair[1]); 
+                console.log(pair[0]+ ', '+ pair[1]);
             }
-                
+
             checkTableBarang()
 
             if(valid) {
                 $.ajax({
-                    type: 'POST', 
+                    type: 'POST',
                     url: url,
                     dataType: 'json',
                     data: formData,
                     async:false,
                     contentType: false,
                     cache: false,
-                    processData: false, 
+                    processData: false,
                     success:function(result){
                         if(result.data.status){
                             var kode = result.data.no_aju;
@@ -1667,7 +1729,7 @@
             success:function(res) {
                 var result = res.data
                 if(result.status) {
-                    if(typeof result.data !== 'undefined' && result.data.length > 0) { 
+                    if(typeof result.data !== 'undefined' && result.data.length > 0) {
                         var html = "";
                         var no = 1;
                         var total = 0
@@ -1677,10 +1739,10 @@
                                 <div class='col-12 text-center' style='border-bottom:3px solid black;'>
                                     <h3>JUSTIFIKASI PENGADAAN</h3>
                                     <h3 id='kegiatan'>${data.kegiatan}</h3>
-                                </div>    
+                                </div>
                                 <div class='col-12 my-3 text-center'>
-                                    <h6 id='tanggal-print'>Tanggal : ${data.tanggal.substr(8, 2)} ${getNamaBulan(data.tanggal.substr(5, 2))} ${data.tanggal.substr(0, 4)}</h6>    
-                                    <h6 id='no_dokumen'>${data.no_dokumen}</h6> 
+                                    <h6 id='tanggal-print'>Tanggal : ${data.tanggal.substr(8, 2)} ${getNamaBulan(data.tanggal.substr(5, 2))} ${data.tanggal.substr(0, 4)}</h6>
+                                    <h6 id='no_dokumen'>${data.no_dokumen}</h6>
                                 </div>
                                 <div class='col-12'>
                                     <table class='table table-condensed table-bordered'>
@@ -1694,39 +1756,39 @@
                                                 <td style='width: 5%;'>2</td>
                                                 <td style='width: 25%;'>NAMA KOTA</td>
                                                 <td>${data.nama_kota}</td>
-                                            </tr>    
+                                            </tr>
                                             <tr>
                                                 <td style='width: 5%;'>3</td>
                                                 <td style='width: 25%;'>NAMA KEGIATAN</td>
                                                 <td>${data.kegiatan}</td>
-                                            </tr>    
+                                            </tr>
                                             <tr>
                                                 <td style='width: 5%;'>4</td>
                                                 <td style='width: 25%;'>PIC</td>
                                                 <td>${data.pic}</td>
-                                            </tr>    
+                                            </tr>
                                             <tr>
                                                 <td style='width: 5%;'>5</td>
                                                 <td style='width: 25%;'>SAAT PENGGUNAAN</td>
                                                 <td>${data.waktu.substr(8, 2)} ${getNamaBulan(data.waktu.substr(5, 2))} ${data.waktu.substr(0, 4)}</td>
-                                            </tr>    
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                                 <div class='col-12'>
-                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>KEBUTUHAN</u></h6>  
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>KEBUTUHAN</u></h6>
                                     <table class='table table-bordered table-condensed'>
                                         <thead>
                                             <tr>
-                                                <th class='text-center' style='width: 5%;'>No</th>    
-                                                <th class='text-center' style='width: 15%;'>Kelompok Barang</th>    
-                                                <th class='text-center' style='width: 30%;'>Deskripsi</th>    
-                                                <th class='text-center' style='width: 10%;'>Harga</th>    
-                                                <th class='text-center' style='width: 5%;'>Qty</th>    
-                                                <th class='text-center' style='width: 10%;'>Jumlah Harga</th>    
-                                                <th class='text-center' style='width: 5%;'>PPN</th>    
-                                                <th class='text-center' style='width: 10%;'>Grand Total</th>    
-                                            </tr>    
+                                                <th class='text-center' style='width: 5%;'>No</th>
+                                                <th class='text-center' style='width: 15%;'>Kelompok Barang</th>
+                                                <th class='text-center' style='width: 30%;'>Deskripsi</th>
+                                                <th class='text-center' style='width: 10%;'>Harga</th>
+                                                <th class='text-center' style='width: 5%;'>Qty</th>
+                                                <th class='text-center' style='width: 10%;'>Jumlah Harga</th>
+                                                <th class='text-center' style='width: 5%;'>PPN</th>
+                                                <th class='text-center' style='width: 10%;'>Grand Total</th>
+                                            </tr>
                                         </thead>
                                         <tbody>`
                                         for(var i =0;i<result.data_detail.length;i++) {
@@ -1751,14 +1813,14 @@
                                             <tr>
                                                 <td colspan='7'>Total</td>
                                                 <td class='text-right'>${format_number(total)}</td>
-                                            </tr>    
-                                        </tbody>    
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                                 <div class='col-12'>
-                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>ESTIMASI BIAYA</u></h6>  
+                                    <h6 style='font-weight: bold; font-size: 13px;'># <u>ESTIMASI BIAYA</u></h6>
                                     <p>
-                                        Estimasi Biaya yang dibutuhkan untuk pengadaan tersebut adalah sebesar 
+                                        Estimasi Biaya yang dibutuhkan untuk pengadaan tersebut adalah sebesar
                                         <span style='text-transform: capitalize;'>Rp. ${format_number(data.nilai)} (${terbilang(data.nilai)}) Rupiah</span>
                                     </p>
                                 </div>
@@ -1766,13 +1828,13 @@
                                     <h6 style='font-weight: bold; font-size: 13px;'># <u>PENUTUP</u></h6>
                                     <table class='table table-condensed table-bordered'>
                                         <thead>
-                                            <th class='text-center' style='width: 10%;'></th>    
-                                            <th class='text-center' style='width: 25%;'>NAMA/NIK</th>    
-                                            <th class='text-center' style='width: 15%;'>JABATAN</th>    
-                                            <th class='text-center' style='width: 10%;'>TANGGAL</th>    
-                                            <th class='text-center' style='width: 15%;'>NO. APPROVAL</th>    
-                                            <th class='text-center' style='width: 10%;'>STATUS</th>    
-                                            <th class='text-center' style='width: 15%;'>TTD</th>        
+                                            <th class='text-center' style='width: 10%;'></th>
+                                            <th class='text-center' style='width: 25%;'>NAMA/NIK</th>
+                                            <th class='text-center' style='width: 15%;'>JABATAN</th>
+                                            <th class='text-center' style='width: 10%;'>TANGGAL</th>
+                                            <th class='text-center' style='width: 15%;'>NO. APPROVAL</th>
+                                            <th class='text-center' style='width: 10%;'>STATUS</th>
+                                            <th class='text-center' style='width: 15%;'>TTD</th>
                                         </thead>
                                         <tbody>`
                                             for(var i=0;i<result.data_app.length;i++) {

@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-<meta charset="UTF-8">
-    <title>SAKU - Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <title>SDM2 - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+
     <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
@@ -20,34 +20,55 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/glide.core.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-stars.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/nouislider.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/jquery-ui.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    
+
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
     <!-- Selectize -->
     <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('mainstyle-telu.css') }}" />
+
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-tagsinput.css') }}" />
-    
-    <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
+    <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
+    <link rel="stylesheet" href="{{ asset('mainstyle-esaku.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" />
     <style>
-        .logo{
-            background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
-            background-size: 150px;
-            background-position-x: center;
-            background-position-y: center;
-            width:150px;
-            height:45px;
-        }
-        .logo-mobile{
-            background:url("{{ asset('img/logo-telu.png') }}") no-repeat;
-            background-size:30px;
-            width:30px;
+        .menu .main-menu ul li i {
+            font-size: 25px;
+            line-height: 35px;
         }
 
-        a > span.d-inline-block {
+        .menu .main-menu ul li a {
+            height: 70px;
+        }
+
+        .menu .main-menu ul li.active::after {
+            height: 70px;
+            top: 45%;
+        }
+
+        .menu .sub-menu ul li a {
+            padding: 4px 0;
+        }
+
+        .logo {
+            background:url("{{ asset('img/SAKU2021.svg') }}") no-repeat;
+            background-size: 80px;
+            background-position-x: center;
+            background-position-y: center;
+            width: 80px;
+            height: 30px;
+        }
+
+        .logo-mobile {
+            background:url("{{ asset('asset_elite/images/sai_icon/logo.png') }}") no-repeat;
+            background-size: 30px;
+            width: 30px;
+        }
+
+        a>span.d-inline-block {
             max-width: 170px !important;
             height: auto !important;
         }
@@ -55,124 +76,275 @@
         .sub-menu {
             width: 265px !important;
         }
-    
-        @media (max-width: 1439px) {
-        .sub-menu {
-            width: 265px; } }
-        @media (max-width: 1199px) {
-        .sub-menu {
-            width: 265px; } }
-        @media (max-width: 767px) {
-        .sub-menu {
-            width: 265px; } }
 
-        
+        @media (max-width: 1439px) {
+            .sub-menu {
+                width: 265px;
+            }
+        }
+
+        @media (max-width: 1199px) {
+            .sub-menu {
+                width: 265px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .sub-menu {
+                width: 265px;
+            }
+        }
+
+
         #app-container.sub-hidden .sub-menu,
         #app-container.menu-sub-hidden .sub-menu,
         #app-container.menu-hidden .sub-menu {
-        transform: translateX(-265px); }
-        @media (max-width: 1439px) {
-            #app-container.sub-hidden .sub-menu,
-            #app-container.menu-sub-hidden .sub-menu,
-            #app-container.menu-hidden .sub-menu {
-            transform: translateX(-265px); } }
-        @media (max-width: 1199px) {
-            #app-container.sub-hidden .sub-menu,
-            #app-container.menu-sub-hidden .sub-menu,
-            #app-container.menu-hidden .sub-menu {
-            transform: translateX(-265px); } }
-        @media (max-width: 767px) {
-            #app-container.sub-hidden .sub-menu,
-            #app-container.menu-sub-hidden .sub-menu,
-            #app-container.menu-hidden .sub-menu {
-            transform: translateX(-265px); } }
+            transform: translateX(-265px);
+        }
 
-      #app-container.main-hidden.sub-hidden .sub-menu,
-        #app-container.menu-hidden .sub-menu {
-        transform: translateX(-385px); }
         @media (max-width: 1439px) {
-            #app-container.main-hidden.sub-hidden .sub-menu,
+
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
             #app-container.menu-hidden .sub-menu {
-            transform: translateX(-375px); } }
+                transform: translateX(-265px);
+            }
+        }
+
         @media (max-width: 1199px) {
-            #app-container.main-hidden.sub-hidden .sub-menu,
+
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
             #app-container.menu-hidden .sub-menu {
-            transform: translateX(-365px); } }
+                transform: translateX(-265px);
+            }
+        }
+
         @media (max-width: 767px) {
+
+            #app-container.sub-hidden .sub-menu,
+            #app-container.menu-sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+                transform: translateX(-265px);
+            }
+        }
+
+        #app-container.main-hidden.sub-hidden .sub-menu,
+        #app-container.menu-hidden .sub-menu {
+            transform: translateX(-385px);
+        }
+
+        @media (max-width: 1439px) {
+
             #app-container.main-hidden.sub-hidden .sub-menu,
             #app-container.menu-hidden .sub-menu {
-            transform: translateX(-355px); } }
+                transform: translateX(-375px);
+            }
+        }
+
+        @media (max-width: 1199px) {
+
+            #app-container.main-hidden.sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+                transform: translateX(-365px);
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            #app-container.main-hidden.sub-hidden .sub-menu,
+            #app-container.menu-hidden .sub-menu {
+                transform: translateX(-355px);
+            }
+        }
 
         #app-container.menu-mobile .sub-menu {
-        transform: translateX(-405px); }
+            transform: translateX(-405px);
+        }
 
         #app-container.main-show-temporary .sub-menu {
-            transform: translateX(-265px); }
+            transform: translateX(-265px);
+        }
 
         @media (max-width: 1439px) {
-        #app-container.main-show-temporary .sub-menu {
-            transform: translateX(-265px); } }
+            #app-container.main-show-temporary .sub-menu {
+                transform: translateX(-265px);
+            }
+        }
 
         @media (max-width: 1199px) {
-        #app-container.main-show-temporary .sub-menu {
-            transform: translateX(-265px); } }
+            #app-container.main-show-temporary .sub-menu {
+                transform: translateX(-265px);
+            }
+        }
 
         @media (max-width: 767px) {
-        #app-container.main-show-temporary .sub-menu {
-            transform: translateX(-265px); } }
-
-        #app-container.sub-show-temporary .sub-menu, #app-container.menu-mobile.sub-show-temporary .sub-menu, #app-container.menu-main-hidden.menu-mobile.main-show-temporary .sub-menu {
-        transform: translateX(0); }
-
-        h6.card-title{
-            font-size: 0.85rem !important;
-            margin-bottom:.5rem !important;
+            #app-container.main-show-temporary .sub-menu {
+                transform: translateX(-265px);
+            }
         }
 
-        h6.card-title > span{
-            font-size: 0.85rem !important;
+        #app-container.sub-show-temporary .sub-menu,
+        #app-container.menu-mobile.sub-show-temporary .sub-menu,
+        #app-container.menu-main-hidden.menu-mobile.main-show-temporary .sub-menu {
+            transform: translateX(0);
         }
 
-        .close
-        {
-            line-height:1.5;padding: 0 !important;background: none;appearance: unset;opacity: unset;position: relative;
-            right:0px !important;top:12px !important;margin-right:0 !important;
-        }
-        .close > span 
-        {
-            border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;background: white;color: black;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054
+        .modal-content {
+            border-radius: 0.75rem !important;
         }
 
-        .close > span:hover
-        {
-            color:white;
-            background:red;
+        body {
+            display: unset;
         }
 
+        .modal-header {
+            padding-top: 0px !important;
+            padding-bottom: 0px !important;
+            height: 49px !important;
+        }
+
+        .modal-header>h6 {
+            margin-top: 0.8rem;
+            margin-bottom: 0.8rem;
+            height: unset !important;
+        }
+
+        .close {
+            line-height: 1.5;
+            padding: 0 !important;
+            background: none;
+            appearance: unset;
+            opacity: unset;
+            position: relative;
+            right: -40px !important;
+            top: 5px !important;
+            margin-right: 0 !important;
+        }
+
+        .close>span {
+            border-radius: 50%;
+            padding: 0 0.45rem 0.1rem 0.45rem;
+            background: white;
+            color: black;
+            font-size: 1.2rem !important;
+            font-weight: lighter;
+            box-shadow: 0px 1px 5px 1px #80808054
+        }
+
+        .close>span:hover {
+            color: white;
+            background: red;
+        }
+
+        /* .modal {
+            &:focus {
+                outline: none;
+            }
+
+            @extend .z-depth-5;
+
+            display: none;
+            position: fixed;
+            left: 0;
+            right: 0;
+            background-color: #fafafa;
+            padding: 0;
+            max-height: 70%;
+            width: 55%;
+            margin: auto;
+            overflow-y: auto;
+
+            border-radius: 2px;
+            will-change: top, opacity;
+
+            @media #{$medium-and-down}
+            {
+            width: 80%;
+            }
+
+            h1,h2,h3,h4 {
+                margin-top: 0;
+            }
+
+            .modal-content {
+                padding: 24px;
+            }
+            .modal-close {
+                cursor: pointer;
+            }
+
+            .modal-footer {
+                border-radius: 0 0 2px 2px;
+                background-color: #fafafa;
+                padding: 4px 6px;
+                height: 56px;
+                width: 100%;
+                text-align: right;
+
+                .btn, .btn-flat {
+                margin: 6px 0;
+                }
+            }
+            }
+            .modal-overlay {
+            position: fixed;
+            z-index: 999;
+            top: -25%;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            height: 125%;
+            width: 100%;
+            background: #000;
+            display: none;
+
+            will-change: opacity;
+            }
+
+            .modal.modal-fixed-footer {
+            padding: 0;
+            height: 70%;
+
+            .modal-content {
+                position: absolute;
+                height: calc(100% - 56px);
+                max-height: 100%;
+                width: 100%;
+                overflow-y: auto;
+            }
+
+            .modal-footer {
+                border-top: 1px solid rgba(0,0,0,.1);
+                position: absolute;
+                bottom: 0;
+            }
+        }
+
+        .modal.bottom-sheet {
+            top: auto;
+            bottom: -100%;
+            margin: 0;
+            width: 100%;
+            max-height: 45%;
+            border-radius: 0;
+            will-change: bottom, opacity;
+        } */
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
-        var $filter_periode = "";
-        var $form_back = "";
-        var $kd_grafik = "";
-        var $kd = "";
-        var $dash_periode = {
-            type : "",
-            from : "",
-            to : ""
-        }
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
     <!-- <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
     <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script> -->
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/full-screen.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/modules/series-label.js"></script>
-    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
-    <script src="{{ asset('dash-asset/dash-telu/circle/circle-progress.js') }}"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/funnel.js"></script>
+    <script src="http://code.highcharts.com/modules/drilldown.js"></script>
+
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/moment.min.js') }}"></script>
@@ -183,240 +355,249 @@
     <script src="{{ asset('asset_dore/js/vendor/jquery.barrating.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/select2.full.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/nouislider.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/Sortable.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/mousetrap.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/glide.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
+
+    <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/additional-methods.min.js') }}"></script>
-    
-    
-    <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
-    <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
+
+
+    <!-- <script src="{{ asset('asset_dore/js/loading.js') }}"></script> -->
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
-    <!-- <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script> -->
     <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/pptxgen.bundle.js') }}"></script>
-    <!-- <script src="{{ asset('asset_dore/js/html2canvas.min.js') }}"></script> -->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script>
-        var $google = google;
-    </script>
+
+    <!-- <script src="{{ asset('asset_dore/js/materialize-modal/component.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/cash.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/global.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/anime.min.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/materialize-modal/modal.js') }}"></script> -->
 </head>
-
+<!-- <div class="preloader-wrap">
+    <div class="progress" id="load-page">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="load-page-bar"></div>
+    </div>
+</div> -->
 @if(Session::get('menu') != "")
+
 <body id="app-container" class="{{ Session::get('menu') }} show-spinner">
-@else
-<body id="app-container" class="menu-default show-spinner">
-@endif
-<nav class="navbar fixed-top px-0 py-0">
-        <div class="d-flex align-items-center navbar-left">
-            <a href="#" class="menu-button d-none d-md-block">
-                <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
-                    <rect x="0.48" y="0.5" width="7" height="1" />
-                    <rect x="0.48" y="7.5" width="7" height="1" />
-                    <rect x="0.48" y="15.5" width="7" height="1" />
-                </svg>
-                <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
-                    <rect x="1.56" y="0.5" width="16" height="1" />
-                    <rect x="1.56" y="7.5" width="16" height="1" />
-                    <rect x="1.56" y="15.5" width="16" height="1" />
-                </svg>
-            </a>
+    @else
 
-            <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
-                    <rect x="0.5" y="0.5" width="25" height="1" />
-                    <rect x="0.5" y="7.5" width="25" height="1" />
-                    <rect x="0.5" y="15.5" width="25" height="1" />
-                </svg>
-            </a>
+    <body id="app-container" class="menu-default show-spinner">
+        @endif
+        <nav class="navbar fixed-top px-0 py-0">
+            <div class="d-flex align-items-center navbar-left">
+                <a href="#" class="menu-button d-none d-md-block">
+                    <svg class="main" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 17">
+                        <rect x="0.48" y="0.5" width="7" height="1" />
+                        <rect x="0.48" y="7.5" width="7" height="1" />
+                        <rect x="0.48" y="15.5" width="7" height="1" />
+                    </svg>
+                    <svg class="sub" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 17">
+                        <rect x="1.56" y="0.5" width="16" height="1" />
+                        <rect x="1.56" y="7.5" width="16" height="1" />
+                        <rect x="1.56" y="15.5" width="16" height="1" />
+                    </svg>
+                </a>
 
-            <form action="#">
-                <div class="search" >
-                    <input type="text" placeholder="Cari Form..." id="cari" name="cari"  type="text" class="form-control typeahead" data-provide="typeahead" autocomplete="off"/>
-                    <span class="search-icon cari-form">
-                        <i class="simple-icon-magnifier"></i>
-                    </span>
-                </div>
-            </form>
-        </div>
+                <a href="#" class="menu-button-mobile d-xs-block d-sm-block d-md-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 17">
+                        <rect x="0.5" y="0.5" width="25" height="1" />
+                        <rect x="0.5" y="7.5" width="25" height="1" />
+                        <rect x="0.5" y="15.5" width="25" height="1" />
+                    </svg>
+                </a>
 
-
-        <a class="navbar-logo" href="#">
-            <div class="row">
-                <div class="col-8">
-                    <span class="logo d-none d-xs-block"></span>
-                </div>
-                <div class="col-4">
-                    <span class="logo2 d-none d-xs-block"></span>
-                </div>
+                <form action="#">
+                    <div class="search">
+                        <input type="text" placeholder="Cari Form..." id="cari" name="cari" type="text"
+                            class="form-control typeahead" data-provide="typeahead" autocomplete="off" />
+                        <span class="search-icon cari-form">
+                            <i class="simple-icon-magnifier"></i>
+                        </span>
+                    </div>
+                </form>
             </div>
-            <span class="logo-mobile d-block d-xs-none"></span>
-        </a>
-        @php
+
+
+            <a class="navbar-logo" href="#">
+                <span class="logo d-none d-xs-block to-home"></span>
+                <span class="logo-mobile d-block d-xs-none to-home"></span>
+            </a>
+            @php
             $tmp = explode(" ",Session::get('namaUser'));
             $nama = $tmp[0];
 
-        @endphp
+            @endphp
 
-        <div class="navbar-right" >
-            <div class="user d-inline-block mr-3 dropdown">
-                <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="name">{{ $nama }}</span>
-                    <span id="foto-profile">
-                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
-                    @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'ypt-auth/storage2/'.Session::get('foto') }}" style="width:40px;height:40px"/>
-                    @endif
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown" style="width:200px">
-                    <a href="#" class="dropdown-profile">
-                        <div style="height: 45px;padding: 0 1rem;">
-                            <span id="adminProfilePhoto">
-                                @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
-                                @else
-                                <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'ypt-auth/storage2/'.Session::get('foto') }}" style="width:40px;height:40px"/>
-                                @endif
-                            </span>
-                            <p class="userprofile mb-0">{{ $nama }}</p>
-                            <span class="userjab" >{{ Session::get('jabatan') }}</span>
-                        </div>
-                    </a>
-                    <a href="#" class="dropdown-periode dropdown-item border-bottom border-top" >Periode {{ Session::get('periode') }}</a>
-                    <a class="dropdown-item" onclick="loadProfile()" href='#' ><i class="simple-icon-user mr-2"></i> Akun Saya</a>
-                    <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i> Keluar</a>
-                </div>
-            </div>
-            <div class="header-icons d-inline-block align-middle mr-4">
-                <div class="d-none d-md-inline-block align-text-bottom mr-3">
-                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
-                         data-toggle="tooltip" data-placement="left" title="Dark Mode">
-                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
-                        <label class="custom-switch-btn" for="switchDark"></label>
-                    </div>
-                </div>
-                <div class="dropdown position-relative d-inline-block">
-                    <button class="header-icon btn btn-empty" type="button" id="notificationButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="simple-icon-bell icon-notif" style="font-size:17px"></i>
-                        <!-- <span class="count"></span> -->
+            <div class="navbar-right">
+                <div class="user d-inline-block mr-3 dropdown">
+                    <button class="btn btn-empty p-0" id="btn-admin" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <span class="name">{{ $nama }}</span>
+                        <span id="foto-profile">
+                            @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                            <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}"
+                                style="width:40px;height:40px" />
+                            @else
+                            <img alt="Profile Picture"
+                                src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}"
+                                style="width:40px;height:40px" />
+                            @endif
+                        </span>
                     </button>
-                    <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-0" id="notificationDropdown2" style="width:300px;">
-                        <div class='row-header border-bottom'>
-                            <div class="d-flex flex-row px-3 py-2 ">
-                                <div class="">
-                                    <a href="#">
-                                        <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
-                                    </a>
+                    <div class="dropdown-menu dropdown-menu-right mt-0" id="adminDropdown">
+                        <a href="#" class="dropdown-profile">
+                            <div style="height: 45px;padding: 0 1rem;">
+                                <span id="adminProfilePhoto">
+                                    @if (Session::get('foto') == "" || Session::get('foto') == "-" )
+                                    <img alt="Profile Picture" class="imgprofile ml-0"
+                                        src="{{ asset('asset_elite/images/user.png') }}"
+                                        style="width:40px;height:40px" />
+                                    @else
+                                    <img alt="Profile Picture" class="imgprofile ml-0"
+                                        src="{{ config('api.url').'toko-auth/storage/'.Session::get('foto') }}"
+                                        style="width:40px;height:40px" />
+                                    @endif
+                                </span>
+                                <p class="userprofile mb-0">{{ $nama }}</p>
+                                <span class="userjab">{{ Session::get('jabatan') }}</span>
+                            </div>
+                        </a>
+                        <a href="#" class="dropdown-periode dropdown-item border-top"></a>
+                        <a href="#" class="dropdown-lokasi dropdown-item border-bottom"></a>
+                        <a class="dropdown-item" onclick="loadProfile()" href='#'><i class="simple-icon-user mr-2"></i>
+                            Akun Saya</a>
+                        <a class="dropdown-item" href="#" onclick="logout()"><i class="simple-icon-logout mr-2"></i>
+                            Keluar</a>
+                    </div>
+                </div>
+                <div class="header-icons d-inline-block align-middle mr-4">
+                    <div class="dropdown position-relative d-inline-block">
+                        <button class="header-icon btn btn-empty" type="button" id="notificationButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="simple-icon-bell icon-notif" style="font-size:17px"></i>
+                            <!-- <span class="count"></span> -->
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right position-absolute py-0 mt-0"
+                            id="notificationDropdown2" style="width:300px;">
+                            <div class='row-header border-bottom'>
+                                <div class="d-flex flex-row px-3 py-2 ">
+                                    <div class="">
+                                        <a href="#">
+                                            <p class="font-weight-medium py-0 my-0"
+                                                style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="notif-body" style="height:280px">
+                            </div>
+                            <div class='row-footer border-top'>
+                                <div class="d-flex flex-row px-3 py-2 text-center">
+                                    <div class="" style="width:100%">
+                                        <a href="#">
+                                            <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="notif-body" style="height:280px">
+                    </div>
+                    <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab"
+                        title="New Tab">
+                        <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
+                    </button>
+                    <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button"
+                        id="fullScreenButton" title="Full Screen">
+                        <i class="simple-icon-size-fullscreen"></i>
+                        <i class="simple-icon-size-actual"></i>
+                    </button>
+
+                </div>
+
+
+            </div>
+        </nav>
+        <div class="menu">
+            <div class="main-menu">
+            </div>
+            <div class="sub-menu">
+            </div>
+        </div>
+
+        <main>
+            <div class="container-fluid">
+                <div class="body-content"></div>
+            </div>
+            <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
+                        <div class="modal-body text-center pb-0">
+                            <span id="modal-pesan-id" style="display:none"></span>
+                            <h4 style="font-weight:bold" id="pesan-judul"></h4>
+                            <p style="font-size:12px" id="pesan-text"></p>
                         </div>
-                        <div class='row-footer border-top'>
-                            <div class="d-flex flex-row px-3 py-2 text-center">
-                                <div class="" style="width:100%">
-                                    <a href="#">
-                                    <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
-                                    </a>
+                        <div class="modal-footer pt-0" style="border:none;justify-content:center">
+                            <div class="row" style="width:100%">
+                                <div class="col-6 px-0 py-0" id="btn-pesan1">
+                                    <!-- <button type="button" class="btn btn-light btn-block" data-dismiss="modal" >Batal</button> -->
+                                </div>
+                                <div class="col-6 px-0 py-0" style="padding-left: 5px !important;" id="btn-pesan2">
+                                    <!-- <button type="button" class="btn btn-primary btn-block" id="btn-ya" style="background:#EB3F33;border:1px solid #EB3F33">Hapus</button> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="btn-newtab" title="New Tab">
-                    <i class="simple-icon-screen-desktop" style="font-size:18px"></i>
-                </button>
-                <button class="header-icon btn btn-empty d-none d-sm-inline-block" type="button" id="fullScreenButton" title="Full Screen">
-                    <i class="simple-icon-size-fullscreen"></i>
-                    <i class="simple-icon-size-actual"></i>
-                </button>
-
             </div>
-
-            
-        </div>
-    </nav>
-    <div class="menu">
-        <div class="main-menu">
-        </div>
-        <div class="sub-menu">
-        </div>
-    </div>
-
-    <main>
-        <div class="container-fluid">
-            <div class="body-content"></div>
-        </div>
-        <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="max-width:300px;border-radius:0.75rem;margin:0 auto">
-                    <div class="modal-body text-center pb-0">
-                        <span id="modal-pesan-id" style="display:none"></span>
-                        <h4 style="font-weight:bold" id="pesan-judul"></h4>  
-                        <p style="font-size:12px" id="pesan-text"></p>  
-                    </div>
-                    <div class="modal-footer pt-0" style="border:none;justify-content:center">
-                        <div class="row" style="width:100%">
-                            <div class="col-6 px-0 py-0" id="btn-pesan1">
-                            </div>
-                            <div class="col-6 px-0 py-0" style="padding-left: 5px !important;" id="btn-pesan2">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+        </main>
         <div id="country-selector" class="c-bottom-sheet c-bottom-sheet--list">
-			<div class="c-bottom-sheet__scrim"></div>
-			<div class="c-bottom-sheet__sheet">
+            <div class="c-bottom-sheet__scrim"></div>
+            <div class="c-bottom-sheet__sheet">
                 <div class="c-bottom-sheet__close">
                     <button type="button" aria-label="Close" class="close" id="bottom-sheet-close">
-                    <span>×</span>
+                        <span>×</span>
                     </button>
                 </div>
-				<div class="c-bottom-sheet__handle">
-					<span></span>
-					<span></span>
-				</div>
+                <div class="c-bottom-sheet__handle">
+                    <span></span>
+                    <span></span>
+                </div>
                 <div id="content-bottom-sheet" style="max-height:75vh;width:100%"></div>
-			</div>
-			<div class="c-bottom-sheet__container">
+            </div>
+            <div class="c-bottom-sheet__container">
 
-			</div>
-		</div>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-    
-    var pusher = new Pusher('d428ef5138920b411264', {
-        cluster: 'ap1',
-        encrypted: true
-    });
+            </div>
+        </div>
+        <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+        <script type="text/javascript">
+            // if("{{ Session::get('lokasi')}}" == "05") {
+        //     $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+        //     $('.logo').css('height', '45px')
+        // }
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        if("{{ $_SERVER['SERVER_NAME'] }}" == 'sdm.trengginasjaya.com') {
+            $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+            $('.logo').css('height', '45px')
         }
-    });
-
-    $('.c-bottom-sheet__close').on('click','#bottom-sheet-close',function(e){
-        e.preventDefault();
-        $('.c-bottom-sheet').removeClass('active');
-    });
+        </script>
+        <script>
+            if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
+        var datepicker = $.fn.datepicker.noConflict();
+        $.fn.bootstrapDP = datepicker;
+    }
 
     class TouchDragListener {
         constructor({el, touchStartCallback, touchEndCallback, touchMoveCallback, showLog}) {
@@ -434,7 +615,7 @@
             this.dragStart = this.dragStart.bind(this);
             this.dragEnd = this.dragEnd.bind(this);
             this.drag = this.drag.bind(this);
-            
+
             this.el.addEventListener("mousedown", this.dragStart);
             this.el.addEventListener("mouseleave", this.dragEnd);
             this.el.addEventListener("mouseup", this.dragEnd);
@@ -465,7 +646,7 @@
                 yOffset: this.offSetY
             })
         }
-        
+
         dragEnd(e) {
             this.active = false;
             this.el.classList.remove("active");
@@ -473,7 +654,7 @@
             this.yOffset = 0;
 
             this.initialY = this.currentY;
-            
+
             if (!this.touchEndCallback) return;
 
             this.touchEndCallback({
@@ -513,9 +694,10 @@
                     currentY: this.currentY,
                     offSetY: this.offSetY
                 });
-            }        
+            }
         }
     }
+
 
     class BottomSheet {
         constructor(id) {
@@ -525,11 +707,11 @@
             this.handle = this.el.querySelector(".c-bottom-sheet__handle");
             this.sheet = this.el.querySelector(".c-bottom-sheet__sheet");
             this.activate = this.activate.bind(this);
-            this.deactivate = this.deactivate.bind(this);        
+            this.deactivate = this.deactivate.bind(this);
 
             this.scrim.addEventListener("click", this.deactivate);
             this.handle.addEventListener("click", this.deactivate);
-            
+
             this.sheetListener = new TouchDragListener({
                 el: this.sheet,
                 touchStartCallback: ({el, active, initialY, currentY, yOffset}) => {
@@ -555,7 +737,7 @@
                         this.deactivate(currentY);
                         return;
                     }
-            
+
                     el.style.setProperty(
                         "--translateY",
                         `translateY(${currentY}px)`
@@ -594,25 +776,79 @@
             this.el.classList.remove("active");
         }
     }
-    
+
+    // if (!$.fn.bootstrapMD && $.fn.modal && $.fn.modal.noConflict) {
+    //     var modal = $.fn.modal.noConflict();
+    //     $.fn.bootstrapMD = modal;
+    // }
+    var $form_aktif = "";
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('d428ef5138920b411264', {
+        cluster: 'ap1',
+        encrypted: true
+    });
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+
+    $('.c-bottom-sheet__close').on('click','#bottom-sheet-close',function(e){
+        e.preventDefault();
+        $('.c-bottom-sheet').removeClass('active');
+    });
+
+
+    function sepNumX(x){
+        if (typeof x === 'undefined' || !x) {
+            return 0;
+        }else{
+            if(x < 0){
+                var x = parseFloat(x).toFixed(0);
+            }
+
+            var parts = x.toString().split(",");
+            parts[0] = parts[0].replace(/([0-9])(?=([0-9]{3})+$)/g,"$1.");
+            return parts.join(".");
+        }
+    }
+
     function msgDialog(data){
-        console.log(data.type);
         switch(data.type){
             case 'hapus':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
                 var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
                 var title = (data.title != undefined ? data.title : 'Hapus Data?');
-                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.<br> ID Data : <b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
                 //     hapusData(data.id);
                 // }
-                
+
                 // function callBackCancel(){
-                //     // 
+                //     //
                 // }
-                
+
+            break;
+            case 'hapusDok':
+                var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-red');
+                var btn2 = (data.btn2 != undefined ? data.btn2 : 'btn btn-light');
+                var title = (data.title != undefined ? data.title : 'Hapus Data?');
+                var text = (data.text != undefined ? data.text : 'Data akan terhapus secara permanen dan tidak dapat mengurungkan.<br> ID Data : <b>'+data.id+'</b>');
+                var confirm = (data.confirm != undefined ? data.confirm : 'Hapus');
+                var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
+                // function callBackMsg(){
+                //     hapusData(data.id);
+                // }
+
+                // function callBackCancel(){
+                //     //
+                // }
+
             break;
             case 'edit':
                 var btn1 = (data.btn1 != undefined ? data.btn1 : 'btn btn-primary');
@@ -624,9 +860,9 @@
                 // function callBackMsg(){
                 //     $('#form-tambah').submit();
                 // }
-                
+
                 // function callBackCancel(){
-                //     // 
+                //     //
                 // }
             break;
             case 'simpan':
@@ -636,11 +872,11 @@
                 var text = (data.text != undefined ? data.text : 'Data tersimpan dengan No Transaksi <br><b>'+data.id+'</b>');
                 var confirm = (data.confirm != undefined ? data.confirm : 'Input Baru');
                 var cancel = (data.cancel != undefined ? data.cancel : 'Selesai');
-                
+
                 // function callBackMsg(){
                 //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
                 // }
-                
+
                 // function callBackCancel(){
                 //     $('#saku-datatable').show();
                 //     $('#saku-form').hide();
@@ -658,9 +894,9 @@
                 //     $('#saku-datatable').show();
                 //     $('#saku-form').hide();
                 // }
-                
+
                 // function callBackCancel(){
-                //     // 
+                //     //
                 // }
             break;
             case 'logout':
@@ -672,11 +908,11 @@
                 var cancel = (data.cancel != undefined ? data.cancel : 'Batal');
                 // function callBackMsg(){
                 //     window.localStorage.setItem('logged_in', false);
-                //     window.location.href = "{{ url('dash-telu/logout') }}";
+                //     window.location.href = "{{ url('esaku-auth/logout') }}";
                 // }
-                
+
                 // function callBackCancel(){
-                //     // 
+                //     //
                 // }
             break;
             case 'duplicate':
@@ -707,13 +943,13 @@
                 var showCancel = (data.cancel != undefined ? true : false);
             break;
         }
-        
+
         var swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn '+btn1,
             cancelButtonClass: 'btn '+btn2,
             buttonsStyling: false,
         })
-        
+
         swalWithBootstrapButtons.fire({
             title: title,
             html: text,
@@ -730,7 +966,19 @@
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         //
                     }
-                    
+
+                break;
+                case 'hapusDok':
+                    if (result.value) {
+                        if(data.param != undefined){
+                            hapusDok(data.param);
+                        }else{
+                            hapusDok(data.id);
+                        }
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        //
+                    }
+
                 break;
                 case 'edit':
                     if (result.value) {
@@ -746,6 +994,9 @@
                         //
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
+                        if($('#saku-form-upload').length > 0){
+                            $('#saku-form-upload').hide();
+                        }
                         showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
                     }
                 break;
@@ -753,6 +1004,9 @@
                     if (result.value) {
                         $('#saku-datatable').show();
                         $('#saku-form').hide();
+                        if($('#saku-form-upload').length > 0){
+                            $('#saku-form-upload').hide();
+                        }
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
                     }
@@ -760,22 +1014,23 @@
                 case 'logout':
                     if (result.value) {
                         window.localStorage.setItem('logged_in', false);
-                        window.location.href = "{{ url('dash-telu/logout') }}";
+                        window.localStorage.removeItem('esaku-form');
+                        window.location.href = "{{ url('sdm2-auth/logout') }}";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // console.log('cancel');
-                    }                    
+                    }
                 break;
                 case 'duplicate':
-                    //  
+                    //
                 break;
                 case 'sukses':
-                    //  
+                    //
                 break;
                 case 'warning':
-                    //  
+                    //
                 break;
             }
-                
+
         })
     }
 
@@ -828,18 +1083,28 @@
       );
     }
 
-    var form ="{{ Session::get('dash') }}";
+    if(window.localStorage.getItem('esaku-form') != "" && window.localStorage.getItem('esaku-form') != null && window.localStorage.getItem('esaku-form') != "-"){
+        var form = window.localStorage.getItem('esaku-form');
+    }else{
+        var form ="{{ Session::get('dash') }}";
+    }
+
+    // lokasi 05
+    if("{{ Session::get('lokasi')}}" == '05') {
+        var form ="fDashboard";
+    }
+
     var userNIK = "{{ Session::get('userLog') }}";
     function getNotif(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dash-telu/notif') }}",
+            url: "{{ url('esaku-auth/notif') }}",
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(result){
                 var notif='';
-                $('.notif-body').html(''); 
-                
+                $('.notif-body').html('');
+
                 if(result.data.status){
                     if(result.data.jumlah == 0){
                         // return false;
@@ -847,7 +1112,7 @@
                         $('<span class="count">'+result.data.jumlah+'</span>').insertAfter('.icon-notif');
                     }
                     notif = `
-                    
+
                             `;
                     if(result.data.data.length > 0){
                         for(var i=0;i<result.data.data.length;i++){
@@ -877,132 +1142,147 @@
                         }
                     }
                     $('.notif-body').append(notif);
-                    
+
                 }else{
-                    $('.notif-body').html(''); 
+                    $('.notif-body').html('');
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
     }
-    
+
     function updateNotifRead(){
         $.ajax({
             type: 'POST',
-            url: "{{ url('dash-telu/notif-update-status') }}",
+            url: "{{ url('esaku-auth/notif-update-status') }}",
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(result){
                 $('.count').remove();
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
     }
-    
-    var channel = pusher.subscribe('saitelu-channel-'+userNIK);
-    channel.bind('saitelu-event', function(data) {
-        // alert(JSON.stringify(data));
-        console.log(JSON.stringify(data));
+
+    var channel = pusher.subscribe('saitoko-channel-'+userNIK);
+    channel.bind('saitoko-event', function(data) {
         getNotif();
         showNotification("top", "left", "primary",data.title,data.message);
-        
     });
 
     function loadForm(url){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dash-telu/cek_session') }}",
+            url: "{{ url('sdm2-auth/cek_session') }}",
             dataType: 'json',
             async:false,
-            success:function(result){    
+            success:function(result){
                 if(!result.status){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.location.href = "{{ url('sdm2-auth/sesi-habis') }}";
                 }else{
-                    
+
                     $('.body-content').load(url);
                 }
             },
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/sdm2-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
+    }
+
+
+    function jumFilter(){
+        var jum = $("[name^=inp-filter]").filter(function(){
+            return this.value.trim() != '';
+        }).length;
+        if(jum > 0){
+            $('#jum-filter').text(jum);
+            if($('#jum-filter2').length > 0){
+                $('#jum-filter2').text(jum);
+            }
+        }else{
+            $('#jum-filter').text('');
+            if($('#jum-filter2').length > 0){
+                $('#jum-filter2').text('');
+            }
+        }
     }
 
     var $dtForm = new Array();
     function getFormList() {
         $.ajax({
             type:'GET',
-            url:"{{url('dash-telu/search-form-list2')}}",
+            url:"{{url('esaku-auth/search-form-list2')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
                 if(result.status) {
-                   
+
                     for(i=0;i<result.data.length;i++){
-                        $dtForm[i] = {nama:result.data[i].nama};  
+                        $dtForm[i] = {nama:result.data[i].nama};
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 } else{
-                    alert(result.message);
+                    console.log(result.message);
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
     }
@@ -1012,11 +1292,11 @@
     function searchForm(cari){
         $.ajax({
             type: 'POST',
-            url: "{{ url('dash-telu/search-form') }}",
+            url: "{{ url('esaku-auth/search-form') }}",
             dataType: 'json',
             data:{'cari':cari},
             async:false,
-            success:function(result){  
+            success:function(result){
                 if(result.data.success.status){
                     if(result.data.success.data.length > 0){
                         var tmp = result.data.success.data[0].form;
@@ -1026,13 +1306,13 @@
                         $('.sub-menu li').removeClass('active');
                         $("[data-href="+form+"]").closest("li").addClass("active");
                         // $("[data-href="+form+"]").first().parents("li").addClass("active");
-                        
+
                         //add Class active in li level 0;
                         var target = $("[data-href="+form+"]").parents("li").parents("ul").last().attr("data-link");
                         $('.main-menu li').removeClass('active');
                         $('a[href="#'+target+'"]').parents("li").addClass("active");
 
-                        loadForm("{{ url('dash-telu/form')}}/"+form);
+                        loadForm("{{ url('esaku-auth/form')}}/"+form);
                         return false;
                     }
                 }else{
@@ -1042,33 +1322,33 @@
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
     }
 
     function loadProfile(){
-        loadForm("{{url('dash-telu/form/fProfile')}}");
+        loadForm("{{url('esaku-auth/form/fProfile')}}");
     }
-    
+
     function loadMenu(){
         $.ajax({
             type: 'GET',
-            url: "{{ url('dash-telu/menu') }}",
+            url: "{{ url('esaku-auth/menu') }}",
             dataType: 'json',
             async:false,
-            success:function(result){  
+            success:function(result){
                 if(result[0].status){
                     $('.main-menu').html('');
                     $(result[0].main_menu).appendTo('.main-menu').slideDown();
@@ -1082,50 +1362,66 @@
             fail: function(xhr, textStatus, errorThrown){
                 alert('request failed:'+textStatus);
             },
-            error: function(jqXHR, textStatus, errorThrown) {       
+            error: function(jqXHR, textStatus, errorThrown) {
                 if(jqXHR.status == 422){
                     var msg = jqXHR.responseText;
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                    window.location="{{ url('/esaku-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
-                
+
             }
         });
     }
 
     var scrollnotif = document.querySelector('.notif-body');
     var notifscroll = new PerfectScrollbar(scrollnotif);
-    
+
     loadMenu();
     getNotif();
-    
+    $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
+    $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
+
     if(form !="" || form != "-"){
-        loadForm("{{ url('dash-telu/form')}}/"+form)
+        loadForm("{{ url('sdm2-auth/form')}}/"+form)
     }
-    
+
     $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
+        window.localStorage.setItem('esaku-form',form);
+        $form_aktif = $(this).data('kode_form');
         $('.sub-menu li').removeClass('active');
         $(this).closest('li').addClass('active');
-        var url = "{{ url('dash-telu/form')}}/"+form;
+        var url = "{{ url('sdm2-auth/form')}}/"+form;
+        if(form == "" || form == "-"){
+            // alert('Form dilock!');
+            return false;
+        }else{
+            loadForm(url);
+
+        }
+    });
+
+    $('.main-menu').on('click','.a_link',function(e){
+        e.preventDefault();
+        var form = $(this).data('href');
+        var url = "{{ url('sdm2-auth/form')}}/"+form;
         console.log(url);
         if(form == "" || form == "-"){
             // alert('Form dilock!');
             return false;
         }else{
             loadForm(url);
-            
+
         }
     });
 
     $('.main-menu li').click(function(){
-        console.log('click-menu');
         $('.main-menu li').removeClass('active');
         $(this).addClass('active');
     });
@@ -1136,8 +1432,6 @@
     });
 
     $('#cari').keydown(function(e){
-        // console.log(e.which);
-        
         var cari = $('#cari').val();
         if(e.which == 13){
             e.preventDefault();
@@ -1152,18 +1446,17 @@
             }));
         },
         afterSelect: function (item) {
-            console.log('cek');
             searchForm(item);
         }
     });
 
     $('#notificationButton').hover(function(){
-        
+
         if($('#btn-admin').attr("aria-expanded") == "true"){
             $('#btn-admin').dropdown('toggle');
         }
-        
-        
+
+
     });
 
     $('#btn-admin').hover(function(){
@@ -1173,15 +1466,15 @@
     });
 
     $('#btn-newtab').click(function(){
-        var url = "{{url('dash-telu')}}";
+        var url = "{{url('esaku-auth')}}";
         window.open(url, '_blank');
     });
 
     // $('#cari').typeahead({
     //     source: function (cari, result) {
     //         $.ajax({
-    //             url: "{{ url('dash-telu/search-form-list') }}",
-    //             data: {cari:cari},            
+    //             url: "{{ url('esaku-auth/search-form-list') }}",
+    //             data: {cari:cari},
     //             dataType: "json",
     //             type: "GET",
     //             success: function (data) {
@@ -1195,9 +1488,9 @@
     // });
 
     // $(document).ready(function(){
-       
+
     // });
-    
+
     function setHeightReport(){
         var header = $('.topbar').height();
         var subheader = $('#subFixbar').height();
@@ -1205,17 +1498,17 @@
         var tinggi = content-header-subheader-50;
         $('#content-lap').css('height',tinggi);
     }
-    
+
     function setHeightForm(){
         var header = 70;
         var content = window.innerHeight;
         // var tinggi = content-header-40;
         var title = 69;
         // var body = tinggi-title;
-        var height = content-header-title-40;
-    
+        var height = content-header-title-65;
+
         if($('#saku-form').length > 0){
-            
+
             // $('#saku-form').css('height',tinggi);
             // $('.title-form').css('height',title);
             $('.form-body').css('height',height);
@@ -1223,113 +1516,87 @@
         // if($('#saku-datatable').length > 0){
         //     $('#saku-datatable .card').css('min-height',tinggi);
         // }
+        if($('.card-body-footer').length > 0){
+            $('.card-body-footer').css('width',$('.form-body').width());
+        }
+    }
+
+    function setWidthFooterCardBody(){
+        if($('.card-body-footer').length > 0){
+            if($('#saku-form > .col-lg-6').length > 0){
+                var pos = $('#saku-form > .col-lg-6').position();
+                var main_width = $('.main-menu').width();
+                var main_pos = $('.main-menu').position();
+                if(main_pos.left < 0){
+                    main_width = 10;
+                }
+                $('.card-body-footer').css('width',$('#saku-form > .col-lg-6').width()+'px').css({'left':main_width});
+            }else{
+                $('.card-body-footer').css('width',$('.container-fluid').width()+'px');
+            }
+        }
+    }
+
+    function setHeightFormPOS(){
+        var header = 70;
+        var content = window.innerHeight;
+        var height = content-header-50;
+
+        if($('.form-pos-body').length > 0){
+            $('.form-pos-body').css('height',height);
+        }
+        if($('.grid-table').length > 0){
+
+            if($('.form-beli-ket').length > 0){
+                height -= 55;
+            }
+            $('.grid-table').css('height',height-236);
+        }
     }
 
     var lifetime = "{{ config('session.lifetime') }}";
     setTimeout(function(){
-        window.location.href = "{{url('dash-telu/sesi-habis')}}";
+        window.location.href = "{{url('esaku-auth/sesi-habis')}}";
     }, 1000 * 60 * parseInt(lifetime));
-    
-    var form ="{{ Session::get('dash') }}";
+
     if(form !="" || form != "-"){
-        loadForm("{{ url('dash-telu/form') }}/"+form);
+        loadForm("{{ url('sdm2-auth/form') }}/"+form);
     }
-    
+
     $( window ).resize(function() {
         if($('#content-lap').length > 0){
             setHeightReport();
         }
         setHeightForm();
+        setHeightFormPOS();
+        setWidthFooterCardBody();
     });
-    
+
     $('#notificationButton').click(function(){
         updateNotifRead();
     });
 
     $('.to-home').click(function(){
-        if(form != "" || form != "-"){
-
-            loadForm("{{ url('dash-telu/form') }}/"+form);
+        var home = "{{ Session::get('dash') }}";
+        if(home != "" || home != "-"){
+            loadForm("{{ url('yakes-auth/form') }}/"+home);
         }else{
-            loadForm("{{ url('dash-telu/form') }}/blankform");
+            loadForm("{{ url('yakes-auth/form') }}/blankform");
         }
     });
-    var $theme = "dore.light.redruby.min.css";
-    var mode = window.localStorage.getItem('dore-theme');
-    if (mode == "dark") {
-        $theme = $theme.replace("light", "dark");
-        var url_logo = "{{ asset('img/whitelogo Telu.png') }}";
-        var url_logo_mob = "{{ asset('img/telu_darkmode_mini.jpeg') }}";
-        var url_logo2 = "{{ asset('img/KUG Light.png') }}";
-        $('.logo').css({
-            'background': "url('"+url_logo+"') no-repeat",
-            'background-size': '100px',
-            'height':'35px',
-        });
-        $('.logo2').css({
-            'background': "url('"+url_logo2+"') no-repeat",
-            'background-size': '25px',
-            'height':'35px',
-        });
-        $('.logo-mobile').css({
-            'background': "url('"+url_logo_mob+"') no-repeat",
-            'background-size': '30px',
-            'height': '30px',
-        });
+    var $theme = "dore.light.bluesaku.min.css";
 
-      // localStorage.setItem("dore-theme", mode);
-    } else if (mode == "light") {
-        $theme = $theme.replace("dark", "light");
-        var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
-        var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
-        var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
-        $('.logo').css({
-            'background': "url('"+url_logo+"') no-repeat",
-            'background-size': '120px',
-            'height':'45px',
-        });
-        $('.logo2').css({
-            'background': "url('"+url_logo2+"') no-repeat",
-            'background-size': '25px',
-            'height':'35px',
-        });
-        $('.logo-mobile').css({
-            'background': "url('"+url_logo_mob+"') no-repeat",
-            'background-size': '30px',
-            'height': '30px',
-        });
-    }else{
-        $theme = $theme.replace("dark", "light");
-        var url_logo = "{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}";
-        var url_logo_mob = "{{ asset('img/logo-telu.png') }}";
-        var url_logo2 = "{{ asset('img/KUG Dark.png') }}";
-        $('.logo').css({
-            'background': "url('"+url_logo+"') no-repeat",
-            'background-size': '120px',
-            'height':'45px',
-        });
-        $('.logo2').css({
-            'background': "url('"+url_logo2+"') no-repeat",
-            'background-size': '25px',
-            'height':'25px',
-        });
-        $('.logo-mobile').css({
-            'background': "url('"+url_logo_mob+"') no-repeat",
-            'background-size': '30px',
-            'height': '30px',
-        });   
-    }
- 
-    </script>
-    <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
-    <script>
-        $('div.theme-colors').hide();
+        </script>
+        <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
+        <script>
+            $('div.theme-colors').hide();
         window.localStorage.setItem('logged_in', true);
 
         function storageChange (event) {
             if(event.key === 'logged_in') {
                 if(window.localStorage.getItem('logged_in') == "false"){
-                    window.location.href = "{{ url('dash-telu/sesi-habis') }}";
+                    window.localStorage.removeItem('esaku-form');
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
                 }
             }
         }
@@ -1342,8 +1609,20 @@
             });
         }
 
-        
+        // window.addEventListener('beforeunload', function (e) {
+        //     e.preventDefault(); // If you prevent default behavior in Mozilla Firefox prompt will always be shown
+        //     console.log('ok');
+        //     loadForm("{{ url('esaku-auth/form') }}/fMasakun");
+        //     // Chrome requires returnValue to be set
+        //     e.returnValue = '';
+        //     // the absence of a returnValue property on the event will guarantee the browser unload happens
+        //     delete e['returnValue'];
+        //     return false;
+        // });
 
-    </script>
-</body>
+
+
+        </script>
+    </body>
+
 </html>

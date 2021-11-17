@@ -111,6 +111,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapBdhRoutes();
 
         $this->mapDashYptRoutes();
+
+        $this->mapSdm2Routes();
     }
 
     /**
@@ -782,5 +784,33 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dash-ypt/report.php'));
+    }
+
+    protected function mapSdm2Routes()
+    {
+        Route::prefix('sdm2-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdm2/auth.php'));
+
+        Route::prefix('sdm2-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdm2/dash.php'));
+
+        Route::prefix('sdm2-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdm2/master.php'));
+
+        Route::prefix('sdm2-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdm2/trans.php'));
+
+        Route::prefix('sdm2-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sdm2/report.php'));
     }
 }

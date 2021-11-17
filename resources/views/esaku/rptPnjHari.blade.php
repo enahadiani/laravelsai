@@ -29,7 +29,7 @@ function drawRptPage(data,res,from,to){
             var total=0;  
             var subTot=0;
             var no=1;
-            html += "<div class='card card-body'>";
+            html += "<div class='card card-body display' style='display: block;'>";
             html += "<h3><b>Tanggal</b> <span class='pull-right'>#"+value.tanggal+"</span></h3>";
             html += "<hr/>";
             html += "<div class='row'>";
@@ -42,7 +42,7 @@ function drawRptPage(data,res,from,to){
             html += "</div>"
             html += "</div>";
             html += "<div class='col-md-12'>";
-            html += "<div class='table-responsive mt-40' style='clear: both;'>";
+            html += "<div class='table-responsive mt-40'>";
             html += "<table class='table table-hover'>";
             html += "<thead>";
             html += "<tr>";
@@ -92,12 +92,11 @@ function drawRptPage(data,res,from,to){
             html += "<hr/>";
             html += "<h3><b>Total: </b>"+sepNum(total)+"</h3>"
             html += "</div>";
-            html += "<div class='clearfix'></div>"
             html += "</div>";
             html += "</div>";
             html += "</div>";
+            html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
         }
-        html += "<div style='page-break-after:always'></div>";
         html += "</div>";
     }
     $('#canvasPreview').html(html);

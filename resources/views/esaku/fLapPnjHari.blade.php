@@ -1,4 +1,12 @@
 <link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    @media print {
+        #break_page {
+            clear: both;
+            page-break-after: always;
+        }
+    }
+</style>
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
@@ -231,9 +239,7 @@
     });
 
     $('#sai-rpt-print').click(function(){
-        $('#saku-report #canvasPreview').printThis({
-            removeInline: true
-        });
+        $('#saku-report .card-body, #break_page').printThis();
     });
 
     $('#sai-rpt-print-prev').click(function(){
