@@ -73,6 +73,9 @@
 .mb-6 {
     margin-bottom: 6px !important;
 }
+.mb-16 {
+    margin-bottom: 16px;
+}
 .mt-4 {
     margin-top: 4px !important;
 }
@@ -110,11 +113,18 @@
     color: #dc2626;
     font-weight: 700;
 }
+.red-text-700 {
+    color: #830000;
+    font-weight: 700;
+}
 .grey-text {
     color: #b9b9b9;
 }
 .text-center {
     text-align: center;
+}
+.text-right {
+    text-align: right;
 }
 .h-20 {
     height: 20px;
@@ -127,6 +137,9 @@
 }
 .h-498 {
     height: 498px;
+}
+.h-full {
+    height: 100%;
 }
 .w-10 {
     width: 10px;
@@ -163,4 +176,10 @@
 }
 .rotate-360 {
     transform: rotate(180deg);
+}
+.font-medium {
+    font-size: 1.2rem !important;
+}
+.lh-1 {
+    line-height: 1.2;
 }
