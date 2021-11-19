@@ -369,6 +369,12 @@ Route::post('sdm-bank', 'Esaku\Sdm\BankController@store');
 Route::post('sdm-bank-update', 'Esaku\Sdm\BankController@update');
 Route::delete('sdm-bank', 'Esaku\Sdm\BankController@delete');
 
+//DATA KLIEN
+Route::get('sdm-kliens', 'Esaku\Sdm\KlienController@index');
+Route::get('sdm-klien', 'Esaku\Sdm\KlienController@show');
+Route::post('sdm-klien', 'Esaku\Sdm\KlienController@store');
+Route::post('sdm-klien-update', 'Esaku\Sdm\KlienController@update');
+Route::delete('sdm-klien', 'Esaku\Sdm\KlienController@delete');
 /* --------------------------------------------------------------------------------------------------
 END MODUL SDM
  --------------------------------------------------------------------------------------------------*/
