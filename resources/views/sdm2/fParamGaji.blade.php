@@ -24,7 +24,7 @@
                 <div class="card-body pt-0 form-body" id="form-body">
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <label for="kode">Kode Bank</label>
+                            <label for="kode">Kode Param</label>
                             <input class="form-control" type="text" id="kode" name="kode" autocomplete="off" required>
                         </div>
                     </div>
