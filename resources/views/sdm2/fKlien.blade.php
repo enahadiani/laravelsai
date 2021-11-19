@@ -254,12 +254,16 @@
                     } else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('sdm2-auth/sesi-habis') }}";
                     } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                            footer: '<a href>'+result.data.message+'</a>'
-                        })
+                        msgDialog({
+                            id: kode,
+                            type: 'duplicate'
+                        });
+                        // Swal.fire({
+                        //     icon: 'error',
+                        //     title: 'Oops...',
+                        //     text: 'Something went wrong!',
+                        //     footer: '<a href>'+result.data.message+'</a>'
+                        // })
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){

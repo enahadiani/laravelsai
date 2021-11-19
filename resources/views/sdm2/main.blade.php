@@ -1021,7 +1021,17 @@
                     }
                 break;
                 case 'duplicate':
-                    //
+                    // if (result.value) {
+                    //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                    // } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    //     //
+                    //     $('#saku-datatable').show();
+                    //     $('#saku-form').hide();
+                    //     if($('#saku-form-upload').length > 0){
+                    //         $('#saku-form-upload').hide();
+                    //     }
+                    //     showNotification("top", "center", "success",'Simpan Data','Data ('+data.id+') berhasil disimpan ');
+                    // }
                 break;
                 case 'sukses':
                     //
