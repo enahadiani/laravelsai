@@ -247,9 +247,11 @@ $('.card-r-2').css('height', `${$height - 300}px`);
             async: false,
             success: function(result) {
                 var data = result.data;
-                lrChart = Highcharts.chart('pdpt-chart', {
+                pdptChart = Highcharts.chart('pdpt-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -347,6 +349,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 bebanChart = Highcharts.chart('beban-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -445,6 +449,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 shuChart = Highcharts.chart('shu-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -543,6 +549,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
                 orChart = Highcharts.chart('or-chart', {
                     chart: {
                         height: 150,
+                        width: 270,
+                        marginTop: 10,
                         type: 'column',
                         spacing: [0, 0, 0, 0],
 			            backgroundColor: null
@@ -1411,6 +1419,55 @@ function setHeightPage() {
 </script>
 
 <script type="text/javascript">
+// EVENT CARD DASH
+    $('.click-card').click(function() {
+        var kode = $(this).data('grafik');
+        var id = $(this).attr('id');
+
+        if($render == 0) {
+            createChartPerform(kode)
+            createChartLembaga(kode)
+            createChartKelompok(kode)
+            createChartAkun(kode)
+        } else {
+            updateChartDetail(kode)
+        }
+
+        if(id == 'pdpt-box') {
+            $judulChart = "Pendapatan"
+            $('#title-dash').text('Pendapatan')
+            $('.title-chart').text('Pendapatan')
+        }else if(id == 'beban-box') {
+            $judulChart = "Beban"
+            $('#title-dash').text('Beban')
+            $('.title-chart').text('Beban')
+        }else if(id == 'shu-box') {
+            $judulChart = "Sisa Hasil Usaha"
+            $('#title-dash').text('Sisa Hasil Usaha')
+            $('.title-chart').text('Sisa Hasil Usaha')
+        }else if(id == 'or-box') {
+            $judulChart = "Rasio Operasional"
+            $('#title-dash').text('Rasio Operasional')
+            $('.title-chart').text('Rasio Operasional')
+        }
+        $('#back-div').removeClass('hidden')
+        $('#dash-title-div').removeClass('pl-8').addClass('pl-0')
+        $('#main-dash').hide()
+        $('#detail-dash').show()
+    })
+// EVENT CARD DASH
+// KEMBALI
+$('#back').click(function() {
+    $('#title-dash').text('Financial Performance YPT')
+    $('#back-div').addClass('hidden')
+    $('#dash-title-div').removeClass('pl-0')
+    $('#dash-title-div').addClass('pl-8')
+    $('#detail-dash').hide()
+    $('#main-dash').show()
+});
+// END KEMBALI
+</script>
+<script type="text/javascript">
 // TABLE LEMBAGA EVET
 $('#table-lembaga tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
@@ -2076,7 +2133,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- ROW 1 --}}
     <div id="dekstop-1" class="row dekstop">
         <div class="col-3 pl-12 pr-0">
-            <div class="card card-dash border-r-0 cursor-pointer" id="pdpt-box" data-grafik="">
+            <div class="card card-dash border-r-0 click-card cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
                     <div class="col-10">
                         <h4 class="header-card">Pendapatan</h4>
@@ -2131,13 +2188,13 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div id="pdpt-chart" class="mt-8 chart-card chart-no-grid hidden"></div>
+                        <div id="pdpt-chart" class="chart-card chart-no-grid hidden"></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash  border-r-0 cursor-pointer" id="beban-box" data-grafik="">
+            <div class="card card-dash border-r-0 click-card cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
                     <div class="col-10">
                         <h4 class="header-card">Beban</h4>
@@ -2198,7 +2255,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash  border-r-0 cursor-pointer" id="shu-box" data-grafik="">
+            <div class="card card-dash border-r-0 click-card cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-10">
                         <h4 class="header-card">Sisa Hasil Usaha</h4>
@@ -2259,7 +2316,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             </div>
         </div>
         <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash  border-r-0 cursor-pointer" id="or-box" data-grafik="">
+            <div class="card card-dash border-r-0 click-card cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
                     <div class="col-10">
                         <h4 class="header-card">Operating Ratio</h4>
@@ -2386,6 +2443,8 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- END ROW 2 --}}
 </section>
 {{-- END DESKTOP --}}
+
+@include('dash-ypt.components.detail_fpv2')
 
 {{-- WINDOW DRAGABLE --}}
 <div class="window-drag hidden" id="window-drag">
