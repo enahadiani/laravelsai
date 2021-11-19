@@ -13,12 +13,12 @@ Route::get('barang-klp-pdpt', 'Esaku\HelperController@getAkunPdptKelBar');
 Route::get('barang-klp-hpp', 'Esaku\HelperController@getAkunHPPKelBar');
 Route::get('menu-klp', 'Esaku\HelperController@getKlpMenu');
 Route::get('menu-form', 'Esaku\HelperController@getLabMenu');
-Route::get('masakun-curr','Esaku\HelperController@getCurr');
-Route::get('masakun-modul','Esaku\HelperController@getModul');
-Route::get('reftrans-kode/{jenis}','Esaku\HelperController@getRef');
-Route::get('reftrans-pemasukan','Esaku\HelperController@getRefPemasukan');
-Route::get('reftrans-pengeluaran','Esaku\HelperController@getRefPengeluaran');
-Route::get('reftrans-pindah-buku','Esaku\HelperController@getRefPindahBuku');
+Route::get('masakun-curr', 'Esaku\HelperController@getCurr');
+Route::get('masakun-modul', 'Esaku\HelperController@getModul');
+Route::get('reftrans-kode/{jenis}', 'Esaku\HelperController@getRef');
+Route::get('reftrans-pemasukan', 'Esaku\HelperController@getRefPemasukan');
+Route::get('reftrans-pengeluaran', 'Esaku\HelperController@getRefPengeluaran');
+Route::get('reftrans-pindah-buku', 'Esaku\HelperController@getRefPindahBuku');
 
 // Data Kelompok Barang //
 Route::get('klp-barang', 'Esaku\Aktap\KelompokBarangAsetController@index');
@@ -155,15 +155,15 @@ Route::put('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@update');
 Route::delete('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@delete');
 
 //Format Laporan
-Route::get('format-laporan','Esaku\Keuangan\FormatLaporanController@show');
-Route::post('format-laporan','Esaku\Keuangan\FormatLaporanController@store');
-Route::put('format-laporan','Esaku\Keuangan\FormatLaporanController@update');
-Route::delete('format-laporan','Esaku\Keuangan\FormatLaporanController@destroy');
-Route::get('format-laporan-versi','Esaku\Keuangan\FormatLaporanController@getVersi');
-Route::get('format-laporan-tipe','Esaku\Keuangan\FormatLaporanController@getTipe');
-Route::get('format-laporan-relakun','Esaku\Keuangan\FormatLaporanController@getRelakun');
-Route::post('format-laporan-relasi','Esaku\Keuangan\FormatLaporanController@simpanRelasi');
-Route::post('format-laporan-move','Esaku\Keuangan\FormatLaporanController@simpanMove');
+Route::get('format-laporan', 'Esaku\Keuangan\FormatLaporanController@show');
+Route::post('format-laporan', 'Esaku\Keuangan\FormatLaporanController@store');
+Route::put('format-laporan', 'Esaku\Keuangan\FormatLaporanController@update');
+Route::delete('format-laporan', 'Esaku\Keuangan\FormatLaporanController@destroy');
+Route::get('format-laporan-versi', 'Esaku\Keuangan\FormatLaporanController@getVersi');
+Route::get('format-laporan-tipe', 'Esaku\Keuangan\FormatLaporanController@getTipe');
+Route::get('format-laporan-relakun', 'Esaku\Keuangan\FormatLaporanController@getRelakun');
+Route::post('format-laporan-relasi', 'Esaku\Keuangan\FormatLaporanController@simpanRelasi');
+Route::post('format-laporan-move', 'Esaku\Keuangan\FormatLaporanController@simpanMove');
 
 // Data FS //
 Route::get('fs', 'Esaku\Keuangan\FSController@index');
@@ -233,32 +233,34 @@ Route::get('msakundet-neraca', 'Esaku\Keuangan\MasakunDetailController@getNeraca
 | Modul Simpanan -Master
 |--------------------------------------------------------------------------
 */
-Route::get('anggota','Esaku\Simpanan\Master\AnggotaController@index');
-Route::get('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@show');
-Route::post('anggota','Esaku\Simpanan\Master\AnggotaController@store');
-Route::put('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@update');
-Route::delete('anggota/{id}','Esaku\Simpanan\Master\AnggotaController@destroy');
+Route::get('anggota', 'Esaku\Simpanan\Master\AnggotaController@index');
+Route::get('anggota/{id}', 'Esaku\Simpanan\Master\AnggotaController@show');
+Route::post('anggota', 'Esaku\Simpanan\Master\AnggotaController@store');
+Route::put('anggota/{id}', 'Esaku\Simpanan\Master\AnggotaController@update');
+Route::delete('anggota/{id}', 'Esaku\Simpanan\Master\AnggotaController@destroy');
 
 
 // Data Master Jenis Simpanan
-Route::get('jenis-simpanan','Esaku\Simpanan\Master\JenisSimpananController@index');
-Route::get('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@show');
-Route::post('jenis-simpanan','Esaku\Simpanan\Master\JenisSimpananController@store');
-Route::put('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@update');
-Route::delete('jenis-simpanan/{id}','Esaku\Simpanan\Master\JenisSimpananController@destroy');
+Route::get('jenis-simpanan', 'Esaku\Simpanan\Master\JenisSimpananController@index');
+Route::get('jenis-simpanan/{id}', 'Esaku\Simpanan\Master\JenisSimpananController@show');
+Route::post('jenis-simpanan', 'Esaku\Simpanan\Master\JenisSimpananController@store');
+Route::put('jenis-simpanan/{id}', 'Esaku\Simpanan\Master\JenisSimpananController@update');
+Route::delete('jenis-simpanan/{id}', 'Esaku\Simpanan\Master\JenisSimpananController@destroy');
 
 
 // Data Master Akun -- (Data References)
-Route::get('akun-simpanan','Esaku\Simpanan\Master\JenisSImpananController@getAkun');
+Route::get('akun-simpanan', 'Esaku\Simpanan\Master\JenisSImpananController@getAkun');
 
 //Data Master Kartu Simpanan
-Route::get('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@index');
-Route::get('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@show');
-Route::post('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@store');
-Route::put('kartu-simpanan','Esaku\Simpanan\Master\KartuSimpananController@update');
-Route::delete('kartu-simpanan/{id}','Esaku\Simpanan\Master\KartuSimpananController@destroy');
+Route::get('kartu-simpanan', 'Esaku\Simpanan\Master\KartuSimpananController@index');
+Route::get('kartu-simpanan/{id}', 'Esaku\Simpanan\Master\KartuSimpananController@show');
+Route::post('kartu-simpanan', 'Esaku\Simpanan\Master\KartuSimpananController@store');
+Route::put('kartu-simpanan', 'Esaku\Simpanan\Master\KartuSimpananController@update');
+Route::delete('kartu-simpanan/{id}', 'Esaku\Simpanan\Master\KartuSimpananController@destroy');
 
-// SDM
+/* --------------------------------------------------------------------------------------------------
+BEGIN MODUL SDM
+ --------------------------------------------------------------------------------------------------*/
 
 // Data Loker //
 Route::get('sdm-lokers', 'Esaku\Sdm\LokerController@index');
@@ -330,3 +332,17 @@ Route::get('sdm-strata', 'Esaku\Sdm\StrataSDMController@show');
 Route::post('sdm-strata', 'Esaku\Sdm\StrataSDMController@store');
 Route::post('sdm-strata-update', 'Esaku\Sdm\StrataSDMController@update');
 Route::delete('sdm-strata', 'Esaku\Sdm\StrataSDMController@delete');
+
+
+//DATA AREA
+Route::get('sdm-areas', 'Esaku\Sdm\AreaController@index');
+Route::get('sdm-area', 'Esaku\Sdm\AreaController@show');
+Route::post('sdm-area', 'Esaku\Sdm\AreaController@store');
+Route::post('sdm-area-update', 'Esaku\Sdm\AreaController@update');
+Route::delete('sdm-area', 'Esaku\Sdm\AreaController@delete');
+
+
+
+/* --------------------------------------------------------------------------------------------------
+END MODUL SDM
+ --------------------------------------------------------------------------------------------------*/
