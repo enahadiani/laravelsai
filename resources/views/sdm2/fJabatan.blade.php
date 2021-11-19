@@ -192,6 +192,7 @@
                     } else {
                         msgDialog({
                             id: kode,
+                            text: result.data.message,
                             type: 'duplicate'
                         });
                     }

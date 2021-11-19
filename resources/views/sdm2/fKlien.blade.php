@@ -256,14 +256,9 @@
                     } else {
                         msgDialog({
                             id: kode,
+                            text: result.data.message,
                             type: 'duplicate'
                         });
-                        // Swal.fire({
-                        //     icon: 'error',
-                        //     title: 'Oops...',
-                        //     text: 'Something went wrong!',
-                        //     footer: '<a href>'+result.data.message+'</a>'
-                        // })
                     }
                 },
                 fail: function(xhr, textStatus, errorThrown){
