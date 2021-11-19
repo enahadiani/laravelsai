@@ -341,6 +341,13 @@ Route::post('sdm-area', 'Esaku\Sdm\AreaController@store');
 Route::post('sdm-area-update', 'Esaku\Sdm\AreaController@update');
 Route::delete('sdm-area', 'Esaku\Sdm\AreaController@delete');
 
+//DATA FM
+Route::get('sdm-fms', 'Esaku\Sdm\FmController@index');
+Route::get('sdm-fm', 'Esaku\Sdm\FmController@show');
+Route::post('sdm-fm', 'Esaku\Sdm\FmController@store');
+Route::post('sdm-fm-update', 'Esaku\Sdm\FmController@update');
+Route::delete('sdm-fm', 'Esaku\Sdm\FmController@delete');
+
 
 
 /* --------------------------------------------------------------------------------------------------
