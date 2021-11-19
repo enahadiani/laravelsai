@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data FM" tambah="true" :thead="array('Kode','Nama','Kode Lokasi','Aksi')"
-    :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data FM" tambah="true" :thead="array('Kode','Nama','Area','Aksi')" :thwidth="array(20,25,25,10)"
+    :thclass="array('','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
 {{-- SAKU FORM --}}
@@ -153,7 +153,7 @@
         [
             { data: 'kode_fm' },
             { data: 'nama' },
-            { data : 'kode_lokasi'}
+            { data : 'area'}
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
         [[3 ,"desc"]]
@@ -312,8 +312,8 @@
                     $('#id').val(id)
                     $('#kode').val(id)
                     $('#nama').val(data.nama)
-                    // showInfoField('kode_area', data.kode_area, data
-                    //     .kode_area);
+                    showInfoField('kode_area', data.kode_area, data
+                        .kode_area);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
