@@ -309,8 +309,13 @@
                     $('#kode_loker').val(id)
                     $('#nama').val(data.nama)
                     $('#status').val(data.flag_aktif)
-                    // showInfoField('kode_area', data.kode_area, data
-                    //     .kode_area);
+                    showInfoField('kode_area', data.kode_area, data
+                        .kode_area);
+                    showInfoField('kode_fm', data.kode_fm, data
+                        .kode_fm);
+                    showInfoField('kode_bm', data.kode_bm, data
+                        .kode_bm);
+
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
