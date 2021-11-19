@@ -348,6 +348,13 @@ Route::post('sdm-fm', 'Esaku\Sdm\FmController@store');
 Route::post('sdm-fm-update', 'Esaku\Sdm\FmController@update');
 Route::delete('sdm-fm', 'Esaku\Sdm\FmController@delete');
 
+//DATA BM
+Route::get('sdm-bms', 'Esaku\Sdm\BmController@index');
+Route::get('sdm-bm', 'Esaku\Sdm\BmController@show');
+Route::post('sdm-bm', 'Esaku\Sdm\BmController@store');
+Route::post('sdm-bm-update', 'Esaku\Sdm\BmController@update');
+Route::delete('sdm-bm', 'Esaku\Sdm\BmController@delete');
+
 
 
 /* --------------------------------------------------------------------------------------------------
