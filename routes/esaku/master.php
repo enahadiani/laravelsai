@@ -355,7 +355,7 @@ Route::post('sdm-bm', 'Esaku\Sdm\BmController@store');
 Route::post('sdm-bm-update', 'Esaku\Sdm\BmController@update');
 Route::delete('sdm-bm', 'Esaku\Sdm\BmController@delete');
 
-//DATA BM
+//DATA WITEL
 Route::get('sdm-witels', 'Esaku\Sdm\WitelController@index');
 Route::get('sdm-witel', 'Esaku\Sdm\WitelController@show');
 Route::post('sdm-witel', 'Esaku\Sdm\WitelController@store');
@@ -382,6 +382,9 @@ Route::get('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@show');
 Route::post('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@store');
 Route::post('sdm-gaji-param-update', 'Esaku\Sdm\GajiParamController@update');
 Route::delete('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@delete');
+
+// additional routes for filter
+Route::get('get-fm-area', 'Esaku\Sdm\FmController@getFmByArea');
 /* --------------------------------------------------------------------------------------------------
 END MODUL SDM
  --------------------------------------------------------------------------------------------------*/

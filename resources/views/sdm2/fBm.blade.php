@@ -407,26 +407,32 @@
                 }
                 break;
             case 'kode_fm':
-                var settings = {
-                    id: id,
-                    header: ['Kode Akun', 'Nama'],
-                    url: "{{ url('esaku-master/sdm-fms') }}",
-                    columns: [{
-                            data: 'kode_fm'
-                        },
-                        {
-                            data: 'nama'
-                        }
-                    ],
-                    judul: "Pilih Kode FM",
-                    pilih: "akun",
-                    jTarget1: "text",
-                    jTarget2: "text",
-                    target1: ".info-code_" + id,
-                    target2: ".info-name_" + id,
-                    target3: "",
-                    target4: "",
-                    width: ["30%", "70%"],
+                var kode_area = $('#form-tambah #kode_area').val();
+                console.log(kode_area)
+                if(kode_area == ''){
+                    alert('Kode Area harus dipilih');
+                }else{
+                    var settings = {
+                        id: id,
+                        header: ['Kode Akun', 'Nama'],
+                        url: "{{ url('esaku-master/get-fm-area') }}?kode_area="+kode_area,
+                        columns: [{
+                                data: 'kode_fm'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        judul: "Pilih Kode FM",
+                        pilih: "akun",
+                        jTarget1: "text",
+                        jTarget2: "text",
+                        target1: ".info-code_" + id,
+                        target2: ".info-name_" + id,
+                        target3: "",
+                        target4: "",
+                        width: ["30%", "70%"],
+                    }
                 }
                 break;
         }
