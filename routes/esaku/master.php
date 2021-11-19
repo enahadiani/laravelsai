@@ -375,6 +375,13 @@ Route::get('sdm-klien', 'Esaku\Sdm\KlienController@show');
 Route::post('sdm-klien', 'Esaku\Sdm\KlienController@store');
 Route::post('sdm-klien-update', 'Esaku\Sdm\KlienController@update');
 Route::delete('sdm-klien', 'Esaku\Sdm\KlienController@delete');
+
+//DATA GAJI PARAM
+Route::get('sdm-gaji-params', 'Esaku\Sdm\GajiParamController@index');
+Route::get('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@show');
+Route::post('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@store');
+Route::post('sdm-gaji-param-update', 'Esaku\Sdm\GajiParamController@update');
+Route::delete('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@delete');
 /* --------------------------------------------------------------------------------------------------
 END MODUL SDM
  --------------------------------------------------------------------------------------------------*/
