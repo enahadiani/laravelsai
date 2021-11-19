@@ -60,6 +60,7 @@ class GajiParamController extends Controller
         $this->validate($request, [
             'kode' => 'required',
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
 
         try {
@@ -72,6 +73,7 @@ class GajiParamController extends Controller
                 'form_params' => [
                     'kode_param' => $request->input('kode'),
                     'nama' => $request->input('nama'),
+                    'jenis' => $request->input('jenis'),
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -127,6 +129,7 @@ class GajiParamController extends Controller
         $this->validate($request, [
             'kode' => 'required',
             'nama' => 'required',
+            'jenis' => 'required',
         ]);
 
         try {
@@ -139,6 +142,7 @@ class GajiParamController extends Controller
                 'form_params' => [
                     'kode_param' => $request->input('kode'),
                     'nama' => $request->input('nama'),
+                    'jenis' => $request->input('jenis'),
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK

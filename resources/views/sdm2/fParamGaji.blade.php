@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data Param Gaji" tambah="true" :thead="array('Kode','Nama','Kode Lokasi','Aksi')"
+<x-list-data judul="Data Param Gaji" tambah="true" :thead="array('Kode','Nama','Jenis','Aksi')"
     :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
@@ -32,6 +32,15 @@
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="nama">Nama</label>
                             <input class="form-control" type="text" id="nama" name="nama" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 col-sm-12">
+                            <label for="jenis">Jenis</label>
+                            <select name="jenis" id="jenis" class="form-control inp-jenis">
+                                <option value="T">Tetap</option>
+                                <option value="F">Fleksibel</option>
+                            </select>
                         </div>
                     </div>
 
@@ -136,7 +145,12 @@
         [
             { data: 'kode_param' },
             { data: 'nama' },
-            { data : 'kode_lokasi'}
+            { data: 'jenis', render: function(data) {
+                if(data === "T") {
+                    return "Tetap"
+                }
+                return "Fleksibel"
+            } }
         ],
         "{{ url('esaku-auth/sesi-habis') }}",
         [[3 ,"desc"]]
@@ -294,6 +308,7 @@
                     $('#id').val(id)
                     $('#kode').val(id)
                     $('#nama').val(data.nama)
+                    $('#jenis').val(data.jenis)
                     // showInfoField('kode_area', data.kode_area, data
                     //     .kode_area);
                     $('#saku-datatable').hide();
