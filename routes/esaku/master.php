@@ -385,6 +385,7 @@ Route::delete('sdm-gaji-param', 'Esaku\Sdm\GajiParamController@delete');
 
 // additional routes for filter
 Route::get('get-fm-area', 'Esaku\Sdm\FmController@getFmByArea');
+Route::get('get-bm-fm', 'Esaku\Sdm\BmController@getBmByFm');
 /* --------------------------------------------------------------------------------------------------
 END MODUL SDM
  --------------------------------------------------------------------------------------------------*/

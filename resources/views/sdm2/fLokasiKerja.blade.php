@@ -25,15 +25,68 @@
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
                             <label for="kode_loker">Kode Lokasi Kerja</label>
-                            <input class="form-control" type="text" placeholder="Kode Lokasi Kerja" id="kode_loker"
-                                name="kode_loker" autocomplete="off" required>
+                            <input class="form-control" type="text" id="kode_loker" name="kode_loker" autocomplete="off"
+                                required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="nama">Nama</label>
-                            <input class="form-control" type="text" placeholder="Nama Lokasi Kerja" id="nama"
-                                name="nama" autocomplete="off" required>
+                            <input class="form-control" type="text" id="nama" name="nama" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="kode_area">Kode Area</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_area" readonly="readonly" title=""
+                                        data-toggle="tooltip" data-placement="top"></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-kode_area" id="kode_area"
+                                    name="kode_area" value="" title="" readonly>
+                                <span class="info-name_kode_area hidden">
+                                    <span></span>
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_kode_area"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="kode_fm">Kode FM</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_fm" readonly="readonly" title=""
+                                        data-toggle="tooltip" data-placement="top"></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-kode_fm" id="kode_fm" name="kode_fm"
+                                    value="" title="" readonly>
+                                <span class="info-name_kode_fm hidden">
+                                    <span></span>
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_kode_fm"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="kode_bm">Kode BM</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_kode_bm" readonly="readonly" title=""
+                                        data-toggle="tooltip" data-placement="top"></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-kode_bm" id="kode_bm" name="kode_bm"
+                                    value="" title="" readonly>
+                                <span class="info-name_kode_bm hidden">
+                                    <span></span>
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_kode_bm"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -62,7 +115,9 @@
     </div>
 </form>
 {{-- END SAKU FORM --}}
-
+<button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
+@include('modal_upload')
+@include('modal_search')
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script src="{{ asset('main.js') }}"></script>
@@ -80,6 +135,14 @@
 
     var scrollForm = document.querySelector('#form-body');
     new PerfectScrollbar(scrollForm);
+
+    setHeightForm();
+    $('#error-kode').hide();
+    $('#success-kode').hide();
+    // FORM SMALL
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
 // END CONFIG FORM
 
 // SAKU TABLE
@@ -247,7 +310,8 @@
                     $('#kode_loker').val(id)
                     $('#nama').val(data.nama)
                     $('#status').val(data.flag_aktif)
-
+                    // showInfoField('kode_area', data.kode_area, data
+                    //     .kode_area);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -294,4 +358,95 @@
         });
     }
 // END DELETE DATA TRIGGER
+
+
+ // TRIGGER CHANGE
+ $('#form-tambah').on('click', '.search-item2', function() {
+        var id = $(this).closest('div').find('input').attr('name');
+        switch (id) {
+            case 'kode_area':
+                var settings = {
+                    id: id,
+                    header: ['Kode Akun', 'Nama'],
+                    url: "{{ url('esaku-master/sdm-areas') }}",
+                    columns: [{
+                            data: 'kode_area'
+                        },
+                        {
+                            data: 'nama'
+                        }
+                    ],
+                    judul: "Pilih Kode Area",
+                    pilih: "akun",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
+                }
+                break;
+            case 'kode_fm':
+                var kode_area = $('#form-tambah #kode_area').val();
+                console.log(kode_area)
+                if(kode_area == ''){
+                    alert('Kode Area harus dipilih');
+                }else{
+                    var settings = {
+                        id: id,
+                        header: ['Kode Akun', 'Nama'],
+                        url: "{{ url('esaku-master/get-fm-area') }}?kode_area="+kode_area,
+                        columns: [{
+                                data: 'kode_fm'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        judul: "Pilih Kode FM",
+                        pilih: "akun",
+                        jTarget1: "text",
+                        jTarget2: "text",
+                        target1: ".info-code_" + id,
+                        target2: ".info-name_" + id,
+                        target3: "",
+                        target4: "",
+                        width: ["30%", "70%"],
+                    }
+                }
+                break;
+                case 'kode_bm':
+                var kode_fm = $('#form-tambah #kode_fm').val();
+                console.log(kode_fm)
+                if(kode_fm == ''){
+                    alert('Kode FM harus dipilih');
+                }else{
+                    var settings = {
+                        id: id,
+                        header: ['Kode Akun', 'Nama'],
+                        url: "{{ url('esaku-master/get-bm-fm') }}?kode_fm="+kode_fm,
+                        columns: [{
+                                data: 'kode_bm'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        judul: "Pilih Kode BM",
+                        pilih: "akun",
+                        jTarget1: "text",
+                        jTarget2: "text",
+                        target1: ".info-code_" + id,
+                        target2: ".info-name_" + id,
+                        target3: "",
+                        target4: "",
+                        width: ["30%", "70%"],
+                    }
+                }
+                break;
+        }
+        // showInpFilter(settings);
+        showInpFilterBSheet(settings);
+    });
 </script>
