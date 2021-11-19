@@ -362,6 +362,13 @@ Route::post('sdm-witel', 'Esaku\Sdm\WitelController@store');
 Route::post('sdm-witel-update', 'Esaku\Sdm\WitelController@update');
 Route::delete('sdm-witel', 'Esaku\Sdm\WitelController@delete');
 
+//DATA BANK
+Route::get('sdm-banks', 'Esaku\Sdm\BankController@index');
+Route::get('sdm-bank', 'Esaku\Sdm\BankController@show');
+Route::post('sdm-bank', 'Esaku\Sdm\BankController@store');
+Route::post('sdm-bank-update', 'Esaku\Sdm\BankController@update');
+Route::delete('sdm-bank', 'Esaku\Sdm\BankController@delete');
+
 /* --------------------------------------------------------------------------------------------------
 END MODUL SDM
  --------------------------------------------------------------------------------------------------*/
