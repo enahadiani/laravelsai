@@ -104,5 +104,59 @@ class DashboardRasioController extends Controller
         }
     }
 
+    public function getRasioYoY(Request $r) {
+        try {
+            $req = $r->all();
+            
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-yoy',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $req
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getRasioTahun(Request $r) {
+        try {
+            $req = $r->all();
+            
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-tahun',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $req
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
    
 }
