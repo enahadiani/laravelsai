@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/rk.dekstop.css?version=_').time() }}" />
 <style>
-    html {
+    /* html {
         overflow-y: scroll !important;
-    }
+    } */
 </style>
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
@@ -78,7 +78,7 @@
                         }
                     }
                 }else{
-                    alert(JSON.stringfy(result.message));
+                    alert(JSON.stringify(result.message));
                 }
                 $('#filter-checkbox-lembaga').html(html);
             }
@@ -104,8 +104,8 @@
                         $('#status-rasio-ytd').addClass('red-text')
                     }
                 }else{
-                    alert(JSON.stringfy(result.message));
-                    $('#status-rasio-ytd').html(0);
+                    // alert(JSON.stringify(result.message));
+                    $('#status-rasio-ytd').html('-');
                     $('#rasio-ytd').html('0 x');
                 }
                 
@@ -132,8 +132,8 @@
                         $('#status-rasio-selisih').addClass('red-text')
                     }
                 }else{
-                    alert(JSON.stringfy(result.message));
-                    $('#status-rasio-selisih').html(0);
+                    // alert(JSON.stringify(result.message));
+                    $('#status-rasio-selisih').html('-');
                     $('#rasio-selisih').html('0%');
                 }
                 
@@ -148,67 +148,61 @@
             dataType: 'JSON',
             data:{periode:periode,jenis:jenis,lokasi:lokasi},
             success: function(result) {
-                if(result.status){
-                    yoyChart = Highcharts.chart('rasio-chart', {
-                        chart: {
-                            height: 360
-                        },
-                        title: { text: '' },
-                        subtitle: { text: '' },
-                        exporting:{ 
-                            enabled: false
-                        },
-                        legend:{ 
-                            enabled: false
-                        },
-                        credits: { enabled: false },
-                        xAxis: {
-                            categories: result.ctg
-                        },
-                        yAxis: {
-                            title: {
-                                text: 'Nilai'
-                            }
-                        },
-                        tooltip: {
-                            formatter: function () {   
-                                return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
-                            }
-                        },
-                        plotOptions: {
-                            series: {
-                                dataLabels: {
-                                    // padding:10,
-                                    allowOverlap:true,
-                                    enabled: true,
-                                    crop: false,
-                                    overflow: 'justify',
-                                    useHTML: true,
-                                    formatter: function () {
-                                        return number_format(this.y,2);
-                                    }
-                                },
-                                label: {
-                                    connectorAllowed: false
-                                },
-                                marker:{
-                                    enabled:false
-                                },
-                            }
-                        },
-                        series: [
-                            {
-                                name: 'Nilai',
-                                data: result.series,
-                                color: '#830000'
+                yoyChart = Highcharts.chart('rasio-chart', {
+                    // chart: {
+                    //     height: 360
+                    // },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ 
+                        enabled: false
+                    },
+                    legend:{ 
+                        enabled: false
+                    },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: result.ctg
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Nilai'
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {   
+                            return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    return number_format(this.y,2);
+                                }
                             },
-                        ],
-                    });
-                }else{
-                    alert(JSON.stringfy(result.message));
-                    $('#status-rasio-selisih').html(0);
-                    $('#rasio-selisih').html('0%');
-                }
+                            label: {
+                                connectorAllowed: false
+                            },
+                            marker:{
+                                enabled:false
+                            },
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Nilai',
+                            data: result.series,
+                            color: '#830000'
+                        },
+                    ],
+                });
             }
         });
     }
@@ -336,6 +330,12 @@
         getRasioYoY(periode,jenis,lokasi);
         getYoYChart(periode,jenis,lokasi);
     });
+
+    var scrollfilter = document.querySelector('#filter-dash');
+    var psscrollfilter = new PerfectScrollbar(scrollfilter,{
+        suppressScrollX :true
+    });
+
 </script>
 {{-- HEADER --}}
 <section id="header" class="header">
@@ -490,7 +490,7 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <div id="rasio-chart"></div>
+                                <div id="rasio-chart" style="height:calc(100vh - 320px)"></div>
                             </div>
                         </div>
                     </div>
@@ -498,7 +498,7 @@
             </div>
         </div>
         <div class="col-3 pr-0">
-            <div class="card card-dash border-r-0 h-full">
+            <div class="card card-dash border-r-0 h-full" id="filter-dash" style="height:calc(100vh - 163px);">
                 <div class="row mb-16" id="filter-checkbox-rasio">
                     <div class="col-12 mb-6">
                         <h4 class="header-card">Jenis Rasio</h4>
