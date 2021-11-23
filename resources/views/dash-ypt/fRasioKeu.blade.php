@@ -126,11 +126,15 @@
                         $('#status-rasio-selisih').html('<i class="simple-icon-arrow-up-circle"></i>');
                         $('#status-rasio-selisih').removeClass('red-text')
                         $('#status-rasio-selisih').addClass('green-text')
+                        $('#rasio-selisih').removeClass('red-text')
                         $('#rasio-selisih').removeClass('red-text-700')
                         $('#rasio-selisih').addClass('green-text')
                     }
                     else if(result.status_rasio == 'Tetap'){
                         $('#status-rasio-selisih').html('')
+                        $('#rasio-selisih').removeClass('red-text')
+                        $('#rasio-selisih').removeClass('red-text-700')
+                        $('#rasio-selisih').removeClass('green-text')
                     }else{
                         $('#status-rasio-selisih').html('<i class="simple-icon-arrow-down-circle"></i>');
                         $('#status-rasio-selisih').removeClass('green-text')
