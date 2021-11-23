@@ -1,6 +1,10 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/rk.dekstop.css?version=_').time() }}" />
-
+<style>
+    html {
+        overflow-y: scroll !important;
+    }
+</style>
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
     var $tahun = parseInt($('#year-filter').text());
@@ -316,6 +320,15 @@
     });
 
     $('#filter-checkbox-rasio').on('click','input[type="radio"]',function(){
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
+    });
+
+    $('#filter-checkbox-lembaga').on('click','input[type="radio"]',function(){
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
