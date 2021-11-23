@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/rk.dekstop.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp2.dekstop.css?version=_').time() }}" />
 <style>
     /* html {
         overflow-y: scroll !important;
