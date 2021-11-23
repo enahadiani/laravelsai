@@ -146,9 +146,9 @@
             success: function(result) {
                 if(result.status){
                     yoyChart = Highcharts.chart('rasio-chart', {
-                        chart: {
-                            height: 360
-                        },
+                        // chart: {
+                        //     height: 300
+                        // },
                         title: { text: '' },
                         subtitle: { text: '' },
                         exporting:{ 
@@ -226,6 +226,19 @@
     }
 
     $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
+    $(window).on('resize', function(){
+        var win = $(this); //this = window
+        if (win.height() == 800) { 
+            $("body").css("overflow", "hidden");
+        }
+        if (win.height() > 800) { 
+            $("body").css("overflow", "scroll");
+        }
+        if (win.height() < 800) { 
+            $("body").css("overflow", "scroll");
+        }
+    });
 
     $(window).click(function() {
         $('.menu-chart-custom').addClass('hidden');
@@ -464,7 +477,7 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <div id="rasio-chart"></div>
+                                <div id="rasio-chart" style="height: calc(100vh - 320px)"></div>
                             </div>
                         </div>
                     </div>
