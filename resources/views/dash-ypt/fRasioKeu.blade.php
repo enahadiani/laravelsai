@@ -93,16 +93,16 @@
             data:{periode:periode,jenis:jenis,lokasi:lokasi},
             success: function(result) {
                 if(result.status){
-                    $('#status-rasio-ytd').html(result.status_rasio);
-                    $('#rasio-ytd').html(number_format(result.kenaikan,2)+' x');
-                    if(result.status_rasio == 'Naik'){
-                        $('#status-rasio-ytd').removeClass('red-text')
-                        $('#status-rasio-ytd').addClass('green-text')
-                    }else{
+                    // $('#status-rasio-ytd').html(result.status_rasio);
+                    $('#rasio-ytd').html(number_format(result.data[periode],2)+'%');
+                    // if(result.status_rasio == 'Naik'){
+                    //     $('#status-rasio-ytd').removeClass('red-text')
+                    //     $('#status-rasio-ytd').addClass('green-text')
+                    // }else{
                         
-                        $('#status-rasio-ytd').removeClass('green-text')
-                        $('#status-rasio-ytd').addClass('red-text')
-                    }
+                    //     $('#status-rasio-ytd').removeClass('green-text')
+                    //     $('#status-rasio-ytd').addClass('red-text')
+                    // }
                 }else{
                     // alert(JSON.stringify(result.message));
                     $('#status-rasio-ytd').html('-');
@@ -121,13 +121,16 @@
             data:{periode:periode,jenis:jenis,lokasi:lokasi},
             success: function(result) {
                 if(result.status){
-                    $('#status-rasio-selisih').html(result.status_rasio);
                     $('#rasio-selisih').html(number_format(result.kenaikan,2)+'%');
                     if(result.status_rasio == 'Naik'){
+                        $('#status-rasio-selisih').html('<i class="simple-icon-arrow-up-circle"></i>');
                         $('#status-rasio-selisih').removeClass('red-text')
                         $('#status-rasio-selisih').addClass('green-text')
+                    }
+                    else if(result.status_rasio == 'Tetap'){
+                        $('#status-rasio-selisih').html('')
                     }else{
-                        
+                        $('#status-rasio-selisih').html('<i class="simple-icon-arrow-down-circle"></i>');
                         $('#status-rasio-selisih').removeClass('green-text')
                         $('#status-rasio-selisih').addClass('red-text')
                     }
