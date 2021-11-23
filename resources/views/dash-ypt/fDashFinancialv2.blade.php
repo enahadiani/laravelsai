@@ -1685,7 +1685,7 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
             $filter2 = getNamaBulan($filter2)
         }
 
-        $('#select-text-fp').text(`${$filter2.toUpperCase()} || ${$tahun}`)
+        $('#select-text-fp').text(`${$filter2.toUpperCase()} ${$tahun}`)
         updateAllChart()
         showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
         $('#detail-dash').hide()
@@ -2073,7 +2073,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-fp" class="select-text">September || {{ date('Y') }}</p>
+                            <p id="select-text-fp" class="select-text">September {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">

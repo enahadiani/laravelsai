@@ -22,11 +22,19 @@ function updateChartDetail(kode_grafik = null) {
         success:function(result) {
             var data = result.data;
             performChart.series[0].update({
-                data: data.anggaran
+                name: 'Presentase Anggaran',
+                color: '#CED4DA',
+                data: data.anggaran,
+                pointPadding: 0.3,
+                pointPlacement: 0
             }, true) // true untuk redraw
 
             performChart.series[1].update({
-                data: data.realisasi
+                name: 'Presentase Realisasi',
+                colorByPoint: true,
+                data: data.realisasi,
+                pointPadding: 0.4,
+                pointPlacement: 0
             }, true) // true untuk redraw
         }
     });  
@@ -129,9 +137,7 @@ function createChartPerform(kode_grafik = null) {
             var data = result.data;
             performChart = Highcharts.chart('perfomansi-chart', {
                 chart: {
-                    type: 'column',
-                    height: 275,
-                    width: 600
+                    type: 'column'
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -143,64 +149,119 @@ function createChartPerform(kode_grafik = null) {
                 xAxis: {
                     categories: data.kategori
                 },
-                yAxis: {
+                yAxis: [{
+                    min: 0,
                     title: {
                         text: 'Presentase'
                     }
+                }],
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    shared: true
                 },
                 plotOptions: {
                     column: {
-                        grouping: true,
-                        stacking: 'normal',
-                        dataLabels: {
-                            enabled: true,
-                            overflow: 'justify',
-                            useHTML: true,
-                            formatter: function () {
-                                var visible = "block"
-                                var color = '#000000'
-                                if(this.point.color == '#CED4DA') {
-                                    visible = 'none'
-                                } else {
-                                    visible = 'block'
-                                }
-
-                                if(this.point.color == '#434348') {
-                                    color = '#ffffff'
-                                } else {
-                                    color = '#000000'
-                                }
-
-                                if(this.y < 0.1){
-                                    return '';
-                                } else {
-                                    return $('<div/>').css({
-                                        'display': visible,
-                                        'color' : color,
-                                        'padding': '0 3px',
-                                        'font-size': '10px',
-                                        'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(sepNum(this.y)+'%')[0].outerHTML;
-                                }
-                            }
-                        }
+                        grouping: false,
+                        shadow: false,
+                        borderWidth: 0
                     }
                 },
-                series: [
-                    {
-                        name: 'Presentase Anggaran',
-                        data: data.anggaran,
-                        color: '#CED4DA',
-                        stake: 'n1'
-                    },
-                    {
-                        name: 'Presentase Realisasi',
-                        colorByPoint: true,
-                        data: data.realisasi,
-                        stake: 'n1'
-                    },
-                ],
+                series: [{
+                    name: 'Presentase Anggaran',
+                    color: '#CED4DA',
+                    data: data.anggaran,
+                    pointPadding: 0.3,
+                    pointPlacement: 0
+                }, {
+                    name: 'Presentase Realisasi',
+                    colorByPoint: true,
+                    data: data.realisasi,
+                    pointPadding: 0.4,
+                    pointPlacement: 0
+                }]
             });
+            // performChart = Highcharts.chart('perfomansi-chart', {
+            //     chart: {
+            //         type: 'column',
+            //         // height: 275,
+            //         // width: 600
+            //     },
+            //     title: { text: '' },
+            //     subtitle: { text: '' },
+            //     exporting:{ 
+            //         enabled: false
+            //     },
+            //     legend:{  enabled: false },
+            //     credits: { enabled: false },
+            //     xAxis: {
+            //         categories: data.kategori
+            //     },
+            //     yAxis: {
+            //         title: {
+            //             text: 'Presentase'
+            //         }
+            //     },
+            //     plotOptions: {
+            //         column: {
+            //             grouping: false,
+            //             // stacking: 'normal',
+            //             shadow: false,
+            //             borderWidth: 0,
+            //             // dataLabels: {
+            //             //     enabled: true,
+            //             //     overflow: 'justify',
+            //             //     useHTML: true,
+            //             //     formatter: function () {
+            //             //         var visible = "block"
+            //             //         var color = '#000000'
+            //             //         if(this.point.color == '#CED4DA') {
+            //             //             visible = 'none'
+            //             //         } else {
+            //             //             visible = 'block'
+            //             //         }
+
+            //             //         if(this.point.color == '#434348') {
+            //             //             color = '#ffffff'
+            //             //         } else {
+            //             //             color = '#000000'
+            //             //         }
+
+            //             //         if(this.y < 0.1){
+            //             //             return '';
+            //             //         } else {
+            //             //             return $('<div/>').css({
+            //             //                 'display': visible,
+            //             //                 'color' : color,
+            //             //                 'padding': '0 3px',
+            //             //                 'font-size': '10px',
+            //             //                 'backgroundColor' : this.point.color  // just white in my case
+            //             //             }).text(sepNum(this.y)+'%')[0].outerHTML;
+            //             //         }
+            //             //     }
+            //             // }
+            //         }
+            //     },
+            //     series: [
+            //         {
+            //             name: 'Presentase Anggaran',
+            //             data: data.anggaran,
+            //             color: '#CED4DA',
+            //             stake: 'n1',
+            //             pointPadding: 0.3,
+            //             pointPlacement: 0
+            //         },
+            //         {
+            //             name: 'Presentase Realisasi',
+            //             colorByPoint: true,
+            //             data: data.realisasi,
+            //             stake: 'n1',
+            //             pointPadding: 0.3,
+            //             pointPlacement: 0
+            //         },
+            //     ],
+            // });
 
             $render = 1;
         }
