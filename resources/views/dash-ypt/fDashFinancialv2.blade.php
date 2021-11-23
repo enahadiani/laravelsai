@@ -1420,40 +1420,45 @@ function setHeightPage() {
 
 <script type="text/javascript">
 // EVENT CARD DASH
-    $('.click-card').click(function() {
-        var kode = $(this).data('grafik');
-        var id = $(this).attr('id');
-
-        if($render == 0) {
-            createChartPerform(kode)
-            createChartLembaga(kode)
-            createChartKelompok(kode)
-            createChartAkun(kode)
-        } else {
-            updateChartDetail(kode)
+    $('.click-card').click(function(e) {
+        if($(e.target).is('img') || e.target.classList.contains('td-show-chart')){
+            console.log('disabled detail');
+        }else{
+            console.log('enabled detail');
+            var kode = $(this).data('grafik');
+            var id = $(this).attr('id');
+    
+            if($render == 0) {
+                createChartPerform(kode)
+                createChartLembaga(kode)
+                createChartKelompok(kode)
+                createChartAkun(kode)
+            } else {
+                updateChartDetail(kode)
+            }
+    
+            if(id == 'pdpt-box') {
+                $judulChart = "Pendapatan"
+                $('#title-dash').text('Pendapatan')
+                $('.title-chart').text('Pendapatan')
+            }else if(id == 'beban-box') {
+                $judulChart = "Beban"
+                $('#title-dash').text('Beban')
+                $('.title-chart').text('Beban')
+            }else if(id == 'shu-box') {
+                $judulChart = "Sisa Hasil Usaha"
+                $('#title-dash').text('Sisa Hasil Usaha')
+                $('.title-chart').text('Sisa Hasil Usaha')
+            }else if(id == 'or-box') {
+                $judulChart = "Rasio Operasional"
+                $('#title-dash').text('Rasio Operasional')
+                $('.title-chart').text('Rasio Operasional')
+            }
+            $('#back-div').removeClass('hidden')
+            $('#dash-title-div').removeClass('pl-8').addClass('pl-0')
+            $('#main-dash').hide()
+            $('#detail-dash').show()
         }
-
-        if(id == 'pdpt-box') {
-            $judulChart = "Pendapatan"
-            $('#title-dash').text('Pendapatan')
-            $('.title-chart').text('Pendapatan')
-        }else if(id == 'beban-box') {
-            $judulChart = "Beban"
-            $('#title-dash').text('Beban')
-            $('.title-chart').text('Beban')
-        }else if(id == 'shu-box') {
-            $judulChart = "Sisa Hasil Usaha"
-            $('#title-dash').text('Sisa Hasil Usaha')
-            $('.title-chart').text('Sisa Hasil Usaha')
-        }else if(id == 'or-box') {
-            $judulChart = "Rasio Operasional"
-            $('#title-dash').text('Rasio Operasional')
-            $('.title-chart').text('Rasio Operasional')
-        }
-        $('#back-div').removeClass('hidden')
-        $('#dash-title-div').removeClass('pl-8').addClass('pl-0')
-        $('#main-dash').hide()
-        $('#detail-dash').show()
     })
 // EVENT CARD DASH
 // KEMBALI
@@ -2161,7 +2166,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                            <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
                                         </tr>
@@ -2222,7 +2227,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                            <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
                                         </tr>
@@ -2283,7 +2288,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                            <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
                                         </tr>
@@ -2344,7 +2349,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td colspan="4" class="text-center pl-0 pr-0" style="padding-top: 4px;">
+                                            <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
                                         </tr>
