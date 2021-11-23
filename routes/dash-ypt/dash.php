@@ -26,4 +26,10 @@ Route::get('data-ccr-box', 'DashYpt\DashboardCCRController@getDataBox');
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
 Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');
 
+// RASIO
+
+Route::get('data-rasio-jenis', 'DashYpt\DashboardRasioController@getKlpRasio');
+Route::get('data-rasio-lembaga', 'DashYpt\DashboardRasioController@getLokasi');
+Route::get('data-rasio-ytd', 'DashYpt\DashboardRasioController@getRasioYTD');
+
 ?>

@@ -5,9 +5,105 @@
 <script type="text/javascript">
     var $tahun = parseInt($('#year-filter').text());
     var $filter1 = "Periode";
-    var $filter2 = getNamaBulan("09");
-    var $month = "09";
+    var $filter2 = getNamaBulan("{{ Session::get('periode') }}".substr(4,2));
+    var $month = "{{ Session::get('periode') }}".substr(4,2);
     var yoyChart = null;
+
+    function getJenis() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-jenis') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                $('#filter-checkbox-rasio').html('');
+                var html = `<div class="col-12 mb-6">
+                        <h4 class="header-card">Jenis Rasio</h4>
+                    </div>`;
+                if(result.status){
+                    if(typeof result.data == 'object' && result.data.length > 0){
+                        for(var i=0; i < result.data.length; i++){
+                            var line = result.data[i];
+                            if(i == 0){
+                                var check = "checked";
+                            }else{
+                                var check = "";
+                            }
+                            html +=`
+                            <div class="col-12 mt-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="`+line.kode_rasio+`" name="jenis" class="custom-control-input" `+check+` value="`+line.kode_rasio+`">
+                                    <label class="custom-control-label" for="`+line.kode_rasio+`">`+line.nama+`</label>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                }else{
+                    alert(JSON.stringfy(result.message));
+                }
+                $('#filter-checkbox-rasio').html(html);
+            }
+        });
+    }
+
+    function getLembaga() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-lembaga') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                $('#filter-checkbox-lembaga').html('');
+                var html = `<div class="col-12 mb-6">
+                        <h4 class="header-card">Lembaga</h4>
+                    </div>`;
+                if(result.status){
+                    if(typeof result.data == 'object' && result.data.length > 0){
+                        for(var i=0; i < result.data.length; i++){
+                            var line = result.data[i];
+                            if(line.kode_lokasi == "{{ Session::get('lokasi') }}"){
+                                var check = "checked";
+                            }else{
+                                var check = "";
+                            }
+                            html +=`
+                            <div class="col-12 mt-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="`+line.kode_lokasi+`" name="lokasi" class="custom-control-input" `+check+` value="`+line.kode_lokasi+`">
+                                    <label class="custom-control-label" for="`+line.kode_lokasi+`">`+line.skode+`</label>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                }else{
+                    alert(JSON.stringfy(result.message));
+                }
+                $('#filter-checkbox-lembaga').html(html);
+            }
+        });
+    }
+
+    function getRasioYtd(periode,jenis,lokasi) {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-ytd') }}",
+            dataType: 'JSON',
+            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            success: function(result) {
+                if(result.status){
+                    $('#status-rasio-ytd').html(result.status_rasio);
+                    $('#rasio-ytd').html(number_format(result.kenaikan,2)+' x');
+                }else{
+                    alert(JSON.stringfy(result.message));
+                    $('#status-rasio-ytd').html(0);
+                    $('#rasio-ytd').html('0 x');
+                }
+                
+            }
+        });
+    }
+
+    getJenis();
+    getLembaga();
+    getRasioYtd("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
 
     if($filter1 == 'Periode') {
         $('#list-filter-2').find('.list').each(function() {
@@ -247,7 +343,7 @@
                                 <h6 class="green-text font-medium mb-0" id="status-rasio-ytd">Naik</h6>
                             </div>
                             <div class="col-9 mb-16">
-                                <h3 class="red-text-700 mb-0 text-right lh-1">8,3 x</h3>
+                                <h3 class="red-text-700 mb-0 text-right lh-1" id="rasio-ytd">8,3 x</h3>
                             </div>
                         </div>
                     </div>
@@ -264,7 +360,7 @@
                                 <h6 class="red-text font-medium mb-0" id="status-rasio-selisih">Turun</h6>
                             </div>
                             <div class="col-9 mb-16">
-                                <h3 class="red-text-700 mb-0 text-right lh-1">-1,2%</h3>
+                                <h3 class="red-text-700 mb-0 text-right lh-1" id="rasio-selisih">-1,2%</h3>
                             </div>
                         </div>
                     </div>
@@ -291,33 +387,33 @@
                     <div class="col-12 mb-6">
                         <h4 class="header-card">Jenis Rasio</h4>
                     </div>
-                    <div class="col-12 mt-6">
+                    {{-- <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs1" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 1</span>
                         </label>
                     </div>
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs2" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 2</span>
                         </label>
                     </div>
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs3" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 3</span>
                         </label>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row" id="filter-checkbox-lembaga">
                     <div class="col-12 mb-6">
                         <h4 class="header-card">Lembaga</h4>
                     </div>
-                    <div class="col-12 mt-6">
+                    {{-- <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
                             <input type="checkbox" name="instansi[]" class="checkbox-input" checked>
                             <span class="checkmark"></span>
@@ -337,7 +433,7 @@
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">LEMDIKTI</span>
                         </label>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
