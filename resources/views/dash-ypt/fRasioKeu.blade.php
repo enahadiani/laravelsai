@@ -146,9 +146,9 @@
             success: function(result) {
                 if(result.status){
                     yoyChart = Highcharts.chart('rasio-chart', {
-                        // chart: {
-                        //     height: 300
-                        // },
+                        chart: {
+                            height: 360
+                        },
                         title: { text: '' },
                         subtitle: { text: '' },
                         exporting:{ 
@@ -477,7 +477,7 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <div id="rasio-chart" style="height: calc(100vh - 320px)"></div>
+                                <div id="rasio-chart"></div>
                             </div>
                         </div>
                     </div>
