@@ -2297,7 +2297,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                         </tr>
                                         <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
-                                                <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
+                                                &nbsp;{{-- <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}"> --}}
                                             </td>
                                         </tr>
                                     </tbody>
