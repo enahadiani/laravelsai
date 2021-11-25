@@ -11,8 +11,6 @@
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
-    <input type="hidden" id="id" name="id">
-    <input type="hidden" id="prevFoto" name="prevFoto">
     <div class="row" id="saku-form" style="display:none;">
         <div class="col-12">
             <div class="card">
@@ -24,23 +22,22 @@
                 </div>
                 <div class="card-body pt-0 form-body" id="form-body">
                     <ul class="nav nav-tabs nav-tabs-custom col-12 " role="tablist">
-                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-umum" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Umum</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-kepegawaian" role="tab"
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-pribadi"
+                                role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a>
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pegawai" role="tab"
                                 aria-selected="true"><span class="hidden-xs-down">Data Kepegawaian</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-gaji" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Gaji & Tunjangan</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pribadi" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-tambahan" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Tambahan</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-foto" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Foto</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-bank" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Data Bank</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-client" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Data Client</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dokumen" role="tab"
+                                aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0 mt-3">
-                        <div class="tab-pane active" id="data-umum" role="tabpanel">
+                        <div class="tab-pane active" id="data-pribadi" role="tabpanel">
                             <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
+                                <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-3 col-sm-12">
                                             <label for="nik">NIK</label>
@@ -54,456 +51,13 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="gelar_depan">Gelar Depan</label>
-                                            <input class="form-control" type="text" placeholder="Gelar Depan"
-                                                id="gelar_depan" name="gelar_depan" autocomplete="off">
+                                            <label for="no_ktp">Nomor KTP</label>
+                                            <input class="form-control" type="text" placeholder="Nomor KTP" id="no_ktp"
+                                                name="no_ktp" autocomplete="off">
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="gelar_belakang">Gelar Belakang</label>
-                                            <input class="form-control" type="text" placeholder="Gelar Belakang"
-                                                id="gelar_belakang" name="gelar_belakang" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_sdm">Status SDM</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_sdm"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_sdm" id="kode_sdm"
-                                                    name="kode_sdm" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_sdm hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_sdm"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_gol">Golongan</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_gol"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_gol" id="kode_gol"
-                                                    name="kode_gol" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_gol hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_gol"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_jab">Jabatan</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_jab"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_jab" id="kode_jab"
-                                                    name="kode_jab" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_jab hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_jab"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="status">Status Karyawan</label>
-                                            <select class="form-control selectize" name="status_karyawan"
-                                                id="status_karyawan">
-                                                <option value="1" selected>Aktif</option>
-                                                <option value="0">Tidak Aktif</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="data-kepegawaian" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_unit">Unit</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_unit"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_unit"
-                                                    id="kode_unit" name="kode_unit" autocomplete="off" data-input="cbbl"
-                                                    value="" title="" readonly>
-                                                <span class="info-name_kode_unit hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_unit"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_pp">PP</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_pp" readonly="readonly"
-                                                        title="" data-toggle="tooltip" data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_pp" id="kode_pp"
-                                                    name="kode_pp" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_pp hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_loker">Lokasi Kerja</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_loker"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_loker"
-                                                    id="kode_loker" name="kode_loker" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_loker hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_loker"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="ijht">Status IJHT</label>
-                                            <select class="form-control selectize" name="ijht" id="ijht">
-                                                <option value="1" selected>Ya</option>
-                                                <option value="0">Tidak</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="bpjs">Status BPJS Ketenagakerjaan</label>
-                                            <select class="form-control selectize" name="bpjs" id="bpjs">
-                                                <option value="1">Ya</option>
-                                                <option value="0" selected>Tidak</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
-                                            <input class="form-control" type="text"
-                                                placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja"
-                                                name="no_bpjs_kerja" autocomplete="off" value="-" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="jp">Status JP</label>
-                                            <select class="form-control selectize" name="jp" id="jp">
-                                                <option value="1" selected>Ya</option>
-                                                <option value="0">Tidak</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_masuk">Tanggal Masuk</label>
-                                            <span class="span-tanggal" id="tanggal-masuk"></span>
-                                            <input class='form-control datepicker' id="tgl_masuk" name="tgl_masuk"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="mk_gol">Masa Kerja Golongan</label>
-                                            <input class="form-control currency" type="text"
-                                                placeholder="Masa Kerja Golongan" id="mk_gol" name="mk_gol"
-                                                autocomplete="off">
-                                            <span class="satuan">Bulan</span>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_sk">Nomor SK Tetap</label>
-                                            <input class="form-control" type="text" placeholder="Nomor SK Tetap"
-                                                id="no_sk" name="no_sk" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_sk">Tanggal SK Tetap</label>
-                                            <span class="span-tanggal" id="tanggal-sk"></span>
-                                            <input class='form-control datepicker' id="tgl_sk" name="tgl_sk"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="mk_gol">Masa Kerja YTB</label>
-                                            <input class="form-control currency" type="text"
-                                                placeholder="Masa Kerja YTB" id="mk_ytb" name="mk_ytb"
-                                                autocomplete="off">
-                                            <span class="satuan">Bulan</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_kontrak">Nomor SK Kontrak</label>
-                                            <input class="form-control" type="text" placeholder="Nomor SK Kontrak"
-                                                id="no_kontrak" name="no_kontrak" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kontrak">Tanggal SK Kontrak</label>
-                                            <span class="span-tanggal" id="tanggal-kontrak"></span>
-                                            <input class='form-control datepicker' id="tgl_kontrak" name="tgl_kontrak"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kontrak_akhir">Tanggal Kontrak Akhir</label>
-                                            <span class="span-tanggal" id="tanggal-kontrak_akhir"></span>
-                                            <input class='form-control datepicker' id="tgl_kontrak_akhir"
-                                                name="tgl_kontrak_akhir" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="atasan_langsung">Atasan Langsung</label>
-                                            <input class="form-control" type="text" placeholder="Atasan Langsung"
-                                                id="atasan_langsung" name="atasan_langsung" autocomplete="off">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="atasan_t_langsung">Atasan Tidak Langsung</label>
-                                            <input class="form-control" type="text" placeholder="Atasan Tidak Langsung"
-                                                id="atasan_t_langsung" name="atasan_t_langsung" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_kta">No KTA</label>
-                                            <input class="form-control" type="text" placeholder="No KTA" id="no_kta"
-                                                name="no_kta" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_reg_kta">No Registrasi KTA</label>
-                                            <input class="form-control" type="text" placeholder="No Registrasi KTA"
-                                                id="no_reg_kta" name="no_reg_kta" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_berlaku_kta">Tanggal Berlaku KTA</label>
-                                            <span class="span-tanggal" id="tanggal-berlaku_kta"></span>
-                                            <input class='form-control datepicker' id="tgl_berlaku_kta"
-                                                name="tgl_berlaku_kta" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kadaluarsa_kta">Tanggal Kadaluarsa KTA</label>
-                                            <span class="span-tanggal" id="tanggal-kadaluarsa_kta"></span>
-                                            <input class='form-control datepicker' id="tgl_kadaluarsa_kta"
-                                                name="tgl_kadaluarsa_kta" autocomplete="off"
-                                                value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="skill">Skill</label>
-                                            <input class="form-control" type="text" placeholder="Skill" id="skill"
-                                                name="skill" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="client">Client</label>
-                                            <input class="form-control" type="text" placeholder="Client" id="client"
-                                                name="client" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="fungsi">Fungsi</label>
-                                            <input class="form-control" type="text" placeholder="Fungsi" id="fungsi"
-                                                name="fungsi" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="tab-pane" id="data-gaji" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="gaji_pokok">Gaji Pokok</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Gaji Pokok" id="gaji_pokok" name="gaji_pokok"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_masakerja">Tunjangan Masa Kerja</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Masa Kerja" id="tunj_masakerja"
-                                                name="tunj_masakerja" autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_jabatan">Tunjangan Jabatan</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Jabatan" id="tunj_jabatan" name="tunj_jabatan"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_penampilan">Tunjangan Penampilan</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Penampilan" id="tunj_penampilan"
-                                                name="tunj_penampilan" autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-row">
-
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_gondola">Tunjangan Gondola</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Gondola" id="tunj_gondola" name="tunj_gondola"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_taman">Tunjangan Taman</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Taman" id="tunj_taman" name="tunj_taman"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_kompetensi">Tunjangan Kompetensi</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Kompetensi" id="tunj_kompetensi"
-                                                name="tunj_kompetensi" autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_skill">Tunjangan Skill</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Skill" id="tunj_skill" name="tunj_skill"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-
-                                <div class="form-group col-md-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_patroli">Tunjangan Patroli</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Patroli" id="tunj_patroli" name="tunj_patroli"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                        <div class="col-md-3 col-sm-12">
-                                            <label for="tunj_lembur">Tunjangan Lembur</label>
-                                            <input class="form-control currency money" type="text"
-                                                placeholder="Tunjangan Lembur" id="tunj_lembur" name="tunj_lembur"
-                                                autocomplete="off" value="0">
-                                            <span class="satuan-uang">Rp</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane" id="data-pribadi" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="jk">Jenis Kelamin</label>
                                             <select class="form-control selectize" name="jk" id="jk">
@@ -511,6 +65,12 @@
                                                 <option value="P">Perempuan</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_agama">Agama</label>
                                             <div class="input-group">
@@ -531,24 +91,46 @@
                                                     id="search_kode_agama"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_telp">Nomor Telepon</label>
                                             <input class="form-control" type="text" placeholder="Nomor Telepon"
                                                 id="no_telp" name="no_telp" autocomplete="off">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_hp">Nomor HP</label>
                                             <input class="form-control" type="text" placeholder="Nomor HP" id="no_hp"
                                                 name="no_hp" autocomplete="off">
                                         </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tempat">Tempat Lahir</label>
+                                            <input class="form-control" type="text" placeholder="Tempat Lahir"
+                                                id="tempat" name="tempat" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_lahir">Tanggal Lahir</label>
+                                            <span class="span-tanggal" id="tanggal-lahir"></span>
+                                            <input class='form-control datepicker' id="tgl_lahir" name="tgl_lahir"
+                                                autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                                class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="alamat">Alamat</label>
+                                            <input class="form-control" type="text" placeholder="Alamat" id="alamat"
+                                                name="alamat" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
@@ -563,42 +145,34 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kelurahan">Kelurahan</label>
-                                            <input class="form-control" type="text" placeholder="Kelurahan"
-                                                id="kelurahan" name="kelurahan" autocomplete="off">
-                                        </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kecamatan">Kecamatan</label>
                                             <input class="form-control" type="text" placeholder="Kecamatan"
                                                 id="kecamatan" name="kecamatan" autocomplete="off">
                                         </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kelurahan">Kelurahan</label>
+                                            <input class="form-control" type="text" placeholder="Kelurahan"
+                                                id="kelurahan" name="kelurahan" autocomplete="off">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="email">Email</label>
-                                            <input class="form-control" type="email" placeholder="Email" id="email"
-                                                name="email" autocomplete="off">
-                                        </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_pos">Kode Pos</label>
                                             <input class="form-control" type="text" placeholder="Kode Pos" id="kode_pos"
                                                 name="kode_pos" autocomplete="off">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="alamat">Alamat</label>
-                                            <input class="form-control" type="text" placeholder="Alamat" id="alamat"
-                                                name="alamat" autocomplete="off">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="t_badan">Tinggi Badan</label>
+                                            <input class="form-control currency" type="text" placeholder="Tinggi Badan"
+                                                id="t_badan" name="t_badan" autocomplete="off">
+                                            <span class="satuan">Cm</span>
                                         </div>
                                     </div>
                                 </div>
@@ -607,24 +181,222 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="no_ktp">Nomor KTP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor KTP" id="no_ktp"
-                                                name="no_ktp" autocomplete="off">
+                                            <label for="b_badan">Berat Badan</label>
+                                            <input class="form-control currency" type="text" placeholder="Berat Badan"
+                                                id="b_badan" name="b_badan" autocomplete="off">
+                                            <span class="satuan">Kg</span>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="npwp">Nomor NPWP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp"
-                                                name="npwp" autocomplete="off">
+                                            <label for="gol_darah">Golongan Darah</label>
+                                            <select class="form-control selectize" name="gol_darah" id="gol_darah">
+                                                <option value="A" selected>A</option>
+                                                <option value="B">B</option>
+                                                <option value="AB">AB</option>
+                                                <option value="O">O</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
+                                            <label for="no_kk">Nomor KK</label>
+                                            <input class="form-control" type="text" placeholder="Nomor KK" id="no_kk"
+                                                name="no_kk" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="status_nikah">Status Nikah</label>
+                                            <select class="form-control selectize" name="status_nikah"
+                                                id="status_nikah">
+                                                <option value="0" selected>Tidak Menikah</option>
+                                                <option value="1">Menikah</option>
+                                                <option value="2">Cerai</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_nikah">Tanggal Nikah</label>
+                                            <span class="span-tanggal" id="tanggal-nikah"></span>
+                                            <input class='form-control datepicker' id="tgl_nikah" name="tgl_nikah"
+                                                autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                                class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-pegawai" role="tabpanel">
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_gol">Golongan</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_gol"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_gol" id="kode_gol"
+                                                    name="kode_gol" autocomplete="off" data-input="cbbl" value=""
+                                                    title="" readonly>
+                                                <span class="info-name_kode_gol hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_gol"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_sdm">Status SDM</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_sdm"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_sdm" id="kode_sdm"
+                                                    name="kode_sdm" autocomplete="off" data-input="cbbl" value=""
+                                                    title="" readonly>
+                                                <span class="info-name_kode_sdm hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_sdm"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_area">Area</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_area"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_area"
+                                                    id="kode_area" name="kode_area" autocomplete="off" data-input="cbbl"
+                                                    value="" title="" readonly>
+                                                <span class="info-name_kode_area hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_area"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_fm">FM</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_fm" readonly="readonly"
+                                                        title="" data-toggle="tooltip" data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_fm" id="kode_fm"
+                                                    name="kode_fm" autocomplete="off" data-input="cbbl" value=""
+                                                    title="" readonly>
+                                                <span class="info-name_kode_fm hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_fm"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_bm">BM</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_bm" readonly="readonly"
+                                                        title="" data-toggle="tooltip" data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_bm" id="kode_bm"
+                                                    name="kode_bm" autocomplete="off" data-input="cbbl" value=""
+                                                    title="" readonly>
+                                                <span class="info-name_kode_bm hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_bm"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_loker">Lokasi Kerja</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_loker"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_loker"
+                                                    id="kode_loker" name="kode_loker" autocomplete="off"
+                                                    data-input="cbbl" value="" title="" readonly>
+                                                <span class="info-name_kode_loker hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2"
+                                                    id="search_kode_loker"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="npwp">Nomor NPWP</label>
+                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp"
+                                                name="npwp" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="no_bpjs">Nomor BPJS Kesehatan</label>
                                             <input class="form-control" type="text" placeholder="Nomor BPJS Kesehatan"
                                                 id="no_bpjs" name="no_bpjs" autocomplete="off">
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_masuk">Tanggal Masuk</label>
+                                            <span class="span-tanggal" id="tanggal-masuk"></span>
+                                            <input class='form-control datepicker' id="tgl_masuk" name="tgl_masuk"
+                                                autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                                class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
+                                            <input class="form-control" type="text"
+                                                placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja"
+                                                name="no_bpjs_kerja" autocomplete="off">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_profesi">Profesi</label>
                                             <div class="input-group">
@@ -648,158 +420,45 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_strata">Strata</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_strata"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_strata"
-                                                    id="kode_strata" name="kode_strata" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_strata hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_strata"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_pajak">Status Pajak</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_pajak"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_pajak"
-                                                    id="kode_pajak" name="kode_pajak" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_pajak hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_pajak"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="t_badan">Tinggi Badan</label>
-                                            <input class="form-control currency" type="text" placeholder="Tinggi Badan"
-                                                id="t_badan" name="t_badan" autocomplete="off">
-                                            <span class="satuan">Cm</span>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="b_badan">Berat Badan</label>
-                                            <input class="form-control currency" type="text" placeholder="Berat Badan"
-                                                id="b_badan" name="b_badan" autocomplete="off">
-                                            <span class="satuan">Kg</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="tab-pane" id="data-tambahan" role="tabpanel">
+                        <div class="tab-pane" id="data-bank" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="tempat">Tempat Lahir</label>
-                                            <input class="form-control" type="text" placeholder="Tempat Lahir"
-                                                id="tempat" name="tempat" autocomplete="off">
+                                            <label for="kode_bank">Bank</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_bank"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_bank"
+                                                    id="kode_bank" name="kode_bank" autocomplete="off" data-input="cbbl"
+                                                    value="" title="" readonly>
+                                                <span class="info-name_kode_bank hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_kode_bank"></i>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_lahir">Tanggal Lahir</label>
-                                            <span class="span-tanggal" id="tanggal-lahir"></span>
-                                            <input class='form-control datepicker' id="tgl_lahir" name="tgl_lahir"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_kk">Nomor KK</label>
-                                            <input class="form-control" type="text" placeholder="Nomor KK" id="no_kk"
-                                                name="no_kk" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="status_nikah">Status Nikah</label>
-                                            <select class="form-control selectize" name="status_nikah"
-                                                id="status_nikah">
-                                                <option value="1" selected>Menikah</option>
-                                                <option value="0">Tidak Menikah</option>
-                                                <option value="2">Cerai</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_nikah">Tanggal Nikah</label>
-                                            <span class="span-tanggal" id="tanggal-nikah"></span>
-                                            <input class='form-control datepicker' id="tgl_nikah" name="tgl_nikah"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="gol_darah">Golongan Darah</label>
-                                            <input class="form-control" type="text" placeholder="Golongan Darah"
-                                                id="gol_darah" name="gol_darah" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="ibu_kandung">Ibu Kandung</label>
-                                            <input class="form-control" type="text" placeholder="Ibu Kandung"
-                                                id="ibu_kandung" name="ibu_kandung" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="bank">Bank</label>
-                                            <input class="form-control" type="text" placeholder="Bank" id="bank"
-                                                name="bank" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="cabang">Cabang</label>
                                             <input class="form-control" type="text" placeholder="Cabang" id="cabang"
                                                 name="cabang" autocomplete="off">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_rek">Nomor Rekening</label>
                                             <input class="form-control" type="text" placeholder="Nomor Rekening"
                                                 id="no_rek" name="no_rek" autocomplete="off">
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="nama_rek">Nama Rekening</label>
                                             <input class="form-control" type="text" placeholder="Nama Rekening"
                                                 id="nama_rek" name="nama_rek" autocomplete="off">
@@ -807,31 +466,113 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="table-responsive">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;"
+                                        class=""><span
+                                            style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
+                                            id="total-row-jurnal"></span></a>
+                                </div>
+                                <table class="table table-bordered table-condensed gridexample" id="jurnal-grid"
+                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:13%">Kode Param</th>
+                                            <th style="width:15%">Nama Param</th>
+                                            <th style="width:15%">Nilai</th>
+                                            <th style="width:5%"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                                <a type="button" href="#" data-id="0" title="add-row"
+                                    class="add-row-jurnal btn btn-light2 btn-block btn-sm">Tambah Baris</a>
+                            </div>
                         </div>
-                        <div class="tab-pane" id="data-foto" role="tabpanel">
+                        <div class="tab-pane" id="data-client" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <label for="file">Foto</label>
-                                            <div class="input-group">
-                                                <div class="custom-file">
-                                                    <input type="file" name="file" class="custom-file-input" id="file"
-                                                        accept="image/*">
-                                                    <label class="custom-file-label"
-                                                        style="border-radius: 0.5rem;cursor:pointer;" for="file">Choose
-                                                        file</label>
-                                                </div>
-                                            </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="client">Nama Client</label>
+                                            <input class="form-control" type="text" placeholder="Nama Client"
+                                                id="client" name="client" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="fungsi">Fungsi</label>
+                                            <input class="form-control" type="text" placeholder="Fungsi" id="fungsi"
+                                                name="fungsi" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <img alt="preview" id="preview" height="380" width="550">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="skill">Skill</label>
+                                            <input class="form-control" type="text" placeholder="Skill" id="skill"
+                                                name="skill" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_kontrak">Nomor Kontrak</label>
+                                            <input class="form-control" type="text" placeholder="Nomor Kontrak"
+                                                id="no_kontrak" name="no_kontrak" autocomplete="off">
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_kontrak">Tanggal Kontrak</label>
+                                            <span class="span-tanggal" id="tanggal-kontrak"></span>
+                                            <input class='form-control datepicker' id="tgl_kontrak" name="tgl_kontrak"
+                                                autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                                class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="tgl_kontrak_akhir">Tanggal Kontrak Akhir</label>
+                                            <span class="span-tanggal" id="tanggal-kontrak_akhir"></span>
+                                            <input class='form-control datepicker' id="tgl_kontrak_akhir"
+                                                name="tgl_kontrak_akhir" autocomplete="off" value="{{ date('d/m/Y') }}">
+                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
+                                                class="simple-icon-calendar date-search"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="atasan_langsung">Atasan Langsung</label>
+                                            <input class="form-control" type="text" placeholder="Atasan Langsung"
+                                                id="atasan_langsung" name="atasan_langsung" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="atasan_t_langsung">Atasan Tidak Langsung</label>
+                                            <input class="form-control" type="text" placeholder="Atasan Tidak Langsung"
+                                                id="atasan_t_langsung" name="atasan_t_langsung" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-dokumen" role="tabpanel">
+                            <div class="form-row">
+                                <div class="form-group col-md-12 col-sm-12">
+                                    <table id="input-dokumen" class="table table-bordered">
+                                        <thead>
+                                            <th style="width:3%;">No</th>
+                                            <th style="width:25%;">Jenis</th>
+                                            <th style="width:20%;">Dokumen</th>
+                                            <th style="width:15%;">Status</th>
+                                            <th style="width:10%;"></th>
+                                        </thead>
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -851,12 +592,12 @@
     </div>
 </form>
 {{-- END FORM --}}
+
 <button id="trigger-bottom-sheet" style="display:none">&nbsp;</button>
 
 <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
 <script src="{{ asset('helper.js') }}"></script>
 <script src="{{ asset('main.js') }}"></script>
-
 <script type="text/javascript">
     // SET UP FORM
 $.ajaxSetup({
@@ -888,10 +629,21 @@ $('.currency').inputmask("numeric", {
     oncleared: function () { return false; }
 });
 
-$('#tgl_sk').bootstrapDP({
+$('#tgl_lahir').bootstrapDP({
     autoclose: true,
     format: 'dd/mm/yyyy',
-    container: '#tanggal-sk',
+    container: '#tanggal-lahir',
+    templates: {
+        leftArrow: '<i class="simple-icon-arrow-left"></i>',
+        rightArrow: '<i class="simple-icon-arrow-right"></i>'
+    },
+    orientation: 'bottom left'
+})
+
+$('#tgl_nikah').bootstrapDP({
+    autoclose: true,
+    format: 'dd/mm/yyyy',
+    container: '#tanggal-nikah',
     templates: {
         leftArrow: '<i class="simple-icon-arrow-left"></i>',
         rightArrow: '<i class="simple-icon-arrow-right"></i>'
@@ -931,77 +683,30 @@ $('#tgl_kontrak_akhir').bootstrapDP({
     },
     orientation: 'bottom left'
 })
-
-$('#tgl_berlaku_kta').bootstrapDP({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    container: '#tanggal-berlaku_kta',
-    templates: {
-        leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        rightArrow: '<i class="simple-icon-arrow-right"></i>'
-    },
-    orientation: 'bottom left'
-})
-
-$('#tgl_kadaluarsa_kta').bootstrapDP({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    container: '#tanggal-kadaluarsa_kta',
-    templates: {
-        leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        rightArrow: '<i class="simple-icon-arrow-right"></i>'
-    },
-    orientation: 'bottom left'
-})
-
-$('#tgl_lahir').bootstrapDP({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    container: '#tanggal-lahir',
-    templates: {
-        leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        rightArrow: '<i class="simple-icon-arrow-right"></i>'
-    },
-    orientation: 'bottom left'
-})
-
-$('#tgl_nikah').bootstrapDP({
-    autoclose: true,
-    format: 'dd/mm/yyyy',
-    container: '#tanggal-nikah',
-    templates: {
-        leftArrow: '<i class="simple-icon-arrow-left"></i>',
-        rightArrow: '<i class="simple-icon-arrow-right"></i>'
-    },
-    orientation: 'bottom left'
-})
-
-$('#bpjs').change(function(){
-    if($(this).val() == "0") {
-        $('#no_bpjs_kerja').val('-')
-        $('#no_bpjs_kerja').attr('readonly', true)
-    } else {
-        $('#no_bpjs_kerja').attr('readonly', false)
+function resetForm() {
+        $('#jurnal-grid tbody').empty()
+        $("[id^=label]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=info-name]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class^=input-group-text]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=input-group-prepend]").each(function(e){
+            $(this).addClass('hidden');
+        });
+        $("[class*='inp-label-']").each(function(e){
+            $(this).removeAttr("style");
+        })
+        $("[class^=info-code]").each(function(e){
+            $(this).text('');
+        });
+        $("[class^=simple-icon-close]").each(function(e){
+            $(this).addClass('hidden');
+        });
     }
-
-})
-
-function showPreview(image) {
-    if(image.files && image.files[0]) {
-        var reader = new FileReader()
-        reader.onload = function(event) {
-            $('#preview').attr('src', event.target.result)
-            $('#preview').show()
-        }
-        reader.readAsDataURL(image.files[0])
-    }
-}
-
-$('#file').change(function() {
-    var fileName = $(this).val();
-    $(this).next('.custom-file-label').html(fileName);
-    showPreview(this);
-})
 // END OPTIONAL CONFIG
 
 // BTN TAMBAH
@@ -1009,7 +714,9 @@ $('#saku-datatable').on('click', '#btn-tambah', function() {
     $('#preview').hide();
     $('#nik').attr('readonly', false);
     $('#judul-form').html('Tambah Data Karyawan');
+    resetForm();
     newForm();
+    setRowDefault()
 });
 //  END BTN TAMBAH
 
@@ -1025,10 +732,9 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 
 // SAKU TABLE
 var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
-var dataTable =
-generateTable(
+var dataTable =generateTable(
     "table-data",
-    "{{ url('esaku-trans/sdm-karyawans') }}",
+    "{{ url('esaku-trans/v3/sdm-karyawans') }}",
     [
         {
             "targets": 0,
@@ -1109,26 +815,6 @@ $('#form-tambah').on('click', '.search-item2', function(e) {
                 width : ["30%","70%"],
             }
         break;
-        case 'kode_jab':
-            options = {
-                id : id,
-                header : ['Kode', 'Nama'],
-                url : "{{ url('esaku-master/sdm-jabatans') }}",
-                columns : [
-                    { data: 'kode_jab' },
-                    { data: 'nama' }
-                ],
-                judul : "Daftar Jabatan SDM",
-                pilih : "Jabatan",
-                jTarget1 : "text",
-                jTarget2 : "text",
-                target1 : ".info-code_"+id,
-                target2 : ".info-name_"+id,
-                target3 : "",
-                target4 : "",
-                width : ["30%","70%"],
-            }
-        break;
         case 'kode_unit':
             options = {
                 id : id,
@@ -1149,16 +835,16 @@ $('#form-tambah').on('click', '.search-item2', function(e) {
                 width : ["30%","70%"],
             }
         break;
-        case 'kode_pp':
+        case 'kode_bank':
             options = {
                 id : id,
                 header : ['Kode', 'Nama'],
-                url : "{{ url('esaku-master/sdm-pp') }}",
+                url : "{{ url('esaku-master/sdm-banks') }}",
                 columns : [
-                    { data: 'kode_pp' },
+                    { data: 'kode_bank' },
                     { data: 'nama' }
                 ],
-                judul : "Daftar PP",
+                judul : "Daftar Bank",
                 pilih : "PP",
                 jTarget1 : "text",
                 jTarget2 : "text",
@@ -1229,45 +915,85 @@ $('#form-tambah').on('click', '.search-item2', function(e) {
                 width : ["30%","70%"],
             }
         break;
-        case 'kode_strata':
-            options = {
-                id : id,
-                header : ['Kode', 'Nama'],
-                url : "{{ url('esaku-master/sdm-stratas') }}",
-                columns : [
-                    { data: 'kode_strata' },
-                    { data: 'nama' }
+        case 'kode_area':
+            var options = {
+                id: id,
+                header: ['Kode Akun', 'Nama'],
+                url: "{{ url('esaku-master/sdm-areas') }}",
+                columns: [{
+                        data: 'kode_area'
+                    },
+                    {
+                         data: 'nama'
+                    }
                 ],
-                judul : "Daftar Strata",
-                pilih : "Strata",
-                jTarget1 : "text",
-                jTarget2 : "text",
-                target1 : ".info-code_"+id,
-                target2 : ".info-name_"+id,
-                target3 : "",
-                target4 : "",
-                width : ["30%","70%"],
+                judul: "Pilih Kode Area",
+                pilih: "akun",
+                jTarget1: "text",
+                jTarget2: "text",
+                target1: ".info-code_" + id,
+                target2: ".info-name_" + id,
+                target3: "",
+                target4: "",
+                width: ["30%", "70%"],
             }
         break;
-        case 'kode_pajak':
-            options = {
-                id : id,
-                header : ['Kode', 'Nama'],
-                url : "{{ url('esaku-master/sdm-pajaks') }}",
-                columns : [
-                    { data: 'kode_pajak' },
-                    { data: 'nama' }
-                ],
-                judul : "Daftar Status Pajak",
-                pilih : "Pajak",
-                jTarget1 : "text",
-                jTarget2 : "text",
-                target1 : ".info-code_"+id,
-                target2 : ".info-name_"+id,
-                target3 : "",
-                target4 : "",
-                width : ["30%","70%"],
+        case 'kode_fm':
+            var kode_area = $('#form-tambah #kode_area').val();
+            console.log(kode_area)
+            if(kode_area == ''){
+                alert('Kode Area harus dipilih');
+            }else{
+                var options = {
+                     id: id,
+                    header: ['Kode Akun', 'Nama'],
+                    url: "{{ url('esaku-master/get-fm-area') }}?kode_area="+kode_area,
+                    columns: [{
+                         data: 'kode_fm'
+                    },
+                    {
+                        data: 'nama'
+                    }],
+                    judul: "Pilih Kode FM",
+                    pilih: "akun",
+                    jTarget1: "text",
+                    jTarget2: "text",
+                    target1: ".info-code_" + id,
+                    target2: ".info-name_" + id,
+                    target3: "",
+                    target4: "",
+                    width: ["30%", "70%"],
+                }
             }
+        break;
+        case 'kode_bm':
+                var kode_fm = $('#form-tambah #kode_fm').val();
+                console.log(kode_fm)
+                if(kode_fm == ''){
+                    alert('Kode FM harus dipilih');
+                }else{
+                    var options = {
+                        id: id,
+                        header: ['Kode Akun', 'Nama'],
+                        url: "{{ url('esaku-master/get-bm-fm') }}?kode_fm="+kode_fm,
+                        columns: [{
+                                data: 'kode_bm'
+                            },
+                            {
+                                data: 'nama'
+                            }
+                        ],
+                        judul: "Pilih Kode BM",
+                        pilih: "akun",
+                        jTarget1: "text",
+                        jTarget2: "text",
+                        target1: ".info-code_" + id,
+                        target2: ".info-name_" + id,
+                        target3: "",
+                        target4: "",
+                        width: ["30%", "70%"],
+                    }
+                }
         break;
     }
     showInpFilterBSheet(options);
@@ -1285,6 +1011,160 @@ $('.info-icon-hapus').click(function(){
 });
 // END CBBL SAKU FORM
 
+// GRID FORM
+$(document).on('click', function() {
+    hideAllSelectedRow()
+})
+
+function hideAllSelectedRow() {
+    $('table[id^=input]').each(function(index, table) {
+        $(table).children('tbody').each(function(index, tbody) {
+            $(tbody).children('tr').each(function(index, tr) {
+                $(tr).children('td').not(':first, :last').each(function(index, td) {
+                    var value = $(td).children('.input-value').val()
+                    $(td).children('.input-value').val(value)
+                    $(td).children('span').not('.not-show, .readonly').text(value)
+                    $(td).children('.input-value').hide()
+                    $(td).children('a').not('.hapus-item, .download-item').hide()
+                    $(td).children('span').not('.not-show').show()
+                })
+            })
+        })
+        $(table).find('tr').removeClass('selected-row')
+        $(table).find('td').removeClass('selected-cell')
+        $(table).find('.input-value').hide()
+        $(table).find('a').not('.hapus-item, .download-item').hide()
+        $(table).find('span').not('.not-show').show()
+    })
+}
+
+function hideUnselectedRow(tbody) {
+    tbody.find('tr').not('.selected-row').each(function(index, tr) {
+        $(tr).find('td').not(':first, :last').each(function(index, td) {
+            var value = $(td).children('.input-value').val()
+            $(td).children('.input-value').val(value)
+            $(td).children('span').not('.not-show, .readonly').text(value)
+            $(td).children('.input-value').hide()
+            $(td).children('a').not('.hapus-item, .download-item').hide()
+            $(td).children('span').not('.not-show').show()
+        })
+    })
+}
+
+function hideUnselectedCell(tr) {
+    tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
+        var value = $(td).children('.input-value').val()
+        $(td).children('.input-value').val(value)
+        $(td).children('span').not('.not-show, .readonly').text(value)
+        if($(td).hasClass('selected-cell')) {
+            $(td).children('span').hide()
+            $(td).children('.input-value').show()
+            $(td).children('a').not('.hapus-item, .download-item').show()
+                setTimeout(function() {
+                $(td).children('.input-value').focus()
+            }, 500)
+        } else {
+            $(td).children('.input-value').hide()
+            $(td).children('a').not('.hapus-item, .download-item').hide()
+            $(td).children('span').not('.not-show').show()
+        }
+    })
+}
+
+function nextSelectedCell(tr, td, index) {
+    var value = $(td).children('.input-value').val()
+    $(td).children('.input-value').val(value)
+    $(td).children('span').not('.not-show, .readonly').text(value)
+    $(td).children('span').not('.not-show').show()
+    $(td).children('.input-value').hide()
+    $(td).children('a').not('.hapus-item, .download-item').hide()
+
+    var nextindex = index + 1;
+    var tdnext = $(tr).find('td').eq(nextindex)
+    var cekReadonly = $(tdnext).hasClass('readonly')
+    if(cekReadonly) {
+        nextindex = nextindex + 1
+        tdnext = $(tr).find('td').eq(nextindex)
+    }
+    var cekCbbl = $(tdnext).has('a').length
+    if(cekCbbl > 0) {
+        $(tdnext).children('a').show()
+    }
+
+    $(tdnext).children('span').hide()
+    $(tdnext).children('.input-value').show()
+    setTimeout(function() {
+        $(tdnext).children('.input-value').focus()
+    }, 500)
+}
+
+function setRowDefault() {
+    var jenis = ['CV', 'KTP', 'FOTO', 'NPWP', 'BPJS KESEHATAN', 'BPJS KETENAGAKERJAAN', 'BUKU REKENING', 'KARTU KELUARGA', 'KONTRAK']
+    $('#input-dokumen tbody').empty()
+    var no= $('#input-dokumen tbody > tr').length;
+    no = no + 1;
+    var html = null;
+    for(var i=0;i<jenis.length;i++) {
+        var idJenis = 'jenis-ke__'+no
+        var idDokumen = 'dokumen-ke__'+no
+        var idStatus = 'status-ke__'+no
+
+        html += `<tr class="row-grid">
+            <td class="text-center">
+                <span class="no-grid ">${no}</span>
+                <input type="hidden" name="nu[]" value="${no}">
+            </td>
+            <td id="${idJenis}">
+                <span id="text-${idJenis}" class="tooltip-span">${jenis[i]}</span>
+                <input autocomplete="off" type="hidden" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${jenis[i]}" >
+            </td>
+            <td id="${idDokumen}" style="word-wrap: break-word">
+                <input id='value-${idDokumen}' type='file' name='file[]'>
+                <input type="hidden" name="fileName[]" id="fileName-${idDokumen}" value="-">
+                <input type="hidden" name="filePrevName[]" value="-">
+                <input type="hidden" name="isUpload[]" id="checkUpload-${idDokumen}" value="false">
+            </td>
+            <td id="${idStatus}">
+                <span id="text-${idStatus}" class="tooltip-span">Belum Diupload</span>
+                <input autocomplete="off" type="hidden" id="value-${idStatus}" name="sts_dokumen[]" class="form-control input-value hidden" value="0" >
+            </td>
+        </tr>
+        `;
+
+        no++;
+    }
+    $('#input-dokumen tbody').append(html)
+
+    $('.tooltip-span').tooltip({
+        title: function(){
+            return $(this).text();
+        }
+    });
+}
+
+$('#input-dokumen tbody').on('click', 'td', function(event) {
+    event.stopPropagation();
+    var tr = $(this).parent()
+    var tbody = $(tr).parent()
+    $(tr).addClass('selected-row')
+    $(this).addClass('selected-cell');
+    tr.children().not(this).removeClass('selected-cell');
+    tbody.children().not($(tr)).removeClass('selected-row')
+    hideUnselectedCell(tr);
+    hideUnselectedRow(tbody)
+});
+
+$('#input-dokumen tbody').on('change', 'input[type="file"]', function() {
+    var uid = $('#nik').val();
+    var td = $(this).parent()
+    var id = $(td).attr('id')
+    var file = uid + '_' + $(this).val().replace(/C:\\fakepath\\/i, '')
+    $(td).children('#fileName-'+id).val(file)
+    $(td).children('#checkUpload-'+id).val("true")
+    $(td).children('#value-'+id).val("1")
+})
+// END GRID FORM
+
 // SAVE TRIGGER
 $('#form-tambah').validate({
     ignore: [],
@@ -1295,11 +1175,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/sdm-karyawan-update') }}";
+            var url = "{{ url('esaku-trans/v2/sdm-karyawan-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/sdm-karyawan') }}";
+            var url = "{{ url('esaku-trans/v2/sdm-karyawan') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -1323,8 +1203,6 @@ $('#form-tambah').validate({
                     var kode = result.data.kode;
                     dataTable.ajax.reload();
                     $('#preview').hide()
-                    $('#file').val('')
-                    $('#file').next('.custom-file-label').html('');
                     $('#judul-form').html('Tambah Data Karyawan');
                     $('#nik').attr('readonly', false);
                     resetForm();
@@ -1401,96 +1279,128 @@ function editData(id, view = false) {
 
     $.ajax({
         type: 'GET',
-        url: "{{ url('esaku-trans/sdm-karyawan') }}",
+        url: "{{ url('esaku-trans/v3/sdm-karyawan') }}",
         data: { kode: id },
         dataType: 'json',
         async:false,
         success:function(res) {
-            var data = res.data.data[0]
+            var jenis = ['CV', 'KTP', 'FOTO', 'NPWP', 'BPJS KESEHATAN', 'BPJS KETENAGAKERJAAN', 'BUKU REKENING', 'KARTU KELUARGA', 'KONTRAK']
+            $('#input-dokumen tbody').empty()
+            var result = res.data
+            var data = result.data_pribadi[0]
+            var detail = res.data.data_detail
+
+            console.log(data)
             if(res.data.status) {
                 $('#id_edit').val('true')
-                $('#id').val(id)
-                $('#prevFoto').val(data.foto)
-                isiEdit(id,"text",'#nik',view);
+
+                isiEdit(id, "text",'#nik', true);
                 isiEdit(data.nama,"text",'#nama',view);
-                isiEdit(data.gelar_depan,"text",'#gelar_depan',view);
-                isiEdit(data.gelar_belakang,"text",'#gelar_belakang',view);
-                isiEdit(data.no_sk,"text",'#no_sk',view);
-                isiEdit(data.no_kontrak,"text",'#no_kontrak',view);
+                isiEdit(data.nomor_ktp,"text",'#no_ktp',view);
                 isiEdit(data.no_telp,"text",'#no_telp',view);
                 isiEdit(data.no_hp,"text",'#no_hp',view);
-                isiEdit(data.email,"text",'#email',view);
+                isiEdit(data.tempat,"text",'#tempat',view);
+                isiEdit(data.alamat,"text",'#alamat',view);
                 isiEdit(data.provinsi,"text",'#provinsi',view);
                 isiEdit(data.kota,"text",'#kota',view);
-                isiEdit(data.kelurahan,"text",'#kelurahan',view);
                 isiEdit(data.kecamatan,"text",'#kecamatan',view);
-                isiEdit(data.alamat,"text",'#alamat',view);
+                isiEdit(data.kelurahan,"text",'#kelurahan',view);
                 isiEdit(data.kode_pos,"text",'#kode_pos',view);
-                isiEdit(data.no_ktp,"text",'#no_ktp',view);
+                isiEdit(data.no_kk,"text",'#no_kk',view);
                 isiEdit(data.npwp,"text",'#npwp',view);
                 isiEdit(data.no_bpjs,"text",'#no_bpjs',view);
-                isiEdit(data.tempat,"text",'#tempat',view);
-                isiEdit(data.no_kk,"text",'#no_kk',view);
-                isiEdit(data.gol_darah,"text",'#gol_darah',view);
-                isiEdit(data.ibu_kandung,"text",'#ibu_kandung',view);
-                isiEdit(data.bank,"text",'#bank',view);
+                isiEdit(data.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
+                isiEdit(data.kode_bank,"text",'#bank',view);
                 isiEdit(data.cabang,"text",'#cabang',view);
                 isiEdit(data.no_rek,"text",'#no_rek',view);
                 isiEdit(data.nama_rek,"text",'#nama_rek',view);
-                isiEdit(data.no_bpjs_kerja,"text",'#no_bpjs_kerja',view);
-                isiEdit(data.atasan_langsung,"text",'#atasan_langsung',view);
-                isiEdit(data.atasan_t_langsung,"text",'#atasan_t_langsung',view);
-                isiEdit(data.no_kta,"text",'#no_kta',view);
-                isiEdit(data.no_reg_kta,"text",'#no_reg_kta',view);
-                isiEdit(data.client,"text",'#client',view);
+                isiEdit(data.nama_client,"text",'#client',view);
                 isiEdit(data.fungsi,"text",'#fungsi',view);
                 isiEdit(data.skill,"text",'#skill',view);
+                isiEdit(data.no_kontrak,"text",'#no_kontrak',view);
+                isiEdit(data.kode_area,"text",'#area',view);
+                isiEdit(data.kota_area,"text",'#kota_area',view);
+                isiEdit(data.kode_fm,"text",'#fm',view);
+                isiEdit(data.kdoe_bm,"text",'#bm',view);
+                isiEdit(data.loker_client,"text",'#loker_client',view);
+                isiEdit(data.jabatan_client,"text",'#jabatan_client',view);
+                isiEdit(data.atasan_langsung,"text",'#atasan_langsung',view);
+                isiEdit(data.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
 
-                isiEdit(data.mk_gol,"number",'#mk_gol',view);
-                isiEdit(data.mk_ytb,"number",'#mk_ytb',view);
-                isiEdit(data.t_badan,"number",'#t_badan',view);
-                isiEdit(data.b_badan,"number",'#b_badan',view);
-                isiEdit(data.gaji_pokok,"number",'#gaji_pokok',view);
-                isiEdit(data.tunj_jabatan,"number",'#tunj_jabatan',view);
-                isiEdit(data.tunj_penampilan,"number",'#tunj_penampilan',view);
-                isiEdit(data.tunj_gondola,"number",'#tunj_gondola',view);
-                isiEdit(data.tunj_taman,"number",'#tunj_taman',view);
-                isiEdit(data.tunj_kompetensi,"number",'#tunj_kompetensi',view);
-                isiEdit(data.tunj_skill,"number",'#tunj_skill',view);
-                isiEdit(data.tunj_patroli,"number",'#tunj_patroli',view);
-                isiEdit(data.tunj_lembur,"number",'#tunj_lembur',view);
-                isiEdit(data.tunj_masakerja,"number",'#tunj_masakerja',view);
+                isiEdit(parseFloat(data.tinggi_badan),"number",'#t_badan',view);
+                isiEdit(parseFloat(data.berat_badan),"number",'#b_badan',view);
 
-                isiEdit(reverseDate(data.tgl_masuk,'-','/'),"date",'#tgl_masuk',view);
-                isiEdit(reverseDate(data.tgl_sk,'-','/'),"date",'#tgl_sk',view);
-                isiEdit(reverseDate(data.tgl_kontrak,'-','/'),"date",'#tgl_kontrak',view);
+                isiEdit(data.tgl_lahir,"date",'#tgl_lahir',view);
                 isiEdit(reverseDate(data.tgl_nikah,'-','/'),"date",'#tgl_nikah',view);
-                isiEdit(reverseDate(data.tgl_berlaku_kta,'-','/'),"date",'#tgl_berlaku_kta',view);
-                isiEdit(reverseDate(data.tgl_kadaluarsa_kta,'-','/'),"date",'#tgl_kadaluarsa_kta',view);
+                isiEdit(data.tgl_masuk,"date",'#tgl_masuk',view);
+                isiEdit(data.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
+                isiEdit(data.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
 
-                isiEdit(data.ijht,"select",'#ijht',view);
-                isiEdit(data.bpjs,"select",'#bpjs',view);
-                isiEdit(data.jp,"select",'#jp',view);
-                isiEdit(data.jk,"select",'#jk',view);
-                isiEdit(data.status_nikah,"select",'#status_nikah',view);
+                isiEdit(data.jenis_kelamin,"select",'#jk',view, "L");
+                isiEdit(data.status_nikah,"select",'#status_nikah',view, "0");
+                isiEdit(data.gol_darah,"select",'#gol_darah',view, "A");
 
+                showInfoField('kode_agama', data.kode_agama, data.nama_agama)
+                showInfoField('kode_gol', data.kode_golongan, data.nama_gol)
                 showInfoField('kode_sdm', data.kode_sdm, data.nama_sdm)
-                showInfoField('kode_gol', data.kode_gol, data.nama_golongan)
-                showInfoField('kode_jab', data.jabatan, data.nama_jabatan)
                 showInfoField('kode_unit', data.kode_unit, data.nama_unit)
                 showInfoField('kode_pp', data.kode_pp, data.nama_pp)
                 showInfoField('kode_loker', data.kode_loker, data.nama_loker)
-                showInfoField('kode_agama', data.kode_agama, data.nama_agama)
                 showInfoField('kode_profesi', data.kode_profesi, data.nama_profesi)
-                showInfoField('kode_strata', data.kode_strata, data.nama_strata)
-                showInfoField('kode_pajak', data.kode_pajak, data.nama_pajak)
 
-                if(data.foto !== null || data.foto !== '-') {
-                    var url = "{{ config('api.url').'sdm/storage' }}/"+data.foto;
-                    $('#preview').attr('src', url);
-                    $('#preview').show()
-                }
+                // if(detail.length == jenis.length) {
+                //     var html = null
+                //     for(var i=0;i<detail.length;i++) {
+                //         var row = detail[i];
+                //         var idJenis = 'jenis-ke__'+row.nu
+                //         var idDokumen = 'dokumen-ke__'+row.nu
+                //         var idStatus = 'status-ke__'+row.nu
+                //         var status = null;
+                //         if(row.sts_dokumen.trim() == '0') {
+                //             status = 'Belum diupload'
+                //         } else {
+                //             status = 'Sudah diupload'
+                //         }
+                //         console.log(status)
+                //         html += `<tr class="row-grid">
+                //             <td class="text-center">
+                //                 <span class="no-grid ">${row.nu}</span>
+                //                 <input type="hidden" name="nu[]" value="${row.nu}">
+                //             </td>
+                //             <td id="${idJenis}">
+                //                 <span id="text-${idJenis}" class="tooltip-span">${row.jenis}</span>
+                //                 <input autocomplete="off" type="hidden" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${row.jenis}" >
+                //             </td>
+                //             <td id="${idDokumen}" style="word-wrap: break-word">
+                //                 <input id='value-${idDokumen}' type='file' name='file[]'>
+                //                 <input type="hidden" name="fileName[]" id="fileName-${idDokumen}" value="-">
+                //                 <input type="hidden" name="filePrevName[]" value="${row.dokumen}">
+                //                 <input type="hidden" name="isUpload[]" id="checkUpload-${idDokumen}" value="false">
+                //             </td>
+                //             <td id="${idStatus}">
+                //                 <span id="text-${idStatus}" class="tooltip-span readonly">${status}</span>
+                //                 <input autocomplete="off" type="hidden" id="value-${idStatus}" name="sts_dokumen[]" class="form-control input-value hidden" value="${row.sts_dokumen}" >
+                //             </td>
+                //             <td>`
+                //             if(row.dokumen != '-') {
+                //             html += `<a class="download-item" href="{{ config('api.url').'sdm/storage'}}/${row.dokumen}"
+                //                 title="Lihat Foto" style="font-size:12px;cursor:pointer;" target="_blank">
+                //                     <i class="simple-icon-cloud-download"></i>
+                //                 </a>`
+                //             }
+                //         html += `</td>
+                //         </tr>`;
+                //     }
+                //     $('#input-dokumen tbody').append(html)
 
+                //     $('.tooltip-span').tooltip({
+                //         title: function(){
+                //             return $(this).text();
+                //         }
+                //     });
+                // } else {
+                //     setRowDefault()
+                // }
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();
@@ -1502,41 +1412,212 @@ function editData(id, view = false) {
 }
 // END EDIT DATA
 
-// HAPUS DATA
-$('#saku-datatable').on('click','#btn-delete',function(e){
-    var kode = $(this).closest('tr').find('td').eq(0).html();
-    msgDialog({
-        id: kode,
-        type:'hapus'
-    });
-});
+ // Jurnal  Grid
+ function hitungTotalRowJurnal() {
+        var total_row = $('#jurnal-grid tbody tr').length;
+        $('#total-row-jurnal').html(total_row + ' Baris');
+    }
 
-function hapusData(id){
-    $.ajax({
-        type: 'DELETE',
-        url: "{{ url('esaku-trans/sdm-karyawan') }}",
-        data: { kode: id },
-        dataType: 'json',
-        async:false,
-        success:function(result){
-            if(result.data.status){
-                dataTable.ajax.reload();
-                showNotification("top", "center", "success",'Hapus Data','Data Karyawan ('+id+') berhasil dihapus ');
-                $('#modal-pesan-id').html('');
-                $('#table-delete tbody').html('');
-                $('#modal-pesan').modal('hide');
-            } else if(!result.data.status && result.data.message == "Unauthorized"){
-                window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+    function hideUnselectedRowJurnal() {
+        $('#jurnal-grid > tbody > tr').each(function (index, row) {
+            if (!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val();
+                var nama_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val();
+                var nilai = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val();
+
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val(kode_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").text(kode_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val(nama_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").text(nama_akun);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val(nilai);
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").text(nilai);
+
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".search-akun").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").show();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").hide();
+                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").show();
+            }
+        })
+    }
+
+    function addRowJurnal() {
+        var kode_akun = "";
+        var nama_akun = "";
+        var nilai = "";
+        var no = $('#jurnal-grid .row-jurnal:last').index();
+        no = no + 2;
+        var input = "";
+        input += "<tr class='row-jurnal'>";
+        input += "<td class='no-jurnal text-center'>" + no + "</td>";
+        input += "<td><span class='td-kode tdakunke" + no + " tooltip-span'>" + kode_akun +
+            "</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke" + no +
+            " hidden' value='" + kode_akun + "' required='' style='z-index: 1;position: relative;' id='akunkode" + no +
+            "'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke" + no + " tooltip-span'>" + nama_akun +
+            "</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke" + no +
+            " hidden'  value='" + nama_akun + "' readonly></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke" + no + " tooltip-span'>" + nilai +
+            "</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke" + no + " hidden'  value='" +
+            nilai + "' required></td>";
+        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "</tr>";
+        $('#jurnal-grid tbody').append(input);
+        $('.nilke' + no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () {
+                self.Value('');
+            }
+        });
+        hitungTotalRowJurnal();
+        hideUnselectedRowJurnal();
+        $('.tooltip-span').tooltip({
+            title: function () {
+                return $(this).text();
+            }
+        });
+
+    }
+
+    $('#form-tambah').on('click', '.add-row-jurnal', function () {
+        addRowJurnal();
+    });
+
+    $('#jurnal-grid').on('click', '.hapus-item', function () {
+        $(this).closest('tr').remove();
+        no = 1;
+        $('.row-jurnal').each(function () {
+            var nom = $(this).closest('tr').find('.no-jurnal');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowJurnal();
+        $("html, body").animate({
+            scrollTop: $(document).height()
+        }, 1000);
+    });
+
+
+
+    $('#jurnal-grid tbody').on('click', 'tr', function () {
+        $(this).addClass('selected-row');
+        $('#jurnal-grid tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowJurnal();
+    });
+
+    $('#jurnal-grid').on('click', 'td', function () {
+        var idx = $(this).index();
+        if (idx == 0) {
+            return false;
+        } else {
+            if ($(this).hasClass('px-0 py-0 aktif')) {
+                return false;
             } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                    footer: '<a href>'+result.data.message+'</a>'
-                });
+                $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+
+                var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+                var nama_akun = $(this).parents("tr").find(".inp-nama").val();
+                var nilai = $(this).parents("tr").find(".inp-nilai").val();
+                var no = $(this).parents("tr").find(".no-jurnal").text();
+                $(this).parents("tr").find(".inp-kode").val(kode_akun);
+                $(this).parents("tr").find(".td-kode").text(kode_akun);
+                if (idx == 1) {
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                } else {
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-akun").hide();
+
+                }
+
+                $(this).parents("tr").find(".inp-nama").val(nama_akun);
+                $(this).parents("tr").find(".td-nama").text(nama_akun);
+                if (idx == 2) {
+                    $(this).parents("tr").find(".inp-nama").show();
+                    $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
+                } else {
+
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+
+                if (nilai == "" && idx == 3) {
+                    $(this).parents("tr").find(".inp-nilai").val(nilai);
+                    $(this).parents("tr").find(".td-nilai").text(nilai);
+                } else {
+                    $(this).parents("tr").find(".inp-nilai").val(nilai);
+                    $(this).parents("tr").find(".td-nilai").text(nilai);
+                }
+
+                if (idx == 3) {
+                    $(this).parents("tr").find(".inp-nilai").show();
+                    $(this).parents("tr").find(".td-nilai").hide();
+                    $(this).parents("tr").find(".inp-nilai").focus();
+                } else {
+                    $(this).parents("tr").find(".inp-nilai").hide();
+                    $(this).parents("tr").find(".td-nilai").show();
+                }
             }
         }
     });
-}
-// END HAPUS DATA
+    $('#jurnal-grid').on('click', '.search-item', function () {
+        var par = $(this).closest('td').find('input').attr('name');
+
+        switch (par) {
+            case 'kode_akun[]':
+                var par2 = "nama_akun[]";
+
+            break;
+        }
+
+        var tmp = $(this).closest('tr').find('input[name="' + par + '"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        tmp = $(this).closest('tr').find('input[name="' + par2 + '"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+
+        switch (par) {
+            case 'kode_akun[]':
+                var options = {
+                    id: par,
+                    header: ['Kode', 'Nama'],
+                    url: "{{ url('esaku-master/sdm-gaji-params') }}",
+                    columns: [{
+                            data: 'kode_param'
+                        },
+                        {
+                            data: 'nama'
+                        }
+                    ],
+                    judul: "Daftar Parameter Gaji",
+                    pilih: "akun",
+                    jTarget1: "val",
+                    jTarget2: "val",
+                    target1: "." + target1,
+                    target2: "." + target2,
+                    target3: ".td" + target2,
+                    target4: ".td-dc",
+                    width: ["30%", "70%"]
+                };
+                break;
+
+        }
+        showInpFilterBSheet(options);
+        // showInpFilter(options);
+
+    });
+    // END Jurnal Grid
 </script>

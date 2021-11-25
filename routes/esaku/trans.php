@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-// use Mike42\Escpos\Printer; 
+// use Mike42\Escpos\Printer;
 use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
@@ -130,8 +130,8 @@ Route::post('barcode', 'Esaku\Inventori\BarcodeController@store');
 Route::get('/jurnal', 'Esaku\Keuangan\JurnalController@index');
 Route::post('/jurnal', 'Esaku\Keuangan\JurnalController@store');
 Route::get('/jurnal/{id}', 'Esaku\Keuangan\JurnalController@show');
-Route::post('/jurnal/{id}','Esaku\Keuangan\JurnalController@update');
-Route::delete('/jurnal/{id}','Esaku\Keuangan\JurnalController@destroy');
+Route::post('/jurnal/{id}', 'Esaku\Keuangan\JurnalController@update');
+Route::delete('/jurnal/{id}', 'Esaku\Keuangan\JurnalController@destroy');
 Route::get('/pp', 'Esaku\Keuangan\JurnalController@getPP');
 Route::get('/akun', 'Esaku\Keuangan\JurnalController@getAkun');
 Route::get('/nikperiksa', 'Esaku\Keuangan\JurnalController@getNIKPeriksa');
@@ -144,23 +144,23 @@ Route::get('/inv-hitung-hpp', 'Esaku\Keuangan\HPPController@index');
 Route::get('/inv-hitung-hpp-load', 'Esaku\Keuangan\HPPController@loadData');
 Route::post('/inv-hitung-hpp', 'Esaku\Keuangan\HPPController@store');
 Route::get('/inv-hitung-hpp/{id}', 'Esaku\Keuangan\HPPController@show');
-Route::post('/inv-hitung-hpp/{id}','Esaku\Keuangan\HPPController@update');
-Route::delete('/inv-hitung-hpp/{id}','Esaku\Keuangan\HPPController@destroy');
+Route::post('/inv-hitung-hpp/{id}', 'Esaku\Keuangan\HPPController@update');
+Route::delete('/inv-hitung-hpp/{id}', 'Esaku\Keuangan\HPPController@destroy');
 
 
 Route::get('kas-bank', 'Esaku\KasBank\KasBankController@index');
 Route::post('kas-bank', 'Esaku\KasBank\KasBankController@store');
 Route::get('kas-bank/{id}', 'Esaku\KasBank\KasBankController@show');
-Route::put('kas-bank/{id}','Esaku\KasBank\KasBankController@update');
-Route::delete('kas-bank/{id}','Esaku\KasBank\KasBankController@destroy');
+Route::put('kas-bank/{id}', 'Esaku\KasBank\KasBankController@update');
+Route::delete('kas-bank/{id}', 'Esaku\KasBank\KasBankController@destroy');
 Route::post('kas-bank-import-excel', 'Esaku\KasBank\KasBankController@importExcel');
 Route::get('kas-bank-tmp', 'Esaku\KasBank\KasBankController@getDataTmp');
 
 Route::get('uang-masuk', 'Esaku\KasBank\UangMasukController@index');
 Route::post('uang-masuk', 'Esaku\KasBank\UangMasukController@store');
 Route::get('uang-masuk/{id}', 'Esaku\KasBank\UangMasukController@show');
-Route::post('uang-masuk/{id}','Esaku\KasBank\UangMasukController@update');
-Route::delete('uang-masuk/{id}','Esaku\KasBank\UangMasukController@destroy');
+Route::post('uang-masuk/{id}', 'Esaku\KasBank\UangMasukController@update');
+Route::delete('uang-masuk/{id}', 'Esaku\KasBank\UangMasukController@destroy');
 Route::post('uang-masuk-import-excel', 'Esaku\KasBank\UangMasukController@importExcel');
 Route::get('uang-masuk-tmp', 'Esaku\KasBank\UangMasukController@getDataTmp');
 
@@ -168,8 +168,8 @@ Route::get('uang-masuk-tmp', 'Esaku\KasBank\UangMasukController@getDataTmp');
 Route::get('uang-keluar', 'Esaku\KasBank\UangKeluarController@index');
 Route::post('uang-keluar', 'Esaku\KasBank\UangKeluarController@store');
 Route::get('uang-keluar/{id}', 'Esaku\KasBank\UangKeluarController@show');
-Route::post('uang-keluar/{id}','Esaku\KasBank\UangKeluarController@update');
-Route::delete('uang-keluar/{id}','Esaku\KasBank\UangKeluarController@destroy');
+Route::post('uang-keluar/{id}', 'Esaku\KasBank\UangKeluarController@update');
+Route::delete('uang-keluar/{id}', 'Esaku\KasBank\UangKeluarController@destroy');
 Route::post('uang-keluar-import-excel', 'Esaku\KasBank\UangKeluarController@importExcel');
 Route::get('uang-keluar-tmp', 'Esaku\KasBank\UangKeluarController@getDataTmp');
 
@@ -206,12 +206,12 @@ Route::post('kas-bank-dok', 'Esaku\KasBank\UploadDokKasBankController@store');
 Route::delete('kas-bank-dok', 'Esaku\KasBank\UploadDokKasBankController@destroy');
 
 //Closing Periode
-Route::get('closing-periode','Esaku\Keuangan\ClosingPeriodeController@show');
-Route::post('closing-periode','Esaku\Keuangan\ClosingPeriodeController@store');
+Route::get('closing-periode', 'Esaku\Keuangan\ClosingPeriodeController@show');
+Route::post('closing-periode', 'Esaku\Keuangan\ClosingPeriodeController@store');
 
-Route::get('jurnal-penutup-list','Esaku\Keuangan\JurnalPenutupController@index');
-Route::get('jurnal-penutup','Esaku\Keuangan\JurnalPenutupController@getDataAwal');
-Route::post('jurnal-penutup','Esaku\Keuangan\JurnalPenutupController@store');
+Route::get('jurnal-penutup-list', 'Esaku\Keuangan\JurnalPenutupController@index');
+Route::get('jurnal-penutup', 'Esaku\Keuangan\JurnalPenutupController@getDataAwal');
+Route::post('jurnal-penutup', 'Esaku\Keuangan\JurnalPenutupController@store');
 
 Route::post('sawal-upload', 'Esaku\Keuangan\SawalController@importExcel');
 Route::get('sawal-load', 'Esaku\Keuangan\SawalController@getSawalTmp');
@@ -230,26 +230,26 @@ Route::post('akun', 'Esaku\Keuangan\AkunController@store');
 | Modul Simpanan -Transaksi
 |--------------------------------------------------------------------------
 */
-Route::get('akru-simp','Esaku\Simpanan\Transaksi\AkruBillingController@index');
-Route::get('show-akru/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingController@show');
-Route::get('akru-simp-jurnal/{tanggal}','Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');
-Route::post('akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@store');
-Route::post('update-akru-simp-jurnal','Esaku\Simpanan\Transaksi\AkruBillingController@update');
-Route::delete('akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\AkruBillingController@destroy');
+Route::get('akru-simp', 'Esaku\Simpanan\Transaksi\AkruBillingController@index');
+Route::get('show-akru/{no_bukti}', 'Esaku\Simpanan\Transaksi\AkruBillingController@show');
+Route::get('akru-simp-jurnal/{tanggal}', 'Esaku\Simpanan\Transaksi\AkruBillingController@loadJurnal');
+Route::post('akru-simp-jurnal', 'Esaku\Simpanan\Transaksi\AkruBillingController@store');
+Route::post('update-akru-simp-jurnal', 'Esaku\Simpanan\Transaksi\AkruBillingController@update');
+Route::delete('akru-simp/{no_bukti}', 'Esaku\Simpanan\Transaksi\AkruBillingController@destroy');
 
 
 /*transaksi reverse akru simpanan*/
-Route::get('reverse-akru-simp','Esaku\Simpanan\Transaksi\ReverseController@index');
-Route::get('reverse-get-anggota','Esaku\Simpanan\Transaksi\ReverseController@getAnggota');
-Route::get('reverse-akru-simp-nokartu/{no_agg}','Esaku\Simpanan\Transaksi\ReverseController@getKartuSimpanan');
-Route::post('load-reverse-akru','Esaku\Simpanan\Transaksi\ReverseController@loadData');
-Route::post('reverse-akru-simp','Esaku\Simpanan\Transaksi\ReverseController@store');
-Route::delete('reverse-akru-simp/{no_bukti}','Esaku\Simpanan\Transaksi\ReverseController@destroy');
+Route::get('reverse-akru-simp', 'Esaku\Simpanan\Transaksi\ReverseController@index');
+Route::get('reverse-get-anggota', 'Esaku\Simpanan\Transaksi\ReverseController@getAnggota');
+Route::get('reverse-akru-simp-nokartu/{no_agg}', 'Esaku\Simpanan\Transaksi\ReverseController@getKartuSimpanan');
+Route::post('load-reverse-akru', 'Esaku\Simpanan\Transaksi\ReverseController@loadData');
+Route::post('reverse-akru-simp', 'Esaku\Simpanan\Transaksi\ReverseController@store');
+Route::delete('reverse-akru-simp/{no_bukti}', 'Esaku\Simpanan\Transaksi\ReverseController@destroy');
 
 /*transaksi penerimaan simpanan tunai  */
-Route::get('terima-simp-akunkas','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@getAkun');
-Route::get('terima-simp-tagihan/{no_agg}','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@loadTagihan');
-Route::post('terima-simp','Esaku\Simpanan\Transaksi\PenerimaanTunaiController@store');
+Route::get('terima-simp-akunkas', 'Esaku\Simpanan\Transaksi\PenerimaanTunaiController@getAkun');
+Route::get('terima-simp-tagihan/{no_agg}', 'Esaku\Simpanan\Transaksi\PenerimaanTunaiController@loadTagihan');
+Route::post('terima-simp', 'Esaku\Simpanan\Transaksi\PenerimaanTunaiController@store');
 
 
 // Transaksi Aktiva Tetap
@@ -318,6 +318,12 @@ Route::get('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@show');
 Route::post('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@store');
 Route::post('v2/sdm-karyawan-update', 'Esaku\Sdm\KepegawaianV2Controller@update');
 Route::delete('v2/sdm-karyawan', 'Esaku\Sdm\KepegawaianV2Controller@delete');
+
+Route::get('v3/sdm-karyawans', 'Esaku\Sdm\KepegawaianV3Controller@index');
+Route::get('v3/sdm-karyawan', 'Esaku\Sdm\KepegawaianV3Controller@show');
+Route::post('v3/sdm-karyawan', 'Esaku\Sdm\KepegawaianV3Controller@store');
+Route::post('v3/sdm-karyawan-update', 'Esaku\Sdm\KepegawaianV3Controller@update');
+Route::delete('v3/sdm-karyawan', 'Esaku\Sdm\KepegawaianV3Controller@delete');
 
 Route::post('sdm-karyawan-simpan', 'Esaku\Sdm\UploadKaryawanController@store');
 Route::post('sdm-karyawan-upload', 'Esaku\Sdm\UploadKaryawanController@uploadXLS');
@@ -439,77 +445,78 @@ Route::get('/tes-print', function () {
         // $date = "Monday 6th of April 2015 02:56:25 PM";
 
         /* Print top logo */
-        $printer -> setJustification(Printer::JUSTIFY_CENTER);
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
         // $printer -> graphics($logo);
 
         /* Name of shop */
-        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-        $printer -> text("TJ Mart.\n");
-        $printer -> selectPrintMode();
-        $printer -> text("Jl. Sumur Bandung No. 12\n");
-        $printer -> feed(1);
-        $printer -> text("--------------------------------");
+        $printer->selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer->text("TJ Mart.\n");
+        $printer->selectPrintMode();
+        $printer->text("Jl. Sumur Bandung No. 12\n");
+        $printer->feed(1);
+        $printer->text("--------------------------------");
 
-        $printer -> setJustification(Printer::JUSTIFY_LEFT);
+        $printer->setJustification(Printer::JUSTIFY_LEFT);
         /* Title of receipt */
-        $printer -> setEmphasis(true);
-        
-        $printer -> text("No Bukti: 04-PNJ2108.0001\n");
-        $printer -> text("Kasir: Admin SAI\n");
-        $printer -> text($date."\n");
-        $printer -> text("--------------------------------");
-        $printer -> setEmphasis(false);
+        $printer->setEmphasis(true);
+
+        $printer->text("No Bukti: 04-PNJ2108.0001\n");
+        $printer->text("Kasir: Admin SAI\n");
+        $printer->text($date . "\n");
+        $printer->text("--------------------------------");
+        $printer->setEmphasis(false);
 
         /* Items */
-        $printer -> setEmphasis(true);
+        $printer->setEmphasis(true);
         foreach ($items as $item) {
-            $printer->text($item['barang']."\n");
-            $printer->text(buatBaris3Kolom($item['jumlah']."x", $item['harga'], $item['sub']));
+            $printer->text($item['barang'] . "\n");
+            $printer->text(buatBaris3Kolom($item['jumlah'] . "x", $item['harga'], $item['sub']));
         }
-        $printer -> setEmphasis(true);
-        $printer -> text("--------------------------------");
-        
+        $printer->setEmphasis(true);
+        $printer->text("--------------------------------");
+
         $printer->text(buatBaris3Kolom("Total Transaksi", "", $subtotal));
-        $printer -> setEmphasis(false);
+        $printer->setEmphasis(false);
         $printer->text(buatBaris3Kolom("Total Diskon", "", 0));
         $printer->text(buatBaris3Kolom("Total Set. Disk.", "", $subtotal));
         $printer->text(buatBaris3Kolom("Total Bayar", "", "100.000"));
         $printer->text(buatBaris3Kolom("Kembalian", "", "25.000"));
-        $printer -> text("--------------------------------");
-        $printer -> feed();
+        $printer->text("--------------------------------");
+        $printer->feed();
 
         /* Tax and total */
         // $printer -> text($tax);
-        
-        $printer -> setJustification(Printer::JUSTIFY_CENTER);
-        $printer -> selectPrintMode();
+
+        $printer->setJustification(Printer::JUSTIFY_CENTER);
+        $printer->selectPrintMode();
 
         /* Footer */
-        $printer -> feed(1);
-        $printer -> text("Terima Kasih \n telah berbelanja \n di TJMart\n");
-        $printer -> feed(2);
+        $printer->feed(1);
+        $printer->text("Terima Kasih \n telah berbelanja \n di TJMart\n");
+        $printer->feed(2);
 
         /* Cut the receipt and open the cash drawer */
-        $printer -> cut();
-        $printer -> pulse();
+        $printer->cut();
+        $printer->pulse();
 
-        $printer -> close();
+        $printer->close();
 
 
-        $response = ['success'=>'true','message'=>'Berhasil!'];
+        $response = ['success' => 'true', 'message' => 'Berhasil!'];
     } catch (Exception $e) {
-        $response = ['success'=>'false','message'=>$e->getMessage()];
+        $response = ['success' => 'false', 'message' => $e->getMessage()];
     }
     return response()->json($response);
 });
 
-function buatBaris3Kolom($kolom1, $kolom2, $kolom3) {
+function buatBaris3Kolom($kolom1, $kolom2, $kolom3)
+{
     // Mengatur lebar setiap kolom (dalam satuan karakter)
     $lebar_kolom_1 = 12;
     $lebar_kolom_2 = 8;
     $lebar_kolom_3 = 8;
 
-    // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n 
+    // Melakukan wordwrap(), jadi jika karakter teks melebihi lebar kolom, ditambahkan \n
     $kolom1 = wordwrap($kolom1, $lebar_kolom_1, "\n", true);
     $kolom2 = wordwrap($kolom2, $lebar_kolom_2, "\n", true);
     $kolom3 = wordwrap($kolom3, $lebar_kolom_3, "\n", true);
@@ -525,10 +532,10 @@ function buatBaris3Kolom($kolom1, $kolom2, $kolom3) {
     // Mendeklarasikan variabel untuk menampung kolom yang sudah di edit
     $hasilBaris = array();
 
-    // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris 
+    // Melakukan perulangan setiap baris (yang dibentuk wordwrap), untuk menggabungkan setiap kolom menjadi 1 baris
     for ($i = 0; $i < $jmlBarisTerbanyak; $i++) {
 
-        // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan, 
+        // memberikan spasi di setiap cell berdasarkan lebar kolom yang ditentukan,
         $hasilKolom1 = str_pad((isset($kolom1Array[$i]) ? $kolom1Array[$i] : ""), $lebar_kolom_1, " ");
         $hasilKolom2 = str_pad((isset($kolom2Array[$i]) ? $kolom2Array[$i] : ""), $lebar_kolom_2, " ");
 
@@ -541,4 +548,4 @@ function buatBaris3Kolom($kolom1, $kolom2, $kolom3) {
 
     // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
     return implode($hasilBaris, "\n") . "\n";
-}   
+}
