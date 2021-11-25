@@ -1,0 +1,57 @@
+/* FONT SIZE */
+.text-medium {
+    font-size: 1.5rem !important;
+}
+.text-small {
+    font-size: 1rem !important;
+}
+.text-value {
+    font-size: 1.8rem !important;
+}
+/* END FONT SIZE */
+
+/* FONT WEIGHT */
+.font-bold {
+    font-weight: bold;
+}
+/* END FONT WEIGHT */
+
+/* FONT COLOR */
+.text-dark-red {
+    color: #941b0c;
+}
+/* END FONT COLOR */
+
+/* MARGIN */
+.mb-1 {
+    margin-bottom: 0.5rem !important;
+}
+/* END MARGIN */
+
+/* PADDING */
+.py-1 {
+    padding-top: 1rem !important;
+    padding-bottom: 0.5rem !important;
+}
+/* END PADDING */
+
+/* BACKGROUND */
+.bg-dark-blue {
+    background-color: #255f85;
+}
+.bg-orange {
+    background-color: #faa613;
+}
+.bg-pink {
+    background-color: #e26d5c;
+}
+.bg-dark-red {
+    background-color: #941b0c;
+}
+/* END BACKGROUND */
+
+/* TEXT ALIGN */
+.text-right {
+    text-align: right;
+}
+/* END TEXT ALIGN */
