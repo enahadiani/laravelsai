@@ -591,6 +591,9 @@
         if("{{ $_SERVER['SERVER_NAME'] }}" == 'sdm.trengginasjaya.com') {
             $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
             $('.logo').css('height', '45px')
+        } else {
+            $('.logo').css('background', 'url("{{ asset("asset_sdm/img/logo.png") }}") no-repeat')
+            $('.logo').css('height', '45px')
         }
         </script>
         <script>
