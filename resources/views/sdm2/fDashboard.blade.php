@@ -234,7 +234,7 @@
                         <div class="card card-dash">
                             <div class="card-header row">
                                 <div class="col-12 py-1">
-                                    <h6 class="text-small">Perubahan SDM</h6>
+                                    <h6 class="text-small">Pertumbuhan SDM</h6>
                                 </div>
                             </div>
                             <div class="card-body">
