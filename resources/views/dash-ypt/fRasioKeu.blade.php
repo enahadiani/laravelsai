@@ -1,13 +1,229 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/rk.dekstop.css?version=_').time() }}" />
-
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp2.dekstop.css?version=_').time() }}" />
+<style>
+    /* html {
+        overflow-y: scroll !important;
+    } */
+</style>
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
     var $tahun = parseInt($('#year-filter').text());
     var $filter1 = "Periode";
-    var $filter2 = getNamaBulan("09");
-    var $month = "09";
+    var $filter2 = getNamaBulan("{{ Session::get('periode') }}".substr(4,2));
+    var $month = "{{ Session::get('periode') }}".substr(4,2);
     var yoyChart = null;
+
+    function getJenis() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-jenis') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                $('#filter-checkbox-rasio').html('');
+                var html = `<div class="col-12 mb-6">
+                        <h4 class="header-card">Jenis Rasio</h4>
+                    </div>`;
+                if(result.status){
+                    if(typeof result.data == 'object' && result.data.length > 0){
+                        for(var i=0; i < result.data.length; i++){
+                            var line = result.data[i];
+                            if(i == 0){
+                                var check = "checked";
+                            }else{
+                                var check = "";
+                            }
+                            html +=`
+                            <div class="col-12 mt-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="`+line.kode_rasio+`" name="jenis" class="custom-control-input" `+check+` value="`+line.kode_rasio+`">
+                                    <label class="custom-control-label" for="`+line.kode_rasio+`">`+line.nama+`</label>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                }else{
+                    alert(JSON.stringify(result.message));
+                }
+                $('#filter-checkbox-rasio').html(html);
+            }
+        });
+    }
+
+    function getLembaga() {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-lembaga') }}",
+            dataType: 'JSON',
+            success: function(result) {
+                $('#filter-checkbox-lembaga').html('');
+                var html = `<div class="col-12 mb-6">
+                        <h4 class="header-card">Lembaga</h4>
+                    </div>`;
+                if(result.status){
+                    if(typeof result.data == 'object' && result.data.length > 0){
+                        for(var i=0; i < result.data.length; i++){
+                            var line = result.data[i];
+                            if(line.kode_lokasi == "{{ Session::get('lokasi') }}"){
+                                var check = "checked";
+                            }else{
+                                var check = "";
+                            }
+                            html +=`
+                            <div class="col-12 mt-6">
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" id="`+line.kode_lokasi+`" name="lokasi" class="custom-control-input" `+check+` value="`+line.kode_lokasi+`">
+                                    <label class="custom-control-label" for="`+line.kode_lokasi+`">`+line.skode+`</label>
+                                </div>
+                            </div>`;
+                        }
+                    }
+                }else{
+                    alert(JSON.stringify(result.message));
+                }
+                $('#filter-checkbox-lembaga').html(html);
+            }
+        });
+    }
+
+    function getRasioYtd(periode,jenis,lokasi) {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-ytd') }}",
+            dataType: 'JSON',
+            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            success: function(result) {
+                if(result.status){
+                    // $('#status-rasio-ytd').html(result.status_rasio);
+                    $('#rasio-ytd').html(number_format(result.data[periode],2)+'%');
+                    // if(result.status_rasio == 'Naik'){
+                    //     $('#status-rasio-ytd').removeClass('red-text')
+                    //     $('#status-rasio-ytd').addClass('green-text')
+                    // }else{
+                        
+                    //     $('#status-rasio-ytd').removeClass('green-text')
+                    //     $('#status-rasio-ytd').addClass('red-text')
+                    // }
+                }else{
+                    // alert(JSON.stringify(result.message));
+                    $('#status-rasio-ytd').html('-');
+                    $('#rasio-ytd').html('0 x');
+                }
+                
+            }
+        });
+    }
+
+    function getRasioYoY(periode,jenis,lokasi) {
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-yoy') }}",
+            dataType: 'JSON',
+            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            success: function(result) {
+                if(result.status){
+                    $('#rasio-selisih').html(number_format(result.kenaikan,2)+'%');
+                    if(result.status_rasio == 'Naik'){
+                        $('#status-rasio-selisih').html('<i class="simple-icon-arrow-up-circle"></i>');
+                        $('#status-rasio-selisih').removeClass('red-text')
+                        $('#status-rasio-selisih').addClass('green-text')
+                        $('#rasio-selisih').removeClass('red-text')
+                        $('#rasio-selisih').removeClass('red-text-700')
+                        $('#rasio-selisih').addClass('green-text')
+                    }
+                    else if(result.status_rasio == 'Tetap'){
+                        $('#status-rasio-selisih').html('')
+                        $('#rasio-selisih').removeClass('red-text')
+                        $('#rasio-selisih').removeClass('red-text-700')
+                        $('#rasio-selisih').removeClass('green-text')
+                    }else{
+                        $('#status-rasio-selisih').html('<i class="simple-icon-arrow-down-circle"></i>');
+                        $('#status-rasio-selisih').removeClass('green-text')
+                        $('#status-rasio-selisih').addClass('red-text')
+                        $('#rasio-selisih').removeClass('red-text-700')
+                        $('#rasio-selisih').removeClass('green-text')
+                        $('#rasio-selisih').addClass('red-text')
+                    }
+                }else{
+                    // alert(JSON.stringify(result.message));
+                    $('#status-rasio-selisih').html('-');
+                    $('#rasio-selisih').html('0%');
+                }
+                
+            }
+        });
+    }
+
+    function getYoYChart(periode,jenis,lokasi){
+        $.ajax({
+            type:'GET',
+            url: "{{ url('dash-ypt-dash/data-rasio-tahun') }}",
+            dataType: 'JSON',
+            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            success: function(result) {
+                yoyChart = Highcharts.chart('rasio-chart', {
+                    // chart: {
+                    //     height: 360
+                    // },
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ 
+                        enabled: false
+                    },
+                    legend:{ 
+                        enabled: false
+                    },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: result.ctg
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Nilai'
+                        }
+                    },
+                    tooltip: {
+                        formatter: function () {   
+                            return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    return number_format(this.y,2);
+                                }
+                            },
+                            label: {
+                                connectorAllowed: false
+                            },
+                            marker:{
+                                enabled:false
+                            },
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Nilai',
+                            data: result.series,
+                            color: '#830000'
+                        },
+                    ],
+                });
+            }
+        });
+    }
+
+    getJenis();
+    getLembaga();
+    getRasioYtd("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
+    getRasioYoY("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
+    getYoYChart("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
 
     if($filter1 == 'Periode') {
         $('#list-filter-2').find('.list').each(function() {
@@ -20,6 +236,19 @@
     }
 
     $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
+    $(window).on('resize', function(){
+        var win = $(this); //this = window
+        if (win.height() == 800) { 
+            $("body").css("overflow", "hidden");
+        }
+        if (win.height() > 800) { 
+            $("body").css("overflow", "scroll");
+        }
+        if (win.height() < 800) { 
+            $("body").css("overflow", "scroll");
+        }
+    });
 
     $(window).click(function() {
         $('.menu-chart-custom').addClass('hidden');
@@ -43,7 +272,6 @@
                 text: ''
             }
         })
-
         console.log('Leaving full-screen mode.');
     }
     });
@@ -52,12 +280,24 @@
         event.stopPropagation();
         $tahun = $tahun - 1;
         $('#year-filter').text($tahun);
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
     });
 
     $('#tambah-tahun').click(function(event) {
         event.stopPropagation();
         $tahun = $tahun + 1;
         $('#year-filter').text($tahun);
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
     });
 
     $('#custom-row').click(function(event) {
@@ -67,63 +307,47 @@
 
     $('#list-filter-2').on('click', 'div', function(event) {
         event.stopPropagation();
-        filter = $(this).data('bulan') 
+        console.log('click');
+        $month = $(this).data('bulan') 
         
-        $filter2 = filter
+        $filter2 = $month
         $('#list-filter-2 div').not(this).removeClass('selected')
         $(this).addClass('selected')
 
         $filter2 = getNamaBulan($filter2)
 
         $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
     });
-</script>
-<script type="text/javascript">
-    // HIGHCHART
-    yoyChart = Highcharts.chart('rasio-chart', {
-                chart: {
-                    height: 360,
-                    // width: 600
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ 
-                    enabled: false,
-                    // layout: 'vertical',
-                    // align: 'right',
-                    // verticalAlign: 'bottom' 
-                },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: ['2017', '2018', '2019', '2020', '2021']
-                },
-                yAxis: {
-                    title: {
-                        text: 'Nilai'
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        marker:{
-                            enabled:false
-                        },
-                    }
-                },
-                series: [
-                    {
-                        name: 'Nilai',
-                        data: [1000, 2000, 3000, 2500, 4000],
-                        color: '#830000'
-                    },
-                ],
-        });
-    // HIGHCHART
+
+    $('#filter-checkbox-rasio').on('click','input[type="radio"]',function(){
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
+    });
+
+    $('#filter-checkbox-lembaga').on('click','input[type="radio"]',function(){
+        var periode = $tahun+''+$month;
+        var jenis = $("input[name='jenis']:checked").val();
+        var lokasi = $("input[name='lokasi']:checked").val();
+        getRasioYtd(periode,jenis,lokasi);
+        getRasioYoY(periode,jenis,lokasi);
+        getYoYChart(periode,jenis,lokasi);
+    });
+
+    var scrollfilter = document.querySelector('#filter-dash');
+    var psscrollfilter = new PerfectScrollbar(scrollfilter,{
+        suppressScrollX :true
+    });
+
 </script>
 {{-- HEADER --}}
 <section id="header" class="header">
@@ -244,10 +468,10 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-3 mb-16 align-self-end">
-                                <h6 class="green-text font-medium mb-0" id="status-rasio-ytd">Naik</h6>
+                                <h6 class="green-text font-medium mb-0" id="status-rasio-ytd"></h6>
                             </div>
                             <div class="col-9 mb-16">
-                                <h3 class="red-text-700 mb-0 text-right lh-1">8,3 x</h3>
+                                <h3 class="red-text-700 mb-0 text-right lh-1" id="rasio-ytd"></h3>
                             </div>
                         </div>
                     </div>
@@ -261,10 +485,10 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-3 mb-16 align-self-end">
-                                <h6 class="red-text font-medium mb-0" id="status-rasio-selisih">Turun</h6>
+                                <h6 class="red-text font-medium mb-0" id="status-rasio-selisih"></h6>
                             </div>
                             <div class="col-9 mb-16">
-                                <h3 class="red-text-700 mb-0 text-right lh-1">-1,2%</h3>
+                                <h3 class="red-text-700 mb-0 text-right lh-1" id="rasio-selisih"></h3>
                             </div>
                         </div>
                     </div>
@@ -278,7 +502,7 @@
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <div id="rasio-chart"></div>
+                                <div id="rasio-chart" style="height:calc(100vh - 320px)"></div>
                             </div>
                         </div>
                     </div>
@@ -286,38 +510,38 @@
             </div>
         </div>
         <div class="col-3 pr-0">
-            <div class="card card-dash border-r-0 h-full">
+            <div class="card card-dash border-r-0 h-full" id="filter-dash" style="height:calc(100vh - 163px);">
                 <div class="row mb-16" id="filter-checkbox-rasio">
                     <div class="col-12 mb-6">
                         <h4 class="header-card">Jenis Rasio</h4>
                     </div>
-                    <div class="col-12 mt-6">
+                    {{-- <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs1" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 1</span>
                         </label>
                     </div>
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs2" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 2</span>
                         </label>
                     </div>
                     <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
-                            <input type="checkbox" name="jenis[]" class="checkbox-input" checked>
+                            <input type="checkbox" name="jenis[]" class="checkbox-input" value="rs3" checked>
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">Rasio 3</span>
                         </label>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row" id="filter-checkbox-lembaga">
                     <div class="col-12 mb-6">
                         <h4 class="header-card">Lembaga</h4>
                     </div>
-                    <div class="col-12 mt-6">
+                    {{-- <div class="col-12 mt-6">
                         <label class="container-checkbox-filter">
                             <input type="checkbox" name="instansi[]" class="checkbox-input" checked>
                             <span class="checkmark"></span>
@@ -337,7 +561,7 @@
                             <span class="checkmark"></span>
                             <span class="container-checkbox-filter-text">LEMDIKTI</span>
                         </label>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

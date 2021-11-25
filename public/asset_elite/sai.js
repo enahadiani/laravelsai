@@ -38,7 +38,7 @@ function DelDecimal(x){
 }
 
 function number_format(number,decimal=0){
-    number = parseFloat(number);
+    number = parseFloat(number).toFixed(decimal);
     formatter = new Intl.NumberFormat(['ban', 'id']);
     return formatter.format(number,{
         maximumFractionDigits: decimal 
