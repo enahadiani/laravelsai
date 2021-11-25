@@ -153,7 +153,7 @@
     <section id="body-1" class="body-1 m-b-25 col-dekstop">
         <div class="row">
             <div class="col-4">
-                <div class="card card-dash">
+                <div class="card card-dash h-full">
                     <div class="card-header row">
                         <div class="col-12 py-1">
                             <h6 class="text-small">Komposisi Klien</h6>
@@ -205,7 +205,7 @@
                 </div>
             </div>
             <div class="col-8">
-                <div class="row mb-1">
+                <div class="row mb-2">
                     <div class="col-4">
                         <div class="card card-dash">
                             <div class="card-header row">
@@ -234,18 +234,18 @@
                         <div class="card card-dash">
                             <div class="card-header row">
                                 <div class="col-12 py-1">
-                                    <h6 class="text-small">Pertumbuhan SDM</h6>
+                                    <h6 class="text-small">Lokasi Kerja</h6>
                                 </div>
                             </div>
                             <div class="card-body">
-                                <h5 id="perubahan-value" class="text-value text-dark-red font-bold">XX</h5>
+                                <h5 id="lokasi-value" class="text-value text-dark-red font-bold">138</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-dash">
+                        <div class="card card-dash h-1">
                             <div class="card-header row">
                                 <div class="col-12 py-1">
                                     <h6 class="text-small">% Pertumbuhan Market</h6>

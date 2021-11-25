@@ -26,6 +26,9 @@
 .mb-1 {
     margin-bottom: 0.5rem !important;
 }
+.mb-2 {
+    margin-bottom: 1.75rem !important;
+}
 /* END MARGIN */
 
 /* PADDING */
@@ -55,3 +58,17 @@
     text-align: right;
 }
 /* END TEXT ALIGN */
+
+/* HEIGHT */
+.h-full {
+    min-height: 32.5rem;
+}
+.h-1 {
+    min-height: 24.375rem;
+}
+/* END HEIGHT */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}
