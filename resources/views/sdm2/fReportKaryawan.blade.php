@@ -43,7 +43,11 @@
                                         :option="array('1','2','3','i')" />
                                     <x-inp-filter kode="kode_gol" nama="Golongan" selected="1"
                                         :option="array('1','2','3','i')" />
-                                    <x-inp-filter kode="kode_jab" nama="Jabatan" selected="1"
+                                    <x-inp-filter kode="kode_area" nama="Area" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_fm" nama="FM" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_bm" nama="BM" selected="1"
                                         :option="array('1','2','3','i')" />
                                     <x-inp-filter kode="kode_loker" nama="Lokasi Kerja" selected="1"
                                         :option="array('1','2','3','i')" />
@@ -97,8 +101,21 @@ var $kode_gol = {
     to : "",
     toname : "",
 }
-
-var $kode_jab = {
+var $kode_area = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+var $kode_fm = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+var $kode_bm = {
     type : "all",
     from : "",
     fromname : "",
@@ -155,9 +172,11 @@ $('#btn-tampil').click(function(e){
 $('.selectize').selectize();
 
 $('#inputFilter').reportFilter({
-    kode : ['kode_sdm', 'kode_gol', 'kode_jab', 'kode_loker', 'nik'],
-    nama : ['Status SDM', 'Golongan', 'Jabatan', 'Lokasi Kerja', 'NIK Karyawan'],
+    kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm' ,'kode_loker', 'nik'],
+    nama : ['Status SDM', 'Golongan', 'Area','FM','BM' ,'Lokasi Kerja', 'NIK Karyawan'],
     header : [
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
         ['Kode', 'Nama'],
         ['Kode', 'Nama'],
         ['Kode', 'Nama'],
@@ -165,6 +184,8 @@ $('#inputFilter').reportFilter({
         ['NIK', 'Nama']
     ],
     headerpilih : [
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
         ['Kode', 'Nama', 'Action'],
         ['Kode', 'Nama', 'Action'],
         ['Kode', 'Nama', 'Action'],
@@ -181,7 +202,15 @@ $('#inputFilter').reportFilter({
             { data: 'nama' }
         ],
         [
-            { data: 'kode_jab' },
+            { data: 'kode_area' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_fm' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_bm' },
             { data: 'nama' }
         ],
         [
@@ -196,23 +225,27 @@ $('#inputFilter').reportFilter({
     url :[
         "{{ url('esaku-master/sdm-statuss') }}",
         "{{ url('esaku-master/sdm-golongans') }}",
-        "{{ url('esaku-master/sdm-jabatans') }}",
+        "{{ url('esaku-master/sdm-areas') }}",
+        "{{ url('esaku-master/sdm-fms') }}",
+        "{{ url('esaku-master/sdm-bms') }}",
         "{{ url('esaku-master/sdm-lokers') }}",
-        "{{ url('esaku-trans/sdm-karyawans') }}"
+        "{{ url('esaku-trans/v3/sdm-karyawans') }}"
     ],
     parameter:[],
     orderby:[[],[],[],[],[]],
-    width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
-    display:['kode', 'kode', 'kode', 'kode', 'kode'],
-    pageLength:[10, 10, 10, 10, 10]
+    width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
+    display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
+    pageLength:[10, 10, 10, 10, 10,10,10]
 });
 
 $('#inputFilter').on('change','input',function(e){
     setTimeout(() => {
         $('#inputFilter').reportFilter({
-            kode : ['kode_sdm', 'kode_gol', 'kode_jab', 'kode_loker', 'nik'],
-            nama : ['Status SDM', 'Golongan', 'Jabatan', 'Lokasi Kerja', 'NIK Karyawan'],
+            kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm','kode_loker', 'nik'],
+            nama : ['Status SDM', 'Golongan', 'Area','Fm','Bm','Lokasi Kerja', 'NIK Karyawan'],
             header : [
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
@@ -220,6 +253,8 @@ $('#inputFilter').on('change','input',function(e){
                 ['NIK', 'Nama']
             ],
             headerpilih : [
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
                 ['Kode', 'Nama', 'Action'],
                 ['Kode', 'Nama', 'Action'],
                 ['Kode', 'Nama', 'Action'],
@@ -236,7 +271,15 @@ $('#inputFilter').on('change','input',function(e){
                     { data: 'nama' }
                 ],
                 [
-                    { data: 'kode_jab' },
+                    { data: 'kode_area' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_fm' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_bm' },
                     { data: 'nama' }
                 ],
                 [
@@ -251,15 +294,17 @@ $('#inputFilter').on('change','input',function(e){
             url :[
                 "{{ url('esaku-master/sdm-statuss') }}",
                 "{{ url('esaku-master/sdm-golongans') }}",
-                "{{ url('esaku-master/sdm-jabatans') }}",
+                "{{ url('esaku-master/sdm-areas') }}",
+                "{{ url('esaku-master/sdm-fms') }}",
+                "{{ url('esaku-master/sdm-bms') }}",
                 "{{ url('esaku-master/sdm-lokers') }}",
-                "{{ url('esaku-trans/sdm-karyawans') }}"
+                "{{ url('esaku-trans/v3/sdm-karyawans') }}"
             ],
             parameter:[],
             orderby:[[],[],[],[],[]],
-            width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
-            display:['kode', 'kode', 'kode', 'kode', 'kode'],
-            pageLength:[10, 10, 10, 10, 10]
+            width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
+            pageLength:[10, 10, 10, 10, 10,10,10]
         });
     }, 500)
 });
@@ -274,12 +319,23 @@ $('#form-filter').submit(function(e){
     $formData.append("kode_gol[]",$kode_gol.type);
     $formData.append("kode_gol[]",$kode_gol.from);
     $formData.append("kode_gol[]",$kode_gol.to);
-    $formData.append("kode_jab[]",$kode_jab.type);
-    $formData.append("kode_jab[]",$kode_jab.from);
-    $formData.append("kode_jab[]",$kode_jab.to);
+
+    $formData.append("kode_area[]",$kode_area.type);
+    $formData.append("kode_area[]",$kode_area.from);
+    $formData.append("kode_area[]",$kode_area.to);
+
+    $formData.append("kode_fm[]",$kode_fm.type);
+    $formData.append("kode_fm[]",$kode_fm.from);
+    $formData.append("kode_fm[]",$kode_fm.to);
+
+    $formData.append("kode_bm[]",$kode_bm.type);
+    $formData.append("kode_bm[]",$kode_bm.from);
+    $formData.append("kode_bm[]",$kode_bm.to);
+
     $formData.append("kode_loker[]",$kode_loker.type);
     $formData.append("kode_loker[]",$kode_loker.from);
     $formData.append("kode_loker[]",$kode_loker.to);
+
     $formData.append("nik[]",$nik.type);
     $formData.append("nik[]",$nik.from);
     $formData.append("nik[]",$nik.to);
@@ -299,9 +355,19 @@ $('#show').change(function(e){
     $formData.append("kode_gol[]",$kode_gol.type);
     $formData.append("kode_gol[]",$kode_gol.from);
     $formData.append("kode_gol[]",$kode_gol.to);
-    $formData.append("kode_jab[]",$kode_jab.type);
-    $formData.append("kode_jab[]",$kode_jab.from);
-    $formData.append("kode_jab[]",$kode_jab.to);
+
+    $formData.append("kode_area[]",$kode_area.type);
+    $formData.append("kode_area[]",$kode_area.from);
+    $formData.append("kode_area[]",$kode_area.to);
+
+    $formData.append("kode_fm[]",$kode_fm.type);
+    $formData.append("kode_fm[]",$kode_fm.from);
+    $formData.append("kode_fm[]",$kode_fm.to);
+
+    $formData.append("kode_bm[]",$kode_bm.type);
+    $formData.append("kode_bm[]",$kode_bm.from);
+    $formData.append("kode_bm[]",$kode_bm.to);
+
     $formData.append("kode_loker[]",$kode_loker.type);
     $formData.append("kode_loker[]",$kode_loker.from);
     $formData.append("kode_loker[]",$kode_loker.to);
@@ -328,9 +394,19 @@ $('#saku-report #canvasPreview').on('click', '.karyawan', function(e){
     $formData.append("kode_gol[]",$kode_gol.type);
     $formData.append("kode_gol[]",$kode_gol.from);
     $formData.append("kode_gol[]",$kode_gol.to);
-    $formData.append("kode_jab[]",$kode_jab.type);
-    $formData.append("kode_jab[]",$kode_jab.from);
-    $formData.append("kode_jab[]",$kode_jab.to);
+
+    $formData.append("kode_area[]",$kode_area.type);
+    $formData.append("kode_area[]",$kode_area.from);
+    $formData.append("kode_area[]",$kode_area.to);
+
+    $formData.append("kode_fm[]",$kode_fm.type);
+    $formData.append("kode_fm[]",$kode_fm.from);
+    $formData.append("kode_fm[]",$kode_fm.to);
+
+    $formData.append("kode_bm[]",$kode_bm.type);
+    $formData.append("kode_bm[]",$kode_bm.from);
+    $formData.append("kode_bm[]",$kode_bm.to);
+
     $formData.append("kode_loker[]",$kode_loker.type);
     $formData.append("kode_loker[]",$kode_loker.from);
     $formData.append("kode_loker[]",$kode_loker.to);
@@ -360,9 +436,19 @@ $('.navigation-lap').on('click', '#btn-back', function(e){
     $formData.append("kode_gol[]",$kode_gol.type);
     $formData.append("kode_gol[]",$kode_gol.from);
     $formData.append("kode_gol[]",$kode_gol.to);
-    $formData.append("kode_jab[]",$kode_jab.type);
-    $formData.append("kode_jab[]",$kode_jab.from);
-    $formData.append("kode_jab[]",$kode_jab.to);
+
+    $formData.append("kode_area[]",$kode_area.type);
+    $formData.append("kode_area[]",$kode_area.from);
+    $formData.append("kode_area[]",$kode_area.to);
+
+    $formData.append("kode_fm[]",$kode_fm.type);
+    $formData.append("kode_fm[]",$kode_fm.from);
+    $formData.append("kode_fm[]",$kode_fm.to);
+
+    $formData.append("kode_bm[]",$kode_bm.type);
+    $formData.append("kode_bm[]",$kode_bm.from);
+    $formData.append("kode_bm[]",$kode_bm.to);
+
     $formData.append("kode_loker[]",$kode_loker.type);
     $formData.append("kode_loker[]",$kode_loker.from);
     $formData.append("kode_loker[]",$kode_loker.to);

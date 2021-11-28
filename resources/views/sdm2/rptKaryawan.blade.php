@@ -28,14 +28,13 @@
                                 <th class="text-center" style="width: 15px;">NIK</th>
                                 <th class="text-center" style="width: 140px;">Nama</th>
                                 <th class="text-center" style="width: 120px;">Tanggal Masuk</th>
-                                <th class="text-center" style="width: 120px;">Status Pajak</th>
                                 <th class="text-center" style="width: 120px;">Golongan</th>
-                                <th class="text-center" style="width: 120px;">Jabatan</th>
-                                <th class="text-center" style="width: 120px;">PP</th>
                                 <th class="text-center" style="width: 120px;">Status</th>
+                                <th class="text-center" style="width: 120px;">Area</th>
+                                <th class="text-center" style="width: 120px;">FM</th>
+                                <th class="text-center" style="width: 120px;">BM</th>
                                 <th class="text-center" style="width: 150px;">Lokasi Kerja</th>
                                 <th class="text-center" style="width: 120px;">No Telp</th>
-                                <th class="text-center" style="width: 120px;">Email</th>
                                 <th class="text-center" style="width: 200px;">Alamat</th>
                             </tr>
                         </thead>
@@ -47,14 +46,13 @@
                                 <td class="text-left">${column.nik}</td>
                                 <td class="text-left">${column.nama}</td>
                                 <td class="text-left">${column.tgl_masuk}</td>
-                                <td class="text-left">${column.kode_pajak}</td>
-                                <td class="text-left">${column.nama_gol}</td>
-                                <td class="text-left">${column.nama_jab}</td>
-                                <td class="text-left">${column.nama_pp}</td>
+                                <td class="text-left">${column.nama_golongan}</td>
                                 <td class="text-left">${column.nama_sdm}</td>
+                                <td class="text-left">${column.nama_area}</td>
+                                <td class="text-left">${column.nama_fm}</td>
+                                <td class="text-left">${column.nama_bm}</td>
                                 <td class="text-left">${column.nama_loker}</td>
                                 <td class="text-left">${column.no_telp}</td>
-                                <td class="text-left">${column.email}</td>
                                 <td class="text-left">${column.alamat}</td>
                             </tr>`;
                             no++;
