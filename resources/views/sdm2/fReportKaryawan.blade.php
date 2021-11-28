@@ -423,7 +423,7 @@ $('#saku-report #canvasPreview').on('click', '.karyawan', function(e){
         </li>
         <li class="breadcrumb-item active" aria-current="cv-karyawan" aria-param="`+nik+`">Curiculum Vitae Karyawan</li>
     `);
-    xurl ="{{ url('esaku-auth/form/sdm_rptCvKaryawan') }}";
+    xurl ="{{ url('sdm2-auth/form/rptCv') }}";
     $('#saku-report #canvasPreview').load(xurl);
 });
 
@@ -461,7 +461,7 @@ $('.navigation-lap').on('click', '#btn-back', function(e){
     var param = tmp[0];
     if(aktif == "cv-karyawan"){
         $formData.delete('back');
-        xurl = "{{ url('esaku-auth/form/sdm_rptKaryawan') }}";
+        xurl = "{{ url('sdm2-auth/form/rptKaryawan') }}";
         $('.breadcrumb').html('');
         $('.breadcrumb').append(`
             <li class="breadcrumb-item active" aria-current="laporan-karyawan" aria-param="">LLaporan Data Karyawan</li>
