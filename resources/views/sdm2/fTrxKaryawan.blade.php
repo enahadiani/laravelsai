@@ -466,30 +466,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
-                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;"
-                                        class=""><span
-                                            style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;"
-                                            id="total-row-jurnal"></span></a>
-                                </div>
-                                <table class="table table-bordered table-condensed gridexample" id="jurnal-grid"
-                                    style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%">No</th>
-                                            <th style="width:13%">Kode Param</th>
-                                            <th style="width:15%">Nama Param</th>
-                                            <th style="width:15%">Nilai</th>
-                                            <th style="width:5%"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
-                                <a type="button" href="#" data-id="0" title="add-row"
-                                    class="add-row-jurnal btn btn-light2 btn-block btn-sm">Tambah Baris</a>
-                            </div>
+
                         </div>
                         <div class="tab-pane" id="data-client" role="tabpanel">
                             <div class="form-row">
@@ -1287,7 +1264,7 @@ function editData(id, view = false) {
             var kepeg = result.data_kepeg[0]
             var bank = result.data_bank[0]
             var client = result.data_client[0]
-            var gaji = result.data_gaji
+
             // dok
             var detail = result.data_doc
             console.log(data)
@@ -1402,48 +1379,7 @@ function editData(id, view = false) {
                     setRowDefault()
                 }
 
-                if(gaji.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<gaji.length;i++){
-                            var line =gaji[i];
-                            input += "<tr class='row-jurnal'>";
-                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
 
-                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+line.kode_param+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_param+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-
-                            input += "<td ><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+line.nama_param+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_param+"' readonly></td>";
-
-
-                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
-
-                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-                            input += "</tr>";
-
-                            no++;
-                        }
-                        $('#jurnal-grid tbody').html(input);
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        })
-                        no= 1;
-                        for(var i=0;i<gaji.length;i++){
-                            var line =gaji[i];
-
-                            $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            no++;
-                        }
-
-                    }
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();

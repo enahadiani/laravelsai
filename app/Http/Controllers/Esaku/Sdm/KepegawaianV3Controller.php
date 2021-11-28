@@ -377,6 +377,47 @@ class Kepegawaianv3Controller extends Controller
                     $fields = array_merge($fields, $array_file);
                 }
             }
+
+
+            // dd($fields);
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v3/sdm-karyawan', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                return response()->json(['data' => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
+    }
+
+    public function store_gaji(Request $request)
+    {
+        $this->validate($request, [
+            'nik' => 'required',
+            'kode_akun' => 'required'
+        ]);
+
+        try {
+            $fields = array(
+                array(
+                    "name" => "nik",
+                    "contents" => $request->input('nik')
+                ),
+            );
+
             $x = 1;
             $array_nu_param = array();
             $array_kode_param = array();
@@ -419,7 +460,7 @@ class Kepegawaianv3Controller extends Controller
 
             // dd($fields);
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v3/sdm-karyawan', [
+            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v3/sdm-gaji-param', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -448,6 +489,38 @@ class Kepegawaianv3Controller extends Controller
             $response = $client->request(
                 'GET',
                 config('api.url') . 'esaku-trans/v3/sdm-karyawan',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nik' => $request->query('kode')
+                    ]
+                ]
+            );
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+            }
+            return response()->json(['data' => $data], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+    public function show_gaji(Request $request)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request(
+                'GET',
+                config('api.url') . 'esaku-trans/v3/sdm-gaji-param',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer ' . Session::get('token'),
@@ -776,45 +849,7 @@ class Kepegawaianv3Controller extends Controller
                     $fields = array_merge($fields, $array_file);
                 }
             }
-            $x = 1;
-            $array_nu_param = array();
-            $array_kode_param = array();
-            $array_nama_param = array();
-            $array_nilai_param = array();
-            if (count($request->kode_akun) > 0) {
-                for ($y = 0; $y < count($request->kode_akun); $y++) {
-                    $data_nu_param = array(
-                        'name' => 'nu_param[]',
-                        'contents' => $x
-                    );
-                    $data_kode_param = array(
-                        'name' => 'kode_param[]',
-                        'contents' => $request->kode_akun[$y]
-                    );
-                    $data_nama_param = array(
-                        'name' => 'nama_param[]',
-                        'contents' => $request->nama_akun[$y]
-                    );
-                    $data_nilai_param = array(
-                        'name' => 'nilai[]',
-                        'contents' => $this->joinNum($request->nilai[$y])
-                    );
-                    $x++;
 
-                    array_push($array_nu_param, $data_nu_param);
-                    array_push($array_kode_param, $data_kode_param);
-                    array_push($array_nama_param, $data_nama_param);
-                    array_push($array_nilai_param, $data_nilai_param);
-                }
-
-                $fields = array_merge(
-                    $fields,
-                    $array_nu_param,
-                    $array_kode_param,
-                    $array_nama_param,
-                    $array_nilai_param
-                );
-            }
 
             // dd($fields);
             $client = new Client();
