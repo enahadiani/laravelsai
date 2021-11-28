@@ -1,324 +1,383 @@
-<script type="text/javascript">
-    function drawLap(formData){
-        saiPostLoad('esaku-report/sdm-lap-karyawanCv', null, formData, null, function(res){
-            if(res.result.length > 0){
-                $('#pagination').html('');
-                var show = $('#show').val();
-                generatePaginationDore('pagination',show,res);
-            }else{
-                $('#saku-report #canvasPreview').load("{{ url('esaku-auth/form/blank') }}");
-            }
-        });
+<link rel="stylesheet" href="{{ asset('report.css') }}" />
+<style>
+    .box-cv {
+        border: 0.8px solid #D1D5DB;
+        padding: 4px;
     }
 
-    drawLap($formData);
+    .box-cv .text-note {
+        font-size: 18px;
+        font-weight: 700;
+        padding-left: 8px;
+    }
 
-    function drawRptPage(data,res,from,to) {
-        var html = "";
+    .box-cv .box-empty-image {
+        border: 1px solid #D1D5DB;
+        height: 180px;
+        width: 160px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        if(data.length > 0) {
-            if(res.back){
-                $('.navigation-lap').removeClass('hidden');
-            }else{
-                $('.navigation-lap').addClass('hidden');
-            }
-            for(var i=0;i<data.length;i++) {
-                html += `
-                    <div class="box-cv mr-2 ml-2 pb-4" id="sai-rpt-table-export">
-                        <h6 class="text-center">Curiculum Vitae Karyawan</h6>
-                        <div class="row">
-                            <div class="col-9">
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 201px;">NIK</td>
-                                            <td>: ${data[i].nik}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Nama</td>
-                                            <td>: ${data[i].nama}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Jenis Kelamin</td>
-                                            <td>: ${data[i].jenis_kelamin}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Agama</td>
-                                            <td>: ${data[i].nama_agama}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Tempat, Tanggal Lahir</td>
-                                            <td>: ${data[i].tempat_lahir}, ${data[i].tgl_lahir}</td>
-                                        </tr>
+    .box-cv .box-empty-image .text-image {
+        text-align: center;
+        font-size: 14px;
+    }
+</style>
 
-                                        <tr>
-                                            <td style="width: 201px;">No. NPWP</td>
-                                            <td>: ${data[i].npwp}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Alamat</td>
-                                            <td>: ${data[i].alamat}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Kota</td>
-                                            <td>: ${data[i].kota}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Kode Pos</td>
-                                            <td>: ${data[i].kode_pos}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">No. Telp</td>
-                                            <td>: ${data[i].no_telp}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">No. HP</td>
-                                            <td>: ${data[i].no_hp}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td style="width: 201px;">Bank</td>
-                                            <td>: ${data[i].nama_bank}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Cabang</td>
-                                            <td>: ${data[i].cabang}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">No. Rekening</td>
-                                            <td>: ${data[i].no_rek}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Nama Rekening</td>
-                                            <td>: ${data[i].nama_rek}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">No. SK</td>
-                                            <td>: ${data[i].no_sk}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Tanggal SK</td>
-                                            <td>: ${data[i].tgl_sk}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Status Nikah</td>
-                                            <td>: ${data[i].status_nikah}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Tanggal Nikah</td>
-                                            <td>: ${data[i].tgl_nikah}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Golongan Darah</td>
-                                            <td>: ${data[i].gol_darah}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Ibu Kandung</td>
-                                            <td>: ${data[i].ibu_kandung}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Nomor KK</td>
-                                            <td>: ${data[i].no_kk}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Kelurahan</td>
-                                            <td>: ${data[i].kelurahan}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Kecamatan</td>
-                                            <td>: ${data[i].kecamatan}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">POSISI SEKARANG</h6>
-                                <table class="table table-borderless">
-                                    <tbody>
-                                        <tr>
-                                            <td style="width: 201px;">Status Karyawan</td>
-                                            <td>: ${data[i].nama_sdm}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Jabatan</td>
-                                            <td>: ${data[i].nama_jab}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Golongan</td>
-                                            <td>: ${data[i].nama_gol}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Lokasi Kerja</td>
-                                            <td>: ${data[i].nama_loker}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">PP</td>
-                                            <td>: ${data[i].nama_pp}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Unit</td>
-                                            <td>: ${data[i].nama_unit}</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 201px;">Profesi</td>
-                                            <td>: ${data[i].nama_profesi}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA KELUARGA</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 30px;">Nama</th>
-                                            <th class="text-center" style="width: 15px;">Status</th>
-                                            <th class="text-center" style="width: 20px;">Jenis Kelamin</th>
-                                            <th class="text-center" style="width: 20px;">Tanggungan</th>
-                                            <th class="text-center" style="width: 25px;">Tempat Lahir</th>
-                                            <th class="text-center" style="width: 25px;">Tanggal Lahir</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var j=0;j<res.res.data_keluarga[i].length;j++) {
-                                        var keluarga = res.res.data_keluarga[i][j];
-                                        html += `
-                                            <tr>
-                                                <td>${keluarga.nama}</td>
-                                                <td>${keluarga.jenis}</td>
-                                                <td>${keluarga.jk}</td>
-                                                <td>${keluarga.status_kes}</td>
-                                                <td>${keluarga.tempat}</td>
-                                                <td>${keluarga.tgl_lahir}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA KEDINASAN</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 40px;">No. SK</th>
-                                            <th class="text-center" style="width: 15px;">Tanggal</th>
-                                            <th class="text-center">Keterangan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var k=0;k<res.res.data_dinas[i].length;k++) {
-                                        var dinas = res.res.data_dinas[i][k];
-                                        html += `
-                                            <tr>
-                                                <td>${dinas.no_sk}</td>
-                                                <td>${dinas.tgl_sk}</td>
-                                                <td>${dinas.nama}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA PENDIDIKAN</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 30px;">Nama</th>
-                                            <th class="text-center" style="width: 10px;">Tahun</th>
-                                            <th class="text-center" style="width: 25px;">Strata</th>
-                                            <th class="text-center" style="width: 40px;">Jurusan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var l=0;l<res.res.data_pendidikan[i].length;l++) {
-                                        var pendidikan = res.res.data_pendidikan[i][l];
-                                        html += `
-                                            <tr>
-                                                <td>${pendidikan.nama}</td>
-                                                <td>${pendidikan.tahun}</td>
-                                                <td>${pendidikan.nama_strata}</td>
-                                                <td>${pendidikan.nama_jurusan}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA PELATIHAN</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center" style="width: 30px;">Nama</th>
-                                            <th class="text-center" style="width: 50px;">Penyelenggara</th>
-                                            <th class="text-center" style="width: 30px;">Tanggal Mulai</th>
-                                            <th class="text-center" style="width: 30px;">Tanggal Selesai</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var m=0;m<res.res.data_pelatihan[i].length;m++) {
-                                        var pelatihan = res.res.data_pelatihan[i][m];
-                                        html += `
-                                            <tr>
-                                                <td>${pelatihan.nama}</td>
-                                                <td>${pelatihan.panitia}</td>
-                                                <td>${pelatihan.tgl_mulai}</td>
-                                                <td>${pelatihan.tgl_selesai}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA PENGHARGAAN</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Nama</th>
-                                            <th class="text-center" style="width: 25px;">Tanggal</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var n=0;n<res.res.data_penghargaan[i].length;n++) {
-                                        var penghargaan = res.res.data_penghargaan[i][n];
-                                        html += `
-                                            <tr>
-                                                <td>${penghargaan.nama}</td>
-                                                <td>${penghargaan.tanggal}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                                <br />
-                                <h6 class="text-note">DATA SANKSI</h6>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Nama</th>
-                                            <th class="text-center" style="width: 25px;">Tanggal</th>
-                                            <th class="text-center" style="width: 30px;">Jenis Sanksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>`;
-                                    for(var o=0;o<res.res.data_sanksi[i].length;o++) {
-                                        var sanksi = res.res.data_sanksi[i][o];
-                                        html += `
-                                            <tr>
-                                                <td>${sanksi.nama}</td>
-                                                <td>${sanksi.tanggal}</td>
-                                                <td>${sanksi.jenis}</td>
-                                            </tr>`;
-                                    }
-                            html += `</tbody>
-                                </table>
-                            </div>
-                            <div class="col-3">
-                                <div class="box-empty-image">
-                                    <div>
-                                        <p class="text-image">Foto diri belum ada</p>
-                                    </div>
+<div class="row" id="saku-filter">
+    <div class="col-12">
+        <div class="card">
+            <x-report-header judul="CV Karyawan" padding="px-4 py-4" />
+            <div class="separator"></div>
+            <div class="row">
+                <div class="col-12 col-sm-12">
+                    <div class="collapse show" id="collapseFilter">
+                        <div class="px-4 pb-4 pt-2">
+                            <form id="form-filter">
+                                <h6>Filter</h6>
+                                <div id="inputFilter">
+                                    <!-- COMPONENT -->
+                                    <x-inp-filter kode="kode_sdm" nama="Status SDM" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_gol" nama="Golongan" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_area" nama="Area" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_fm" nama="FM" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_bm" nama="BM" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="kode_loker" nama="Lokasi Kerja" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <x-inp-filter kode="nik" nama="NIK Karyawan" selected="1"
+                                        :option="array('1','2','3','i')" />
+                                    <!-- END COMPONENT -->
                                 </div>
-                            </div>
+                                <button id="btn-tampil" style="float:right;width:110px"
+                                    class="btn btn-primary ml-2 mb-3" type="submit">Tampilkan</button>
+                                <button type="button" id="btn-tutup" class="btn btn-light mb-3"
+                                    style="float:right;width:110px" type="button">Tutup</button>
+                            </form>
                         </div>
                     </div>
-                `;
-            }
-        }
-        $('#canvasPreview').html(html);
-        $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
-        $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
+                </div>
+                <x-report-paging :option="array(1)" default="1" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<x-report-result judul="CV Karyawan" padding="px-0 py-4" />
+@include('modal_search')
+@include('modal_email')
+
+@php
+date_default_timezone_set("Asia/Bangkok");
+@endphp
+<script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
+<script src="{{ asset('reportFilter.js') }}"></script>
+
+<script type="text/javascript">
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
     }
+});
+
+var $kode_sdm = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+
+var $kode_gol = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+var $kode_area = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+var $kode_fm = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+var $kode_bm = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+
+var $kode_loker = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+
+var $nik = {
+    type : "all",
+    from : "",
+    fromname : "",
+    to : "",
+    toname : "",
+}
+
+$('#btn-filter').click(function(e){
+    $('#collapseFilter').show();
+    $('#collapsePaging').hide();
+    if($(this).hasClass("btn-primary")){
+        $(this).removeClass("btn-primary");
+        $(this).addClass("btn-light");
+    }
+
+    $('#btn-filter').addClass("hidden");
+    $('#btn-export').addClass("hidden");
+});
+
+$('#btn-tutup').click(function(e){
+    $('#collapseFilter').hide();
+    $('#collapsePaging').show();
+    $('#btn-filter').addClass("btn-primary");
+    $('#btn-filter').removeClass("btn-light");
+    $('#btn-filter').removeClass("hidden");
+    $('#btn-export').removeClass("hidden");
+});
+
+$('#btn-tampil').click(function(e){
+    $('#collapseFilter').hide();
+    $('#collapsePaging').show();
+    $('#btn-filter').addClass("btn-primary");
+    $('#btn-filter').removeClass("btn-light");
+    $('#btn-filter').removeClass("hidden");
+    $('#btn-export').removeClass("hidden");
+});
+
+$('.selectize').selectize();
+
+$('#inputFilter').reportFilter({
+    kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm' ,'kode_loker', 'nik'],
+    nama : ['Status SDM', 'Golongan', 'Area','FM','BM' ,'Lokasi Kerja', 'NIK Karyawan'],
+    header : [
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
+        ['Kode', 'Nama'],
+        ['NIK', 'Nama']
+    ],
+    headerpilih : [
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
+        ['Kode', 'Nama', 'Action'],
+        ['NIK', 'Nama', 'Action']
+    ],
+    columns: [
+        [
+            { data: 'kode_sdm' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_gol' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_area' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_fm' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_bm' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'kode_loker' },
+            { data: 'nama' }
+        ],
+        [
+            { data: 'nik' },
+            { data: 'nama' }
+        ],
+    ],
+    url :[
+        "{{ url('esaku-master/sdm-statuss') }}",
+        "{{ url('esaku-master/sdm-golongans') }}",
+        "{{ url('esaku-master/sdm-areas') }}",
+        "{{ url('esaku-master/sdm-fms') }}",
+        "{{ url('esaku-master/sdm-bms') }}",
+        "{{ url('esaku-master/sdm-lokers') }}",
+        "{{ url('esaku-trans/v3/sdm-karyawans') }}"
+    ],
+    parameter:[],
+    orderby:[[],[],[],[],[]],
+    width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
+    display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
+    pageLength:[10, 10, 10, 10, 10,10,10]
+});
+
+$('#inputFilter').on('change','input',function(e){
+    setTimeout(() => {
+        $('#inputFilter').reportFilter({
+            kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm','kode_loker', 'nik'],
+            nama : ['Status SDM', 'Golongan', 'Area','Fm','Bm','Lokasi Kerja', 'NIK Karyawan'],
+            header : [
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
+                ['Kode', 'Nama'],
+                ['NIK', 'Nama']
+            ],
+            headerpilih : [
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
+                ['Kode', 'Nama', 'Action'],
+                ['NIK', 'Nama', 'Action']
+            ],
+            columns: [
+                [
+                    { data: 'kode_sdm' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_gol' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_area' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_fm' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_bm' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'kode_loker' },
+                    { data: 'nama' }
+                ],
+                [
+                    { data: 'nik' },
+                    { data: 'nama' }
+                ],
+            ],
+            url :[
+                "{{ url('esaku-master/sdm-statuss') }}",
+                "{{ url('esaku-master/sdm-golongans') }}",
+                "{{ url('esaku-master/sdm-areas') }}",
+                "{{ url('esaku-master/sdm-fms') }}",
+                "{{ url('esaku-master/sdm-bms') }}",
+                "{{ url('esaku-master/sdm-lokers') }}",
+                "{{ url('esaku-trans/v3/sdm-karyawans') }}"
+            ],
+            parameter:[],
+            orderby:[[],[],[],[],[]],
+            width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'],['30%','70%'],['30%','70%']],
+            display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
+            pageLength:[10, 10, 10, 10, 10,10,10]
+        });
+    }, 500)
+});
+
+var $formData = "";
+$('#form-filter').submit(function(e){
+    e.preventDefault();
+    $formData = new FormData();
+    $formData.append("kode_sdm[]",$kode_sdm.type);
+    $formData.append("kode_sdm[]",$kode_sdm.from);
+    $formData.append("kode_sdm[]",$kode_sdm.to);
+    $formData.append("kode_gol[]",$kode_gol.type);
+    $formData.append("kode_gol[]",$kode_gol.from);
+    $formData.append("kode_gol[]",$kode_gol.to);
+
+    $formData.append("kode_area[]",$kode_area.type);
+    $formData.append("kode_area[]",$kode_area.from);
+    $formData.append("kode_area[]",$kode_area.to);
+
+    $formData.append("kode_fm[]",$kode_fm.type);
+    $formData.append("kode_fm[]",$kode_fm.from);
+    $formData.append("kode_fm[]",$kode_fm.to);
+
+    $formData.append("kode_bm[]",$kode_bm.type);
+    $formData.append("kode_bm[]",$kode_bm.from);
+    $formData.append("kode_bm[]",$kode_bm.to);
+
+    $formData.append("kode_loker[]",$kode_loker.type);
+    $formData.append("kode_loker[]",$kode_loker.from);
+    $formData.append("kode_loker[]",$kode_loker.to);
+    $formData.append("nik[]",$nik.type);
+    $formData.append("nik[]",$nik.from);
+    $formData.append("nik[]",$nik.to);
+    for(var pair of $formData.entries()) {
+        console.log(pair[0]+ ', '+ pair[1]);
+    }
+    $('#saku-report').removeClass('hidden');
+    xurl = "{{ url('sdm2-auth/form/rptCv') }}";
+    $('#saku-report #canvasPreview').load(xurl);
+});
+
+    $('#show').change(function(e){
+        $formData = new FormData();
+        $formData.append("kode_sdm[]",$kode_sdm.type);
+        $formData.append("kode_sdm[]",$kode_sdm.from);
+        $formData.append("kode_sdm[]",$kode_sdm.to);
+        $formData.append("kode_gol[]",$kode_gol.type);
+        $formData.append("kode_gol[]",$kode_gol.from);
+        $formData.append("kode_gol[]",$kode_gol.to);
+
+        $formData.append("kode_area[]",$kode_area.type);
+        $formData.append("kode_area[]",$kode_area.from);
+        $formData.append("kode_area[]",$kode_area.to);
+
+        $formData.append("kode_fm[]",$kode_fm.type);
+        $formData.append("kode_fm[]",$kode_fm.from);
+        $formData.append("kode_fm[]",$kode_fm.to);
+
+        $formData.append("kode_bm[]",$kode_bm.type);
+        $formData.append("kode_bm[]",$kode_bm.from);
+        $formData.append("kode_bm[]",$kode_bm.to);
+
+        $formData.append("kode_loker[]",$kode_loker.type);
+        $formData.append("kode_loker[]",$kode_loker.from);
+        $formData.append("kode_loker[]",$kode_loker.to);
+        $formData.append("nik[]",$nik.type);
+        $formData.append("nik[]",$nik.from);
+        $formData.append("nik[]",$nik.to);
+        for(var pair of $formData.entries()) {
+            console.log(pair[0]+ ', '+ pair[1]);
+        }
+        $('#saku-report').removeClass('hidden');
+        xurl = "{{ url('sdm2-auth/form/rptCv') }}";
+        $('#saku-report #canvasPreview').load(xurl);
+    });
 </script>

@@ -77,7 +77,9 @@ class LaporanController extends Controller
                 'query' => [
                     'kode_sdm' => $request->input('kode_sdm'),
                     'kode_gol' => $request->input('kode_gol'),
-                    'kode_jab' => $request->input('kode_jab'),
+                    'kode_area' => $request->input('kode_area'),
+                    'kode_fm' => $request->input('kode_fm'),
+                    'kode_bm' => $request->input('kode_bm'),
                     'kode_loker' => $request->input('kode_loker'),
                     'nik' => $request->input('nik'),
                 ]
