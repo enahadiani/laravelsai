@@ -501,30 +501,19 @@
                                                 id="client" name="client" autocomplete="off">
                                         </div>
                                         <div class="col-md-6 col-sm-12">
-                                            <label for="fungsi">Fungsi</label>
-                                            <input class="form-control" type="text" placeholder="Fungsi" id="fungsi"
-                                                name="fungsi" autocomplete="off">
+                                            <label for="skill">Skill</label>
+                                            <input class="form-control" type="text" placeholder="Skill" id="skill"
+                                                name="skill" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="skill">Skill</label>
-                                            <input class="form-control" type="text" placeholder="Skill" id="skill"
-                                                name="skill" autocomplete="off">
-                                        </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="no_kontrak">Nomor Kontrak</label>
                                             <input class="form-control" type="text" placeholder="Nomor Kontrak"
                                                 id="no_kontrak" name="no_kontrak" autocomplete="off">
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tgl_kontrak">Tanggal Kontrak</label>
                                             <span class="span-tanggal" id="tanggal-kontrak"></span>
@@ -533,6 +522,12 @@
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
                                                 class="simple-icon-calendar date-search"></i>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tgl_kontrak_akhir">Tanggal Kontrak Akhir</label>
                                             <span class="span-tanggal" id="tanggal-kontrak_akhir"></span>
@@ -541,15 +536,16 @@
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
                                                 class="simple-icon-calendar date-search"></i>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="atasan_langsung">Atasan Langsung</label>
                                             <input class="form-control" type="text" placeholder="Atasan Langsung"
                                                 id="atasan_langsung" name="atasan_langsung" autocomplete="off">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+
                                         <div class="col-md-6 col-sm-12">
                                             <label for="atasan_t_langsung">Atasan Tidak Langsung</label>
                                             <input class="form-control" type="text" placeholder="Atasan Tidak Langsung"
@@ -1175,11 +1171,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/v2/sdm-karyawan-update') }}";
+            var url = "{{ url('esaku-trans/v3/sdm-karyawan-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/v2/sdm-karyawan') }}";
+            var url = "{{ url('esaku-trans/v3/sdm-karyawan') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -1213,7 +1209,7 @@ $('#form-tambah').validate({
                     last_add(dataTable,"nik", kode);
                     $('#id_edit').val('false')
                 } else if(!result.data.status && result.data.message === "Unauthorized"){
-                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sdm2-auth/sesi-habis') }}";
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -1288,8 +1284,12 @@ function editData(id, view = false) {
             $('#input-dokumen tbody').empty()
             var result = res.data
             var data = result.data_pribadi[0]
-            var detail = res.data.data_detail
+            var kepeg = result.data_kepeg[0]
+            var bank = result.data_bank[0]
+            var client = result.data_client[0]
 
+            // dok
+            var detail = result.data_doc
             console.log(data)
             if(res.data.status) {
                 $('#id_edit').val('true')
@@ -1310,97 +1310,97 @@ function editData(id, view = false) {
                 isiEdit(data.npwp,"text",'#npwp',view);
                 isiEdit(data.no_bpjs,"text",'#no_bpjs',view);
                 isiEdit(data.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
-                isiEdit(data.kode_bank,"text",'#bank',view);
-                isiEdit(data.cabang,"text",'#cabang',view);
-                isiEdit(data.no_rek,"text",'#no_rek',view);
-                isiEdit(data.nama_rek,"text",'#nama_rek',view);
-                isiEdit(data.nama_client,"text",'#client',view);
-                isiEdit(data.fungsi,"text",'#fungsi',view);
-                isiEdit(data.skill,"text",'#skill',view);
-                isiEdit(data.no_kontrak,"text",'#no_kontrak',view);
-                isiEdit(data.kode_area,"text",'#area',view);
-                isiEdit(data.kota_area,"text",'#kota_area',view);
-                isiEdit(data.kode_fm,"text",'#fm',view);
-                isiEdit(data.kdoe_bm,"text",'#bm',view);
-                isiEdit(data.loker_client,"text",'#loker_client',view);
-                isiEdit(data.jabatan_client,"text",'#jabatan_client',view);
-                isiEdit(data.atasan_langsung,"text",'#atasan_langsung',view);
-                isiEdit(data.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
+
+                isiEdit(bank.cabang,"text",'#cabang',view);
+                isiEdit(bank.no_rek,"text",'#no_rek',view);
+                isiEdit(bank.nama_rek,"text",'#nama_rek',view);
+
+                isiEdit(client.nama_client,"text",'#client',view);
+                // isiEdit(client.fungsi,"text",'#fungsi',view);
+                isiEdit(client.skill,"text",'#skill',view);
+                isiEdit(client.no_kontrak,"text",'#no_kontrak',view);
+
+                // isiEdit(client.loker_client,"text",'#loker_client',view);
+                // isiEdit(data.jabatan_client,"text",'#jabatan_client',view);
+                isiEdit(client.atasan_langsung,"text",'#atasan_langsung',view);
+                isiEdit(client.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
 
                 isiEdit(parseFloat(data.tinggi_badan),"number",'#t_badan',view);
                 isiEdit(parseFloat(data.berat_badan),"number",'#b_badan',view);
 
                 isiEdit(data.tgl_lahir,"date",'#tgl_lahir',view);
-                isiEdit(reverseDate(data.tgl_nikah,'-','/'),"date",'#tgl_nikah',view);
+                isiEdit(data.tgl_nikah,"date",'#tgl_nikah',view);
                 isiEdit(data.tgl_masuk,"date",'#tgl_masuk',view);
-                isiEdit(data.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
-                isiEdit(data.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
+                isiEdit(client.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
+                isiEdit(client.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
 
                 isiEdit(data.jenis_kelamin,"select",'#jk',view, "L");
                 isiEdit(data.status_nikah,"select",'#status_nikah',view, "0");
                 isiEdit(data.gol_darah,"select",'#gol_darah',view, "A");
 
                 showInfoField('kode_agama', data.kode_agama, data.nama_agama)
-                showInfoField('kode_gol', data.kode_golongan, data.nama_gol)
-                showInfoField('kode_sdm', data.kode_sdm, data.nama_sdm)
-                showInfoField('kode_unit', data.kode_unit, data.nama_unit)
-                showInfoField('kode_pp', data.kode_pp, data.nama_pp)
-                showInfoField('kode_loker', data.kode_loker, data.nama_loker)
-                showInfoField('kode_profesi', data.kode_profesi, data.nama_profesi)
+                showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
+                showInfoField('kode_sdm', kepeg.kode_sdm, kepeg.nama_sdm)
+                showInfoField('kode_area', kepeg.kode_area, kepeg.nama_area)
+                showInfoField('kode_fm', kepeg.kode_fm, kepeg.nama_fm)
+                showInfoField('kode_bm', kepeg.kode_bm, kepeg.nama_bm)
+                showInfoField('kode_loker', kepeg.kode_loker, kepeg.nama_loker)
+                showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
+                showInfoField('kode_bank',bank.kode_bank, bank.nama_bank)
 
-                // if(detail.length == jenis.length) {
-                //     var html = null
-                //     for(var i=0;i<detail.length;i++) {
-                //         var row = detail[i];
-                //         var idJenis = 'jenis-ke__'+row.nu
-                //         var idDokumen = 'dokumen-ke__'+row.nu
-                //         var idStatus = 'status-ke__'+row.nu
-                //         var status = null;
-                //         if(row.sts_dokumen.trim() == '0') {
-                //             status = 'Belum diupload'
-                //         } else {
-                //             status = 'Sudah diupload'
-                //         }
-                //         console.log(status)
-                //         html += `<tr class="row-grid">
-                //             <td class="text-center">
-                //                 <span class="no-grid ">${row.nu}</span>
-                //                 <input type="hidden" name="nu[]" value="${row.nu}">
-                //             </td>
-                //             <td id="${idJenis}">
-                //                 <span id="text-${idJenis}" class="tooltip-span">${row.jenis}</span>
-                //                 <input autocomplete="off" type="hidden" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${row.jenis}" >
-                //             </td>
-                //             <td id="${idDokumen}" style="word-wrap: break-word">
-                //                 <input id='value-${idDokumen}' type='file' name='file[]'>
-                //                 <input type="hidden" name="fileName[]" id="fileName-${idDokumen}" value="-">
-                //                 <input type="hidden" name="filePrevName[]" value="${row.dokumen}">
-                //                 <input type="hidden" name="isUpload[]" id="checkUpload-${idDokumen}" value="false">
-                //             </td>
-                //             <td id="${idStatus}">
-                //                 <span id="text-${idStatus}" class="tooltip-span readonly">${status}</span>
-                //                 <input autocomplete="off" type="hidden" id="value-${idStatus}" name="sts_dokumen[]" class="form-control input-value hidden" value="${row.sts_dokumen}" >
-                //             </td>
-                //             <td>`
-                //             if(row.dokumen != '-') {
-                //             html += `<a class="download-item" href="{{ config('api.url').'sdm/storage'}}/${row.dokumen}"
-                //                 title="Lihat Foto" style="font-size:12px;cursor:pointer;" target="_blank">
-                //                     <i class="simple-icon-cloud-download"></i>
-                //                 </a>`
-                //             }
-                //         html += `</td>
-                //         </tr>`;
-                //     }
-                //     $('#input-dokumen tbody').append(html)
+                if(detail.length == jenis.length) {
+                    var html = null
+                    for(var i=0;i<detail.length;i++) {
+                        var row = detail[i];
+                        var idJenis = 'jenis-ke__'+row.nu
+                        var idDokumen = 'dokumen-ke__'+row.nu
+                        var idStatus = 'status-ke__'+row.nu
+                        var status = null;
+                        if(row.sts_dokumen.trim() == '0') {
+                            status = 'Belum diupload'
+                        } else {
+                            status = 'Sudah diupload'
+                        }
+                        console.log(status)
+                        html += `<tr class="row-grid">
+                            <td class="text-center">
+                                <span class="no-grid ">${row.nu}</span>
+                                <input type="hidden" name="nu[]" value="${row.nu}">
+                            </td>
+                            <td id="${idJenis}">
+                                <span id="text-${idJenis}" class="tooltip-span">${row.jenis}</span>
+                                <input autocomplete="off" type="hidden" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${row.jenis}" >
+                            </td>
+                            <td id="${idDokumen}" style="word-wrap: break-word">
+                                <input id='value-${idDokumen}' type='file' name='file[]'>
+                                <input type="hidden" name="fileName[]" id="fileName-${idDokumen}" value="-">
+                                <input type="hidden" name="filePrevName[]" value="${row.dokumen}">
+                                <input type="hidden" name="isUpload[]" id="checkUpload-${idDokumen}" value="false">
+                            </td>
+                            <td id="${idStatus}">
+                                <span id="text-${idStatus}" class="tooltip-span readonly">${status}</span>
+                                <input autocomplete="off" type="hidden" id="value-${idStatus}" name="sts_dokumen[]" class="form-control input-value hidden" value="${row.sts_dokumen}" >
+                            </td>
+                            <td>`
+                            if(row.dokumen != '-') {
+                            html += `<a class="download-item" href="{{ config('api.url').'sdm/storage'}}/${row.dokumen}"
+                                title="Lihat Foto" style="font-size:12px;cursor:pointer;" target="_blank">
+                                    <i class="simple-icon-cloud-download"></i>
+                                </a>`
+                            }
+                        html += `</td>
+                        </tr>`;
+                    }
+                    $('#input-dokumen tbody').append(html)
 
-                //     $('.tooltip-span').tooltip({
-                //         title: function(){
-                //             return $(this).text();
-                //         }
-                //     });
-                // } else {
-                //     setRowDefault()
-                // }
+                    $('.tooltip-span').tooltip({
+                        title: function(){
+                            return $(this).text();
+                        }
+                    });
+                } else {
+                    setRowDefault()
+                }
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();
