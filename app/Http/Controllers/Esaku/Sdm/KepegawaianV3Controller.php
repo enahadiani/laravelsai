@@ -499,30 +499,22 @@ class Kepegawaianv3Controller extends Controller
             'tgl_nikah' => 'required',
             'kode_gol' => 'required',
             'kode_sdm' => 'required',
-            'kode_unit' => 'required',
-            'kode_pp' => 'required',
             'kode_loker' => 'required',
             'tgl_masuk' => 'required',
             'npwp' => 'required',
             'no_bpjs' => 'required',
             'no_bpjs_kerja' => 'required',
             'kode_profesi' => 'required',
-            'bank' => 'required',
+            'kode_bank' => 'required',
             'cabang' => 'required',
             'no_rek' => 'required',
             'nama_rek' => 'required',
             'client' => 'required',
-            'fungsi' => 'required',
+
             'skill' => 'required',
             'no_kontrak' => 'required',
             'tgl_kontrak' => 'required',
             'tgl_kontrak_akhir' => 'required',
-            'area' => 'required',
-            'kota_area' => 'required',
-            'fm' => 'required',
-            'bm' => 'required',
-            'loker_client' => 'required',
-            'jabatan_client' => 'required',
             'atasan_langsung' => 'required',
             'atasan_t_langsung' => 'required',
         ]);
@@ -534,15 +526,15 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('nik')
                 ),
                 array(
-                    "name" => "no_ktp",
-                    "contents" => $request->input('no_ktp')
-                ),
-                array(
                     "name" => "nama",
                     "contents" => $request->input('nama')
                 ),
                 array(
-                    "name" => "jk",
+                    "name" => "nomor_ktp",
+                    "contents" => $request->input('no_ktp')
+                ),
+                array(
+                    "name" => "jenis_kelamin",
                     "contents" => $request->input('jk')
                 ),
                 array(
@@ -558,7 +550,7 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('no_hp')
                 ),
                 array(
-                    "name" => "tempat",
+                    "name" => "tempat_lahir",
                     "contents" => $request->input('tempat')
                 ),
                 array(
@@ -589,19 +581,19 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('kode_pos')
                 ),
                 array(
-                    "name" => "t_badan",
+                    "name" => "tinggi_badan",
                     "contents" => $this->joinNum($request->input('t_badan'))
                 ),
                 array(
-                    "name" => "b_badan",
+                    "name" => "berat_badan",
                     "contents" => $this->joinNum($request->input('b_badan'))
                 ),
                 array(
-                    "name" => "gol_darah",
+                    "name" => "golongan_darah",
                     "contents" => $request->input('gol_darah')
                 ),
                 array(
-                    "name" => "no_kk",
+                    "name" => "nomor_kk",
                     "contents" => $request->input('no_kk')
                 ),
                 array(
@@ -613,20 +605,12 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $this->convertDate($request->input('tgl_nikah'))
                 ),
                 array(
-                    "name" => "kode_gol",
+                    "name" => "kode_golongan",
                     "contents" => $request->input('kode_gol')
                 ),
                 array(
                     "name" => "kode_sdm",
                     "contents" => $request->input('kode_sdm')
-                ),
-                array(
-                    "name" => "kode_unit",
-                    "contents" => $request->input('kode_unit')
-                ),
-                array(
-                    "name" => "kode_pp",
-                    "contents" => $request->input('kode_pp')
                 ),
                 array(
                     "name" => "kode_loker",
@@ -637,7 +621,7 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $this->convertDate($request->input('tgl_masuk'))
                 ),
                 array(
-                    "name" => "npwp",
+                    "name" => "no_npwp",
                     "contents" => $request->input('npwp')
                 ),
                 array(
@@ -645,16 +629,13 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('no_bpjs')
                 ),
                 array(
-                    "name" => "no_bpjs_kerja",
+                    "name" => "no_bpjs_naker",
                     "contents" => $request->input('no_bpjs_kerja')
                 ),
+
                 array(
-                    "name" => "kode_profesi",
-                    "contents" => $request->input('kode_profesi')
-                ),
-                array(
-                    "name" => "bank",
-                    "contents" => $request->input('bank')
+                    "name" => "kode_bank",
+                    "contents" => $request->input('kode_bank')
                 ),
                 array(
                     "name" => "cabang",
@@ -669,12 +650,8 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('nama_rek')
                 ),
                 array(
-                    "name" => "client",
+                    "name" => "nama_client",
                     "contents" => $request->input('client')
-                ),
-                array(
-                    "name" => "fungsi",
-                    "contents" => $request->input('fungsi')
                 ),
                 array(
                     "name" => "skill",
@@ -685,7 +662,7 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $request->input('no_kontrak')
                 ),
                 array(
-                    "name" => "tgl_kontrak",
+                    "name" => "tgl_kontrak_awal",
                     "contents" => $this->convertDate($request->input('tgl_kontrak'))
                 ),
                 array(
@@ -693,35 +670,32 @@ class Kepegawaianv3Controller extends Controller
                     "contents" => $this->convertDate($request->input('tgl_kontrak_akhir'))
                 ),
                 array(
-                    "name" => "area",
-                    "contents" => $request->input('area')
+                    "name" => "kode_area",
+                    "contents" => $request->input('kode_area')
+                ),
+
+                array(
+                    "name" => "kode_fm",
+                    "contents" => $request->input('kode_fm')
                 ),
                 array(
-                    "name" => "kota_area",
-                    "contents" => $request->input('kota_area')
+                    "name" => "kode_bm",
+                    "contents" => $request->input('kode_bm')
                 ),
                 array(
-                    "name" => "fm",
-                    "contents" => $request->input('fm')
+                    "name" => "kode_loker",
+                    "contents" => $request->input('kode_loker')
                 ),
                 array(
-                    "name" => "bm",
-                    "contents" => $request->input('bm')
-                ),
-                array(
-                    "name" => "loker_client",
-                    "contents" => $request->input('loker_client')
-                ),
-                array(
-                    "name" => "jabatan_client",
-                    "contents" => $request->input('jabatan_client')
+                    "name" => "kode_profesi",
+                    "contents" => $request->input('kode_profesi')
                 ),
                 array(
                     "name" => "atasan_langsung",
                     "contents" => $request->input('atasan_langsung')
                 ),
                 array(
-                    "name" => "atasan_t_langsung",
+                    "name" => "atasan_tidak_langsung",
                     "contents" => $request->input('atasan_t_langsung')
                 )
             );
@@ -802,10 +776,49 @@ class Kepegawaianv3Controller extends Controller
                     $fields = array_merge($fields, $array_file);
                 }
             }
+            $x = 1;
+            $array_nu_param = array();
+            $array_kode_param = array();
+            $array_nama_param = array();
+            $array_nilai_param = array();
+            if (count($request->kode_akun) > 0) {
+                for ($y = 0; $y < count($request->kode_akun); $y++) {
+                    $data_nu_param = array(
+                        'name' => 'nu_param[]',
+                        'contents' => $x
+                    );
+                    $data_kode_param = array(
+                        'name' => 'kode_param[]',
+                        'contents' => $request->kode_akun[$y]
+                    );
+                    $data_nama_param = array(
+                        'name' => 'nama_param[]',
+                        'contents' => $request->nama_akun[$y]
+                    );
+                    $data_nilai_param = array(
+                        'name' => 'nilai[]',
+                        'contents' => $this->joinNum($request->nilai[$y])
+                    );
+                    $x++;
 
-            // var_dump($fields);
+                    array_push($array_nu_param, $data_nu_param);
+                    array_push($array_kode_param, $data_kode_param);
+                    array_push($array_nama_param, $data_nama_param);
+                    array_push($array_nilai_param, $data_nilai_param);
+                }
+
+                $fields = array_merge(
+                    $fields,
+                    $array_nu_param,
+                    $array_kode_param,
+                    $array_nama_param,
+                    $array_nilai_param
+                );
+            }
+
+            // dd($fields);
             $client = new Client();
-            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v2/sdm-karyawan-update', [
+            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v3/sdm-karyawan-update', [
                 'headers' => [
                     'Authorization' => 'Bearer ' . Session::get('token'),
                     'Accept'     => 'application/json',
@@ -833,7 +846,7 @@ class Kepegawaianv3Controller extends Controller
             $client = new Client();
             $response = $client->request(
                 'DELETE',
-                config('api.url') . 'esaku-trans/v2/sdm-karyawan',
+                config('api.url') . 'esaku-trans/v3/sdm-karyawan',
                 [
                     'headers' => [
                         'Authorization' => 'Bearer ' . Session::get('token'),

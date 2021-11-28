@@ -1287,7 +1287,7 @@ function editData(id, view = false) {
             var kepeg = result.data_kepeg[0]
             var bank = result.data_bank[0]
             var client = result.data_client[0]
-
+            var gaji = result.data_gaji
             // dok
             var detail = result.data_doc
             console.log(data)
@@ -1401,6 +1401,49 @@ function editData(id, view = false) {
                 } else {
                     setRowDefault()
                 }
+
+                if(gaji.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<gaji.length;i++){
+                            var line =gaji[i];
+                            input += "<tr class='row-jurnal'>";
+                            input += "<td class='no-jurnal text-center'>"+no+"</td>";
+
+                            input += "<td ><span class='td-kode tdakunke"+no+" tooltip-span'>"+line.kode_param+"</span><input type='text' id='akunkode"+no+"' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_param+"' required='' style='z-index: 1;position: relative;'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+
+                            input += "<td ><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+line.nama_param+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_param+"' readonly></td>";
+
+
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+format_number(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+parseInt(line.nilai)+"' required></td>";
+
+                            input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "</tr>";
+
+                            no++;
+                        }
+                        $('#jurnal-grid tbody').html(input);
+                        $('.tooltip-span').tooltip({
+                            title: function(){
+                                return $(this).text();
+                            }
+                        })
+                        no= 1;
+                        for(var i=0;i<gaji.length;i++){
+                            var line =gaji[i];
+
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+
+                    }
                 $('#saku-datatable').hide();
                 $('#modal-preview').modal('hide');
                 $('#saku-form').show();
