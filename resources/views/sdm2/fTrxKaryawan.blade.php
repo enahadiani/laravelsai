@@ -23,16 +23,12 @@
                 <div class="card-body pt-0 form-body" id="form-body">
                     <ul class="nav nav-tabs nav-tabs-custom col-12 " role="tablist">
                         <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-pribadi"
-                                role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pribadi</span></a>
+                                role="tab" aria-selected="true"><span class="hidden-xs-down">Pribadi</span></a>
                         </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-pegawai" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Kepegawaian</span></a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-bank" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Bank</span></a> </li>
-                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-client" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Client</span></a> </li>
+                                aria-selected="true"><span class="hidden-xs-down">Bank</span></a> </li>
                         <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dokumen" role="tab"
-                                aria-selected="true"><span class="hidden-xs-down">Data Dokumen</span></a> </li>
+                                aria-selected="true"><span class="hidden-xs-down">Dokumen</span></a> </li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0 mt-3">
                         <div class="tab-pane active" id="data-pribadi" role="tabpanel">
@@ -231,196 +227,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane" id="data-pegawai" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_gol">Golongan</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_gol"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_gol" id="kode_gol"
-                                                    name="kode_gol" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_gol hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_gol"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_sdm">Status SDM</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_sdm"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_sdm" id="kode_sdm"
-                                                    name="kode_sdm" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_sdm hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_sdm"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_area">Area</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_area"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_area"
-                                                    id="kode_area" name="kode_area" autocomplete="off" data-input="cbbl"
-                                                    value="" title="" readonly>
-                                                <span class="info-name_kode_area hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_area"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_fm">FM</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_fm" readonly="readonly"
-                                                        title="" data-toggle="tooltip" data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_fm" id="kode_fm"
-                                                    name="kode_fm" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_fm hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_fm"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_bm">BM</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_bm" readonly="readonly"
-                                                        title="" data-toggle="tooltip" data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_bm" id="kode_bm"
-                                                    name="kode_bm" autocomplete="off" data-input="cbbl" value=""
-                                                    title="" readonly>
-                                                <span class="info-name_kode_bm hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2" id="search_kode_bm"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_loker">Lokasi Kerja</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_loker"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_loker"
-                                                    id="kode_loker" name="kode_loker" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_loker hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_loker"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="npwp">Nomor NPWP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp"
-                                                name="npwp" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_bpjs">Nomor BPJS Kesehatan</label>
-                                            <input class="form-control" type="text" placeholder="Nomor BPJS Kesehatan"
-                                                id="no_bpjs" name="no_bpjs" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_masuk">Tanggal Masuk</label>
-                                            <span class="span-tanggal" id="tanggal-masuk"></span>
-                                            <input class='form-control datepicker' id="tgl_masuk" name="tgl_masuk"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
-                                            <input class="form-control" type="text"
-                                                placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja"
-                                                name="no_bpjs_kerja" autocomplete="off">
-                                        </div>
 
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_profesi">Profesi</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_profesi"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_profesi"
-                                                    id="kode_profesi" name="kode_profesi" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_profesi hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_profesi"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="tab-pane" id="data-bank" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
@@ -466,73 +273,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <div class="tab-pane" id="data-client" role="tabpanel">
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="client">Nama Client</label>
-                                            <input class="form-control" type="text" placeholder="Nama Client"
-                                                id="client" name="client" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="skill">Skill</label>
-                                            <input class="form-control" type="text" placeholder="Skill" id="skill"
-                                                name="skill" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_kontrak">Nomor Kontrak</label>
-                                            <input class="form-control" type="text" placeholder="Nomor Kontrak"
-                                                id="no_kontrak" name="no_kontrak" autocomplete="off">
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kontrak">Tanggal Kontrak</label>
-                                            <span class="span-tanggal" id="tanggal-kontrak"></span>
-                                            <input class='form-control datepicker' id="tgl_kontrak" name="tgl_kontrak"
-                                                autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="tgl_kontrak_akhir">Tanggal Kontrak Akhir</label>
-                                            <span class="span-tanggal" id="tanggal-kontrak_akhir"></span>
-                                            <input class='form-control datepicker' id="tgl_kontrak_akhir"
-                                                name="tgl_kontrak_akhir" autocomplete="off" value="{{ date('d/m/Y') }}">
-                                            <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
-                                                class="simple-icon-calendar date-search"></i>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="atasan_langsung">Atasan Langsung</label>
-                                            <input class="form-control" type="text" placeholder="Atasan Langsung"
-                                                id="atasan_langsung" name="atasan_langsung" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
 
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="atasan_t_langsung">Atasan Tidak Langsung</label>
-                                            <input class="form-control" type="text" placeholder="Atasan Tidak Langsung"
-                                                id="atasan_t_langsung" name="atasan_t_langsung" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
                         <div class="tab-pane" id="data-dokumen" role="tabpanel">
                             <div class="form-row">
                                 <div class="form-group col-md-12 col-sm-12">
@@ -1261,10 +1003,7 @@ function editData(id, view = false) {
             $('#input-dokumen tbody').empty()
             var result = res.data
             var data = result.data_pribadi[0]
-            var kepeg = result.data_kepeg[0]
             var bank = result.data_bank[0]
-            var client = result.data_client[0]
-
             // dok
             var detail = result.data_doc
             console.log(data)
@@ -1292,15 +1031,6 @@ function editData(id, view = false) {
                 isiEdit(bank.no_rek,"text",'#no_rek',view);
                 isiEdit(bank.nama_rek,"text",'#nama_rek',view);
 
-                isiEdit(client.nama_client,"text",'#client',view);
-                // isiEdit(client.fungsi,"text",'#fungsi',view);
-                isiEdit(client.skill,"text",'#skill',view);
-                isiEdit(client.no_kontrak,"text",'#no_kontrak',view);
-
-                // isiEdit(client.loker_client,"text",'#loker_client',view);
-                // isiEdit(data.jabatan_client,"text",'#jabatan_client',view);
-                isiEdit(client.atasan_langsung,"text",'#atasan_langsung',view);
-                isiEdit(client.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
 
                 isiEdit(parseFloat(data.tinggi_badan),"number",'#t_badan',view);
                 isiEdit(parseFloat(data.berat_badan),"number",'#b_badan',view);
@@ -1308,21 +1038,13 @@ function editData(id, view = false) {
                 isiEdit(data.tgl_lahir,"date",'#tgl_lahir',view);
                 isiEdit(data.tgl_nikah,"date",'#tgl_nikah',view);
                 isiEdit(data.tgl_masuk,"date",'#tgl_masuk',view);
-                isiEdit(client.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
-                isiEdit(client.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
+
 
                 isiEdit(data.jenis_kelamin,"select",'#jk',view, "L");
                 isiEdit(data.status_nikah,"select",'#status_nikah',view, "0");
                 isiEdit(data.gol_darah,"select",'#gol_darah',view, "A");
 
                 showInfoField('kode_agama', data.kode_agama, data.nama_agama)
-                showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
-                showInfoField('kode_sdm', kepeg.kode_sdm, kepeg.nama_sdm)
-                showInfoField('kode_area', kepeg.kode_area, kepeg.nama_area)
-                showInfoField('kode_fm', kepeg.kode_fm, kepeg.nama_fm)
-                showInfoField('kode_bm', kepeg.kode_bm, kepeg.nama_bm)
-                showInfoField('kode_loker', kepeg.kode_loker, kepeg.nama_loker)
-                showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
                 showInfoField('kode_bank',bank.kode_bank, bank.nama_bank)
 
                 if(detail.length == jenis.length) {
