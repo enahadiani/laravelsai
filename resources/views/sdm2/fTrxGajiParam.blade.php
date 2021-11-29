@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Karyawan - Parameter Gaji" tambah="" :thead="array('NIK','Nama','Alamat','Aksi')"
+<x-list-data judul="Data Karyawan - Referensi Penggajian" tambah="" :thead="array('NIK','Nama','Alamat','Aksi')"
     :thwidth="array(10,30,50,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
@@ -743,7 +743,7 @@ function editData(id, view = false) {
     $('#form-tambah').validate().resetForm();
     $('#btn-save').attr('type','button');
     $('#btn-save').attr('id','btn-update');
-    $('#judul-form').html('Edit Data Karyawan - Parameter Gaji');
+    $('#judul-form').html('Edit Data Karyawan - Referensi Penggajian');
 
     $.ajax({
         type: 'GET',
