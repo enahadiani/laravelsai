@@ -748,6 +748,41 @@ class Kepegawaianv3Controller extends Controller
             return response()->json(['data' => $data], 200);
         }
     }
+
+    public function show_kontrak(Request $request)
+    {
+        try {
+            $client = new Client();
+            $response = $client->request(
+                'GET',
+                config('api.url') . 'esaku-trans/v3/sdm-kontrak',
+                [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nik' => $request->query('kode')
+                    ]
+                ]
+            );
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+            }
+            return response()->json(['data' => $data], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 200);
+        }
+    }
+
+
     public function show_gaji(Request $request)
     {
         try {
@@ -780,6 +815,8 @@ class Kepegawaianv3Controller extends Controller
             return response()->json(['data' => $data], 200);
         }
     }
+
+
 
     public function update(Request $request)
     {
@@ -1044,6 +1081,32 @@ class Kepegawaianv3Controller extends Controller
             $data['message'] = $res['message'];
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
+        }
+    }
+
+
+    public function get_status()
+    {
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url') . 'esaku-trans/v3/sdm-status', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            return response()->json(['message' => $res["message"], 'status' => false], 200);
         }
     }
 }

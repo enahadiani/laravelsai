@@ -325,6 +325,12 @@ Route::post('v3/sdm-karyawan', 'Esaku\Sdm\KepegawaianV3Controller@store');
 Route::post('v3/sdm-karyawan-update', 'Esaku\Sdm\KepegawaianV3Controller@update');
 Route::delete('v3/sdm-karyawan', 'Esaku\Sdm\KepegawaianV3Controller@delete');
 
+Route::get('v3/sdm-kontrak', 'Esaku\Sdm\KepegawaianV3Controller@show_kontrak');
+Route::post('v3/sdm-kontrak', 'Esaku\Sdm\KepegawaianV3Controller@store_kontrak');
+
+// STATUS
+Route::get('v3/sdm-status', 'Esaku\Sdm\KepegawaianV3Controller@get_status');
+
 Route::get('v3/sdm-gaji-param', 'Esaku\Sdm\KepegawaianV3Controller@show_gaji');
 Route::post('v3/sdm-gaji-param', 'Esaku\Sdm\KepegawaianV3Controller@store_gaji');
 

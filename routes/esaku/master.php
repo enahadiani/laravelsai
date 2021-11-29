@@ -265,6 +265,7 @@ BEGIN MODUL SDM
 // Data Loker //
 Route::get('sdm-lokers', 'Esaku\Sdm\LokerController@index');
 Route::get('sdm-loker', 'Esaku\Sdm\LokerController@show');
+Route::get('sdm-loker-bm', 'Esaku\Sdm\LokerController@LokerByBm');
 Route::post('sdm-loker', 'Esaku\Sdm\LokerController@store');
 Route::post('sdm-loker-update', 'Esaku\Sdm\LokerController@update');
 Route::delete('sdm-loker', 'Esaku\Sdm\LokerController@delete');
