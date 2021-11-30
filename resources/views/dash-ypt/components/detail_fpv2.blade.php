@@ -305,6 +305,16 @@ function createChartLembaga(kode_grafik = null) {
                         valueSuffix: '%'
                     }
                 },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M10 0 L0 10',
+                            stroke: 'green',
+                            strokeWidth: 10
+                        }
+                    }]
+                },
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
@@ -383,9 +393,6 @@ function createChartKelompok(kode_grafik = null) {
         success:function(result) {
             var data = result.data;
             yoyChart = Highcharts.chart('yoy-chart', {
-                chart: {
-                    height: 275
-                },
                 title: { text: '' },
                 subtitle: { text: '' },
                 exporting:{ 
@@ -951,6 +958,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="yoy-chart" class="mt-8"></div>
             </div>
         </div>
+        {{-- <div id="container" style='height:400px;width:400px'></div> --}}
         {{-- <div class="col-5 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
