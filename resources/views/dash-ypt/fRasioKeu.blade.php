@@ -1,12 +1,8 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp2.dekstop.css?version=_').time() }}" />
-<style>
-    /* html {
-        overflow-y: scroll !important;
-    } */
-</style>
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
+    $('body').addClass('scroll-hide');
     var $tahun = parseInt($('#year-filter').text());
     var $filter1 = "Periode";
     var $filter2 = getNamaBulan("{{ Session::get('periode') }}".substr(4,2));
