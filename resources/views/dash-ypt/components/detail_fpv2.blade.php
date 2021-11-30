@@ -307,14 +307,33 @@ function createChartLembaga(kode_grafik = null) {
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
-                        center: ['50%', '50%'],
+                        center: ['40%', '50%'],
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name} : {point.percentage:.1f} %'
+                            formatter: function() {
+                                var y = this.y;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                }
+                                return html;
+                            }
                         },
-                        size: '65%',
+                        size: '50%',
                         showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
                     }
                 },
                 series: [{
@@ -328,8 +347,14 @@ function createChartLembaga(kode_grafik = null) {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
-                        if(color == '#434348') {
+                        var negative = point[j].negative;
+                        if(color == '#7cb5ec') {
                             point[j].graphic.element.style.fill = '#830000'
+                        }
+
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
+                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
                         }
                     }
                 }
