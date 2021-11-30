@@ -95,26 +95,26 @@ function updateChartDetail(kode_grafik = null) {
         }
     }); 
     
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-detail-akun') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "kode_grafik[0]": "=", 
-            "kode_grafik[1]": kode_grafik,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            akunChart.series[0].update({
-                data: data
-            })
-        }
-    });
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/data-fp-detail-akun') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "kode_grafik[0]": "=", 
+    //         "kode_grafik[1]": kode_grafik,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         akunChart.series[0].update({
+    //             data: data
+    //         })
+    //     }
+    // });
 }
 // END UPDATE CHART DETAIL
 
@@ -858,11 +858,11 @@ document.addEventListener('fullscreenchange', (event) => {
         }
     })
 
-    akunChart.update({
-        title: {
-            text: ''
-        }
-    })
+    // akunChart.update({
+    //     title: {
+    //         text: ''
+    //     }
+    // })
     console.log('Leaving full-screen mode.');
   }
 });
