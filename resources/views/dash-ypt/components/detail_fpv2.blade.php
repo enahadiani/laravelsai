@@ -75,6 +75,7 @@ function updateChartDetail(kode_grafik = null) {
         async: true,
         success:function(result) {
             var data = result.data;
+            console.log(data);
             yoyChart.update({
                 xAxis: {
                     categories: data.kategori

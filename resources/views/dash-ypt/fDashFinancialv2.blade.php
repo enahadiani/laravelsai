@@ -1434,7 +1434,11 @@ function setHeightPage() {
                 createChartKelompok(kode)
                 // createChartAkun(kode)
             } else {
-                updateChartDetail(kode)
+                // update chart ada bug, data jadi tidak valid. dimatikan sementara
+                // updateChartDetail(kode)
+                createChartPerform(kode)
+                createChartLembaga(kode)
+                createChartKelompok(kode)
             }
     
             if(id == 'pdpt-box') {
