@@ -1432,7 +1432,7 @@ function setHeightPage() {
                 createChartPerform(kode)
                 createChartLembaga(kode)
                 createChartKelompok(kode)
-                createChartAkun(kode)
+                // createChartAkun(kode)
             } else {
                 updateChartDetail(kode)
             }

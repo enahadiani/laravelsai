@@ -383,8 +383,7 @@ function createChartKelompok(kode_grafik = null) {
             var data = result.data;
             yoyChart = Highcharts.chart('yoy-chart', {
                 chart: {
-                    height: 275,
-                    width: 600
+                    height: 275
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -926,7 +925,7 @@ document.addEventListener('fullscreenchange', (event) => {
     </div>
 
     <div id="dekstop-5" class="row dekstop mt-4">
-        <div class="col-7 pl-12 pr-0">
+        <div class="col-12 pl-12 pr-0">
             <div class="card card-dash  border-r-0" id="dash-yoy">
                 <div class="row header-div" id="card-yoy">
                     <div class="col-9">
@@ -951,7 +950,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="yoy-chart" class="mt-8"></div>
             </div>
         </div>
-        <div class="col-5 pl-1 pr-0">
+        {{-- <div class="col-5 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
                     <div class="col-9">
@@ -975,7 +974,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 </div>
                 <div id="akun-chart" class="mt-8"></div>
             </div>
-        </div>
+        </div>--}}
     </div>
     {{-- END ROW 4 --}}
 </section>
