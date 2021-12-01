@@ -20,6 +20,7 @@ Route::get('data-fp-detail-perform', 'DashYpt\DashboardFPController@getDataPerfo
 Route::get('data-fp-detail-lembaga', 'DashYpt\DashboardFPController@getDataPerLembaga');
 Route::get('data-fp-detail-kelompok', 'DashYpt\DashboardFPController@getDataPerKelompok');
 Route::get('data-fp-detail-akun', 'DashYpt\DashboardFPController@getDataPerAkun');
+Route::get('data-fp-detail-or-5tahun', 'DashYpt\DashboardFPController@getDataOR5Tahun');
 
 Route::get('data-ccr-box', 'DashYpt\DashboardCCRController@getDataBox');
 
