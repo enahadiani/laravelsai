@@ -9,6 +9,7 @@
 
 {{-- FORM --}}
 <form id="form-tambah" class="tooltip-label-right" novalidate>
+    <input type="hidden" id="nik" name="nik" value="">
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <div class="row" id="saku-form" style="display:none;">
@@ -836,11 +837,11 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/v3/sdm-karyawan-update') }}";
+            var url = "{{ url('esaku-trans/v3/sdm-kontrak') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
-            var url = "{{ url('esaku-trans/v3/sdm-karyawan') }}";
+            var url = "{{ url('esaku-trans/v3/sdm-kontrak') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode "+id;
         }
@@ -960,13 +961,22 @@ function editData(id, view = false) {
                     isiEdit(client.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
                     isiEdit(client.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
                     isiEdit(client.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
-                    showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
+                    // showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
+                    isiEdit(kepeg.tgl_masuk,"date",'#tgl_masuk',view);
+                    isiEdit(kepeg.no_npwp,"text",'#npwp',view);
+                    isiEdit(kepeg.no_bpjs,"text",'#no_bpjs',view);
+                    isiEdit(kepeg.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
+
                     showInfoField('kode_sdm', kepeg.kode_sdm, kepeg.nama_sdm)
                     showInfoField('kode_area', kepeg.kode_area, kepeg.nama_area)
                     showInfoField('kode_fm', kepeg.kode_fm, kepeg.nama_fm)
                     showInfoField('kode_bm', kepeg.kode_bm, kepeg.nama_bm)
                     showInfoField('kode_loker', kepeg.kode_loker, kepeg.nama_loker)
                     showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
+                    showInfoField('kode_status',kepeg.kode_status, kepeg.nama_status)
+                }else{
+                    resetForm();
+                    newForm();
                 }
 
 
