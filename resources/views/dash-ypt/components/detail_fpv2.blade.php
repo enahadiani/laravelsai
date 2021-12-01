@@ -130,7 +130,8 @@ function createChartPerform(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -276,7 +277,8 @@ function createChartLembaga(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -399,7 +401,8 @@ function createChartKelompok(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -460,7 +463,8 @@ function createChartAkun(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,

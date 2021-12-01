@@ -297,15 +297,21 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-lr',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -347,15 +353,22 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-pl',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -397,16 +410,23 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode'],
+                'kode_grafik' => $req['kode_grafik']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-detail-perform',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode'],
-                    'kode_grafik' => $req['kode_grafik']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -448,16 +468,23 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode'],
+                'kode_grafik' => $req['kode_grafik']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-detail-lembaga',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode'],
-                    'kode_grafik' => $req['kode_grafik']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -499,16 +526,23 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode'],
+                'kode_grafik' => $req['kode_grafik']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-detail-kelompok',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode'],
-                    'kode_grafik' => $req['kode_grafik']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -550,16 +584,23 @@ class DashboardFPController extends Controller
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
+            $fields = [
+                'periode' => $req['periode'],
+                'kode_grafik' => $req['kode_grafik']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
+            }
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-detail-akun',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode'],
-                    'kode_grafik' => $req['kode_grafik']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
