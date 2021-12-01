@@ -1731,13 +1731,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
         if($(this).data('bulan')) {
             filter = $(this).data('bulan') 
         }
+        $month = $(this).data('bulan') 
         $filter2 = filter
         $filter2_kode = $(this).data('filter2')
         $('#list-filter-2 div').not(this).removeClass('selected')
         $(this).addClass('selected')
         $('#filter-box').addClass('hidden')
 
-        if($filter2.length == 2) {
+        if($month.toString().length == 2) {
             $filter2 = getNamaBulan($filter2)
         }
 
