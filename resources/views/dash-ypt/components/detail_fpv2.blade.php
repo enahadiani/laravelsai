@@ -75,6 +75,7 @@ function updateChartDetail(kode_grafik = null) {
         async: true,
         success:function(result) {
             var data = result.data;
+            console.log(data);
             yoyChart.update({
                 xAxis: {
                     categories: data.kategori
@@ -95,26 +96,26 @@ function updateChartDetail(kode_grafik = null) {
         }
     }); 
     
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-detail-akun') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "kode_grafik[0]": "=", 
-            "kode_grafik[1]": kode_grafik,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            akunChart.series[0].update({
-                data: data
-            })
-        }
-    });
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/data-fp-detail-akun') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "kode_grafik[0]": "=", 
+    //         "kode_grafik[1]": kode_grafik,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         akunChart.series[0].update({
+    //             data: data
+    //         })
+    //     }
+    // });
 }
 // END UPDATE CHART DETAIL
 
@@ -304,17 +305,46 @@ function createChartLembaga(kode_grafik = null) {
                         valueSuffix: '%'
                     }
                 },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M10 0 L0 10',
+                            stroke: 'green',
+                            strokeWidth: 10
+                        }
+                    }]
+                },
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
-                        center: ['50%', '50%'],
+                        center: ['40%', '50%'],
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            format: '{point.name} : {point.percentage:.1f} %'
+                            formatter: function() {
+                                var y = this.y;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                }
+                                return html;
+                            }
                         },
-                        size: '65%',
+                        size: '50%',
                         showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
                     }
                 },
                 series: [{
@@ -328,8 +358,14 @@ function createChartLembaga(kode_grafik = null) {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
-                        if(color == '#434348') {
+                        var negative = point[j].negative;
+                        if(color == '#7cb5ec') {
                             point[j].graphic.element.style.fill = '#830000'
+                        }
+
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
+                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
                         }
                     }
                 }
@@ -357,10 +393,6 @@ function createChartKelompok(kode_grafik = null) {
         success:function(result) {
             var data = result.data;
             yoyChart = Highcharts.chart('yoy-chart', {
-                chart: {
-                    height: 275,
-                    width: 600
-                },
                 title: { text: '' },
                 subtitle: { text: '' },
                 exporting:{ 
@@ -834,11 +866,11 @@ document.addEventListener('fullscreenchange', (event) => {
         }
     })
 
-    akunChart.update({
-        title: {
-            text: ''
-        }
-    })
+    // akunChart.update({
+    //     title: {
+    //         text: ''
+    //     }
+    // })
     console.log('Leaving full-screen mode.');
   }
 });
@@ -901,7 +933,7 @@ document.addEventListener('fullscreenchange', (event) => {
     </div>
 
     <div id="dekstop-5" class="row dekstop mt-4">
-        <div class="col-7 pl-12 pr-0">
+        <div class="col-12 pl-12 pr-0">
             <div class="card card-dash  border-r-0" id="dash-yoy">
                 <div class="row header-div" id="card-yoy">
                     <div class="col-9">
@@ -926,7 +958,8 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="yoy-chart" class="mt-8"></div>
             </div>
         </div>
-        <div class="col-5 pl-1 pr-0">
+        {{-- <div id="container" style='height:400px;width:400px'></div> --}}
+        {{-- <div class="col-5 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-akun">
                 <div class="row header-div" id="card-akun">
                     <div class="col-9">
@@ -950,7 +983,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 </div>
                 <div id="akun-chart" class="mt-8"></div>
             </div>
-        </div>
+        </div>--}}
     </div>
     {{-- END ROW 4 --}}
 </section>
