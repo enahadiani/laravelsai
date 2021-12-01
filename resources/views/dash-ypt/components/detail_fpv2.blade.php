@@ -309,9 +309,9 @@ function createChartLembaga(kode_grafik = null) {
                     patterns: [{
                         'id': 'custom-pattern',
                         'path': {
-                            d: 'M10 0 L0 10',
-                            stroke: 'green',
-                            strokeWidth: 10
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
                         }
                     }]
                 },
@@ -329,9 +329,9 @@ function createChartLembaga(kode_grafik = null) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                    html = `<span style="color: #830000;">-${y}%</span>`;
                                 } else {
-                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                    html = `<span style="color: #000000;">${y}%</span>`;
                                 }
                                 return html;
                             }
@@ -354,21 +354,32 @@ function createChartLembaga(kode_grafik = null) {
                 }]
             }, function() {
                 var series = this.series;
+                $('.lembaga-legend').html('');
+                var html = "";
                 for(var i=0;i<series.length;i++) {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
-                        if(color == '#7cb5ec') {
-                            point[j].graphic.element.style.fill = '#830000'
-                        }
-
                         if(negative) {
-                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
-                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            point[j].connector.element.style.stroke = 'black'
+                            point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item"><div class="symbol" style="background-color:url(#custom-pattern)"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';                  
+                        }else{
+                            if(color == '#7cb5ec') {
+                                point[j].graphic.element.style.fill = '#830000'
+                                point[j].connector.element.style.stroke = '#830000'
+                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                            }else{
+
+                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                            }
                         }
                     }
                 }
+                $('.lembaga-legend').html(html);
             });
 
             $render = 1;
@@ -876,7 +887,6 @@ document.addEventListener('fullscreenchange', (event) => {
 });
 // END FULLSCREEN HIGHCHART
 </script>
-
 <section id="detail-dash" class="mt-20 pb-24" style="display: none">
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
@@ -928,6 +938,7 @@ document.addEventListener('fullscreenchange', (event) => {
                     </div>
                 </div>
                 <div id="lembaga-chart" class="mt-8"></div>
+                <div class="lembaga-legend"></div>
             </div>
         </div>
     </div>

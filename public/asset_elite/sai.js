@@ -45,6 +45,11 @@ function number_format(number,decimal=0){
     });
 }
 
+function format_milyar(number, decimal=1,simbol = ' M'){
+    number = number/1000000000;
+    return number_format(number,decimal)+simbol;
+}
+
 function reverse_format(str_num){
     var parts = str_num.split(',');
     number = parts.join('');
