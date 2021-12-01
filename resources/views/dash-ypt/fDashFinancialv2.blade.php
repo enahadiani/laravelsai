@@ -23,7 +23,7 @@ var $render = 0;
 new PerfectScrollbar('#scrollTable');
 var $height = $(window).height();
 // SET STYLES CARD
-$('.card-r-2').css('height', `${$height - 300}px`);
+// $('.card-r-2').css('height', `${$height - 300}px`);
 // SET STYLES CARD
 
 // DATA BOX
@@ -650,7 +650,6 @@ $('.card-r-2').css('height', `${$height - 300}px`);
             var data = result.data;
             lrChart = Highcharts.chart('lr-chart', {
                 chart: {
-                    height: 340,
                     type: 'column'
                 },
                 credits:{
@@ -829,24 +828,24 @@ function showNotification(message) {
 }
 // END CONFIG FUNCTION
 
-$(window).on('resize', function(){
-    var win = $(this); //this = window
-    var $height = win.height();
-    var heighChart = 0;
-    $('.card-r-2').css('height', `${$height - 290}px`);
+// $(window).on('resize', function(){
+//     var win = $(this); //this = window
+//     var $height = win.height();
+//     var heighChart = 0;
+//     $('.card-r-2').css('height', `${$height - 290}px`);
 
-    if($height < 800) {
-        heighChart = $height - 327;
-    } else {
-        heighChart = $height - 320;
-    }
+//     if($height < 800) {
+//         heighChart = $height - 327;
+//     } else {
+//         heighChart = $height - 320;
+//     }
 
-    lrChart.update({
-        chart: {
-            height: heighChart,
-        }
-    })
-});
+//     lrChart.update({
+//         chart: {
+//             height: heighChart,
+//         }
+//     })
+// });
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -2040,7 +2039,7 @@ $('.card-dash .table tbody tr td').on('click', '.show-chart', function() {
     } else if(parentID == 'or-box') {
         $('#or-chart').removeClass('hidden')      
     }
-    setHeightPage();
+    // setHeightPage();
 })
 
 $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
@@ -2055,7 +2054,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
     } else if(parentID == 'or-box') {
         $('#or-chart').addClass('hidden')      
     }
-    setHeightPage();
+    // setHeightPage();
 })
 // END SHOW CHART
 </script>
@@ -2394,7 +2393,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash border-r-0 card-r-2" id="dash-lr">
+            <div class="card card-dash border-r-0 card-r-2" style='height:calc(100vh - 280px)' id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -2415,17 +2414,17 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                         </ul>
                     </div>
                 </div>
-                <div id="lr-chart"></div>
+                <div id="lr-chart" style='height: calc(100vh - 290px)'></div>
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
-            <div class="card card-dash border-r-0 card-r-2">
+            <div class="card card-dash border-r-0 card-r-2" style='height:calc(100vh - 280px)'>
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
                     </div>
                 </div>
-                <div id="scrollTable">
+                <div id="scrollTable" class='scrollTable' style='height: calc(100vh - 320px)'>
                     <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
                         <thead>
                             <tr>
