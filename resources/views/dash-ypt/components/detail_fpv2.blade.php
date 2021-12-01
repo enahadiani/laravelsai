@@ -174,14 +174,16 @@ function createChartPerform(kode_grafik = null) {
                     name: 'Presentase Anggaran',
                     color: '#CED4DA',
                     data: data.anggaran,
-                    pointPadding: 0.3,
-                    pointPlacement: 0
+                    pointPadding: 0.5,
+                    pointPlacement: 0,
+                    pointWidth: 50
                 }, {
                     name: 'Presentase Realisasi',
                     colorByPoint: true,
                     data: data.realisasi,
-                    pointPadding: 0.4,
-                    pointPlacement: 0
+                    pointPadding: 0.6,
+                    pointPlacement: 0,
+                    pointWidth: 30
                 }]
             });
             // performChart = Highcharts.chart('perfomansi-chart', {
@@ -366,15 +368,15 @@ function createChartLembaga(kode_grafik = null) {
                             point[j].color = 'url(#custom-pattern)'  
                             point[j].connector.element.style.stroke = 'black'
                             point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';                  
+                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+format_milyar(point[j].nilai)+'</div></div></div>';                  
                         }else{
                             if(color == '#7cb5ec') {
                                 point[j].graphic.element.style.fill = '#830000'
                                 point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
                             }else{
 
-                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
                             }
                         }
                     }
@@ -890,7 +892,7 @@ document.addEventListener('fullscreenchange', (event) => {
 <section id="detail-dash" class="mt-20 pb-24" style="display: none">
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
-        <div class="col-7 pl-12 pr-0">
+        <div class="col-8 pl-12 pr-0">
             <div class="card card-dash border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
@@ -915,7 +917,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="perfomansi-chart" class="mt-8"></div>
             </div>
         </div>
-        <div class="col-5 pl-1 pr-0">
+        <div class="col-4 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">

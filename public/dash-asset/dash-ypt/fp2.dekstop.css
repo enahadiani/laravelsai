@@ -333,5 +333,8 @@
 .serieName {
     float:left;
     cursor:pointer;
-    width: 90%;
+    width: 100%;
+}
+.bold{
+    font-weight: bold;
 }
