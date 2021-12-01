@@ -9,6 +9,55 @@
     var $month = "{{ Session::get('periode') }}".substr(4,2);
     var yoyChart = null;
 
+    // CONFIG FUNCTION
+    function showNotification(message) {
+        $.notify(
+            {
+                title: 'Update',
+                message: message,
+                target: "_blank"
+            },
+            {
+                element: "body",
+                position: null,
+                type: 'success',
+                allow_dismiss: true,
+                newest_on_top: false,
+                showProgressbar: false,
+                placement: {
+                    from: 'top',
+                    align: 'center'
+                },
+                offset: 20,
+                spacing: 10,
+                z_index: 1031,
+                delay: 4000,
+                timer: 2000,
+                url_target: "_blank",
+                mouse_over: null,
+                animate: {
+                    enter: "animated fadeInDown",
+                    exit: "animated fadeOutUp"
+                },
+                onShow: null,
+                onShown: null,
+                onClose: null,
+                onClosed: null,
+                icon_type: "class",
+                template: `<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">
+                    <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+                    <span data-notify="icon"></span>
+                    <span data-notify="title">{1}</span>
+                    <span data-notify="message">{2}</span>
+                    <div class="progress" data-notify="progressbar">
+                        <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                    </div>
+                    <a href="{3}" target="{4}" data-notify="url"></a>
+                    </div>`
+            }
+        );
+    }
+    // END CONFIG FUNCTION
     function getJenis() {
         $.ajax({
             type:'GET',
@@ -309,6 +358,7 @@
         $filter2 = $month
         $('#list-filter-2 div').not(this).removeClass('selected')
         $(this).addClass('selected')
+        $('#filter-box').addClass('hidden')
 
         $filter2 = getNamaBulan($filter2)
 
@@ -319,24 +369,30 @@
         getRasioYtd(periode,jenis,lokasi);
         getRasioYoY(periode,jenis,lokasi);
         getYoYChart(periode,jenis,lokasi);
+        showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
     });
 
     $('#filter-checkbox-rasio').on('click','input[type="radio"]',function(){
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
+        var nama_jenis = $("input[name='jenis']:checked").siblings('label').text();
         var lokasi = $("input[name='lokasi']:checked").val();
         getRasioYtd(periode,jenis,lokasi);
         getRasioYoY(periode,jenis,lokasi);
         getYoYChart(periode,jenis,lokasi);
+        showNotification(`Menampilkan dashboard ${nama_jenis}`);
+
     });
 
     $('#filter-checkbox-lembaga').on('click','input[type="radio"]',function(){
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
+        var nama_lokasi = $("input[name='lokasi']:checked").siblings('label').text();
         getRasioYtd(periode,jenis,lokasi);
         getRasioYoY(periode,jenis,lokasi);
         getYoYChart(periode,jenis,lokasi);
+        showNotification(`Menampilkan dashboard ${nama_lokasi}`);
     });
 
     var scrollfilter = document.querySelector('#filter-dash');

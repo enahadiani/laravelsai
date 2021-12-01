@@ -985,7 +985,7 @@ function updateAllChart() {
     updateChart()
 }
 
-function updateChart() {
+function updateChart(table = false) {
     // // PENDAPATAN
     // $.ajax({
     //     type: 'GET',
@@ -1133,7 +1133,7 @@ function updateChart() {
         }
     });
     // END LR
-    if($filter_lokasi == ""){
+    if(!table){
         // PL TABLE
         $.ajax({
             type: 'GET',
@@ -1142,8 +1142,7 @@ function updateChart() {
                 "periode[0]": "=", 
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
-                "jenis": $filter1_kode,
-                "kode_lokasi": $filter_lokasi
+                "jenis": $filter1_kode
             },
             dataType: 'json',
             async: true,
@@ -1186,11 +1185,17 @@ function updateChart() {
                         if(row.or_yoy < 0) {
                             classTd8 = "td-red"
                         }
-    
-                        html += `<tr>
+                        if(row.kode_lokasi == $filter_lokasi){
+                            var select = 'class="selected-row"';
+                            var display = 'unset';
+                        }else{
+                            var select = "";
+                            var display = 'none';
+                        }
+                        html += `<tr ${select}>
                             <td>
                                 <p class="kode hidden">${row.kode_lokasi}</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
                             <td class="${classTd1}">${row.pdpt_ach}%</td>
@@ -1539,7 +1544,7 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     }, 200)
     $('#lembaga-title').text(lembaga)
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
-    updateChart();
+    updateChart(true);
     updateBox();
 })
 
