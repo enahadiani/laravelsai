@@ -329,9 +329,9 @@ function createChartLembaga(kode_grafik = null) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">-${y}%</span>`;
+                                    html = `<span style="color: #830000;">-${number_format(y,1)}%</span>`;
                                 } else {
-                                    html = `<span style="color: #000000;">${y}%</span>`;
+                                    html = `<span style="color: #000000;">${number_format(y,1)}%</span>`;
                                 }
                                 return html;
                             }
