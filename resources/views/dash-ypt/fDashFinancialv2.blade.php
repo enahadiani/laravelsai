@@ -2455,7 +2455,6 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- END ROW 2 --}}
 </section>
 {{-- END DESKTOP --}}
-
 @include('dash-ypt.components.detail_fpv2')
 
 {{-- WINDOW DRAGABLE --}}
