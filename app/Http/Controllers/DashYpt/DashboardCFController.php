@@ -23,33 +23,36 @@ class DashboardCFController extends Controller {
 
     public function getDataChartBulanan(Request $r) {
         try {
-            // $req = $r->all();
-            // $tahun = $r->query('tahun');
-            // if($r->query('jenis') == 'TRW') {
-            //     if($r->query('periode')[1] == "TRW1") {
-            //         $req['periode'][1] = $tahun."03"; 
-            //     } elseif($r->query('periode')[1] == "TRW2") {
-            //         $req['periode'][1] = $tahun."06";
-            //     } elseif($r->query('periode')[1] == "TRW3") {
-            //         $req['periode'][1] = $tahun."09";
-            //     } elseif($r->query('periode')[1] == "TRW4") {
-            //         $req['periode'][1] = $tahun."12";
-            //     }
-            // } elseif ($r->query('jenis') == 'SMT') {
-            //     if($r->query('periode')[1] == "SMT1") {
-            //         $req['periode'][1] = $tahun."06";
-            //     } elseif($r->query('periode')[1] == "SMT2") {
-            //         $req['periode'][1] = $tahun."12";
-            //     }
-            // } else {
-            //     $req['periode'][1] = $tahun.$req['periode'][1];
-            // }
+            $req = $r->all();
+            $tahun = $r->query('tahun');
+            if($r->query('jenis') == 'TRW') {
+                if($r->query('periode')[1] == "TRW1") {
+                    $req['periode'][1] = $tahun."03"; 
+                } elseif($r->query('periode')[1] == "TRW2") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "TRW3") {
+                    $req['periode'][1] = $tahun."09";
+                } elseif($r->query('periode')[1] == "TRW4") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'SMT') {
+                if($r->query('periode')[1] == "SMT1") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "SMT2") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
+            }
             
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-cf-chart-bulanan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $req['periode']
                 ]
             ]);
 
@@ -70,33 +73,36 @@ class DashboardCFController extends Controller {
 
     public function getDataBox(Request $r) {
         try {
-            // $req = $r->all();
-            // $tahun = $r->query('tahun');
-            // if($r->query('jenis') == 'TRW') {
-            //     if($r->query('periode')[1] == "TRW1") {
-            //         $req['periode'][1] = $tahun."03"; 
-            //     } elseif($r->query('periode')[1] == "TRW2") {
-            //         $req['periode'][1] = $tahun."06";
-            //     } elseif($r->query('periode')[1] == "TRW3") {
-            //         $req['periode'][1] = $tahun."09";
-            //     } elseif($r->query('periode')[1] == "TRW4") {
-            //         $req['periode'][1] = $tahun."12";
-            //     }
-            // } elseif ($r->query('jenis') == 'SMT') {
-            //     if($r->query('periode')[1] == "SMT1") {
-            //         $req['periode'][1] = $tahun."06";
-            //     } elseif($r->query('periode')[1] == "SMT2") {
-            //         $req['periode'][1] = $tahun."12";
-            //     }
-            // } else {
-            //     $req['periode'][1] = $tahun.$req['periode'][1];
-            // }
+            $req = $r->all();
+            $tahun = $r->query('tahun');
+            if($r->query('jenis') == 'TRW') {
+                if($r->query('periode')[1] == "TRW1") {
+                    $req['periode'][1] = $tahun."03"; 
+                } elseif($r->query('periode')[1] == "TRW2") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "TRW3") {
+                    $req['periode'][1] = $tahun."09";
+                } elseif($r->query('periode')[1] == "TRW4") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'SMT') {
+                if($r->query('periode')[1] == "SMT1") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "SMT2") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
+            }
             
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-cf-box',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'periode' => $req['periode']
                 ]
             ]);
 
