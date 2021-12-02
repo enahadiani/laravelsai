@@ -1539,11 +1539,11 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     setTimeout(function() {
         $(tr).addClass('selected-row')
         $(icon).show()
+        updateChart(true);
+        updateBox();
     }, 200)
     $('#lembaga-title').text(lembaga)
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
-    updateChart(true);
-    updateBox();
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
