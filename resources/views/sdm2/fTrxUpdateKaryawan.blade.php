@@ -3,13 +3,13 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Karyawan-Kontrak kerja" tambah="" :thead="array('NIK','Nama','Alamat','Aksi')"
-    :thwidth="array(10,30,50,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Karyawan-Kontrak kerja" tambah="true"
+    :thead="array('NIK','No Kontrak','Nama','Nama Client','Lokasi Kerja','Status Kontrak','Aksi')"
+    :thwidth="array(10,10,15,15,10,10,10)" :thclass="array('','','','','','','text-center')" />
 {{-- END LIST DATA --}}
 
 {{-- FORM --}}
 <form id="form-tambah" class="tooltip-label-right" novalidate>
-    <input type="hidden" id="nik" name="nik" value="">
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
     <input type="hidden" id="method" name="_method" value="post">
     <div class="row" id="saku-form" style="display:none;">
@@ -36,6 +36,24 @@
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
+                                            <label for="nik">Karyawan</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_nik" readonly="readonly"
+                                                        title="" data-toggle="tooltip" data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-nik" id="nik"
+                                                    name="nik" autocomplete="off" data-input="cbbl" value="" title=""
+                                                    readonly>
+                                                <span class="info-name_nik hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_nik"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="kode_sdm">Perjanjian Kerja</label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend hidden"
@@ -54,6 +72,10 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_sdm"></i>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_area">Area</label>
                                             <div class="input-group">
@@ -73,10 +95,6 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_area"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_fm">FM</label>
                                             <div class="input-group">
@@ -95,6 +113,12 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_fm"></i>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_bm">BM</label>
                                             <div class="input-group">
@@ -113,12 +137,6 @@
                                                 <i class="simple-icon-magnifier search-item2" id="search_kode_bm"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-6 col-sm-12">
-                                    <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="kode_loker">Lokasi Kerja</label>
                                             <div class="input-group">
@@ -139,32 +157,33 @@
                                                     id="search_kode_loker"></i>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="npwp">Nomor NPWP</label>
-                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp"
-                                                name="npwp" autocomplete="off">
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
+                                            <label for="npwp">Nomor NPWP</label>
+                                            <input class="form-control" type="text" placeholder="Nomor NPWP" id="npwp"
+                                                name="npwp" autocomplete="off">
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
                                             <label for="no_bpjs">Nomor BPJS Kesehatan</label>
                                             <input class="form-control" type="text" placeholder="Nomor BPJS Kesehatan"
                                                 id="no_bpjs" name="no_bpjs" autocomplete="off">
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
-                                            <input class="form-control" type="text"
-                                                placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja"
-                                                name="no_bpjs_kerja" autocomplete="off">
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="no_bpjs_kerja">Nomor BPJS Ketenagakerjaan</label>
+                                            <input class="form-control" type="text"
+                                                placeholder="Nomor BPJS Ketenagakerjaan" id="no_bpjs_kerja"
+                                                name="no_bpjs_kerja" autocomplete="off">
+                                        </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="tgl_masuk">Tanggal Masuk</label>
                                             <span class="span-tanggal" id="tanggal-masuk"></span>
@@ -173,26 +192,7 @@
                                             <i style="font-size: 18px;margin-top:30px;margin-left:5px;position: absolute;top: 0;right: 25px;"
                                                 class="simple-icon-calendar date-search"></i>
                                         </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label for="kode_profesi">Profesi</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend hidden"
-                                                    style="border: 1px solid #d7d7d7;">
-                                                    <span class="input-group-text info-code_kode_profesi"
-                                                        readonly="readonly" title="" data-toggle="tooltip"
-                                                        data-placement="top"></span>
-                                                </div>
-                                                <input type="text" class="form-control inp-label-kode_profesi"
-                                                    id="kode_profesi" name="kode_profesi" autocomplete="off"
-                                                    data-input="cbbl" value="" title="" readonly>
-                                                <span class="info-name_kode_profesi hidden">
-                                                    <span></span>
-                                                </span>
-                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                                <i class="simple-icon-magnifier search-item2"
-                                                    id="search_kode_profesi"></i>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6 col-sm-12">
@@ -215,6 +215,26 @@
                                                 <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                                 <i class="simple-icon-magnifier search-item2"
                                                     id="search_kode_status"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label for="kode_profesi">Profesi</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_kode_profesi"
+                                                        readonly="readonly" title="" data-toggle="tooltip"
+                                                        data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-kode_profesi"
+                                                    id="kode_profesi" name="kode_profesi" autocomplete="off"
+                                                    data-input="cbbl" value="" title="" readonly>
+                                                <span class="info-name_kode_profesi hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2"
+                                                    id="search_kode_profesi"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -304,6 +324,7 @@
     </div>
 </form>
 {{-- END FORM --}}
+
 
 <button id="trigger-bottom-sheet" style="display:none">&nbsp;</button>
 
@@ -424,11 +445,10 @@ function resetForm() {
 // BTN TAMBAH
 $('#saku-datatable').on('click', '#btn-tambah', function() {
     $('#preview').hide();
-    $('#nik').attr('readonly', false);
-    $('#judul-form').html('Tambah Data Karyawan');
+    $('#no_kontrak').attr('readonly', false);
+    $('#judul-form').html('Tambah Data Karaywan=Kontrak Kerja');
     resetForm();
     newForm();
-    setRowDefault()
 });
 //  END BTN TAMBAH
 
@@ -444,9 +464,13 @@ $('#saku-form').on('click', '#btn-kembali', function(){
 
 // SAKU TABLE
 var actionHtmlDefault = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
+var actionStatusDefault = "<a href='#' title='Edit' id='btn-edit-status'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
+var aktif = "Kontrak Aktif";
+var non_aktif = "Kontrak Habis";
+var sts_null = "Belum ada Kontrak";
 var dataTable =generateTable(
     "table-data",
-    "{{ url('esaku-trans/v3/sdm-karyawans') }}",
+    "{{ url('esaku-trans/v3/sdm-kontraks') }}",
     [
         {
             "targets": 0,
@@ -457,12 +481,29 @@ var dataTable =generateTable(
                 }
             }
         },
-        {'targets': 3 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' }
+        {'targets': 6 ,'className': 'text-center', 'defaultContent': actionHtmlDefault,'className': 'text-center' }
     ],
     [
         { data: 'nik' },
+        {data:'no_kontrak'},
         { data: 'nama' },
-        { data: 'alamat' }
+        { data: 'nama_client' },
+        { data: 'nama_loker' },
+        {
+         data: 'sisa_hari_kontrak',
+         className: 'text-center',
+            render: function(data) {
+                if (data <= 7 && data !== null ) {
+                        return non_aktif;
+                }else if(data === null){
+                    return sts_null;
+                }else{
+                 return aktif;
+                }
+            }
+        },
+
+
     ],
     "{{ url('esaku-auth/sesi-habis') }}",
     [[0 ,"desc"]]
@@ -657,6 +698,29 @@ $('#form-tambah').on('click', '.search-item2', function(e) {
                 width: ["30%", "70%"],
             }
         break;
+        case 'nik':
+            var options = {
+                id: id,
+                header: ['Kode', 'Nama'],
+                url: "{{ url('esaku-trans/v3/sdm-karyawans') }}",
+                columns: [{
+                        data: 'nik'
+                    },
+                    {
+                         data: 'nama'
+                    }
+                ],
+                judul: "Pilih Karyawan",
+                pilih: "akun",
+                jTarget1: "text",
+                jTarget2: "text",
+                target1: ".info-code_" + id,
+                target2: ".info-name_" + id,
+                target3: "",
+                target4: "",
+                width: ["30%", "70%"],
+            }
+        break;
     }
     showInpFilterBSheet(options);
 })
@@ -673,159 +737,6 @@ $('.info-icon-hapus').click(function(){
 });
 // END CBBL SAKU FORM
 
-// GRID FORM
-$(document).on('click', function() {
-    hideAllSelectedRow()
-})
-
-function hideAllSelectedRow() {
-    $('table[id^=input]').each(function(index, table) {
-        $(table).children('tbody').each(function(index, tbody) {
-            $(tbody).children('tr').each(function(index, tr) {
-                $(tr).children('td').not(':first, :last').each(function(index, td) {
-                    var value = $(td).children('.input-value').val()
-                    $(td).children('.input-value').val(value)
-                    $(td).children('span').not('.not-show, .readonly').text(value)
-                    $(td).children('.input-value').hide()
-                    $(td).children('a').not('.hapus-item, .download-item').hide()
-                    $(td).children('span').not('.not-show').show()
-                })
-            })
-        })
-        $(table).find('tr').removeClass('selected-row')
-        $(table).find('td').removeClass('selected-cell')
-        $(table).find('.input-value').hide()
-        $(table).find('a').not('.hapus-item, .download-item').hide()
-        $(table).find('span').not('.not-show').show()
-    })
-}
-
-function hideUnselectedRow(tbody) {
-    tbody.find('tr').not('.selected-row').each(function(index, tr) {
-        $(tr).find('td').not(':first, :last').each(function(index, td) {
-            var value = $(td).children('.input-value').val()
-            $(td).children('.input-value').val(value)
-            $(td).children('span').not('.not-show, .readonly').text(value)
-            $(td).children('.input-value').hide()
-            $(td).children('a').not('.hapus-item, .download-item').hide()
-            $(td).children('span').not('.not-show').show()
-        })
-    })
-}
-
-function hideUnselectedCell(tr) {
-    tr.find('td').not(':first, :last, .readonly').each(function(index, td) {
-        var value = $(td).children('.input-value').val()
-        $(td).children('.input-value').val(value)
-        $(td).children('span').not('.not-show, .readonly').text(value)
-        if($(td).hasClass('selected-cell')) {
-            $(td).children('span').hide()
-            $(td).children('.input-value').show()
-            $(td).children('a').not('.hapus-item, .download-item').show()
-                setTimeout(function() {
-                $(td).children('.input-value').focus()
-            }, 500)
-        } else {
-            $(td).children('.input-value').hide()
-            $(td).children('a').not('.hapus-item, .download-item').hide()
-            $(td).children('span').not('.not-show').show()
-        }
-    })
-}
-
-function nextSelectedCell(tr, td, index) {
-    var value = $(td).children('.input-value').val()
-    $(td).children('.input-value').val(value)
-    $(td).children('span').not('.not-show, .readonly').text(value)
-    $(td).children('span').not('.not-show').show()
-    $(td).children('.input-value').hide()
-    $(td).children('a').not('.hapus-item, .download-item').hide()
-
-    var nextindex = index + 1;
-    var tdnext = $(tr).find('td').eq(nextindex)
-    var cekReadonly = $(tdnext).hasClass('readonly')
-    if(cekReadonly) {
-        nextindex = nextindex + 1
-        tdnext = $(tr).find('td').eq(nextindex)
-    }
-    var cekCbbl = $(tdnext).has('a').length
-    if(cekCbbl > 0) {
-        $(tdnext).children('a').show()
-    }
-
-    $(tdnext).children('span').hide()
-    $(tdnext).children('.input-value').show()
-    setTimeout(function() {
-        $(tdnext).children('.input-value').focus()
-    }, 500)
-}
-
-function setRowDefault() {
-    var jenis = ['CV', 'KTP', 'FOTO', 'NPWP', 'BPJS KESEHATAN', 'BPJS KETENAGAKERJAAN', 'BUKU REKENING', 'KARTU KELUARGA', 'KONTRAK']
-    $('#input-dokumen tbody').empty()
-    var no= $('#input-dokumen tbody > tr').length;
-    no = no + 1;
-    var html = null;
-    for(var i=0;i<jenis.length;i++) {
-        var idJenis = 'jenis-ke__'+no
-        var idDokumen = 'dokumen-ke__'+no
-        var idStatus = 'status-ke__'+no
-
-        html += `<tr class="row-grid">
-            <td class="text-center">
-                <span class="no-grid ">${no}</span>
-                <input type="hidden" name="nu[]" value="${no}">
-            </td>
-            <td id="${idJenis}">
-                <span id="text-${idJenis}" class="tooltip-span">${jenis[i]}</span>
-                <input autocomplete="off" type="hidden" id="value-${idJenis}" name="jenis[]" class="form-control input-value hidden" value="${jenis[i]}" >
-            </td>
-            <td id="${idDokumen}" style="word-wrap: break-word">
-                <input id='value-${idDokumen}' type='file' name='file[]'>
-                <input type="hidden" name="fileName[]" id="fileName-${idDokumen}" value="-">
-                <input type="hidden" name="filePrevName[]" value="-">
-                <input type="hidden" name="isUpload[]" id="checkUpload-${idDokumen}" value="false">
-            </td>
-            <td id="${idStatus}">
-                <span id="text-${idStatus}" class="tooltip-span">Belum Diupload</span>
-                <input autocomplete="off" type="hidden" id="value-${idStatus}" name="sts_dokumen[]" class="form-control input-value hidden" value="0" >
-            </td>
-        </tr>
-        `;
-
-        no++;
-    }
-    $('#input-dokumen tbody').append(html)
-
-    $('.tooltip-span').tooltip({
-        title: function(){
-            return $(this).text();
-        }
-    });
-}
-
-$('#input-dokumen tbody').on('click', 'td', function(event) {
-    event.stopPropagation();
-    var tr = $(this).parent()
-    var tbody = $(tr).parent()
-    $(tr).addClass('selected-row')
-    $(this).addClass('selected-cell');
-    tr.children().not(this).removeClass('selected-cell');
-    tbody.children().not($(tr)).removeClass('selected-row')
-    hideUnselectedCell(tr);
-    hideUnselectedRow(tbody)
-});
-
-$('#input-dokumen tbody').on('change', 'input[type="file"]', function() {
-    var uid = $('#nik').val();
-    var td = $(this).parent()
-    var id = $(td).attr('id')
-    var file = uid + '_' + $(this).val().replace(/C:\\fakepath\\/i, '')
-    $(td).children('#fileName-'+id).val(file)
-    $(td).children('#checkUpload-'+id).val("true")
-    $(td).children('#value-'+id).val("1")
-})
-// END GRID FORM
 
 // SAVE TRIGGER
 $('#form-tambah').validate({
@@ -837,7 +748,7 @@ $('#form-tambah').validate({
         var parameter = $('#id_edit').val();
         var id = $('#id').val();
         if(parameter == "true"){
-            var url = "{{ url('esaku-trans/v3/sdm-kontrak') }}";
+            var url = "{{ url('esaku-trans/v3/sdm-kontrak-update') }}";
             var pesan = "updated";
             var text = "Perubahan data "+id+" telah tersimpan";
         } else {
@@ -880,8 +791,8 @@ $('#form-tambah').validate({
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>'+result.data.message+'</a>'
+                        text: result.data.message,
+
                     })
                 }
             },
@@ -929,11 +840,12 @@ $('#saku-form').on('click', '#btn-update', function(){
 
 $('#saku-datatable').on('click', '#btn-edit', function(){
     var id= $(this).closest('tr').find('td').eq(0).html();
+    var no_kontrak= $(this).closest('tr').find('td').eq(1).html();
     $('#nik').attr('readonly', true);
-    editData(id)
+    editData(id,no_kontrak)
 });
 
-function editData(id, view = false) {
+function editData(id,no_kontrak ,view = false) {
     $('#form-tambah').validate().resetForm();
     $('#btn-save').attr('type','button');
     $('#btn-save').attr('id','btn-update');
@@ -947,33 +859,38 @@ function editData(id, view = false) {
         async:false,
         success:function(res) {
             var result = res.data
+            var pribadi = result.data_pribadi[0]
             var kepeg = result.data_kepeg[0]
             var client = result.data_client[0]
             console.log(result)
             if(result.status) {
                 $('#id_edit').val('true')
-                isiEdit(id, "text",'#nik', true);
-                if(result.data_kepeg.length > 0){
-                    isiEdit(client.nama_client,"text",'#client',view);
-                    isiEdit(client.skill,"text",'#skill',view);
-                    isiEdit(client.no_kontrak,"text",'#no_kontrak',view);
-                    isiEdit(client.atasan_langsung,"text",'#atasan_langsung',view);
-                    isiEdit(client.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
-                    isiEdit(client.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
-                    isiEdit(client.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
-                    // showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
-                    isiEdit(kepeg.tgl_masuk,"date",'#tgl_masuk',view);
-                    isiEdit(kepeg.no_npwp,"text",'#npwp',view);
-                    isiEdit(kepeg.no_bpjs,"text",'#no_bpjs',view);
-                    isiEdit(kepeg.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
 
-                    showInfoField('kode_sdm', kepeg.kode_sdm, kepeg.nama_sdm)
-                    showInfoField('kode_area', kepeg.kode_area, kepeg.nama_area)
-                    showInfoField('kode_fm', kepeg.kode_fm, kepeg.nama_fm)
-                    showInfoField('kode_bm', kepeg.kode_bm, kepeg.nama_bm)
-                    showInfoField('kode_loker', kepeg.kode_loker, kepeg.nama_loker)
-                    showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
-                    showInfoField('kode_status',kepeg.kode_status, kepeg.nama_status)
+                if(result.data_kepeg.length > 0){
+                        // isiEdit(id, "text",'#nik', true);
+                        isiEdit(client.no_kontrak,"text",'#no_kontrak',true);
+                        isiEdit(client.nama_client,"text",'#client',view);
+                        isiEdit(client.skill,"text",'#skill',view);
+
+                        isiEdit(client.atasan_langsung,"text",'#atasan_langsung',view);
+                        isiEdit(client.atasan_tidak_langsung,"text",'#atasan_t_langsung',view);
+                        isiEdit(client.tgl_kontrak_awal,"date",'#tgl_kontrak',view);
+                        isiEdit(client.tgl_kontrak_akhir,"date",'#tgl_kontrak_akhir',view);
+                        // showInfoField('kode_gol', kepeg.kode_golongan, kepeg.nama_golongan)
+                        isiEdit(kepeg.tgl_masuk,"date",'#tgl_masuk',view);
+                        isiEdit(kepeg.no_npwp,"text",'#npwp',view);
+                        isiEdit(kepeg.no_bpjs,"text",'#no_bpjs',view);
+                        isiEdit(kepeg.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
+
+                        showInfoField('kode_sdm', kepeg.kode_sdm, kepeg.nama_sdm)
+                        showInfoField('kode_area', kepeg.kode_area, kepeg.nama_area)
+                        showInfoField('kode_fm', kepeg.kode_fm, kepeg.nama_fm)
+                        showInfoField('kode_bm', kepeg.kode_bm, kepeg.nama_bm)
+                        showInfoField('kode_loker', kepeg.kode_loker, kepeg.nama_loker)
+                        showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
+                        showInfoField('kode_status',kepeg.kode_status, kepeg.nama_status)
+                        showInfoField('nik',pribadi.nik, pribadi.nama)
+
                 }else{
                     resetForm();
                     newForm();
@@ -992,212 +909,5 @@ function editData(id, view = false) {
 }
 // END EDIT DATA
 
- // Jurnal  Grid
- function hitungTotalRowJurnal() {
-        var total_row = $('#jurnal-grid tbody tr').length;
-        $('#total-row-jurnal').html(total_row + ' Baris');
-    }
 
-    function hideUnselectedRowJurnal() {
-        $('#jurnal-grid > tbody > tr').each(function (index, row) {
-            if (!$(row).hasClass('selected-row')) {
-                var kode_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val();
-                var nama_akun = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val();
-                var nilai = $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val();
-
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").val(kode_akun);
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").text(kode_akun);
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").val(nama_akun);
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").text(nama_akun);
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").val(nilai);
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").text(nilai);
-
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-kode").hide();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-kode").show();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".search-akun").hide();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nama").hide();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nama").show();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".inp-nilai").hide();
-                $('#jurnal-grid > tbody > tr:eq(' + index + ') > td').find(".td-nilai").show();
-            }
-        })
-    }
-
-    function addRowJurnal() {
-        var kode_akun = "";
-        var nama_akun = "";
-        var nilai = "";
-        var no = $('#jurnal-grid .row-jurnal:last').index();
-        no = no + 2;
-        var input = "";
-        input += "<tr class='row-jurnal'>";
-        input += "<td class='no-jurnal text-center'>" + no + "</td>";
-        input += "<td><span class='td-kode tdakunke" + no + " tooltip-span'>" + kode_akun +
-            "</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke" + no +
-            " hidden' value='" + kode_akun + "' required='' style='z-index: 1;position: relative;' id='akunkode" + no +
-            "'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
-        input += "<td><span class='td-nama tdnmakunke" + no + " tooltip-span'>" + nama_akun +
-            "</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke" + no +
-            " hidden'  value='" + nama_akun + "' readonly></td>";
-        input += "<td class='text-right'><span class='td-nilai tdnilke" + no + " tooltip-span'>" + nilai +
-            "</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke" + no + " hidden'  value='" +
-            nilai + "' required></td>";
-        input += "<td class='text-center'><a class=' hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
-        input += "</tr>";
-        $('#jurnal-grid tbody').append(input);
-        $('.nilke' + no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () {
-                self.Value('');
-            }
-        });
-        hitungTotalRowJurnal();
-        hideUnselectedRowJurnal();
-        $('.tooltip-span').tooltip({
-            title: function () {
-                return $(this).text();
-            }
-        });
-
-    }
-
-    $('#form-tambah').on('click', '.add-row-jurnal', function () {
-        addRowJurnal();
-    });
-
-    $('#jurnal-grid').on('click', '.hapus-item', function () {
-        $(this).closest('tr').remove();
-        no = 1;
-        $('.row-jurnal').each(function () {
-            var nom = $(this).closest('tr').find('.no-jurnal');
-            nom.html(no);
-            no++;
-        });
-        hitungTotalRowJurnal();
-        $("html, body").animate({
-            scrollTop: $(document).height()
-        }, 1000);
-    });
-
-
-
-    $('#jurnal-grid tbody').on('click', 'tr', function () {
-        $(this).addClass('selected-row');
-        $('#jurnal-grid tbody tr').not(this).removeClass('selected-row');
-        hideUnselectedRowJurnal();
-    });
-
-    $('#jurnal-grid').on('click', 'td', function () {
-        var idx = $(this).index();
-        if (idx == 0) {
-            return false;
-        } else {
-            if ($(this).hasClass('px-0 py-0 aktif')) {
-                return false;
-            } else {
-                $('#jurnal-grid td').removeClass('px-0 py-0 aktif');
-                $(this).addClass('px-0 py-0 aktif');
-
-                var kode_akun = $(this).parents("tr").find(".inp-kode").val();
-                var nama_akun = $(this).parents("tr").find(".inp-nama").val();
-                var nilai = $(this).parents("tr").find(".inp-nilai").val();
-                var no = $(this).parents("tr").find(".no-jurnal").text();
-                $(this).parents("tr").find(".inp-kode").val(kode_akun);
-                $(this).parents("tr").find(".td-kode").text(kode_akun);
-                if (idx == 1) {
-                    $(this).parents("tr").find(".inp-kode").show();
-                    $(this).parents("tr").find(".td-kode").hide();
-                    $(this).parents("tr").find(".search-akun").show();
-                    $(this).parents("tr").find(".inp-kode").focus();
-                } else {
-                    $(this).parents("tr").find(".inp-kode").hide();
-                    $(this).parents("tr").find(".td-kode").show();
-                    $(this).parents("tr").find(".search-akun").hide();
-
-                }
-
-                $(this).parents("tr").find(".inp-nama").val(nama_akun);
-                $(this).parents("tr").find(".td-nama").text(nama_akun);
-                if (idx == 2) {
-                    $(this).parents("tr").find(".inp-nama").show();
-                    $(this).parents("tr").find(".td-nama").hide();
-                    $(this).parents("tr").find(".inp-nama").focus();
-                } else {
-
-                    $(this).parents("tr").find(".inp-nama").hide();
-                    $(this).parents("tr").find(".td-nama").show();
-                }
-
-                if (nilai == "" && idx == 3) {
-                    $(this).parents("tr").find(".inp-nilai").val(nilai);
-                    $(this).parents("tr").find(".td-nilai").text(nilai);
-                } else {
-                    $(this).parents("tr").find(".inp-nilai").val(nilai);
-                    $(this).parents("tr").find(".td-nilai").text(nilai);
-                }
-
-                if (idx == 3) {
-                    $(this).parents("tr").find(".inp-nilai").show();
-                    $(this).parents("tr").find(".td-nilai").hide();
-                    $(this).parents("tr").find(".inp-nilai").focus();
-                } else {
-                    $(this).parents("tr").find(".inp-nilai").hide();
-                    $(this).parents("tr").find(".td-nilai").show();
-                }
-            }
-        }
-    });
-    $('#jurnal-grid').on('click', '.search-item', function () {
-        var par = $(this).closest('td').find('input').attr('name');
-
-        switch (par) {
-            case 'kode_akun[]':
-                var par2 = "nama_akun[]";
-
-            break;
-        }
-
-        var tmp = $(this).closest('tr').find('input[name="' + par + '"]').attr('class');
-        var tmp2 = tmp.split(" ");
-        target1 = tmp2[2];
-
-        tmp = $(this).closest('tr').find('input[name="' + par2 + '"]').attr('class');
-        tmp2 = tmp.split(" ");
-        target2 = tmp2[2];
-
-        switch (par) {
-            case 'kode_akun[]':
-                var options = {
-                    id: par,
-                    header: ['Kode', 'Nama'],
-                    url: "{{ url('esaku-master/sdm-gaji-params') }}",
-                    columns: [{
-                            data: 'kode_param'
-                        },
-                        {
-                            data: 'nama'
-                        }
-                    ],
-                    judul: "Daftar Parameter Gaji",
-                    pilih: "akun",
-                    jTarget1: "val",
-                    jTarget2: "val",
-                    target1: "." + target1,
-                    target2: "." + target2,
-                    target3: ".td" + target2,
-                    target4: ".td-dc",
-                    width: ["30%", "70%"]
-                };
-                break;
-
-        }
-        showInpFilterBSheet(options);
-        // showInpFilter(options);
-
-    });
-    // END Jurnal Grid
 </script>
