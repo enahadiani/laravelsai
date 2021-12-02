@@ -1524,11 +1524,12 @@ $('#back').click(function() {
 $('#table-lembaga tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
-    var icon = $(tr).children('td:first').children('.check-row')
-    var kode = $(tr).children('td:first').children('.kode').text()
+    var icon = $(this).closest('tr').find('td:first').find('.check-row')
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
-    var lembaga = $(this).children('.name-lembaga').text()
-    $filter_lokasi = $(this).children('.kode').text()
+    var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
+    $filter_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    console.log($filter_lokasi);
     if(check == 'selected-row') {
         return;
     }
@@ -1536,9 +1537,9 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
 
+    $(tr).addClass('selected-row')
+    $(icon).show()
     setTimeout(function() {
-        $(tr).addClass('selected-row')
-        $(icon).show()
         updateChart(true);
         updateBox();
     }, 200)
@@ -1547,6 +1548,7 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+    console.log('selected-row');
     var table = $(this).parents('table').attr('id')
     $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
