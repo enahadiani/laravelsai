@@ -5,10 +5,11 @@
 
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
+var $filter_lokasi = "";
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
 var $filter2 = "September";
-var $month = "{{ date('m') }}";
+var $month = "09";
 var $judulChart = null;
 var $filter1_kode = "PRD";
 var $filter2_kode = "09";
@@ -19,11 +20,23 @@ var orChart = null;
 var lrChart = null;
 var $render = 0;
 
+if($filter1 == 'Periode') {
+    $('#list-filter-2').find('.list').each(function() {
+        if($(this).data('bulan').toString() == $month) {
+            $(this).addClass('selected')
+            $month = $(this).data('bulan').toString();
+            return false;
+        }
+    });
+}
+    
+$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
 // RUN IF FIRST RENDER
 new PerfectScrollbar('#scrollTable');
 var $height = $(window).height();
 // SET STYLES CARD
-$('.card-r-2').css('height', `${$height - 300}px`);
+// $('.card-r-2').css('height', `${$height - 300}px`);
 // SET STYLES CARD
 
 // DATA BOX
@@ -187,8 +200,8 @@ $('.card-r-2').css('height', `${$height - 300}px`);
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').append(`${shu.yoy}%`)
-            $('#shu-ach-percentage').append(`${shu.ach}%`)
+            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
+            $('#shu-ach-percentage').text(`${shu.ach}%`)
             $('#shu-yoy-icon').html(iconShuYoy)
             $('#shu-ach-icon').html(iconShuAch)
             // END SHU
@@ -232,404 +245,404 @@ $('.card-r-2').css('height', `${$height - 300}px`);
 // END DATA BOX
 
 // DATA CHART
-    // PENDAPATAN
-    (function() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
-            data: {
-                "periode[0]": "=", 
-                "periode[1]": $filter2_kode,
-                "tahun": $tahun,
-                "jenis": $filter1_kode
-            },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.data;
-                pdptChart = Highcharts.chart('pdpt-chart', {
-                    chart: {
-                        height: 150,
-                        width: 270,
-                        marginTop: 10,
-                        type: 'column',
-                        spacing: [0, 0, 0, 0],
-			            backgroundColor: null
-                    },
-                    credits:{
-                        enabled:false
-                    },
-                    exporting:{ 
-                        enabled: false,
-                    },
-                    legend:{ 
-                        enabled: false,
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: data.kategori,
-                    },
-                    yAxis: [
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,   
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                            opposite: true,
-                        }
-                    ],
-                    tooltip: {
-                        formatter: function () {   
-                            var tmp = this.x.split("|");   
-                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-                        }
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [
-                        {
-                            name: 'Anggaran',
-                            color: '#b91c1c',
-                            data: data.anggaran,
-                            pointPadding: 0.1,
-                            pointPlacement: 0,
-                        },
-                        {
-                            name: 'Realisasi',
-                            color: '#064E3B',
-                            data: data.realisasi,
-                            pointPadding: 0.3,
-                            pointPlacement: 0,
-                            yAxis: 1
-                        }
-                    ]
-                })
-            }
-        });
-    })();
+    // // PENDAPATAN
+    // (function() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
+    //         data: {
+    //             "periode[0]": "=", 
+    //             "periode[1]": $filter2_kode,
+    //             "tahun": $tahun,
+    //             "jenis": $filter1_kode
+    //         },
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             var data = result.data;
+    //             pdptChart = Highcharts.chart('pdpt-chart', {
+    //                 chart: {
+    //                     height: 150,
+    //                     width: 270,
+    //                     marginTop: 10,
+    //                     type: 'column',
+    //                     spacing: [0, 0, 0, 0],
+	// 		            backgroundColor: null
+    //                 },
+    //                 credits:{
+    //                     enabled:false
+    //                 },
+    //                 exporting:{ 
+    //                     enabled: false,
+    //                 },
+    //                 legend:{ 
+    //                     enabled: false,
+    //                 },
+    //                 title: {
+    //                     text: ''
+    //                 },
+    //                 xAxis: {
+    //                     categories: data.kategori,
+    //                 },
+    //                 yAxis: [
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,   
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                     },
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                         opposite: true,
+    //                     }
+    //                 ],
+    //                 tooltip: {
+    //                     formatter: function () {   
+    //                         var tmp = this.x.split("|");   
+    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+    //                     }
+    //                 },
+    //                 plotOptions: {
+    //                     column: {
+    //                         grouping: false,
+    //                         shadow: false,
+    //                         borderWidth: 0
+    //                     }
+    //                 },
+    //                 series: [
+    //                     {
+    //                         name: 'Anggaran',
+    //                         color: '#b91c1c',
+    //                         data: data.anggaran,
+    //                         pointPadding: 0.1,
+    //                         pointPlacement: 0,
+    //                     },
+    //                     {
+    //                         name: 'Realisasi',
+    //                         color: '#064E3B',
+    //                         data: data.realisasi,
+    //                         pointPadding: 0.3,
+    //                         pointPlacement: 0,
+    //                         yAxis: 1
+    //                     }
+    //                 ]
+    //             })
+    //         }
+    //     });
+    // })();
     // END PENDAPATAN
-    // BEBAN
-    (function() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
-            data: {
-                "periode[0]": "=", 
-                "periode[1]": $filter2_kode,
-                "tahun": $tahun,
-                "jenis": $filter1_kode
-            },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.data;
-                bebanChart = Highcharts.chart('beban-chart', {
-                    chart: {
-                        height: 150,
-                        width: 270,
-                        marginTop: 10,
-                        type: 'column',
-                        spacing: [0, 0, 0, 0],
-			            backgroundColor: null
-                    },
-                    credits:{
-                        enabled:false
-                    },
-                    exporting:{ 
-                        enabled: false,
-                    },
-                    legend:{ 
-                        enabled: false,
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: data.kategori,
-                    },
-                    yAxis: [
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,   
-                            min: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                            opposite: true,
-                        }
-                    ],
-                    tooltip: {
-                        formatter: function () {   
-                            var tmp = this.x.split("|");   
-                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-                        }
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [
-                        {
-                            name: 'Anggaran',
-                            color: '#b91c1c',
-                            data: data.anggaran,
-                            pointPadding: 0.1,
-                            pointPlacement: 0,
-                        },
-                        {
-                            name: 'Realisasi',
-                            color: '#064E3B',
-                            data: data.realisasi,
-                            pointPadding: 0.3,
-                            pointPlacement: 0,
-                            yAxis: 1
-                        }
-                    ]
-                })
-            }
-        });
-    })();
+    // // BEBAN
+    // (function() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
+    //         data: {
+    //             "periode[0]": "=", 
+    //             "periode[1]": $filter2_kode,
+    //             "tahun": $tahun,
+    //             "jenis": $filter1_kode
+    //         },
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             var data = result.data;
+    //             bebanChart = Highcharts.chart('beban-chart', {
+    //                 chart: {
+    //                     height: 150,
+    //                     width: 270,
+    //                     marginTop: 10,
+    //                     type: 'column',
+    //                     spacing: [0, 0, 0, 0],
+	// 		            backgroundColor: null
+    //                 },
+    //                 credits:{
+    //                     enabled:false
+    //                 },
+    //                 exporting:{ 
+    //                     enabled: false,
+    //                 },
+    //                 legend:{ 
+    //                     enabled: false,
+    //                 },
+    //                 title: {
+    //                     text: ''
+    //                 },
+    //                 xAxis: {
+    //                     categories: data.kategori,
+    //                 },
+    //                 yAxis: [
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,   
+    //                         min: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                     },
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                         opposite: true,
+    //                     }
+    //                 ],
+    //                 tooltip: {
+    //                     formatter: function () {   
+    //                         var tmp = this.x.split("|");   
+    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+    //                     }
+    //                 },
+    //                 plotOptions: {
+    //                     column: {
+    //                         grouping: false,
+    //                         shadow: false,
+    //                         borderWidth: 0
+    //                     }
+    //                 },
+    //                 series: [
+    //                     {
+    //                         name: 'Anggaran',
+    //                         color: '#b91c1c',
+    //                         data: data.anggaran,
+    //                         pointPadding: 0.1,
+    //                         pointPlacement: 0,
+    //                     },
+    //                     {
+    //                         name: 'Realisasi',
+    //                         color: '#064E3B',
+    //                         data: data.realisasi,
+    //                         pointPadding: 0.3,
+    //                         pointPlacement: 0,
+    //                         yAxis: 1
+    //                     }
+    //                 ]
+    //             })
+    //         }
+    //     });
+    // })();
     // END BEBAN
-    // SHU
-    (function() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
-            data: {
-                "periode[0]": "=", 
-                "periode[1]": $filter2_kode,
-                "tahun": $tahun,
-                "jenis": $filter1_kode
-            },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.data;
-                shuChart = Highcharts.chart('shu-chart', {
-                    chart: {
-                        height: 150,
-                        width: 270,
-                        marginTop: 10,
-                        type: 'column',
-                        spacing: [0, 0, 0, 0],
-			            backgroundColor: null
-                    },
-                    credits:{
-                        enabled:false
-                    },
-                    exporting:{ 
-                        enabled: false,
-                    },
-                    legend:{ 
-                        enabled: false,
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: data.kategori,
-                    },
-                    yAxis: [
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,   
-                            min: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                        },
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return singkatNilai(this.value);
-                                }
-                            },
-                            opposite: true,
-                        }
-                    ],
-                    tooltip: {
-                        formatter: function () {   
-                            var tmp = this.x.split("|");   
-                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-                        }
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [
-                        {
-                            name: 'Anggaran',
-                            color: '#b91c1c',
-                            data: data.anggaran,
-                            pointPadding: 0.1,
-                            pointPlacement: 0,
-                        },
-                        {
-                            name: 'Realisasi',
-                            color: '#064E3B',
-                            data: data.realisasi,
-                            pointPadding: 0.3,
-                            pointPlacement: 0,
-                            yAxis: 1
-                        }
-                    ]
-                })
-            }
-        });
-    })();
-    // END SHU
-    // OR
-    (function() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
-            data: {
-                "periode[0]": "=", 
-                "periode[1]": $filter2_kode,
-                "tahun": $tahun,
-                "jenis": $filter1_kode
-            },
-            dataType: 'json',
-            async: false,
-            success: function(result) {
-                var data = result.data;
-                orChart = Highcharts.chart('or-chart', {
-                    chart: {
-                        height: 150,
-                        width: 270,
-                        marginTop: 10,
-                        type: 'column',
-                        spacing: [0, 0, 0, 0],
-			            backgroundColor: null
-                    },
-                    credits:{
-                        enabled:false
-                    },
-                    exporting:{ 
-                        enabled: false,
-                    },
-                    legend:{ 
-                        enabled: false,
-                    },
-                    title: {
-                        text: ''
-                    },
-                    xAxis: {
-                        categories: data.kategori,
-                    },
-                    yAxis: [
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,   
-                            min: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return `${this.value}%`;
-                                }
-                            },
-                        },
-                        {
-                            minorGridLineWidth: 0,
-                            gridLineWidth: 0,
-                            title: '',
-                            labels: {
-                                enabled: true,
-                                formatter: function() {
-                                    return `${this.value}%`;
-                                }
-                            },
-                            opposite: true,
-                        }
-                    ],
-                    tooltip: {
-                        formatter: function () {   
-                            var tmp = this.x.split("|");   
-                            return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-                        }
-                    },
-                    plotOptions: {
-                        column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [
-                        {
-                            name: 'Anggaran',
-                            color: '#b91c1c',
-                            data: data.anggaran,
-                            pointPadding: 0.1,
-                            pointPlacement: 0,
-                        },
-                        {
-                            name: 'Realisasi',
-                            color: '#064E3B',
-                            data: data.realisasi,
-                            pointPadding: 0.3,
-                            pointPlacement: 0,
-                            yAxis: 1
-                        }
-                    ]
-                })
-            }
-        });
-    })();
+    // // SHU
+    // (function() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
+    //         data: {
+    //             "periode[0]": "=", 
+    //             "periode[1]": $filter2_kode,
+    //             "tahun": $tahun,
+    //             "jenis": $filter1_kode
+    //         },
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             var data = result.data;
+    //             shuChart = Highcharts.chart('shu-chart', {
+    //                 chart: {
+    //                     height: 150,
+    //                     width: 270,
+    //                     marginTop: 10,
+    //                     type: 'column',
+    //                     spacing: [0, 0, 0, 0],
+	// 		            backgroundColor: null
+    //                 },
+    //                 credits:{
+    //                     enabled:false
+    //                 },
+    //                 exporting:{ 
+    //                     enabled: false,
+    //                 },
+    //                 legend:{ 
+    //                     enabled: false,
+    //                 },
+    //                 title: {
+    //                     text: ''
+    //                 },
+    //                 xAxis: {
+    //                     categories: data.kategori,
+    //                 },
+    //                 yAxis: [
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,   
+    //                         min: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                     },
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return singkatNilai(this.value);
+    //                             }
+    //                         },
+    //                         opposite: true,
+    //                     }
+    //                 ],
+    //                 tooltip: {
+    //                     formatter: function () {   
+    //                         var tmp = this.x.split("|");   
+    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+    //                     }
+    //                 },
+    //                 plotOptions: {
+    //                     column: {
+    //                         grouping: false,
+    //                         shadow: false,
+    //                         borderWidth: 0
+    //                     }
+    //                 },
+    //                 series: [
+    //                     {
+    //                         name: 'Anggaran',
+    //                         color: '#b91c1c',
+    //                         data: data.anggaran,
+    //                         pointPadding: 0.1,
+    //                         pointPlacement: 0,
+    //                     },
+    //                     {
+    //                         name: 'Realisasi',
+    //                         color: '#064E3B',
+    //                         data: data.realisasi,
+    //                         pointPadding: 0.3,
+    //                         pointPlacement: 0,
+    //                         yAxis: 1
+    //                     }
+    //                 ]
+    //             })
+    //         }
+    //     });
+    // })();
+    // // END SHU
+    // // OR
+    // (function() {
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
+    //         data: {
+    //             "periode[0]": "=", 
+    //             "periode[1]": $filter2_kode,
+    //             "tahun": $tahun,
+    //             "jenis": $filter1_kode
+    //         },
+    //         dataType: 'json',
+    //         async: false,
+    //         success: function(result) {
+    //             var data = result.data;
+    //             orChart = Highcharts.chart('or-chart', {
+    //                 chart: {
+    //                     height: 150,
+    //                     width: 270,
+    //                     marginTop: 10,
+    //                     type: 'column',
+    //                     spacing: [0, 0, 0, 0],
+	// 		            backgroundColor: null
+    //                 },
+    //                 credits:{
+    //                     enabled:false
+    //                 },
+    //                 exporting:{ 
+    //                     enabled: false,
+    //                 },
+    //                 legend:{ 
+    //                     enabled: false,
+    //                 },
+    //                 title: {
+    //                     text: ''
+    //                 },
+    //                 xAxis: {
+    //                     categories: data.kategori,
+    //                 },
+    //                 yAxis: [
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,   
+    //                         min: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return `${this.value}%`;
+    //                             }
+    //                         },
+    //                     },
+    //                     {
+    //                         minorGridLineWidth: 0,
+    //                         gridLineWidth: 0,
+    //                         title: '',
+    //                         labels: {
+    //                             enabled: true,
+    //                             formatter: function() {
+    //                                 return `${this.value}%`;
+    //                             }
+    //                         },
+    //                         opposite: true,
+    //                     }
+    //                 ],
+    //                 tooltip: {
+    //                     formatter: function () {   
+    //                         var tmp = this.x.split("|");   
+    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
+    //                     }
+    //                 },
+    //                 plotOptions: {
+    //                     column: {
+    //                         grouping: false,
+    //                         shadow: false,
+    //                         borderWidth: 0
+    //                     }
+    //                 },
+    //                 series: [
+    //                     {
+    //                         name: 'Anggaran',
+    //                         color: '#b91c1c',
+    //                         data: data.anggaran,
+    //                         pointPadding: 0.1,
+    //                         pointPlacement: 0,
+    //                     },
+    //                     {
+    //                         name: 'Realisasi',
+    //                         color: '#064E3B',
+    //                         data: data.realisasi,
+    //                         pointPadding: 0.3,
+    //                         pointPlacement: 0,
+    //                         yAxis: 1
+    //                     }
+    //                 ]
+    //             })
+    //         }
+    //     });
+    // })();
     // END OR
 // END DATA CHART
 
@@ -650,7 +663,6 @@ $('.card-r-2').css('height', `${$height - 300}px`);
             var data = result.data;
             lrChart = Highcharts.chart('lr-chart', {
                 chart: {
-                    height: 340,
                     type: 'column'
                 },
                 credits:{
@@ -829,24 +841,24 @@ function showNotification(message) {
 }
 // END CONFIG FUNCTION
 
-$(window).on('resize', function(){
-    var win = $(this); //this = window
-    var $height = win.height();
-    var heighChart = 0;
-    $('.card-r-2').css('height', `${$height - 290}px`);
+// $(window).on('resize', function(){
+//     var win = $(this); //this = window
+//     var $height = win.height();
+//     var heighChart = 0;
+//     $('.card-r-2').css('height', `${$height - 290}px`);
 
-    if($height < 800) {
-        heighChart = $height - 327;
-    } else {
-        heighChart = $height - 320;
-    }
+//     if($height < 800) {
+//         heighChart = $height - 327;
+//     } else {
+//         heighChart = $height - 320;
+//     }
 
-    lrChart.update({
-        chart: {
-            height: heighChart,
-        }
-    })
-});
+//     lrChart.update({
+//         chart: {
+//             height: heighChart,
+//         }
+//     })
+// });
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -973,115 +985,119 @@ function updateAllChart() {
     updateChart()
 }
 
-function updateChart() {
-    // PENDAPATAN
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            pdptChart.series[0].update({
-                data: data.anggaran
-            }, false) // true untuk redraw
+function updateChart(table = false) {
+    // // PENDAPATAN
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode,
+    //         "kode_lokasi": $filter_lokasi
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         pdptChart.series[0].update({
+    //             data: data.anggaran
+    //         }, false) // true untuk redraw
 
-            pdptChart.series[1].update({
-                data: data.realisasi
-            }, false) // true untuk redraw
+    //         pdptChart.series[1].update({
+    //             data: data.realisasi
+    //         }, false) // true untuk redraw
 
-            // re render chart
-            pdptChart.redraw()
-        }
-    });
-    // END PENDAPATAN
-    // BEBAN
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            bebanChart.series[0].update({
-                data: data.anggaran
-            }, false) // true untuk redraw
+    //         // re render chart
+    //         pdptChart.redraw()
+    //     }
+    // });
+    // // END PENDAPATAN
+    // // BEBAN
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode,
+    //         "kode_lokasi": $filter_lokasi
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         bebanChart.series[0].update({
+    //             data: data.anggaran
+    //         }, false) // true untuk redraw
 
-            bebanChart.series[1].update({
-                data: data.realisasi
-            }, false) // true untuk redraw
+    //         bebanChart.series[1].update({
+    //             data: data.realisasi
+    //         }, false) // true untuk redraw
 
-            // re render chart
-            bebanChart.redraw()
-        }
-    });
-    // END BEBAN
-    // SHU
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            shuChart.series[0].update({
-                data: data.anggaran
-            }, false) // true untuk redraw
+    //         // re render chart
+    //         bebanChart.redraw()
+    //     }
+    // });
+    // // END BEBAN
+    // // SHU
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode,
+    //         "kode_lokasi": $filter_lokasi
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         shuChart.series[0].update({
+    //             data: data.anggaran
+    //         }, false) // true untuk redraw
 
-            shuChart.series[1].update({
-                data: data.realisasi
-            }, false) // true untuk redraw
+    //         shuChart.series[1].update({
+    //             data: data.realisasi
+    //         }, false) // true untuk redraw
 
-            // re render chart
-            shuChart.redraw()
-        }
-    });
-    // END SHU
-    // OR
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            orChart.series[0].update({
-                data: data.anggaran
-            }, false) // true untuk redraw
+    //         // re render chart
+    //         shuChart.redraw()
+    //     }
+    // });
+    // // END SHU
+    // // OR
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
+    //     data: {
+    //         "periode[0]": "=", 
+    //         "periode[1]": $filter2_kode,
+    //         "tahun": $tahun,
+    //         "jenis": $filter1_kode,
+    //         "kode_lokasi": $filter_lokasi
+    //     },
+    //     dataType: 'json',
+    //     async: true,
+    //     success:function(result) {
+    //         var data = result.data;
+    //         orChart.series[0].update({
+    //             data: data.anggaran
+    //         }, false) // true untuk redraw
 
-            orChart.series[1].update({
-                data: data.realisasi
-            }, false) // true untuk redraw
+    //         orChart.series[1].update({
+    //             data: data.realisasi
+    //         }, false) // true untuk redraw
 
-            // re render chart
-            orChart.redraw()
-        }
-    });
-    // // END OR
+    //         // re render chart
+    //         orChart.redraw()
+    //     }
+    // });
+    // // // END OR
     // LR
     $.ajax({
         type: 'GET',
@@ -1090,12 +1106,16 @@ function updateChart() {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
         success:function(result) {
             var data = result.data;
+            lrChart.xAxis[0].update({
+                categories: data.kategori
+            });
             lrChart.series[0].update({
                 data: data.data_pdpt
             }, false) // true untuk redraw
@@ -1113,99 +1133,110 @@ function updateChart() {
         }
     });
     // END LR
-    // PL TABLE
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            if(data.length > 0) {
-                $('#table-lembaga tbody').empty()
-                var html = "";
-                for(var i=0;i<data.length;i++) {
-                    var row = data[i];
-                    var classTd1 = "";
-                    var classTd2 = "";
-                    var classTd3 = "";
-                    var classTd4 = "";
-                    var classTd5 = "";
-                    var classTd6 = "";
-                    var classTd7 = "";
-                    var classTd8 = "";
-                    if(row.pdpt_ach < 0) {
-                        classTd1 = "td-red"
+    if(!table){
+        // PL TABLE
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "tahun": $tahun,
+                "jenis": $filter1_kode
+            },
+            dataType: 'json',
+            async: true,
+            success:function(result) {
+                var data = result.data;
+                if(data.length > 0) {
+                    $('#table-lembaga tbody').empty()
+                    var html = "";
+                    for(var i=0;i<data.length;i++) {
+                        var row = data[i];
+                        var classTd1 = "";
+                        var classTd2 = "";
+                        var classTd3 = "";
+                        var classTd4 = "";
+                        var classTd5 = "";
+                        var classTd6 = "";
+                        var classTd7 = "";
+                        var classTd8 = "";
+                        if(row.pdpt_ach < 0) {
+                            classTd1 = "td-red"
+                        }
+                        if(row.pdpt_yoy < 0) {
+                            classTd2 = "td-red"
+                        }
+                        if(row.beban_ach < 0) {
+                            classTd3 = "td-red"
+                        }
+                        if(row.beban_yoy < 0) {
+                            classTd4 = "td-red"
+                        }
+                        if(row.shu_ach < 0) {
+                            classTd5 = "td-red"
+                        }
+                        if(row.shu_yoy < 0) {
+                            classTd6 = "td-red"
+                        }
+                        if(row.or_ach < 0) {
+                            classTd7 = "td-red"
+                        }
+                        if(row.or_yoy < 0) {
+                            classTd8 = "td-red"
+                        }
+                        if(row.kode_lokasi == $filter_lokasi){
+                            var select = 'class="selected-row"';
+                            var display = 'unset';
+                        }else{
+                            var select = "";
+                            var display = 'none';
+                        }
+                        html += `<tr ${select}>
+                            <td>
+                                <p class="kode hidden">${row.kode_lokasi}</p>
+                                <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
+                                <span class="name-lembaga">${row.nama}</span>
+                            </td>
+                            <td class="${classTd1}">${row.pdpt_ach}%</td>
+                            <td class="${classTd2}">${row.pdpt_yoy}%</td>
+                            <td class="${classTd3}">${row.beban_ach}%</td>
+                            <td class="${classTd4}">${row.beban_yoy}%</td>
+                            <td class="${classTd5}">${row.shu_ach}%</td>
+                            <td class="${classTd6}">${row.shu_yoy}%</td>
+                            <td class="${classTd7}">${row.or_ach}%</td>
+                            <td class="${classTd8}">${row.or_yoy}%</td>
+                        </tr>`;
                     }
-                    if(row.pdpt_yoy < 0) {
-                        classTd2 = "td-red"
-                    }
-                    if(row.beban_ach < 0) {
-                        classTd3 = "td-red"
-                    }
-                    if(row.beban_yoy < 0) {
-                        classTd4 = "td-red"
-                    }
-                    if(row.shu_ach < 0) {
-                        classTd5 = "td-red"
-                    }
-                    if(row.shu_yoy < 0) {
-                        classTd6 = "td-red"
-                    }
-                    if(row.or_ach < 0) {
-                        classTd7 = "td-red"
-                    }
-                    if(row.or_yoy < 0) {
-                        classTd8 = "td-red"
-                    }
-
-                    html += `<tr>
-                        <td>
-                            <p class="kode hidden">${row.kode_lokasi}</p>
-                            <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
-                            <span class="name-lembaga">${row.nama}</span>
-                        </td>
-                        <td class="${classTd1}">${row.pdpt_ach}%</td>
-                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
-                        <td class="${classTd3}">${row.beban_ach}%</td>
-                        <td class="${classTd4}">${row.beban_yoy}%</td>
-                        <td class="${classTd5}">${row.shu_ach}%</td>
-                        <td class="${classTd6}">${row.shu_yoy}%</td>
-                        <td class="${classTd7}">${row.or_ach}%</td>
-                        <td class="${classTd8}">${row.or_yoy}%</td>
-                    </tr>`;
+                    $('#table-lembaga tbody').append(html)
                 }
-                $('#table-lembaga tbody').append(html)
             }
-        }
-    });
-    // END PL TABLE
+        });
+        // END PL TABLE
+    }
 }
 
 function updateBox() {
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
         success:function(result) {    
             // PENDAPATAN
             $('#pdpt-yoy-percentage').empty()
-            var iconPdpt = '';
+            var iconPdptYoy = '';
+            var iconPdptAch = '';
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
+            var nilaiAchPdpt = 0;
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
                 nilaiPdpt = toJuta(pdpt.n4)
@@ -1219,40 +1250,45 @@ function updateBox() {
                 nilaiYoyPdpt = toMilyar(pdpt.n1)
             }
 
-            if(pdpt.yoy < 0) {
-                $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconPdpt = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            if(pdpt.n2.toString().length <= 9) {
+                nilaiAchPdpt = toJuta(pdpt.n2)
             } else {
-                $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconPdpt = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                nilaiAchPdpt = toMilyar(pdpt.n2)
             }
 
-            $('#circle-pdpt').circleProgress({
-                value: pdpt.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#FFBA33"]
-                }
-            });
+            if(pdpt.yoy < 0) {
+                $('#pdpt-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#pdpt-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
-            $('#circle-pdpt').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${pdpt.ach}%</p>
-            `)
+            if(pdpt.ach < 0) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
-            $('#pdpt-yoy-percentage').append(`${pdpt.yoy}% ${iconPdpt}`)
+            $('#pendapatan-ach').text(nilaiAchPdpt)
+            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
+            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-icon').html(iconPdptYoy)
+            $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
 
             // BEBAN
             $('#beban-yoy-percentage').empty()
-            var iconBeban = '';
+            var iconBebanYoy = '';
+            var iconBebanAch = '';
             var nilaiBeban = 0;
             var nilaiYoyBeban = 0;
+            var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
                 nilaiBeban = toJuta(beban.n4)
@@ -1266,40 +1302,45 @@ function updateBox() {
                 nilaiYoyBeban = toMilyar(beban.n1)
             }
 
-            if(beban.yoy < 0) {
-                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBeban = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            if(beban.n2.toString().length <= 9) {
+                nilaiAchBeban = toJuta(beban.n2)
             } else {
-                $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBeban = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                nilaiAchBeban = toMilyar(beban.n2)
             }
 
-            $('#circle-beban').circleProgress({
-                value: beban.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
+            if(beban.yoy < 0) {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
-            $('#circle-beban').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${beban.ach}%</p>
-            `)
+            if(beban.ach < 0) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
-            $('#beban-yoy-percentage').append(`${beban.yoy}% ${iconBeban}`)
+            $('#beban-ach').text(nilaiAchBeban)
+            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
+            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-icon').html(iconBebanYoy)
+            $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
 
             // SHU
             $('#shu-yoy-percentage').empty()
-            var iconShu = '';
+            var iconShuYoy = '';
+            var iconShuAch = '';
             var nilaiShu = 0;
             var nilaiYoyShu = 0;
+            var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
                 nilaiShu = toJuta(shu.n4)
@@ -1313,69 +1354,71 @@ function updateBox() {
                 nilaiYoyShu = toMilyar(shu.n1)
             }
 
-            if(shu.yoy < 0) {
-                $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconShu = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+            if(shu.n2.toString().length <= 9) {
+                nilaiAchShu = toJuta(shu.n2)
             } else {
-                $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconShu = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                nilaiAchShu = toMilyar(shu.n2)
             }
 
-            $('#circle-shu').circleProgress({
-                value: shu.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
+            if(shu.yoy < 0) {
+                $('#shu-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#shu-yoy-percentage').removeClass('red-text').addClass('green-text')
+                iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
-            $('#circle-shu').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${shu.ach}%</p>
-            `)
+            if(shu.ach < 0) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
-            $('#shu-yoy-percentage').append(`${shu.yoy}% ${iconShu}`)
+            $('#shu-ach').text(nilaiAchShu)
+            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
+            $('#shu-ach-percentage').text(`${shu.ach}%`)
+            $('#shu-yoy-icon').html(iconShuYoy)
+            $('#shu-ach-icon').html(iconShuAch)
             // END SHU
 
             // OR
             $('#or-yoy-percentage').empty()
-            var iconOr = '';
+            var iconOrYoy = '';
+            var iconOrAch = '';
             var nilaiOr = 0;
             var nilaiYoyOr = 0;
+            var nilaiAchOr = 0;
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
                 $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOr = '<div class="glyph-icon iconsminds-down icon-card red-text bold-700"></div>'
+                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOr = '<div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>'
+                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#circle-or').circleProgress({
-                value: or.ach/100,
-                size: 80,
-                reverse: false,
-                thickness: 8,
-                fill: {
-                    color: ["#EE0000"]
-                }
-            });
-
-            $('#circle-or').find('strong').html(`
-                <p class="my-0 text-circle">Ach.</p>
-                <p class="my-0 text-circle">${or.ach}%</p>
-            `)
+            if(or.ach < 0) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
+                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
+                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${or.n4} %`)
             $('#or-yoy').text(`${or.n1}%`)
-            $('#or-yoy-percentage').append(`${or.yoy}% ${iconOr}`)
+            $('#or-ach').text(`${or.n2}%`)
+            $('#or-yoy-percentage').text(`${or.yoy}%`)
+            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-yoy-icon').html(iconOrYoy)
+            $('#or-ach-icon').html(iconOrAch)
             // END OR
         }
     });
@@ -1487,6 +1530,7 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     var kode = $(tr).children('td:first').children('.kode').text()
     var check = $(tr).attr('class')
     var lembaga = $(this).children('.name-lembaga').text()
+    $filter_lokasi = $(this).children('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -1500,12 +1544,13 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     }, 200)
     $('#lembaga-title').text(lembaga)
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
-    setZero();
+    updateChart(true);
+    updateBox();
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    
+    $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     $('#lembaga-title').text('YPT')
@@ -1686,13 +1731,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
         if($(this).data('bulan')) {
             filter = $(this).data('bulan') 
         }
+        $month = $(this).data('bulan') 
         $filter2 = filter
         $filter2_kode = $(this).data('filter2')
         $('#list-filter-2 div').not(this).removeClass('selected')
         $(this).addClass('selected')
         $('#filter-box').addClass('hidden')
 
-        if($filter2.length == 2) {
+        if($month.toString().length == 2) {
             $filter2 = getNamaBulan($filter2)
         }
 
@@ -2040,7 +2086,7 @@ $('.card-dash .table tbody tr td').on('click', '.show-chart', function() {
     } else if(parentID == 'or-box') {
         $('#or-chart').removeClass('hidden')      
     }
-    setHeightPage();
+    // setHeightPage();
 })
 
 $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
@@ -2055,7 +2101,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
     } else if(parentID == 'or-box') {
         $('#or-chart').addClass('hidden')      
     }
-    setHeightPage();
+    // setHeightPage();
 })
 // END SHOW CHART
 </script>
@@ -2111,15 +2157,56 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             <div class="row">
                 <div class="col-5 list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="selected" data-filter1="TRW">Triwulan</li>
+                        {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
                         {{-- <li data-filter1="SMT">Semester</li> --}}
-                        <li data-filter1="PRD">Periode</li>
+                        <li class="selected" data-filter1="PRD">Periode</li>
                         {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
                 <div class="col-7 mt-4 mb-6">
                     <div class="row list-filter-2" id="list-filter-2">
-                        <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
+                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
+                            Januari
+                        </div>
+                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
+                            Februari
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
+                            Maret
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
+                            April
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
+                            Mei
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
+                            Juni
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
+                            Juli
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
+                            Agustus
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
+                            September
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
+                            Oktober
+                        </div>
+                        <div class="w-100 d-none d-md-block"></div>
+                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
+                            November
+                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
+                            Desember
+                        </div>
+                        {{-- <div class="col-5 py-3 cursor-pointer" data-filter2="TRW1">
                             Triwulan I
                         </div>
                         <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
@@ -2131,7 +2218,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                         </div>
                         <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
                             Triwulan IV
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -2172,11 +2259,11 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                             <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -2233,11 +2320,11 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                             <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -2294,11 +2381,11 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                             <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
-                                                &nbsp;{{-- <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}"> --}}
+                                                &nbsp;<img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -2355,11 +2442,11 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                             <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
-                                        <tr>
+                                        {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
                                                 <img alt="show-chart-icon" class="show-chart" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
                                             </td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -2394,7 +2481,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
         <div class="col-6 pl-12 pr-0">
-            <div class="card card-dash border-r-0 card-r-2" id="dash-lr">
+            <div class="card card-dash border-r-0 card-r-2" style='height:calc(100vh - 280px)' id="dash-lr">
                 <div class="row header-div" id="card-lr">
                     <div class="col-9">
                         <h4 class="header-card">Laba Rugi Lembaga</h4>
@@ -2415,17 +2502,17 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                         </ul>
                     </div>
                 </div>
-                <div id="lr-chart"></div>
+                <div id="lr-chart" style='height: calc(100vh - 290px)'></div>
             </div>
         </div>
         <div class="col-6 pl-1 pr-0">
-            <div class="card card-dash border-r-0 card-r-2">
+            <div class="card card-dash border-r-0 card-r-2" style='height:calc(100vh - 280px)'>
                 <div class="row header-div">
                     <div class="col-9">
                         <h4 class="header-card">Performansi Lembaga</h4>
                     </div>
                 </div>
-                <div id="scrollTable">
+                <div id="scrollTable" class='scrollTable' style='height: calc(100vh - 320px)'>
                     <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
                         <thead>
                             <tr>
@@ -2455,7 +2542,6 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- END ROW 2 --}}
 </section>
 {{-- END DESKTOP --}}
-
 @include('dash-ypt.components.detail_fpv2')
 
 {{-- WINDOW DRAGABLE --}}

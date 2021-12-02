@@ -3,10 +3,13 @@
 
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
-var $tahun = parseInt($('#year-filter').text());
+var $filter_lokasi = "";
+var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
-var $filter2 = getNamaBulan("09");
+var $filter2 = "September";
 var $month = "09";
+var $filter1_kode = "PRD";
+var $filter2_kode = "09";
 var trendChart = null;
 
 if($filter1 == 'Periode') {
@@ -83,12 +86,17 @@ $('#list-filter-2').on('click', 'div', function(event) {
     filter = $(this).data('bulan') 
     
     $filter2 = filter
+    $filter2_kode = $(this).data('bulan')
     $('#list-filter-2 div').not(this).removeClass('selected')
     $(this).addClass('selected')
+    $('#filter-box').addClass('hidden')
 
     $filter2 = getNamaBulan($filter2)
 
     $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    getDataBox()
+    getCFChart()
+    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
 });
 
 $('.icon-menu').click(function(event) {
@@ -109,7 +117,11 @@ $('.icon-menu').click(function(event) {
     $.ajax({
         type: 'GET',
         url: "{{ url('dash-ypt-dash/data-cf-box') }}",
-        data: {},
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun
+        },
         dataType: 'json',
         async: true,
         success:function(result) {
@@ -156,7 +168,11 @@ $('.icon-menu').click(function(event) {
     $.ajax({
         type: 'GET',
         url: "{{ url('dash-ypt-dash/data-cf-chart-bulanan') }}",
-        data: {},
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun
+        },
         dataType: 'json',
         async: true,
         success:function(result) {
@@ -234,6 +250,198 @@ $('.icon-menu').click(function(event) {
 })();
 // END CF CHART
 // END RUN FUNC IF FIRST RENDER
+
+// CONFIG FUNCTION
+function showNotification(message) {
+    $.notify(
+        {
+            title: 'Update',
+            message: message,
+            target: "_blank"
+        },
+        {
+            element: "body",
+            position: null,
+            type: 'success',
+            allow_dismiss: true,
+            newest_on_top: false,
+            showProgressbar: false,
+            placement: {
+                from: 'top',
+                align: 'center'
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 1031,
+            delay: 4000,
+            timer: 2000,
+            url_target: "_blank",
+            mouse_over: null,
+            animate: {
+                enter: "animated fadeInDown",
+                exit: "animated fadeOutUp"
+            },
+            onShow: null,
+            onShown: null,
+            onClose: null,
+            onClosed: null,
+            icon_type: "class",
+            template: `<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+                <span data-notify="icon"></span>
+                <span data-notify="title">{1}</span>
+                <span data-notify="message">{2}</span>
+                <div class="progress" data-notify="progressbar">
+                    <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                </div>
+                <a href="{3}" target="{4}" data-notify="url"></a>
+                </div>`
+        }
+    );
+}
+// END CONFIG FUNCTION
+
+// UPDATE DATA
+// RUN FUNC IF FIRST RENDER
+// DATA BOX
+function getDataBox(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-box') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            var inflow = 0;
+            var outflow = 0;
+            var balance = 0;
+            var closing = 0;
+
+            if(data.inflow.nominal.toString().length <= 9) {
+                inflow = toJuta(data.inflow.nominal)
+            } else {
+                inflow = toMilyar(data.inflow.nominal)
+            }
+
+            if(data.outflow.nominal.toString().length <= 9) {
+                outflow = toJuta(data.outflow.nominal)
+            } else {
+                outflow = toMilyar(data.outflow.nominal)
+            }
+
+            if(data.cash_balance.nominal.toString().length <= 9) {
+                balance = toJuta(data.cash_balance.nominal)
+            } else {
+                balance = toMilyar(data.cash_balance.nominal)
+            }
+
+            if(data.closing.nominal.toString().length <= 9) {
+                closing = toJuta(data.closing.nominal)
+            } else {
+                closing = toMilyar(data.closing.nominal)
+            }
+
+            $('#cf-inflow').text(inflow)
+            $('#cf-outflow').text(outflow)
+            $('#cf-balance').text(balance)
+            $('#cf-closing').text(closing)
+        }
+    });
+}
+// END DATA BOX
+// CF CHART
+function getCFChart() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-chart-bulanan') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            trendChart = Highcharts.chart('trend-chart', {
+                chart: {
+                    height: 450,
+                    // width: 600
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: true,
+                    // layout: 'vertical',
+                    // align: 'right',
+                    verticalAlign: 'bottom' 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        },
+                    }
+                },
+                series: [
+                    {
+                        name: 'Cash In',
+                        data: data.cash_in,
+                        color: '#8085E9'
+                    },
+                    {
+                        name: 'Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#90ED7D'
+                    },
+                    {
+                        name: 'Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#F7A35C'
+                    },
+                    {
+                        name: 'YoY Cash In',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Cash Out',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#7CB5EC'
+                    },
+                    {
+                        name: 'YoY Saldo',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        color: '#434348'
+                    }
+                ],
+            });
+        }
+    });
+}
+// END CF CHART
+// END RUN FUNC IF FIRST RENDER
+// 
 
 
 // EXPORT HIGHCHART EVENT

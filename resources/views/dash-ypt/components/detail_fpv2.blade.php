@@ -2,6 +2,7 @@
 var performChart = null;
 var lembagaChart = null;
 var yoyChart = null;
+var trendChart = null;
 var akunChart = null;
 
 // UPDATE CHART DETAIL
@@ -130,7 +131,8 @@ function createChartPerform(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -174,14 +176,16 @@ function createChartPerform(kode_grafik = null) {
                     name: 'Presentase Anggaran',
                     color: '#CED4DA',
                     data: data.anggaran,
-                    pointPadding: 0.3,
-                    pointPlacement: 0
+                    pointPadding: 0.5,
+                    pointPlacement: 0,
+                    pointWidth: 50
                 }, {
                     name: 'Presentase Realisasi',
                     colorByPoint: true,
                     data: data.realisasi,
-                    pointPadding: 0.4,
-                    pointPlacement: 0
+                    pointPadding: 0.6,
+                    pointPlacement: 0,
+                    pointWidth: 30
                 }]
             });
             // performChart = Highcharts.chart('perfomansi-chart', {
@@ -274,7 +278,8 @@ function createChartLembaga(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -309,9 +314,9 @@ function createChartLembaga(kode_grafik = null) {
                     patterns: [{
                         'id': 'custom-pattern',
                         'path': {
-                            d: 'M10 0 L0 10',
-                            stroke: 'green',
-                            strokeWidth: 10
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
                         }
                     }]
                 },
@@ -329,9 +334,9 @@ function createChartLembaga(kode_grafik = null) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                    html = `<span style="color: #830000;">-${number_format(y,1)}%</span>`;
                                 } else {
-                                    html = `<span style="color: #000000;">${key} : ${y}</span>`;
+                                    html = `<span style="color: #000000;">${number_format(y,1)}%</span>`;
                                 }
                                 return html;
                             }
@@ -354,21 +359,32 @@ function createChartLembaga(kode_grafik = null) {
                 }]
             }, function() {
                 var series = this.series;
+                $('.lembaga-legend').html('');
+                var html = "";
                 for(var i=0;i<series.length;i++) {
                     var point = series[i].data;
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
-                        if(color == '#7cb5ec') {
-                            point[j].graphic.element.style.fill = '#830000'
-                        }
-
                         if(negative) {
-                            point[j].graphic.element.style.fill = 'url(#highcharts-default-pattern-1)'
-                            point[j].color = 'url(#highcharts-default-pattern-1)'                            
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            point[j].connector.element.style.stroke = 'black'
+                            point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+format_milyar(point[j].nilai)+'</div></div></div>';                  
+                        }else{
+                            if(color == '#7cb5ec') {
+                                point[j].graphic.element.style.fill = '#830000'
+                                point[j].connector.element.style.stroke = '#830000'
+                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                            }else{
+
+                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                            }
                         }
                     }
                 }
+                $('.lembaga-legend').html(html);
             });
 
             $render = 1;
@@ -377,64 +393,130 @@ function createChartLembaga(kode_grafik = null) {
 }
 
 function createChartKelompok(kode_grafik = null) {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-detail-kelompok') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "kode_grafik[0]": "=", 
-            "kode_grafik[1]": kode_grafik,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var data = result.data;
-            yoyChart = Highcharts.chart('yoy-chart', {
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ 
-                    enabled: true,
-                    // layout: 'vertical',
-                    // align: 'right',
-                    // verticalAlign: 'middle' 
-                },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: data.kategori
-                },
-                yAxis: {
-                    title: {
-                        text: 'Nilai'
-                    },
-                    labels: {
-                        formatter: function() {
-                            return singkatNilai(this.value);
-                        }
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        marker:{
-                            enabled:false
-                        },
-                        pointStart: parseInt(data.kategori[0])
-                    }
-                },
-                series: data.series
-            });
+    if(kode_grafik != "PI04"){
 
-            $render = 1;
-        }
-    });
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/data-fp-detail-kelompok') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "kode_grafik[0]": "=", 
+                "kode_grafik[1]": kode_grafik,
+                "tahun": $tahun,
+                "jenis": $filter1_kode,
+                "kode_lokasi": $filter_lokasi
+            },
+            dataType: 'json',
+            async: true,
+            success:function(result) {
+                var data = result.data;
+                yoyChart = Highcharts.chart('yoy-chart', {
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ 
+                        enabled: false
+                    },
+                    legend:{ 
+                        enabled: true,
+                        // layout: 'vertical',
+                        // align: 'right',
+                        // verticalAlign: 'middle' 
+                    },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Nilai'
+                        },
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            },
+                            marker:{
+                                enabled:false
+                            },
+                            pointStart: parseInt(data.kategori[0])
+                        }
+                    },
+                    series: data.series
+                });
+    
+                $render = 1;
+            }
+        });
+        $('#dekstop-5').show();
+        $('#dekstop-6').hide();
+
+    }else{
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('dash-ypt-dash/data-fp-detail-or-5tahun') }}",
+            data: {
+                "periode[0]": "=", 
+                "periode[1]": $filter2_kode,
+                "kode_grafik[0]": "=", 
+                "kode_grafik[1]": kode_grafik,
+                "tahun": $tahun,
+                "jenis": $filter1_kode,
+                "kode_lokasi": $filter_lokasi
+            },
+            dataType: 'json',
+            async: true,
+            success:function(result) {
+                var data = result.data;
+                trendChart = Highcharts.chart('trend-chart', {
+                    title: { text: '' },
+                    subtitle: { text: '' },
+                    exporting:{ 
+                        enabled: false
+                    },
+                    legend:{ 
+                        enabled: true
+                    },
+                    credits: { enabled: false },
+                    xAxis: {
+                        categories: data.kategori
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Nilai'
+                        },
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    plotOptions: {
+                        series: {
+                            label: {
+                                connectorAllowed: false
+                            },
+                            marker:{
+                                enabled:false
+                            },
+                            pointStart: parseInt(data.kategori[0])
+                        }
+                    },
+                    series: data.series
+                });
+    
+                $render = 1;
+            }
+        });
+        $('#dekstop-5').hide();
+        $('#dekstop-6').show();
+    }
 }
 
 function createChartAkun(kode_grafik = null) {
@@ -447,7 +529,8 @@ function createChartAkun(kode_grafik = null) {
             "kode_grafik[0]": "=", 
             "kode_grafik[1]": kode_grafik,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: true,
@@ -760,6 +843,87 @@ $('#export-yoy.menu-chart-custom ul li').click(function(event) {
     }
 })
 // END KELOMPOK YOY
+// PER TREND OR
+$('#export-trend.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-trend').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        trendChart.update({
+            title: {
+                text: `Trend OR 5 Tahun`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        trendChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        trendChart.print()
+    } else if(jenis == 'Download PNG image') {
+        trendChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        trendChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        trendChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        trendChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Kelompok ${$judulChart} YoY`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        trendChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END TREND OR
 // PER AKUN
 $('#export-akun.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
@@ -876,11 +1040,10 @@ document.addEventListener('fullscreenchange', (event) => {
 });
 // END FULLSCREEN HIGHCHART
 </script>
-
 <section id="detail-dash" class="mt-20 pb-24" style="display: none">
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
-        <div class="col-7 pl-12 pr-0">
+        <div class="col-8 pl-12 pr-0">
             <div class="card card-dash border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
@@ -905,7 +1068,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="perfomansi-chart" class="mt-8"></div>
             </div>
         </div>
-        <div class="col-5 pl-1 pr-0">
+        <div class="col-4 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
@@ -928,6 +1091,7 @@ document.addEventListener('fullscreenchange', (event) => {
                     </div>
                 </div>
                 <div id="lembaga-chart" class="mt-8"></div>
+                <div class="lembaga-legend"></div>
             </div>
         </div>
     </div>
@@ -956,6 +1120,60 @@ document.addEventListener('fullscreenchange', (event) => {
                     </div>
                 </div>
                 <div id="yoy-chart" class="mt-8"></div>
+            </div>
+        </div>
+        {{-- <div id="container" style='height:400px;width:400px'></div> --}}
+        {{-- <div class="col-5 pl-1 pr-0">
+            <div class="card card-dash  border-r-0" id="dash-akun">
+                <div class="row header-div" id="card-akun">
+                    <div class="col-9">
+                        <h4 class="header-card">Kelompok <span class="title-chart"></span></h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-akun">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="akun-chart" class="mt-8"></div>
+            </div>
+        </div>--}}
+    </div>
+
+    <div id="dekstop-6" class="row dekstop mt-4">
+        <div class="col-12 pl-12 pr-0">
+            <div class="card card-dash  border-r-0" id="dash-trend">
+                <div class="row header-div" id="card-trend">
+                    <div class="col-9">
+                        <h4 class="header-card">Trend OR 5 Tahun</h4>
+                    </div>
+                    <div class="col-3">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-trend">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            <li class="menu-chart-item print svg">View table data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="trend-chart" class="mt-8"></div>
             </div>
         </div>
         {{-- <div id="container" style='height:400px;width:400px'></div> --}}
