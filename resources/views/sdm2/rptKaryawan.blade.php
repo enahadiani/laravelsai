@@ -28,7 +28,6 @@
                                 <th class="text-center" style="width: 15px;">NIK</th>
                                 <th class="text-center" style="width: 140px;">Nama</th>
                                 <th class="text-center" style="width: 120px;">Tanggal Masuk</th>
-                                <th class="text-center" style="width: 120px;">Golongan</th>
                                 <th class="text-center" style="width: 120px;">Status</th>
                                 <th class="text-center" style="width: 120px;">Area</th>
                                 <th class="text-center" style="width: 120px;">FM</th>
@@ -46,7 +45,6 @@
                                 <td class="text-left">${column.nik}</td>
                                 <td class="text-left">${column.nama}</td>
                                 <td class="text-left">${column.tgl_masuk}</td>
-                                <td class="text-left">${column.nama_golongan}</td>
                                 <td class="text-left">${column.nama_sdm}</td>
                                 <td class="text-left">${column.nama_area}</td>
                                 <td class="text-left">${column.nama_fm}</td>
