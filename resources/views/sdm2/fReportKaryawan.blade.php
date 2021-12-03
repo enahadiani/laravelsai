@@ -39,10 +39,9 @@
                                 <h6>Filter</h6>
                                 <div id="inputFilter">
                                     <!-- COMPONENT -->
-                                    <x-inp-filter kode="kode_sdm" nama="Status SDM" selected="1"
+                                    <x-inp-filter kode="kode_sdm" nama="Perjanjian Kerja" selected="1"
                                         :option="array('1','2','3','i')" />
-                                    <x-inp-filter kode="kode_gol" nama="Golongan" selected="1"
-                                        :option="array('1','2','3','i')" />
+
                                     <x-inp-filter kode="kode_area" nama="Area" selected="1"
                                         :option="array('1','2','3','i')" />
                                     <x-inp-filter kode="kode_fm" nama="FM" selected="1"
@@ -94,13 +93,6 @@ var $kode_sdm = {
     toname : "",
 }
 
-var $kode_gol = {
-    type : "all",
-    from : "",
-    fromname : "",
-    to : "",
-    toname : "",
-}
 var $kode_area = {
     type : "all",
     from : "",
@@ -173,9 +165,8 @@ $('.selectize').selectize();
 
 $('#inputFilter').reportFilter({
     kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm' ,'kode_loker', 'nik'],
-    nama : ['Status SDM', 'Golongan', 'Area','FM','BM' ,'Lokasi Kerja', 'NIK Karyawan'],
+    nama : ['Status SDM', 'Area','FM','BM' ,'Lokasi Kerja', 'NIK Karyawan'],
     header : [
-        ['Kode', 'Nama'],
         ['Kode', 'Nama'],
         ['Kode', 'Nama'],
         ['Kode', 'Nama'],
@@ -189,16 +180,11 @@ $('#inputFilter').reportFilter({
         ['Kode', 'Nama', 'Action'],
         ['Kode', 'Nama', 'Action'],
         ['Kode', 'Nama', 'Action'],
-        ['Kode', 'Nama', 'Action'],
         ['NIK', 'Nama', 'Action']
     ],
     columns: [
         [
             { data: 'kode_sdm' },
-            { data: 'nama' }
-        ],
-        [
-            { data: 'kode_gol' },
             { data: 'nama' }
         ],
         [
@@ -224,7 +210,6 @@ $('#inputFilter').reportFilter({
     ],
     url :[
         "{{ url('esaku-master/sdm-statuss') }}",
-        "{{ url('esaku-master/sdm-golongans') }}",
         "{{ url('esaku-master/sdm-areas') }}",
         "{{ url('esaku-master/sdm-fms') }}",
         "{{ url('esaku-master/sdm-bms') }}",
@@ -233,18 +218,17 @@ $('#inputFilter').reportFilter({
     ],
     parameter:[],
     orderby:[[],[],[],[],[]],
-    width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
-    display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
-    pageLength:[10, 10, 10, 10, 10,10,10]
+    width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%']],
+    display:['kode', 'kode', 'kode', 'kode','kode','kode'],
+    pageLength:[10, 10, 10, 10,10,10]
 });
 
 $('#inputFilter').on('change','input',function(e){
     setTimeout(() => {
         $('#inputFilter').reportFilter({
-            kode : ['kode_sdm', 'kode_gol', 'kode_area','kode_fm','kode_bm','kode_loker', 'nik'],
-            nama : ['Status SDM', 'Golongan', 'Area','Fm','Bm','Lokasi Kerja', 'NIK Karyawan'],
+            kode : ['kode_sdm', 'kode_area','kode_fm','kode_bm','kode_loker', 'nik'],
+            nama : ['Status SDM','Area','Fm','Bm','Lokasi Kerja', 'NIK Karyawan'],
             header : [
-                ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
                 ['Kode', 'Nama'],
@@ -258,16 +242,11 @@ $('#inputFilter').on('change','input',function(e){
                 ['Kode', 'Nama', 'Action'],
                 ['Kode', 'Nama', 'Action'],
                 ['Kode', 'Nama', 'Action'],
-                ['Kode', 'Nama', 'Action'],
                 ['NIK', 'Nama', 'Action']
             ],
             columns: [
                 [
                     { data: 'kode_sdm' },
-                    { data: 'nama' }
-                ],
-                [
-                    { data: 'kode_gol' },
                     { data: 'nama' }
                 ],
                 [
@@ -293,7 +272,6 @@ $('#inputFilter').on('change','input',function(e){
             ],
             url :[
                 "{{ url('esaku-master/sdm-statuss') }}",
-                "{{ url('esaku-master/sdm-golongans') }}",
                 "{{ url('esaku-master/sdm-areas') }}",
                 "{{ url('esaku-master/sdm-fms') }}",
                 "{{ url('esaku-master/sdm-bms') }}",
@@ -302,9 +280,9 @@ $('#inputFilter').on('change','input',function(e){
             ],
             parameter:[],
             orderby:[[],[],[],[],[]],
-            width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['kode', 'kode', 'kode', 'kode', 'kode','kode','kode'],
-            pageLength:[10, 10, 10, 10, 10,10,10]
+            width:[['30%','70%'], ['30%','70%'], ['30%','70%'], ['30%','70%'],['30%','70%'],['30%','70%']],
+            display:[, 'kode', 'kode', 'kode', 'kode','kode','kode'],
+            pageLength:[10, 10, 10, 10,10,10]
         });
     }, 500)
 });
@@ -316,9 +294,7 @@ $('#form-filter').submit(function(e){
     $formData.append("kode_sdm[]",$kode_sdm.type);
     $formData.append("kode_sdm[]",$kode_sdm.from);
     $formData.append("kode_sdm[]",$kode_sdm.to);
-    $formData.append("kode_gol[]",$kode_gol.type);
-    $formData.append("kode_gol[]",$kode_gol.from);
-    $formData.append("kode_gol[]",$kode_gol.to);
+
 
     $formData.append("kode_area[]",$kode_area.type);
     $formData.append("kode_area[]",$kode_area.from);
@@ -352,9 +328,7 @@ $('#show').change(function(e){
     $formData.append("kode_sdm[]",$kode_sdm.type);
     $formData.append("kode_sdm[]",$kode_sdm.from);
     $formData.append("kode_sdm[]",$kode_sdm.to);
-    $formData.append("kode_gol[]",$kode_gol.type);
-    $formData.append("kode_gol[]",$kode_gol.from);
-    $formData.append("kode_gol[]",$kode_gol.to);
+
 
     $formData.append("kode_area[]",$kode_area.type);
     $formData.append("kode_area[]",$kode_area.from);
@@ -391,9 +365,6 @@ $('#saku-report #canvasPreview').on('click', '.karyawan', function(e){
     $formData.append("kode_sdm[]",$kode_sdm.type);
     $formData.append("kode_sdm[]",$kode_sdm.from);
     $formData.append("kode_sdm[]",$kode_sdm.to);
-    $formData.append("kode_gol[]",$kode_gol.type);
-    $formData.append("kode_gol[]",$kode_gol.from);
-    $formData.append("kode_gol[]",$kode_gol.to);
 
     $formData.append("kode_area[]",$kode_area.type);
     $formData.append("kode_area[]",$kode_area.from);
@@ -433,9 +404,6 @@ $('.navigation-lap').on('click', '#btn-back', function(e){
     $formData.append("kode_sdm[]",$kode_sdm.type);
     $formData.append("kode_sdm[]",$kode_sdm.from);
     $formData.append("kode_sdm[]",$kode_sdm.to);
-    $formData.append("kode_gol[]",$kode_gol.type);
-    $formData.append("kode_gol[]",$kode_gol.from);
-    $formData.append("kode_gol[]",$kode_gol.to);
 
     $formData.append("kode_area[]",$kode_area.type);
     $formData.append("kode_area[]",$kode_area.from);
