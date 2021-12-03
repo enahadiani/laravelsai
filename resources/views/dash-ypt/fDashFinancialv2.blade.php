@@ -663,7 +663,8 @@ var $height = $(window).height();
             var data = result.data;
             lrChart = Highcharts.chart('lr-chart', {
                 chart: {
-                    type: 'column'
+                    type: 'column',
+                    height: ($(window).height() - 320)
                 },
                 credits:{
                     enabled:false
@@ -841,24 +842,20 @@ function showNotification(message) {
 }
 // END CONFIG FUNCTION
 
-// $(window).on('resize', function(){
-//     var win = $(this); //this = window
-//     var $height = win.height();
-//     var heighChart = 0;
-//     $('.card-r-2').css('height', `${$height - 290}px`);
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    var $height = win.height();
+    var heighChart = 0;
+    // $('.card-r-2').css('height', `${$height - 290}px`);
 
-//     if($height < 800) {
-//         heighChart = $height - 327;
-//     } else {
-//         heighChart = $height - 320;
-//     }
+    heighChart = $height - 320;
 
-//     lrChart.update({
-//         chart: {
-//             height: heighChart,
-//         }
-//     })
-// });
+    lrChart.update({
+        chart: {
+            height: heighChart,
+        }
+    })
+});
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -1434,9 +1431,9 @@ function setHeightPage() {
         }
     })
     if(check == 1) {
-        $('#scrollTable').addClass('scrollTable')
-        $('.card-r-2').css('height', `${height - 460}px`);
-        if($height <= 667) {
+        // $('#scrollTable').addClass('scrollTable')
+        // $('.card-r-2').css('height', `${height - 460}px`);
+        if(height <= 667) {
             lrChart.update({
                 chart:{
                     height: 180
@@ -1450,11 +1447,12 @@ function setHeightPage() {
             })
         }
     } else {
-        $('#scrollTable').removeClass('scrollTable')
-        $('.card-r-2').css('height', `${$height - 300}px`);
+        heighChart = height - 320;
+        // $('#scrollTable').removeClass('scrollTable')
+        // $('.card-r-2').css('height', `${$height - 300}px`);
         lrChart.update({
             chart:{
-                height: 340
+                height: heighChart
             }
         })
     }
@@ -1526,11 +1524,12 @@ $('#back').click(function() {
 $('#table-lembaga tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
-    var icon = $(tr).children('td:first').children('.check-row')
-    var kode = $(tr).children('td:first').children('.kode').text()
+    var icon = $(this).closest('tr').find('td:first').find('.check-row')
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
-    var lembaga = $(this).children('.name-lembaga').text()
-    $filter_lokasi = $(this).children('.kode').text()
+    var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
+    $filter_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    console.log($filter_lokasi);
     if(check == 'selected-row') {
         return;
     }
@@ -1538,17 +1537,18 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
 
+    $(tr).addClass('selected-row')
+    $(icon).show()
     setTimeout(function() {
-        $(tr).addClass('selected-row')
-        $(icon).show()
+        updateChart(true);
+        updateBox();
     }, 200)
     $('#lembaga-title').text(lembaga)
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
-    updateChart(true);
-    updateBox();
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+    console.log('selected-row');
     var table = $(this).parents('table').attr('id')
     $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
