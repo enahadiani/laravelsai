@@ -66,10 +66,61 @@ $(window).click(function() {
         success:function(result) {
             var data = result.data;
             
-            $('#ccr-all').text(`${data.ccr_total.persentase}%`)
-            $('#ccr-prev').text(`${data.ccr_tahun_lalu.persentase}%`)
-            $('#ccr-now').text(`${data.ccr_tahun_ini.persentase}%`)
-            $('#ccr-month').text(`${data.ccr_periode.persentase}%`)
+            $('#ccr-all').text(`${number_format(data.ccr_total.persentase,2)}%`)
+            $('#ccr-prev').text(`${number_format(data.ccr_tahun_lalu.persentase,2)}%`)
+            $('#ccr-now').text(`${number_format(data.ccr_tahun_ini.persentase,2)}%`)
+            $('#ccr-month').text(`${number_format(data.ccr_periode.persentase,2)}%`)
+
+            $('#ccr-all-ar').text(`${toMilyar(data.ccr_total.ar,2)}`)
+            $('#ccr-prev-ar').text(`${toMilyar(data.ccr_tahun_lalu.ar,2)}`)
+            $('#ccr-now-ar').text(`${toMilyar(data.ccr_tahun_ini.ar,2)}`)
+            $('#ccr-month-ar').text(`${toMilyar(data.ccr_periode.ar,2)}`)
+
+            $('#ccr-all-inflow').text(`${toMilyar(data.ccr_total.inflow,2)}`)
+            $('#ccr-prev-inflow').text(`${toMilyar(data.ccr_tahun_lalu.inflow,2)}`)
+            $('#ccr-now-inflow').text(`${toMilyar(data.ccr_tahun_ini.inflow,2)}`)
+            $('#ccr-month-inflow').text(`${toMilyar(data.ccr_periode.inflow,2)}`)
+        }
+    });
+})();
+
+(function() {
+    $.ajax({
+        type:'GET',
+        url: "{{ url('dash-ypt-dash/data-rasio-lembaga') }}",
+        dataType: 'JSON',
+        success: function(result) {
+            $('#filter-checkbox').html('');
+            var html = `<div class="col-12 mt-6">
+                        <label class="container-checkbox-filter">
+                            <input type="checkbox" name="kode_lokasi[]" id="lembaga" value="lembaga" class="checkbox-input" checked>
+                            <span class="checkmark"></span>
+                            <span class="container-checkbox-filter-text">Lembaga</span>
+                        </label>
+                    </div>`;
+            if(result.status){
+                if(typeof result.data == 'object' && result.data.length > 0){
+                    for(var i=0; i < result.data.length; i++){
+                        var line = result.data[i];
+                        if(line.kode_lokasi == "{{ Session::get('lokasi') }}"){
+                            var check = "checked";
+                        }else{
+                            var check = "";
+                        }
+                        html +=`
+                        <div class="col-12 mt-6">
+                            <label class="container-checkbox-filter">
+                                <input type="checkbox" id="`+line.kode_lokasi+`" name="kode_lokasi[]" class="checkbox-input" value="`+line.kode_lokasi+`" checked>
+                                <span class="checkmark"></span>
+                                <span class="container-checkbox-filter-text">`+line.skode+`</span>
+                            </label>
+                        </div>`;
+                    }
+                }
+            }else{
+                alert(JSON.stringify(result.message));
+            }
+            $('#filter-checkbox').html(html);
         }
     });
 })();
@@ -1171,27 +1222,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash h-498 border-r-0">
                 <div class="row" id="filter-checkbox">
-                    <div class="col-12 mt-6">
-                        <label class="container-checkbox-filter">
-                            <input type="checkbox" name="instansi[]" class="checkbox-input" checked>
-                            <span class="checkmark"></span>
-                            <span class="container-checkbox-filter-text">Lembaga</span>
-                        </label>
-                    </div>
-                    <div class="col-12 mt-6">
-                        <label class="container-checkbox-filter">
-                            <input type="checkbox" name="instansi[]" class="checkbox-input" checked>
-                            <span class="checkmark"></span>
-                            <span class="container-checkbox-filter-text">Telkom School</span>
-                        </label>
-                    </div>
-                    <div class="col-12 mt-6">
-                        <label class="container-checkbox-filter">
-                            <input type="checkbox" name="instansi[]" class="checkbox-input" checked>
-                            <span class="checkmark"></span>
-                            <span class="container-checkbox-filter-text">LEMDIKTI</span>
-                        </label>
-                    </div>
+                    
                 </div>
             </div>
         </div>
