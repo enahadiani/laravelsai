@@ -130,6 +130,10 @@ $('.icon-menu').click(function(event) {
             var outflow = 0;
             var balance = 0;
             var closing = 0;
+            var inflow_yoy = 0;
+            var outflow_yoy = 0;
+            var balance_yoy = 0;
+            var closing_yoy = 0;
 
             if(data.inflow.nominal.toString().length <= 9) {
                 inflow = toJuta(data.inflow.nominal)
@@ -137,17 +141,42 @@ $('.icon-menu').click(function(event) {
                 inflow = toMilyar(data.inflow.nominal)
             }
 
+            if(data.inflow.yoy.toString().length <= 9) {
+                inflow_yoy = toJuta(data.inflow.yoy)
+            } else {
+                inflow_yoy = toMilyar(data.inflow.yoy)
+            }
+
+            var per_inflow_yoy = (data.inflow.yoy != 0 ? (data.inflow.nominal - data.inflow.yoy)/ data.inflow.yoy : 0) * 100;
+                        
+
             if(data.outflow.nominal.toString().length <= 9) {
                 outflow = toJuta(data.outflow.nominal)
             } else {
                 outflow = toMilyar(data.outflow.nominal)
             }
 
+            if(data.outflow.yoy.toString().length <= 9) {
+                outflow_yoy = toJuta(data.outflow.yoy)
+            } else {
+                outflow_yoy = toMilyar(data.outflow.yoy)
+            }
+            
+            var per_outflow_yoy = (data.outflow.yoy != 0 ? (data.outflow.nominal - data.outflow.yoy)/ data.outflow.yoy : 0) * 100;
+            
+
             if(data.cash_balance.nominal.toString().length <= 9) {
                 balance = toJuta(data.cash_balance.nominal)
             } else {
                 balance = toMilyar(data.cash_balance.nominal)
             }
+            
+            if(data.cash_balance.yoy.toString().length <= 9) {
+                balance_yoy = toJuta(data.cash_balance.yoy)
+            } else {
+                balance_yoy = toMilyar(data.cash_balance.yoy)
+            }
+            var per_balance_yoy = (data.cash_balance.yoy != 0 ? (data.cash_balance.nominal - data.cash_balance.yoy)/ data.cash_balance.yoy : 0) * 100;
 
             if(data.closing.nominal.toString().length <= 9) {
                 closing = toJuta(data.closing.nominal)
@@ -155,10 +184,60 @@ $('.icon-menu').click(function(event) {
                 closing = toMilyar(data.closing.nominal)
             }
 
+            if(data.closing.yoy.toString().length <= 9) {
+                closing_yoy = toJuta(data.closing.yoy)
+            } else {
+                closing_yoy = toMilyar(data.closing.yoy)
+            }
+
+            var per_closing_yoy = (data.closing.yoy != 0 ? (data.closing.nominal - data.closing.yoy)/ data.closing.yoy : 0) * 100;
+
             $('#cf-inflow').text(inflow)
             $('#cf-outflow').text(outflow)
             $('#cf-balance').text(balance)
             $('#cf-closing').text(closing)
+            
+            $('#cf-inflow-yoy').text(inflow_yoy)
+            $('#cf-outflow-yoy').text(outflow_yoy)
+            $('#cf-balance-yoy').text(balance_yoy)
+            $('#cf-closing-yoy').text(closing_yoy)
+
+            if(per_inflow_yoy < 0){
+                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#inflow-yoy-percentage').addClass('red-text');
+                $('#inflow-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#inflow-yoy-percentage').addClass('green-text');
+                $('#inflow-yoy-percentage').removeClass('red-text');
+            }
+            if(per_outflow_yoy < 0){
+                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#outflow-yoy-percentage').addClass('red-text');
+                $('#outflow-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#outflow-yoy-percentage').addClass('green-text');
+                $('#outflow-yoy-percentage').removeClass('red-text');
+            }
+            if(per_balance_yoy < 0){
+                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#balance-yoy-percentage').addClass('red-text');
+                $('#balance-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#balance-yoy-percentage').addClass('green-text');
+                $('#balance-yoy-percentage').removeClass('red-text');
+            }
+            if(per_closing_yoy < 0){
+                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#closing-yoy-percentage').addClass('red-text');
+                $('#closing-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#closing-yoy-percentage').addClass('green-text');
+                $('#closing-yoy-percentage').removeClass('red-text');
+            }
         }
     });
 })();
@@ -212,38 +291,7 @@ $('.icon-menu').click(function(event) {
                         },
                     }
                 },
-                series: [
-                    {
-                        name: 'Cash In',
-                        data: data.cash_in,
-                        color: '#8085E9'
-                    },
-                    {
-                        name: 'Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#90ED7D'
-                    },
-                    {
-                        name: 'Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#F7A35C'
-                    },
-                    {
-                        name: 'YoY Cash In',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#434348'
-                    }
-                ],
+                series: data.series
             });
         }
     });
@@ -321,6 +369,10 @@ function getDataBox(){
             var outflow = 0;
             var balance = 0;
             var closing = 0;
+            var inflow_yoy = 0;
+            var outflow_yoy = 0;
+            var balance_yoy = 0;
+            var closing_yoy = 0;
 
             if(data.inflow.nominal.toString().length <= 9) {
                 inflow = toJuta(data.inflow.nominal)
@@ -328,17 +380,42 @@ function getDataBox(){
                 inflow = toMilyar(data.inflow.nominal)
             }
 
+            if(data.inflow.yoy.toString().length <= 9) {
+                inflow_yoy = toJuta(data.inflow.yoy)
+            } else {
+                inflow_yoy = toMilyar(data.inflow.yoy)
+            }
+
+            var per_inflow_yoy = (data.inflow.yoy != 0 ? (data.inflow.nominal - data.inflow.yoy)/ data.inflow.yoy : 0) * 100;
+                        
+
             if(data.outflow.nominal.toString().length <= 9) {
                 outflow = toJuta(data.outflow.nominal)
             } else {
                 outflow = toMilyar(data.outflow.nominal)
             }
 
+            if(data.outflow.yoy.toString().length <= 9) {
+                outflow_yoy = toJuta(data.outflow.yoy)
+            } else {
+                outflow_yoy = toMilyar(data.outflow.yoy)
+            }
+            
+            var per_outflow_yoy = (data.outflow.yoy != 0 ? (data.outflow.nominal - data.outflow.yoy)/ data.outflow.yoy : 0) * 100;
+            
+
             if(data.cash_balance.nominal.toString().length <= 9) {
                 balance = toJuta(data.cash_balance.nominal)
             } else {
                 balance = toMilyar(data.cash_balance.nominal)
             }
+            
+            if(data.cash_balance.yoy.toString().length <= 9) {
+                balance_yoy = toJuta(data.cash_balance.yoy)
+            } else {
+                balance_yoy = toMilyar(data.cash_balance.yoy)
+            }
+            var per_balance_yoy = (data.cash_balance.yoy != 0 ? (data.cash_balance.nominal - data.cash_balance.yoy)/ data.cash_balance.yoy : 0) * 100;
 
             if(data.closing.nominal.toString().length <= 9) {
                 closing = toJuta(data.closing.nominal)
@@ -346,10 +423,60 @@ function getDataBox(){
                 closing = toMilyar(data.closing.nominal)
             }
 
+            if(data.closing.yoy.toString().length <= 9) {
+                closing_yoy = toJuta(data.closing.yoy)
+            } else {
+                closing_yoy = toMilyar(data.closing.yoy)
+            }
+
+            var per_closing_yoy = (data.closing.yoy != 0 ? (data.closing.nominal - data.closing.yoy)/ data.closing.yoy : 0) * 100;
+
             $('#cf-inflow').text(inflow)
             $('#cf-outflow').text(outflow)
             $('#cf-balance').text(balance)
             $('#cf-closing').text(closing)
+            
+            $('#cf-inflow-yoy').text(inflow_yoy)
+            $('#cf-outflow-yoy').text(outflow_yoy)
+            $('#cf-balance-yoy').text(balance_yoy)
+            $('#cf-closing-yoy').text(closing_yoy)
+
+            if(per_inflow_yoy < 0){
+                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#inflow-yoy-percentage').addClass('red-text');
+                $('#inflow-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#inflow-yoy-percentage').addClass('green-text');
+                $('#inflow-yoy-percentage').removeClass('red-text');
+            }
+            if(per_outflow_yoy < 0){
+                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#outflow-yoy-percentage').addClass('red-text');
+                $('#outflow-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#outflow-yoy-percentage').addClass('green-text');
+                $('#outflow-yoy-percentage').removeClass('red-text');
+            }
+            if(per_balance_yoy < 0){
+                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#balance-yoy-percentage').addClass('red-text');
+                $('#balance-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#balance-yoy-percentage').addClass('green-text');
+                $('#balance-yoy-percentage').removeClass('red-text');
+            }
+            if(per_closing_yoy < 0){
+                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#closing-yoy-percentage').addClass('red-text');
+                $('#closing-yoy-percentage').removeClass('green-text');
+            }else{
+                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,1)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#closing-yoy-percentage').addClass('green-text');
+                $('#closing-yoy-percentage').removeClass('red-text');
+            }        
         }
     });
 }
@@ -403,38 +530,7 @@ function getCFChart() {
                         },
                     }
                 },
-                series: [
-                    {
-                        name: 'Cash In',
-                        data: data.cash_in,
-                        color: '#8085E9'
-                    },
-                    {
-                        name: 'Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#90ED7D'
-                    },
-                    {
-                        name: 'Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#F7A35C'
-                    },
-                    {
-                        name: 'YoY Cash In',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Cash Out',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#7CB5EC'
-                    },
-                    {
-                        name: 'YoY Saldo',
-                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                        color: '#434348'
-                    }
-                ],
+                series: data.series
             });
         }
     });
@@ -544,9 +640,6 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         </div>
         <div class="col-4 pr-0">
             <div class="row">
-                {{-- <div class="col-3 pr-0 message-div">
-                    <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
-                </div> --}}
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
@@ -653,10 +746,9 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="w-10">YoY</td>
-                                    <td>292,1 M</td>
+                                    <td id="cf-inflow-yoy">0 M</td>
                                     <td id="inflow-yoy-percentage" class="green-text pr-0">
-                                        0,4%
-                                        <div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>
+                                        0%
                                     </td>
                                 </tr>
                             </tbody>
@@ -681,10 +773,9 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="w-10">YoY</td>
-                                    <td>201,3 M</td>
+                                    <td id="cf-outflow-yoy">0 M</td>
                                     <td id="outflow-yoy-percentage" class="red-text pr-0">
-                                        4,7%
-                                        <div class="glyph-icon iconsminds-up icon-card red-text bold-700"></div>
+                                        0%
                                     </td>
                                 </tr>
                             </tbody>
@@ -708,8 +799,8 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <table class="table table-borderless table-pr-16" id="table-cf-balance">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">&nbsp;</td>
-                                    <td>&nbsp;</td>
+                                    <td class="w-10">&nbsp;YoY</td>
+                                    <td id="cf-balance-yoy">0 M</td>
                                     <td id="balance-yoy-percentage" class="red-text pr-0">
                                         &nbsp;
                                     </td>
@@ -735,11 +826,10 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <table class="table table-borderless table-pr-16" id="table-cf-outflow">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">MoM</td>
-                                    <td>76,2 M</td>
-                                    <td id="outflow-yoy-percentage" class="green-text pr-0">
-                                        107,4%
-                                        <div class="glyph-icon iconsminds-up icon-card green-text bold-700"></div>
+                                    <td class="w-10">YoY</td>
+                                    <td id="cf-closing-yoy">0 M</td>
+                                    <td id="closing-yoy-percentage" class="green-text pr-0">
+                                        0%
                                     </td>
                                 </tr>
                             </tbody>
@@ -800,76 +890,3 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     {{-- END ROW 2 --}}
 </section>
 {{-- END CONTENT MAIN --}}
-
-{{-- END DEKSTOP --}}
-{{-- <script type="text/javascript">
-// var trendChart = Highcharts.chart('trend-chart', {
-//     chart: {
-//         height: 450,
-//         // width: 600
-//     },
-//     title: { text: '' },
-//     subtitle: { text: '' },
-//     exporting:{ 
-//         enabled: false
-//     },
-//     legend:{ 
-//         enabled: true,
-//         // layout: 'vertical',
-//         // align: 'right',
-//         verticalAlign: 'bottom' 
-//     },
-//     credits: { enabled: false },
-//     xAxis: {
-//         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
-//     },
-//     yAxis: {
-//          title: {
-//             text: 'Nilai'
-//         }
-//     },
-//     plotOptions: {
-//         series: {
-//             label: {
-//                 connectorAllowed: false
-//             },
-//             marker:{
-//                 enabled:false
-//             },
-//             pointStart: 2016
-//         }
-//     },
-//     series: [
-//         {
-//             name: 'Cash In',
-//             data: [5000, 4000, 2000, 3000, 2500, 2800, 6000, 2000, 2000, 1500, 2000, 2500],
-//             color: '#8085E9'
-//         },
-//         {
-//             name: 'Cash Out',
-//             data: [4000, 3000, 18000, 2000, 2000, 2500, 5000, 2500, 1500, 2000, 2500, 2000],
-//             color: '#90ED7D'
-//         },
-//         {
-//             name: 'Saldo',
-//             data: [1000, 1000, 1500, 1000, 1000, 1500, 1000, 1000, 2000, 3000, 2000, 2000],
-//             color: '#F7A35C'
-//         },
-//         {
-//             name: 'YoY Cash In',
-//             data: [1500, 1500, 1500, 1200, 1800, 1400, 1500, 1900, 1700, 2200, 2500, 2800],
-//             color: '#7CB5EC'
-//         },
-//         {
-//             name: 'YoY Cash Out',
-//             data: [1200, 1300, 1300, 1400, 1400, 1600, 1800, 2000, 1200, 2000, 2000, 2500],
-//             color: '#7CB5EC'
-//         },
-//         {
-//             name: 'YoY Saldo',
-//             data: [1000, 1000, 1000, 1200, 1500, 1100, 1200, 2500, 1800, 2500, 2200, 2700],
-//             color: '#434348'
-//         }
-//     ],
-// });
-</script> --}}
