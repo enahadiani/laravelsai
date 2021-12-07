@@ -1,15 +1,72 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/ccr.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 
-<script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('main.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
 var $filter2 = getNamaBulan("09");
+var $filter_lokasi = "";
 var $month = "09";
+var $filter1_kode = "PRD";
+var $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
+var $bln_singkat = bulanSingkat($tahun+''+$month);
+
+// CONFIG FUNCTION
+function showNotification(message) {
+    $.notify(
+        {
+            title: 'Update',
+            message: message,
+            target: "_blank"
+        },
+        {
+            element: "body",
+            position: null,
+            type: 'success',
+            allow_dismiss: true,
+            newest_on_top: false,
+            showProgressbar: false,
+            placement: {
+                from: 'top',
+                align: 'center'
+            },
+            offset: 20,
+            spacing: 10,
+            z_index: 1031,
+            delay: 4000,
+            timer: 2000,
+            url_target: "_blank",
+            mouse_over: null,
+            animate: {
+                enter: "animated fadeInDown",
+                exit: "animated fadeOutUp"
+            },
+            onShow: null,
+            onShown: null,
+            onClose: null,
+            onClosed: null,
+            icon_type: "class",
+            template: `<div data-notify="container" class="col-11 col-sm-3 alert  alert-{0} " role="alert">
+                <button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>
+                <span data-notify="icon"></span>
+                <span data-notify="title">{1}</span>
+                <span data-notify="message">{2}</span>
+                <div class="progress" data-notify="progressbar">
+                    <div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+                </div>
+                <a href="{3}" target="{4}" data-notify="url"></a>
+                </div>`
+        }
+    );
+}
+// END CONFIG FUNCTION
 
 $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+$('#judul-ccr-now1').text(`CCR ${$tahun}`)
+$('#judul-ccr-now2').text(`${$bln_rev_rentang}`)
+$('#judul-ccr-month').text(`CCR ${$bln_singkat}`)
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -51,16 +108,11 @@ $(window).click(function() {
 });
 
 // RUN IF RENDER FIRST TIME
-(function() {
+function getDataBox(param) {
     $.ajax({
         type: 'GET',
         url: "{{ url('dash-ypt-dash/data-ccr-box') }}",
-        data: {
-            "periode[0]": "=", 
-            "periode[1]": $filter2_kode,
-            "tahun": $tahun,
-            "jenis": $filter1_kode
-        },
+        data: param,
         dataType: 'json',
         async: true,
         success:function(result) {
@@ -82,7 +134,9 @@ $(window).click(function() {
             $('#ccr-month-inflow').text(`${toMilyar(data.ccr_periode.inflow,2)}`)
         }
     });
-})();
+}
+
+var timeoutID = null;
 
 (function() {
     $.ajax({
@@ -91,18 +145,12 @@ $(window).click(function() {
         dataType: 'JSON',
         success: function(result) {
             $('#filter-checkbox').html('');
-            var html = `<div class="col-12 mt-6">
-                        <label class="container-checkbox-filter">
-                            <input type="checkbox" name="kode_lokasi[]" id="lembaga" value="lembaga" class="checkbox-input" checked>
-                            <span class="checkmark"></span>
-                            <span class="container-checkbox-filter-text">Lembaga</span>
-                        </label>
-                    </div>`;
+            var html = ``;
             if(result.status){
                 if(typeof result.data == 'object' && result.data.length > 0){
                     for(var i=0; i < result.data.length; i++){
                         var line = result.data[i];
-                        if(line.kode_lokasi == "{{ Session::get('lokasi') }}"){
+                        if(line.kode_lokasi == "12"){
                             var check = "checked";
                         }else{
                             var check = "";
@@ -110,9 +158,9 @@ $(window).click(function() {
                         html +=`
                         <div class="col-12 mt-6">
                             <label class="container-checkbox-filter">
-                                <input type="checkbox" id="`+line.kode_lokasi+`" name="kode_lokasi[]" class="checkbox-input" value="`+line.kode_lokasi+`" checked>
+                                <input type="checkbox" id="`+line.kode_lokasi+`" name="kode_lokasi[]" class="checkbox-input" value="`+line.kode_lokasi+`" `+check+`>
                                 <span class="checkmark"></span>
-                                <span class="container-checkbox-filter-text">`+line.skode+`</span>
+                                <span class="container-checkbox-filter-text">`+line.nama+`</span>
                             </label>
                         </div>`;
                     }
@@ -121,10 +169,45 @@ $(window).click(function() {
                 alert(JSON.stringify(result.message));
             }
             $('#filter-checkbox').html(html);
+            
+            $('#filter-checkbox').on('change','.checkbox-input',function() {
+                var count = $('input.checkbox-input:checked').length;
+                var parent = $('input.checkbox-input:checked').parent();
+                var judul = $(parent).find('.container-checkbox-filter-text').text()
+
+                if(count > 1 || count == 0) {
+                    judul = 'YPT'
+                }
+
+                $('#title-dash').text('CCR '+ judul)
+                var lokasi = ""; var i=0;
+                $("input[name='kode_lokasi[]']:checked").each(function(){
+                    console.log($(this).val());
+                    if(i == 0){
+                        lokasi+=$(this).val();
+                    }else{
+                        lokasi+=","+$(this).val();
+                    }
+                    i++;
+                });
+                $filter_lokasi = lokasi;
+                timeoutID = null;
+                timeoutID = setTimeout(getDataBox.bind(undefined,{
+                    "periode[0]": "=", 
+                    "periode[1]": $month,
+                    "tahun": $tahun,
+                    "jenis": $filter1_kode,
+                    "kode_lokasi[0]":"in",
+                    "kode_lokasi[1]": $filter_lokasi
+                }), 1000);
+            })
+
+            $("input[name='kode_lokasi[]']:checked").trigger('change');
         }
     });
 })();
 // END RUN IF RENDER FIRST TIME
+
 </script>
 
 <script type="text/javascript">
@@ -209,12 +292,40 @@ $('#list-filter-2').on('click', 'div', function(event) {
     filter = $(this).data('bulan') 
     
     $filter2 = filter
+    $month = filter
     $('#list-filter-2 div').not(this).removeClass('selected')
     $(this).addClass('selected')
+    $('#filter-box').addClass('hidden')
 
     $filter2 = getNamaBulan($filter2)
 
     $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    
+    $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
+    $bln_singkat = bulanSingkat($tahun+''+$month);
+    $('#judul-ccr-now1').text(`CCR ${$tahun}`)
+    $('#judul-ccr-now2').text(`${$bln_rev_rentang}`)
+    $('#judul-ccr-month').text(`CCR ${$bln_singkat}`)
+    var lokasi = ""; var i=0;
+    $("input[name='kode_lokasi[]']:checked").each(function(){
+        console.log($(this).val());
+        if(i == 0){
+            lokasi+=$(this).val();
+        }else{
+            lokasi+=","+$(this).val();
+        }
+        i++;
+    });
+    $filter_lokasi = lokasi;
+    getDataBox({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_lokasi[0]":"in",
+        "kode_lokasi[1]": $filter_lokasi
+    });
+    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
 })
 
 $('.icon-menu').click(function(event) {
@@ -227,18 +338,6 @@ $('.icon-menu').click(function(event) {
     } else {
         $("body").css("overflow", "hidden");
     }
-})
-
-$('.checkbox-input').change(function() {
-    var count = $('input.checkbox-input:checked').length;
-    var parent = $('input.checkbox-input:checked').parent();
-    var judul = $(parent).find('.container-checkbox-filter-text').text()
-
-    if(count > 1 || count == 0) {
-        judul = 'YPT'
-    }
-
-    $('#title-dash').text('CCR '+ judul)
 })
 
 var lembagaChart = Highcharts.chart('ccr-lembaga', {
@@ -1041,10 +1140,10 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-7">
-                        <h4 class="header-card">CCR 2021</h4>
+                        <h4 class="header-card" id="judul-ccr-now1"></h4>
                     </div>
                     <div class="col-5">
-                        <h4 class="header-card grey-text">Jan-Aug 21</h4>
+                        <h4 class="header-card grey-text" id="judul-ccr-now2"></h4>
                     </div>
                 </div>
                 <div class="row body-div">
@@ -1072,7 +1171,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">CCR Sep'21</h4>
+                        <h4 class="header-card" id="judul-ccr-month"></h4>
                     </div>
                 </div>
                 <div class="row body-div">
