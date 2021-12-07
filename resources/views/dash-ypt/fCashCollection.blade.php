@@ -845,7 +845,7 @@ $('#sort-top').click(function(){
                                 <h4 class="header-card">Top CCR</h4>
                             </div>
                             <div class="col-6 text-center">
-                                <a id="sort-top" href='#' class="red-text" style="font-size: 16px !important;" class="sort-asc"><i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Terendah</a>
+                                <a id="sort-top" href='#' class="red-text sort-asc" style="font-size: 16px !important;"><i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Terendah</a>
                             </div>
                         </div>
                         <div class="table-responsive mt-2" id="div-top-ccr" style="height:calc(100vh - 180px);position:relative">
