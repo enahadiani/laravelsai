@@ -534,12 +534,12 @@ function clearInputFilter(par) {
     $("#" + par).trigger("change");
 }
 
-function toMilyar(x) {
+function toMilyar(x,decimal=0) {
     var nil = x / 1000000000;
-    return sepNum(nil) + " M";
+    return number_format(nil,decimal) + " M";
 }
 
-function toJuta(x) {
+function toJuta(x,decimal=0) {
     var nil = x / 1000000;
-    return sepNum(nil) + " Jt";
+    return number_format(nil,decimal) + " Jt";
 }

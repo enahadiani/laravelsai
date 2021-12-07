@@ -61,21 +61,21 @@ var $height = $(window).height();
             var nilaiAchPdpt = 0;
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
-                nilaiPdpt = toJuta(pdpt.n4)
+                nilaiPdpt = toJuta(pdpt.n4,2)
             } else {
-                nilaiPdpt = toMilyar(pdpt.n4)
+                nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
             if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1)
+                nilaiYoyPdpt = toJuta(pdpt.n1,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1)
+                nilaiYoyPdpt = toMilyar(pdpt.n1,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
-                nilaiAchPdpt = toJuta(pdpt.n2)
+                nilaiAchPdpt = toJuta(pdpt.n2,2)
             } else {
-                nilaiAchPdpt = toMilyar(pdpt.n2)
+                nilaiAchPdpt = toMilyar(pdpt.n2,2)
             }
 
             if(pdpt.yoy < 0) {
@@ -98,8 +98,8 @@ var $height = $(window).height();
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pendapatan-ach').text(nilaiAchPdpt)
-            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
-            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-percentage').text(`${number_format(pdpt.yoy,2)}%`)
+            $('#pdpt-ach-percentage').text(`${number_format(pdpt.ach,2)}%`)
             $('#pdpt-yoy-icon').html(iconPdptYoy)
             $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
@@ -112,21 +112,21 @@ var $height = $(window).height();
             var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
-                nilaiBeban = toJuta(beban.n4)
+                nilaiBeban = toJuta(beban.n4,2)
             } else {
-                nilaiBeban = toMilyar(beban.n4)
+                nilaiBeban = toMilyar(beban.n4,2)
             }
 
             if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1)
+                nilaiYoyBeban = toJuta(beban.n1,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1)
+                nilaiYoyBeban = toMilyar(beban.n1,2)
             }
 
             if(beban.n2.toString().length <= 9) {
-                nilaiAchBeban = toJuta(beban.n2)
+                nilaiAchBeban = toJuta(beban.n2,2)
             } else {
-                nilaiAchBeban = toMilyar(beban.n2)
+                nilaiAchBeban = toMilyar(beban.n2,2)
             }
 
             if(beban.yoy < 0) {
@@ -149,8 +149,8 @@ var $height = $(window).height();
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-ach').text(nilaiAchBeban)
-            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
-            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-percentage').text(`${number_format(beban.yoy,2)}%`)
+            $('#beban-ach-percentage').text(`${number_format(beban.ach,2)}%`)
             $('#beban-yoy-icon').html(iconBebanYoy)
             $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
@@ -163,21 +163,21 @@ var $height = $(window).height();
             var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
-                nilaiShu = toJuta(shu.n4)
+                nilaiShu = toJuta(shu.n4,2)
             } else {
-                nilaiShu = toMilyar(shu.n4)
+                nilaiShu = toMilyar(shu.n4,2)
             }
 
             if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1)
+                nilaiYoyShu = toJuta(shu.n1,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1)
+                nilaiYoyShu = toMilyar(shu.n1,2)
             }
 
             if(shu.n2.toString().length <= 9) {
-                nilaiAchShu = toJuta(shu.n2)
+                nilaiAchShu = toJuta(shu.n2,2)
             } else {
-                nilaiAchShu = toMilyar(shu.n2)
+                nilaiAchShu = toMilyar(shu.n2,2)
             }
 
             if(shu.yoy < 0) {
@@ -200,8 +200,8 @@ var $height = $(window).height();
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
-            $('#shu-ach-percentage').text(`${shu.ach}%`)
+            $('#shu-yoy-percentage').text(`${number_format(shu.yoy,2)}%`)
+            $('#shu-ach-percentage').text(`${number_format(shu.ach,2)}%`)
             $('#shu-yoy-icon').html(iconShuYoy)
             $('#shu-ach-icon').html(iconShuAch)
             // END SHU
@@ -231,11 +231,11 @@ var $height = $(window).height();
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n1}%`)
-            $('#or-ach').text(`${or.n2}%`)
-            $('#or-yoy-percentage').text(`${or.yoy}%`)
-            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-value').text(`${number_format(or.n4,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n1,2)}%`)
+            $('#or-ach').text(`${number_format(or.n2,2)}%`)
+            $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
+            $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
             $('#or-yoy-icon').html(iconOrYoy)
             $('#or-ach-icon').html(iconOrAch)
             // END OR
@@ -774,14 +774,14 @@ var $height = $(window).height();
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
-                        <td class="${classTd1}">${row.pdpt_ach}%</td>
-                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
-                        <td class="${classTd3}">${row.beban_ach}%</td>
-                        <td class="${classTd4}">${row.beban_yoy}%</td>
-                        <td class="${classTd5}">${row.shu_ach}%</td>
-                        <td class="${classTd6}">${row.shu_yoy}%</td>
-                        <td class="${classTd7}">${row.or_ach}%</td>
-                        <td class="${classTd8}">${row.or_yoy}%</td>
+                        <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
+                        <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
+                        <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
+                        <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
+                        <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
+                        <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
+                        <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
+                        <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
                     </tr>`;
                 }
                 $('#table-lembaga tbody').append(html)
@@ -1195,14 +1195,14 @@ function updateChart(table = false) {
                                 <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
-                            <td class="${classTd1}">${row.pdpt_ach}%</td>
-                            <td class="${classTd2}">${row.pdpt_yoy}%</td>
-                            <td class="${classTd3}">${row.beban_ach}%</td>
-                            <td class="${classTd4}">${row.beban_yoy}%</td>
-                            <td class="${classTd5}">${row.shu_ach}%</td>
-                            <td class="${classTd6}">${row.shu_yoy}%</td>
-                            <td class="${classTd7}">${row.or_ach}%</td>
-                            <td class="${classTd8}">${row.or_yoy}%</td>
+                            <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
+                            <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
+                            <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
+                            <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
+                            <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
+                            <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
+                            <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
+                            <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
                         </tr>`;
                     }
                     $('#table-lembaga tbody').append(html)
@@ -1236,21 +1236,21 @@ function updateBox() {
             var nilaiAchPdpt = 0;
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
-                nilaiPdpt = toJuta(pdpt.n4)
+                nilaiPdpt = toJuta(pdpt.n4,2)
             } else {
-                nilaiPdpt = toMilyar(pdpt.n4)
+                nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
             if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1)
+                nilaiYoyPdpt = toJuta(pdpt.n1,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1)
+                nilaiYoyPdpt = toMilyar(pdpt.n1,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
-                nilaiAchPdpt = toJuta(pdpt.n2)
+                nilaiAchPdpt = toJuta(pdpt.n2,2)
             } else {
-                nilaiAchPdpt = toMilyar(pdpt.n2)
+                nilaiAchPdpt = toMilyar(pdpt.n2,2)
             }
 
             if(pdpt.yoy < 0) {
@@ -1273,8 +1273,8 @@ function updateBox() {
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pendapatan-ach').text(nilaiAchPdpt)
-            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
-            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-percentage').text(`${number_format(pdpt.yoy,2)}%`)
+            $('#pdpt-ach-percentage').text(`${number_format(pdpt.ach,2)}%`)
             $('#pdpt-yoy-icon').html(iconPdptYoy)
             $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
@@ -1288,21 +1288,21 @@ function updateBox() {
             var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
-                nilaiBeban = toJuta(beban.n4)
+                nilaiBeban = toJuta(beban.n4,2)
             } else {
-                nilaiBeban = toMilyar(beban.n4)
+                nilaiBeban = toMilyar(beban.n4,2)
             }
 
             if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1)
+                nilaiYoyBeban = toJuta(beban.n1,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1)
+                nilaiYoyBeban = toMilyar(beban.n1,2)
             }
 
             if(beban.n2.toString().length <= 9) {
-                nilaiAchBeban = toJuta(beban.n2)
+                nilaiAchBeban = toJuta(beban.n2,2)
             } else {
-                nilaiAchBeban = toMilyar(beban.n2)
+                nilaiAchBeban = toMilyar(beban.n2,2)
             }
 
             if(beban.yoy < 0) {
@@ -1325,8 +1325,8 @@ function updateBox() {
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-ach').text(nilaiAchBeban)
-            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
-            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-percentage').text(`${number_format(beban.yoy,2)}%`)
+            $('#beban-ach-percentage').text(`${number_format(beban.ach,2)}%`)
             $('#beban-yoy-icon').html(iconBebanYoy)
             $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
@@ -1340,21 +1340,21 @@ function updateBox() {
             var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
-                nilaiShu = toJuta(shu.n4)
+                nilaiShu = toJuta(shu.n4,2)
             } else {
-                nilaiShu = toMilyar(shu.n4)
+                nilaiShu = toMilyar(shu.n4,2)
             }
 
             if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1)
+                nilaiYoyShu = toJuta(shu.n1,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1)
+                nilaiYoyShu = toMilyar(shu.n1,2)
             }
 
             if(shu.n2.toString().length <= 9) {
-                nilaiAchShu = toJuta(shu.n2)
+                nilaiAchShu = toJuta(shu.n2,2)
             } else {
-                nilaiAchShu = toMilyar(shu.n2)
+                nilaiAchShu = toMilyar(shu.n2,2)
             }
 
             if(shu.yoy < 0) {
@@ -1377,8 +1377,8 @@ function updateBox() {
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
-            $('#shu-ach-percentage').text(`${shu.ach}%`)
+            $('#shu-yoy-percentage').text(`${number_format(shu.yoy,2)}%`)
+            $('#shu-ach-percentage').text(`${number_format(shu.ach,2)}%`)
             $('#shu-yoy-icon').html(iconShuYoy)
             $('#shu-ach-icon').html(iconShuAch)
             // END SHU
@@ -1409,11 +1409,11 @@ function updateBox() {
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n1}%`)
-            $('#or-ach').text(`${or.n2}%`)
-            $('#or-yoy-percentage').text(`${or.yoy}%`)
-            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-value').text(`${number_format(or.n4,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n1,2)}%`)
+            $('#or-ach').text(`${number_format(or.n2,2)}%`)
+            $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
+            $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
             $('#or-yoy-icon').html(iconOrYoy)
             $('#or-ach-icon').html(iconOrAch)
             // END OR
@@ -2244,7 +2244,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
+                                            <td class="pl-0 w-40">Ach.</td>
                                             <td id="pendapatan-ach" class="px-0">0</td>
                                             <td id="pdpt-ach-percentage" class="pr-0">
                                                 0
@@ -2252,7 +2252,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="pdpt-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
+                                            <td class="pl-0 w-40">YoY</td>
                                             <td id="pendapatan-yoy" class="px-0">0</td>
                                             <td id="pdpt-yoy-percentage" class="pr-0">
                                                 0
@@ -2305,7 +2305,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
+                                            <td class="pl-0 w-40">Ach.</td>
                                             <td id="beban-ach" class="px-0">0</td>
                                             <td id="beban-ach-percentage" class="pr-0">
                                                 0
@@ -2313,7 +2313,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="beban-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
+                                            <td class="pl-0 w-40">YoY</td>
                                             <td id="beban-yoy" class="px-0">0</td>
                                             <td id="beban-yoy-percentage" class="pr-0">
                                                 0
@@ -2366,7 +2366,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
+                                            <td class="pl-0 w-40">Ach.</td>
                                             <td id="shu-ach" class="px-0">0</td>
                                             <td id="shu-ach-percentage" class="pr-0">
                                                 0
@@ -2374,7 +2374,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="shu-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
+                                            <td class="pl-0 w-40">YoY</td>
                                             <td id="shu-yoy" class="px-0">0</td>
                                             <td id="shu-yoy-percentage" class="pr-0">
                                                 0
@@ -2427,7 +2427,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
+                                            <td class="pl-0 w-40">Ach.</td>
                                             <td id="or-ach" class="px-0">0</td>
                                             <td id="or-ach-percentage" class="pr-0">
                                                 0
@@ -2435,7 +2435,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             <td id="or-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
+                                            <td class="pl-0 w-40">YoY</td>
                                             <td id="or-yoy" class="px-0">0</td>
                                             <td id="or-yoy-percentage" class="pr-0">
                                                 0

@@ -55,7 +55,12 @@ $(window).click(function() {
     $.ajax({
         type: 'GET',
         url: "{{ url('dash-ypt-dash/data-ccr-box') }}",
-        data: {},
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
         dataType: 'json',
         async: true,
         success:function(result) {
@@ -941,11 +946,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="pl-0">AR</td>
-                                    <td class="text-bold text-right">138,5 M</td>
+                                    <td class="text-bold text-right" id="ccr-all-ar">0 M</td>
                                 </tr>
                                 <tr>
                                     <td class="pl-0">Inflow</td>
-                                    <td class="text-bold text-right">59,7 M</td>
+                                    <td class="text-bold text-right" id="ccr-all-inflow">0 M</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -969,11 +974,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="pl-0">AR</td>
-                                    <td class="text-bold text-right">138,5 M</td>
+                                    <td class="text-bold text-right" id="ccr-prev-ar">0 M</td>
                                 </tr>
                                 <tr>
-                                    <td class="pl-0">Inflow</td>
-                                    <td class="text-bold text-right">59,7 M</td>
+                                    <td class="pl-0">Inflow</td> 
+                                    <td class="text-bold text-right" id="ccr-prev-inflow">0 M</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1000,11 +1005,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="pl-0">AR</td>
-                                    <td class="text-bold text-right">138,5 M</td>
+                                    <td class="text-bold text-right" id="ccr-now-ar">0 M</td>
                                 </tr>
                                 <tr>
                                     <td class="pl-0">Inflow</td>
-                                    <td class="text-bold text-right">59,7 M</td>
+                                    <td class="text-bold text-right" id="ccr-now-inflow">0 M</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1028,11 +1033,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <tbody>
                                 <tr>
                                     <td class="pl-0">AR</td>
-                                    <td class="text-bold text-right">138,5 M</td>
+                                    <td class="text-bold text-right" id="ccr-month-ar">0 M</td>
                                 </tr>
                                 <tr>
                                     <td class="pl-0">Inflow</td>
-                                    <td class="text-bold text-right">59,7 M</td>
+                                    <td class="text-bold text-right" id="ccr-month-inflow">0 M</td>
                                 </tr>
                             </tbody>
                         </table>
