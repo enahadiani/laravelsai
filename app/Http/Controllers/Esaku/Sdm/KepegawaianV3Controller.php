@@ -895,6 +895,152 @@ class Kepegawaianv3Controller extends Controller
         }
     }
 
+    public function update_kontrak(Request $request)
+    {
+        $this->validate($request, [
+            'kode_status' => 'required',
+            'kode_sdm' => 'required',
+            'kode_loker' => 'required',
+            'tgl_masuk' => 'required',
+            'npwp' => 'required',
+            'no_bpjs' => 'required',
+            'no_bpjs_kerja' => 'required',
+            'kode_profesi' => 'required',
+            'client' => 'required',
+            'skill' => 'required',
+            'no_kontrak' => 'required',
+            'tgl_kontrak' => 'required',
+            'tgl_kontrak_akhir' => 'required',
+            'atasan_langsung' => 'required',
+            'atasan_t_langsung' => 'required',
+        ]);
+
+        try {
+            $fields = array(
+                array(
+                    "name" => "nik",
+                    "contents" => $request->input('nik')
+                ),
+                array(
+                    "name" => "kode_sdm",
+                    "contents" => $request->input('kode_sdm')
+                ),
+                array(
+                    "name" => "kode_status",
+                    "contents" => $request->input('kode_status')
+                ),
+                array(
+                    "name" => "kode_loker",
+                    "contents" => $request->input('kode_loker')
+                ),
+                array(
+                    "name" => "tgl_masuk",
+                    "contents" => $this->convertDate($request->input('tgl_masuk'))
+                ),
+                array(
+                    "name" => "no_npwp",
+                    "contents" => $request->input('npwp')
+                ),
+                array(
+                    "name" => "no_bpjs",
+                    "contents" => $request->input('no_bpjs')
+                ),
+                array(
+                    "name" => "no_bpjs_naker",
+                    "contents" => $request->input('no_bpjs_kerja')
+                ),
+
+                array(
+                    "name" => "kode_bank",
+                    "contents" => $request->input('kode_bank')
+                ),
+                array(
+                    "name" => "cabang",
+                    "contents" => $request->input('cabang')
+                ),
+                array(
+                    "name" => "no_rek",
+                    "contents" => $request->input('no_rek')
+                ),
+                array(
+                    "name" => "nama_rek",
+                    "contents" => $request->input('nama_rek')
+                ),
+                array(
+                    "name" => "nama_client",
+                    "contents" => $request->input('client')
+                ),
+                array(
+                    "name" => "skill",
+                    "contents" => $request->input('skill')
+                ),
+                array(
+                    "name" => "no_kontrak",
+                    "contents" => $request->input('no_kontrak')
+                ),
+                array(
+                    "name" => "tgl_kontrak_awal",
+                    "contents" => $this->convertDate($request->input('tgl_kontrak'))
+                ),
+                array(
+                    "name" => "tgl_kontrak_akhir",
+                    "contents" => $this->convertDate($request->input('tgl_kontrak_akhir'))
+                ),
+                array(
+                    "name" => "kode_area",
+                    "contents" => $request->input('kode_area')
+                ),
+
+                array(
+                    "name" => "kode_fm",
+                    "contents" => $request->input('kode_fm')
+                ),
+                array(
+                    "name" => "kode_bm",
+                    "contents" => $request->input('kode_bm')
+                ),
+                array(
+                    "name" => "kode_loker",
+                    "contents" => $request->input('kode_loker')
+                ),
+                array(
+                    "name" => "kode_profesi",
+                    "contents" => $request->input('kode_profesi')
+                ),
+                array(
+                    "name" => "atasan_langsung",
+                    "contents" => $request->input('atasan_langsung')
+                ),
+                array(
+                    "name" => "atasan_tidak_langsung",
+                    "contents" => $request->input('atasan_t_langsung')
+                )
+            );
+
+            // dd($fields);
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url') . 'esaku-trans/v3/sdm-kontrak-update', [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+
+                $data = json_decode($response_data, true);
+                return response()->json(['data' => $data], 200);
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(), true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
+    }
+
     public function delete(Request $request)
     {
         try {

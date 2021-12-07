@@ -69,33 +69,10 @@
                                         <th>No KK</th>
                                         <th>Status Nikah</th>
                                         <th>Tgl Nikah</th>
-                                        <th>Golongan</th>
-                                        <th>Status SDM</th>
-                                        <th>Unit</th>
-                                        <th>Lokasi Kerja</th>
-                                        <th>Tgl Masuk</th>
-                                        <th>No NPWP</th>
-                                        <th>No BPJS Kesehatan</th>
-                                        <th>No BPJS Ketenagakerjaan</th>
-                                        <th>Profesi</th>
                                         <th>Bank</th>
                                         <th>Cabang</th>
                                         <th>No Rekk</th>
                                         <th>Nama Rek</th>
-                                        <th>Nama Client</th>
-                                        <th>Fungsi</th>
-                                        <th>Skill</th>
-                                        <th>No Kontrak</th>
-                                        <th>Tgl Awal Kontrak</th>
-                                        <th>Tgl Akhir Kontrak</th>
-                                        <th>Area</th>
-                                        <th>Kota</th>
-                                        <th>FM</th>
-                                        <th>BM</th>
-                                        <th>Lokasi Kerja</th>
-                                        <th>Jabatan</th>
-                                        <th>Atasan Langsung</th>
-                                        <th>Atasan Tidak Langsung</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -153,13 +130,13 @@ var dataTable = generateTableWithoutAjax(
     [
         { data : 'nu'},
         { data : 'nik'},
-        { data : 'no_ktp'},
+        { data : 'nomor_ktp'},
         { data : 'nama'},
-        { data : 'jk'},
+        { data : 'jenis_kelamin'},
         { data : 'kode_agama'},
         { data : 'no_telp'},
         { data : 'no_hp'},
-        { data : 'tempat'},
+        { data : 'tempat_lahir'},
         { data : 'tgl_lahir'},
         { data : 'alamat'},
         { data : 'provinsi'},
@@ -167,39 +144,16 @@ var dataTable = generateTableWithoutAjax(
         { data : 'kecamatan'},
         { data : 'kelurahan'},
         { data : 'kode_pos'},
-        { data : 't_badan'},
-        { data : 'b_badan'},
-        { data : 'gol_darah'},
-        { data : 'no_kk'},
+        { data : 'tinggi_badan'},
+        { data : 'berat_badan'},
+        { data : 'golongan_darah'},
+        { data : 'nomor_kk'},
         { data : 'status_nikah'},
         { data : 'tgl_nikah'},
-        { data : 'kode_gol'},
-        { data : 'kode_sdm'},
-        { data : 'kode_unit'},
-        { data : 'kode_loker'},
-        { data : 'tgl_masuk'},
-        { data : 'npwp'},
-        { data : 'no_bpjs'},
-        { data : 'no_bpjs_kerja'},
-        { data : 'kode_profesi'},
-        { data : 'bank'},
+        { data : 'kode_bank'},
         { data : 'cabang'},
         { data : 'no_rek'},
-        { data : 'nama_rek'},
-        { data : 'client'},
-        { data : 'fungsi'},
-        { data : 'skill'},
-        { data : 'no_kontrak'},
-        { data : 'tgl_kontrak'},
-        { data : 'tgl_kontrak_akhir'},
-        { data : 'area'},
-        { data : 'kota_area'},
-        { data : 'fm'},
-        { data : 'bm'},
-        { data : 'loker_client'},
-        { data : 'jabatan_client'},
-        { data : 'atasan_langsung'},
-        { data : 'atasan_t_langsung'}
+        { data : 'nama_rek'}
     ],
     []
 );

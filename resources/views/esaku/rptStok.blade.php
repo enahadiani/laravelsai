@@ -70,6 +70,8 @@
                         <th width='80' class='header_laporan text-center' rowspan='2'>Stok Awal</th>
                         <th width='160' class='header_laporan text-center' colspan='2'>Mutasi</th>
                         <th width='80' class='header_laporan text-center' rowspan='2'>Stok Akhir</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>HPP</th>
+                        <th width='80' class='header_laporan text-center' rowspan='2'>Saldo Persediaan</th>
                     </tr>
                     <tr>
                         <th width='80' class='header_laporan text-center'>Masuk</th>
@@ -84,16 +86,20 @@
                         }else{
                             var no=1;
                         }
+                        var hpp = 0;
+                        var sal_persediaan = 0;
                         var stok=0; var total=0; var so_awal=0; var debet=0; var kredit=0;
                         for (var x=0;x<data.length;x++)
                         {
                             var line2 = data[x];
-                            
+                            var saldo_sediaan = parseFloat(line2.stok).toFixed(0) * parseFloat(line2.hpp).toFixed(0);
                             stok=stok+parseFloat(line2.stok);
                             total=total+parseFloat(line2.total);
                             so_awal=so_awal+parseFloat(line2.so_awal);
                             debet=debet+parseFloat(line2.debet);
                             kredit=kredit+parseFloat(line2.kredit);
+                            hpp = hpp + parseFloat(line2.hpp);
+                            sal_persediaan = sal_persediaan + saldo_sediaan;
                             
                             det+=`<tr>
                             <td align='center' class='isi_laporan'>`+no+`</td>
@@ -105,6 +111,8 @@
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.debet))+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.kredit))+`</td>
                             <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.stok))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(line2.hpp))+`</td>
+                            <td  class='isi_laporan text-right'>`+number_format(parseFloat(saldo_sediaan))+`</td>
                             </tr>`;	
                             no++;
                             
@@ -115,6 +123,8 @@
                         <th class='bold text-right'>`+number_format(debet)+`</th>
                         <th class='bold text-right'>`+number_format(kredit)+`</th>
                         <th class='bold text-right'>`+number_format(stok)+`</th>
+                        <th class='bold text-right'>`+number_format(hpp)+`</th>
+                        <th class='bold text-right'>`+number_format(sal_persediaan)+`</th>
                         </tr>`;
                         html+=det+`
                     </tbody>
