@@ -305,7 +305,7 @@ function getTrendCCR(param) {
                     // }
                 },
                 yAxis: {
-                        title:'',
+                    title:'',
                     min: 0
                 },
                 tooltip: {
@@ -327,7 +327,7 @@ function getTrendCCR(param) {
                             overflow: 'justify',
                             useHTML: true,
                             formatter: function () {
-                                if(this.y < 0.1){
+                                if(this.y < 0.1 || this. y >= 100){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -351,7 +351,7 @@ function getTrendCCR(param) {
                             useHTML: true,
                             formatter: function () {
                                 // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1){
+                                if(this.y < 0.1 || this. y >= 100){
                                     return '';
                                 }else{
                                     return $('<div/>').css({
@@ -366,16 +366,6 @@ function getTrendCCR(param) {
                     }
                 },
                 series: [{
-                    name: 'Melampaui',
-                    pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
-                    type: 'column',
-                    stack: 1,
-                    data: result.data.melampaui,
-                    dataLabels:{
-                        y:-20
-                    }
-                },{
                     name: 'Target/Tagihan',
                     pointWidth: 15,
                     color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
@@ -405,7 +395,7 @@ function getTrendCCR(param) {
                     name: 'Pembayaran',
                     type: 'column',
                     pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#EEBE00'),
                     stack: 1,
                     data: result.data.bayar,
                     dataLabels:{
