@@ -369,11 +369,11 @@ function getTrendCCR(param) {
                 series: [{
                     name: 'Target/Tagihan',
                     pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#003F88' :  '#003F88'),
                     marker: {
                         symbol: 'c-rect',
                         lineWidth:5,
-                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#003F88' :  '#003F88'),
                         radius: 50
                     },
                     type: 'scatter',
@@ -386,17 +386,17 @@ function getTrendCCR(param) {
                     name: 'Tidak Tercapai',
                     type: 'column',
                     pointWidth: 15,
-                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#dc2626' :  '#dc2626'),
                     stack: 1,
                     data: result.data.tdkcapai,
                     // dataLabels:{
                     //     x:50,
                     // }
                 }, {
-                    name: 'Pembayaran',
+                    name: 'CCR',
                     type: 'column',
                     pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#EEBE00'),
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#EEBE00' :  '#EEBE00'),
                     stack: 1,
                     data: result.data.bayar,
                     dataLabels:{
