@@ -17,6 +17,7 @@ var $filter_lokasi = "";
 var $month = "09";
 var $filter1_kode = "PRD";
 var $filter_kode_pp = "";
+var $filter_kode_bidang = "";
 // var $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
 var $bln_rev_rentang = "YTM";
 var $bln_singkat = bulanSingkat($tahun+''+$month);
@@ -139,6 +140,30 @@ $(window).click(function() {
 });
 
 // AJAX FUNCTION GET DATA
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-ccr-bidang') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var select = $('#kode_bidang').selectize();
+            select = select[0];
+            var control = select.selectize;
+            control.clearOptions();
+            control.addOption([{text:'Semua Bidang', value:''}]);
+            if(result.status){
+                if(typeof result.data !== 'undefined' && result.data.length>0){
+                    for(i=0;i<result.data.length;i++){
+                        control.addOption([{text:result.data[i].nama, value:result.data[i].kode_bidang}]);
+                    }
+                }
+            }
+            control.setValue('');
+        }
+    });
+})();
+
 function getDataBox(param) {
     $.ajax({
         type: 'GET',
@@ -312,36 +337,6 @@ function getTrendSaldo(param) {
 }
 
 var timeoutID = null;
-
-timeoutID = null;
-timeoutID = setTimeout(getDataBox.bind(undefined,{
-    "periode[0]": "=", 
-    "periode[1]": $month,
-    "tahun": $tahun,
-    "jenis": $filter1_kode
-}), 500);
-timeoutID = null;
-timeoutID = setTimeout(getTopCCR.bind(undefined,{
-    "periode[0]": "=", 
-    "periode[1]": $month,
-    "tahun": $tahun,
-    "jenis": $filter1_kode,
-    "sort": "asc"
-}), 500);
-timeoutID = null;
-timeoutID = setTimeout(getTrendCCR.bind(undefined,{
-    "periode[0]": "=", 
-    "periode[1]": $month,
-    "tahun": $tahun,
-    "jenis": $filter1_kode
-}), 500);
-timeoutID = null;
-timeoutID = setTimeout(getTrendSaldo.bind(undefined,{
-    "periode[0]": "=", 
-    "periode[1]": $month,
-    "tahun": $tahun,
-    "jenis": $filter1_kode
-}), 500);
 // END FUNCTION GET DATA
 
 </script>
@@ -407,7 +402,8 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "kode_pp": $filter_kode_pp
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
     });
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
     getTopCCR({
@@ -415,21 +411,24 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "sort":sort
+        "sort":sort,
+        "kode_bidang": $filter_kode_bidang
     });
     getTrendCCR({
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "kode_pp": $filter_kode_pp
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
     });
     getTrendSaldo({
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "kode_pp": $filter_kode_pp
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
     });
     showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
 })
@@ -445,6 +444,44 @@ $('.icon-menu').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
+
+$('#kode_bidang').change(function(){
+    $filter_kode_bidang = $(this).val();
+    $filter_kode_pp = "";
+    timeoutID = null;
+    timeoutID = setTimeout(getDataBox.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = setTimeout(getTopCCR.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "sort": "asc",
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = setTimeout(getTrendCCR.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = setTimeout(getTrendSaldo.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+});
 
 var colors = ['#EEBE00', '#830000'];
 
@@ -666,21 +703,24 @@ $('#table-top-ccr tbody').on('click', 'tr td', function() {
             "periode[1]": $month,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_pp": $filter_kode_pp
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
         getTrendCCR({
             "periode[0]": "=", 
             "periode[1]": $month,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_pp": $filter_kode_pp
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
         getTrendSaldo({
             "periode[0]": "=", 
             "periode[1]": $month,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_pp": $filter_kode_pp
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
     }, 200)
     $('#pp-title').text(pp)
@@ -698,6 +738,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
     });
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
     getTopCCR({
@@ -705,19 +746,22 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "sort":sort
+        "sort":sort,
+        "kode_bidang": $filter_kode_bidang
     });
     getTrendCCR({
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
     });
     getTrendSaldo({
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
-        "jenis": $filter1_kode
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
     });
     showNotification(`Menampilkan dashboard Telkom School`);
     
@@ -735,7 +779,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11">
-                    <h2 class="title-dash" id="title-dash">CCR <span id="pp-title">Telkom School</span></h2>
+                    <h2 class="title-dash" id="title-dash">CCR <span id="pp-title">Telkom School</span> <span id="bidang-title"></span></h2>
                 </div>
             </div>
         </div>
@@ -997,6 +1041,10 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                             </div>
                             <div class="col-7 text-right">
                                 <a id="sort-top" href='#' class="red-text sort-asc" style="font-size: 16px !important;"><i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Terendah</a>
+                            </div>
+                            <div class="col-12 my-2">
+                                <select name="kode_bidang" id="kode_bidang" class="form-control">
+                                </select>
                             </div>
                         </div>
                         <div class="table-responsive mt-2" id="div-top-ccr" style="height:calc(100vh - 180px);position:relative">
