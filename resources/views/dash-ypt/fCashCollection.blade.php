@@ -689,7 +689,7 @@ $('#table-top-ccr tbody').on('click', 'tr td', function() {
 
 $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_pp="";
+    $filter_kode_pp="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     $('#pp-title').text('Telkom School')
