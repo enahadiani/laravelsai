@@ -580,6 +580,7 @@ $('#kode_bidang').change(function(){
     var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "")
     $('#bidang-title').text(bidang);
     $('#pp-title').text('Telkom School');
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
     $filter_kode_pp = "";
     timeoutID = null;
     timeoutID = setTimeout(getDataBox.bind(undefined,{
@@ -595,7 +596,7 @@ $('#kode_bidang').change(function(){
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
-        "sort": "asc",
+        "sort": sort,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;
