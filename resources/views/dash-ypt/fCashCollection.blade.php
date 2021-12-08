@@ -250,7 +250,7 @@ function getTrendCCR(param) {
                 },
                 yAxis: {
                     title: {
-                        text: 'Nilai'
+                        text: 'Persentase'
                     },
                     labels: {
                         formatter: function () {
@@ -290,7 +290,7 @@ function getTrendSaldo(param) {
         success:function(result) {
             soakhirChart = Highcharts.chart('saldo-akhir', {
                 chart: {
-                    type: 'column',
+                    type: 'spline',
                     height: ($height - 200)/2
                 },
                 title: { text: '' },
@@ -317,7 +317,7 @@ function getTrendSaldo(param) {
                 },
                 tooltip: {
                     formatter: function () {   
-                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + toMilyar(this.y,2);
                     }
                 },
                 plotOptions: {
@@ -664,7 +664,8 @@ $('#sort-top').click(function(){
             "periode[1]": $month,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "sort":sort
+            "sort":sort,
+            "kode_bidang":$filter_kode_bidang
         });
         
     }else{
@@ -680,7 +681,8 @@ $('#sort-top').click(function(){
             "periode[1]": $month,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "sort":sort
+            "sort":sort,
+            "kode_bidang":$filter_kode_bidang
         });
     }
 });
@@ -1017,7 +1019,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     style="height:calc((100vh - 155px)/2)">
                         <div class="row header-div" id="card-soakhir">
                             <div class="col-9">
-                                <h4 class="header-card">Saldo Piutang</h4>
+                                <h4 class="header-card">Saldo Akhir Piutang</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>

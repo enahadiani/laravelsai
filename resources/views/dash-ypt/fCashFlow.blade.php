@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/cf.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 
-<script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
 var $filter_lokasi = "";
 var $tahun = parseInt($('#year-filter').text())
