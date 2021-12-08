@@ -286,6 +286,11 @@ $('.icon-menu').click(function(event) {
                         }
                     },
                 },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                    }
+                },
                 plotOptions: {
                     series: {
                         label: {
@@ -523,6 +528,16 @@ function getCFChart() {
                 yAxis: {
                     title: {
                         text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
                     }
                 },
                 plotOptions: {

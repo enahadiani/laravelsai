@@ -24,6 +24,8 @@ Route::get('data-fp-detail-or-5tahun', 'DashYpt\DashboardFPController@getDataOR5
 
 Route::get('data-ccr-box', 'DashYpt\DashboardCCRController@getDataBox');
 Route::get('data-ccr-top', 'DashYpt\DashboardCCRController@getTopCCR');
+Route::get('data-ccr-trend','DashYpt\DashboardCCRController@getTrendCCR');  
+Route::get('data-ccr-trend-saldo','DashYpt\DashboardCCRController@getTrendSaldoPiutang');  
 
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
 Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');

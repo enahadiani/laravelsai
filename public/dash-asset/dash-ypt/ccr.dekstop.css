@@ -7,7 +7,8 @@
 .header .glyph-icon.iconsminds-left.header::before {
     font-weight: 700;
 }
-.header .title-dash {
+.header .title-dash,
+.header .title-dash span {
     margin-bottom: 0;
     margin-top: 12px;
     font-size: 22px !important;
@@ -180,7 +181,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 
 /* MENU CHART CUSTOM */
 .menu-chart-custom {
-    heigh   t: 260px;
+    height: 260px;
     width: 200px;
     background-color: #ffffff;
     border: 1px solid rgb(153, 153, 153);
@@ -247,3 +248,33 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     color: #ffffff;
 }
 /* END FILTER BOX */
+
+/* .table.table-th-red thead tr th, */
+.table.table-th-red tbody tr td {
+    padding: 10px 8px;
+}
+#table-top-ccr.table tbody tr {
+    cursor: pointer;
+}
+#table-top-ccr.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+#table-top-ccr.table tbody tr td:first-child {
+    cursor: pointer;
+}
+.table tbody tr td .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.table tbody tr td .check-row::before {
+    background-color: #830000;
+    color: #ffffff;
+    border-radius: 50%;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-py-0 tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 11px;
+}

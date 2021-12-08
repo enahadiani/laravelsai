@@ -16,9 +16,12 @@ var $filter2 = getNamaBulan("09");
 var $filter_lokasi = "";
 var $month = "09";
 var $filter1_kode = "PRD";
+var $filter_kode_pp = "";
 // var $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
 var $bln_rev_rentang = "YTM";
 var $bln_singkat = bulanSingkat($tahun+''+$month);
+var trendChart = null;
+var soakhirChart = null;
 
 // CONFIG FUNCTION
 function showNotification(message) {
@@ -103,16 +106,20 @@ $(window).on('resize', function(){
     var win = $(this); //this = window
     var height = win.height();
     heighChart = (height - 200)/2;
-    soakhirChart.update({
-        chart: {
-            height: heighChart,
-        }
-    })
-    trendChart.update({
-        chart: {
-            height: heighChart,
-        }
-    })
+    if(soakhirChart != null){
+        soakhirChart.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+    }
+    if(trendChart != null){
+        trendChart.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+    }
 });
 
 $(window).click(function() {
@@ -131,7 +138,7 @@ $(window).click(function() {
     $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
 });
 
-// RUN IF RENDER FIRST TIME
+// AJAX FUNCTION GET DATA
 function getDataBox(param) {
     $.ajax({
         type: 'GET',
@@ -170,14 +177,136 @@ function getTopCCR(param) {
             if(result.data.length > 0){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
+                    if(line.kode_pp == $filter_kode_pp){
+                        var select = 'class="selected-row"';
+                        var display = 'unset';
+                    }else{
+                        var select = "";
+                        var display = 'none';
+                    }
                     html+=`
-                    <tr>
-                        <td>${line.nama}</td>
+                    <tr ${select}>
+                        <td><p class="kode hidden">${line.kode_pp}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
+                            <span class="nama-pp">${line.nama}</span></td>
                         <td class='text-right'>${number_format(line.ccr_berjalan,2)}%</td>
                     </tr>`;
                 }
             }
             $('#table-top-ccr tbody').html(html);
+        }
+    });
+}
+
+function getTrendCCR(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-ccr-trend') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            trendChart = Highcharts.chart('trend-ccr', {
+                chart: {
+                    type: 'spline',
+                    height: ($height - 200)/2
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: false 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: result.data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        }
+                    }
+                },
+                series: result.data.series
+            });
+        }
+    });
+}
+
+
+function getTrendSaldo(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-ccr-trend-saldo') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            soakhirChart = Highcharts.chart('saldo-akhir', {
+                chart: {
+                    type: 'column',
+                    height: ($height - 200)/2
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: false 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: result.data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        marker:{
+                            enabled:false
+                        }
+                    }
+                },
+                series: result.data.series
+            });
         }
     });
 }
@@ -199,7 +328,21 @@ timeoutID = setTimeout(getTopCCR.bind(undefined,{
     "jenis": $filter1_kode,
     "sort": "asc"
 }), 500);
-// END RUN IF RENDER FIRST TIME
+timeoutID = null;
+timeoutID = setTimeout(getTrendCCR.bind(undefined,{
+    "periode[0]": "=", 
+    "periode[1]": $month,
+    "tahun": $tahun,
+    "jenis": $filter1_kode
+}), 500);
+timeoutID = null;
+timeoutID = setTimeout(getTrendSaldo.bind(undefined,{
+    "periode[0]": "=", 
+    "periode[1]": $month,
+    "tahun": $tahun,
+    "jenis": $filter1_kode
+}), 500);
+// END FUNCTION GET DATA
 
 </script>
 
@@ -259,22 +402,12 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#judul-ccr-now1').text(`CCR ${$tahun}`)
     // $('#judul-ccr-now2').text(`${$bln_rev_rentang}`)
     $('#judul-ccr-month').text(`CCR ${$bln_singkat}`)
-    var lokasi = ""; var i=0;
-    $("input[name='kode_lokasi[]']:checked").each(function(){
-        console.log($(this).val());
-        if(i == 0){
-            lokasi+=$(this).val();
-        }else{
-            lokasi+=","+$(this).val();
-        }
-        i++;
-    });
-    $filter_lokasi = lokasi;
     getDataBox({
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
-        "jenis": $filter1_kode
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp
     });
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
     getTopCCR({
@@ -283,6 +416,20 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "sort":sort
+    });
+    getTrendCCR({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp
+    });
+    getTrendSaldo({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp
     });
     showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
 })
@@ -300,44 +447,6 @@ $('.icon-menu').click(function(event) {
 })
 
 var colors = ['#EEBE00', '#830000'];
-var soakhirChart = Highcharts.chart('saldo-akhir', {
-    chart: {
-        type: 'column',
-        height: ($height - 200)/2
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{  enabled: false },
-    credits: { enabled: false },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'],
-        labels: {
-            style: {
-                fontSize: '8px'
-            }
-        }
-    },
-    yAxis: {
-         title: {
-            text: 'Nilai'
-        }
-    },
-    plotOptions: {
-        column: {
-            grouping: false,
-        }
-    },
-    series: [
-        {
-            name: 'Nilai',
-            data: [4, 3, 7, 6, 5, 5, 6, 10, 9, 5, 3, 2],
-            color: '#830000',
-        },
-    ],
-});
 
 $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
@@ -418,46 +527,6 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
-var trendChart = Highcharts.chart('trend-ccr', {
-    chart: {
-        type: 'spline',
-        height: ($height - 200)/2
-    },
-    title: { text: '' },
-    subtitle: { text: '' },
-    exporting:{ 
-        enabled: false
-    },
-    legend:{ 
-        enabled: false 
-    },
-    credits: { enabled: false },
-    xAxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des']
-    },
-    yAxis: {
-         title: {
-            text: ''
-        }
-    },
-    plotOptions: {
-        series: {
-            label: {
-                connectorAllowed: false
-            },
-            marker:{
-                enabled:false
-            }
-        }
-    },
-    series: [
-        {
-            name: 'Tren',
-            data: [20, 18, 16, 14, 12, 10, 25, 23, 21, 18, 16, 14],
-            color: '#EEBE00'
-        },
-    ],
-});
 
 $('#export-trend.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
@@ -572,6 +641,88 @@ $('#sort-top').click(function(){
         });
     }
 });
+
+// TABLE TOP EVET
+$('#table-top-ccr tbody').on('click', 'tr td', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var icon = $(this).closest('tr').find('td:first').find('.check-row')
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
+    var check = $(tr).attr('class')
+    var pp = $(this).closest('tr').find('td:first').find('.nama-pp').text()
+    $filter_kode_pp = $(this).closest('tr').find('td:first').find('.kode').text()
+    if(check == 'selected-row') {
+        return;
+    }
+
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    $(tr).addClass('selected-row')
+    $(icon).show()
+    setTimeout(function() {
+        getDataBox({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp
+        });
+        getTrendCCR({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp
+        });
+        getTrendSaldo({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp
+        });
+    }, 200)
+    $('#pp-title').text(pp)
+    showNotification(`Menampilkan dashboard ${pp}`);
+})
+
+$('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    $filter_pp="";
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+    $('#pp-title').text('Telkom School')
+    getDataBox({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+    });
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
+    getTopCCR({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "sort":sort
+    });
+    getTrendCCR({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+    });
+    getTrendSaldo({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode
+    });
+    showNotification(`Menampilkan dashboard Telkom School`);
+    
+})
+// END TABLE TOP EVENT
 </script>
 {{-- DEKSTOP --}}
 
@@ -584,7 +735,7 @@ $('#sort-top').click(function(){
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11">
-                    <h2 class="title-dash" id="title-dash">CCR YPT</h2>
+                    <h2 class="title-dash" id="title-dash">CCR <span id="pp-title">Telkom School</span></h2>
                 </div>
             </div>
         </div>
