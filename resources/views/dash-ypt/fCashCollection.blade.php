@@ -307,7 +307,8 @@ function getTrendCCR(param) {
                 yAxis: {
                     title:'',
                     min: 0,
-                    max: 101,
+                    tickInterval: 10,
+                    max: 110
                 },
                 tooltip: {
                     formatter: function () {   
@@ -708,7 +709,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     if(jenis == 'View in full screen') {
         trendChart.update({
             title: {
-                text: `Trend CCR`,
+                text: `CCR YTD`,
                 floating: true,
                 x: 40,
                 y: 20
@@ -723,7 +724,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `Trend CCR`,
+                text: `CCR YTD`,
             },
             subtitle: {
                 text: ''
@@ -735,7 +736,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Trend CCR`,
+                text: `CCR YTD`,
             },
             subtitle: {
                 text: ''
@@ -747,7 +748,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Trend CCR`,
+                text: `CCR YTD`,
             },
             subtitle: {
                 text: ''
@@ -759,7 +760,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Trend CCR`,
+                text: `CCR YTD`,
             },
             subtitle: {
                 text: ''
@@ -1120,7 +1121,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     style="height:calc((100vh - 155px)/2)">
                         <div class="row header-div" id="card-trend">
                             <div class="col-9">
-                                <h4 class="header-card">Trend CCR</h4>
+                                <h4 class="header-card">CCR YTD</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
