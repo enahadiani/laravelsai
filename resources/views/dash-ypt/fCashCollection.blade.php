@@ -306,7 +306,8 @@ function getTrendCCR(param) {
                 },
                 yAxis: {
                     title:'',
-                    min: 0
+                    min: 0,
+                    max: 101,
                 },
                 tooltip: {
                     formatter: function () {   
