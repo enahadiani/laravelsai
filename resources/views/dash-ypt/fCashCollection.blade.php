@@ -231,7 +231,7 @@ function getTrendCCR(param) {
         dataType: 'json',
         async: true,
         success:function(result) {
-            trendChart = Highcharts.chart('trend-ccr', {
+            /* trendChart = Highcharts.chart('trend-ccr', {
                 chart: {
                     type: 'spline',
                     height: ($height - 200)/2
@@ -274,6 +274,144 @@ function getTrendCCR(param) {
                     }
                 },
                 series: result.data.series
+            });
+            /*/
+            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
+                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
+                };
+                
+            trendChart = Highcharts.chart('trend-ccr', {
+                chart: {
+                    type: 'column',
+                    height: ($height - 200)/2
+                },
+                credits:{
+                    enabled:false
+                },
+                exporting:{
+                    enabled:false
+                },
+                title: {
+                    text: ''
+                },
+                xAxis: {
+                    categories: result.data.kategori,
+                    // labels: {
+                    //     useHTML:true,
+                    //     formatter: function() {
+                    //         var tmp = this.value.split("|");
+                    //         return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
+                    //     },
+                    // }
+                },
+                yAxis: {
+                        title:'',
+                    min: 0
+                },
+                tooltip: {
+                    formatter: function () {   
+                        var tmp = this.x.split("|");   
+                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        borderWidth: 0,
+                        pointWidth: 50,
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(number_format(this.point.y,2)+'%')[0].outerHTML;
+                                }
+                                // if(this.name)
+                            }
+                        }
+                    },
+                    scatter: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
+                                if(this.y < 0.1){
+                                    return '';
+                                }else{
+                                    return $('<div/>').css({
+                                        'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '10px',
+                                        'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(number_format(this.point.y,2)+'%')[0].outerHTML;
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Melampaui',
+                    pointWidth: 15,
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#28DA66' :  '#16ff14'),
+                    type: 'column',
+                    stack: 1,
+                    data: result.data.melampaui,
+                    dataLabels:{
+                        y:-20
+                    }
+                },{
+                    name: 'Target/Tagihan',
+                    pointWidth: 15,
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                    marker: {
+                        symbol: 'c-rect',
+                        lineWidth:5,
+                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#2200FF' :  '#003F88'),
+                        radius: 50
+                    },
+                    type: 'scatter',
+                    stack: 2,
+                    data: result.data.tagihan,
+                    dataLabels:{
+                        x:0
+                    }
+                }, {
+                    name: 'Tidak Tercapai',
+                    type: 'column',
+                    pointWidth: 15,
+                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#ED4346' :  '#900604'),
+                    stack: 1,
+                    data: result.data.tdkcapai,
+                    // dataLabels:{
+                    //     x:50,
+                    // }
+                }, {
+                    name: 'Pembayaran',
+                    type: 'column',
+                    pointWidth: 15,
+                    color: (localStorage.getItem("dore-theme") == "dark" ? '#434343' :  '#CED4DA'),
+                    stack: 1,
+                    data: result.data.bayar,
+                    dataLabels:{
+                        y:0
+                    }
+                }]
             });
         }
     });
