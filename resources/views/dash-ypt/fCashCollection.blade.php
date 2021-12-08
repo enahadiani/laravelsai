@@ -991,11 +991,11 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
                     <div class="card card-dash border-r-0" id="dash-top" style="height:calc(100vh - 150px);">
-                        <div class="row header-div" id="card-top">
-                            <div class="col-6">
+                        <div class="row header-div px-1" id="card-top">
+                            <div class="col-5">
                                 <h4 class="header-card">Top CCR</h4>
                             </div>
-                            <div class="col-6 text-center">
+                            <div class="col-7 text-right">
                                 <a id="sort-top" href='#' class="red-text sort-asc" style="font-size: 16px !important;"><i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Terendah</a>
                             </div>
                         </div>
