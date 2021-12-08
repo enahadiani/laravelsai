@@ -269,9 +269,9 @@ function toNilai(str_num){
 }
 
 function removeFormat(str_num){
-    var number = str_num.toString().replace('.', '');
+    var number = str_num.split('.');
+    number = parts.join('');
     number = number.replace(',', '.');
-    console.log(+number);
     return +number;
 }
 
