@@ -270,7 +270,7 @@ function toNilai(str_num){
 
 function removeFormat(str_num){
     var number = str_num.split('.');
-    number = parts.join('');
+    number = number.join('');
     number = number.replace(',', '.');
     return +number;
 }
