@@ -447,6 +447,9 @@ $('.icon-menu').click(function(event) {
 
 $('#kode_bidang').change(function(){
     $filter_kode_bidang = $(this).val();
+    var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "")
+    $('#bidang-title').text(bidang);
+    $('#pp-title').text('Telkom School');
     $filter_kode_pp = "";
     timeoutID = null;
     timeoutID = setTimeout(getDataBox.bind(undefined,{
@@ -481,6 +484,9 @@ $('#kode_bidang').change(function(){
         "jenis": $filter1_kode,
         "kode_bidang": $filter_kode_bidang
     }), 500);
+    if(bidang != ""){
+        showNotification(`Menampilkan dashboard `+bidang);
+    }
 });
 
 var colors = ['#EEBE00', '#830000'];
@@ -724,15 +730,18 @@ $('#table-top-ccr tbody').on('click', 'tr td', function() {
         });
     }, 200)
     $('#pp-title').text(pp)
+    $('#bidang-title').text('')
     showNotification(`Menampilkan dashboard ${pp}`);
 })
 
 $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
     $filter_kode_pp="";
+    var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "");
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     $('#pp-title').text('Telkom School')
+    $('#bidang-title').text(bidang)
     getDataBox({
         "periode[0]": "=", 
         "periode[1]": $month,
