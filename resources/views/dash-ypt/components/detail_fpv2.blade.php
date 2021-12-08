@@ -83,11 +83,28 @@ function updateChartDetail(kode_grafik = null) {
                 },
                 plotOptions: {
                     series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '9px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                            }
+                        },
                         label: {
-                            connectorAllowed: false
+                            connectorAllowed: true
                         },
                         marker:{
-                            enabled:false
+                            enabled: true
                         },
                         pointStart: parseInt(data.kategori[0])
                     }
@@ -439,11 +456,28 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     plotOptions: {
                         series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return toMilyar(this.y,2);
+                                    return $('<div/>').css({
+                                            // 'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '9px',
+                                            // 'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                                }
+                            },
                             label: {
-                                connectorAllowed: false
+                                connectorAllowed: true
                             },
                             marker:{
-                                enabled:false
+                                enabled: true
                             },
                             pointStart: parseInt(data.kategori[0])
                         }
@@ -499,11 +533,28 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     plotOptions: {
                         series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return toMilyar(this.y,2);
+                                    return $('<div/>').css({
+                                            // 'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '9px',
+                                            // 'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(number_format(this.point.y,1)+'%')[0].outerHTML;
+                                }
+                            },
                             label: {
-                                connectorAllowed: false
+                                connectorAllowed: true
                             },
                             marker:{
-                                enabled:false
+                                enabled: true
                             },
                             pointStart: parseInt(data.kategori[0])
                         }
@@ -609,7 +660,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     if(jenis == 'View in full screen') {
         performChart.update({
             title: {
-                text: 'Performansi Lembaga',
+                text: ' % Pencapaian Anggaran Lembaga',
                 floating: true,
                 x: 40,
                 y: 20
@@ -624,7 +675,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -636,7 +687,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -648,7 +699,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -660,7 +711,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -690,7 +741,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     if(jenis == 'View in full screen') {
         lembagaChart.update({
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
                 floating: true,
                 x: 40,
                 y: 90
@@ -705,7 +756,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -717,7 +768,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -729,7 +780,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -741,7 +792,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -1030,6 +1081,12 @@ document.addEventListener('fullscreenchange', (event) => {
         }
     })
 
+    trendChart.update({
+        title: {
+            text: ''
+        }
+    })
+
     // akunChart.update({
     //     title: {
     //         text: ''
@@ -1047,7 +1104,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
-                        <h4 class="header-card">Performansi Lembaga</h4>
+                        <h4 class="header-card"> % Pencapaian Anggaran Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
@@ -1072,7 +1129,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash  border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
-                        <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
+                        <h4 class="header-card">Kontribusi <span class="title-chart"></span> Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>

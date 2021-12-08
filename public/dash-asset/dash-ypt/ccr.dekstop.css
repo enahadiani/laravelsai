@@ -12,6 +12,7 @@
     margin-bottom: 0;
     margin-top: 12px;
     font-size: 22px !important;
+    font-weight: bold;
 }
 .header .message-div .icon-message {
     float: right;
@@ -66,10 +67,12 @@
 .card.card-dash .header-card {
     font-size: 16px !important;
     margin-bottom: 0;
+    font-weight: bold;
 }
 .card.card-dash .header-card span {
     font-size: 16px !important;
     margin-bottom: 0;
+    font-weight: bold;
 }
 .card.card-dash .main-nominal {
     margin-top: 12px;

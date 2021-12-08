@@ -293,11 +293,28 @@ $('.icon-menu').click(function(event) {
                 },
                 plotOptions: {
                     series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '9px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                            }
+                        },
                         label: {
-                            connectorAllowed: false
+                            connectorAllowed: true
                         },
                         marker:{
-                            enabled:false
+                            enabled: true
                         },
                     }
                 },
