@@ -81,18 +81,17 @@ function drawRptPage(data,res,from,to){
                     no++;
                 }
             }
+            html += "<tr>";
+            html += "<td colspan='5' style='text-align: right; font-weight: bold;'>Total</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(diskon)+"</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(jumlah)+"</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(bonus)+"</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(total)+"</td>"
+            html += "</tr>";
             html += "</tbody>";
             html += "</table>";
             html += "</div>";
             html += "</div>"
-            html += "<div class='col-md-12'>";
-            html += "<div class='pull-right m-t-30 text-right'>";
-            html += "<p>Sub - Total amount: "+sepNum(subTot)+"</p>";
-            html += "<p>Discount: "+sepNum(diskon)+"</p>";
-            html += "<hr/>";
-            html += "<h3><b>Total: </b>"+sepNum(total)+"</h3>"
-            html += "</div>";
-            html += "</div>";
             html += "</div>";
             html += "</div>";
             html += `<div class="display" id="break_page"  style='display: block; page-break-after: always;'></div>`;
