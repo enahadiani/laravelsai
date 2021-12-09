@@ -35,6 +35,30 @@ $(window).on('resize', function(){
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
+    if($full == '2'){
+        console.log('this fullscreen mode');
+        var height = screen.height;
+        console.log(height);
+        heighChart = height;
+        if(trendChart != null){
+            trendChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }else{
+        
+        console.log('this browser mode');
+        heighChart = 400;
+        if(trendChart != null){
+            trendChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }
 });
 
 $(window).click(function() {
@@ -54,6 +78,7 @@ document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
   } else {
+    $full = '0';
     trendChart.update({
         title: {
             text: ''
@@ -584,6 +609,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         trendChart.update({
             title: {
                 text: `Trend Cash Flow`,

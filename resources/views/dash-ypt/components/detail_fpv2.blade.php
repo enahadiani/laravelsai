@@ -658,6 +658,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         performChart.update({
             title: {
                 text: ' % Pencapaian Anggaran Lembaga',
@@ -739,6 +740,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         lembagaChart.update({
             title: {
                 text: `Kontribusi ${$judulChart} Lembaga`,
@@ -820,6 +822,7 @@ $('#export-yoy.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         yoyChart.update({
             title: {
                 text: `Kelompok ${$judulChart} YoY`,
@@ -901,6 +904,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         trendChart.update({
             title: {
                 text: `Trend OR 5 Tahun`,
@@ -982,6 +986,7 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         akunChart.update({
             title: {
                 text: `${$judulChart} Per Akun`,
@@ -1063,6 +1068,7 @@ document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
   } else {
+      $full = '0';
     performChart.update({
         title: {
             text: ''

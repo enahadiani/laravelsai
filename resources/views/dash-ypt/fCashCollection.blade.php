@@ -104,22 +104,46 @@ $(window).on('resize', function(){
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
-    var win = $(this); //this = window
-    var height = win.height();
-    heighChart = (height - 200)/2;
-    if(soakhirChart != null){
-        soakhirChart.update({
-            chart: {
-                height: heighChart,
-            }
-        })
-    }
-    if(trendChart != null){
-        trendChart.update({
-            chart: {
-                height: heighChart,
-            }
-        })
+    if($full == '2'){
+        console.log('this fullscreen mode');
+        var height = screen.height;
+        console.log(height);
+        heighChart = height;
+        if(soakhirChart != null){
+            soakhirChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        if(trendChart != null){
+            trendChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }else{
+        
+        console.log('this browser mode');
+        var win = $(this); //this = window
+        var height = win.height();
+        console.log(height);
+        heighChart = (height - 200)/2;
+        if(soakhirChart != null){
+            soakhirChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        if(trendChart != null){
+            trendChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
     }
 });
 
@@ -491,8 +515,9 @@ var timeoutID = null;
 <script type="text/javascript">
 document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
-    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);    
   } else {
+      $full = '0';
     trendChart.update({
         title: {
             text: ''
@@ -645,6 +670,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         soakhirChart.update({
             title: {
                 text: `Saldo Akhir Piutang`,
@@ -725,6 +751,8 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        
+        $full = '2';
         trendChart.update({
             title: {
                 text: `CCR YTD`,
