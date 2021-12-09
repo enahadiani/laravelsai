@@ -98,47 +98,46 @@ $(window).on('resize', function(){
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
-    // if($full == '2'){
-    //     console.log('this fullscreen mode');
-    //     var height = screen.height;
-    //     console.log(height);
-    //     heighChart = height;
-    //     if(soakhirChart != null){
-    //         soakhirChart.update({
-    //             chart: {
-    //                 height: heighChart,
-    //             }
-    //         })
-    //     }
-    //     if(aggAsetChart != null){
-    //         aggAsetChart.update({
-    //             chart: {
-    //                 height: heighChart,
-    //             }
-    //         })
-    //     }
-    // }else{
+    if($full == '2'){
+        console.log('this fullscreen mode');
+        var height = screen.height;
+        heighChart = height;
+        if(nilaiAsetChart != null){
+            nilaiAsetChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        if(aggAsetChart != null){
+            aggAsetChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }else{
         
-    //     console.log('this browser mode');
-    //     var win = $(this); //this = window
-    //     var height = win.height();
-    //     console.log(height);
-    //     heighChart = (height - 200)/2;
-    //     if(soakhirChart != null){
-    //         soakhirChart.update({
-    //             chart: {
-    //                 height: heighChart,
-    //             }
-    //         })
-    //     }
-    //     if(aggAsetChart != null){
-    //         aggAsetChart.update({
-    //             chart: {
-    //                 height: heighChart,
-    //             }
-    //         })
-    //     }
-    // }
+        console.log('this browser mode');
+        var win = $(this); //this = window
+        var height = win.height();
+        heighChart = (height - 320);
+        if(nilaiAsetChart != null){
+            nilaiAsetChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        heighChart = (height - 430);
+        if(aggAsetChart != null){
+            aggAsetChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }
 });
 
 $(window).click(function() {
@@ -230,7 +229,7 @@ function getNilaiAset(param) {
             nilaiAsetChart = Highcharts.chart('nilai-aset', {
                 chart: {
                     type: 'spline',
-                    height: ($height - 200)
+                    height: ($height - 320)
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -306,7 +305,7 @@ function getAggLembaga(param) {
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    height: 275,
+                    height: ($height - 430),
                     width: 350
                 },
                 title: { text: '' },
