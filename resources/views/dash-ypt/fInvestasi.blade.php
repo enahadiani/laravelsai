@@ -1,5 +1,10 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/ccr.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
+<style>
+    html,body{
+        overflow: hidden !important;
+    }
+</style>
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
@@ -65,10 +70,10 @@ function showNotification(message) {
     );
 }
 // END CONFIG FUNCTION
-// var scrollfilter = document.querySelector('#div-top-ccr');
-// var psscrollfilter = new PerfectScrollbar(scrollfilter,{
-//     suppressScrollX :true
-// });
+var scrollfilter = document.querySelector('#div-serap-agg');
+var psscrollfilter = new PerfectScrollbar(scrollfilter,{
+    suppressScrollX :true
+});
 
 $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
 
@@ -200,12 +205,12 @@ function getSerapAgg(param) {
                     // }
                     html+=`
                     <tr ${select}>
-                        <td class='text-center'><p class="kode hidden">${line.kode_aset}</p>
+                        <td ><p class="kode hidden">${line.kode_aset}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-pp">${line.nama_aset}</span></td>
-                        <td class='text-center'>${toMilyar(line.rka,1)}</td>
-                        <td class='text-center'>${toMilyar(line.real,1)}</td>
-                        <td class='text-center'>${number_format(line.ach,1)}%</td>
+                        <td class='text-right'>${toMilyar(line.rka,1)}</td>
+                        <td class='text-right'>${toMilyar(line.real,1)}</td>
+                        <td class='text-right'>${number_format(line.ach,1)}%</td>
                     </tr>`;
                 }
             }
@@ -866,7 +871,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-6 col-grid">
             <div class="row mb-1">
                 <div class="col-6 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
+                    <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">Realisasi YTD</h4>
@@ -894,7 +899,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                     </div>
                 </div>
                 <div class="col-6 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
+                    <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">Realisasi RKA Tahun</h4>
@@ -925,7 +930,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
             <div class="row">
                 <div class="col-12 pl-12 pr-0">
                     <div class="card card-dash border-r-0" id="dash-nilai-aset" 
-                    style="height:calc((100vh - 150px))">
+                    style="height:calc(100vh - 300px)">
                         <div class="row header-div" id="card-nilai-aset">
                             <div class="col-9">
                                 <h4 class="header-card">Nilai Aset Lembaga 5 Tahun</h4>
@@ -954,7 +959,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
+                    <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
                             <div class="col-7">
                                 <h4 class="header-card" id="judul-ccr-now1">Pertumbuhan YoY</h4>
@@ -988,7 +993,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
             <div class="row">
                 <div class="col-12 pl-1 pr-0">
                     <div class="card card-dash border-r-0" id="dash-agg-aset" 
-                    style="height:calc((100vh - 150px))">
+                    style="height:calc(100vh - 300px)">
                         <div class="row header-div" id="card-agg-aset">
                             <div class="col-9">
                                 <h4 class="header-card">Anggaran Tahun Lembaga</h4>
@@ -1018,7 +1023,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-serap" style="height:calc((100vh - 145px) + (100vh - 180px)/3);">
+                    <div class="card card-dash border-r-0" id="dash-serap" style="height:calc(100vh - 147px);">
                         <div class="row header-div px-1" id="card-serap">
                             <div class="col-12">
                                 <h4 class="header-card">Penyerapan Anggaran Aset</h4>
@@ -1041,10 +1046,10 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                             <table class="table table-borderless" id="table-serap-agg" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th class="text-center">Aset</th>
-                                        <th class="text-center">RKA</th>
-                                        <th class="text-center">Real</th>
-                                        <th class="text-center">Ach</th>
+                                        <th class="text-center" style="width:45%">Aset</th>
+                                        <th class="text-center" style="width:20%">RKA</th>
+                                        <th class="text-center" style="width:20%">Real</th>
+                                        <th class="text-center" style="width:15%">Ach</th>
                                     </tr>
                                 </thead>
                                 <tbody>
