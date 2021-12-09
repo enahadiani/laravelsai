@@ -2,7 +2,7 @@
 var performChart = null;
 var lembagaChart = null;
 var yoyChart = null;
-var trendChart = null;
+var trendChartFP = null;
 var akunChart = null;
 
 // UPDATE CHART DETAIL
@@ -508,7 +508,7 @@ function createChartKelompok(kode_grafik = null) {
             async: true,
             success:function(result) {
                 var data = result.data;
-                trendChart = Highcharts.chart('trend-chart', {
+                trendChartFP = Highcharts.chart('trend-chart', {
                     title: { text: '' },
                     subtitle: { text: '' },
                     exporting:{ 
@@ -905,7 +905,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     
     if(jenis == 'View in full screen') {
         $full = '2';
-        trendChart.update({
+        trendChartFP.update({
             title: {
                 text: `Trend OR 5 Tahun`,
                 floating: true,
@@ -913,11 +913,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                 y: 20
             }
         })
-        trendChart.fullscreen.toggle();
+        trendChartFP.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        trendChart.print()
+        trendChartFP.print()
     } else if(jenis == 'Download PNG image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
@@ -929,7 +929,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
@@ -941,7 +941,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download PDF document') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
@@ -953,7 +953,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
@@ -966,7 +966,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        trendChart.viewData()
+        trendChartFP.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
@@ -1087,7 +1087,7 @@ document.addEventListener('fullscreenchange', (event) => {
         }
     })
 
-    trendChart.update({
+    trendChartFP.update({
         title: {
             text: ''
         }
