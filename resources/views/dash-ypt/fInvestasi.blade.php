@@ -163,6 +163,17 @@ function getDataBox(param) {
         async: true,
         success:function(result) {
             var data = result.data;
+            $('#persen_ytd').text(number_format(data[0].persen_ytd,1)+'%');
+            $('#rka_ytd').text(toMilyar(data[0].rka_ytd,1));
+            $('#real_ytd').text(toMilyar(data[0].real_ytd,1));
+
+            $('#persen_tahun').text(number_format(data[0].persen_tahun,1)+'%');
+            $('#rka_tahun').text(toMilyar(data[0].rka_tahun,1));
+            $('#real_tahun').text(toMilyar(data[0].real_tahun,1));
+
+            $('#persen_ach').text(number_format(data[0].persen_ach,1)+'%');
+            $('#ach_now').text(toMilyar(data[0].ach_now,1));
+            $('#ach_lalu').text(toMilyar(data[0].ach_lalu,1));
         }
     });
 }
@@ -180,19 +191,21 @@ function getSerapAgg(param) {
             if(result.data.length > 0){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
-                    if(line.kode_pp == $filter_kode_pp){
-                        var select = 'class="selected-row"';
-                        var display = 'unset';
-                    }else{
+                    // if(line.kode_pp == $filter_kode_pp){
+                    //     var select = 'class="selected-row"';
+                    //     var display = 'unset';
+                    // }else{
                         var select = "";
                         var display = 'none';
-                    }
+                    // }
                     html+=`
                     <tr ${select}>
-                        <td><p class="kode hidden">${line.kode_pp}</p>
+                        <td class='text-center'><p class="kode hidden">${line.kode_aset}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
-                            <span class="nama-pp">${line.nama}</span></td>
-                        <td class='text-right'>${number_format(line.ccr_berjalan,2)}%</td>
+                            <span class="nama-pp">${line.nama_aset}</span></td>
+                        <td class='text-center'>${toMilyar(line.rka,1)}</td>
+                        <td class='text-center'>${toMilyar(line.real,1)}</td>
+                        <td class='text-center'>${number_format(line.ach,1)}%</td>
                     </tr>`;
                 }
             }
@@ -330,9 +343,9 @@ function getAggLembaga(param) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">-${number_format(y,2)}%</span>`;
+                                    html = `<b>${this.point.name}</b>`;
                                 } else {
-                                    html = `<span style="color: #000000;">${number_format(y,2)}%</span>`;
+                                    html = `<b>${this.point.name}</b>`;
                                 }
                                 return html;
                             }
@@ -388,6 +401,13 @@ function getAggLembaga(param) {
 
 var timeoutID = null;
 // END FUNCTION GET DATA
+
+getDataBox({
+  'periode[0]': '=',
+  'periode[1]': $month,
+  'tahun': $tahun,
+  'jenis': $filter1_kode
+});
 getNilaiAset({
   'periode[0]': '=',
   'periode[1]': $month,
@@ -395,6 +415,12 @@ getNilaiAset({
   'jenis': $filter1_kode
 });
 getAggLembaga({
+  'periode[0]': '=',
+  'periode[1]': $month,
+  'tahun': $tahun,
+  'jenis': $filter1_kode
+});
+getSerapAgg({
   'periode[0]': '=',
   'periode[1]': $month,
   'tahun': $tahun,
@@ -848,18 +874,18 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="ccr-all" class="main-nominal">0%</p>
+                                <p id="persen_ytd" class="main-nominal">0%</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-all">
+                                <table class="table table-borderless table-py-2" id="table-inves-ytd">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0">RKA</td>
-                                            <td class="text-bold text-right" id="ccr-all-ar">0 M</td>
+                                            <td class="text-bold text-right" id="rka_ytd">0 M</td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0">Realisasi</td>
-                                            <td class="text-bold text-right" id="ccr-all-inflow">0 M</td>
+                                            <td class="text-bold text-right" id="real_ytd">0 M</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -876,18 +902,18 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="ccr-prev" class="main-nominal">0%</p>
+                                <p id="persen_tahun" class="main-nominal">0%</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-prev">
+                                <table class="table table-borderless table-py-2" id="table-inves-tahun">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0">RKA</td>
-                                            <td class="text-bold text-right" id="ccr-prev-ar">0 M</td>
+                                            <td class="text-bold text-right" id="rka_tahun">0 M</td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0">Realisasi</td> 
-                                            <td class="text-bold text-right" id="ccr-prev-inflow">0 M</td>
+                                            <td class="text-bold text-right" id="real_tahun">0 M</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -939,18 +965,18 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="ccr-now" class="main-nominal">0%</p>
+                                <p id="persen_ach" class="main-nominal">0%</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-now">
+                                <table class="table table-borderless table-py-2" id="table-inves-ach">
                                     <tbody>
                                         <tr>
                                             <td class="pl-0">Real. 2021</td>
-                                            <td class="text-bold text-right" id="ccr-now-ar">0 M</td>
+                                            <td class="text-bold text-right" id="ach_now">0 M</td>
                                         </tr>
                                         <tr>
                                             <td class="pl-0">Real. 2020</td>
-                                            <td class="text-bold text-right" id="ccr-now-inflow">0 M</td>
+                                            <td class="text-bold text-right" id="ach_lalu">0 M</td>
                                         </tr>
                                     </tbody>
                                 </table>
