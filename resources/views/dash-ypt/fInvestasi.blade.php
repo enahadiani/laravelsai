@@ -1,10 +1,5 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/ccr.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
-<style>
-    body{
-        overflow: hidden !important;
-    }
-</style>
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
@@ -214,10 +209,10 @@ function getNilaiAset(param) {
         dataType: 'json',
         async: true,
         success:function(result) {
-            /* aggAsetChart = Highcharts.chart('trend-ccr', {
+            nilaiAsetChart = Highcharts.chart('nilai-aset', {
                 chart: {
                     type: 'spline',
-                    height: ($height - 200)/2
+                    height: ($height - 200)
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -225,193 +220,7 @@ function getNilaiAset(param) {
                     enabled: false
                 },
                 legend:{ 
-                    enabled: false 
-                },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: result.data.kategori
-                },
-                yAxis: {
-                    title: {
-                        text: 'Persentase'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                tooltip: {
-                    formatter: function () {   
-                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        label: {
-                            connectorAllowed: false
-                        },
-                        marker:{
-                            enabled:false
-                        }
-                    }
-                },
-                series: result.data.series
-            });
-            /*/
-            Highcharts.SVGRenderer.prototype.symbols['c-rect'] = function (x, y, w, h) {
-                    return ['M', x, y + h / 2, 'L', x + w, y + h / 2];
-                };
-                
-            aggAsetChart = Highcharts.chart('trend-ccr', {
-                chart: {
-                    type: 'column',
-                    height: ($height - 200)/2
-                },
-                credits:{
-                    enabled:false
-                },
-                exporting:{
-                    enabled:false
-                },
-                title: {
-                    text: ''
-                },
-                xAxis: {
-                    categories: result.data.kategori,
-                    // labels: {
-                    //     useHTML:true,
-                    //     formatter: function() {
-                    //         var tmp = this.value.split("|");
-                    //         return '<p class="mb-0"><span class="text-center" style="display:inherit">'+tmp[0]+'</span><span class="text-center bold" style="display:inherit">'+sepNum(tmp[1])+'%</span></p>';
-                    //     },
-                    // }
-                },
-                yAxis: {
-                    title:'',
-                    min: 0,
-                    tickInterval: 10,
-                    max: 110
-                },
-                tooltip: {
-                    formatter: function () {   
-                        var tmp = this.x.split("|");   
-                        return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + number_format(this.y,2);
-                    }
-                },
-                plotOptions: {
-                    column: {
-                        stacking: 'normal',
-                        borderWidth: 0,
-                        pointWidth: 50,
-                        dataLabels: {
-                            // padding:10,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'justify',
-                            useHTML: true,
-                            formatter: function () {
-                                if(this.y < 0.1 || this. y >= 100){
-                                    return '';
-                                }else{
-                                    return $('<div/>').css({
-                                        'color' : 'white', // work
-                                        'padding': '0 3px',
-                                        'font-size': '10px',
-                                        'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(number_format(this.point.y,2)+'%')[0].outerHTML;
-                                }
-                                // if(this.name)
-                            }
-                        }
-                    },
-                    scatter: {
-                        dataLabels: {
-                            // padding:10,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'justify',
-                            useHTML: true,
-                            formatter: function () {
-                                // return '<span style="color:white;background:gray !important;"><b>'+sepNum(this.y)+' M</b></span>';
-                                if(this.y < 0.1 || this. y >= 100){
-                                    return '';
-                                }else{
-                                    return $('<div/>').css({
-                                        'color' : 'white', // work
-                                        'padding': '0 3px',
-                                        'font-size': '10px',
-                                        'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(number_format(this.point.y,2)+'%')[0].outerHTML;
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Target/Tagihan',
-                    pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#003F88' :  '#003F88'),
-                    marker: {
-                        symbol: 'c-rect',
-                        lineWidth:5,
-                        lineColor: (localStorage.getItem("dore-theme") == "dark" ? '#003F88' :  '#003F88'),
-                        radius: 50
-                    },
-                    type: 'scatter',
-                    stack: 2,
-                    data: result.data.tagihan,
-                    dataLabels:{
-                        x:0
-                    }
-                }, {
-                    name: 'Tidak Tercapai',
-                    type: 'column',
-                    pointWidth: 15,
-                    color:  (localStorage.getItem("dore-theme") == "dark" ? '#dc2626' :  '#dc2626'),
-                    stack: 1,
-                    data: result.data.tdkcapai,
-                    // dataLabels:{
-                    //     x:50,
-                    // }
-                }, {
-                    name: 'CCR',
-                    type: 'column',
-                    pointWidth: 15,
-                    color: (localStorage.getItem("dore-theme") == "dark" ? '#EEBE00' :  '#EEBE00'),
-                    stack: 1,
-                    data: result.data.bayar,
-                    dataLabels:{
-                        y:0
-                    }
-                }]
-            });
-        }
-    });
-}
-
-function getAggLembaga(param) {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-inves-agg-lembaga') }}",
-        data: param,
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            soakhirChart = Highcharts.chart('saldo-akhir', {
-                chart: {
-                    type: 'spline',
-                    height: ($height - 200)/2
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ 
-                    enabled: false 
+                    enabled: true 
                 },
                 credits: { enabled: false },
                 xAxis: {
@@ -465,8 +274,132 @@ function getAggLembaga(param) {
     });
 }
 
+function getAggLembaga(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-inves-agg-lembaga') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            aggAsetChart = Highcharts.chart('agg-aset', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: 275,
+                    width: 350
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
+                        }
+                    }]
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function() {
+                                var y = this.point.percentage;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<span style="color: #830000;">-${number_format(y,2)}%</span>`;
+                                } else {
+                                    html = `<span style="color: #000000;">${number_format(y,2)}%</span>`;
+                                }
+                                return html;
+                            }
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            }, function() {
+                var series = this.series;
+                $('.lembaga-legend').html('');
+                var html = "";
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        var negative = point[j].negative;
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            point[j].connector.element.style.stroke = 'black'
+                            point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                        }else{
+                            if(color == '#7cb5ec') {
+                                point[j].graphic.element.style.fill = '#830000'
+                                point[j].connector.element.style.stroke = '#830000'
+                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            }else{
+
+                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            }
+                        }
+                    }
+                }
+                $('.lembaga-legend').html(html);
+            });
+        }
+    });
+}
+
 var timeoutID = null;
 // END FUNCTION GET DATA
+getNilaiAset({
+  'periode[0]': '=',
+  'periode[1]': $month,
+  'tahun': $tahun,
+  'jenis': $filter1_kode
+});
+getAggLembaga({
+  'periode[0]': '=',
+  'periode[1]': $month,
+  'tahun': $tahun,
+  'jenis': $filter1_kode
+});
 
 </script>
 
@@ -907,7 +840,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-6 col-grid">
             <div class="row mb-1">
                 <div class="col-6 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">Realisasi YTD</h4>
@@ -935,7 +868,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                     </div>
                 </div>
                 <div class="col-6 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">Realisasi RKA Tahun</h4>
@@ -965,16 +898,16 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
             </div>
             <div class="row">
                 <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-soakhir" 
-                    style="height:calc((100vh - 155px)*2/3)">
-                        <div class="row header-div" id="card-soakhir">
+                    <div class="card card-dash border-r-0" id="dash-nilai-aset" 
+                    style="height:calc((100vh - 150px))">
+                        <div class="row header-div" id="card-nilai-aset">
                             <div class="col-9">
                                 <h4 class="header-card">Nilai Aset Lembaga 5 Tahun</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
                             </div>
-                            <div class="menu-chart-custom hidden" id="export-soakhir">
+                            <div class="menu-chart-custom hidden" id="export-nilai-aset">
                                 <ul>
                                     <li class="menu-chart-item fullscreen">View in full screen</li>
                                     <li class="menu-chart-item print">Print chart</li>
@@ -987,7 +920,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                                 </ul>
                             </div>
                         </div>
-                        <div id="saldo-akhir"></div>
+                        <div id="nilai-aset"></div>
                     </div>
                 </div>
             </div>
@@ -995,7 +928,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-dash border-r-0" style="height:calc((100vh - 180px)/3);">
                         <div class="row header-div">
                             <div class="col-7">
                                 <h4 class="header-card" id="judul-ccr-now1">Pertumbuhan YoY</h4>
@@ -1028,16 +961,16 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
             </div>
             <div class="row">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-trend" 
-                    style="height:calc((100vh - 155px)*2/3)">
-                        <div class="row header-div" id="card-trend">
+                    <div class="card card-dash border-r-0" id="dash-agg-aset" 
+                    style="height:calc((100vh - 150px))">
+                        <div class="row header-div" id="card-agg-aset">
                             <div class="col-9">
                                 <h4 class="header-card">Anggaran Tahun Lembaga</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
                             </div>
-                            <div class="menu-chart-custom hidden" id="export-trend">
+                            <div class="menu-chart-custom hidden" id="export-agg-aset">
                                 <ul>
                                     <li class="menu-chart-item fullscreen">View in full screen</li>
                                     <li class="menu-chart-item print">Print chart</li>
@@ -1050,7 +983,8 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                                 </ul>
                             </div>
                         </div>
-                        <div id="trend-ccr"></div>
+                        <div id="agg-aset"></div>
+                        <div class="lembaga-legend"></div>
                     </div>
                 </div>
             </div>
@@ -1058,8 +992,8 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-top" style="height:calc(100vh - 150px);">
-                        <div class="row header-div px-1" id="card-top">
+                    <div class="card card-dash border-r-0" id="dash-serap" style="height:calc((100vh - 145px) + (100vh - 180px)/3);">
+                        <div class="row header-div px-1" id="card-serap">
                             <div class="col-12">
                                 <h4 class="header-card">Penyerapan Anggaran Aset</h4>
                             </div>

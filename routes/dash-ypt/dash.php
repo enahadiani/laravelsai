@@ -31,6 +31,14 @@ Route::get('data-ccr-trend-saldo','DashYpt\DashboardCCRController@getTrendSaldoP
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
 Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');
 
+// INVEST
+
+Route::get('data-inves-box', 'DashYpt\DashboardInvesController@getDataBox');
+Route::get('data-inves-serap-agg', 'DashYpt\DashboardInvesController@getSerapAgg');
+Route::get('data-inves-nilai-aset', 'DashYpt\DashboardInvesController@getNilaiAsetChart');
+Route::get('data-inves-agg-lembaga','DashYpt\DashboardInvesController@getAggPerLembagaChart');  
+// END INVEST
+
 // RASIO
 
 Route::get('data-rasio-jenis', 'DashYpt\DashboardRasioController@getKlpRasio');
