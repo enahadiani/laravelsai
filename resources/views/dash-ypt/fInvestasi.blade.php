@@ -483,7 +483,31 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $filter2 = getNamaBulan($filter2)
 
     $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
-    // get data
+    
+    getDataBox({
+    'periode[0]': '=',
+    'periode[1]': $month,
+    'tahun': $tahun,
+    'jenis': $filter1_kode
+    });
+    getNilaiAset({
+    'periode[0]': '=',
+    'periode[1]': $month,
+    'tahun': $tahun,
+    'jenis': $filter1_kode
+    });
+    getAggLembaga({
+    'periode[0]': '=',
+    'periode[1]': $month,
+    'tahun': $tahun,
+    'jenis': $filter1_kode
+    });
+    getSerapAgg({
+    'periode[0]': '=',
+    'periode[1]': $month,
+    'tahun': $tahun,
+    'jenis': $filter1_kode
+    });
     showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
 })
 
