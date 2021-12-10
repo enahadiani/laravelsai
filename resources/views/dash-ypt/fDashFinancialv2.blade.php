@@ -2131,22 +2131,22 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-8 pl-12">
+        <div class="col-9 pl-12 pr-0">
             <div class="row">
-                <div id="back-div" class="col-1 hidden">
+                <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11">
+                <div id="dash-title-div" class="col-11 pr-0">
                     <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title">YPT</span></h2>
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class="col-3 pl-1 pr-0">
             <div class="row">
-                <div class="col-3 pr-0 message-div">
+                {{-- <div class="col-3 pr-0 message-div">
                     <img id="icon-message" alt="message-icon" class="icon-message cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
-                </div>
-                <div class="col-9">
+                </div> --}}
+                <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">

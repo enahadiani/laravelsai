@@ -8,8 +8,8 @@
     section.header {
         background-color: #ffffff;
         margin-top: -32px;
-        padding: 16px 8px 8px 8px;
-        width: calc(100vw - 155px);
+        padding: 16px 0px 0px 0px;
+        /* width: calc(100vw - 155px); */
     }
     .header .glyph-icon.iconsminds-left.header {
         font-size: 28px;
@@ -32,11 +32,11 @@
         margin-right: 8px;
     }
     .header .select-custom {
-        border: 1px solid #9ca3af;
+        border: 1px solid #e5e5e5;
         height: 42px;
-        width: 260px;
+        width: 100%;
         float: right;
-        margin-right: 16px;
+        margin-right: 0px;
         border-radius: 10px;
     }
     .header .select-custom .icon-calendar {
@@ -89,7 +89,7 @@
     .card.card-dash .main-nominal {
         margin-top: 12px;
         font-size: 32px !important;
-        color: #830000;
+        color: #000744;
         font-weight: bold;
     }
     .card.card-dash .circle-bar {
@@ -314,9 +314,9 @@
         font-size: 14px !important;
         margin-right: 8px;
     }
-    section.header {
+    /* section.header {
         width: calc(100vw - 171px);
-    }
+    } */
 }
 
 .item {
