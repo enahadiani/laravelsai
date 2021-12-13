@@ -159,6 +159,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
 
     getDataBox()
     getCFChart()
+    getSelisih()
     showNotification(`Menampilkan dashboard periode ${nama_filter} ${$filter2} ${$tahun}`);
 });
 
