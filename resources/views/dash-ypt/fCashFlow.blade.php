@@ -213,6 +213,14 @@ $('.icon-menu').click(function(event) {
             }
 
             var per_inflow_yoy = (data.inflow.yoy != 0 ? (data.inflow.nominal - data.inflow.yoy)/ data.inflow.yoy : 0) * 100;
+
+            if(data.inflow.mom.toString().length <= 9) {
+                inflow_mom = toJuta(data.inflow.mom,2)
+            } else {
+                inflow_mom = toMilyar(data.inflow.mom,2)
+            }
+
+            var per_inflow_mom = (data.inflow.mom != 0 ? (data.inflow.nominal - data.inflow.mom)/ data.inflow.mom : 0) * 100;
                         
 
             if(data.outflow.nominal.toString().length <= 9) {
@@ -228,6 +236,15 @@ $('.icon-menu').click(function(event) {
             }
             
             var per_outflow_yoy = (data.outflow.yoy != 0 ? (data.outflow.nominal - data.outflow.yoy)/ data.outflow.yoy : 0) * 100;
+
+
+            if(data.outflow.mom.toString().length <= 9) {
+                outflow_mom = toJuta(data.outflow.mom,2)
+            } else {
+                outflow_mom = toMilyar(data.outflow.mom,2)
+            }
+            
+            var per_outflow_mom = (data.outflow.mom != 0 ? (data.outflow.nominal - data.outflow.mom)/ data.outflow.mom : 0) * 100;
             
 
             if(data.cash_balance.nominal.toString().length <= 9) {
@@ -243,6 +260,13 @@ $('.icon-menu').click(function(event) {
             }
             var per_balance_yoy = (data.cash_balance.yoy != 0 ? (data.cash_balance.nominal - data.cash_balance.yoy)/ data.cash_balance.yoy : 0) * 100;
 
+            if(data.cash_balance.mom.toString().length <= 9) {
+                balance_mom = toJuta(data.cash_balance.mom,2)
+            } else {
+                balance_mom = toMilyar(data.cash_balance.mom,2)
+            }
+            var per_balance_mom = (data.cash_balance.mom != 0 ? (data.cash_balance.nominal - data.cash_balance.mom)/ data.cash_balance.mom : 0) * 100;
+
             if(data.closing.nominal.toString().length <= 9) {
                 closing = toJuta(data.closing.nominal,2)
             } else {
@@ -257,6 +281,14 @@ $('.icon-menu').click(function(event) {
 
             var per_closing_yoy = (data.closing.yoy != 0 ? (data.closing.nominal - data.closing.yoy)/ data.closing.yoy : 0) * 100;
 
+            if(data.closing.mom.toString().length <= 9) {
+                closing_mom = toJuta(data.closing.mom,2)
+            } else {
+                closing_mom = toMilyar(data.closing.mom,2)
+            }
+
+            var per_closing_mom = (data.closing.mom != 0 ? (data.closing.nominal - data.closing.mom)/ data.closing.mom : 0) * 100;
+
             $('#cf-inflow').text(inflow)
             $('#cf-outflow').text(outflow)
             $('#cf-balance').text(balance)
@@ -267,6 +299,11 @@ $('.icon-menu').click(function(event) {
             $('#cf-balance-yoy').text(balance_yoy)
             $('#cf-closing-yoy').text(closing_yoy)
 
+            $('#cf-inflow-mom').text(inflow_mom)
+            $('#cf-outflow-mom').text(outflow_mom)
+            $('#cf-balance-mom').text(balance_mom)
+            $('#cf-closing-mom').text(closing_mom)
+
             if(per_inflow_yoy < 0){
                 $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('red-text');
@@ -276,6 +313,17 @@ $('.icon-menu').click(function(event) {
                 $('#inflow-yoy-percentage').addClass('green-text');
                 $('#inflow-yoy-percentage').removeClass('red-text');
             }
+
+            if(per_inflow_mom < 0){
+                $('#inflow-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_mom,2)+'%')
+                $('#inflow-mom-percentage').addClass('red-text');
+                $('#inflow-mom-percentage').removeClass('green-text');
+            }else{
+                $('#inflow-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_inflow_mom,2)+'%')
+                $('#inflow-mom-percentage').addClass('green-text');
+                $('#inflow-mom-percentage').removeClass('red-text');
+            }
+
             if(per_outflow_yoy < 0){
                 $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
                 $('#outflow-yoy-percentage').addClass('green-text');
@@ -285,6 +333,17 @@ $('.icon-menu').click(function(event) {
                 $('#outflow-yoy-percentage').addClass('red-text');
                 $('#outflow-yoy-percentage').removeClass('green-text');
             }
+
+            if(per_outflow_mom < 0){
+                $('#outflow-mom-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_mom,2)+'%')
+                $('#outflow-mom-percentage').addClass('green-text');
+                $('#outflow-mom-percentage').removeClass('red-text');
+            }else{
+                $('#outflow-mom-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_outflow_mom,2)+'%')
+                $('#outflow-mom-percentage').addClass('red-text');
+                $('#outflow-mom-percentage').removeClass('green-text');
+            }
+
             if(per_balance_yoy < 0){
                 $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('red-text');
@@ -294,6 +353,17 @@ $('.icon-menu').click(function(event) {
                 $('#balance-yoy-percentage').addClass('green-text');
                 $('#balance-yoy-percentage').removeClass('red-text');
             }
+
+            if(per_balance_mom < 0){
+                $('#balance-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_mom,2)+'%')
+                $('#balance-mom-percentage').addClass('red-text');
+                $('#balance-mom-percentage').removeClass('green-text');
+            }else{
+                $('#balance-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_balance_mom,2)+'%')
+                $('#balance-mom-percentage').addClass('green-text');
+                $('#balance-mom-percentage').removeClass('red-text');
+            }
+
             if(per_closing_yoy < 0){
                 $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('red-text');
@@ -302,6 +372,16 @@ $('.icon-menu').click(function(event) {
                 $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('green-text');
                 $('#closing-yoy-percentage').removeClass('red-text');
+            }
+
+            if(per_closing_mom < 0){
+                $('#closing-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_mom,2)+'%')
+                $('#closing-mom-percentage').addClass('red-text');
+                $('#closing-mom-percentage').removeClass('green-text');
+            }else{
+                $('#closing-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_mom,2)+'%')
+                $('#closing-mom-percentage').addClass('green-text');
+                $('#closing-mom-percentage').removeClass('red-text');
             }
         }
     });
@@ -523,6 +603,14 @@ function getDataBox(){
             }
 
             var per_inflow_yoy = (data.inflow.yoy != 0 ? (data.inflow.nominal - data.inflow.yoy)/ data.inflow.yoy : 0) * 100;
+
+            if(data.inflow.mom.toString().length <= 9) {
+                inflow_mom = toJuta(data.inflow.mom,2)
+            } else {
+                inflow_mom = toMilyar(data.inflow.mom,2)
+            }
+
+            var per_inflow_mom = (data.inflow.mom != 0 ? (data.inflow.nominal - data.inflow.mom)/ data.inflow.mom : 0) * 100;
                         
 
             if(data.outflow.nominal.toString().length <= 9) {
@@ -538,6 +626,15 @@ function getDataBox(){
             }
             
             var per_outflow_yoy = (data.outflow.yoy != 0 ? (data.outflow.nominal - data.outflow.yoy)/ data.outflow.yoy : 0) * 100;
+
+
+            if(data.outflow.mom.toString().length <= 9) {
+                outflow_mom = toJuta(data.outflow.mom,2)
+            } else {
+                outflow_mom = toMilyar(data.outflow.mom,2)
+            }
+            
+            var per_outflow_mom = (data.outflow.mom != 0 ? (data.outflow.nominal - data.outflow.mom)/ data.outflow.mom : 0) * 100;
             
 
             if(data.cash_balance.nominal.toString().length <= 9) {
@@ -553,6 +650,13 @@ function getDataBox(){
             }
             var per_balance_yoy = (data.cash_balance.yoy != 0 ? (data.cash_balance.nominal - data.cash_balance.yoy)/ data.cash_balance.yoy : 0) * 100;
 
+            if(data.cash_balance.mom.toString().length <= 9) {
+                balance_mom = toJuta(data.cash_balance.mom,2)
+            } else {
+                balance_mom = toMilyar(data.cash_balance.mom,2)
+            }
+            var per_balance_mom = (data.cash_balance.mom != 0 ? (data.cash_balance.nominal - data.cash_balance.mom)/ data.cash_balance.mom : 0) * 100;
+
             if(data.closing.nominal.toString().length <= 9) {
                 closing = toJuta(data.closing.nominal,2)
             } else {
@@ -567,6 +671,14 @@ function getDataBox(){
 
             var per_closing_yoy = (data.closing.yoy != 0 ? (data.closing.nominal - data.closing.yoy)/ data.closing.yoy : 0) * 100;
 
+            if(data.closing.mom.toString().length <= 9) {
+                closing_mom = toJuta(data.closing.mom,2)
+            } else {
+                closing_mom = toMilyar(data.closing.mom,2)
+            }
+
+            var per_closing_mom = (data.closing.mom != 0 ? (data.closing.nominal - data.closing.mom)/ data.closing.mom : 0) * 100;
+
             $('#cf-inflow').text(inflow)
             $('#cf-outflow').text(outflow)
             $('#cf-balance').text(balance)
@@ -577,6 +689,11 @@ function getDataBox(){
             $('#cf-balance-yoy').text(balance_yoy)
             $('#cf-closing-yoy').text(closing_yoy)
 
+            $('#cf-inflow-mom').text(inflow_mom)
+            $('#cf-outflow-mom').text(outflow_mom)
+            $('#cf-balance-mom').text(balance_mom)
+            $('#cf-closing-mom').text(closing_mom)
+
             if(per_inflow_yoy < 0){
                 $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('red-text');
@@ -586,6 +703,17 @@ function getDataBox(){
                 $('#inflow-yoy-percentage').addClass('green-text');
                 $('#inflow-yoy-percentage').removeClass('red-text');
             }
+
+            if(per_inflow_mom < 0){
+                $('#inflow-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_mom,2)+'%')
+                $('#inflow-mom-percentage').addClass('red-text');
+                $('#inflow-mom-percentage').removeClass('green-text');
+            }else{
+                $('#inflow-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_inflow_mom,2)+'%')
+                $('#inflow-mom-percentage').addClass('green-text');
+                $('#inflow-mom-percentage').removeClass('red-text');
+            }
+
             if(per_outflow_yoy < 0){
                 $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
                 $('#outflow-yoy-percentage').addClass('green-text');
@@ -595,6 +723,17 @@ function getDataBox(){
                 $('#outflow-yoy-percentage').addClass('red-text');
                 $('#outflow-yoy-percentage').removeClass('green-text');
             }
+
+            if(per_outflow_mom < 0){
+                $('#outflow-mom-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_mom,2)+'%')
+                $('#outflow-mom-percentage').addClass('green-text');
+                $('#outflow-mom-percentage').removeClass('red-text');
+            }else{
+                $('#outflow-mom-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_outflow_mom,2)+'%')
+                $('#outflow-mom-percentage').addClass('red-text');
+                $('#outflow-mom-percentage').removeClass('green-text');
+            }
+
             if(per_balance_yoy < 0){
                 $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('red-text');
@@ -604,6 +743,17 @@ function getDataBox(){
                 $('#balance-yoy-percentage').addClass('green-text');
                 $('#balance-yoy-percentage').removeClass('red-text');
             }
+
+            if(per_balance_mom < 0){
+                $('#balance-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_mom,2)+'%')
+                $('#balance-mom-percentage').addClass('red-text');
+                $('#balance-mom-percentage').removeClass('green-text');
+            }else{
+                $('#balance-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_balance_mom,2)+'%')
+                $('#balance-mom-percentage').addClass('green-text');
+                $('#balance-mom-percentage').removeClass('red-text');
+            }
+
             if(per_closing_yoy < 0){
                 $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('red-text');
@@ -612,6 +762,16 @@ function getDataBox(){
                 $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('green-text');
                 $('#closing-yoy-percentage').removeClass('red-text');
+            }
+
+            if(per_closing_mom < 0){
+                $('#closing-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_mom,2)+'%')
+                $('#closing-mom-percentage').addClass('red-text');
+                $('#closing-mom-percentage').removeClass('green-text');
+            }else{
+                $('#closing-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_mom,2)+'%')
+                $('#closing-mom-percentage').addClass('green-text');
+                $('#closing-mom-percentage').removeClass('red-text');
             }
         }
     });
@@ -899,11 +1059,8 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="row filter-box-periode px-3">
                 <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
-                        {{-- <li data-filter1="SMT">Semester</li> --}}
                         <li class="py-2" data-filter1="YTM">Year To Month</li>
                         <li class="selected py-2" data-filter1="PRD">Bulan</li>
-                        {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
                 <div class="col-9 mt-4 mb-6">
@@ -944,19 +1101,6 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="12" data-filter2="12">
                             <span class="py-2 px-3 d-block">Desember</span>
                         </div>
-                        {{-- <div class="col-5 py-3 cursor-pointer" data-filter2="TRW1">
-                            Triwulan I
-                        </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
-                            Triwulan II
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
-                            Triwulan III
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
-                            Triwulan IV
-                        </div> --}}
                     </div>
                 </div>
             </div>

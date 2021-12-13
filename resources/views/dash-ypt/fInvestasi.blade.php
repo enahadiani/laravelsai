@@ -207,8 +207,6 @@ function getSerapAgg(param) {
                         <td ><p class="kode hidden">${line.kode_aset}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-pp">${line.nama_aset}</span></td>
-                        <td class='text-right'>${toMilyar(line.rka,1)}</td>
-                        <td class='text-right'>${toMilyar(line.real,1)}</td>
                         <td class='text-right'>${number_format(line.ach,1)}%</td>
                     </tr>`;
                 }
@@ -1069,10 +1067,8 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                             <table class="table table-borderless" id="table-serap-agg" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width:45%">Aset</th>
-                                        <th class="text-center" style="width:20%">RKA</th>
-                                        <th class="text-center" style="width:20%">Real</th>
-                                        <th class="text-center" style="width:15%">Ach</th>
+                                        <th class="text-center" style="width:65%">Aset</th>
+                                        <th class="text-center" style="width:35%">Ach</th>
                                     </tr>
                                 </thead>
                                 <tbody>
