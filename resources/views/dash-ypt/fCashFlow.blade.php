@@ -12,17 +12,8 @@ var $filter1_kode = "PRD";
 var $filter2_kode = "09";
 var trendChart = null;
 
-if($filter1 == 'Periode') {
-    $('#list-filter-2').find('.list').each(function() {
-        if($(this).data('bulan').toString() == $month) {
-            $(this).addClass('selected')
-            $month = $(this).data('bulan').toString();
-            return false;
-        }
-    });
-}
-
-$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+$('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`);
 
 $(window).on('resize', function(){
     var win = $(this); //this = window
@@ -104,7 +95,52 @@ $('#tambah-tahun').click(function(event) {
 $('#custom-row').click(function(event) {
     event.stopPropagation();
     $('#filter-box').removeClass('hidden')
+    $('#list-filter-2').find('.list').each(function() {
+        if($filter1_kode == 'PRD'){
+            if(parseInt($(this).data('bulan')) == parseInt($month)) {
+                $(this).addClass('selected')
+            }
+        }else{
+            if(parseInt($(this).data('bulan')) <= parseInt($month)) {
+                $(this).addClass('selected')
+            }
+        }
+    })
 });
+
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    for(i=0; i < bln.length; i++){
+        if($filter1_kode == 'PRD'){
+            if(parseInt(bln[i]) == parseInt($month)){
+                var selected = 'selected';
+            }else{
+                var selected = '';
+            }
+        }else{
+            if(parseInt(bln[i]) <= parseInt($month)){
+                var selected = 'selected';
+            }else{
+                var selected = '';
+            }
+        }
+        html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
+            <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
+        </div>`;
+    }
+    $('#list-filter-2').append(html)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`)
+})
 
 $('#list-filter-2').on('click', 'div', function(event) {
     event.stopPropagation();
@@ -118,10 +154,12 @@ $('#list-filter-2').on('click', 'div', function(event) {
 
     $filter2 = getNamaBulan($filter2)
 
-    $('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`)
+
     getDataBox()
     getCFChart()
-    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+    showNotification(`Menampilkan dashboard periode ${nama_filter} ${$filter2} ${$tahun}`);
 });
 
 $('.icon-menu').click(function(event) {
@@ -145,7 +183,8 @@ $('.icon-menu').click(function(event) {
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
-            "tahun": $tahun
+            "tahun": $tahun,
+            "jenis": $filter1_kode
         },
         dataType: 'json',
         async: true,
@@ -228,38 +267,38 @@ $('.icon-menu').click(function(event) {
             $('#cf-closing-yoy').text(closing_yoy)
 
             if(per_inflow_yoy < 0){
-                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('red-text');
                 $('#inflow-yoy-percentage').removeClass('green-text');
             }else{
-                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('green-text');
                 $('#inflow-yoy-percentage').removeClass('red-text');
             }
             if(per_outflow_yoy < 0){
-                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
-                $('#outflow-yoy-percentage').addClass('red-text');
-                $('#outflow-yoy-percentage').removeClass('green-text');
-            }else{
-                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
                 $('#outflow-yoy-percentage').addClass('green-text');
                 $('#outflow-yoy-percentage').removeClass('red-text');
+            }else{
+                $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
+                $('#outflow-yoy-percentage').addClass('red-text');
+                $('#outflow-yoy-percentage').removeClass('green-text');
             }
             if(per_balance_yoy < 0){
-                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('red-text');
                 $('#balance-yoy-percentage').removeClass('green-text');
             }else{
-                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('green-text');
                 $('#balance-yoy-percentage').removeClass('red-text');
             }
             if(per_closing_yoy < 0){
-                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('red-text');
                 $('#closing-yoy-percentage').removeClass('green-text');
             }else{
-                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('green-text');
                 $('#closing-yoy-percentage').removeClass('red-text');
             }
@@ -411,7 +450,8 @@ function getDataBox(){
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
-            "tahun": $tahun
+            "tahun": $tahun,
+            "jenis": $filter1_kode
         },
         dataType: 'json',
         async: true,
@@ -494,41 +534,41 @@ function getDataBox(){
             $('#cf-closing-yoy').text(closing_yoy)
 
             if(per_inflow_yoy < 0){
-                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('red-text');
                 $('#inflow-yoy-percentage').removeClass('green-text');
             }else{
-                $('#inflow-yoy-percentage').html(number_format(per_inflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#inflow-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_inflow_yoy,2)+'%')
                 $('#inflow-yoy-percentage').addClass('green-text');
                 $('#inflow-yoy-percentage').removeClass('red-text');
             }
             if(per_outflow_yoy < 0){
-                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
-                $('#outflow-yoy-percentage').addClass('red-text');
-                $('#outflow-yoy-percentage').removeClass('green-text');
-            }else{
-                $('#outflow-yoy-percentage').html(number_format(per_outflow_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
                 $('#outflow-yoy-percentage').addClass('green-text');
                 $('#outflow-yoy-percentage').removeClass('red-text');
+            }else{
+                $('#outflow-yoy-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_outflow_yoy,2)+'%')
+                $('#outflow-yoy-percentage').addClass('red-text');
+                $('#outflow-yoy-percentage').removeClass('green-text');
             }
             if(per_balance_yoy < 0){
-                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('red-text');
                 $('#balance-yoy-percentage').removeClass('green-text');
             }else{
-                $('#balance-yoy-percentage').html(number_format(per_balance_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#balance-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_balance_yoy,2)+'%')
                 $('#balance-yoy-percentage').addClass('green-text');
                 $('#balance-yoy-percentage').removeClass('red-text');
             }
             if(per_closing_yoy < 0){
-                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">')
+                $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('red-text');
                 $('#closing-yoy-percentage').removeClass('green-text');
             }else{
-                $('#closing-yoy-percentage').html(number_format(per_closing_yoy,2)+'%'+'&nbsp;<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">')
+                $('#closing-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(per_closing_yoy,2)+'%')
                 $('#closing-yoy-percentage').addClass('green-text');
                 $('#closing-yoy-percentage').removeClass('red-text');
-            }        
+            }
         }
     });
 }
@@ -612,7 +652,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         $full = '2';
         trendChart.update({
             title: {
-                text: `Trend Cash Flow`,
+                text: `Trend Arus Kas`,
                 floating: true,
                 x: 40,
                 y: 20
@@ -627,7 +667,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `Trend Cash Flow`,
+                text: `Trend Arus Kas`,
             },
             subtitle: {
                 text: ''
@@ -639,7 +679,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Trend Cash Flow`,
+                text: `Trend Arus Kas`,
             },
             subtitle: {
                 text: ''
@@ -651,7 +691,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Trend Cash Flow`,
+                text: `Trend Arus Kas`,
             },
             subtitle: {
                 text: ''
@@ -663,7 +703,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Trend Cash Flow`,
+                text: `Trend Arus Kas`,
             },
             subtitle: {
                 text: ''
@@ -691,17 +731,17 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-8 pl-12">
+        <div class="col-9 pl-12 pr-0">
             <div class="row">
-                <div id="back-div" class="col-1 hidden">
+                <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11">
-                    <h2 class="title-dash" id="title-dash">Cash Flow</h2>
+                <div id="dash-title-div" class="col-11 pr-0">
+                    <h2 class="title-dash" id="title-dash">Arus Kas</h2>
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class="col-3 pl-1 pr-0">
             <div class="row">
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
@@ -709,7 +749,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-cf" class="select-text">September 2021</p>
+                            <p id="select-text-cf" class="select-text">Bulan September {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -719,68 +759,81 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             </div>
         </div>
         <div id="filter-box" class="filter-box border-r-0 hidden">
-            <div class="row justify-content-end">
-                <div class="col-7 pt-8 pr-0">
-                    <div class="row">
-                        <div class="col-4 pr-0">
-                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+            <div class="row filter-box-tahun px-3">
+                <div class="col-3 pt-8 border-right"></div>
+                <div class="col-9 pt-8">
+                    <div class="row pr-3">
+                        <div class="col-4">
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer text-center"></div>
                         </div>
-                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
-                        <div class="col-4 pl-0">
+                        <div class="col-4 text-center bold" id="year-filter">{{ date('Y') }}</div>
+                        <div class="col-4 text-center">
                             <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-5 list-filter-1" id="list-filter-1">
+            <div class="row filter-box-periode px-3">
+                <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="selected">Periode</li>
+                        {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
+                        {{-- <li data-filter1="SMT">Semester</li> --}}
+                        <li class="py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="selected py-2" data-filter1="PRD">Bulan</li>
+                        {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
-                <div class="col-7 mt-4 mb-6">
-                    <div class="row list-filter-2" id="list-filter-2">
-                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
-                            Januari
+                <div class="col-9 mt-4 mb-6">
+                    <div class="row list-filter-2 pr-3" id="list-filter-2">
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="01" data-filter2="01">
+                            <span class="py-2 px-3 d-block">Januari</span>
                         </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
-                            Februari
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="02" data-filter2="02">
+                            <span class="py-2 px-3 d-block">Februari</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="03" data-filter2="03">
+                            <span class="py-2 px-3 d-block">Maret</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="04" data-filter2="04">
+                            <span class="py-2 px-3 d-block">April</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="05" data-filter2="05">
+                            <span class="py-2 px-3 d-block">Mei</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="06" data-filter2="06">
+                            <span class="py-2 px-3 d-block">Juni</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="07" data-filter2="07">
+                            <span class="py-2 px-3 d-block">Juli</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="08" data-filter2="08">
+                            <span class="py-2 px-3 d-block">Agustus</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="09" data-filter2="09">
+                            <span class="py-2 px-3 d-block">September</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="10" data-filter2="10">
+                            <span class="py-2 px-3 d-block">Oktober</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="11" data-filter2="11">
+                            <span class="py-2 px-3 d-block">November</span>
+                        </div>
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="12" data-filter2="12">
+                            <span class="py-2 px-3 d-block">Desember</span>
+                        </div>
+                        {{-- <div class="col-5 py-3 cursor-pointer" data-filter2="TRW1">
+                            Triwulan I
+                        </div>
+                        <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
+                            Triwulan II
                         </div>
                         <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
-                            Maret
+                        <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
+                            Triwulan III
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
-                            April
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
-                            Mei
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
-                            Juni
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
-                            Juli
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
-                            Agustus
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
-                            September
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
-                            Oktober
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
-                            November
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
-                            Desember
-                        </div>
+                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
+                            Triwulan IV
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -797,7 +850,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">Inflow</h4>
+                        <h4 class="header-card">Uang Masuk</h4>
                     </div>
                 </div>
                 <div class="row body-div">
@@ -808,9 +861,16 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <table class="table table-borderless table-pr-16" id="table-cf-inflow">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">YoY</td>
-                                    <td id="cf-inflow-yoy">0 M</td>
-                                    <td id="inflow-yoy-percentage" class="green-text pr-0">
+                                    <td class="w-40">MoM Growth</td>
+                                    <td id="cf-inflow-mom" class="w-30 text-right">0 M</td>
+                                    <td id="inflow-mom-percentage" class="green-text pr-0 w-30 text-right">
+                                        0%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-40">YoY Growth</td>
+                                    <td id="cf-inflow-yoy" class="w-30 text-right">0 M</td>
+                                    <td id="inflow-yoy-percentage" class="green-text pr-0 w-30 text-right">
                                         0%
                                     </td>
                                 </tr>
@@ -824,7 +884,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">Outflow</h4>
+                        <h4 class="header-card">Uang Keluar</h4>
                     </div>
                 </div>
                 <div class="row body-div">
@@ -835,9 +895,16 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <table class="table table-borderless table-pr-16" id="table-cf-outflow">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">YoY</td>
-                                    <td id="cf-outflow-yoy">0 M</td>
-                                    <td id="outflow-yoy-percentage" class="red-text pr-0">
+                                    <td class="w-40">MoM Growth</td>
+                                    <td id="cf-outflow-mom" class="w-30 text-right">0 M</td>
+                                    <td id="outflow-mom-percentage" class="green-text pr-0 w-30 text-right">
+                                        0%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-40">YoY Growth</td>
+                                    <td id="cf-outflow-yoy" class="w-30 text-right">0 M</td>
+                                    <td id="outflow-yoy-percentage" class="green-text pr-0 w-30 text-right">
                                         0%
                                     </td>
                                 </tr>
@@ -851,7 +918,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">Cash Balance</h4>
+                        <h4 class="header-card">Selisih</h4>
                     </div>
                 </div>
                 <div class="row body-div">
@@ -862,10 +929,17 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <table class="table table-borderless table-pr-16" id="table-cf-balance">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">&nbsp;YoY</td>
-                                    <td id="cf-balance-yoy">0 M</td>
-                                    <td id="balance-yoy-percentage" class="red-text pr-0">
-                                        &nbsp;
+                                    <td class="w-40">MoM Growth</td>
+                                    <td id="cf-balance-mom" class="w-30 text-right">0 M</td>
+                                    <td id="balance-mom-percentage" class="green-text pr-0 w-30 text-right">
+                                        0%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-40">YoY Growth</td>
+                                    <td id="cf-balance-yoy" class="w-30 text-right">0 M</td>
+                                    <td id="balance-yoy-percentage" class="green-text pr-0 w-30 text-right">
+                                        0%
                                     </td>
                                 </tr>
                             </tbody>
@@ -878,7 +952,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0">
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">Closing Cash Balance</h4>
+                        <h4 class="header-card">Saldo Akhir</h4>
                     </div>
                 </div>
                 <div class="row body-div">
@@ -886,12 +960,19 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                         <p id="cf-closing" class="main-nominal">0</p>
                     </div>
                     <div class="col-12">
-                        <table class="table table-borderless table-pr-16" id="table-cf-outflow">
+                        <table class="table table-borderless table-pr-16" id="table-cf-closing">
                             <tbody>
                                 <tr>
-                                    <td class="w-10">YoY</td>
-                                    <td id="cf-closing-yoy">0 M</td>
-                                    <td id="closing-yoy-percentage" class="green-text pr-0">
+                                    <td class="w-40">MoM Growth</td>
+                                    <td id="cf-closing-mom" class="w-30 text-right">0 M</td>
+                                    <td id="closing-mom-percentage" class="green-text pr-0 w-30 text-right">
+                                        0%
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="w-40">YoY Growth</td>
+                                    <td id="cf-closing-yoy" class="w-30 text-right">0 M</td>
+                                    <td id="closing-yoy-percentage" class="green-text pr-0 w-30 text-right">
                                         0%
                                     </td>
                                 </tr>
@@ -906,11 +987,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
 
     {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
-        <div class="col-12 pl-12 pr-0">
+        <div class="col-9 pl-12 pr-0">
             <div class="card card-dash border-r-0" id="dash-trend">
                 <div class="row header-div" id="card-trend">
                     <div class="col-8">
-                        <h4 class="header-card">Trend Cash Flow</h4>
+                        <h4 class="header-card">Trend Arus Kas</h4>
                     </div>
                     <div class="col-4">
                         <div class="row justify-content-end">
@@ -918,13 +999,6 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                                 <label class="label-checkbox float-right">
                                     <input type="radio" checked="checked" name="trend">
                                     <span class="text">Bulanan</span>
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div class="col-3 pr-0">
-                                <label class="label-checkbox float-right">
-                                    <input type="radio" name="trend">
-                                    <span class="text">Harian</span>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -947,6 +1021,40 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     </div>
                 </div>
                 <div id="trend-chart"></div>
+            </div>
+        </div>
+        <div class="col-3 pl-1 pr-0">
+            <div class="card card-dash border-r-0" id="dash-selisih" style="height:calc(100vh - 147px);">
+                <div class="row header-div px-1" id="card-selisih">
+                    <div class="col-12">
+                        <h4 class="header-card">Selisih Tiap Lembaga</h4>
+                    </div>
+                </div>
+                <div class="table-responsive mt-2" id="div-selisih-cf" style="height:calc(100vh - 180px);position:relative">
+                    <style>
+                        #table-selisih-cf th
+                        {
+                            padding: 2px !important;
+                            color: #d7d7d7;
+                            font-weight:100;
+                        }
+                        #table-selisih-cf td
+                        {
+                            padding: 2px !important;
+                            font-weight:100;
+                        }
+                    </style>
+                    <table class="table table-borderless" id="table-selisih-cf" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width:55%">Lembaga</th>
+                                <th class="text-center" style="width:45%">Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
