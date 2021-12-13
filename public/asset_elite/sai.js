@@ -117,7 +117,6 @@ function namaPeriode(periode){
 
 function namaPeriodeBulan(periode){
     var bulan = periode.substr(4,2);
-    var tahun = periode.substr(0,4);
     switch (bulan){
         case 1 : case '1' : case '01': bulan = "Januari"; break;
         case 2 : case '2' : case '02': bulan = "Februari"; break;
