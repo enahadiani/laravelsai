@@ -75,7 +75,8 @@ var psscrollfilter = new PerfectScrollbar(scrollfilter,{
     suppressScrollX :true
 });
 
-$('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+$('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`);
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -153,7 +154,9 @@ $(window).click(function() {
         $("body").css("overflow", "scroll");
     }
 
-    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`);
+
 });
 
 // AJAX FUNCTION GET DATA
@@ -467,6 +470,50 @@ $('#tambah-tahun').click(function(event) {
 $('#custom-row').click(function(event) {
     event.stopPropagation();
     $('#filter-box').removeClass('hidden')
+    $('#list-filter-2').find('.list').each(function() {
+        if($filter1_kode == 'PRD'){
+            if(parseInt($(this).data('bulan')) == parseInt($month)) {
+                $(this).addClass('selected')
+            }
+        }else{
+            if(parseInt($(this).data('bulan')) <= parseInt($month)) {
+                $(this).addClass('selected')
+            }
+        }
+    })
+})
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+    for(i=0; i < bln.length; i++){
+        if($filter1_kode == 'PRD'){
+            if(parseInt(bln[i]) == parseInt($month)){
+                var selected = 'selected';
+            }else{
+                var selected = '';
+            }
+        }else{
+            if(parseInt(bln[i]) <= parseInt($month)){
+                var selected = 'selected';
+            }else{
+                var selected = '';
+            }
+        }
+        html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
+            <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
+        </div>`;
+    }
+    $('#list-filter-2').append(html)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`)
 })
 
 $('#list-filter-2').on('click', 'div', function(event) {
@@ -480,7 +527,8 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#filter-box').addClass('hidden')
     $filter2 = getNamaBulan($filter2)
 
-    $('#select-text-ccr').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`);
     
     getDataBox({
     'periode[0]': '=',
@@ -506,7 +554,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
     'tahun': $tahun,
     'jenis': $filter1_kode
     });
-    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+    showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
 
 $('.icon-menu').click(function(event) {
@@ -783,28 +831,25 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-8 pl-12">
+        <div class="col-9 pl-12 pr-0">
             <div class="row">
-                <div id="back-div" class="col-1 hidden">
+                <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11">
+                <div id="dash-title-div" class="col-11 pr-0">
                     <h2 class="title-dash" id="title-dash">Investasi</h2>
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class="col-3 pl-1 pr-0">
             <div class="row">
-                {{-- <div class="col-3 pr-0 message-div">
-                    <img alt="message-icon" class="icon-message" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
-                </div> --}}
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-ccr" class="select-text">September 2021</p>
+                            <p id="select-text-inv" class="select-text">Bulan September {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -814,67 +859,64 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
             </div>
         </div>
         <div id="filter-box" class="filter-box border-r-0 hidden">
-            <div class="row justify-content-end">
-                <div class="col-7 pt-8 pr-0">
-                    <div class="row">
-                        <div class="col-4 pr-0">
-                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+            <div class="row filter-box-tahun px-3">
+                <div class="col-3 pt-8 border-right"></div>
+                <div class="col-9 pt-8">
+                    <div class="row pr-3">
+                        <div class="col-4">
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer text-center"></div>
                         </div>
-                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
-                        <div class="col-4 pl-0">
+                        <div class="col-4 text-center bold" id="year-filter">{{ date('Y') }}</div>
+                        <div class="col-4 text-center">
                             <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-5 list-filter-1" id="list-filter-1">
+            <div class="row filter-box-periode px-3">
+                <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="selected">Periode</li>
+                        <li class="py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="selected py-2" data-filter1="PRD">Bulan</li>
                     </ul>
                 </div>
-                <div class="col-7 mt-4 mb-6">
-                    <div class="row list-filter-2" id="list-filter-2">
-                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01">
-                            Januari
+                <div class="col-9 mt-4 mb-6">
+                    <div class="row list-filter-2 pr-3" id="list-filter-2">
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="01" data-filter2="01">
+                            <span class="py-2 px-3 d-block">Januari</span>
                         </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02">
-                            Februari
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="02" data-filter2="02">
+                            <span class="py-2 px-3 d-block">Februari</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03">
-                            Maret
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="03" data-filter2="03">
+                            <span class="py-2 px-3 d-block">Maret</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04">
-                            April
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="04" data-filter2="04">
+                            <span class="py-2 px-3 d-block">April</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05">
-                            Mei
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="05" data-filter2="05">
+                            <span class="py-2 px-3 d-block">Mei</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06">
-                            Juni
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="06" data-filter2="06">
+                            <span class="py-2 px-3 d-block">Juni</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07">
-                            Juli
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="07" data-filter2="07">
+                            <span class="py-2 px-3 d-block">Juli</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08">
-                            Agustus
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="08" data-filter2="08">
+                            <span class="py-2 px-3 d-block">Agustus</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09">
-                            September
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="09" data-filter2="09">
+                            <span class="py-2 px-3 d-block">September</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10">
-                            Oktober
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="10" data-filter2="10">
+                            <span class="py-2 px-3 d-block">Oktober</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11">
-                            November
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="11" data-filter2="11">
+                            <span class="py-2 px-3 d-block">November</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12">
-                            Desember
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="12" data-filter2="12">
+                            <span class="py-2 px-3 d-block">Desember</span>
                         </div>
                     </div>
                 </div>

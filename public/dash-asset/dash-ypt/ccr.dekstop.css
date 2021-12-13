@@ -20,11 +20,11 @@
     margin-right: 4px;
 }
 .header .select-custom {
-    border: 1px solid #9ca3af;
+    border: 1px solid #e5e5e5;
     height: 42px;
-    width: 260px;
+    width: 100%;
     float: right;
-    margin-right: 4px;
+    margin-right: 0px;
     border-radius: 10px;
 }
 .header .select-custom .icon-calendar {
@@ -214,10 +214,10 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     position: absolute;
     background-color: #ffffff;
     z-index: 10;
-    top: 48px;
+    top: 80px;
     right: 16px;
     min-height: 220px;
-    width: 380px;
+    width: 580px;
     border-radius: 15px;
     box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
 }
@@ -234,21 +234,30 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 }
 .header .filter-box .list-filter-1 ul li {
     cursor: pointer;
-    padding: 2px 8px;
+    color: #5A5A5A;
 }
 .header .filter-box .list-filter-1 ul li:hover {
-    background-color: #f3f4f6;
+    background-color: #ffffff;
 }
 .header .filter-box .list-filter-1 ul li.selected {
-    background-color: #830000;
-    color: #ffffff;
+    color: #B91C1C;
+    font-weight: 700;
 }
-.header .filter-box .list-filter-2 div:not(.selected) {
-    background-color: #f3f4f6;
+.header .filter-box .list-filter-2 div:not(.selected) span {
+    background-color: #ffffff;
 }
-.header .filter-box .list-filter-2 .selected {
-    background-color: #830000;
-    color: #ffffff;
+.header .filter-box .list-filter-2 .selected span {
+    border: 2px solid #B91C1C;
+    color: #B91C1C;
+    font-weight: bold;
+}
+#year-filter
+{
+    font-size: 0.85rem !important;
+}
+.filter-box-tahun
+{
+    padding-top: 0.5rem;
 }
 /* END FILTER BOX */
 
