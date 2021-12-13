@@ -66,10 +66,10 @@ var $height = $(window).height();
                 nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
-            if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1,2)
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1,2)
+                nilaiYoyPdpt = toMilyar(pdpt.n5,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
@@ -86,12 +86,12 @@ var $height = $(window).height();
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(pdpt.ach < 0) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(pdpt.ach < 100) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
             }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
@@ -117,10 +117,10 @@ var $height = $(window).height();
                 nilaiBeban = toMilyar(beban.n4,2)
             }
 
-            if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1,2)
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1,2)
+                nilaiYoyBeban = toMilyar(beban.n5,2)
             }
 
             if(beban.n2.toString().length <= 9) {
@@ -130,19 +130,19 @@ var $height = $(window).height();
             }
 
             if(beban.yoy < 0) {
-                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconBebanYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 0) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(beban.ach < 100) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconBebanAch = '&nbsp;'
             }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
@@ -168,10 +168,10 @@ var $height = $(window).height();
                 nilaiShu = toMilyar(shu.n4,2)
             }
 
-            if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1,2)
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1,2)
+                nilaiYoyShu = toMilyar(shu.n5,2)
             }
 
             if(shu.n2.toString().length <= 9) {
@@ -188,12 +188,12 @@ var $height = $(window).height();
                 iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(shu.ach < 0) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(shu.ach < 100) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconShuAch = '&nbsp;'
             }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
@@ -215,24 +215,24 @@ var $height = $(window).height();
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
-                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 0) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(or.ach < 100) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconOrAch = '&nbsp;'
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${number_format(or.n4,2)}%`)
-            $('#or-yoy').text(`${number_format(or.n1,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n5,2)}%`)
             $('#or-ach').text(`${number_format(or.n2,2)}%`)
             $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
             $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
@@ -765,28 +765,28 @@ var $height = $(window).height();
                     var classTd7 = "";
                     var classTd8 = "";
                     if(row.pdpt_ach < 0) {
-                        classTd1 = "td-red"
+                        classTd1 = ""
                     }
                     if(row.pdpt_yoy < 0) {
-                        classTd2 = "td-red"
+                        classTd2 = "red-text"
                     }
-                    if(row.beban_ach < 0) {
-                        classTd3 = "td-red"
+                    if(row.beban_ach > 0) {
+                        classTd3 = ""
                     }
-                    if(row.beban_yoy < 0) {
-                        classTd4 = "td-red"
+                    if(row.beban_yoy > 0) {
+                        classTd4 = "red-text"
                     }
                     if(row.shu_ach < 0) {
-                        classTd5 = "td-red"
+                        classTd5 = ""
                     }
                     if(row.shu_yoy < 0) {
-                        classTd6 = "td-red"
+                        classTd6 = "red-text"
                     }
-                    if(row.or_ach < 0) {
-                        classTd7 = "td-red"
+                    if(row.or_ach > 0) {
+                        classTd7 = ""
                     }
-                    if(row.or_yoy < 0) {
-                        classTd8 = "td-red"
+                    if(row.or_yoy > 0) {
+                        classTd8 = "red-text"
                     }
 
                     html += `<tr>
@@ -1180,28 +1180,28 @@ function updateChart(table = false) {
                         var classTd7 = "";
                         var classTd8 = "";
                         if(row.pdpt_ach < 0) {
-                            classTd1 = "td-red"
+                            classTd1 = ""
                         }
                         if(row.pdpt_yoy < 0) {
-                            classTd2 = "td-red"
+                            classTd2 = "red-text"
                         }
-                        if(row.beban_ach < 0) {
-                            classTd3 = "td-red"
+                        if(row.beban_ach > 0) {
+                            classTd3 = ""
                         }
-                        if(row.beban_yoy < 0) {
-                            classTd4 = "td-red"
+                        if(row.beban_yoy > 0) {
+                            classTd4 = "red-text"
                         }
                         if(row.shu_ach < 0) {
-                            classTd5 = "td-red"
+                            classTd5 = ""
                         }
                         if(row.shu_yoy < 0) {
-                            classTd6 = "td-red"
+                            classTd6 = "red-text"
                         }
-                        if(row.or_ach < 0) {
-                            classTd7 = "td-red"
+                        if(row.or_ach > 0) {
+                            classTd7 = ""
                         }
-                        if(row.or_yoy < 0) {
-                            classTd8 = "td-red"
+                        if(row.or_yoy > 0) {
+                            classTd8 = "red-text"
                         }
                         if(row.kode_lokasi == $filter_lokasi){
                             var select = 'class="selected-row"';
@@ -1249,7 +1249,6 @@ function updateBox() {
         async: true,
         success:function(result) {    
             // PENDAPATAN
-            $('#pdpt-yoy-percentage').empty()
             var iconPdptYoy = '';
             var iconPdptAch = '';
             var nilaiPdpt = 0;
@@ -1262,10 +1261,10 @@ function updateBox() {
                 nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
-            if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1,2)
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1,2)
+                nilaiYoyPdpt = toMilyar(pdpt.n5,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
@@ -1282,12 +1281,12 @@ function updateBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(pdpt.ach < 0) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(pdpt.ach < 100) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
             }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
@@ -1301,7 +1300,6 @@ function updateBox() {
             // END PENDAPATAN
 
             // BEBAN
-            $('#beban-yoy-percentage').empty()
             var iconBebanYoy = '';
             var iconBebanAch = '';
             var nilaiBeban = 0;
@@ -1314,10 +1312,10 @@ function updateBox() {
                 nilaiBeban = toMilyar(beban.n4,2)
             }
 
-            if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1,2)
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1,2)
+                nilaiYoyBeban = toMilyar(beban.n5,2)
             }
 
             if(beban.n2.toString().length <= 9) {
@@ -1327,19 +1325,19 @@ function updateBox() {
             }
 
             if(beban.yoy < 0) {
-                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconBebanYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 0) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(beban.ach < 100) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconBebanAch = '&nbsp;'
             }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
@@ -1353,7 +1351,6 @@ function updateBox() {
             // END BEBAN
 
             // SHU
-            $('#shu-yoy-percentage').empty()
             var iconShuYoy = '';
             var iconShuAch = '';
             var nilaiShu = 0;
@@ -1366,10 +1363,10 @@ function updateBox() {
                 nilaiShu = toMilyar(shu.n4,2)
             }
 
-            if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1,2)
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1,2)
+                nilaiYoyShu = toMilyar(shu.n5,2)
             }
 
             if(shu.n2.toString().length <= 9) {
@@ -1386,12 +1383,12 @@ function updateBox() {
                 iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(shu.ach < 0) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(shu.ach < 100) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconShuAch = '&nbsp;'
             }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
@@ -1405,7 +1402,6 @@ function updateBox() {
             // END SHU
 
             // OR
-            $('#or-yoy-percentage').empty()
             var iconOrYoy = '';
             var iconOrAch = '';
             var nilaiOr = 0;
@@ -1414,24 +1410,24 @@ function updateBox() {
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
-                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 0) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(or.ach < 100) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconOrAch = '&nbsp;'
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
             $('#or-value').text(`${number_format(or.n4,2)}%`)
-            $('#or-yoy').text(`${number_format(or.n1,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n5,2)}%`)
             $('#or-ach').text(`${number_format(or.n2,2)}%`)
             $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
             $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
@@ -2255,30 +2251,30 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-12 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Pendapatan</h4>
                         <div class="row">
                             <div class="col-12">
                                 <p id="pendapatan-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-no-padding">
+                                <table class="table table-borderless table-no-padding w-100">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-40">Ach.</td>
-                                            <td id="pendapatan-ach" class="px-0">0</td>
-                                            <td id="pdpt-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="pendapatan-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="pdpt-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="pdpt-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="pdpt-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY</td>
-                                            <td id="pendapatan-yoy" class="px-0">0</td>
-                                            <td id="pdpt-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td id="pendapatan-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="pdpt-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="pdpt-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2290,7 +2286,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-pdpt">
                             <ul>
@@ -2304,7 +2300,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2316,7 +2312,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Beban</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2326,20 +2322,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-40">Ach.</td>
-                                            <td id="beban-ach" class="px-0">0</td>
-                                            <td id="beban-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="beban-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="beban-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="beban-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="beban-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY</td>
-                                            <td id="beban-yoy" class="px-0">0</td>
-                                            <td id="beban-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td id="beban-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="beban-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="beban-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2351,7 +2347,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-beban">
                             <ul>
@@ -2365,7 +2361,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2377,7 +2373,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Sisa Hasil Usaha</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2387,20 +2383,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-40">Ach.</td>
-                                            <td id="shu-ach" class="px-0">0</td>
-                                            <td id="shu-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="shu-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="shu-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="shu-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="shu-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY</td>
-                                            <td id="shu-yoy" class="px-0">0</td>
-                                            <td id="shu-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td id="shu-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="shu-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="shu-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2412,7 +2408,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-shu">
                             <ul>
@@ -2426,7 +2422,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2438,7 +2434,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Operating Ratio</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2448,20 +2444,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-40">Ach.</td>
-                                            <td id="or-ach" class="px-0">0</td>
-                                            <td id="or-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="or-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="or-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="or-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="or-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY</td>
-                                            <td id="or-yoy" class="px-0">0</td>
-                                            <td id="or-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td id="or-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="or-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="or-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2473,7 +2469,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-or">
                             <ul>
@@ -2487,7 +2483,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
