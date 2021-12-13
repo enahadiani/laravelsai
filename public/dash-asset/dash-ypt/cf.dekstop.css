@@ -250,3 +250,29 @@ input:checked ~ .text {
     padding-bottom: 0;
 }
 /* END FILTER BOX */
+
+#table-selisih-cf.table tbody tr {
+    cursor: pointer;
+}
+#table-selisih-cf.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+#table-selisih-cf.table tbody tr td:first-child {
+    cursor: pointer;
+}
+.table tbody tr td .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.table tbody tr td .check-row::before {
+    background-color: #830000;
+    color: #ffffff;
+    border-radius: 50%;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-py-0 tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 11px;
+}

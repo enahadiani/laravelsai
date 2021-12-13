@@ -3,7 +3,7 @@
 
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
-var $filter_lokasi = "";
+var $filter_kode_lokasi = "";
 var $tahun = parseInt($('#year-filter').text())
 var $filter1 = "Periode";
 var $filter2 = "September";
@@ -387,7 +387,49 @@ $('.icon-menu').click(function(event) {
         }
     });
 })();
+
 // END CF CHART
+(function(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-selisih') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            $('#table-selisih-cf tbody').html('');
+            var html = '';
+            if(result.data.length > 0){
+                for(var i=0; i < result.data.length; i++){
+                    var line = result.data[i];
+                    // if(line.kode_pp == $filter_kode_pp){
+                    //     var select = 'class="selected-row"';
+                    //     var display = 'unset';
+                    // }else{
+                        var select = "";
+                        var display = 'none';
+                    // }
+                    html+=`
+                    <tr ${select}>
+                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
+                            <span class="nama-lokasi">${line.skode}</span></td>
+                        <td class='text-right'>${toMilyar(line.mutasi,1)}</td>
+                    </tr>`;
+                }
+            }
+            $('#table-selisih-cf tbody').html(html);
+        }
+    });
+})();
+// SELISIH
+
+// END SELISIH
 // END RUN FUNC IF FIRST RENDER
 
 // CONFIG FUNCTION
@@ -451,7 +493,8 @@ function getDataBox(){
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_kode_lokasi
         },
         dataType: 'json',
         async: true,
@@ -581,7 +624,8 @@ function getCFChart() {
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
-            "tahun": $tahun
+            "tahun": $tahun,
+            "kode_lokasi": $filter_kode_lokasi
         },
         dataType: 'json',
         async: true,
@@ -638,8 +682,86 @@ function getCFChart() {
     });
 }
 // END CF CHART
+
+function getSelisih(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-cf-selisih') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            $('#table-selisih-cf tbody').html('');
+            var html = '';
+            if(result.data.length > 0){
+                for(var i=0; i < result.data.length; i++){
+                    var line = result.data[i];
+                    // if(line.kode_pp == $filter_kode_pp){
+                    //     var select = 'class="selected-row"';
+                    //     var display = 'unset';
+                    // }else{
+                        var select = "";
+                        var display = 'none';
+                    // }
+                    html+=`
+                    <tr ${select}>
+                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
+                            <span class="nama-lokasi">${line.skode}</span></td>
+                        <td class='text-right'>${toMilyar(line.mutasi,1)}</td>
+                    </tr>`;
+                }
+            }
+            $('#table-selisih-cf tbody').html(html);
+        }
+    });
+}
 // END RUN FUNC IF FIRST RENDER
 // 
+
+
+// TABLE TOP EVET
+$('#table-selisih-cf tbody').on('click', 'tr td', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var icon = $(this).closest('tr').find('td:first').find('.check-row')
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
+    var check = $(tr).attr('class')
+    var lokasi = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
+    $filter_kode_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    if(check == 'selected-row') {
+        return;
+    }
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    $(tr).addClass('selected-row')
+    $(icon).show()
+    setTimeout(function() {
+        getDataBox();
+        getCFChart();
+    }, 200)
+    $('#lokasi-title').text(lokasi)
+    showNotification(`Menampilkan dashboard ${lokasi}`);
+})
+
+$('#table-selisih-cf tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    $filter_kode_lokasi="";
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+    $('#lokasi-title').text('YPT')
+    getDataBox();
+    getCFChart();
+    getSelisih();
+    showNotification(`Menampilkan dashboard YPT`);
+})
+// END TABLE TOP EVENT
 
 
 // EXPORT HIGHCHART EVENT
@@ -737,7 +859,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Arus Kas</h2>
+                    <h2 class="title-dash" id="title-dash">Arus Kas <span class="lokasi-title"></span></h2>
                 </div>
             </div>
         </div>

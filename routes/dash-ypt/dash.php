@@ -30,6 +30,7 @@ Route::get('data-ccr-trend-saldo','DashYpt\DashboardCCRController@getTrendSaldoP
 
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
 Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');
+Route::get('data-cf-selisih', 'DashYpt\DashboardCFController@getSelisihPerLembaga');
 
 // INVEST
 
