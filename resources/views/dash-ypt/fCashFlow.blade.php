@@ -10,7 +10,7 @@ var $filter2 = "September";
 var $month = "09";
 var $filter1_kode = "PRD";
 var $filter2_kode = "09";
-var trendChart = null;
+var trendCFChart = null;
 
 var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
 $('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`);
@@ -31,8 +31,8 @@ $(window).on('resize', function(){
         var height = screen.height;
         console.log(height);
         heighChart = height;
-        if(trendChart != null){
-            trendChart.update({
+        if(trendCFChart != null){
+            trendCFChart.update({
                 chart: {
                     height: heighChart,
                 }
@@ -41,9 +41,9 @@ $(window).on('resize', function(){
     }else{
         
         console.log('this browser mode');
-        heighChart = 400;
-        if(trendChart != null){
-            trendChart.update({
+        heighChart = 450;
+        if(trendCFChart != null){
+            trendCFChart.update({
                 chart: {
                     height: heighChart,
                 }
@@ -70,7 +70,7 @@ document.addEventListener('fullscreenchange', (event) => {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
   } else {
     $full = '0';
-    trendChart.update({
+    trendCFChart.update({
         title: {
             text: ''
         }
@@ -320,7 +320,7 @@ $('.icon-menu').click(function(event) {
         async: true,
         success:function(result) {
             var data = result.data;
-            trendChart = Highcharts.chart('trend-chart', {
+            trendCFChart = Highcharts.chart('trend-chart', {
                 chart: {
                     height: 450,
                     // width: 600
@@ -631,7 +631,7 @@ function getCFChart() {
         async: true,
         success:function(result) {
             var data = result.data;
-            trendChart = Highcharts.chart('trend-chart', {
+            trendCFChart = Highcharts.chart('trend-chart', {
                 chart: {
                     height: 450,
                     // width: 600
@@ -772,7 +772,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     
     if(jenis == 'View in full screen') {
         $full = '2';
-        trendChart.update({
+        trendCFChart.update({
             title: {
                 text: `Trend Arus Kas`,
                 floating: true,
@@ -780,11 +780,11 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                 y: 20
             }
         })
-        trendChart.fullscreen.toggle();
+        trendCFChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        trendChart.print()
+        trendCFChart.print()
     } else if(jenis == 'Download PNG image') {
-        trendChart.exportChart({
+        trendCFChart.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
@@ -796,7 +796,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        trendChart.exportChart({
+        trendCFChart.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
@@ -808,7 +808,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download PDF document') {
-        trendChart.exportChart({
+        trendCFChart.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
@@ -820,7 +820,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        trendChart.exportChart({
+        trendCFChart.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
@@ -833,7 +833,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        trendChart.viewData()
+        trendCFChart.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
@@ -1109,7 +1109,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
 
     {{-- ROW 2 --}}
     <div id="dekstop-2" class="row dekstop mt-4">
-        <div class="col-9 pl-12 pr-0">
+        <div class="col-9 pl-12 pr-0 col-grid">
             <div class="card card-dash border-r-0" id="dash-trend">
                 <div class="row header-div" id="card-trend">
                     <div class="col-8">
@@ -1145,8 +1145,8 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
                 <div id="trend-chart"></div>
             </div>
         </div>
-        <div class="col-3 pl-1 pr-0">
-            <div class="card card-dash border-r-0" id="dash-selisih" style="height:calc(100vh - 147px);">
+        <div class="col-3 pl-1 pr-0 col-grid">
+            <div class="card card-dash border-r-0" id="dash-selisih" style="height:calc(100vh - 118px)">
                 <div class="row header-div px-1" id="card-selisih">
                     <div class="col-12">
                         <h4 class="header-card">Selisih Tiap Lembaga</h4>
