@@ -115,6 +115,11 @@ function namaPeriode(periode){
     return bulan+' '+tahun;
 }
 
+function toCapitalize(str){
+    const newstr = str.toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+    return newstr;
+}
+
 function namaPeriodeBulan(periode){
     var bulan = periode.substr(4,2);
     switch (bulan){

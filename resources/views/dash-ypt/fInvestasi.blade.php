@@ -16,7 +16,7 @@ var $filter2 = getNamaBulan("09");
 var $filter_kode_lokasi = "";
 var $month = "09";
 var $filter1_kode = "PRD";
-var $filter_aset = "";
+var $filter_kode_neraca = "";
 var nilaiAsetChart = null;
 var aggAsetChart = null;
 
@@ -197,18 +197,18 @@ function getSerapAgg(param) {
             if(result.data.length > 0){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
-                    // if(line.kode_pp == $filter_kode_pp){
-                    //     var select = 'class="selected-row"';
-                    //     var display = 'unset';
-                    // }else{
+                    if(line.kode_aset == $filter_kode_neraca){
+                        var select = 'class="selected-row"';
+                        var display = 'unset';
+                    }else{
                         var select = "";
                         var display = 'none';
-                    // }
+                    }
                     html+=`
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_aset}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
-                            <span class="nama-pp">${line.nama_aset}</span></td>
+                            <span class="nama-aset">${line.nama_aset}</span></td>
                         <td class='text-right'>${number_format(line.ach,1)}%</td>
                     </tr>`;
                 }
@@ -379,20 +379,25 @@ function getAggLembaga(param) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
+                        if(point[j].key == $filter_kode_lokasi){
+                            var select = 'selected-row';
+                        }else{
+                            var select = "";
+                        }
                         if(negative) {
                             point[j].graphic.element.style.fill = 'url(#custom-pattern)'
                             point[j].color = 'url(#custom-pattern)'  
                             point[j].connector.element.style.stroke = 'black'
                             point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item td-klik"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
                         }else{
                             if(color == '#7cb5ec') {
                                 point[j].graphic.element.style.fill = '#830000'
                                 point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item td-klik"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
                             }else{
 
-                                html+= '<div class="item td-klik"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
                             }
                         }
                     }
@@ -419,23 +424,23 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_aset,
         });
         getNilaiAset({
             'periode[0]': '=',
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
         });
         getSerapAgg({
             'periode[0]': '=',
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
         });
-        
+        $('#lokasi-title').text('');
         showNotification(`Menampilkan dashboard YPT`);
         return;
     }else{
@@ -446,7 +451,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
             'kode_lokasi': $filter_kode_lokasi
         });
         getNilaiAset({
@@ -454,7 +459,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
             'kode_lokasi': $filter_kode_lokasi
         });
         getSerapAgg({
@@ -462,10 +467,11 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'aset': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
             'kode_lokasi': $filter_kode_lokasi
         });
         
+        $('#lokasi-title').text(lembaga);
         showNotification(`Menampilkan dashboard ${lembaga} `);
     }
 })
@@ -809,8 +815,8 @@ $('#table-serap-agg tbody').on('click', 'tr td', function() {
     var icon = $(this).closest('tr').find('td:first').find('.check-row')
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
-    var pp = $(this).closest('tr').find('td:first').find('.nama-pp').text()
-    $filter_kode_pp = $(this).closest('tr').find('td:first').find('.kode').text()
+    var aset = $(this).closest('tr').find('td:first').find('.nama-aset').text()
+    $filter_kode_neraca = $(this).closest('tr').find('td:first').find('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -821,22 +827,62 @@ $('#table-serap-agg tbody').on('click', 'tr td', function() {
     $(tr).addClass('selected-row')
     $(icon).show()
     setTimeout(function() {
-        
+        getDataBox({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_neraca' : $filter_kode_neraca
+        });
+        getNilaiAset({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_neraca' : $filter_kode_neraca
+        });
+        getAggLembaga({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_neraca' : $filter_kode_neraca
+        });
     }, 200)
-    $('#pp-title').text(pp)
-    $('#bidang-title').text('')
-    showNotification(`Menampilkan dashboard ${pp}`);
+    $('#aset-title').text(aset.toLowerCase())
+    showNotification(`Menampilkan dashboard ${toCapitalize(aset.toLowerCase())}`);
 })
 
 $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_kode_pp="";
-    var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "");
+    $filter_kode_neraca="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#pp-title').text('Telkom School')
-    $('#bidang-title').text(bidang)
-    
+    $('#aset-title').text('')
+    getDataBox({
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_lokasi' : $filter_kode_lokasi
+    });
+    getNilaiAset({
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_lokasi' : $filter_kode_lokasi
+    });
+    getAggLembaga({
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_lokasi' : $filter_kode_lokasi
+    });
     showNotification(`Menampilkan dashboard YPT`);
     
 })
@@ -853,7 +899,7 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Investasi</h2>
+                    <h2 class="title-dash" id="title-dash">Investasi  <span id="aset-title"></span> <span id="lokasi-title"></span></h2>
                 </div>
             </div>
         </div>

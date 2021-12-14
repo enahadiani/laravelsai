@@ -343,3 +343,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     padding-top: 12px;
     padding-bottom: 11px;
 }
+#aset-title
+{
+    text-transform: capitalize;
+}

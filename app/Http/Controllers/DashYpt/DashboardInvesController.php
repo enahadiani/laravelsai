@@ -41,7 +41,13 @@ class DashboardInvesController extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
-            } else {
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
+            }  else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
@@ -50,14 +56,14 @@ class DashboardInvesController extends Controller {
                 'periode' => $req['periode']
             ];
 
-            if(isset($req['kode_pp'])){
+            if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
-                    'kode_pp' => $req['kode_pp']
+                    'kode_lokasi' => $req['kode_lokasi']
                 ]);
             }
-            if(isset($req['kode_bidang'])){
+            if(isset($req['kode_neraca'])){
                 $fields = array_merge($fields,[
-                    'kode_bidang' => $req['kode_bidang']
+                    'kode_neraca' => $req['kode_neraca']
                 ]);
             }
             
@@ -104,6 +110,12 @@ class DashboardInvesController extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -112,14 +124,15 @@ class DashboardInvesController extends Controller {
             $fields = [
                 'periode' => $req['periode']
             ];
-            if(isset($req['sort'])){
+
+            if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
-                    'sort' => $req['sort']
+                    'kode_lokasi' => $req['kode_lokasi']
                 ]);
             }
-            if(isset($req['kode_bidang'])){
+            if(isset($req['kode_neraca'])){
                 $fields = array_merge($fields,[
-                    'kode_bidang' => $req['kode_bidang']
+                    'kode_neraca' => $req['kode_neraca']
                 ]);
             }
             
@@ -166,6 +179,12 @@ class DashboardInvesController extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -173,14 +192,15 @@ class DashboardInvesController extends Controller {
             $fields = [
                 'periode' => $req['periode']
             ];
-            if(isset($req['kode_pp'])){
+
+            if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
-                    'kode_pp' => $req['kode_pp']
+                    'kode_lokasi' => $req['kode_lokasi']
                 ]);
             }
-            if(isset($req['kode_bidang'])){
+            if(isset($req['kode_neraca'])){
                 $fields = array_merge($fields,[
-                    'kode_bidang' => $req['kode_bidang']
+                    'kode_neraca' => $req['kode_neraca']
                 ]);
             }
             
@@ -227,6 +247,12 @@ class DashboardInvesController extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -234,14 +260,15 @@ class DashboardInvesController extends Controller {
             $fields = [
                 'periode' => $req['periode']
             ];
-            if(isset($req['kode_pp'])){
+
+            if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
-                    'kode_pp' => $req['kode_pp']
+                    'kode_lokasi' => $req['kode_lokasi']
                 ]);
             }
-            if(isset($req['kode_bidang'])){
+            if(isset($req['kode_neraca'])){
                 $fields = array_merge($fields,[
-                    'kode_bidang' => $req['kode_bidang']
+                    'kode_neraca' => $req['kode_neraca']
                 ]);
             }
             
