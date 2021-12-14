@@ -106,15 +106,15 @@
     margin-bottom: 0;
 }
 .orange-text{
-    color: #FFA500;
+    color: #FFA500 !important;
     font-weight: 700;
 }
 .green-text {
-    color: #059669;
+    color: #059669 !important;
     font-weight: 700;
 }
 .red-text {
-    color: #dc2626;
+    color: #dc2626 !important;
     font-weight: 700;
 }
 .red-text-700 {

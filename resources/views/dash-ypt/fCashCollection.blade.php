@@ -199,16 +199,76 @@ function getDataBox(param) {
         async: true,
         success:function(result) {
             var data = result.data;
-            
             $('#ccr-all').text(`${number_format(data.ccr_total.persentase,2)}%`)
             $('#ccr-prev').text(`${number_format(data.ccr_tahun_lalu.persentase,2)}%`)
             $('#ccr-now').text(`${number_format(data.ccr_tahun_ini.persentase,2)}%`)
+            if( parseFloat(data.ccr_total.persentase) >= 51 && parseFloat(data.ccr_total.persentase) <= 84){
+                $('#ccr-all').addClass('orange-text');
+                $('#ccr-all').removeClass('green-text');
+                $('#ccr-all').removeClass('red-text');             
+            }else if (parseFloat(data.ccr_total.persentase) >= 85){
+                $('#ccr-all').addClass('green-text');
+                $('#ccr-all').removeClass('red-text');
+                $('#ccr-all').removeClass('orange-text'); 
+            }else if (parseFloat(data.ccr_total.persentase) <= 50){
+                $('#ccr-all').addClass('red-text');
+                $('#ccr-all').removeClass('green-text');
+                $('#ccr-all').removeClass('orange-text');   
+            }
 
-            $('#ccr-all-ar').text(`${toMilyar(data.ccr_total.ar,2)}`)
+            if( parseFloat(data.ccr_tahun_ini.persentase) >= 51 && parseFloat(data.ccr_tahun_ini.persentase) <= 84){
+                $('#ccr-now').addClass('orange-text');
+                $('#ccr-now').removeClass('green-text');
+                $('#ccr-now').removeClass('red-text');             
+            }else if (parseFloat(data.ccr_tahun_ini.persentase) >= 85){
+                $('#ccr-now').addClass('green-text');
+                $('#ccr-now').removeClass('red-text');
+                $('#ccr-now').removeClass('orange-text'); 
+            }else if (parseFloat(data.ccr_tahun_ini.persentase) <= 50){
+                $('#ccr-now').addClass('red-text');
+                $('#ccr-now').removeClass('green-text');
+                $('#ccr-now').removeClass('orange-text');   
+            }
+
+            if (parseFloat(data.ccr_tahun_lalu.persentase) >= 85){
+                $('#ccr-prev').addClass('green-text');
+                $('#ccr-prev').removeClass('orange-text'); 
+            }else{
+                $('#ccr-prev').addClass('orange-text');
+                $('#ccr-prev').removeClass('green-text'); 
+            }
+
+            var growth_all_mom =( data.ccr_total.mom != 0 ? ((data.ccr_total.inflow - data.ccr_total.mom)/ data.ccr_total.mom)*100 : 0);
+            var growth_all_yoy =( data.ccr_total.yoy != 0 ? ((data.ccr_total.inflow - data.ccr_total.yoy)/ data.ccr_total.yoy)*100 : 0);
+
+            if (growth_all_mom >= 0){
+                $('#all-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_mom,2)+'%');
+                $('#all-mom-percentage').addClass('green-text');
+                $('#all-mom-percentage').removeClass('red-text'); 
+            }else{
+                
+                $('#all-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_mom,2)+'%');
+                $('#all-mom-percentage').addClass('red-text');
+                $('#all-mom-percentage').removeClass('green-text'); 
+            }
+
+            if (growth_all_yoy >= 0){
+                
+                $('#all-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_yoy,2)+'%');
+                $('#all-yoy-percentage').addClass('green-text');
+                $('#all-yoy-percentage').removeClass('red-text'); 
+            }else{
+                $('#all-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_yoy,2)+'%');
+                $('#all-yoy-percentage').addClass('red-text');
+                $('#all-yoy-percentage').removeClass('green-text'); 
+            }
+
+            $('#ccr-all-mom').text(`${toMilyar(data.ccr_total.mom,2)}`)
             $('#ccr-prev-ar').text(`${toMilyar(data.ccr_tahun_lalu.ar,2)}`)
             $('#ccr-now-ar').text(`${toMilyar(data.ccr_tahun_ini.ar,2)}`)
 
-            $('#ccr-all-inflow').text(`${toMilyar(data.ccr_total.inflow,2)}`)
+            
+            $('#ccr-all-yoy').text(`${toMilyar(data.ccr_total.yoy,2)}`)
             $('#ccr-prev-inflow').text(`${toMilyar(data.ccr_tahun_lalu.inflow,2)}`)
             $('#ccr-now-inflow').text(`${toMilyar(data.ccr_tahun_ini.inflow,2)}`)
         }
@@ -1014,7 +1074,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">CCR <span class="pp-title">Telkom School</span><span class="bidang-title"></span> </h2>
+                    <h2 class="title-dash" id="title-dash">Cash Collection <span class="pp-title">Telkom School</span><span class="bidang-title"></span> </h2>
                 </div>
             </div>
         </div>
@@ -1112,66 +1172,6 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                 <div class="col-12 pl-12 pr-0">
                     <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
                         <div class="row header-div">
-                            <div class="col-9">
-                                <h4 class="header-card">CCR Keseluruhan</h4>
-                            </div>
-                        </div>
-                        <div class="row body-div">
-                            <div class="col-12">
-                                <p id="ccr-all" class="main-nominal">0%</p>
-                            </div>
-                            <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-all">
-                                    <tbody>
-                                        <tr>
-                                            <td class="pl-0">AR</td>
-                                            <td class="text-bold text-right" id="ccr-all-ar">0 M</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pl-0">Inflow</td>
-                                            <td class="text-bold text-right" id="ccr-all-inflow">0 M</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-1">
-                <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
-                        <div class="row header-div">
-                            <div class="col-9">
-                                <h4 class="header-card">CCR Tahun Lalu</h4>
-                            </div>
-                        </div>
-                        <div class="row body-div">
-                            <div class="col-12">
-                                <p id="ccr-prev" class="main-nominal">0%</p>
-                            </div>
-                            <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-prev">
-                                    <tbody>
-                                        <tr>
-                                            <td class="pl-0">AR</td>
-                                            <td class="text-bold text-right" id="ccr-prev-ar">0 M</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="pl-0">Inflow</td> 
-                                            <td class="text-bold text-right" id="ccr-prev-inflow">0 M</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
-                        <div class="row header-div">
                             <div class="col-7">
                                 <h4 class="header-card" id="judul-ccr-now1"></h4>
                             </div>
@@ -1187,12 +1187,78 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <table class="table table-borderless table-py-2" id="table-ccr-now">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0">AR</td>
+                                            <td class="pl-0">Tagihan</td>
                                             <td class="text-bold text-right" id="ccr-now-ar">0 M</td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0">Inflow</td>
+                                            <td class="pl-0">Pembayaran</td>
                                             <td class="text-bold text-right" id="ccr-now-inflow">0 M</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-12 pl-12 pr-0">
+                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                        <div class="row header-div">
+                            <div class="col-9">
+                                <h4 class="header-card">CCR Tahun Sebelumnya</h4>
+                            </div>
+                        </div>
+                        <div class="row body-div">
+                            <div class="col-12">
+                                <p id="ccr-prev" class="main-nominal">0%</p>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-borderless table-py-2" id="table-ccr-prev">
+                                    <tbody>
+                                        <tr>
+                                            <td class="pl-0">Tagihan</td>
+                                            <td class="text-bold text-right" id="ccr-prev-ar">0 M</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pl-0">Pembayaran</td> 
+                                            <td class="text-bold text-right" id="ccr-prev-inflow">0 M</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 pl-12 pr-0">
+                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                        <div class="row header-div">
+                            <div class="col-9">
+                                <h4 class="header-card">CCR Total</h4>
+                            </div>
+                        </div>
+                        <div class="row body-div">
+                            <div class="col-12">
+                                <p id="ccr-all" class="main-nominal">0%</p>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-borderless table-py-2" id="table-ccr-all">
+                                    <tbody>
+                                        <tr>
+                                            <td class="w-40 pl-0">MoM Growth</td>
+                                            <td id="ccr-all-mom" class="w-30 text-bold text-right">0 M</td>
+                                            <td id="all-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">YoY Growth</td>
+                                            <td id="ccr-all-yoy" class="w-30 text-bold text-right">0 M</td>
+                                            <td id="all-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
