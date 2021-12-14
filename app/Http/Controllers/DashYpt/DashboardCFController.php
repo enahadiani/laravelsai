@@ -149,7 +149,7 @@ class DashboardCFController extends Controller {
         }
     }
 
-    public function getSelisihPerLembaga(Request $r) {
+    public function getSoAkhirPerLembaga(Request $r) {
         try {
             $req = $r->all();
             $tahun = $r->query('tahun');
@@ -184,7 +184,7 @@ class DashboardCFController extends Controller {
             ];
 
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-cf-selisih',[
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-cf-soakhir',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

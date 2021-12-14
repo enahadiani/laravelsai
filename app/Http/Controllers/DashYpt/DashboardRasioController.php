@@ -80,6 +80,47 @@ class DashboardRasioController extends Controller
     public function getRasioYTD(Request $r) {
         try {
             $req = $r->all();
+            $tahun = $r->query('tahun');
+            if($r->query('jenis') == 'TRW') {
+                if($r->query('periode')[1] == "TRW1") {
+                    $req['periode'][1] = $tahun."03"; 
+                } elseif($r->query('periode')[1] == "TRW2") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "TRW3") {
+                    $req['periode'][1] = $tahun."09";
+                } elseif($r->query('periode')[1] == "TRW4") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'SMT') {
+                if($r->query('periode')[1] == "SMT1") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "SMT2") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode']
+            ];
+
+            if(isset($req['lokasi'])){
+                $fields = array_merge($fields,[
+                    'lokasi' => $req['lokasi']
+                ]);
+            }
+            if(isset($req['jenis_rasio'])){
+                $fields = array_merge($fields,[
+                    'jenis' => $req['jenis_rasio']
+                ]);
+            }
             
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-ytd',[
@@ -87,7 +128,7 @@ class DashboardRasioController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => $req
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -100,13 +141,55 @@ class DashboardRasioController extends Controller
 
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+            return response()->json(['message' => $res, 'status'=>false], 200);
         }
     }
 
     public function getRasioYoY(Request $r) {
         try {
+            
             $req = $r->all();
+            $tahun = $r->query('tahun');
+            if($r->query('jenis') == 'TRW') {
+                if($r->query('periode')[1] == "TRW1") {
+                    $req['periode'][1] = $tahun."03"; 
+                } elseif($r->query('periode')[1] == "TRW2") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "TRW3") {
+                    $req['periode'][1] = $tahun."09";
+                } elseif($r->query('periode')[1] == "TRW4") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'SMT') {
+                if($r->query('periode')[1] == "SMT1") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "SMT2") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode']
+            ];
+
+            if(isset($req['lokasi'])){
+                $fields = array_merge($fields,[
+                    'lokasi' => $req['lokasi']
+                ]);
+            }
+            if(isset($req['jenis_rasio'])){
+                $fields = array_merge($fields,[
+                    'jenis' => $req['jenis_rasio']
+                ]);
+            }
             
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-yoy',[
@@ -114,7 +197,7 @@ class DashboardRasioController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => $req
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -134,6 +217,47 @@ class DashboardRasioController extends Controller
     public function getRasioTahun(Request $r) {
         try {
             $req = $r->all();
+            $tahun = $r->query('tahun');
+            if($r->query('jenis') == 'TRW') {
+                if($r->query('periode')[1] == "TRW1") {
+                    $req['periode'][1] = $tahun."03"; 
+                } elseif($r->query('periode')[1] == "TRW2") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "TRW3") {
+                    $req['periode'][1] = $tahun."09";
+                } elseif($r->query('periode')[1] == "TRW4") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'SMT') {
+                if($r->query('periode')[1] == "SMT1") {
+                    $req['periode'][1] = $tahun."06";
+                } elseif($r->query('periode')[1] == "SMT2") {
+                    $req['periode'][1] = $tahun."12";
+                }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $per_awal = $tahun.'01';
+                $per_akhir = $tahun.$req['periode'][1];
+                $req['periode'][0] = 'range';
+                $req['periode'][1] = $per_awal;
+                $req['periode'][2] = $per_akhir;
+            } else {
+                $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode']
+            ];
+
+            if(isset($req['lokasi'])){
+                $fields = array_merge($fields,[
+                    'lokasi' => $req['lokasi']
+                ]);
+            }
+            if(isset($req['jenis_rasio'])){
+                $fields = array_merge($fields,[
+                    'jenis' => $req['jenis_rasio']
+                ]);
+            }
             
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-tahun',[
@@ -141,7 +265,7 @@ class DashboardRasioController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => $req
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK

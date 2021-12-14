@@ -159,7 +159,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
 
     getDataBox()
     getCFChart()
-    getSelisih()
+    getSoAkhir()
     showNotification(`Menampilkan dashboard periode ${nama_filter} ${$filter2} ${$tahun}`);
 });
 
@@ -473,7 +473,7 @@ $('.icon-menu').click(function(event) {
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-cf-selisih') }}",
+        url: "{{ url('dash-ypt-dash/data-cf-soakhir') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
@@ -500,7 +500,7 @@ $('.icon-menu').click(function(event) {
                         <td ><p class="kode hidden">${line.kode_lokasi}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-lokasi">${line.skode}</span></td>
-                        <td class='text-right'>${toMilyar(line.mutasi,1)}</td>
+                        <td class='text-right'>${toMilyar(line.so_akhir,1)}</td>
                     </tr>`;
                 }
             }
@@ -829,11 +829,28 @@ function getCFChart() {
                 },
                 plotOptions: {
                     series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '9px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                            }
+                        },
                         label: {
-                            connectorAllowed: false
+                            connectorAllowed: true
                         },
                         marker:{
-                            enabled:false
+                            enabled: true
                         },
                     }
                 },
@@ -844,10 +861,10 @@ function getCFChart() {
 }
 // END CF CHART
 
-function getSelisih(){
+function getSoAkhir(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-cf-selisih') }}",
+        url: "{{ url('dash-ypt-dash/data-cf-soakhir') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
@@ -874,7 +891,7 @@ function getSelisih(){
                         <td ><p class="kode hidden">${line.kode_lokasi}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-lokasi">${line.skode}</span></td>
-                        <td class='text-right'>${toMilyar(line.mutasi,1)}</td>
+                        <td class='text-right'>${toMilyar(line.so_akhir,1)}</td>
                     </tr>`;
                 }
             }
@@ -919,7 +936,7 @@ $('#table-selisih-cf tbody').on('click', 'tr.selected-row', function() {
     $('#lokasi-title').text('YPT')
     getDataBox();
     getCFChart();
-    getSelisih();
+    getSoAkhir();
     showNotification(`Menampilkan dashboard YPT`);
 })
 // END TABLE TOP EVENT
@@ -1294,7 +1311,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             <div class="card card-dash border-r-0" id="dash-selisih" style="height:calc(100vh - 118px)">
                 <div class="row header-div px-1" id="card-selisih">
                     <div class="col-12">
-                        <h4 class="header-card">Selisih Tiap Lembaga</h4>
+                        <h4 class="header-card">Saldo Akhir Tiap Lembaga</h4>
                     </div>
                 </div>
                 <div class="table-responsive mt-2" id="div-selisih-cf" style="height:calc(100vh - 180px);position:relative">

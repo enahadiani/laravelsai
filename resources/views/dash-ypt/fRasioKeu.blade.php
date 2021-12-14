@@ -5,8 +5,9 @@
     $('body').addClass('scroll-hide');
     var $tahun = parseInt($('#year-filter').text());
     var $filter1 = "Periode";
-    var $filter2 = getNamaBulan("{{ Session::get('periode') }}".substr(4,2));
-    var $month = "{{ Session::get('periode') }}".substr(4,2);
+    var $filter2 = getNamaBulan("09");
+    var $filter1_kode = "PRD";
+    var $month = "09";
     var yoyChart = null;
 
     // CONFIG FUNCTION
@@ -130,16 +131,16 @@
         });
     }
 
-    function getRasioYtd(periode,jenis,lokasi) {
+    function getRasioYtd(periode,jenis_rasio,jenis,lokasi,tahun) {
         $.ajax({
             type:'GET',
             url: "{{ url('dash-ypt-dash/data-rasio-ytd') }}",
             dataType: 'JSON',
-            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            data:{'periode[0]':'=','periode[1]':periode,jenis:jenis,lokasi:lokasi,jenis_rasio:jenis_rasio,tahun:tahun},
             success: function(result) {
                 if(result.status){
                     // $('#status-rasio-ytd').html(result.status_rasio);
-                    $('#rasio-ytd').html(number_format(result.data[periode],2)+'%');
+                    $('#rasio-ytd').html(number_format(result.data[tahun+''+periode],2)+'%');
                     // if(result.status_rasio == 'Naik'){
                     //     $('#status-rasio-ytd').removeClass('red-text')
                     //     $('#status-rasio-ytd').addClass('green-text')
@@ -158,12 +159,12 @@
         });
     }
 
-    function getRasioYoY(periode,jenis,lokasi) {
+    function getRasioYoY(periode,jenis_rasio,jenis,lokasi,tahun) {
         $.ajax({
             type:'GET',
             url: "{{ url('dash-ypt-dash/data-rasio-yoy') }}",
             dataType: 'JSON',
-            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            data:{'periode[0]':'=','periode[1]':periode,jenis:jenis,lokasi:lokasi,jenis_rasio:jenis_rasio,tahun:tahun},
             success: function(result) {
                 if(result.status){
                     $('#rasio-selisih').html(number_format(result.kenaikan,2)+'%');
@@ -198,12 +199,12 @@
         });
     }
 
-    function getYoYChart(periode,jenis,lokasi){
+    function getYoYChart(periode,jenis_rasio,jenis,lokasi,tahun){
         $.ajax({
             type:'GET',
             url: "{{ url('dash-ypt-dash/data-rasio-tahun') }}",
             dataType: 'JSON',
-            data:{periode:periode,jenis:jenis,lokasi:lokasi},
+            data:{'periode[0]':'=','periode[1]':periode,jenis:jenis,lokasi:lokasi,jenis_rasio:jenis_rasio,tahun:tahun},
             success: function(result) {
                 yoyChart = Highcharts.chart('rasio-chart', {
                     // chart: {
@@ -266,9 +267,9 @@
 
     getJenis();
     getLembaga();
-    getRasioYtd("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
-    getRasioYoY("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
-    getYoYChart("{{ Session::get('periode') }}","SR01","{{ Session::get('lokasi') }}");
+    getRasioYtd($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
+    getRasioYoY($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
+    getYoYChart($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
 
     if($filter1 == 'Periode') {
         $('#list-filter-2').find('.list').each(function() {
@@ -329,9 +330,9 @@
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
-        getRasioYtd(periode,jenis,lokasi);
-        getRasioYoY(periode,jenis,lokasi);
-        getYoYChart(periode,jenis,lokasi);
+        getRasioYtd($month,jenis,$filter1_kode,lokasi,$tahun);
+        getRasioYoY($month,jenis,$filter1_kode,lokasi,$tahun);
+        getYoYChart($month,jenis,$filter1_kode,lokasi,$tahun);
     });
 
     $('#tambah-tahun').click(function(event) {
@@ -341,9 +342,9 @@
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
-        getRasioYtd(periode,jenis,lokasi);
-        getRasioYoY(periode,jenis,lokasi);
-        getYoYChart(periode,jenis,lokasi);
+        getRasioYtd($month,jenis,$filter1_kode,lokasi,$tahun);
+        getRasioYoY($month,jenis,$filter1_kode,lokasi,$tahun);
+        getYoYChart($month,jenis,$filter1_kode,lokasi,$tahun);
     });
 
     $('#custom-row').click(function(event) {
@@ -414,9 +415,9 @@
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
-        getRasioYtd(periode,jenis,lokasi);
-        getRasioYoY(periode,jenis,lokasi);
-        getYoYChart(periode,jenis,lokasi);
+        getRasioYtd($month,jenis,$filter1_kode,lokasi,$tahun);
+        getRasioYoY($month,jenis,$filter1_kode,lokasi,$tahun);
+        getYoYChart($month,jenis,$filter1_kode,lokasi,$tahun);
         showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
     });
 
@@ -425,9 +426,9 @@
         var jenis = $("input[name='jenis']:checked").val();
         var nama_jenis = $("input[name='jenis']:checked").siblings('label').text();
         var lokasi = $("input[name='lokasi']:checked").val();
-        getRasioYtd(periode,jenis,lokasi);
-        getRasioYoY(periode,jenis,lokasi);
-        getYoYChart(periode,jenis,lokasi);
+        getRasioYtd($month,jenis,$filter1_kode,lokasi,$tahun);
+        getRasioYoY($month,jenis,$filter1_kode,lokasi,$tahun);
+        getYoYChart($month,jenis,$filter1_kode,lokasi,$tahun);
         showNotification(`Menampilkan dashboard ${nama_jenis}`);
 
     });
@@ -437,9 +438,9 @@
         var jenis = $("input[name='jenis']:checked").val();
         var lokasi = $("input[name='lokasi']:checked").val();
         var nama_lokasi = $("input[name='lokasi']:checked").siblings('label').text();
-        getRasioYtd(periode,jenis,lokasi);
-        getRasioYoY(periode,jenis,lokasi);
-        getYoYChart(periode,jenis,lokasi);
+        getRasioYtd($month,jenis,$filter1_kode,lokasi,$tahun);
+        getRasioYoY($month,jenis,$filter1_kode,lokasi,$tahun);
+        getYoYChart($month,jenis,$filter1_kode,lokasi,$tahun);
         showNotification(`Menampilkan dashboard ${nama_lokasi}`);
     });
 
