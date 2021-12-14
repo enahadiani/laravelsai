@@ -1179,9 +1179,9 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card grey-text text-right mr-2" id="judul-ccr-now2"></h4>
                             </div>
                         </div>
-                        <div class="row body-div">
+                        <div class="row body-div my-auto">
                             <div class="col-12">
-                                <p id="ccr-now" class="main-nominal">0%</p>
+                                <p id="ccr-now" class="main-nominal pt-3">0%</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-py-2" id="table-ccr-now">
@@ -1209,9 +1209,9 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card">CCR Tahun Sebelumnya</h4>
                             </div>
                         </div>
-                        <div class="row body-div">
+                        <div class="row body-div my-auto">
                             <div class="col-12">
-                                <p id="ccr-prev" class="main-nominal">0%</p>
+                                <p id="ccr-prev" class="main-nominal pt-3">0%</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-py-2" id="table-ccr-prev">
@@ -1239,23 +1239,23 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card">CCR Total</h4>
                             </div>
                         </div>
-                        <div class="row body-div">
+                        <div class="row body-div my-auto">
                             <div class="col-12">
-                                <p id="ccr-all" class="main-nominal">0%</p>
+                                <p id="ccr-all" class="main-nominal pt-3">0%</p>
                             </div>
                             <div class="col-12">
                                 <table class="table table-borderless table-py-2" id="table-ccr-all">
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">MoM Growth</td>
-                                            <td id="ccr-all-mom" class="w-30 text-bold text-right">0 M</td>
+                                            <td id="ccr-all-mom" class="w-30 text-bold text-right px-0">0 M</td>
                                             <td id="all-mom-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="w-40 pl-0">YoY Growth</td>
-                                            <td id="ccr-all-yoy" class="w-30 text-bold text-right">0 M</td>
+                                            <td id="ccr-all-yoy" class="w-30 text-bold text-right px-0">0 M</td>
                                             <td id="all-yoy-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>

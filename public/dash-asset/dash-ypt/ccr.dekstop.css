@@ -347,3 +347,8 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 {
     text-transform: capitalize;
 }
+
+#table-ccr-now td, #table-ccr-prev td, #table-ccr-all td
+{
+    padding: 5px 8px;
+}
