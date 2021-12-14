@@ -499,14 +499,75 @@ function getTrendCCR(param) {
 function getTrendSaldo(param) {
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-ccr-trend-saldo') }}",
+        url: "{{ url('dash-ypt-dash/data-ccr-umur-piutang') }}",
         data: param,
         dataType: 'json',
         async: true,
         success:function(result) {
+            // soakhirChart = Highcharts.chart('saldo-akhir', {
+            //     chart: {
+            //         type: 'spline',
+            //         height: ($height - 200)/2
+            //     },
+            //     title: { text: '' },
+            //     subtitle: { text: '' },
+            //     exporting:{ 
+            //         enabled: false
+            //     },
+            //     legend:{ 
+            //         enabled: false 
+            //     },
+            //     credits: { enabled: false },
+            //     xAxis: {
+            //         categories: result.data.kategori
+            //     },
+            //     yAxis: {
+            //         title: {
+            //             text: 'Nilai'
+            //         },
+            //         labels: {
+            //             formatter: function () {
+            //                 return singkatNilai(this.value);
+            //             }
+            //         },
+            //     },
+            //     tooltip: {
+            //         formatter: function () {   
+            //             return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + toMilyar(this.y,2);
+            //         }
+            //     },
+            //     plotOptions: {
+            //         series: {
+            //             dataLabels: {
+            //                 // padding:10,
+            //                 allowOverlap:true,
+            //                 enabled: true,
+            //                 crop: false,
+            //                 overflow: 'justify',
+            //                 useHTML: true,
+            //                 formatter: function () {
+            //                     // return toMilyar(this.y,2);
+            //                     return $('<div/>').css({
+            //                             // 'color' : 'white', // work
+            //                             'padding': '0 3px',
+            //                             'font-size': '9px',
+            //                             // 'backgroundColor' : this.point.color  // just white in my case
+            //                         }).text(toMilyar(this.point.y,2))[0].outerHTML;
+            //                 }
+            //             },
+            //             label: {
+            //                 connectorAllowed: true
+            //             },
+            //             marker:{
+            //                 enabled:true
+            //             }
+            //         }
+            //     },
+            //     series: result.data.series
+            // });
             soakhirChart = Highcharts.chart('saldo-akhir', {
                 chart: {
-                    type: 'spline',
+                    type: 'column',
                     height: ($height - 200)/2
                 },
                 title: { text: '' },
@@ -781,7 +842,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
         $full = '2';
         soakhirChart.update({
             title: {
-                text: `Saldo Akhir Piutang`,
+                text: `Umur Piutang`,
                 floating: true,
                 x: 40,
                 y: 20
@@ -796,7 +857,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `Saldo Akhir Piutang`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
@@ -808,7 +869,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Saldo Akhir Piutang`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
@@ -820,7 +881,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Saldo Akhir Piutang`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
@@ -832,7 +893,7 @@ $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Saldo Akhir Piutang`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
@@ -1303,7 +1364,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     style="height:calc((100vh - 155px)/2)">
                         <div class="row header-div" id="card-soakhir">
                             <div class="col-9">
-                                <h4 class="header-card">Saldo Akhir Piutang</h4>
+                                <h4 class="header-card">Umur Piutang</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
