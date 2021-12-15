@@ -362,8 +362,8 @@ var $height = $(window).height();
                     var classTd6 = "";
                     var classTd7 = "";
                     var classTd8 = "";
-                    if(row.pdpt_ach < 0) {
-                        classTd1 = ""
+                    if(row.pdpt_ach > 100) {
+                        classTd1 = "green-text"
                     }
                     if(row.pdpt_yoy < 0) {
                         classTd2 = "red-text"
@@ -374,8 +374,8 @@ var $height = $(window).height();
                     if(row.beban_yoy > 0) {
                         classTd4 = "red-text"
                     }
-                    if(row.shu_ach < 0) {
-                        classTd5 = ""
+                    if(row.shu_ach > 100) {
+                        classTd5 = "green-text"
                     }
                     if(row.shu_yoy < 0) {
                         classTd6 = "red-text"
@@ -777,8 +777,8 @@ function updateChart(table = false) {
                         var classTd6 = "";
                         var classTd7 = "";
                         var classTd8 = "";
-                        if(row.pdpt_ach < 0) {
-                            classTd1 = ""
+                        if(row.pdpt_ach > 100) {
+                            classTd1 = "green-text"
                         }
                         if(row.pdpt_yoy < 0) {
                             classTd2 = "red-text"
@@ -789,8 +789,8 @@ function updateChart(table = false) {
                         if(row.beban_yoy > 0) {
                             classTd4 = "red-text"
                         }
-                        if(row.shu_ach < 0) {
-                            classTd5 = ""
+                        if(row.shu_ach > 100) {
+                            classTd5 = "green-text"
                         }
                         if(row.shu_yoy < 0) {
                             classTd6 = "red-text"

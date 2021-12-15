@@ -121,10 +121,13 @@
     .table.table-no-padding tbody tr td.pl-0 {
         padding-left: 0;
     }
+    .table.table-th-red{
+        border:1px solid #3a3a3a !important; 
+    }
     .table.table-th-red thead tr th {
         background-color: #830000;
-        color: #ffffff;
-        border: none !important;
+        color: rgb(255, 255, 255);
+        border:1px solid white !important;
     }
     .table.table-th-red tbody tr .td-red {
         background-color: #ff0000;
@@ -132,6 +135,7 @@
     /* .table.table-th-red thead tr th, */
     .table.table-th-red tbody tr td {
         padding: 10px 8px;
+        /* border:1px solid #3a3a3a !important; */
     }
     #table-lembaga.table tbody tr {
         cursor: pointer;
