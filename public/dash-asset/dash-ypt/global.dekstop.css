@@ -187,3 +187,7 @@
 .lh-1 {
     line-height: 1.2;
 }
+li.disabled {
+    cursor: not-allowed !important;
+    opacity: 0.6;
+}

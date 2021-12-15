@@ -145,7 +145,7 @@ $('#list-filter-1 ul li').click(function(event) {
 $('#list-filter-2').on('click', 'div', function(event) {
     event.stopPropagation();
     filter = $(this).data('bulan') 
-    
+    $month = filter
     $filter2 = filter
     $filter2_kode = $(this).data('bulan')
     $('#list-filter-2 div').not(this).removeClass('selected')

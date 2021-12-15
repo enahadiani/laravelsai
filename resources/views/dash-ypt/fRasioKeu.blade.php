@@ -366,35 +366,37 @@
     // MENTRIGGER FILTER 1
     $('#list-filter-1 ul li').click(function(event) {
         event.stopPropagation();
-        var html = '';
-        var filter = $(this).text()
-        $filter1 = filter
-        $filter1_kode = $(this).data('filter1')
-        $('#list-filter-1 ul li').not(this).removeClass('selected')
-        $(this).addClass('selected')
-        $('#list-filter-2').empty()
-        var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-        for(i=0; i < bln.length; i++){
-            if($filter1_kode == 'PRD'){
-                if(parseInt(bln[i]) == parseInt($month)){
-                    var selected = 'selected';
+        if(!$(this).hasClass('disabled')){
+            var html = '';
+            var filter = $(this).text()
+            $filter1 = filter
+            $filter1_kode = $(this).data('filter1')
+            $('#list-filter-1 ul li').not(this).removeClass('selected')
+            $(this).addClass('selected')
+            $('#list-filter-2').empty()
+            var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+            for(i=0; i < bln.length; i++){
+                if($filter1_kode == 'PRD'){
+                    if(parseInt(bln[i]) == parseInt($month)){
+                        var selected = 'selected';
+                    }else{
+                        var selected = '';
+                    }
                 }else{
-                    var selected = '';
+                    if(parseInt(bln[i]) <= parseInt($month)){
+                        var selected = 'selected';
+                    }else{
+                        var selected = '';
+                    }
                 }
-            }else{
-                if(parseInt(bln[i]) <= parseInt($month)){
-                    var selected = 'selected';
-                }else{
-                    var selected = '';
-                }
+                html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
+                    <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
+                </div>`;
             }
-            html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
-                <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
-            </div>`;
+            $('#list-filter-2').append(html)
+            var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+            $('#select-text-rasio').text(`${nama_filter} ${$filter2} ${$tahun}`)
         }
-        $('#list-filter-2').append(html)
-        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-        $('#select-text-rasio').text(`${nama_filter} ${$filter2} ${$tahun}`)
     })
 
     $('#list-filter-2').on('click', 'div', function(event) {
@@ -498,7 +500,7 @@
             <div class="row filter-box-periode px-3">
                 <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="py-2 disabled" data-filter1="YTM" disabled>Year To Month</li>
                         <li class="selected py-2" data-filter1="PRD">Bulan</li>
                     </ul>
                 </div>
