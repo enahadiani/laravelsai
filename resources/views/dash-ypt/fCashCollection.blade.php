@@ -13,6 +13,8 @@ var $month = "09";
 var $filter1_kode = "PRD";
 var $filter_kode_pp = "";
 var $filter_kode_bidang = "";
+var $filter_jenis_ccr = "";
+var $ccr_trend_header = "CCR YTD";
 // var $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
 var $bln_rev_rentang = "YTM";
 var $bln_singkat = bulanSingkat($tahun+''+$month);
@@ -828,6 +830,28 @@ $('#kode_bidang').change(function(){
     }
 });
 
+$('.card-klik').click(function(e){
+    e.preventDefault();
+    if(!$(this).hasClass('selected-card')){
+        $('.card-klik').removeClass('selected-card');
+        $(this).addClass('selected-card');
+        var kode = $(this).find('p.card-kode').text();
+        if(kode == 'tahun'){
+            $ccr_trend_header = 'CCR YTM 2021';
+        }else if (kode == 'tahun_lalu'){
+            $ccr_trend_header = 'CCR Tahun Sebelumnya';
+        }else if (kode == 'total'){
+            $ccr_trend_header = 'CCR Total';
+        }else{
+            $ccr_trend_header = 'CCR YTD';
+        }
+    }else{
+        $('.card-klik').removeClass('selected-card');
+        $ccr_trend_header = 'CCR YTD';
+    }
+    $('.ccr-trend-header').html($ccr_trend_header);
+})
+
 var colors = ['#EEBE00', '#830000'];
 
 $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
@@ -921,7 +945,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         $full = '2';
         trendChart.update({
             title: {
-                text: `CCR YTD`,
+                text: $ccr_trend_header,
                 floating: true,
                 x: 40,
                 y: 20
@@ -936,7 +960,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `CCR YTD`,
+                text: $ccr_trend_header,
             },
             subtitle: {
                 text: ''
@@ -948,7 +972,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `CCR YTD`,
+                text: $ccr_trend_header,
             },
             subtitle: {
                 text: ''
@@ -960,7 +984,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `CCR YTD`,
+                text: $ccr_trend_header,
             },
             subtitle: {
                 text: ''
@@ -972,7 +996,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `CCR YTD`,
+                text: $ccr_trend_header,
             },
             subtitle: {
                 text: ''
@@ -1228,7 +1252,8 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-klik card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                        <p class="card-kode" hidden>tahun</p>
                         <div class="row header-div">
                             <div class="col-7">
                                 <h4 class="header-card" id="judul-ccr-now1"></h4>
@@ -1261,7 +1286,8 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
             </div>
             <div class="row mb-1">
                 <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-klik card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                        <p class="card-kode" hidden>tahun_lalu</p>
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">CCR Tahun Sebelumnya</h4>
@@ -1291,7 +1317,8 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
             </div>
             <div class="row">
                 <div class="col-12 pl-12 pr-0">
-                    <div class="card card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                    <div class="card card-klik card-dash border-r-0" style="height:calc((100vh - 160px)/3);">
+                        <p class="card-kode" hidden>total</p>
                         <div class="row header-div">
                             <div class="col-9">
                                 <h4 class="header-card">CCR Total</h4>
@@ -1333,7 +1360,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     style="height:calc((100vh - 155px)/2)">
                         <div class="row header-div" id="card-trend">
                             <div class="col-9">
-                                <h4 class="header-card">CCR YTD</h4>
+                                <h4 class="header-card ccr-trend-header">CCR YTD</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
