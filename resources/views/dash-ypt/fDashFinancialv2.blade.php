@@ -137,7 +137,7 @@ var $height = $(window).height();
                 iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 100) {
+            if(beban.ach > 100) {
                 $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
                 iconBebanAch = '&nbsp;'
             } else {
@@ -222,7 +222,7 @@ var $height = $(window).height();
                 iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 100) {
+            if(or.ach > 100) {
                 $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
                 iconOrAch = '&nbsp;'
             } else {
@@ -930,7 +930,7 @@ function updateBox() {
                 iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 100) {
+            if(beban.ach > 100) {
                 $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
                 iconBebanAch = '&nbsp;'
             } else {
@@ -1015,7 +1015,7 @@ function updateBox() {
                 iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 100) {
+            if(or.ach > 100) {
                 $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
                 iconOrAch = '&nbsp;'
             } else {
