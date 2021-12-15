@@ -14,7 +14,7 @@ var $filter1_kode = "PRD";
 var $filter_kode_pp = "";
 var $filter_kode_bidang = "";
 var $filter_jenis_ccr = "";
-var $ccr_trend_header = "CCR YTD";
+var $ccr_trend_header = "CCR YTM";
 // var $bln_rev_rentang = "Jan-"+bulanSingkat($tahun+''+(parseInt($month)-1));
 var $bln_rev_rentang = "YTM";
 var $bln_singkat = bulanSingkat($tahun+''+$month);
@@ -843,11 +843,11 @@ $('.card-klik').click(function(e){
         }else if (kode == 'total'){
             $ccr_trend_header = 'CCR Total';
         }else{
-            $ccr_trend_header = 'CCR YTD';
+            $ccr_trend_header = 'CCR YTM';
         }
     }else{
         $('.card-klik').removeClass('selected-card');
-        $ccr_trend_header = 'CCR YTD';
+        $ccr_trend_header = 'CCR YTM';
     }
     $('.ccr-trend-header').html($ccr_trend_header);
 })
@@ -1360,7 +1360,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     style="height:calc((100vh - 155px)/2)">
                         <div class="row header-div" id="card-trend">
                             <div class="col-9">
-                                <h4 class="header-card ccr-trend-header">CCR YTD</h4>
+                                <h4 class="header-card ccr-trend-header">CCR YTM</h4>
                             </div>
                             <div class="col-3">
                                 <div class="glyph-icon simple-icon-menu icon-menu"></div>
