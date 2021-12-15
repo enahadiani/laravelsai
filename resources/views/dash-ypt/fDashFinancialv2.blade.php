@@ -364,27 +364,43 @@ var $height = $(window).height();
                     var classTd8 = "";
                     if(row.pdpt_ach > 100) {
                         classTd1 = "green-text"
+                    }else{
+                        classTd1 = "red-text"
                     }
                     if(row.pdpt_yoy < 0) {
                         classTd2 = "red-text"
+                    }else{
+                        classTd2 = "green-text"
                     }
-                    if(row.beban_ach > 0) {
-                        classTd3 = ""
+                    if(row.beban_ach < 100) {
+                        classTd3 = "green-text"
+                    }else{
+                        classTd3 = "red-text"
                     }
                     if(row.beban_yoy > 0) {
                         classTd4 = "red-text"
+                    }else{
+                        classTd4 = "green-text"
                     }
                     if(row.shu_ach > 100) {
                         classTd5 = "green-text"
+                    }else{
+                        classTd5 = "red-text"
                     }
                     if(row.shu_yoy < 0) {
                         classTd6 = "red-text"
+                    }else{
+                        classTd6 = "green-text"
                     }
-                    if(row.or_ach > 0) {
-                        classTd7 = ""
+                    if(row.or_ach > 100) {
+                        classTd7 = "red-text"
+                    }else{
+                        classTd7 = "green-text"
                     }
                     if(row.or_yoy > 0) {
                         classTd8 = "red-text"
+                    }else{
+                        classTd8 = "green-text"
                     }
 
                     html += `<tr>
@@ -779,27 +795,43 @@ function updateChart(table = false) {
                         var classTd8 = "";
                         if(row.pdpt_ach > 100) {
                             classTd1 = "green-text"
+                        }else{
+                            classTd1 = "red-text"
                         }
                         if(row.pdpt_yoy < 0) {
                             classTd2 = "red-text"
+                        }else{
+                            classTd2 = "green-text"
                         }
-                        if(row.beban_ach > 0) {
-                            classTd3 = ""
+                        if(row.beban_ach < 100) {
+                            classTd3 = "green-text"
+                        }else{
+                            classTd3 = "red-text"
                         }
                         if(row.beban_yoy > 0) {
                             classTd4 = "red-text"
+                        }else{
+                            classTd4 = "green-text"
                         }
                         if(row.shu_ach > 100) {
                             classTd5 = "green-text"
+                        }else{
+                            classTd5 = "red-text"
                         }
                         if(row.shu_yoy < 0) {
                             classTd6 = "red-text"
+                        }else{
+                            classTd6 = "green-text"
                         }
-                        if(row.or_ach > 0) {
-                            classTd7 = ""
+                        if(row.or_ach > 100) {
+                            classTd7 = "red-text"
+                        }else{
+                            classTd7 = "green-text"
                         }
                         if(row.or_yoy > 0) {
                             classTd8 = "red-text"
+                        }else{
+                            classTd8 = "green-text"
                         }
                         if(row.kode_lokasi == $filter_lokasi){
                             var select = 'class="selected-row"';
