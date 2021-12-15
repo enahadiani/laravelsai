@@ -410,7 +410,7 @@ function createChartLembaga(kode_grafik = null) {
 }
 
 function createChartKelompok(kode_grafik = null) {
-    if(kode_grafik != "PI04"){
+    if(kode_grafik != "PI04" && kode_grafik != "PI03"){
 
         $.ajax({
             type: 'GET',
@@ -542,12 +542,22 @@ function createChartKelompok(kode_grafik = null) {
                                 useHTML: true,
                                 formatter: function () {
                                     // return toMilyar(this.y,2);
-                                    return $('<div/>').css({
-                                            // 'color' : 'white', // work
-                                            'padding': '0 3px',
-                                            'font-size': '9px',
-                                            // 'backgroundColor' : this.point.color  // just white in my case
-                                        }).text(number_format(this.point.y,1)+'%')[0].outerHTML;
+                                    if(kode_grafik == 'PI03'){
+                                        return $('<div/>').css({
+                                                // 'color' : 'white', // work
+                                                'padding': '0 3px',
+                                                'font-size': '9px',
+                                                // 'backgroundColor' : this.point.color  // just white in my case
+                                            }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                                    }else{
+
+                                        return $('<div/>').css({
+                                                // 'color' : 'white', // work
+                                                'padding': '0 3px',
+                                                'font-size': '9px',
+                                                // 'backgroundColor' : this.point.color  // just white in my case
+                                            }).text(number_format(this.point.y,1)+'%')[0].outerHTML;
+                                    }
                                 }
                             },
                             label: {
@@ -907,7 +917,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         $full = '2';
         trendChartFP.update({
             title: {
-                text: `Trend OR 5 Tahun`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
                 floating: true,
                 x: 40,
                 y: 20
@@ -922,7 +932,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -934,7 +944,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -946,7 +956,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -958,7 +968,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -1218,7 +1228,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash  border-r-0" id="dash-trend">
                 <div class="row header-div" id="card-trend">
                     <div class="col-9">
-                        <h4 class="header-card">Trend OR 5 Tahun</h4>
+                        <h4 class="header-card">Trend <span class="title-chart"></span> 5 Tahun Per Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
