@@ -5,15 +5,17 @@
 <script type="text/javascript">
 var $filter_kode_lokasi = "";
 var $tahun = parseInt($('#year-filter').text())
+var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
 var $filter1 = "Periode";
-var $filter2 = "September";
-var $month = "09";
+var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
+var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter1_kode = "PRD";
-var $filter2_kode = "09";
+var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var trendCFChart = null;
 
+$('#year-filter').text($tahun)
 var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-$('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`);
+$('#select-text-cf').text(`${nama_filter} ${$filter2} ${$tahun}`)
 
 $(window).on('resize', function(){
     var win = $(this); //this = window

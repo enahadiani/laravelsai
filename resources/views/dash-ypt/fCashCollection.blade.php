@@ -6,11 +6,13 @@
 
 var $height = $(window).height();
 var $tahun = parseInt($('#year-filter').text())
+var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
 var $filter1 = "Periode";
-var $filter2 = getNamaBulan("09");
-var $filter_lokasi = "";
-var $month = "09";
+var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
+var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter1_kode = "PRD";
+var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter_lokasi = "";
 var $filter_kode_pp = "";
 var $filter_kode_bidang = "";
 var $filter_jenis_ccr = "";
