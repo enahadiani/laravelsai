@@ -3,12 +3,27 @@
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
     $('body').addClass('scroll-hide');
-    var $tahun = parseInt($('#year-filter').text());
+    var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
     var $filter1 = "Periode";
-    var $filter2 = getNamaBulan("09");
-    var $filter1_kode = "PRD";
-    var $month = "09";
+    var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
+    var $month = "{{ substr(Session::get('periode'),4,2) }}";
+    var $filter1_kode = "YTM";
+    var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
     var yoyChart = null;
+
+    if($filter1 == 'Periode') {
+        $('#list-filter-2').find('.list').each(function() {
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
+            }
+        });
+    }
+
+    $('#year-filter').text($tahun)
+    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+    $('#select-text-rasio').text(`${nama_filter} ${$filter2} ${$tahun}`)
 
     // CONFIG FUNCTION
     function showNotification(message) {
@@ -270,19 +285,6 @@
     getRasioYtd($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
     getRasioYoY($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
     getYoYChart($month,"SR01",$filter1_kode,"{{ Session::get('lokasi') }}",$tahun);
-
-    if($filter1 == 'Periode') {
-        $('#list-filter-2').find('.list').each(function() {
-            if($(this).data('bulan').toString() == $month) {
-                $(this).addClass('selected')
-                $month = $(this).data('bulan').toString();
-                return false;
-            }
-        });
-    }
-
-    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-    $('#select-text-rasio').text(`${nama_filter} ${$filter2} ${$tahun}`);
 
     $(window).on('resize', function(){
         var win = $(this); //this = window

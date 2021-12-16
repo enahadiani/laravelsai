@@ -98,17 +98,14 @@ class DashboardRasioController extends Controller
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
 
             if(isset($req['lokasi'])){
@@ -118,7 +115,7 @@ class DashboardRasioController extends Controller
             }
             if(isset($req['jenis_rasio'])){
                 $fields = array_merge($fields,[
-                    'jenis' => $req['jenis_rasio']
+                    'jenis_rasio' => $req['jenis_rasio']
                 ]);
             }
             
@@ -167,17 +164,14 @@ class DashboardRasioController extends Controller
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
 
             if(isset($req['lokasi'])){
@@ -187,10 +181,9 @@ class DashboardRasioController extends Controller
             }
             if(isset($req['jenis_rasio'])){
                 $fields = array_merge($fields,[
-                    'jenis' => $req['jenis_rasio']
+                    'jenis_rasio' => $req['jenis_rasio']
                 ]);
             }
-            
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-rasio-yoy',[
                 'headers' => [
@@ -235,17 +228,14 @@ class DashboardRasioController extends Controller
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
 
             if(isset($req['lokasi'])){
@@ -255,7 +245,7 @@ class DashboardRasioController extends Controller
             }
             if(isset($req['jenis_rasio'])){
                 $fields = array_merge($fields,[
-                    'jenis' => $req['jenis_rasio']
+                    'jenis_rasio' => $req['jenis_rasio']
                 ]);
             }
             
