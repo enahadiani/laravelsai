@@ -6,13 +6,13 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 var $filter_lokasi = "";
-var $tahun = parseInt($('#year-filter').text())
+var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
 var $filter1 = "Periode";
-var $filter2 = "September";
-var $month = "09";
+var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
+var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $judulChart = null;
-var $filter1_kode = "PRD";
-var $filter2_kode = "09";
+var $filter1_kode = "YTM";
+var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
@@ -29,8 +29,10 @@ if($filter1 == 'Periode') {
         }
     });
 }
-    
-$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
+$('#year-filter').text($tahun)
+var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+$('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
 
 // RUN IF FIRST RENDER
 new PerfectScrollbar('#scrollTable');
@@ -59,6 +61,12 @@ var $height = $(window).height();
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
             var nilaiAchPdpt = 0;
+
+            if($filter1_kode == 'PRD'){
+                $('.yoy-label').html('MoM Growth')
+            }else{
+                $('.yoy-label').html('YoY Growth')
+            }
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
                 nilaiPdpt = toJuta(pdpt.n4,2)
@@ -349,6 +357,11 @@ var $height = $(window).height();
         async: false,
         success:function(result) {
             var data = result.data;
+            if($filter1_kode == 'PRD'){
+                $('.yoy2-label').html('MoM')
+            }else{
+                $('.yoy2-label').html('YoY')
+            }
             if(data.length > 0) {
                 $('#table-lembaga tbody').empty()
                 var html = "";
@@ -779,6 +792,11 @@ function updateChart(table = false) {
             dataType: 'json',
             async: true,
             success:function(result) {
+                if($filter1_kode == 'PRD'){
+                    $('.yoy2-label').html('MoM')
+                }else{
+                    $('.yoy2-label').html('YoY')
+                }
                 var data = result.data;
                 if(data.length > 0) {
                     $('#table-lembaga tbody').empty()
@@ -884,6 +902,11 @@ function updateBox() {
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
             var nilaiAchPdpt = 0;
+            if($filter1_kode == 'PRD'){
+                $('.yoy-label').html('MoM Growth')
+            }else{
+                $('.yoy-label').html('YoY Growth')
+            }
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
                 nilaiPdpt = toJuta(pdpt.n4,2)
@@ -1758,8 +1781,8 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                     <ul>
                         {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
                         {{-- <li data-filter1="SMT">Semester</li> --}}
-                        <li class="py-2" data-filter1="YTM">Year To Month</li>
-                        <li class="selected py-2" data-filter1="PRD">Bulan</li>
+                        <li class="selected py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="py-2" data-filter1="PRD">Bulan</li>
                         {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
@@ -1847,7 +1870,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
                                             <td id="pendapatan-yoy" class="px-0 w-25 text-right">0</td>
                                             <td id="pdpt-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
                                             <td id="pdpt-yoy-percentage" class="pr-0 w-20 text-right">
@@ -1908,7 +1931,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
                                             <td id="beban-yoy" class="px-0 w-25 text-right">0</td>
                                             <td id="beban-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
                                             <td id="beban-yoy-percentage" class="pr-0 w-20 text-right">
@@ -1969,7 +1992,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
                                             <td id="shu-yoy" class="px-0 w-25 text-right">0</td>
                                             <td id="shu-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
                                             <td id="shu-yoy-percentage" class="pr-0 w-20 text-right">
@@ -2030,7 +2053,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-40">YoY Growth</td>
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
                                             <td id="or-yoy" class="px-0 w-25 text-right">0</td>
                                             <td id="or-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
                                             <td id="or-yoy-percentage" class="pr-0 w-20 text-right">
@@ -2119,13 +2142,13 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </tr>
                             <tr>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
