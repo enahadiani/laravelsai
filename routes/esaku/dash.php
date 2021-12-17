@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('sdm-box-pegawai', 'Esaku\Sdm\DashboardBoxController@getPegawai');
 Route::get('sdm-box-sehat', 'Esaku\Sdm\DashboardBoxController@getBPJSSehat');
 Route::get('sdm-box-kerja', 'Esaku\Sdm\DashboardBoxController@getBPJSKerja');

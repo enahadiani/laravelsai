@@ -22,11 +22,11 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-dash/sdm-box-client') }}",
+            url: "{{ url('esaku-master/sdm-kliens') }}",
             dataType: 'json',
             async: true,
             success:function(result){
-                var data = result.data;
+                var data = result.daftar;
                 $('#client-value').text(sepNum(data.length));
             }
         });
@@ -48,77 +48,87 @@
     })();
     // END BOX LOKER
 
-    // KOMPOSISI CHART
-    var $chart_komposisi = Highcharts.chart('chart-komposisi', {
-        chart: {
-            type: 'pie',
-            height: 238
-        },
-        title: {
-            text: ''
-        },
-        subtitle: {
-            text: ''
-        },
-        exporting: {
-            enabled: false
-        },
-        legend: {
-            enabled:false
-        },
-        credits: {
-            enabled: false
-        },
-        tooltip: {
-            enabled: true
-        },
-        plotOptions: {
-            pie: {
-                shadow: false,
-                innerSize: '70%',
-                dataLabels: {
-                    enabled: true,
-                    format: '<b>{point.name}</b>'
+
+     // KOMPOSISI CHART
+     (function() {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('esaku-dash/sdm-box-client') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result){
+                var data = result.data;
+
+                // $('#lokasi-value').text(sepNum(data.length));
+                // KOMPOSISI CHART
+                var $chart_komposisi = Highcharts.chart('chart-komposisi', {
+                    chart: {
+                        type: 'pie',
+                        height: 238
+                    },
+                    title: {
+                        text: ''
+                    },
+                    subtitle: {
+                        text: ''
+                    },
+                    exporting: {
+                        enabled: false
+                    },
+                    legend: {
+                        enabled:false
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    tooltip: {
+                        enabled: true
+                    },
+                    plotOptions: {
+                        pie: {
+                            shadow: false,
+                            innerSize: '70%',
+                            dataLabels: {
+                                enabled: true,
+                                format: '<b>{point.name}</b>'
+                            }
+                        }
+                    },
+                    series: [{
+                        name: 'Jumlah',
+                        colorByPoint: true,
+                        data: data
+                    }]
+                    }, function() {
+                        // var color = ['#255F85', '#FAA613', '#E26D5C', '#941B0C'];
+                        var series = this.series;
+                        for(var i=0;i<series.length;i++) {
+                            var point = series[i].data;
+                            for(var j=0;j<point.length;j++) {
+                                point[j].graphic.element.style.fill = point[j].color
+                            }
+                        }
+                });
+                // END KOMPOSISI CHART
+                var html = '';
+                for (let i = 0; i < data.length; i++) {
+                    html += ` <tr>
+                                    <td style="width: 10%;">
+                                        <div class="symbol ${data[i].bg}"></div>
+                                    </td>
+                                    <td style="width: 20%;">${data[i].name}</td>
+                                    <td id="nilai-ypt" class="text-right">${data[i].y}</td>
+                                    <td id="percent-ypt" class="text-right font-bold">${data[i].decimal}%</td>
+                                </tr>`;
+
                 }
+                $('#pie-ket tbody').html(html);
             }
-        },
-        series: [{
-            name: 'Jumlah',
-            colorByPoint: true,
-            data: [
-                {
-                    name: 'YPT',
-                    y: 32,
-                    color: '#255F85'
-                },
-                {
-                    name: 'EKSTERNAL',
-                    y: 5,
-                    color: '#FAA613'
-                },
-                {
-                    name: 'TELKOM',
-                    y: 35,
-                    color: '#E26D5C'
-                },
-                {
-                    name: 'GSD',
-                    y: 28,
-                    color: '#941B0C'
-                }
-            ]
-        }]
-    }, function() {
-        var color = ['#255F85', '#FAA613', '#E26D5C', '#941B0C'];
-        var series = this.series;
-        for(var i=0;i<series.length;i++) {
-            var point = series[i].data;
-            for(var j=0;j<point.length;j++) {
-                point[j].graphic.element.style.fill = color[j]
-            }
-        }
-    });
-// END KOMPOSISI CHART
+        });
+    })();
+    // END KOMPOSISI CHART
+
+
 
 // MARKET CHART
  var $chart_market = Highcharts.chart('chart-market', {
@@ -210,40 +220,8 @@
                         <div id="chart-komposisi"></div>
                     </div>
                     <div class="col-12">
-                        <table class="table table-borderless table-legend">
+                        <table class="table table-borderless table-legend" id="pie-ket">
                             <tbody>
-                                <tr>
-                                    <td style="width: 10%;">
-                                        <div class="symbol bg-dark-blue"></div>
-                                    </td>
-                                    <td style="width: 20%;">YPT</td>
-                                    <td id="nilai-ypt" class="text-right">1.249</td>
-                                    <td id="percent-ypt" class="text-right font-bold">32%</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 10%;">
-                                        <div class="symbol bg-dark-red"></div>
-                                    </td>
-                                    <td style="width: 20%;">GSD</td>
-                                    <td id="nilai-gsd" class="text-right">937</td>
-                                    <td id="percent-gsd" class="text-right font-bold">28%</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 10%;">
-                                        <div class="symbol bg-pink"></div>
-                                    </td>
-                                    <td style="width: 20%;">Telkom</td>
-                                    <td id="nilai-telkom" class="text-right">1.282</td>
-                                    <td id="percent-telkom" class="text-right font-bold">35%</td>
-                                </tr>
-                                <tr>
-                                    <td style="width: 10%;">
-                                        <div class="symbol bg-orange"></div>
-                                    </td>
-                                    <td style="width: 20%;">Eksternal</td>
-                                    <td id="nilai-eksternal" class="text-right">347</td>
-                                    <td id="percent-eksternal" class="text-right font-bold">5%</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

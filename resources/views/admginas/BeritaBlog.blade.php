@@ -25,7 +25,7 @@
             float:right;
         }
 
-        .form-body 
+        .form-body
         {
             position: relative;
             overflow: auto;
@@ -82,7 +82,7 @@
         {
             width:inherit;
         }
-        
+
         #searchData
         {
             font-size: .75rem;
@@ -135,12 +135,12 @@
             border:1px solid black !important;
             border-radius:0 !important;
         }
-        
+
         #input-nilai .selectize-input,  #input-dok .selectize-input
         {
             border-radius:0 !important;
-        } 
-        
+        }
+
         .modal-header .close {
             padding: 1rem;
             margin: -1rem 0 -1rem auto;
@@ -192,12 +192,12 @@
             height:calc(1.3rem + 1rem) !important;
             padding:0px !important;
         }
-        
+
         #input-nilai span
         {
             padding:0px 10px !important;
         }
-        
+
         #input-nilai input,#input-nilai .selectize-input
         {
             overflow:hidden !important;
@@ -213,12 +213,12 @@
         div.dataTables_wrapper div.dataTables_filter input{
             height:calc(1.3rem + 1rem) !important;
         }
-        
+
         #input-dok span
         {
             padding:0px 10px !important;
         }
-        
+
         #input-dok input,#input-dok .selectize-input
         {
             overflow:hidden !important;
@@ -238,7 +238,7 @@
             display:none;
         }
 
-        .input-group > .form-control 
+        .input-group > .form-control
         {
             border-radius: 0.5rem !important;
         }
@@ -294,10 +294,10 @@
         }
 
         .form-control {
-            padding: 0.1rem 0.5rem; 
+            padding: 0.1rem 0.5rem;
             height: calc(1.3rem + 1rem);
             border-radius:0.5rem;
-            
+
         }
 
         .readonly >  .form-control{
@@ -306,7 +306,7 @@
 
         .selectize-input {
             min-height: unset !important;
-            padding: 0.1rem 0.5rem; 
+            padding: 0.1rem 0.5rem;
             height: calc(1.3rem + 1rem);
             line-height: 30px;
             border-radius: 0.5rem;
@@ -314,7 +314,7 @@
 
         label{
             margin-bottom: 0.2rem;
-        }        
+        }
     </style>
 
     <!-- LIST DATA -->
@@ -330,7 +330,7 @@
                 <div class="dataTables_length col-sm-12" id="table-data_length"></div>
                     <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
                         <div class="page-countdata">
-                            <label>Menampilkan 
+                            <label>Menampilkan
                             <select style="border:none" id="page-count">
                                 <option value="10">10 per halaman</option>
                                 <option value="25">25 per halaman</option>
@@ -484,7 +484,7 @@
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script>
-        
+
     </script>
     <script type="text/javascript">
         setHeightForm();
@@ -521,13 +521,13 @@
         });
 
         var psscrollform = new PerfectScrollbar('#form-body');
-        
+
         // var scroll = document.querySelector('#content-preview');
         // var psscroll = new PerfectScrollbar(scroll);
 
         // LIST DATA
         var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
-        
+
         var dataTable = $("#table-data").DataTable({
             destroy: true,
             bLengthChange: false,
@@ -538,7 +538,7 @@
                 'type': 'GET',
                 'dataSrc' : function(json) {
                     if(json.status){
-                        return json.daftar;   
+                        return json.daftar;
                     }else if(!json.status && json.message == "Unauthorized"){
                         window.location.href = "{{ url('admginas-auth/sesi-habis') }}";
                         return [];
@@ -651,18 +651,18 @@
                 CKEDITOR.instances['editor'].updateElement()
                 var formData = new FormData(form);
                 for(var pair of formData.entries()) {
-                    console.log(pair[0]+ ', '+ pair[1]); 
+                    console.log(pair[0]+ ', '+ pair[1]);
                 }
-                
+
                 $.ajax({
-                    type: 'POST', 
+                    type: 'POST',
                     url: url,
                     dataType: 'json',
                     data: formData,
                     async:false,
                     contentType: false,
                     cache: false,
-                    processData: false, 
+                    processData: false,
                     success:function(result){
                         if(result.data.status){
                             dataTable.ajax.reload();
@@ -670,15 +670,15 @@
                                 'Data berhasil tersimpan!',
                                 'Your data has been '+pesan,
                                 'success'
-                                ) 
+                                )
                             $('#upload-banner').val(null);
                             $('#banner-preview').attr('src', '');
                             $('#saku-datatable').show();
                             $('#saku-form').hide();
                         }else if(!result.data.status && result.data.message === "Unauthorized"){
-                        
+
                             window.location.href = "{{ url('/admginas-auth/sesi-habis') }}";
-                            
+
                         }else{
                             Swal.fire({
                                 icon: 'error',
@@ -729,14 +729,14 @@
                             <td>
                                 <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.data[0].file_gambar} />
                             </td>
-                        </tr>   
+                        </tr>
                         <tr>
                             <td style='border:none'>Isi Info</td>
                             <td style='border:none'>`+result.data[0].content+`</td>
                         </tr>
                     `;
                         $('#table-preview tbody').html(html);
-                    
+
                         $('#modal-preview-id').text(id);
                         $('#modal-preview').modal('show');
                     }
@@ -762,12 +762,12 @@
                         $('#method').val('post');
                         $('#id_info').val(id);
                         $('#id').val(id);
-                        $('#tanggal').val(tgl); 
-                        $('#judul').val(result[0].judul); 
+                        $('#tanggal').val(tgl);
+                        $('#judul').val(result[0].judul);
                         editor.setData(result[0].content);
                         $('#banner-preview').show();
-                        $('#span-banner').hide();     
-                        $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                        $('#span-banner').hide();
+                        $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                     }
@@ -798,17 +798,17 @@
                         var bulan = splitTgl[1];
                         var tanggal = splitTgl[2];
                         var date = tanggal+"/"+bulan+"/"+tahun;
-                        
+
                         $('#id_edit').val('edit');
                         $('#method').val('post');
                         $('#id_info').val(id);
                         $('#id').val(id);
-                        $('#tanggal').val(date); 
-                        $('#judul').val(result[0].judul); 
-                        editor.setData(result[0].content); 
+                        $('#tanggal').val(date);
+                        $('#judul').val(result[0].judul);
+                        editor.setData(result[0].content);
                         $('#banner-preview').show();
-                        $('#span-banner').hide();     
-                        $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                        $('#span-banner').hide();
+                        $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)
                         $('#saku-datatable').hide();
                         $('#saku-form').show();
                         $('#modal-preview').modal('hide');

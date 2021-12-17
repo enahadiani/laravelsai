@@ -248,8 +248,21 @@
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">
                                             <label for="client">Nama Client</label>
-                                            <input class="form-control" type="text" placeholder="Nama Client"
-                                                id="client" name="client" autocomplete="off">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend hidden"
+                                                    style="border: 1px solid #d7d7d7;">
+                                                    <span class="input-group-text info-code_client" readonly="readonly"
+                                                        title="" data-toggle="tooltip" data-placement="top"></span>
+                                                </div>
+                                                <input type="text" class="form-control inp-label-client" id="client"
+                                                    name="client" autocomplete="off" data-input="cbbl" value="" title=""
+                                                    readonly>
+                                                <span class="info-name_client hidden">
+                                                    <span></span>
+                                                </span>
+                                                <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                <i class="simple-icon-magnifier search-item2" id="search_client"></i>
+                                            </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
                                             <label for="skill">Skill</label>
@@ -446,7 +459,7 @@ function resetForm() {
 $('#saku-datatable').on('click', '#btn-tambah', function() {
     $('#preview').hide();
     $('#no_kontrak').attr('readonly', false);
-    $('#judul-form').html('Tambah Data Karaywan=Kontrak Kerja');
+    $('#judul-form').html('Tambah Data Karaywan-Kontrak Kerja');
     resetForm();
     newForm();
 });
@@ -721,6 +734,29 @@ $('#form-tambah').on('click', '.search-item2', function(e) {
                 width: ["30%", "70%"],
             }
         break;
+        case 'client':
+            var options = {
+                id: id,
+                header: ['Kode', 'Nama'],
+                url: "{{ url('esaku-master/sdm-kliens') }}",
+                columns: [{
+                        data: 'kode_client'
+                    },
+                    {
+                         data: 'nama'
+                    }
+                ],
+                judul: "Pilih Client",
+                pilih: "akun",
+                jTarget1: "text",
+                jTarget2: "text",
+                target1: ".info-code_" + id,
+                target2: ".info-name_" + id,
+                target3: "",
+                target4: "",
+                width: ["30%", "70%"],
+            }
+        break;
     }
     showInpFilterBSheet(options);
 })
@@ -869,7 +905,7 @@ function editData(id,no_kontrak ,view = false) {
                 if(result.data_kepeg.length > 0){
                         // isiEdit(id, "text",'#nik', true);
                         isiEdit(client.no_kontrak,"text",'#no_kontrak',true);
-                        isiEdit(client.nama_client,"text",'#client',view);
+                        // isiEdit(client.nama_client,"text",'#client',view);
                         isiEdit(client.skill,"text",'#skill',view);
 
                         isiEdit(client.atasan_langsung,"text",'#atasan_langsung',view);
@@ -890,6 +926,7 @@ function editData(id,no_kontrak ,view = false) {
                         showInfoField('kode_profesi',kepeg.kode_profesi, kepeg.nama_profesi)
                         showInfoField('kode_status',kepeg.kode_status, kepeg.nama_status)
                         showInfoField('nik',pribadi.nik, pribadi.nama)
+                        showInfoField('client',client.kode_client, client.nama_client)
 
                 }else{
                     resetForm();
