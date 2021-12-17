@@ -18,6 +18,7 @@ Route::get('sdm-box-pegawai', 'Esaku\Sdm\DashboardBoxController@getPegawai');
 Route::get('sdm-box-sehat', 'Esaku\Sdm\DashboardBoxController@getBPJSSehat');
 Route::get('sdm-box-kerja', 'Esaku\Sdm\DashboardBoxController@getBPJSKerja');
 Route::get('sdm-box-client', 'Esaku\Sdm\DashboardBoxController@getBPJSClient');
+Route::get('sdm-box-market', 'Esaku\Sdm\DashboardBoxController@getMarket');
 Route::get('sdm-box-gender', 'Esaku\Sdm\DashboardBoxController@getKelompokGender');
 
 Route::get('sdm-chart-pendidikan', 'Esaku\Sdm\DashboardChartController@getPendidikan');
