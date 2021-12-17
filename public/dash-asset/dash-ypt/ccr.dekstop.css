@@ -353,7 +353,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 
 #table-ccr-now td, #table-ccr-prev td, #table-ccr-all td
 {
-    padding: 5px 8px;
+    padding: 1px 8px;
 }
 
 .card-klik{

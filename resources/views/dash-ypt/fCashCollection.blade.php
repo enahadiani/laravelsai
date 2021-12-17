@@ -105,9 +105,9 @@ $(window).on('resize', function(){
         $("body").css("overflow", "scroll");
     }
     if($full == '2'){
-        console.log('this fullscreen mode');
+        // console.log('this fullscreen mode');
         var height = screen.height;
-        console.log(height);
+        // console.log(height);
         heighChart = height;
         if(soakhirChart != null){
             soakhirChart.update({
@@ -125,10 +125,10 @@ $(window).on('resize', function(){
         }
     }else{
         
-        console.log('this browser mode');
+        // console.log('this browser mode');
         var win = $(this); //this = window
         var height = win.height();
-        console.log(height);
+        // console.log(height);
         heighChart = (height - 200)/2;
         if(soakhirChart != null){
             soakhirChart.update({
@@ -262,12 +262,69 @@ function getDataBox(param) {
                 $('#all-yoy-percentage').removeClass('green-text'); 
             }
 
+            var growth_now_mom =( data.ccr_tahun_ini.mom != 0 ? ((data.ccr_tahun_ini.inflow - data.ccr_tahun_ini.mom)/ data.ccr_tahun_ini.mom)*100 : 0);
+            var growth_now_yoy =( data.ccr_tahun_ini.yoy != 0 ? ((data.ccr_tahun_ini.inflow - data.ccr_tahun_ini.yoy)/ data.ccr_tahun_ini.yoy)*100 : 0);
+
+            if (growth_now_mom >= 0){
+                $('#now-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_mom,2)+'%');
+                $('#now-mom-percentage').addClass('green-text');
+                $('#now-mom-percentage').removeClass('red-text'); 
+            }else{
+                
+                $('#now-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_mom,2)+'%');
+                $('#now-mom-percentage').addClass('red-text');
+                $('#now-mom-percentage').removeClass('green-text'); 
+            }
+
+            if (growth_now_yoy >= 0){
+                
+                $('#now-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_yoy,2)+'%');
+                $('#now-yoy-percentage').addClass('green-text');
+                $('#now-yoy-percentage').removeClass('red-text'); 
+            }else{
+                $('#now-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_yoy,2)+'%');
+                $('#now-yoy-percentage').addClass('red-text');
+                $('#now-yoy-percentage').removeClass('green-text'); 
+            }
+
+            var growth_prev_mom =( data.ccr_tahun_lalu.mom != 0 ? ((data.ccr_tahun_lalu.inflow - data.ccr_tahun_lalu.mom)/ data.ccr_tahun_lalu.mom)*100 : 0);
+            var growth_prev_yoy =( data.ccr_tahun_lalu.yoy != 0 ? ((data.ccr_tahun_lalu.inflow - data.ccr_tahun_lalu.yoy)/ data.ccr_tahun_lalu.yoy)*100 : 0);
+
+            if (growth_prev_mom >= 0){
+                $('#prev-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_mom,2)+'%');
+                $('#prev-mom-percentage').addClass('green-text');
+                $('#prev-mom-percentage').removeClass('red-text'); 
+            }else{
+                
+                $('#prev-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_mom,2)+'%');
+                $('#prev-mom-percentage').addClass('red-text');
+                $('#prev-mom-percentage').removeClass('green-text'); 
+            }
+
+            if (growth_prev_yoy >= 0){
+                
+                $('#prev-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_yoy,2)+'%');
+                $('#prev-yoy-percentage').addClass('green-text');
+                $('#prev-yoy-percentage').removeClass('red-text'); 
+            }else{
+                $('#prev-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_yoy,2)+'%');
+                $('#prev-yoy-percentage').addClass('red-text');
+                $('#prev-yoy-percentage').removeClass('green-text'); 
+            }
+
+
             $('#ccr-all-mom').text(`${toMilyar(data.ccr_total.mom,2)}`)
+            $('#ccr-prev-mom').text(`${toMilyar(data.ccr_tahun_lalu.mom,2)}`)
+            $('#ccr-now-mom').text(`${toMilyar(data.ccr_tahun_ini.mom,2)}`)
+            $('#ccr-all-ar').text(`${toMilyar(data.ccr_total.ar,2)}`)
             $('#ccr-prev-ar').text(`${toMilyar(data.ccr_tahun_lalu.ar,2)}`)
             $('#ccr-now-ar').text(`${toMilyar(data.ccr_tahun_ini.ar,2)}`)
 
             
             $('#ccr-all-yoy').text(`${toMilyar(data.ccr_total.yoy,2)}`)
+            $('#ccr-prev-yoy').text(`${toMilyar(data.ccr_tahun_lalu.yoy,2)}`)
+            $('#ccr-now-yoy').text(`${toMilyar(data.ccr_tahun_ini.yoy,2)}`)
+            $('#ccr-all-inflow').text(`${toMilyar(data.ccr_total.inflow,2)}`)
             $('#ccr-prev-inflow').text(`${toMilyar(data.ccr_tahun_lalu.inflow,2)}`)
             $('#ccr-now-inflow').text(`${toMilyar(data.ccr_tahun_ini.inflow,2)}`)
         }
@@ -637,7 +694,7 @@ var timeoutID = null;
 <script type="text/javascript">
 document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
-    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);    
+    // console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);    
   } else {
       $full = '0';
     trendChart.update({
@@ -651,7 +708,7 @@ document.addEventListener('fullscreenchange', (event) => {
             text: ''
         }
     })
-    console.log('Leaving full-screen mode.');
+    // console.log('Leaving full-screen mode.');
   }
 });
 
@@ -1264,20 +1321,38 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card grey-text text-right mr-2" id="judul-ccr-now2"></h4>
                             </div>
                         </div>
-                        <div class="row body-div my-auto">
-                            <div class="col-12">
-                                <p id="ccr-now" class="main-nominal pt-3">0%</p>
+                        <div class="row body-div" style="height:calc(100% - 21px);">
+                            <div class="col-12 my-auto">
+                                <p id="ccr-now" class="main-nominal my-2">0%</p>
                             </div>
-                            <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-now">
+                            <div class="col-12 my-auto">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-ccr-now">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0">Tagihan</td>
-                                            <td class="text-bold text-right" id="ccr-now-ar">0 M</td>
+                                            <td class="w-40 pl-0">Tagihan</td>
+                                            <td id="ccr-now-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-ar-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0">Pembayaran</td>
-                                            <td class="text-bold text-right" id="ccr-now-inflow">0 M</td>
+                                            <td class="w-40 pl-0">Pembayaran</td>
+                                            <td id="ccr-now-inflow" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-inflow-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">MoM Growth</td>
+                                            <td id="ccr-now-mom" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">YoY Growth</td>
+                                            <td id="ccr-now-yoy" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1295,20 +1370,38 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card">CCR Tahun Sebelumnya</h4>
                             </div>
                         </div>
-                        <div class="row body-div my-auto">
-                            <div class="col-12">
-                                <p id="ccr-prev" class="main-nominal pt-3">0%</p>
+                        <div class="row body-div" style="height:calc(100% - 21px);">
+                            <div class="col-12 my-auto">
+                                <p id="ccr-prev" class="main-nominal my-2">0%</p>
                             </div>
-                            <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-prev">
+                            <div class="col-12 my-auto">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-ccr-prev">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0">Tagihan</td>
-                                            <td class="text-bold text-right" id="ccr-prev-ar">0 M</td>
+                                            <td class="w-40 pl-0">Tagihan</td>
+                                            <td id="ccr-prev-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-ar-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0">Pembayaran</td> 
-                                            <td class="text-bold text-right" id="ccr-prev-inflow">0 M</td>
+                                            <td class="w-40 pl-0">Pembayaran</td>
+                                            <td id="ccr-prev-inflow" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-inflow-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">MoM Growth</td>
+                                            <td id="ccr-prev-mom" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">YoY Growth</td>
+                                            <td id="ccr-prev-yoy" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1326,13 +1419,25 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                 <h4 class="header-card">CCR Total</h4>
                             </div>
                         </div>
-                        <div class="row body-div my-auto">
-                            <div class="col-12">
-                                <p id="ccr-all" class="main-nominal pt-3">0%</p>
+                        <div class="row body-div" style="height:calc(100% - 21px);">
+                            <div class="col-12 my-auto">
+                                <p id="ccr-all" class="main-nominal my-2">0%</p>
                             </div>
-                            <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-ccr-all">
+                            <div class="col-12 my-auto">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-ccr-all">
                                     <tbody>
+                                        <tr>
+                                            <td class="w-40 pl-0">Tagihan</td>
+                                            <td id="ccr-all-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="all-ar-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-40 pl-0">Pembayaran</td>
+                                            <td id="ccr-all-inflow" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="all-inflow-percentage" class="green-text pr-2 w-30 text-right">
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="w-40 pl-0">MoM Growth</td>
                                             <td id="ccr-all-mom" class="w-30 text-bold text-right px-0">0 M</td>
