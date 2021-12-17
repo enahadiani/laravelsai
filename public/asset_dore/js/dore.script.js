@@ -3933,9 +3933,15 @@ $.dore = function (element, options) {
     $("#fullScreenButton").on("click", function (event) {
       event.preventDefault();
       if (isFullScreen()) {
+        if(typeof $full == 'string'){
+          $full = '1';
+        }
         $($(this).find("i")[1]).css("display", "none");
         $($(this).find("i")[0]).css("display", "inline");
       } else {
+        if(typeof $full == 'string'){
+          $full = '0';
+        }
         $($(this).find("i")[1]).css("display", "inline");
         $($(this).find("i")[0]).css("display", "none");
       }

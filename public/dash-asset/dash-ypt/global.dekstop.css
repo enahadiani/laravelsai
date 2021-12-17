@@ -105,12 +105,16 @@
     margin-top: 0;
     margin-bottom: 0;
 }
+.orange-text{
+    color: #FFA500 !important;
+    font-weight: 700;
+}
 .green-text {
-    color: #059669;
+    color: #059669 !important;
     font-weight: 700;
 }
 .red-text {
-    color: #dc2626;
+    color: #dc2626 !important;
     font-weight: 700;
 }
 .red-text-700 {
@@ -182,4 +186,8 @@
 }
 .lh-1 {
     line-height: 1.2;
+}
+li.disabled {
+    cursor: not-allowed !important;
+    opacity: 0.6;
 }

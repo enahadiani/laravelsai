@@ -115,9 +115,13 @@ function namaPeriode(periode){
     return bulan+' '+tahun;
 }
 
+function toCapitalize(str){
+    const newstr = str.toLowerCase().replace(/\w\S*/g, (w) => (w.replace(/^\w/, (c) => c.toUpperCase())));
+    return newstr;
+}
+
 function namaPeriodeBulan(periode){
     var bulan = periode.substr(4,2);
-    var tahun = periode.substr(0,4);
     switch (bulan){
         case 1 : case '1' : case '01': bulan = "Januari"; break;
         case 2 : case '2' : case '02': bulan = "Februari"; break;
@@ -269,9 +273,9 @@ function toNilai(str_num){
 }
 
 function removeFormat(str_num){
-    var number = str_num.toString().replace('.', '');
+    var number = str_num.split('.');
+    number = number.join('');
     number = number.replace(',', '.');
-    console.log(+number);
     return +number;
 }
 

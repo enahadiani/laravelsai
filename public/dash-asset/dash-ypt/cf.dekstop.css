@@ -11,6 +11,7 @@
     margin-bottom: 0;
     margin-top: 12px;
     font-size: 22px !important;
+    font-weight: bold;
 }
 .header .message-div .icon-message {
     float: right;
@@ -18,11 +19,11 @@
     margin-right: 4px;
 }
 .header .select-custom {
-    border: 1px solid #9ca3af;
+    border: 1px solid #e5e5e5;
     height: 42px;
-    width: 260px;
+    width: 100%;
     float: right;
-    margin-right: 4px;
+    margin-right: 0px;
     border-radius: 10px;
 }
 .header .select-custom .icon-calendar {
@@ -41,7 +42,7 @@
 
 /* CARD */
 .card.card-dash {
-    border: 0.2px solid #9ca3af;
+    border: 0.2px solid #e5e7eb;
     box-shadow: none;
     padding: 8px 8px 6px 12px;
 }
@@ -56,10 +57,12 @@
 .card.card-dash .header-card {
     font-size: 16px !important;
     margin-bottom: 0;
+    font-weight: bold;
 }
 .card.card-dash .header-card span {
     font-size: 16px !important;
     margin-bottom: 0;
+    font-weight: bold;
 }
 .card.card-dash .main-nominal {
     margin-top: 12px;
@@ -163,7 +166,7 @@ input:checked ~ .text {
 
 /* MENU CHART CUSTOM */
 .menu-chart-custom {
-    heigh   t: 260px;
+    height: 260px;
     width: 200px;
     background-color: #ffffff;
     border: 1px solid rgb(153, 153, 153);
@@ -193,10 +196,10 @@ input:checked ~ .text {
     position: absolute;
     background-color: #ffffff;
     z-index: 10;
-    top: 48px;
+    top: 80px;
     right: 16px;
     min-height: 220px;
-    width: 380px;
+    width: 580px;
     border-radius: 15px;
     box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
 }
@@ -213,20 +216,63 @@ input:checked ~ .text {
 }
 .header .filter-box .list-filter-1 ul li {
     cursor: pointer;
-    padding: 2px 8px;
+    color: #5A5A5A;
 }
 .header .filter-box .list-filter-1 ul li:hover {
-    background-color: #f3f4f6;
+    background-color: #ffffff;
 }
 .header .filter-box .list-filter-1 ul li.selected {
-    background-color: #830000;
-    color: #ffffff;
+    color: #B91C1C;
+    font-weight: 700;
 }
-.header .filter-box .list-filter-2 div:not(.selected) {
-    background-color: #f3f4f6;
+.header .filter-box .list-filter-2 div:not(.selected) span {
+    background-color: #ffffff;
 }
-.header .filter-box .list-filter-2 .selected {
-    background-color: #830000;
-    color: #ffffff;
+.header .filter-box .list-filter-2 .selected span {
+    border: 2px solid #B91C1C;
+    color: #B91C1C;
+    font-weight: bold;
+}
+#year-filter
+{
+    font-size: 0.85rem !important;
+}
+.filter-box-tahun
+{
+    padding-top: 0.5rem;
+}
+#table-cf-inflow td, 
+#table-cf-outflow td,
+#table-cf-balance td,
+#table-cf-closing td
+{
+    padding-top: 0;
+    padding-bottom: 0;
 }
 /* END FILTER BOX */
+
+#table-selisih-cf.table tbody tr {
+    cursor: pointer;
+}
+#table-selisih-cf.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+#table-selisih-cf.table tbody tr td:first-child {
+    cursor: pointer;
+}
+.table tbody tr td .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.table tbody tr td .check-row::before {
+    background-color: #830000;
+    color: #ffffff;
+    border-radius: 50%;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-py-0 tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 11px;
+}

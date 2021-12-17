@@ -516,6 +516,77 @@ function getNamaBulan(no_bulan) {
     return bulan;
 }
 
+function bulanSingkat(periode) {
+    var no_bulan = periode.substr(4,2);
+    var tahun = periode.substr(2,2);
+    switch (no_bulan) {
+        case 1:
+        case "1":
+        case "01":
+            bulan = "Jan";
+            break;
+        case 2:
+        case "2":
+        case "02":
+            bulan = "Feb";
+            break;
+        case 3:
+        case "3":
+        case "03":
+            bulan = "Mar";
+            break;
+        case 4:
+        case "4":
+        case "04":
+            bulan = "Apr";
+            break;
+        case 5:
+        case "5":
+        case "05":
+            bulan = "Mei";
+            break;
+        case 6:
+        case "6":
+        case "06":
+            bulan = "Jun";
+            break;
+        case 7:
+        case "7":
+        case "07":
+            bulan = "Jul";
+            break;
+        case 8:
+        case "8":
+        case "08":
+            bulan = "Agu";
+            break;
+        case 9:
+        case "9":
+        case "09":
+            bulan = "Sep";
+            break;
+        case 10:
+        case "10":
+        case "10":
+            bulan = "Okt";
+            break;
+        case 11:
+        case "11":
+        case "11":
+            bulan = "Nov";
+            break;
+        case 12:
+        case "12":
+        case "12":
+            bulan = "Des";
+            break;
+        default:
+            bulan = "Des";
+    }
+
+    return bulan+"'"+tahun;
+}
+
 function clearInputFilter(par) {
     $("#" + par).val("");
     $("#" + par).attr("readonly", false);
@@ -534,12 +605,12 @@ function clearInputFilter(par) {
     $("#" + par).trigger("change");
 }
 
-function toMilyar(x) {
+function toMilyar(x,decimal=0) {
     var nil = x / 1000000000;
-    return sepNum(nil) + " M";
+    return number_format(nil,decimal) + " M";
 }
 
-function toJuta(x) {
+function toJuta(x,decimal=0) {
     var nil = x / 1000000;
-    return sepNum(nil) + " Jt";
+    return number_format(nil,decimal) + " Jt";
 }

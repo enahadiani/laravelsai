@@ -8,8 +8,8 @@
     section.header {
         background-color: #ffffff;
         margin-top: -32px;
-        padding: 16px 8px 8px 8px;
-        width: calc(100vw - 155px);
+        padding: 16px 0px 0px 0px;
+        /* width: calc(100vw - 155px); */
     }
     .header .glyph-icon.iconsminds-left.header {
         font-size: 28px;
@@ -24,6 +24,7 @@
         margin-bottom: 0;
         margin-top: 12px;
         font-size: 22px !important;
+        font-weight: bold;
     }
     .header .message-div .icon-message {
         float: right;
@@ -31,11 +32,11 @@
         margin-right: 8px;
     }
     .header .select-custom {
-        border: 1px solid #9ca3af;
+        border: 1px solid #e5e5e5;
         height: 42px;
-        width: 260px;
+        width: 100%;
         float: right;
-        margin-right: 16px;
+        margin-right: 0px;
         border-radius: 10px;
     }
     .header .select-custom .icon-calendar {
@@ -78,15 +79,17 @@
     .card.card-dash .header-card {
         font-size: 16px !important;
         margin-bottom: 0;
+        font-weight: bold;
     }
     .card.card-dash .header-card span {
         font-size: 16px !important;
         margin-bottom: 0;
+        font-weight: bold;
     }
     .card.card-dash .main-nominal {
         margin-top: 12px;
         font-size: 32px !important;
-        color: #830000;
+        color: #000744;
         font-weight: bold;
     }
     .card.card-dash .circle-bar {
@@ -118,10 +121,13 @@
     .table.table-no-padding tbody tr td.pl-0 {
         padding-left: 0;
     }
+    .table.table-th-red{
+        border:1px solid #3a3a3a !important; 
+    }
     .table.table-th-red thead tr th {
         background-color: #830000;
-        color: #ffffff;
-        border: none !important;
+        color: rgb(255, 255, 255);
+        border:1px solid white !important;
     }
     .table.table-th-red tbody tr .td-red {
         background-color: #ff0000;
@@ -129,6 +135,7 @@
     /* .table.table-th-red thead tr th, */
     .table.table-th-red tbody tr td {
         padding: 10px 8px;
+        /* border:1px solid #3a3a3a !important; */
     }
     #table-lembaga.table tbody tr {
         cursor: pointer;
@@ -208,7 +215,7 @@
         top: 80px;
         right: 16px;
         min-height: 220px;
-        width: 380px;
+        width: 580px;
         border-radius: 15px;
         box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
     }
@@ -225,21 +232,30 @@
     }
     .header .filter-box .list-filter-1 ul li {
         cursor: pointer;
-        padding: 2px 8px;
+        color: #5A5A5A;
     }
     .header .filter-box .list-filter-1 ul li:hover {
-        background-color: #f3f4f6;
+        background-color: #ffffff;
     }
     .header .filter-box .list-filter-1 ul li.selected {
-        background-color: #830000;
-        color: #ffffff;
+        color: #B91C1C;
+        font-weight: 700;
     }
-    .header .filter-box .list-filter-2 div:not(.selected) {
-        background-color: #f3f4f6;
+    .header .filter-box .list-filter-2 div:not(.selected) span {
+        background-color: #ffffff;
     }
-    .header .filter-box .list-filter-2 .selected {
-        background-color: #830000;
-        color: #ffffff;
+    .header .filter-box .list-filter-2 .selected span {
+        border: 2px solid #B91C1C;
+        color: #B91C1C;
+        font-weight: bold;
+    }
+    #year-filter
+    {
+        font-size: 0.85rem !important;
+    }
+    .filter-box-tahun
+    {
+        padding-top: 0.5rem;
     }
     /* END FILTER BOX */
 
@@ -311,9 +327,9 @@
         font-size: 14px !important;
         margin-right: 8px;
     }
-    section.header {
+    /* section.header {
         width: calc(100vw - 171px);
-    }
+    } */
 }
 
 .item {

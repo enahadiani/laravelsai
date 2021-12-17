@@ -243,6 +243,7 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         var $google = google;
+        var $full = '0';
     </script>
 </head>
 

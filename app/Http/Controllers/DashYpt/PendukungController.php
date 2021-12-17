@@ -106,7 +106,8 @@ class PendukungController extends Controller
             'kode_dash' => 'required',
             'nama' => 'required',
             'kode_fs' => 'required',
-            'kode_neraca' => 'required|array'
+            'kode_neraca' => 'required|array',
+            'keterangan' => 'required|array'
         ]);
         try{
 
@@ -116,6 +117,7 @@ class PendukungController extends Controller
                     'kode_dash' => $request->kode_dash,
                     'nama' => $request->nama,
                     'kode_neraca' => $request->kode_neraca,
+                    'keterangan' => $request->keterangan,
                     'kode_fs' => $request->kode_fs
                   );
     
@@ -187,7 +189,8 @@ class PendukungController extends Controller
             'kode_dash' => 'required',
             'nama' => 'required',
             'kode_fs' => 'required',
-            'kode_neraca' => 'required|array'
+            'kode_neraca' => 'required|array',
+            'keterangan' => 'required|array'
         ]);
         try{
 
@@ -197,7 +200,8 @@ class PendukungController extends Controller
                     'kode_dash' => $request->kode_dash,
                     'nama' => $request->nama,
                     'kode_fs' => $request->kode_fs,
-                    'kode_neraca' => $request->kode_neraca
+                    'kode_neraca' => $request->kode_neraca,
+                    'keterangan' => $request->keterangan
                   );
             
             $client = new Client();

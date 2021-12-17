@@ -43,8 +43,20 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
             }
             
             $client = new Client();
@@ -53,9 +65,7 @@ class DashboardFPController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -93,8 +103,20 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
             }
 
             $client = new Client();
@@ -103,9 +125,7 @@ class DashboardFPController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -143,8 +163,20 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
             }
 
             $client = new Client();
@@ -153,9 +185,7 @@ class DashboardFPController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -193,8 +223,20 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
             }
 
             $client = new Client();
@@ -203,9 +245,7 @@ class DashboardFPController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -243,8 +283,20 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
+            }
+
+            $fields = [
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
+            ];
+            if(isset($req['kode_lokasi'])){
+                $fields = array_merge($fields,[
+                    'kode_lokasi' => $req['kode_lokasi']
+                ]);
             }
 
             $client = new Client();
@@ -253,9 +305,7 @@ class DashboardFPController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'periode' => $req['periode']
-                ]
+                'query' => $fields
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -293,12 +343,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -349,12 +402,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -406,12 +462,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
                 'periode' => $req['periode'],
+                'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
             if(isset($req['kode_lokasi'])){
@@ -464,12 +523,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
                 'periode' => $req['periode'],
+                'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
             if(isset($req['kode_lokasi'])){
@@ -522,12 +584,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
                 'periode' => $req['periode'],
+                'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
             if(isset($req['kode_lokasi'])){
@@ -580,12 +645,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
                 'periode' => $req['periode'],
+                'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
             if(isset($req['kode_lokasi'])){
@@ -593,7 +661,6 @@ class DashboardFPController extends Controller
                     'kode_lokasi' => $req['kode_lokasi']
                 ]);
             }
-
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-fp-detail-akun',[
                 'headers' => [
@@ -638,12 +705,15 @@ class DashboardFPController extends Controller
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
                 'periode' => $req['periode'],
+                'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
             if(isset($req['kode_lokasi'])){

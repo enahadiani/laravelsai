@@ -35,12 +35,15 @@ class DashboardFPV2Controller extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -91,12 +94,15 @@ class DashboardFPV2Controller extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -148,12 +154,15 @@ class DashboardFPV2Controller extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -205,12 +214,15 @@ class DashboardFPV2Controller extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -262,12 +274,15 @@ class DashboardFPV2Controller extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
 
             $fields = [
-                'periode' => $req['periode']
+                'periode' => $req['periode'],
+                'jenis' => $req['jenis']
             ];
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[

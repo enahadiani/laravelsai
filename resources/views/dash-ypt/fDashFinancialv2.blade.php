@@ -1,18 +1,18 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/fp2.dekstop.css?version=_').time() }}" />
-<script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('main.js?version=_').time() }}"></script>
 <script src="{{ asset('dash-asset/dash-ypt/dragging.js') }}"></script>
 
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 var $filter_lokasi = "";
-var $tahun = parseInt($('#year-filter').text())
+var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
 var $filter1 = "Periode";
-var $filter2 = "September";
-var $month = "09";
+var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
+var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $judulChart = null;
-var $filter1_kode = "PRD";
-var $filter2_kode = "09";
+var $filter1_kode = "YTM";
+var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
@@ -29,8 +29,10 @@ if($filter1 == 'Periode') {
         }
     });
 }
-    
-$('#select-text-cf').text(`${$filter2.toUpperCase()} ${$tahun}`);
+
+$('#year-filter').text($tahun)
+var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+$('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
 
 // RUN IF FIRST RENDER
 new PerfectScrollbar('#scrollTable');
@@ -59,23 +61,29 @@ var $height = $(window).height();
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
             var nilaiAchPdpt = 0;
+
+            if($filter1_kode == 'PRD'){
+                $('.yoy-label').html('MoM Growth')
+            }else{
+                $('.yoy-label').html('YoY Growth')
+            }
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
-                nilaiPdpt = toJuta(pdpt.n4)
+                nilaiPdpt = toJuta(pdpt.n4,2)
             } else {
-                nilaiPdpt = toMilyar(pdpt.n4)
+                nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
-            if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1)
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1)
+                nilaiYoyPdpt = toMilyar(pdpt.n5,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
-                nilaiAchPdpt = toJuta(pdpt.n2)
+                nilaiAchPdpt = toJuta(pdpt.n2,2)
             } else {
-                nilaiAchPdpt = toMilyar(pdpt.n2)
+                nilaiAchPdpt = toMilyar(pdpt.n2,2)
             }
 
             if(pdpt.yoy < 0) {
@@ -86,20 +94,20 @@ var $height = $(window).height();
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(pdpt.ach < 0) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(pdpt.ach < 100) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
             }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pendapatan-ach').text(nilaiAchPdpt)
-            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
-            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-percentage').text(`${number_format(pdpt.yoy,2)}%`)
+            $('#pdpt-ach-percentage').text(`${number_format(pdpt.ach,2)}%`)
             $('#pdpt-yoy-icon').html(iconPdptYoy)
             $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
@@ -112,45 +120,45 @@ var $height = $(window).height();
             var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
-                nilaiBeban = toJuta(beban.n4)
+                nilaiBeban = toJuta(beban.n4,2)
             } else {
-                nilaiBeban = toMilyar(beban.n4)
+                nilaiBeban = toMilyar(beban.n4,2)
             }
 
-            if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1)
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1)
+                nilaiYoyBeban = toMilyar(beban.n5,2)
             }
 
             if(beban.n2.toString().length <= 9) {
-                nilaiAchBeban = toJuta(beban.n2)
+                nilaiAchBeban = toJuta(beban.n2,2)
             } else {
-                nilaiAchBeban = toMilyar(beban.n2)
+                nilaiAchBeban = toMilyar(beban.n2,2)
             }
 
             if(beban.yoy < 0) {
-                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconBebanYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 0) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(beban.ach > 100) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconBebanAch = '&nbsp;'
             }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-ach').text(nilaiAchBeban)
-            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
-            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-percentage').text(`${number_format(beban.yoy,2)}%`)
+            $('#beban-ach-percentage').text(`${number_format(beban.ach,2)}%`)
             $('#beban-yoy-icon').html(iconBebanYoy)
             $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
@@ -163,21 +171,21 @@ var $height = $(window).height();
             var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
-                nilaiShu = toJuta(shu.n4)
+                nilaiShu = toJuta(shu.n4,2)
             } else {
-                nilaiShu = toMilyar(shu.n4)
+                nilaiShu = toMilyar(shu.n4,2)
             }
 
-            if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1)
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1)
+                nilaiYoyShu = toMilyar(shu.n5,2)
             }
 
             if(shu.n2.toString().length <= 9) {
-                nilaiAchShu = toJuta(shu.n2)
+                nilaiAchShu = toJuta(shu.n2,2)
             } else {
-                nilaiAchShu = toMilyar(shu.n2)
+                nilaiAchShu = toMilyar(shu.n2,2)
             }
 
             if(shu.yoy < 0) {
@@ -188,20 +196,20 @@ var $height = $(window).height();
                 iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(shu.ach < 0) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(shu.ach < 100) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconShuAch = '&nbsp;'
             }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
-            $('#shu-ach-percentage').text(`${shu.ach}%`)
+            $('#shu-yoy-percentage').text(`${number_format(shu.yoy,2)}%`)
+            $('#shu-ach-percentage').text(`${number_format(shu.ach,2)}%`)
             $('#shu-yoy-icon').html(iconShuYoy)
             $('#shu-ach-icon').html(iconShuAch)
             // END SHU
@@ -215,27 +223,27 @@ var $height = $(window).height();
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
-                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 0) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(or.ach > 100) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconOrAch = '&nbsp;'
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n1}%`)
-            $('#or-ach').text(`${or.n2}%`)
-            $('#or-yoy-percentage').text(`${or.yoy}%`)
-            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-value').text(`${number_format(or.n4,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n5,2)}%`)
+            $('#or-ach').text(`${number_format(or.n2,2)}%`)
+            $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
+            $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
             $('#or-yoy-icon').html(iconOrYoy)
             $('#or-ach-icon').html(iconOrAch)
             // END OR
@@ -243,408 +251,6 @@ var $height = $(window).height();
     });
 })();
 // END DATA BOX
-
-// DATA CHART
-    // // PENDAPATAN
-    // (function() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
-    //         data: {
-    //             "periode[0]": "=", 
-    //             "periode[1]": $filter2_kode,
-    //             "tahun": $tahun,
-    //             "jenis": $filter1_kode
-    //         },
-    //         dataType: 'json',
-    //         async: false,
-    //         success: function(result) {
-    //             var data = result.data;
-    //             pdptChart = Highcharts.chart('pdpt-chart', {
-    //                 chart: {
-    //                     height: 150,
-    //                     width: 270,
-    //                     marginTop: 10,
-    //                     type: 'column',
-    //                     spacing: [0, 0, 0, 0],
-	// 		            backgroundColor: null
-    //                 },
-    //                 credits:{
-    //                     enabled:false
-    //                 },
-    //                 exporting:{ 
-    //                     enabled: false,
-    //                 },
-    //                 legend:{ 
-    //                     enabled: false,
-    //                 },
-    //                 title: {
-    //                     text: ''
-    //                 },
-    //                 xAxis: {
-    //                     categories: data.kategori,
-    //                 },
-    //                 yAxis: [
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,   
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                     },
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                         opposite: true,
-    //                     }
-    //                 ],
-    //                 tooltip: {
-    //                     formatter: function () {   
-    //                         var tmp = this.x.split("|");   
-    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-    //                     }
-    //                 },
-    //                 plotOptions: {
-    //                     column: {
-    //                         grouping: false,
-    //                         shadow: false,
-    //                         borderWidth: 0
-    //                     }
-    //                 },
-    //                 series: [
-    //                     {
-    //                         name: 'Anggaran',
-    //                         color: '#b91c1c',
-    //                         data: data.anggaran,
-    //                         pointPadding: 0.1,
-    //                         pointPlacement: 0,
-    //                     },
-    //                     {
-    //                         name: 'Realisasi',
-    //                         color: '#064E3B',
-    //                         data: data.realisasi,
-    //                         pointPadding: 0.3,
-    //                         pointPlacement: 0,
-    //                         yAxis: 1
-    //                     }
-    //                 ]
-    //             })
-    //         }
-    //     });
-    // })();
-    // END PENDAPATAN
-    // // BEBAN
-    // (function() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
-    //         data: {
-    //             "periode[0]": "=", 
-    //             "periode[1]": $filter2_kode,
-    //             "tahun": $tahun,
-    //             "jenis": $filter1_kode
-    //         },
-    //         dataType: 'json',
-    //         async: false,
-    //         success: function(result) {
-    //             var data = result.data;
-    //             bebanChart = Highcharts.chart('beban-chart', {
-    //                 chart: {
-    //                     height: 150,
-    //                     width: 270,
-    //                     marginTop: 10,
-    //                     type: 'column',
-    //                     spacing: [0, 0, 0, 0],
-	// 		            backgroundColor: null
-    //                 },
-    //                 credits:{
-    //                     enabled:false
-    //                 },
-    //                 exporting:{ 
-    //                     enabled: false,
-    //                 },
-    //                 legend:{ 
-    //                     enabled: false,
-    //                 },
-    //                 title: {
-    //                     text: ''
-    //                 },
-    //                 xAxis: {
-    //                     categories: data.kategori,
-    //                 },
-    //                 yAxis: [
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,   
-    //                         min: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                     },
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                         opposite: true,
-    //                     }
-    //                 ],
-    //                 tooltip: {
-    //                     formatter: function () {   
-    //                         var tmp = this.x.split("|");   
-    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-    //                     }
-    //                 },
-    //                 plotOptions: {
-    //                     column: {
-    //                         grouping: false,
-    //                         shadow: false,
-    //                         borderWidth: 0
-    //                     }
-    //                 },
-    //                 series: [
-    //                     {
-    //                         name: 'Anggaran',
-    //                         color: '#b91c1c',
-    //                         data: data.anggaran,
-    //                         pointPadding: 0.1,
-    //                         pointPlacement: 0,
-    //                     },
-    //                     {
-    //                         name: 'Realisasi',
-    //                         color: '#064E3B',
-    //                         data: data.realisasi,
-    //                         pointPadding: 0.3,
-    //                         pointPlacement: 0,
-    //                         yAxis: 1
-    //                     }
-    //                 ]
-    //             })
-    //         }
-    //     });
-    // })();
-    // END BEBAN
-    // // SHU
-    // (function() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
-    //         data: {
-    //             "periode[0]": "=", 
-    //             "periode[1]": $filter2_kode,
-    //             "tahun": $tahun,
-    //             "jenis": $filter1_kode
-    //         },
-    //         dataType: 'json',
-    //         async: false,
-    //         success: function(result) {
-    //             var data = result.data;
-    //             shuChart = Highcharts.chart('shu-chart', {
-    //                 chart: {
-    //                     height: 150,
-    //                     width: 270,
-    //                     marginTop: 10,
-    //                     type: 'column',
-    //                     spacing: [0, 0, 0, 0],
-	// 		            backgroundColor: null
-    //                 },
-    //                 credits:{
-    //                     enabled:false
-    //                 },
-    //                 exporting:{ 
-    //                     enabled: false,
-    //                 },
-    //                 legend:{ 
-    //                     enabled: false,
-    //                 },
-    //                 title: {
-    //                     text: ''
-    //                 },
-    //                 xAxis: {
-    //                     categories: data.kategori,
-    //                 },
-    //                 yAxis: [
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,   
-    //                         min: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                     },
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return singkatNilai(this.value);
-    //                             }
-    //                         },
-    //                         opposite: true,
-    //                     }
-    //                 ],
-    //                 tooltip: {
-    //                     formatter: function () {   
-    //                         var tmp = this.x.split("|");   
-    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-    //                     }
-    //                 },
-    //                 plotOptions: {
-    //                     column: {
-    //                         grouping: false,
-    //                         shadow: false,
-    //                         borderWidth: 0
-    //                     }
-    //                 },
-    //                 series: [
-    //                     {
-    //                         name: 'Anggaran',
-    //                         color: '#b91c1c',
-    //                         data: data.anggaran,
-    //                         pointPadding: 0.1,
-    //                         pointPlacement: 0,
-    //                     },
-    //                     {
-    //                         name: 'Realisasi',
-    //                         color: '#064E3B',
-    //                         data: data.realisasi,
-    //                         pointPadding: 0.3,
-    //                         pointPlacement: 0,
-    //                         yAxis: 1
-    //                     }
-    //                 ]
-    //             })
-    //         }
-    //     });
-    // })();
-    // // END SHU
-    // // OR
-    // (function() {
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
-    //         data: {
-    //             "periode[0]": "=", 
-    //             "periode[1]": $filter2_kode,
-    //             "tahun": $tahun,
-    //             "jenis": $filter1_kode
-    //         },
-    //         dataType: 'json',
-    //         async: false,
-    //         success: function(result) {
-    //             var data = result.data;
-    //             orChart = Highcharts.chart('or-chart', {
-    //                 chart: {
-    //                     height: 150,
-    //                     width: 270,
-    //                     marginTop: 10,
-    //                     type: 'column',
-    //                     spacing: [0, 0, 0, 0],
-	// 		            backgroundColor: null
-    //                 },
-    //                 credits:{
-    //                     enabled:false
-    //                 },
-    //                 exporting:{ 
-    //                     enabled: false,
-    //                 },
-    //                 legend:{ 
-    //                     enabled: false,
-    //                 },
-    //                 title: {
-    //                     text: ''
-    //                 },
-    //                 xAxis: {
-    //                     categories: data.kategori,
-    //                 },
-    //                 yAxis: [
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,   
-    //                         min: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return `${this.value}%`;
-    //                             }
-    //                         },
-    //                     },
-    //                     {
-    //                         minorGridLineWidth: 0,
-    //                         gridLineWidth: 0,
-    //                         title: '',
-    //                         labels: {
-    //                             enabled: true,
-    //                             formatter: function() {
-    //                                 return `${this.value}%`;
-    //                             }
-    //                         },
-    //                         opposite: true,
-    //                     }
-    //                 ],
-    //                 tooltip: {
-    //                     formatter: function () {   
-    //                         var tmp = this.x.split("|");   
-    //                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
-    //                     }
-    //                 },
-    //                 plotOptions: {
-    //                     column: {
-    //                         grouping: false,
-    //                         shadow: false,
-    //                         borderWidth: 0
-    //                     }
-    //                 },
-    //                 series: [
-    //                     {
-    //                         name: 'Anggaran',
-    //                         color: '#b91c1c',
-    //                         data: data.anggaran,
-    //                         pointPadding: 0.1,
-    //                         pointPlacement: 0,
-    //                     },
-    //                     {
-    //                         name: 'Realisasi',
-    //                         color: '#064E3B',
-    //                         data: data.realisasi,
-    //                         pointPadding: 0.3,
-    //                         pointPlacement: 0,
-    //                         yAxis: 1
-    //                     }
-    //                 ]
-    //             })
-    //         }
-    //     });
-    // })();
-    // END OR
-// END DATA CHART
 
 // CHART LABA RUGI
 (function(){
@@ -692,6 +298,27 @@ var $height = $(window).height();
                         return tmp[0]+'<br><span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + sepNum(this.y);
                     }
                 },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                        // 'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        // 'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                            }
+                        },
+                    }
+                },
                 series: [
                     {
                         name: 'Pendapatan',
@@ -730,6 +357,11 @@ var $height = $(window).height();
         async: false,
         success:function(result) {
             var data = result.data;
+            if($filter1_kode == 'PRD'){
+                $('.yoy2-label').html('MoM')
+            }else{
+                $('.yoy2-label').html('YoY')
+            }
             if(data.length > 0) {
                 $('#table-lembaga tbody').empty()
                 var html = "";
@@ -743,29 +375,45 @@ var $height = $(window).height();
                     var classTd6 = "";
                     var classTd7 = "";
                     var classTd8 = "";
-                    if(row.pdpt_ach < 0) {
-                        classTd1 = "td-red"
+                    if(row.pdpt_ach > 100) {
+                        classTd1 = "green-text"
+                    }else{
+                        classTd1 = "red-text"
                     }
                     if(row.pdpt_yoy < 0) {
-                        classTd2 = "td-red"
+                        classTd2 = "red-text"
+                    }else{
+                        classTd2 = "green-text"
                     }
-                    if(row.beban_ach < 0) {
-                        classTd3 = "td-red"
+                    if(row.beban_ach < 100) {
+                        classTd3 = "green-text"
+                    }else{
+                        classTd3 = "red-text"
                     }
-                    if(row.beban_yoy < 0) {
-                        classTd4 = "td-red"
+                    if(row.beban_yoy > 0) {
+                        classTd4 = "red-text"
+                    }else{
+                        classTd4 = "green-text"
                     }
-                    if(row.shu_ach < 0) {
-                        classTd5 = "td-red"
+                    if(row.shu_ach > 100) {
+                        classTd5 = "green-text"
+                    }else{
+                        classTd5 = "red-text"
                     }
                     if(row.shu_yoy < 0) {
-                        classTd6 = "td-red"
+                        classTd6 = "red-text"
+                    }else{
+                        classTd6 = "green-text"
                     }
-                    if(row.or_ach < 0) {
-                        classTd7 = "td-red"
+                    if(row.or_ach > 100) {
+                        classTd7 = "red-text"
+                    }else{
+                        classTd7 = "green-text"
                     }
-                    if(row.or_yoy < 0) {
-                        classTd8 = "td-red"
+                    if(row.or_yoy > 0) {
+                        classTd8 = "red-text"
+                    }else{
+                        classTd8 = "green-text"
                     }
 
                     html += `<tr>
@@ -774,14 +422,14 @@ var $height = $(window).height();
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
-                        <td class="${classTd1}">${row.pdpt_ach}%</td>
-                        <td class="${classTd2}">${row.pdpt_yoy}%</td>
-                        <td class="${classTd3}">${row.beban_ach}%</td>
-                        <td class="${classTd4}">${row.beban_yoy}%</td>
-                        <td class="${classTd5}">${row.shu_ach}%</td>
-                        <td class="${classTd6}">${row.shu_yoy}%</td>
-                        <td class="${classTd7}">${row.or_ach}%</td>
-                        <td class="${classTd8}">${row.or_yoy}%</td>
+                        <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
+                        <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
+                        <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
+                        <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
+                        <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
+                        <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
+                        <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
+                        <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
                     </tr>`;
                 }
                 $('#table-lembaga tbody').append(html)
@@ -1144,6 +792,11 @@ function updateChart(table = false) {
             dataType: 'json',
             async: true,
             success:function(result) {
+                if($filter1_kode == 'PRD'){
+                    $('.yoy2-label').html('MoM')
+                }else{
+                    $('.yoy2-label').html('YoY')
+                }
                 var data = result.data;
                 if(data.length > 0) {
                     $('#table-lembaga tbody').empty()
@@ -1158,29 +811,45 @@ function updateChart(table = false) {
                         var classTd6 = "";
                         var classTd7 = "";
                         var classTd8 = "";
-                        if(row.pdpt_ach < 0) {
-                            classTd1 = "td-red"
+                        if(row.pdpt_ach > 100) {
+                            classTd1 = "green-text"
+                        }else{
+                            classTd1 = "red-text"
                         }
                         if(row.pdpt_yoy < 0) {
-                            classTd2 = "td-red"
+                            classTd2 = "red-text"
+                        }else{
+                            classTd2 = "green-text"
                         }
-                        if(row.beban_ach < 0) {
-                            classTd3 = "td-red"
+                        if(row.beban_ach < 100) {
+                            classTd3 = "green-text"
+                        }else{
+                            classTd3 = "red-text"
                         }
-                        if(row.beban_yoy < 0) {
-                            classTd4 = "td-red"
+                        if(row.beban_yoy > 0) {
+                            classTd4 = "red-text"
+                        }else{
+                            classTd4 = "green-text"
                         }
-                        if(row.shu_ach < 0) {
-                            classTd5 = "td-red"
+                        if(row.shu_ach > 100) {
+                            classTd5 = "green-text"
+                        }else{
+                            classTd5 = "red-text"
                         }
                         if(row.shu_yoy < 0) {
-                            classTd6 = "td-red"
+                            classTd6 = "red-text"
+                        }else{
+                            classTd6 = "green-text"
                         }
-                        if(row.or_ach < 0) {
-                            classTd7 = "td-red"
+                        if(row.or_ach > 100) {
+                            classTd7 = "red-text"
+                        }else{
+                            classTd7 = "green-text"
                         }
-                        if(row.or_yoy < 0) {
-                            classTd8 = "td-red"
+                        if(row.or_yoy > 0) {
+                            classTd8 = "red-text"
+                        }else{
+                            classTd8 = "green-text"
                         }
                         if(row.kode_lokasi == $filter_lokasi){
                             var select = 'class="selected-row"';
@@ -1195,14 +864,14 @@ function updateChart(table = false) {
                                 <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
-                            <td class="${classTd1}">${row.pdpt_ach}%</td>
-                            <td class="${classTd2}">${row.pdpt_yoy}%</td>
-                            <td class="${classTd3}">${row.beban_ach}%</td>
-                            <td class="${classTd4}">${row.beban_yoy}%</td>
-                            <td class="${classTd5}">${row.shu_ach}%</td>
-                            <td class="${classTd6}">${row.shu_yoy}%</td>
-                            <td class="${classTd7}">${row.or_ach}%</td>
-                            <td class="${classTd8}">${row.or_yoy}%</td>
+                            <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
+                            <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
+                            <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
+                            <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
+                            <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
+                            <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
+                            <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
+                            <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
                         </tr>`;
                     }
                     $('#table-lembaga tbody').append(html)
@@ -1228,29 +897,33 @@ function updateBox() {
         async: true,
         success:function(result) {    
             // PENDAPATAN
-            $('#pdpt-yoy-percentage').empty()
             var iconPdptYoy = '';
             var iconPdptAch = '';
             var nilaiPdpt = 0;
             var nilaiYoyPdpt = 0;
             var nilaiAchPdpt = 0;
+            if($filter1_kode == 'PRD'){
+                $('.yoy-label').html('MoM Growth')
+            }else{
+                $('.yoy-label').html('YoY Growth')
+            }
             var pdpt = result.data.data_pdpt;
             if(pdpt.n4.toString().length <= 9) {
-                nilaiPdpt = toJuta(pdpt.n4)
+                nilaiPdpt = toJuta(pdpt.n4,2)
             } else {
-                nilaiPdpt = toMilyar(pdpt.n4)
+                nilaiPdpt = toMilyar(pdpt.n4,2)
             }
 
-            if(pdpt.n1.toString().length <= 9) {
-                nilaiYoyPdpt = toJuta(pdpt.n1)
+            if(pdpt.n5.toString().length <= 9) {
+                nilaiYoyPdpt = toJuta(pdpt.n5,2)
             } else {
-                nilaiYoyPdpt = toMilyar(pdpt.n1)
+                nilaiYoyPdpt = toMilyar(pdpt.n5,2)
             }
 
             if(pdpt.n2.toString().length <= 9) {
-                nilaiAchPdpt = toJuta(pdpt.n2)
+                nilaiAchPdpt = toJuta(pdpt.n2,2)
             } else {
-                nilaiAchPdpt = toMilyar(pdpt.n2)
+                nilaiAchPdpt = toMilyar(pdpt.n2,2)
             }
 
             if(pdpt.yoy < 0) {
@@ -1261,26 +934,25 @@ function updateBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(pdpt.ach < 0) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(pdpt.ach < 100) {
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
             }
 
             $('#pdpt-box').data('grafik', pdpt.kode_grafik)
             $('#pendapatan-value').text(nilaiPdpt)
             $('#pendapatan-yoy').text(nilaiYoyPdpt)
             $('#pendapatan-ach').text(nilaiAchPdpt)
-            $('#pdpt-yoy-percentage').text(`${pdpt.yoy}%`)
-            $('#pdpt-ach-percentage').text(`${pdpt.ach}%`)
+            $('#pdpt-yoy-percentage').text(`${number_format(pdpt.yoy,2)}%`)
+            $('#pdpt-ach-percentage').text(`${number_format(pdpt.ach,2)}%`)
             $('#pdpt-yoy-icon').html(iconPdptYoy)
             $('#pdpt-ach-icon').html(iconPdptAch)
             // END PENDAPATAN
 
             // BEBAN
-            $('#beban-yoy-percentage').empty()
             var iconBebanYoy = '';
             var iconBebanAch = '';
             var nilaiBeban = 0;
@@ -1288,51 +960,50 @@ function updateBox() {
             var nilaiAchBeban = 0;
             var beban = result.data.data_beban;
             if(beban.n4.toString().length <= 9) {
-                nilaiBeban = toJuta(beban.n4)
+                nilaiBeban = toJuta(beban.n4,2)
             } else {
-                nilaiBeban = toMilyar(beban.n4)
+                nilaiBeban = toMilyar(beban.n4,2)
             }
 
-            if(beban.n1.toString().length <= 9) {
-                nilaiYoyBeban = toJuta(beban.n1)
+            if(beban.n5.toString().length <= 9) {
+                nilaiYoyBeban = toJuta(beban.n5,2)
             } else {
-                nilaiYoyBeban = toMilyar(beban.n1)
+                nilaiYoyBeban = toMilyar(beban.n5,2)
             }
 
             if(beban.n2.toString().length <= 9) {
-                nilaiAchBeban = toJuta(beban.n2)
+                nilaiAchBeban = toJuta(beban.n2,2)
             } else {
-                nilaiAchBeban = toMilyar(beban.n2)
+                nilaiAchBeban = toMilyar(beban.n2,2)
             }
 
             if(beban.yoy < 0) {
-                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#beban-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconBebanYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#beban-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconBebanYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(beban.ach < 0) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(beban.ach > 100) {
+                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconBebanAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconBebanAch = '&nbsp;'
             }
 
             $('#beban-box').data('grafik', beban.kode_grafik)
             $('#beban-value').text(nilaiBeban)
             $('#beban-yoy').text(nilaiYoyBeban)
             $('#beban-ach').text(nilaiAchBeban)
-            $('#beban-yoy-percentage').text(`${beban.yoy}%`)
-            $('#beban-ach-percentage').text(`${beban.ach}%`)
+            $('#beban-yoy-percentage').text(`${number_format(beban.yoy,2)}%`)
+            $('#beban-ach-percentage').text(`${number_format(beban.ach,2)}%`)
             $('#beban-yoy-icon').html(iconBebanYoy)
             $('#beban-ach-icon').html(iconBebanAch)
             // END BEBAN
 
             // SHU
-            $('#shu-yoy-percentage').empty()
             var iconShuYoy = '';
             var iconShuAch = '';
             var nilaiShu = 0;
@@ -1340,21 +1011,21 @@ function updateBox() {
             var nilaiAchShu = 0;
             var shu = result.data.data_shu;
             if(shu.n4.toString().length <= 9) {
-                nilaiShu = toJuta(shu.n4)
+                nilaiShu = toJuta(shu.n4,2)
             } else {
-                nilaiShu = toMilyar(shu.n4)
+                nilaiShu = toMilyar(shu.n4,2)
             }
 
-            if(shu.n1.toString().length <= 9) {
-                nilaiYoyShu = toJuta(shu.n1)
+            if(shu.n5.toString().length <= 9) {
+                nilaiYoyShu = toJuta(shu.n5,2)
             } else {
-                nilaiYoyShu = toMilyar(shu.n1)
+                nilaiYoyShu = toMilyar(shu.n5,2)
             }
 
             if(shu.n2.toString().length <= 9) {
-                nilaiAchShu = toJuta(shu.n2)
+                nilaiAchShu = toJuta(shu.n2,2)
             } else {
-                nilaiAchShu = toMilyar(shu.n2)
+                nilaiAchShu = toMilyar(shu.n2,2)
             }
 
             if(shu.yoy < 0) {
@@ -1365,26 +1036,25 @@ function updateBox() {
                 iconShuYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(shu.ach < 0) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(shu.ach < 100) {
+                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconShuAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconShuAch = '&nbsp;'
             }
 
             $('#shu-box').data('grafik', shu.kode_grafik)
             $('#shu-value').text(nilaiShu)
             $('#shu-yoy').text(nilaiYoyShu)
             $('#shu-ach').text(nilaiAchShu)
-            $('#shu-yoy-percentage').text(`${shu.yoy}%`)
-            $('#shu-ach-percentage').text(`${shu.ach}%`)
+            $('#shu-yoy-percentage').text(`${number_format(shu.yoy,2)}%`)
+            $('#shu-ach-percentage').text(`${number_format(shu.ach,2)}%`)
             $('#shu-yoy-icon').html(iconShuYoy)
             $('#shu-ach-icon').html(iconShuAch)
             // END SHU
 
             // OR
-            $('#or-yoy-percentage').empty()
             var iconOrYoy = '';
             var iconOrAch = '';
             var nilaiOr = 0;
@@ -1393,27 +1063,27 @@ function updateBox() {
             var or = result.data.data_or;
 
             if(or.yoy < 0) {
-                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
                 $('#or-yoy-percentage').removeClass('red-text').addClass('green-text')
-                iconOrYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            } else {
+                $('#or-yoy-percentage').removeClass('green-text').addClass('red-text')
+                iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach < 0) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            if(or.ach > 100) {
+                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
-                iconOrAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                iconOrAch = '&nbsp;'
             }
 
             $('#or-box').data('grafik', or.kode_grafik)
-            $('#or-value').text(`${or.n4} %`)
-            $('#or-yoy').text(`${or.n1}%`)
-            $('#or-ach').text(`${or.n2}%`)
-            $('#or-yoy-percentage').text(`${or.yoy}%`)
-            $('#or-ach-percentage').text(`${or.ach}%`)
+            $('#or-value').text(`${number_format(or.n4,2)}%`)
+            $('#or-yoy').text(`${number_format(or.n5,2)}%`)
+            $('#or-ach').text(`${number_format(or.n2,2)}%`)
+            $('#or-yoy-percentage').text(`${number_format(or.yoy,2)}%`)
+            $('#or-ach-percentage').text(`${number_format(or.ach,2)}%`)
             $('#or-yoy-icon').html(iconOrYoy)
             $('#or-ach-icon').html(iconOrAch)
             // END OR
@@ -1529,7 +1199,6 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     var check = $(tr).attr('class')
     var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
     $filter_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
-    console.log($filter_lokasi);
     if(check == 'selected-row') {
         return;
     }
@@ -1548,7 +1217,6 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
 })
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
-    console.log('selected-row');
     var table = $(this).parents('table').attr('id')
     $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
@@ -1629,6 +1297,17 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     $('#custom-row').click(function(event) {
         event.stopPropagation();
         $('#filter-box').removeClass('hidden avoid-run')
+        $('#list-filter-2').find('.list').each(function() {
+            if($filter1_kode == 'PRD'){
+                if(parseInt($(this).data('bulan')) == parseInt($month)) {
+                    $(this).addClass('selected')
+                }
+            }else{
+                if(parseInt($(this).data('bulan')) <= parseInt($month)) {
+                    $(this).addClass('selected')
+                }
+            }
+        })
     })
 
     // MENTRIGGER FILTER 1
@@ -1641,87 +1320,28 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
         $('#list-filter-1 ul li').not(this).removeClass('selected')
         $(this).addClass('selected')
         $('#list-filter-2').empty()
-        if($filter1 == 'Triwulan') {
-            html += `
-                <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
-                    Triwulan I
-                </div>
-                <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
-                    Triwulan II
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
-                    Triwulan III
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
-                    Triwulan IV
-                </div>
-            `;
-        } else if($filter1 == 'Semester') {
-            html += `
-                <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
-                    Semester I
-                </div>
-                <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
-                    Semester II
-                </div>
-            `;
-        } else if($filter1 == 'Periode') {
-            html += `
-                <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
-                    Januari
-                </div>
-                <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
-                    Februari
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
-                    Maret
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
-                    April
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
-                    Mei
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
-                    Juni
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
-                    Juli
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
-                    Agustus
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
-                    September
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
-                    Oktober
-                </div>
-                <div class="w-100 d-none d-md-block"></div>
-                <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
-                    November
-                </div>
-                <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
-                    Desember
-                </div>
-            `;
+        var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        for(i=0; i < bln.length; i++){
+            if($filter1_kode == 'PRD'){
+                if(parseInt(bln[i]) == parseInt($month)){
+                    var selected = 'selected';
+                }else{
+                    var selected = '';
+                }
+            }else{
+                if(parseInt(bln[i]) <= parseInt($month)){
+                    var selected = 'selected';
+                }else{
+                    var selected = '';
+                }
+            }
+            html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
+                <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
+            </div>`;
         }
         $('#list-filter-2').append(html)
-
-        if($filter1 == 'Periode') {
-            $('#list-filter-2').find('.list').each(function() {
-                if($(this).data('bulan').toString() == $month) {
-                    $(this).addClass('selected')
-                    $month = $(this).data('bulan').toString();
-                    return false;
-                }
-            })
-        }
+        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
     })
 
     // MENTRIGGER FILTER 2
@@ -1741,10 +1361,11 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
         if($month.toString().length == 2) {
             $filter2 = getNamaBulan($filter2)
         }
-
-        $('#select-text-fp').text(`${$filter2.toUpperCase()} ${$tahun}`)
+        
+        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
         updateAllChart()
-        showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+        showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
         $('#detail-dash').hide()
         $('#main-dash').show()
         $('body').addClass('scroll-hide');
@@ -2110,28 +1731,28 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-8 pl-12">
+        <div class="col-9 pl-12 pr-0">
             <div class="row">
-                <div id="back-div" class="col-1 hidden">
+                <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11">
+                <div id="dash-title-div" class="col-11 pr-0">
                     <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title">YPT</span></h2>
                 </div>
             </div>
         </div>
-        <div class="col-4 pr-0">
+        <div class="col-3 pl-1 pr-0">
             <div class="row">
-                <div class="col-3 pr-0 message-div">
+                {{-- <div class="col-3 pr-0 message-div">
                     <img id="icon-message" alt="message-icon" class="icon-message cursor-pointer" src="{{ asset('dash-asset/dash-ypt/icon/message.svg') }}">
-                </div>
-                <div class="col-9">
+                </div> --}}
+                <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-fp" class="select-text">September {{ date('Y') }}</p>
+                            <p id="select-text-fp" class="select-text">Bulan September {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -2141,70 +1762,67 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             </div>
         </div>
         <div id="filter-box" class="filter-box border-r-0 hidden">
-            <div class="row justify-content-end">
-                <div class="col-7 pt-8 pr-0">
-                    <div class="row">
-                        <div class="col-4 pr-0">
-                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer"></div>
+            <div class="row filter-box-tahun px-3">
+                <div class="col-3 pt-8 border-right"></div>
+                <div class="col-9 pt-8">
+                    <div class="row pr-3">
+                        <div class="col-4">
+                            <div id="kurang-tahun" class="glyph-icon simple-icon-arrow-left filter-icon cursor-pointer text-center"></div>
                         </div>
-                        <div class="col-4 -mt-5 pl-0 pr-0" id="year-filter">{{ date('Y') }}</div>
-                        <div class="col-4 pl-0">
+                        <div class="col-4 text-center bold" id="year-filter">{{ date('Y') }}</div>
+                        <div class="col-4 text-center">
                             <div id="tambah-tahun" class="glyph-icon simple-icon-arrow-right filter-icon cursor-pointer"></div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-5 list-filter-1" id="list-filter-1">
+            <div class="row filter-box-periode px-3">
+                <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
                         {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
                         {{-- <li data-filter1="SMT">Semester</li> --}}
-                        <li class="selected" data-filter1="PRD">Periode</li>
+                        <li class="selected py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="py-2" data-filter1="PRD">Bulan</li>
                         {{-- <li>Year to Date</li> --}}
                     </ul>
                 </div>
-                <div class="col-7 mt-4 mb-6">
-                    <div class="row list-filter-2" id="list-filter-2">
-                        <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
-                            Januari
+                <div class="col-9 mt-4 mb-6">
+                    <div class="row list-filter-2 pr-3" id="list-filter-2">
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="01" data-filter2="01">
+                            <span class="py-2 px-3 d-block">Januari</span>
                         </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
-                            Februari
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="02" data-filter2="02">
+                            <span class="py-2 px-3 d-block">Februari</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
-                            Maret
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="03" data-filter2="03">
+                            <span class="py-2 px-3 d-block">Maret</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
-                            April
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="04" data-filter2="04">
+                            <span class="py-2 px-3 d-block">April</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
-                            Mei
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="05" data-filter2="05">
+                            <span class="py-2 px-3 d-block">Mei</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
-                            Juni
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="06" data-filter2="06">
+                            <span class="py-2 px-3 d-block">Juni</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
-                            Juli
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="07" data-filter2="07">
+                            <span class="py-2 px-3 d-block">Juli</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
-                            Agustus
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="08" data-filter2="08">
+                            <span class="py-2 px-3 d-block">Agustus</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
-                            September
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="09" data-filter2="09">
+                            <span class="py-2 px-3 d-block">September</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
-                            Oktober
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="10" data-filter2="10">
+                            <span class="py-2 px-3 d-block">Oktober</span>
                         </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
-                            November
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="11" data-filter2="11">
+                            <span class="py-2 px-3 d-block">November</span>
                         </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
-                            Desember
+                        <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="12" data-filter2="12">
+                            <span class="py-2 px-3 d-block">Desember</span>
                         </div>
                         {{-- <div class="col-5 py-3 cursor-pointer" data-filter2="TRW1">
                             Triwulan I
@@ -2234,30 +1852,30 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-12 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="pdpt-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Pendapatan</h4>
                         <div class="row">
                             <div class="col-12">
                                 <p id="pendapatan-value" class="main-nominal">0</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-no-padding">
+                                <table class="table table-borderless table-no-padding w-100">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
-                                            <td id="pendapatan-ach" class="px-0">0</td>
-                                            <td id="pdpt-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="pendapatan-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="pdpt-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="pdpt-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="pdpt-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
-                                            <td id="pendapatan-yoy" class="px-0">0</td>
-                                            <td id="pdpt-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
+                                            <td id="pendapatan-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="pdpt-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="pdpt-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="pdpt-yoy-icon" class="pr-0 pl-0"> </td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2269,7 +1887,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-pdpt">
                             <ul>
@@ -2283,7 +1901,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2295,7 +1913,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="beban-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Beban</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2305,20 +1923,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
-                                            <td id="beban-ach" class="px-0">0</td>
-                                            <td id="beban-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="beban-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="beban-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="beban-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="beban-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
-                                            <td id="beban-yoy" class="px-0">0</td>
-                                            <td id="beban-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
+                                            <td id="beban-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="beban-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="beban-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="beban-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2330,7 +1948,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-beban">
                             <ul>
@@ -2344,7 +1962,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2356,7 +1974,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Sisa Hasil Usaha</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2366,20 +1984,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
-                                            <td id="shu-ach" class="px-0">0</td>
-                                            <td id="shu-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="shu-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="shu-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="shu-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="shu-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
-                                            <td id="shu-yoy" class="px-0">0</td>
-                                            <td id="shu-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
+                                            <td id="shu-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="shu-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="shu-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="shu-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2391,7 +2009,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-shu">
                             <ul>
@@ -2405,7 +2023,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2417,7 +2035,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
         <div class="col-3 pl-1 pr-0">
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="or-box" data-grafik="">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-12">
                         <h4 class="header-card">Operating Ratio</h4>
                         <div class="row">
                             <div class="col-12">
@@ -2427,20 +2045,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <table class="table table-borderless table-no-padding">
                                     <tbody>
                                         <tr>
-                                            <td class="pl-0 w-50">Ach.</td>
-                                            <td id="or-ach" class="px-0">0</td>
-                                            <td id="or-ach-percentage" class="pr-0">
+                                            <td class="pl-0 w-40">Ach. RKA</td>
+                                            <td id="or-ach" class="px-0 w-25 text-right">0</td>
+                                            <td id="or-ach-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="or-ach-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="or-ach-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         <tr>
-                                            <td class="pl-0 w-50">YoY</td>
-                                            <td id="or-yoy" class="px-0">0</td>
-                                            <td id="or-yoy-percentage" class="pr-0">
+                                            <td class="pl-0 w-40 yoy-label">YoY Growth</td>
+                                            <td id="or-yoy" class="px-0 w-25 text-right">0</td>
+                                            <td id="or-yoy-icon" class="pr-0 pl-0 w-15 text-right"></td>
+                                            <td id="or-yoy-percentage" class="pr-0 w-20 text-right">
                                                 0
                                             </td>
-                                            <td id="or-yoy-icon" class="pr-0 pl-0"></td>
                                         </tr>
                                         {{-- <tr>
                                             <td colspan="4" class="text-center pl-0 pr-0 td-show-chart" style="padding-top: 4px;">
@@ -2452,7 +2070,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </div>
                         </div>
                     </div>
-                    <div class="col-2">
+                    {{-- <div class="col-2">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
                         <div class="menu-chart-custom hidden" id="export-or">
                             <ul>
@@ -2466,7 +2084,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                                 <li class="menu-chart-item print svg">View table data</li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -2524,13 +2142,13 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                             </tr>
                             <tr>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                                 <th class="text-center">Ach.</th>
-                                <th class="text-center">YoY</th>
+                                <th class="text-center yoy2-label">YoY</th>
                             </tr>
                         </thead>
                         <tbody></tbody>

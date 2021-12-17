@@ -2,7 +2,7 @@
 var performChart = null;
 var lembagaChart = null;
 var yoyChart = null;
-var trendChart = null;
+var trendChartFP = null;
 var akunChart = null;
 
 // UPDATE CHART DETAIL
@@ -83,11 +83,28 @@ function updateChartDetail(kode_grafik = null) {
                 },
                 plotOptions: {
                     series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '9px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                            }
+                        },
                         label: {
-                            connectorAllowed: false
+                            connectorAllowed: true
                         },
                         marker:{
-                            enabled:false
+                            enabled: true
                         },
                         pointStart: parseInt(data.kategori[0])
                     }
@@ -334,9 +351,9 @@ function createChartLembaga(kode_grafik = null) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">-${number_format(y,1)}%</span>`;
+                                    html = `<span style="color: #830000;">-${number_format(y,2)}%</span>`;
                                 } else {
-                                    html = `<span style="color: #000000;">${number_format(y,1)}%</span>`;
+                                    html = `<span style="color: #000000;">${number_format(y,2)}%</span>`;
                                 }
                                 return html;
                             }
@@ -371,15 +388,15 @@ function createChartLembaga(kode_grafik = null) {
                             point[j].color = 'url(#custom-pattern)'  
                             point[j].connector.element.style.stroke = 'black'
                             point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+format_milyar(point[j].nilai)+'</div></div></div>';                  
+                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].nilai,2)+'</div></div></div>';                  
                         }else{
                             if(color == '#7cb5ec') {
                                 point[j].graphic.element.style.fill = '#830000'
                                 point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].nilai,2)+'</div></div></div>';
                             }else{
 
-                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+format_milyar(point[j].nilai)+'</div></div></div>';
+                                html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].nilai,2)+'</div></div></div>';
                             }
                         }
                     }
@@ -393,7 +410,7 @@ function createChartLembaga(kode_grafik = null) {
 }
 
 function createChartKelompok(kode_grafik = null) {
-    if(kode_grafik != "PI04"){
+    if(kode_grafik != "PI04" && kode_grafik != "PI03"){
 
         $.ajax({
             type: 'GET',
@@ -439,11 +456,28 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     plotOptions: {
                         series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return toMilyar(this.y,2);
+                                    return $('<div/>').css({
+                                            // 'color' : 'white', // work
+                                            'padding': '0 3px',
+                                            'font-size': '9px',
+                                            // 'backgroundColor' : this.point.color  // just white in my case
+                                        }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                                }
+                            },
                             label: {
-                                connectorAllowed: false
+                                connectorAllowed: true
                             },
                             marker:{
-                                enabled:false
+                                enabled: true
                             },
                             pointStart: parseInt(data.kategori[0])
                         }
@@ -474,7 +508,7 @@ function createChartKelompok(kode_grafik = null) {
             async: true,
             success:function(result) {
                 var data = result.data;
-                trendChart = Highcharts.chart('trend-chart', {
+                trendChartFP = Highcharts.chart('trend-chart', {
                     title: { text: '' },
                     subtitle: { text: '' },
                     exporting:{ 
@@ -499,11 +533,38 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     plotOptions: {
                         series: {
+                            dataLabels: {
+                                // padding:10,
+                                allowOverlap:true,
+                                enabled: true,
+                                crop: false,
+                                overflow: 'justify',
+                                useHTML: true,
+                                formatter: function () {
+                                    // return toMilyar(this.y,2);
+                                    if(kode_grafik == 'PI03'){
+                                        return $('<div/>').css({
+                                                // 'color' : 'white', // work
+                                                'padding': '0 3px',
+                                                'font-size': '9px',
+                                                // 'backgroundColor' : this.point.color  // just white in my case
+                                            }).text(toMilyar(this.point.y,1))[0].outerHTML;
+                                    }else{
+
+                                        return $('<div/>').css({
+                                                // 'color' : 'white', // work
+                                                'padding': '0 3px',
+                                                'font-size': '9px',
+                                                // 'backgroundColor' : this.point.color  // just white in my case
+                                            }).text(number_format(this.point.y,1)+'%')[0].outerHTML;
+                                    }
+                                }
+                            },
                             label: {
-                                connectorAllowed: false
+                                connectorAllowed: true
                             },
                             marker:{
-                                enabled:false
+                                enabled: true
                             },
                             pointStart: parseInt(data.kategori[0])
                         }
@@ -607,9 +668,10 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         performChart.update({
             title: {
-                text: 'Performansi Lembaga',
+                text: ' % Pencapaian Anggaran Lembaga',
                 floating: true,
                 x: 40,
                 y: 20
@@ -624,7 +686,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -636,7 +698,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -648,7 +710,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -660,7 +722,7 @@ $('#export-perform.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: 'Performansi Lembaga'
+                text: ' % Pencapaian Anggaran Lembaga'
             },
             subtitle: {
                 text: ''
@@ -688,9 +750,10 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         lembagaChart.update({
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
                 floating: true,
                 x: 40,
                 y: 90
@@ -705,7 +768,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-png'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -717,7 +780,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -729,7 +792,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -741,7 +804,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
             filename: 'chart-svg'
         }, {
             title: {
-                text: `${$judulChart} Per Lembaga`,
+                text: `Kontribusi ${$judulChart} Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -769,6 +832,7 @@ $('#export-yoy.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         yoyChart.update({
             title: {
                 text: `Kelompok ${$judulChart} YoY`,
@@ -850,60 +914,61 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
-        trendChart.update({
+        $full = '2';
+        trendChartFP.update({
             title: {
-                text: `Trend OR 5 Tahun`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
                 floating: true,
                 x: 40,
                 y: 20
             }
         })
-        trendChart.fullscreen.toggle();
+        trendChartFP.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        trendChart.print()
+        trendChartFP.print()
     } else if(jenis == 'Download PNG image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download PDF document') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        trendChart.exportChart({
+        trendChartFP.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Kelompok ${$judulChart} YoY`,
+                text: `Trend ${$judulChart} 5 Tahun Per Lembaga`,
             },
             subtitle: {
                 text: ''
@@ -911,7 +976,7 @@ $('#export-trend.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        trendChart.viewData()
+        trendChartFP.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
@@ -931,6 +996,7 @@ $('#export-akun.menu-chart-custom ul li').click(function(event) {
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
+        $full = '2';
         akunChart.update({
             title: {
                 text: `${$judulChart} Per Akun`,
@@ -1012,6 +1078,7 @@ document.addEventListener('fullscreenchange', (event) => {
   if (document.fullscreenElement) {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
   } else {
+      $full = '0';
     performChart.update({
         title: {
             text: ''
@@ -1025,6 +1092,12 @@ document.addEventListener('fullscreenchange', (event) => {
     })
 
     yoyChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    trendChartFP.update({
         title: {
             text: ''
         }
@@ -1047,7 +1120,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
-                        <h4 class="header-card">Performansi Lembaga</h4>
+                        <h4 class="header-card"> % Pencapaian Anggaran Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
@@ -1072,7 +1145,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash  border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
-                        <h4 class="header-card"><span class="title-chart"></span> Per Lembaga</h4>
+                        <h4 class="header-card">Kontribusi <span class="title-chart"></span> Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
@@ -1155,7 +1228,7 @@ document.addEventListener('fullscreenchange', (event) => {
             <div class="card card-dash  border-r-0" id="dash-trend">
                 <div class="row header-div" id="card-trend">
                     <div class="col-9">
-                        <h4 class="header-card">Trend OR 5 Tahun</h4>
+                        <h4 class="header-card">Trend <span class="title-chart"></span> 5 Tahun Per Lembaga</h4>
                     </div>
                     <div class="col-3">
                         <div class="glyph-icon simple-icon-menu icon-menu"></div>
