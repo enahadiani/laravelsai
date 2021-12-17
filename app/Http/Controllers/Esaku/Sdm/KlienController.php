@@ -60,7 +60,8 @@ class KlienController extends Controller
         $this->validate($request, [
             'kode' => 'required',
             'nama' => 'required',
-            'flag_aktif' => 'required'
+            'flag_aktif' => 'required',
+            'kelompok' => 'required',
         ]);
 
         try {
@@ -73,7 +74,8 @@ class KlienController extends Controller
                 'form_params' => [
                     'kode_client' => $request->input('kode'),
                     'nama_client' => $request->input('nama'),
-                    'flag_aktif' => $request->input('flag_aktif')
+                    'flag_aktif' => $request->input('flag_aktif'),
+                    'kelompok' => $request->input('kelompok'),
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -129,7 +131,8 @@ class KlienController extends Controller
         $this->validate($request, [
             'kode' => 'required',
             'nama' => 'required',
-            'flag_aktif' => 'required'
+            'flag_aktif' => 'required',
+            'kelompok' => 'required',
         ]);
 
         try {
@@ -142,7 +145,8 @@ class KlienController extends Controller
                 'form_params' => [
                     'kode_client' => $request->input('kode'),
                     'nama_client' => $request->input('nama'),
-                    'flag_aktif' => $request->input('flag_aktif')
+                    'flag_aktif' => $request->input('flag_aktif'),
+                    'kelompok' => $request->input('kelompok')
                 ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK

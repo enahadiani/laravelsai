@@ -2,8 +2,8 @@
 <link rel="stylesheet" href="{{ asset('form.css') }}" />
 
 {{-- SAKU TABLE --}}
-<x-list-data judul="Data Klien" tambah="true" :thead="array('Kode','Nama','Status','Aksi')"
-    :thwidth="array(20,25,25,10)" :thclass="array('','','','text-center')" />
+<x-list-data judul="Data Klien" tambah="true" :thead="array('Kode','Nama','Kelompok','Status','Aksi')"
+    :thwidth="array(20,25,25,25,10)" :thclass="array('','','','','text-center')" />
 {{-- END SAKU TABLE --}}
 
 {{-- SAKU FORM --}}
@@ -32,6 +32,14 @@
                         <div class="form-group col-md-12 col-sm-12">
                             <label for="nama">Nama</label>
                             <input class="form-control" type="text" id="nama" name="nama" autocomplete="off" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12 col-sm-12">
+                            <label for="kelompok">Kelompok</label>
+                            <input class="form-control" type="text" id="kelompok" name="kelompok" autocomplete="off"
+                                required placeholder="Ex.TELKOM">
                         </div>
                     </div>
 
@@ -132,7 +140,7 @@
         "table-data",
         "{{ url('esaku-master/sdm-kliens') }}",
         [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 4, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -146,6 +154,7 @@
         [
             { data: 'kode_client' },
             { data: 'nama' },
+            { data: 'kelompok' },
             { data: 'is_active', render: function(data) {
                 if(data === "0") {
                     return "Tidak Aktif"
@@ -310,6 +319,7 @@
                     $('#kode').val(id)
                     $('#nama').val(data.nama)
                     $('#flag_aktif').val(data.is_active)
+                    $('#kelompok').val(data.kelompok)
                     // showInfoField('kode_area', data.kode_area, data
                     //     .kode_area);
                     $('#saku-datatable').hide();
