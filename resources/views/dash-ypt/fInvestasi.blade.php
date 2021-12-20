@@ -426,7 +426,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'kode_neraca': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
         });
         getNilaiAset({
             'periode[0]': '=',
@@ -607,28 +607,36 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`);
     
     getDataBox({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getNilaiAset({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getAggLembaga({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getSerapAgg({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
