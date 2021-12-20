@@ -180,8 +180,8 @@ function getDataBox(param) {
             $('#real_tahun').text(toMilyar(data[0].real_tahun,1));
 
             $('#persen_ach').text(number_format(data[0].persen_ach,1)+'%');
-            $('#ach_now').text(toMilyar(data[0].ach_now,1));
-            $('#ach_lalu').text(toMilyar(data[0].ach_lalu,1));
+            $('#ach_now').text(toMilyar(data[0].real_now,1));
+            $('#ach_lalu').text(toMilyar(data[0].real_lalu,1));
         }
     });
 }
