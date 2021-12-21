@@ -42,11 +42,7 @@ class DashboardInvesController extends Controller {
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             }  else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -111,11 +107,7 @@ class DashboardInvesController extends Controller {
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -180,11 +172,7 @@ class DashboardInvesController extends Controller {
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -248,11 +236,7 @@ class DashboardInvesController extends Controller {
                     $req['periode'][1] = $tahun."12";
                 }
             } elseif ($r->query('jenis') == 'YTM') {
-                $per_awal = $tahun.'01';
-                $per_akhir = $tahun.$req['periode'][1];
-                $req['periode'][0] = 'range';
-                $req['periode'][1] = $per_awal;
-                $req['periode'][2] = $per_akhir;
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }

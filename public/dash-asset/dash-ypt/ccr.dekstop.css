@@ -362,3 +362,16 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 .selected-card{
     box-shadow: 0px 0px 5px 0px var(--info) !important;
 }
+
+.lembaga-legend .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.lembaga-legend .check-row::before {
+    background-color: #830000;
+    color: #ffffff;
+    border-radius: 50%;
+}
+.lembaga-legend .glyph-icon.icon-card {
+    display: inline;
+}

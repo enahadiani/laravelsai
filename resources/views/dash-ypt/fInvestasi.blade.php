@@ -180,8 +180,8 @@ function getDataBox(param) {
             $('#real_tahun').text(toMilyar(data[0].real_tahun,1));
 
             $('#persen_ach').text(number_format(data[0].persen_ach,1)+'%');
-            $('#ach_now').text(toMilyar(data[0].ach_now,1));
-            $('#ach_lalu').text(toMilyar(data[0].ach_lalu,1));
+            $('#ach_now').text(toMilyar(data[0].real_now,1));
+            $('#ach_lalu').text(toMilyar(data[0].real_lalu,1));
         }
     });
 }
@@ -383,23 +383,25 @@ function getAggLembaga(param) {
                         var negative = point[j].negative;
                         if(point[j].key == $filter_kode_lokasi){
                             var select = 'selected-row';
+                            var display = 'unset';
                         }else{
                             var select = "";
+                            var display = 'none';
                         }
                         if(negative) {
                             point[j].graphic.element.style.fill = 'url(#custom-pattern)'
                             point[j].color = 'url(#custom-pattern)'  
                             point[j].connector.element.style.stroke = 'black'
                             point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
                         }else{
                             if(color == '#7cb5ec') {
                                 point[j].graphic.element.style.fill = '#830000'
                                 point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
                             }else{
 
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
                             }
                         }
                     }
@@ -415,7 +417,9 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
     var table = '.lembaga-legend';
     var tr = $(this).closest('.td-klik')
     var kode = $(this).closest('.td-klik').find('.td-kode').text()
+    var icon = $(this).closest('.td-klik').find('.check-row')
     var tmp = $(this).closest('.td-klik').find('.serieName').text().split(':');
+    $(`${table} .check-row`).hide()
     var lembaga = tmp[0];
     $filter_kode_lokasi = kode;
     if($(tr).hasClass('selected-row')) {
@@ -426,7 +430,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'kode_neraca': $filter_aset,
+            'kode_neraca': $filter_kode_neraca,
         });
         getNilaiAset({
             'periode[0]': '=',
@@ -446,6 +450,8 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
         showNotification(`Menampilkan dashboard YPT`);
         return;
     }else{
+        
+        icon.show();
         $(`${table} div.td-klik`).removeClass('selected-row')
         $(tr).addClass('selected-row')
         getDataBox({
@@ -607,28 +613,36 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#select-text-inv').text(`${nama_filter} ${$filter2} ${$tahun}`);
     
     getDataBox({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getNilaiAset({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getAggLembaga({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     getSerapAgg({
-    'periode[0]': '=',
-    'periode[1]': $month,
-    'tahun': $tahun,
-    'jenis': $filter1_kode
+        'periode[0]': '=',
+        'periode[1]': $month,
+        'tahun': $tahun,
+        'jenis': $filter1_kode,
+        'kode_neraca': $filter_kode_neraca,
+        'kode_lokasi': $filter_kode_lokasi
     });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
