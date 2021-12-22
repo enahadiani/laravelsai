@@ -262,7 +262,7 @@
                     <div class="card card-dash">
                         <div class="card-header row">
                             <div class="col-12 py-1">
-                                <h6 class="text-small">Lokasi Kerja</h6>
+                                <h6 class="text-small">Kota/Kabupaten</h6>
                             </div>
                         </div>
                         <div class="card-body">
