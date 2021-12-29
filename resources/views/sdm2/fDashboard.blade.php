@@ -22,11 +22,12 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/sdm-kliens') }}",
+            url: "{{ url('esaku-dash/sdm-box-client') }}",
             dataType: 'json',
             async: true,
             success:function(result){
-                var data = result.daftar;
+                var data = result.data.data;
+                console.log(data)
                 $('#client-value').text(sepNum(data.length));
             }
         });
@@ -37,12 +38,12 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('esaku-master/sdm-lokers') }}",
+            url: "{{ url('esaku-dash/sdm-box-loker') }}",
             dataType: 'json',
             async: true,
             success:function(result){
-                var data = result.daftar;
-                $('#lokasi-value').text(sepNum(data.length));
+                var data = result.data;
+                $('#lokasi-value').text(sepNum(data));
             }
         });
     })();
@@ -97,7 +98,7 @@
                     series: [{
                         name: 'Jumlah',
                         colorByPoint: true,
-                        data: data
+                        data: data.chart
                     }]
                     }, function() {
                         // var color = ['#255F85', '#FAA613', '#E26D5C', '#941B0C'];
@@ -111,14 +112,15 @@
                 });
                 // END KOMPOSISI CHART
                 var html = '';
-                for (let i = 0; i < data.length; i++) {
+                for (let i = 0; i < data.data.length; i++) {
+                    var row = data.data[i];
                     html += ` <tr>
                                     <td style="width: 10%;">
-                                        <div class="symbol ${data[i].bg}"></div>
+                                        <div class="symbol ${row.bg}"></div>
                                     </td>
-                                    <td style="width: 20%;">${data[i].name}</td>
-                                    <td id="nilai-ypt" class="text-right">${data[i].y}</td>
-                                    <td id="percent-ypt" class="text-right font-bold">${data[i].decimal}%</td>
+                                    <td style="width: 20%;">${row.name}</td>
+                                    <td id="nilai-ypt" class="text-right">${row.y}</td>
+                                    <td id="percent-ypt" class="text-right font-bold">${row.decimal}%</td>
                                 </tr>`;
 
                 }
@@ -260,7 +262,7 @@
                     <div class="card card-dash">
                         <div class="card-header row">
                             <div class="col-12 py-1">
-                                <h6 class="text-small">Lokasi Kerja</h6>
+                                <h6 class="text-small">Kota/Kabupaten</h6>
                             </div>
                         </div>
                         <div class="card-body">

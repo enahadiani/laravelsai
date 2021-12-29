@@ -20,6 +20,7 @@ Route::get('sdm-box-kerja', 'Esaku\Sdm\DashboardBoxController@getBPJSKerja');
 Route::get('sdm-box-client', 'Esaku\Sdm\DashboardBoxController@getBPJSClient');
 Route::get('sdm-box-market', 'Esaku\Sdm\DashboardBoxController@getMarket');
 Route::get('sdm-box-gender', 'Esaku\Sdm\DashboardBoxController@getKelompokGender');
+Route::get('sdm-box-loker', 'Esaku\Sdm\DashboardBoxController@getJumlahLoker');
 
 Route::get('sdm-chart-pendidikan', 'Esaku\Sdm\DashboardChartController@getPendidikan');
 Route::get('sdm-chart-umur', 'Esaku\Sdm\DashboardChartController@getUmur');

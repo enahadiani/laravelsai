@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('css_optional/trans.css') }}" />
 
 {{-- LIST DATA --}}
-<x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Alamat','Aksi')"
+<x-list-data judul="Data Karyawan {{date('Y')}}" tambah="true" :thead="array('NIK','Nama','Alamat','Aksi')"
     :thwidth="array(10,30,50,10)" :thclass="array('','','','text-center')" />
 {{-- END LIST DATA --}}
 
@@ -1003,10 +1003,10 @@ function editData(id, view = false) {
             $('#input-dokumen tbody').empty()
             var result = res.data
             var data = result.data_pribadi[0]
-            var bank = result.data_bank[0]
+            var bank = result.data_bank
             // dok
             var detail = result.data_doc
-            console.log(data)
+            // console.log(data)
             if(res.data.status) {
                 $('#id_edit').val('true')
 
@@ -1027,9 +1027,12 @@ function editData(id, view = false) {
                 isiEdit(data.no_bpjs,"text",'#no_bpjs',view);
                 isiEdit(data.no_bpjs_naker,"text",'#no_bpjs_kerja',view);
 
-                isiEdit(bank.cabang,"text",'#cabang',view);
-                isiEdit(bank.no_rek,"text",'#no_rek',view);
-                isiEdit(bank.nama_rek,"text",'#nama_rek',view);
+                if(bank.length > 0){
+                    isiEdit(bank[0].cabang,"text",'#cabang',view);
+                    isiEdit(bank[0].no_rek,"text",'#no_rek',view);
+                    isiEdit(bank[0].nama_rek,"text",'#nama_rek',view);
+                    showInfoField('kode_bank',bank[0].kode_bank, bank.nama_bank)
+                }
 
 
                 isiEdit(parseFloat(data.tinggi_badan),"number",'#t_badan',view);
@@ -1045,7 +1048,7 @@ function editData(id, view = false) {
                 isiEdit(data.gol_darah,"select",'#gol_darah',view, "A");
 
                 showInfoField('kode_agama', data.kode_agama, data.nama_agama)
-                showInfoField('kode_bank',bank.kode_bank, bank.nama_bank)
+
 
                 if(detail.length == jenis.length) {
                     var html = null
