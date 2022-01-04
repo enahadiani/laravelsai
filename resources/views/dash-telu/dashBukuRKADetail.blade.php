@@ -79,7 +79,7 @@
         $('#row-prev').html('');
         var file_dok = $(this).data('href');
         var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" || "{{ config('api.url') }}" == "http://localhost:8080/lumenapi/public/api/" ? "https://api.simkug.com/api/" : "{{ config('api.url') }}" );
-        $('#row-prev').html(`<div class='col-md-12'><embed src='`+url+`ypt-auth/storage2/`+file_dok+`' type="application/pdf" style="width:100%;height:calc(100vh - 250px)" />
+        $('#row-prev').html(`<div class='col-md-12'><embed src='`+url+`ypt-auth/storage2/`+file_dok+`' type="application/pdf" style="width:100%;height:calc(100vh - 170px)" />
         </div>`);
         $('#row-detail').hide();
         $('#row-prev').show();
