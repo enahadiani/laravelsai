@@ -44,7 +44,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row mb-2">
                                     <div class="col-md-3 col-sm-12">
                                         <label for="tanggal">Tanggal</label>
@@ -68,7 +68,7 @@
                                     <div class="col-md-3">
                                         <label for="flag_aktif">Status Aktif</label>
                                         <select class='form-control' id="flag_aktif" name="flag_aktif">
-                                        <option value='' disabled selected>--- Pilih Status Aktif ---</option>
+                                        <option value='' disabled selected>--- Pilih ---</option>
                                         <option value='1'>AKTIF</option>
                                         <option value='0'>NON-AKTIF</option>
                                         </select>
@@ -77,11 +77,11 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-12 col-sm-12">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <div class="row mb-2">
                                     <div class="col-md-12 col-sm-12">
                                         <label for="keterangan">Keterangan</label>
-                                        <textarea class="form-control" rows="3" id="keterangan" name="keterangan" required></textarea>
+                                        <input class="form-control" id="keterangan" name="keterangan" required>
                                     </div>
                                 </div>
                             </div>
@@ -162,7 +162,6 @@
     @include('modal_search')
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-    <script src="{{ asset('asset_dore/js/vendor/ckeditor5-build-classic/ckeditor.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script>
     // var $iconLoad = $('.preloader');
@@ -192,10 +191,6 @@
         }
     });
 
-    $("#tag").tagsinput({
-        cancelConfirmKeysOnEmpty: true
-    });
-
     function hitungTotalRowDok(){
         var total_row = $('#input-dok tbody tr').length;
         $('#total-row-dok').html(total_row+' Baris');
@@ -218,27 +213,6 @@
             dataTable.row(rowIndexes).deselect();
         }, 1000 * 60 * 10);
     }
-
-    
-    // var editor = ClassicEditor.create( document.querySelector( '#keterangan' ) )
-    //     .catch( error => {
-    //         console.error( error );
-    // });
-
-    var editor = ClassicEditor.create(document.querySelector('#keterangan'))
-    .catch(error => {
-        console.error('Editor initialization error.', error);
-    });
-
-    editor.then(editor => {
-        editor.model.document.on( 'change:data', () => {
-            $('#keterangan').val(editor.getData());
-        });
-    })
-
-    // editor.on('change', function() { 
-    //     console.log("TEST");
-    // });
 
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
@@ -335,12 +309,6 @@
         $('#btn-save').attr('type','submit');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
-        if(editor != undefined){
-            editor.then(editor => {
-                editor.setData('');
-            })
-        } 
-        $('#tag').tagsinput('removeAll');
         $('#method').val('post');
         $('#no_bukti').attr('readonly', false);
         $('#input-dok tbody').html('');
@@ -552,10 +520,7 @@
                     $('#no_bukti').attr('readonly', true);
                     $('#no_bukti').val(id);
                     $('#tanggal').val(result.data[0].tanggal);
-                    editor.then(editor => {
-                        editor.setData(result.data[0].keterangan);//here i am 
-                        $('#keterangan').val(result.data[0].keterangan);
-                    });
+                    $('#keterangan').val(result.data[0].keterangan);
                     $('#kode_pp').val(result.data[0].kode_pp); 
                     $('#flag_aktif')[0].selectize.setValue(result.data[0].flag_aktif);
                     $('#input-dok tbody').html(''); 
@@ -611,10 +576,6 @@
         var id= $(this).closest('tr').find('td').eq(0).html();
         // $iconLoad.show();
         $('#form-tambah').validate().resetForm();
-        // editor.then(editor => {
-        //     editor.setData('');
-        // })
-        // $('#keterangan').val('');
         
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
