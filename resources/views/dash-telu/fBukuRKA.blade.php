@@ -120,6 +120,45 @@
     </form>
     <!-- END FORM INPUT -->
 
+    
+    {{-- PDF PREVIEW --}}
+    <div id="saku-pdf" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:1rem;padding-bottom:1rem;min-height:62.8px">
+                    <button type="button" class="btn btn-light ml-2" id="btn-back" style="float:right;"><i class="fa fa-undo"></i> Kembali</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body pt-0" style='height:calc(100vh - 190px) '>
+                    <ul class="nav nav-tabs col-12" role="tablist">
+                        <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-list" role="tab" aria-selected="true"><span class="hidden-xs-down">List Dokumen</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-prev" role="tab" aria-selected="true"><span class="hidden-xs-down">Preview Dokumen</span></a> </li>
+                    </ul>
+                    <div class="tab-content tabcontent-border col-12 p-0">
+                        <div class="tab-pane active" id="data-list" role="tabpanel">
+                            <table class='table table-bordered table-striped' id="table-pdf">
+                                <thead>
+                                    <tr>
+                                        <th width='5%'>No</th>
+                                        <th width='35%'>Nama File</th>
+                                        <th width='20%'>Jenis Dok</th>
+                                        <th width='10%'>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="data-prev" role="tabpanel">
+                            <div id="pdf-content"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END PDF PREVIEW --}}
+
     @include('modal_search')
     <!-- JAVASCRIPT  -->
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
@@ -211,7 +250,7 @@
 
 
     //LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>&nbsp;&nbsp;&nbsp; <a href='#' title='View Dokumen' id='btn-view'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('telu-master/buku-rka') }}", 
@@ -486,7 +525,9 @@
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length > 0){
                         for(var i=0;i < result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_jenis}]);
+                            if(result.daftar[i].nama == 'Dokumen'){
+                                control.addOption([{text:result.daftar[i].nama, value:result.daftar[i].kode_jenis}]);
+                            }
                         }
                         if(kode_jenis != undefined && kode_jenis != null){
                             control.setValue(kode_jenis);
@@ -813,6 +854,7 @@
                     if(jqXHR.status==422){
                         alert(jqXHR.responseText);
                     }
+                    action_dok.html("<input type='file' class='inp-file_dok' name='file_dok[]'>");
                 }
             })
             
@@ -846,6 +888,48 @@
         }       
     });
 
+    
+    $('#saku-datatable').on('click','#btn-view',function(e) {
+        e.preventDefault();
+        $('#saku-pdf').show();
+        $('#saku-datatable').hide();
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-master/buku-rka-edit') }}",
+            dataType: 'json',
+            data:{no_bukti:id},
+            async:false,
+            success:function(result){
+                var input = ''; var no = 1;
+                if(result.status){
+                    for(var i=0;i < result.data2.length;i++){
+                        var line = result.data2[i];
+                        input += `<tr class='row-dok'>`;
+                            input += `<td class='no-dok'>`+no+`</td>`;
+                            input += `<td>`+line.nama+`</td>`;
+                            input += `<td>`+line.kode_jenis+`</td>`;
+                            input += `<td class='text-center' ><a title='View' class='badge badge-success view-dok-pdf' style='color:white'><i class='simple-icon-doc fa-1'></i></a></td>`;
+                        input += `</tr>`;
+                        no++;
+                    }
+                }
+                $('#table-pdf tbody').html(input);
 
+                $('#table-pdf tbody').on('click', '.view-dok-pdf',function(e){
+                    e.preventDefault();
+                    $('.nav-tabs a[href="#data-prev"]').tab('show');
+                    $('#pdf-content').html(`<div class='col-md-12'><embed src='http://localhost:8080/lumenapi/public/api/ypt-auth/storage2/61d3b49066c01_sample-3pp.pdf' type="application/pdf" style="width:100%;height:calc(100vh - 250px)" />
+                    </div>`);
+                })
+            }
+        });
+    });
+
+    $('#saku-pdf').on('click','#btn-back',function(e) {
+        e.preventDefault();
+        $('#saku-pdf').hide();
+        $('#saku-datatable').show();
+    });
 
     </script>

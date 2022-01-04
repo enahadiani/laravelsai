@@ -292,7 +292,7 @@ class BukuRKAController extends Controller
 
     public function storeDokTmp(Request $request){
         $this->validate($request,[
-            'file_dok' => 'required',
+            'file_dok' => 'required|mimes:pdf',
             'no_urut' => 'required',
             'kode_jenis' => 'required',
             'tanggal' => 'required',
