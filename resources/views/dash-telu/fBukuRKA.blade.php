@@ -870,7 +870,7 @@
                             input += `<td class='no-dok'>`+no+`</td>`;
                             input += `<td>`+line.nama+`</td>`;
                             input += `<td>`+line.kode_jenis+`</td>`;
-                            input += `<td class='text-center' ><a title='View' class='badge badge-success view-dok-pdf' style='color:white'><i class='simple-icon-doc fa-1'></i></a></td>`;
+                            input += `<td class='text-center' ><a title='View' class='badge badge-success view-dok-pdf' style='color:white' data-file='`+line.file_dok+`'><i class='simple-icon-doc fa-1'></i></a></td>`;
                         input += `</tr>`;
                         no++;
                     }
@@ -880,7 +880,9 @@
                 $('#table-pdf tbody').on('click', '.view-dok-pdf',function(e){
                     e.preventDefault();
                     $('.nav-tabs a[href="#data-prev"]').tab('show');
-                    $('#pdf-content').html(`<div class='col-md-12'><embed src='http://localhost:8080/lumenapi/public/api/ypt-auth/storage2/61d3b49066c01_sample-3pp.pdf' type="application/pdf" style="width:100%;height:calc(100vh - 250px)" />
+                    var file = $(this).data('file');
+                    var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" || "{{ config('api.url') }}" == "http://localhost:8080/lumenapi/public/api/" ? "https://api.simkug.com/api/" : "{{ config('api.url') }}" );
+                    $('#pdf-content').html(`<div class='col-md-12'><embed src='`+url+`ypt-auth/storage2/`+file+`' type="application/pdf" style="width:100%;height:calc(100vh - 250px)" />
                     </div>`);
                 })
             }
