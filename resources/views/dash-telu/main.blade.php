@@ -33,6 +33,20 @@
     
     <link rel="stylesheet" href="{{ asset('asset_dore/bottom-sheet/style.css') }}" /> 
     <style>
+        .menu .main-menu ul li i{
+            font-size: 25px;
+            line-height: 35px;
+        }
+        .menu .main-menu ul li a {
+            height: 70px;
+        }
+        .menu .main-menu ul li.active::after{
+            height: 70px;
+            top: 45%;
+        }
+        .menu .sub-menu ul li a{
+            padding: 4px 0;
+        }
         .logo{
             background:url("{{ asset('img/Tel-U-logo_1.PRIMER-Utama.png') }}") no-repeat;
             background-size: 150px;
