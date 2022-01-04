@@ -75,3 +75,14 @@ Route::delete('konten-dok-tmp','DashTelu\KontenController@destroyDokTmp');
 
 Route::get('kategori-konten','DashTelu\KontenController@getKategori');
 
+// KONTEN
+Route::get('buku-rka','DashTelu\BukuRKAController@index');
+Route::get('buku-rka-edit','DashTelu\BukuRKAController@index');
+Route::post('buku-rka','DashTelu\BukuRKAController@store');
+Route::post('buku-rka-edit','DashTelu\BukuRKAController@update');
+Route::delete('buku-rka','DashTelu\BukuRKAController@destroy');
+
+Route::post('buku-rka-dok-tmp','DashTelu\BukuRKAController@storeDokTmp');
+Route::delete('buku-rka-dok','DashTelu\BukuRKAController@destroyDok');
+Route::delete('buku-rka-dok-tmp','DashTelu\BukuRKAController@destroyDokTmp');
+
