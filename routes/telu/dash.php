@@ -68,6 +68,9 @@ Route::get('tahun','DashTelu\DashboardController@getTahun');
 Route::get('berita-list','DashTelu\DashboardController@getBeritaList');
 Route::get('berita-detail/{id}','DashTelu\DashboardController@getBeritaDetail');
 
+Route::get('buku-rka-list','DashTelu\DashboardController@getBukuRKAList');
+Route::get('buku-rka-detail/{id}','DashTelu\DashboardController@getBukuRKADetail');
+
 
 Route::get('watch-video/{id}', function ($id) {
     $data['id'] = $id;

@@ -2580,5 +2580,45 @@
             return view('dash-telu.dashKontenDetail',$data);
         }
 
+        public function getBukuRKAList(Request $request) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/buku-rka-list'
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
+        public function getBukuRKADetail($id) {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/buku-rka-list'
+            ,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $id
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return view('dash-telu.dashBukuRKADetail',$data);
+        }
+
     }
 ?>
