@@ -57,10 +57,16 @@
         </div>
     </div>
     <div class="row mt-5" id="row-prev">
-
+        <div class="row-prev-ket pr-2 pl-4 py-2 col-12">
+            <div class="col-md-12">
+                {!! $data[0]['keterangan'] !!}
+            </div>
+        </div>
+        <div class="row-prev-pdf col-12"></div>
     </div>
 </div>
 <script>
+    $('#row-prev').hide();
     $prev = 0;
     $('#btn-back').click(function(e){
         e.preventDefault();
@@ -69,17 +75,17 @@
         }else{
             $('#row-detail').show();
             $('#row-prev').hide();
-            $('#row-prev').html('');
+            $('.row-prev-pdf').html('');
             $prev = 0;
         }
     })
 
     $('.list-dok').on('click','.row-dok',function(e){
         e.preventDefault();
-        $('#row-prev').html('');
+        $('.row-prev-pdf').html('');
         var file_dok = $(this).data('href');
         var url = ("{{ config('api.url') }}" == "http://localhost:8080/api/" || "{{ config('api.url') }}" == "http://localhost:8080/lumenapi/public/api/" ? "https://api.simkug.com/api/" : "{{ config('api.url') }}" );
-        $('#row-prev').html(`<div class='col-md-12'><embed src='`+url+`ypt-auth/storage2/`+file_dok+`' type="application/pdf" style="width:100%;height:calc(100vh - 170px)" />
+        $('.row-prev-pdf').html(`<div class='col-md-12'><embed src='`+url+`ypt-auth/storage2/`+file_dok+`' type="application/pdf" style="width:100%;height:calc(100vh - 200px)" />
         </div>`);
         $('#row-detail').hide();
         $('#row-prev').show();
