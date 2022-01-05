@@ -57,8 +57,7 @@ class JabatanController extends Controller
     {
         $this->validate($request, [
             'kode_jab' => 'required',
-            'nama' => 'required',
-            'flag_aktif' => 'required'
+            'nama' => 'required'
         ]);
         try{
 
@@ -71,8 +70,7 @@ class JabatanController extends Controller
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
                     'kode_jab' => $request->kode_jab,
-                    'nama' => $request->nama,
-                    'flag_aktif' => $request->flag_aktif
+                    'nama' => $request->nama
                 ]
             ]);
             
@@ -148,8 +146,7 @@ class JabatanController extends Controller
     {
 
         $this->validate($request, [
-            'nama' => 'required',
-            'flag_aktif' => 'required'
+            'nama' => 'required'
         ]);
 
         try{
@@ -162,8 +159,7 @@ class JabatanController extends Controller
                 ],
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
-                    'nama' => $request->nama,
-                    'flag_aktif' => $request->flag_aktif
+                    'nama' => $request->nama
                 ]
             ]);
             

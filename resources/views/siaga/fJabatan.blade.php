@@ -1,10 +1,31 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master.css') }}" />
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Jabatan" tambah="true" :thead="array('Kode Jabatan','Nama','Status','Aksi')" :thwidth="array(20,25,15,10)" :thclass="array('','','','text-center')" />
+    <x-list-data judul="Data Jabatan" tambah="true" :thead="array('Kode Jabatan','Nama','Aksi')" :thwidth="array(20,25,10)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
     <!-- FORM  -->
+    <style>
+        
+.card-body-footer{
+    background: white;
+    position: fixed;
+    bottom: 15px;
+    right: 0;
+    margin-right: 30px;
+    z-index:3;
+    height: 60px;
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
+}
+
+.card-body-footer > button{
+    float: right;
+    margin-top: 10px;
+    margin-right: 25px;
+}
+    </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
@@ -32,7 +53,7 @@
                                 <input class="form-control" type="text" placeholder="Nama Jabatan" id="nama" name="nama" autocomplete="off">                        
                             </div>
                         </div>
-                        <div class="form-row">
+                        {{-- <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="status">Status</label>
                                 <select class='form-control' id="status" name="flag_aktif">
@@ -41,16 +62,14 @@
                                     <option value='0'>NONAKTIF</option>
                                 </select>                       
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
-                    <div class="card-form-footer">
-                        <div class="footer-form-container">
-                            <div class="text-right message-action">
-                                <p class="text-success"></p>
-                            </div>
-                            <div class="action-footer">
-                                <button type="submit" id="btn-save" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            </div>
+                    <div class="card-body-footer row mx-auto" style="padding: 0 25px;">
+                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                            <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
+                        </div>
+                        <div style="text-align: right;" class="col-md-2 p-0 ">
+                            <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -78,14 +97,14 @@
                                 <option value=''>Pilih Kode Jabatan</option>
                             </select>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label>Status</label>
                             <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
                                 <option value=''>Pilih Status</option>
                                 <option value='AKTIF'>AKTIF</option>
                                 <option value='NONAKTIF'>NONAKTIF</option>
                             </select>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer" style="border:none">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
@@ -106,9 +125,9 @@
     setHeightForm();
     
     var $iconLoad = $('.preloader');
-    var selectStatus = $('#status').selectize();
+    // var selectStatus = $('#status').selectize();
     var selectJabatan = $('#inp-filter_kode_jab').selectize();
-    var selectStatusFilter = $('#inp-filter_status').selectize();
+    // var selectStatusFilter = $('#inp-filter_status').selectize();
 
     $.ajaxSetup({
         headers: {
@@ -170,9 +189,9 @@
     $('#inp-filter_kode_jab').change(function(){
         jumFilter();
     });
-    $('#inp-filter_status').change(function(){
-        jumFilter();
-    });
+    // $('#inp-filter_status').change(function(){
+    //     jumFilter();
+    // });
     // END Filter //
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -180,7 +199,7 @@
         "table-data",
         "{{ url('siaga-master/jabatan') }}", 
         [
-            {'targets': 3, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -193,11 +212,10 @@
         ],
         [
             { data: 'kode_jab' },
-            { data: 'nama' },
-            { data: 'flag_aktif' }
+            { data: 'nama' }
         ],
         "{{ url('siaga-auth/sesi-habis') }}",
-        [[3 ,"desc"]]
+        [[0 ,"asc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -217,6 +235,8 @@
         $('#judul-form').html('Tambah Data Jabatan');
         $('#kode').attr('readonly', false);
         newForm()
+        setHeightForm();
+        setWidthFooterCardBody();
     });
     // END BUTTON TAMBAH
 
@@ -248,9 +268,6 @@
             },
             nama:{
                 required: true,   
-            },
-            flag_aktif:{
-                required: true,   
             }
         },
         errorElement: "label",
@@ -268,10 +285,6 @@
             }
 
             var formData = new FormData(form);
-            var tmp = $('#kota option:selected').text();
-            tmp = tmp.split("-");
-            var nama_kota = tmp[1];
-            formData.append('nama_kota',nama_kota);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -291,7 +304,6 @@
                         var kode = $('#kode').val();
                         $('#judul-form').html('Tambah Data Jabatan');
                         $('#kode').attr('readonly', false);
-                        $('#status')[0].selectize.setValue('');
                         resetForm()
                         msgDialog({
                             id:kode,
@@ -353,11 +365,12 @@
                     $('#kode').attr('readonly', true);
                     $('#kode').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    $('#status')[0].selectize.setValue(result.data[0].flag_aktif);  
+                    $('#nama').val(result.data[0].nama); 
                     $('#modal-preview').modal('hide');  
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    setHeightForm();
+                    setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
@@ -375,10 +388,9 @@
 
     // PREVIEW saat klik di list data //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 3){
+        if($(this).index() != 2){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var status = data.flag_status;
             var html = `<tr>
                 <td style='border:none'>Kode Jabatan</td>
                 <td style='border:none'>`+id+`</td>
@@ -386,10 +398,6 @@
             <tr>
                 <td>Nama</td>
                 <td>`+data.nama+`</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>`+data.flag_aktif+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
@@ -460,23 +468,10 @@
         $.fn.dataTable.ext.search.push(
             function( settings, data, dataIndex ) {
                 var kode_jab = $('#inp-filter_kode_jab').val();
-                var status = $('#inp-filter_status').val();
                 var col_kode_jab = data[0];
                 var col_status  = data[2];
-                if(kode_jab != "" && status != ""){
-                    if(kode_jab == col_kode_jab && status == col_status){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_jab !="" && status == "") {
+                if(kode_jab != ""){
                     if(kode_jab == col_kode_jab){
-                        return true;
-                    }else{
-                        return false;
-                    }
-                }else if(kode_jab =="" && status != "") {
-                    if(status == col_status){
                         return true;
                     }else{
                         return false;
@@ -495,7 +490,6 @@
     $('#btn-reset').click(function(e){
         e.preventDefault();
         $('#inp-filter_kode_jab')[0].selectize.setValue('');
-        $('#inp-filter_status')[0].selectize.setValue('');
         jumFilter();
     });
         
@@ -511,9 +505,9 @@
     $('#btn-tampil').click();
     // END FILTER DATA //
 
-    $('#kode,#nama,#status').keydown(function(e){
+    $('#kode,#nama').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode','nama','status'];
+        var nxt = ['kode','nama'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
