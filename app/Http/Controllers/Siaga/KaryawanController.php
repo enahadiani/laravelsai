@@ -102,7 +102,7 @@ class KaryawanController extends Controller
             'no_rek' => 'required',
             'nama_rek' => 'required',
             'status' => 'required',
-            'grade' => 'required',
+            'band' => 'required',
             'kota' => 'required',
             'kode_pos' => 'required',
             'no_hp' => 'required',
@@ -175,7 +175,7 @@ class KaryawanController extends Controller
                     ],
                     [
                         'name' => 'grade',
-                        'contents' => $request->grade,
+                        'contents' => $request->band,
                     ],
                     [
                         'name' => 'kota',
@@ -273,7 +273,7 @@ class KaryawanController extends Controller
                     ],
                     [
                         'name' => 'grade',
-                        'contents' => $request->grade,
+                        'contents' => $request->band,
                     ],
                     [
                         'name' => 'kota',
@@ -402,7 +402,7 @@ class KaryawanController extends Controller
             'no_rek' => 'required',
             'nama_rek' => 'required',
             'status' => 'required',
-            'grade' => 'required',
+            'band' => 'required',
             'kota' => 'required',
             'kode_pos' => 'required',
             'no_hp' => 'required',
@@ -475,7 +475,7 @@ class KaryawanController extends Controller
                     ],
                     [
                         'name' => 'grade',
-                        'contents' => $request->grade,
+                        'contents' => $request->band,
                     ],
                     [
                         'name' => 'kota',
@@ -573,7 +573,7 @@ class KaryawanController extends Controller
                     ],
                     [
                         'name' => 'grade',
-                        'contents' => $request->grade,
+                        'contents' => $request->band,
                     ],
                     [
                         'name' => 'kota',

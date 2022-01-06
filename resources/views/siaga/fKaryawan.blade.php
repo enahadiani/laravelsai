@@ -58,7 +58,7 @@
         <input type="hidden" id="id" name="id">
         
         @php 
-        $inp = array('alamat','npwp','bank','cabang','no_rek','nama_rek','status','band','kota','kode_pos');
+        $inp = array('alamat','npwp','bank','cabang','no_rek','nama_rek','status','band','kota','kode_pos','tgl_lahir','no_telp');
         @endphp
         @for($i=0; $i < count($inp); $i++)
         <input type="hidden" name="{{ $inp[$i] }}" id="{{ $inp[$i] }}" value="-">
