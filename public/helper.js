@@ -30,15 +30,17 @@ function last_add(param,isi){
     }, 1000 * 60 * 10);
 }
 
-function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = []) {
-    var dataTable = $("#"+id).DataTable({
+function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = [],param = {},scrollX=false,scrollY='') {
+    var options_dt = {
         destroy: true,
-        bLengthChange: false,
         sDom: 't<"row view-pager pl-2 mt-3"<"col-sm-12 col-md-4"i><"col-sm-12 col-md-8"p>>',
         'ajax': {
             'url': url,
             'async':false,
             'type': 'GET',
+            'data': function(prm) {
+                return $.extend({}, prm, eval(param));
+            },
             'dataSrc' : function(json) {
                 if(json.status){
                     return json.daftar;   
@@ -75,7 +77,14 @@ function generateTable(id,url,columnDefs,columns,url_sesi,byOrder = []) {
             infoEmpty: "Menampilkan 0 sampai 0 dari 0 entri",
             infoFiltered: "(terfilter dari _MAX_ total entri)"
         }
-    });
+    };
+    if(scrollX){
+        options_dt = Object.assign(options_dt, {scrollX: scrollX});
+    }
+    if(scrollY != ''){
+        options_dt = Object.assign(options_dt, {scrollY: scrollY});
+    }
+    var dataTable = $("#"+id).DataTable(options_dt);
 
     return dataTable;
 }

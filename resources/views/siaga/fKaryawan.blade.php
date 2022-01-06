@@ -2,6 +2,23 @@
     <link rel="stylesheet" href="{{ asset('form.css') }}" />
     <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
     <style>
+        
+        #table-data_wrapper .dataTables_scrollHeadInner, #table-data
+        {
+            width: 1650px !important;
+        }
+        #table-data_wrapper .dataTables_scrollHeadInner th {
+            padding: 8px !important;
+            border-bottom: 0px !important;
+            vertical-align:middle;
+            text-align:center;
+        }
+        #table-data_wrapper .dataTables_scrollBody th {
+            padding: 0px 8px !important;
+        }
+        table.dataTable{
+            border-collapse:collapse !important;
+        }
         .icon-tambah {
             background: #505050;
             /* mask: url("{{ url('img/add.svg') }}"); */
@@ -33,7 +50,7 @@
     
     </style>
     <!-- LIST DATA -->
-    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Kode Regional','Kode Jab','Email','No  Telp','Aksi')" :thwidth="array(20,25,20,20,20,20,10)" :thclass="array('','','','','','','text-center')" />
+    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Band','Jabatan','PP','Status','No Telpon','No HP','Email','Alamat','Action')" :thwidth="array(80,250,100,300,250,100,100,100,200,800,150)" :thclass="array('','','','','','','','','','','text-center')" :optionpage="array()" tpwidth="px"/>
     <!-- END LIST DATA -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -50,33 +67,46 @@
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
+
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="nik">NIK</label>
-                                <input class="form-control" type="text" placeholder="NIK" id="nik" name="nik" autocomplete="off">                        
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_nik" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-nik" autocomplete="off" id="nik" name="nik" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_nik hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_nik"></i>
+                                </div>                     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="nik2">NIK Gratika</label>
+                                <input class="form-control" type="text" placeholder="NIK" id="nik2" name="nik2" autocomplete="off" readonly>                        
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="sts_sdm">Status SDM</label>
+                                <input class="form-control" type="text" placeholder="Status SDM" id="sts_sdm" name="sts_sdm" autocomplete="off" readonly>                        
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="nama">Nama</label>
-                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off">                       
+                                <input class="form-control" type="text" placeholder="Nama" id="nama" name="nama" autocomplete="off" readonly>                       
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_pp">Regional</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                    </div>
-                                    <input type="text" class="form-control inp-label-kode_pp" autocomplete="off" id="kode_pp" name="kode_pp" value="" title="" data-input="cbbl" readonly>
-                                    <span class="info-name_kode_pp hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
-                                </div>                     
+                            <div class="form-group col-md-12 col-sm-12">
+                                <label for="jab">Jabatan</label>
+                                <input class="form-control" type="text" placeholder="Jabatan" id="jab" name="jab" autocomplete="off" >                       
                             </div>
+                        </div>
+                        <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="kode_jab">Jabatan</label>
                                 <div class="input-group">
@@ -94,21 +124,67 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_pp">PP Aktif</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp" autocomplete="off" id="kode_pp" name="kode_pp" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_pp hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                </div>                     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="kode_pp2">PP Baru</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_pp2" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_pp2" autocomplete="off" id="kode_pp2" name="kode_pp2" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_pp2 hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_pp2"></i>
+                                </div>                     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 col-sm-12">
+                                <label for="flag_aktif">Status Aktif</label>
+                                <select class="form-control selectize" name="flag_aktif" id="flag_aktif">
+                                    <option value='0'>NONAKTIF</option>
+                                    <option value='1'>AKTIF</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="email">Email</label>
                                 <input class="form-control" type="text" placeholder="Email" id="email" name="email" autocomplete="off" required>                       
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="telp">No Telp</label>
-                                <input class="form-control" type="text" placeholder="No Telp" id="telp" name="no_telp" autocomplete="off" required>                    
+                                <label for="no_hp">No HP</label>
+                                <input class="form-control" type="text" placeholder="No HP" id="no_hp" name="no_hp" autocomplete="off" required>                    
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="file">Foto</label>
                                 <div class="custom-file">
-                                    <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar">
-                                    <label class="custom-file-label" for="file_gambar">Choose file</label>
+                                    <input type="file" name="file_gambar" class="custom-file-input" id="file_gambar" accept="image/*" onchange="readURL(this)">
+                                    <label class="custom-file-label" style="border-radius: 0.5rem;" for="file_gambar">Choose file</label>
                                 </div>                 
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="preview">
+
                             </div>
                         </div>
                     </div>
@@ -173,6 +249,19 @@
         }
     });
 
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            console.log('change');
+            reader.onload = function (e) {
+                var html = `<img id="img-preview" width="120px" src="`+e.target.result+`" alt="Preview" style='margin:0 auto'>`;
+                $('.preview').html(html);
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
     function openFilter() {
         var element = $('#mySidepanel');
             
@@ -202,26 +291,7 @@
     var psscrollform = new PerfectScrollbar(scrollform);
     // END PLUGIN SCROLL di bagian preview dan form input
     // FUNCTION GET DATA //
-    (function() {
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('siaga-master/unit') }}",
-            dataType: 'json',
-            async:false,
-            success:function(result){
-                if(result.status){
-                    var select = selectRegional[0];
-                    var control = select.selectize;
-                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        for(i=0;i<result.daftar.length;i++){
-                            control.addOption([{text:result.daftar[i].kode_pp + ' - ' + result.daftar[i].nama, value:result.daftar[i].kode_pp}]);
-                        }
-                    }
-                }
-            }
-        });
-    })();
-
+    $('.selectize').selectize();
     function getPP(kode_cbbl, kode) {
         $.ajax({
             type: 'GET',
@@ -285,7 +355,7 @@
         "table-data",
         "{{ url('siaga-master/karyawan') }}", 
         [
-            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 10, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
                 "targets": 0,
                 "createdCell": function (td, cellData, rowData, row, col) {
@@ -297,15 +367,22 @@
             }
         ],
         [
-            { data: 'nik' },
-            { data: 'nama' },
-            { data: 'kode_pp' },
-            { data: 'kode_jab' },
-            { data: 'no_telp' },
-            { data: 'email' }
+            { data: 'nik'},
+            { data: 'nama'},
+            { data: 'band'},
+            { data: 'jabatan'},
+            { data: 'pp'},
+            { data: 'status'},
+            { data: 'no_telp'},
+            { data: 'no_hp'},
+            { data: 'email'},
+            { data: 'alamat'},
         ],
         "{{ url('siaga-auth/sesi-habis') }}",
-        [[6 ,"desc"]]
+        [[0 ,"asc"]],
+        {},
+        true,
+        ''
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -330,7 +407,6 @@
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         $('#method').val('post');
-        $('#nik').attr('readonly', false);
         $('#input-grid tbody').html('');
         $('#input-lap tbody').html('');
         $('#saku-datatable').hide();
@@ -362,27 +438,6 @@
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
-        rules: 
-        {
-            nik:{
-                required: true,   
-            },
-            nama:{
-                required: true,   
-            },
-            kode_pp:{
-                required: true,   
-            },
-            kode_jab:{
-                required: true,   
-            },
-            email:{
-                required: true,   
-            },
-            telp:{
-                required: true,   
-            },
-        },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
@@ -398,9 +453,6 @@
             }
 
             var formData = new FormData(form);
-            var tmp = $('#label_kode_kota').val();
-            var nama_kota = tmp;
-            formData.append('kota',nama_kota);
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -419,7 +471,6 @@
                         dataTable.ajax.reload();
                         var kode = $('#nik').val();
                         $('#judul-form').html('Tambah Data Karyawan');
-                        $('#nik').attr('readonly', false);
                         resetForm()
                         msgDialog({
                             id:kode,
@@ -481,15 +532,82 @@
                     $('#nik').attr('readonly', true);
                     $('#nik').val(id);
                     $('#id').val(id);
-                    $('#nama').val(result.data[0].nama);
-                    getPP('kode_pp', result.data[0].kode_pp);
-                    getJabatan('kode_jab', result.data[0].kode_jab)
-                    $('#email').val(result.data[0].email);
-                    $('#telp').val(result.data[0].no_telp);
-                    if(result.data[0].file_gambar !== '-'){
-                        var html = "<img style='width:120px' src='"+result.data[0].file_gambar+"'>";
-                        $('.preview').html(html);              
-                    }    
+                    var line = result.data[0];
+                    $('#nik2').val(line.nik2);
+                    $('#nama').val(line.nama);						
+                    $('#sts_sdm').val(line.sts_sdm);			
+                    $('#tgl_lahir').val(line.tgl_lahir);
+                    $('#alamat').val(line.alamat);		
+                    
+                    if(result.data2.length > 0){
+                        var line2 = result.data2[0];
+                        $('#nama').val(line2.nama);
+                        $('#alamat').val(line2.alamat);
+                        $('#jab').val(line2.jabatan);
+                        $('#kode_jab').val(line2.kode_jab);
+                        $('#no_telp').val(line2.no_telp);
+                        $('#email').val(line2.email);
+                        $('#npwp').val(line2.npwp);						
+                        $('#bank').val(line2.bank);
+                        $('#cabang').val(line2.cabang);
+                        $('#no_rek').val(line2.no_rek);
+                        $('#nama_rek').val(line2.nama_rek);
+                        $('#flag_aktif').val(line2.status);
+                        $('#band').val(line2.grade);
+                        $('#kota').val(line2.kota);
+                        $('#kode_pos').val(line2.kode_pos);
+                        $('#no_hp').val(line2.no_hp);
+                        $('#sts_sdm').val(line2.sts_sdm);						
+                        $('#kode_pp').val(line2.kode_pp);						
+                        $('#kode_pp2').val(line2.kode_pp);	
+                        
+                        
+                        if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
+                        else $('#flag_aktif')[0].selectize.setValue(1);
+    
+                        if(line2.foto !== '-'){
+                            var html = "<img style='width:120px' src='"+line2.foto+"'>";
+                            $('.preview').html(html);              
+                        }else{
+                            $('.preview').html('');              
+                        }    
+                    }else{
+                        $('#id_edit').val('');
+                        $('#method').val('post');
+                        $('#nama').val('');
+                        $('#alamat').val('-');
+                        $('#jab').val('');
+                        $('#kode_jab').val('');
+                        $('#no_telp').val('-');
+                        $('#email').val('');
+                        $('#npwp').val('-');						
+                        $('#bank').val('-');
+                        $('#cabang').val('-');
+                        $('#no_rek').val('-');
+                        $('#nama_rek').val('-');
+                        $('#flag_aktif').val('');
+                        $('#band').val('-');
+                        $('#kota').val('-');
+                        $('#kode_pos').val('-');
+                        $('#no_hp').val('');
+                        $('#sts_sdm').val('-');						
+                        $('#kode_pp').val('');						
+                        $('#kode_pp2').val('');	
+                        
+                        $('#btn-update').attr('type','submit');
+                        $('#btn-update').attr('id','btn-save');
+                        $('#judul-form').html('Tambah Data Karyawan');
+                        
+                        if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
+                        else $('#flag_aktif')[0].selectize.setValue(1);
+    
+                        if(line2.foto !== '-'){
+                            var html = "<img style='width:120px' src='"+line2.foto+"'>";
+                            $('.preview').html(html);              
+                        }else{
+                            $('.preview').html('');              
+                        }    
+                    }
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
@@ -657,10 +775,11 @@
 
         switch(id) {
             case 'kode_pp': 
+            case 'kode_pp2': 
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-pp') }}",
+                    url : "{{ url('siaga-master/unit') }}",
                     columns : [
                         { data: 'kode_pp' },
                         { data: 'nama' }
@@ -680,7 +799,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-jabatan') }}",
+                    url : "{{ url('siaga-master/jabatan') }}",
                     columns : [
                         { data: 'kode_jab' },
                         { data: 'nama' }
@@ -696,6 +815,30 @@
                     width : ["30%","70%"],
                 }
             break;
+            case 'nik': 
+                var settings = {
+                    id : id,
+                    header : ['NIK', 'Nama'],
+                    url : "{{ url('siaga-master/karyawan-nik') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Karyawan",
+                    pilih : "",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"],
+                    onItemSelected: function(data){
+                        showInfoField('nik', data.nik, data.nama);
+                        editData(data.nik);   
+                    }
+                }
+            break;
             default:
             break;
         }
@@ -703,9 +846,9 @@
     });
     //END SHOW CBBL//
 
-    $('#nik,#nama,#kode_pp,#kode_jab,#file_gambar').keydown(function(e){
+    $('#nik,#nik2,#sts_sdm,#nama,#jab,#kode_jab,#kode_pp,#kode_pp2,#flag_aktif,#email,#no_hp,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','nama','kode_pp','kode_jab','file_gambar'];
+        var nxt = ['nik','nik2','sts_sdm','nama','jab','kode_jab','kode_pp','kode_pp2','flag_aktif','email','no_hp','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

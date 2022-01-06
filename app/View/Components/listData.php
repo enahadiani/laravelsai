@@ -17,8 +17,9 @@ class listData extends Component
     public $thwidth;
     public $thclass;
     public $optionpage;
+    public $tpwidth;
 
-    public function __construct($judul,$tambah,$thead,$thwidth,$thclass,$optionpage=NULL)
+    public function __construct($judul,$tambah,$thead,$thwidth,$thclass,$optionpage=NULL,$tpwidth=NULL)
     {
         $this->judul = $judul;
         $this->tambah = $tambah;
@@ -26,6 +27,7 @@ class listData extends Component
         $this->thwidth = $thwidth;
         $this->thclass = $thclass;
         $this->optionpage = $optionpage;
+        $this->tpwidth = $tpwidth;
     }
 
     /**

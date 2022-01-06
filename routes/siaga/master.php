@@ -9,6 +9,7 @@ Route::post('/karyawan', 'Siaga\KaryawanController@store');
 Route::get('/karyawan/{nik}', 'Siaga\KaryawanController@show');
 Route::post('/karyawan/{nik}','Siaga\KaryawanController@update');
 Route::delete('/karyawan/{nik}','Siaga\KaryawanController@destroy');
+Route::get('/karyawan-nik', 'Siaga\KaryawanController@getGrKaryawan');
 
 Route::get('/unit', 'Siaga\UnitController@index');
 Route::post('/unit', 'Siaga\UnitController@store');
