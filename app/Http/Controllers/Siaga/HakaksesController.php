@@ -57,10 +57,11 @@ class HakaksesController extends Controller
     {
         $this->validate($request, [
             'nik' => 'required',
+            'nik2' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
             'kode_menu_saku' => 'required',
-            'password' => 'required',
+            'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
             'kode_menu_lab'=> 'required',
@@ -79,9 +80,10 @@ class HakaksesController extends Controller
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
                     'nik' => $request->nik,
+                    'nik2' => $request->nik2,
                     'nama' => $request->nama,
                     'kode_klp_menu' => $request->kode_klp_menu,
-                    'pass' => $request->password,
+                    'pass' => $request->pass,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
                     'path_view'=> $request->path_view,
@@ -164,10 +166,11 @@ class HakaksesController extends Controller
     {
         $this->validate($request, [
             'nik' => 'required',
+            'nik2' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
             'kode_menu_saku' => 'required',
-            'password' => 'required',
+            'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
             'kode_menu_lab'=> 'required',
@@ -186,6 +189,7 @@ class HakaksesController extends Controller
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
                     'nik' => $request->nik,
+                    'nik2' => $request->nik2,
                     'nama' => $request->nama,
                     'kode_klp_menu' => $request->kode_klp_menu,
                     'pass' => $request->pass,

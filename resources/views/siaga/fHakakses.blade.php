@@ -65,10 +65,11 @@
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
         <input type="hidden" id="id" name="id">
-        <input type="hidden" id="kode_klp_menu" name="kode_klp_menu">
-        <input type="hidden" id="path_view" name="path_view">
-        <input type="hidden" id="kode_menu_lab" name="kode_menu_lab">
-        <input type="hidden" id="nama" name="nama">
+        <input type="hidden" id="kode_klp_menu" name="kode_klp_menu" value="-">
+        <input type="hidden" id="path_view" name="path_view" value="-">
+        <input type="hidden" id="kode_menu_lab" name="kode_menu_lab" value="-">
+        <input type="hidden" id="nama" name="nama" value="-">
+        <input type="hidden" id="nik2" name="nik2" value="-">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
@@ -563,6 +564,8 @@
                     $('#method').val('put');
                     $('#id').val(id);
                     $('#nik').val(result.data[0].nik);
+                    var nik2 = (result.data[0].nik2 == '' || result.data[0].nik2 == null || result.data[0].nik2 == undefined ? '-' : result.data[0].nik2);
+                    $('#nik2').val(nik2);
                     $('#nama').val(result.data[0].nama);
                     $('#password').val(result.data[0].pass);
                     $('#klp_akses').val(result.data[0].klp_akses);
