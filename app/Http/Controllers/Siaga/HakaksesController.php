@@ -59,10 +59,13 @@ class HakaksesController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
-            'pass' => 'required',
+            'kode_menu_saku' => 'required',
+            'password' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab'=> 'required'
+            'kode_menu_lab'=> 'required',
+            'path_view' => 'required',
+            'menu_mobile' => 'required',
         ]);
 
         try{
@@ -78,12 +81,13 @@ class HakaksesController extends Controller
                     'nik' => $request->nik,
                     'nama' => $request->nama,
                     'kode_klp_menu' => $request->kode_klp_menu,
-                    'pass' => $request->pass,
+                    'pass' => $request->password,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
                     'path_view'=> $request->path_view,
                     'menu_mobile'=> $request->menu_mobile,
-                    'kode_menu_lab'=> $request->kode_menu_lab
+                    'kode_menu_lab'=> $request->kode_menu_lab,
+                    'kode_menu_saku'=> $request->kode_menu_saku
                 ]
             ]);        
             
@@ -162,10 +166,13 @@ class HakaksesController extends Controller
             'nik' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
-            'pass' => 'required',
+            'kode_menu_saku' => 'required',
+            'password' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab'=> 'required'
+            'kode_menu_lab'=> 'required',
+            'path_view' => 'required',
+            'menu_mobile' => 'required',
         ]);
 
         try{
@@ -186,7 +193,8 @@ class HakaksesController extends Controller
                     'klp_akses' => $request->klp_akses,
                     'path_view'=> $request->path_view,
                     'menu_mobile'=> $request->menu_mobile,
-                    'kode_menu_lab'=> $request->kode_menu_lab
+                    'kode_menu_lab'=> $request->kode_menu_lab,
+                    'kode_menu_saku'=> $request->kode_menu_saku
                 ]
             ]);        
             if ($response->getStatusCode() == 200) { // 200 OK

@@ -65,6 +65,10 @@
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
         <input type="hidden" id="id" name="id">
+        <input type="hidden" id="kode_klp_menu" name="kode_klp_menu">
+        <input type="hidden" id="path_view" name="path_view">
+        <input type="hidden" id="kode_menu_lab" name="kode_menu_lab">
+        <input type="hidden" id="nama" name="nama">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
@@ -92,23 +96,27 @@
                                 </div>                        
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_klp_menu">Kelompok Menu</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_klp_menu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                    </div>
-                                    <input type="text" class="form-control inp-label-kode_klp_menu" autocomplete="off" id="kode_klp_menu" name="kode_klp_menu" value="" title="" data-input="cbbl" readonly>
-                                    <span class="info-name_kode_klp_menu hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_klp_menu"></i>
-                                </div>                        
+                                <label for="password">Password</label>
+                                <input class="form-control" type="password" placeholder="Password" id="password" name="pass" autocomplete="off" required>                                       
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="menu_mobile">Menu Mobile</label>
+                                <label for="kode_menu_saku">Menu Esaku</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                        <span class="input-group-text info-code_kode_menu_saku" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                    </div>
+                                    <input type="text" class="form-control inp-label-kode_menu_saku" autocomplete="off" id="kode_menu_saku" name="kode_menu_saku" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_menu_saku hidden">
+                                        <span></span> 
+                                    </span>
+                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_menu_saku"></i>
+                                </div>                        
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="menu_mobile">Form Default Awal</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                         <span class="input-group-text info-code_menu_mobile" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -119,20 +127,6 @@
                                     </span>
                                     <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
                                     <i class="simple-icon-magnifier search-item2" id="search_menu_mobile"></i>
-                                </div>                        
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="path_view">Path View</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_path_view" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                    </div>
-                                    <input type="text" class="form-control inp-label-path_view" autocomplete="off" id="path_view" name="path_view" value="" title="" data-input="cbbl" readonly>
-                                    <span class="info-name_path_view hidden">
-                                        <span></span> 
-                                    </span>
-                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_path_view"></i>
                                 </div>                        
                             </div>
                         </div>
@@ -147,18 +141,8 @@
                                 </select>                
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="password">Password</label>
-                                <input class="form-control" type="text" placeholder="Password" id="password" name="pass" autocomplete="off" required>                                       
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="klp_akses">Kelompok Akses</label>
                                 <input class="form-control" type="text" placeholder="Kelompok Akses" id="klp_akses" name="klp_akses" autocomplete="off" required>                                       
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_menu_lab">Kode Menu Lab</label>
-                                <input class="form-control" type="text" placeholder="Kode Menu Lab" id="kode_menu_lab" name="kode_menu_lab" autocomplete="off" required>                                       
                             </div>
                         </div>
                     </div>
@@ -255,6 +239,31 @@
     });
 
     $('[data-toggle="tooltip"]').tooltip(); 
+
+    $('.info-icon-hapus').click(function(){
+        var par = $(this).closest('div').find('input').attr('name');
+        $('#'+par).val('');
+        $('#'+par).attr('readonly',false);
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $(this).addClass('hidden');
+    });
+
+    function showInfoField(kode,isi_kode,isi_nama){
+        $('#'+kode).val(isi_kode);
+        $('#'+kode).attr('style','border-left:0;border-top-left-radius: 0 !important;border-bottom-left-radius: 0 !important');
+        $('.info-code_'+kode).text(isi_kode).parent('div').removeClass('hidden');
+        $('.info-code_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode).removeClass('hidden');
+        $('.info-name_'+kode).attr('title',isi_nama);
+        $('.info-name_'+kode+' span').text(isi_nama);
+        var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+        var height =$('#'+kode).height();
+        var pos =$('#'+kode).position();
+        $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+        $('.info-name_'+kode).closest('div').find('.info-icon-hapus').removeClass('hidden');
+    }
     // END SET UP FORM //
     // PLUGIN SCROLL di bagian preview dan form input
     var scroll = document.querySelector('#content-preview');
@@ -376,17 +385,13 @@
         var value = $(this).val();
         getNIK('nik',value);
     });
-    $('#kode_klp_menu').change(function(){
+    $('#kode_menu_saku').change(function(){
         var value = $(this).val();
-        getKlpMenu('kode_klp_menu',value);
+        getKlpMenu('kode_menu_saku',value);
     });
     $('#menu_mobile').change(function(){
         var value = $(this).val();
         getMenu('menu_mobile',value);
-    });
-    $('#path_view').change(function(){
-        var value = $(this).val();
-        getPath('path_view',value);
     });
     $('#inp-filter_menu').change(function(){
         jumFilter();
@@ -415,7 +420,7 @@
         [
             { data: 'nik' },
             { data: 'nama' },
-            { data: 'kode_klp_menu' },
+            { data: 'kode_menu_saku' },
             { data: 'kode_lokasi' },
             { data: 'status_admin' }
         ],
@@ -464,18 +469,6 @@
     //BUTTON SIMPAN /SUBMIT
     $('#form-tambah').validate({
         ignore: [],
-        rules: 
-        {
-            kode_kota:{
-                required: true,   
-            },
-            nama:{
-                required: true,   
-            },
-            kode_pp:{
-                required: true,   
-            },
-        },
         errorElement: "label",
         submitHandler: function (form) {
             var parameter = $('#id_edit').val();
@@ -569,18 +562,25 @@
                     $('#id_edit').val('edit');
                     $('#method').val('put');
                     $('#id').val(id);
+                    $('#nik').val(result.data[0].nik);
                     $('#nama').val(result.data[0].nama);
                     $('#password').val(result.data[0].pass);
                     $('#klp_akses').val(result.data[0].klp_akses);
-                    $('#kode_menu_lab').val(result.data[0].kode_menu_lab);
+                    var kode_menu_lab = (result.data[0].kode_menu_lab == '' || result.data[0].kode_menu_lab == null || result.data[0].kode_menu_lab == undefined ? '-' : result.data[0].kode_menu_lab);
+                    $('#kode_menu_lab').val(kode_menu_lab);
+                    var kode_klp_menu = (result.data[0].kode_klp_menu == '' || result.data[0].kode_klp_menu == null || result.data[0].kode_klp_menu == undefined ? '-' : result.data[0].kode_klp_menu);
+                    $('#kode_klp_menu').val(kode_klp_menu);
+                    $('#kode_menu_saku').val(result.data[0].kode_menu_saku);
+                    $('#menu_mobile').val(result.data[0].menu_mobile);
+                    var path_view = (result.data[0].path_view == '' || result.data[0].path_view == null || result.data[0].path_view == undefined ? '-' : result.data[0].path_view);
+                    $('#path_view').val(path_view);
                     $('#status')[0].selectize.setValue(result.data[0].status_admin);
-                    getNIK('nik',id);
-                    getKlpMenu('kode_klp_menu',result.data[0].kode_klp_menu);
-                    getMenu('menu_mobile',result.data[0].menu_mobile);
-                    getPath('path_view',result.data[0].path_view);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    showInfoField('kode_menu_saku',result.data[0].kode_menu_saku,result.data[0].nama_klp3)
+                    showInfoField('menu_mobile',result.data[0].menu_mobile,result.data[0].nama_form3)
+                    showInfoField('nik',result.data[0].nik,result.data[0].nama)
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
@@ -612,7 +612,7 @@
             </tr>
             <tr>
                 <td>Kode Menu</td>
-                <td>`+data.kode_klp_menu+`</td>
+                <td>`+data.kode_menu_saku+`</td>
             </tr>
             <tr>
                 <td>Kode Lokasi</td>
@@ -764,9 +764,13 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"],
+                    onItemSelected:function(data){
+                        showInfoField('nik',data.nik,data.nama);
+                        $('#nama').val(data.nama);
                     }
+                }
             break;
-            case 'kode_klp_menu': 
+            case 'kode_menu_saku': 
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -806,26 +810,6 @@
                     width : ["30%","70%"],
                 }
             break;
-            case 'path_view': 
-                var settings = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-form') }}",
-                    columns : [
-                        { data: 'kode_form' },
-                        { data: 'nama_form' }
-                    ],
-                    judul : "Daftar Form",
-                    pilih : "",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                }
-            break;
             default:
             break;
         }
@@ -833,9 +817,9 @@
     });
     //END SHOW CBBL//
 
-    $('#nik,#kode_klp_menu,#status,#password,#menu_mobile,#path_view,#klp_akses,#kode_menu_lab').keydown(function(e){
+    $('#nik,#password,#kode_menu_saku,#menu_mobile,#klp_akses').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','kode_klp_menu','status','password','menu_mobile','path_view','klp_akses','kode_menu_mobile'];
+        var nxt = ['nik','password','kode_menu_saku','menu_mobile','klp_akses'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
