@@ -56,6 +56,13 @@
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
         <input type="hidden" id="id" name="id">
+        
+        @php 
+        $inp = array('alamat','npwp','bank','cabang','no_rek','nama_rek','status','band','kota','kode_pos');
+        @endphp
+        @for($i=0; $i < count($inp); $i++)
+        <input type="hidden" name="{{ $inp[$i] }}" id="{{ $inp[$i] }}" value="-">
+        @endfor
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
@@ -91,7 +98,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="sts_sdm">Status SDM</label>
-                                <input class="form-control" type="text" placeholder="Status SDM" id="sts_sdm" name="sts_sdm" autocomplete="off" readonly>                        
+                                <input class="form-control" type="text" id="sts_sdm" name="sts_sdm" value="" readonly>                        
                             </div>
                         </div>
                         <div class="form-row">
@@ -166,7 +173,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="email">Email</label>
-                                <input class="form-control" type="text" placeholder="Email" id="email" name="email" autocomplete="off" required>                       
+                                <input class="form-control" type="text" placeholder="Email" id="email" name="email"  required>                       
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="no_hp">No HP</label>
@@ -537,7 +544,8 @@
                     $('#nama').val(line.nama);						
                     $('#sts_sdm').val(line.sts_sdm);			
                     $('#tgl_lahir').val(line.tgl_lahir);
-                    $('#alamat').val(line.alamat);		
+                    $('#alamat').val(line.alamat);	
+                    console.log(line.sts_sdm);	
                     
                     if(result.data2.length > 0){
                         var line2 = result.data2[0];
@@ -545,7 +553,6 @@
                         $('#alamat').val(line2.alamat);
                         $('#jab').val(line2.jabatan);
                         $('#kode_jab').val(line2.kode_jab);
-                        getJabatan('kode_jab',line2.kode_jab);
                         $('#no_telp').val(line2.no_telp);
                         $('#email').val(line2.email);
                         $('#npwp').val(line2.npwp);						
@@ -557,23 +564,23 @@
                         $('#band').val(line2.grade);
                         $('#kota').val(line2.kota);
                         $('#kode_pos').val(line2.kode_pos);
-                        $('#no_hp').val(line2.no_hp);
-                        $('#sts_sdm').val(line2.sts_sdm);						
+                        $('#no_hp').val(line2.no_hp);					
                         $('#kode_pp').val(line2.kode_pp);						
                         $('#kode_pp2').val(line2.kode_pp);	
-                        getPP('kode_pp',line2.kode_pp);
-                        getPP('kode_pp2',line2.kode_pp);
                         
                         
                         if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
                         else $('#flag_aktif')[0].selectize.setValue(1);
-    
+                        
                         if(line2.foto !== '-'){
                             var html = "<img style='width:120px' src='"+line2.foto+"'>";
                             $('.preview').html(html);              
                         }else{
                             $('.preview').html('');              
                         }    
+                        getJabatan('kode_jab',line2.kode_jab);
+                        getPP('kode_pp',line2.kode_pp);
+                        getPP('kode_pp2',line2.kode_pp);
                     }else{
                         $('#id_edit').val('');
                         $('#method').val('post');
@@ -591,8 +598,7 @@
                         $('#band').val('-');
                         $('#kota').val('-');
                         $('#kode_pos').val('-');
-                        $('#no_hp').val('');
-                        $('#sts_sdm').val('-');						
+                        $('#no_hp').val('');				
                         $('#kode_pp').val('');						
                         $('#kode_pp2').val('');	
                         

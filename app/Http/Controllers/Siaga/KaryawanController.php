@@ -91,12 +91,28 @@ class KaryawanController extends Controller
         $this->validate($request, [
             'nik' => 'required',
             'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
+            'alamat' => 'required',
+            'jab' => 'required',
             'no_telp' => 'required',
-            'file_gambar' => 'file|image|mimes:jpeg,png,jpg|max:2048'
-            ]);
+            'email' => 'required',
+            'kode_pp' => 'required',
+            'npwp' => 'required',
+            'bank' => 'required',
+            'cabang' => 'required',
+            'no_rek' => 'required',
+            'nama_rek' => 'required',
+            'status' => 'required',
+            'grade' => 'required',
+            'kota' => 'required',
+            'kode_pos' => 'required',
+            'no_hp' => 'required',
+            'flag_aktif' => 'required',
+            'kode_jab' => 'required',
+            'tgl_lahir' => 'required',
+            'sts_sdm' => 'required',
+            'nik2' => 'required',
+            'foto' => 'file|image|mimes:jpeg,png,jpg|max:3072'
+        ]);
             
         try{
             
@@ -114,12 +130,12 @@ class KaryawanController extends Controller
                         'contents' => $request->nama,
                     ],
                     [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
+                        'name' => 'alamat',
+                        'contents' => $request->alamat,
                     ],
                     [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
+                        'name' => 'jabatan',
+                        'contents' => $request->jab,
                     ],
                     [
                         'name' => 'no_telp',
@@ -130,12 +146,76 @@ class KaryawanController extends Controller
                         'contents' => $request->email,
                     ],
                     [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'npwp',
+                        'contents' => $request->npwp,
+                    ],
+                    [
+                        'name' => 'bank',
+                        'contents' => $request->bank,
+                    ],
+                    [
+                        'name' => 'cabang',
+                        'contents' => $request->cabang,
+                    ],
+                    [
+                        'name' => 'no_rek',
+                        'contents' => $request->no_rek,
+                    ],
+                    [
+                        'name' => 'nama_rek',
+                        'contents' => $request->nama_rek,
+                    ],
+                    [
+                        'name' => 'status',
+                        'contents' => $request->status,
+                    ],
+                    [
+                        'name' => 'grade',
+                        'contents' => $request->grade,
+                    ],
+                    [
+                        'name' => 'kota',
+                        'contents' => $request->kota,
+                    ],
+                    [
+                        'name' => 'kode_pos',
+                        'contents' => $request->kode_pos,
+                    ],
+                    [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'flag_aktif',
+                        'contents' => $request->flag_aktif,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'tgl_lahir',
+                        'contents' => $request->tgl_lahir,
+                    ],
+                    [
+                        'name' => 'sts_sdm',
+                        'contents' => $request->sts_sdm,
+                    ],
+                    [
+                        'name' => 'nik2',
+                        'contents' => $request->nik2,
+                    ],
+                    [
                         'name'     => 'foto',
                         'filename' => $image_org,
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen( $image_path, 'r' ),
-                    ]
-                    ];
+                    ],
+                ];
                 
             }else{
                 $fields = [
@@ -148,12 +228,12 @@ class KaryawanController extends Controller
                         'contents' => $request->nama,
                     ],
                     [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
+                        'name' => 'alamat',
+                        'contents' => $request->alamat,
                     ],
                     [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
+                        'name' => 'jabatan',
+                        'contents' => $request->jab,
                     ],
                     [
                         'name' => 'no_telp',
@@ -162,10 +242,73 @@ class KaryawanController extends Controller
                     [
                         'name' => 'email',
                         'contents' => $request->email,
-                    ]
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'npwp',
+                        'contents' => $request->npwp,
+                    ],
+                    [
+                        'name' => 'bank',
+                        'contents' => $request->bank,
+                    ],
+                    [
+                        'name' => 'cabang',
+                        'contents' => $request->cabang,
+                    ],
+                    [
+                        'name' => 'no_rek',
+                        'contents' => $request->no_rek,
+                    ],
+                    [
+                        'name' => 'nama_rek',
+                        'contents' => $request->nama_rek,
+                    ],
+                    [
+                        'name' => 'status',
+                        'contents' => $request->status,
+                    ],
+                    [
+                        'name' => 'grade',
+                        'contents' => $request->grade,
+                    ],
+                    [
+                        'name' => 'kota',
+                        'contents' => $request->kota,
+                    ],
+                    [
+                        'name' => 'kode_pos',
+                        'contents' => $request->kode_pos,
+                    ],
+                    [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'flag_aktif',
+                        'contents' => $request->flag_aktif,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'tgl_lahir',
+                        'contents' => $request->tgl_lahir,
+                    ],
+                    [
+                        'name' => 'sts_sdm',
+                        'contents' => $request->sts_sdm,
+                    ],
+                    [
+                        'name' => 'nik2',
+                        'contents' => $request->nik2,
+                    ],
                 ];
             }
-
 
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'siaga-master/karyawan',[
@@ -246,12 +389,29 @@ class KaryawanController extends Controller
     public function update(Request $request, $nik)
     {
         $this->validate($request, [
+            'nik' => 'required',
             'nama' => 'required',
-            'kode_pp' => 'required',
-            'kode_jab' => 'required',
-            'email' => 'required',
+            'alamat' => 'required',
+            'jab' => 'required',
             'no_telp' => 'required',
-            'foto' => 'file|image|mimes:jpeg,png,jpg|max:2048'
+            'email' => 'required',
+            'kode_pp' => 'required',
+            'npwp' => 'required',
+            'bank' => 'required',
+            'cabang' => 'required',
+            'no_rek' => 'required',
+            'nama_rek' => 'required',
+            'status' => 'required',
+            'grade' => 'required',
+            'kota' => 'required',
+            'kode_pos' => 'required',
+            'no_hp' => 'required',
+            'flag_aktif' => 'required',
+            'kode_jab' => 'required',
+            'tgl_lahir' => 'required',
+            'sts_sdm' => 'required',
+            'nik2' => 'required',
+            'foto' => 'file|image|mimes:jpeg,png,jpg|max:3072'
         ]);
 
         try{
@@ -270,12 +430,12 @@ class KaryawanController extends Controller
                         'contents' => $request->nama,
                     ],
                     [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
+                        'name' => 'alamat',
+                        'contents' => $request->alamat,
                     ],
                     [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
+                        'name' => 'jabatan',
+                        'contents' => $request->jab,
                     ],
                     [
                         'name' => 'no_telp',
@@ -286,12 +446,76 @@ class KaryawanController extends Controller
                         'contents' => $request->email,
                     ],
                     [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'npwp',
+                        'contents' => $request->npwp,
+                    ],
+                    [
+                        'name' => 'bank',
+                        'contents' => $request->bank,
+                    ],
+                    [
+                        'name' => 'cabang',
+                        'contents' => $request->cabang,
+                    ],
+                    [
+                        'name' => 'no_rek',
+                        'contents' => $request->no_rek,
+                    ],
+                    [
+                        'name' => 'nama_rek',
+                        'contents' => $request->nama_rek,
+                    ],
+                    [
+                        'name' => 'status',
+                        'contents' => $request->status,
+                    ],
+                    [
+                        'name' => 'grade',
+                        'contents' => $request->grade,
+                    ],
+                    [
+                        'name' => 'kota',
+                        'contents' => $request->kota,
+                    ],
+                    [
+                        'name' => 'kode_pos',
+                        'contents' => $request->kode_pos,
+                    ],
+                    [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'flag_aktif',
+                        'contents' => $request->flag_aktif,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'tgl_lahir',
+                        'contents' => $request->tgl_lahir,
+                    ],
+                    [
+                        'name' => 'sts_sdm',
+                        'contents' => $request->sts_sdm,
+                    ],
+                    [
+                        'name' => 'nik2',
+                        'contents' => $request->nik2,
+                    ],
+                    [
                         'name'     => 'foto',
                         'filename' => $image_org,
                         'Mime-Type'=> $image_mime,
                         'contents' => fopen( $image_path, 'r' ),
-                    ]
-                    ];
+                    ],
+                ];
                 
             }else{
                 $fields = [
@@ -304,12 +528,12 @@ class KaryawanController extends Controller
                         'contents' => $request->nama,
                     ],
                     [
-                        'name' => 'kode_pp',
-                        'contents' => $request->kode_pp,
+                        'name' => 'alamat',
+                        'contents' => $request->alamat,
                     ],
                     [
-                        'name' => 'kode_jab',
-                        'contents' => $request->kode_jab,
+                        'name' => 'jabatan',
+                        'contents' => $request->jab,
                     ],
                     [
                         'name' => 'no_telp',
@@ -318,7 +542,71 @@ class KaryawanController extends Controller
                     [
                         'name' => 'email',
                         'contents' => $request->email,
-                    ]
+                    ],
+                    [
+                        'name' => 'kode_pp',
+                        'contents' => $request->kode_pp,
+                    ],
+                    [
+                        'name' => 'npwp',
+                        'contents' => $request->npwp,
+                    ],
+                    [
+                        'name' => 'bank',
+                        'contents' => $request->bank,
+                    ],
+                    [
+                        'name' => 'cabang',
+                        'contents' => $request->cabang,
+                    ],
+                    [
+                        'name' => 'no_rek',
+                        'contents' => $request->no_rek,
+                    ],
+                    [
+                        'name' => 'nama_rek',
+                        'contents' => $request->nama_rek,
+                    ],
+                    [
+                        'name' => 'status',
+                        'contents' => $request->status,
+                    ],
+                    [
+                        'name' => 'grade',
+                        'contents' => $request->grade,
+                    ],
+                    [
+                        'name' => 'kota',
+                        'contents' => $request->kota,
+                    ],
+                    [
+                        'name' => 'kode_pos',
+                        'contents' => $request->kode_pos,
+                    ],
+                    [
+                        'name' => 'no_hp',
+                        'contents' => $request->no_hp,
+                    ],
+                    [
+                        'name' => 'flag_aktif',
+                        'contents' => $request->flag_aktif,
+                    ],
+                    [
+                        'name' => 'kode_jab',
+                        'contents' => $request->kode_jab,
+                    ],
+                    [
+                        'name' => 'tgl_lahir',
+                        'contents' => $request->tgl_lahir,
+                    ],
+                    [
+                        'name' => 'sts_sdm',
+                        'contents' => $request->sts_sdm,
+                    ],
+                    [
+                        'name' => 'nik2',
+                        'contents' => $request->nik2,
+                    ],
                 ];
             }
 
