@@ -312,7 +312,7 @@
         });
     }
 
-    function getJabatan(kode){
+    function getJabatan(kode_cbbl,kode){
         $.ajax({
             type: 'GET',
             url: "{{ url('siaga-master/jabatan') }}",
@@ -545,6 +545,7 @@
                         $('#alamat').val(line2.alamat);
                         $('#jab').val(line2.jabatan);
                         $('#kode_jab').val(line2.kode_jab);
+                        getJabatan('kode_jab',line2.kode_jab);
                         $('#no_telp').val(line2.no_telp);
                         $('#email').val(line2.email);
                         $('#npwp').val(line2.npwp);						
@@ -560,6 +561,8 @@
                         $('#sts_sdm').val(line2.sts_sdm);						
                         $('#kode_pp').val(line2.kode_pp);						
                         $('#kode_pp2').val(line2.kode_pp);	
+                        getPP('kode_pp',line2.kode_pp);
+                        getPP('kode_pp2',line2.kode_pp);
                         
                         
                         if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
@@ -574,7 +577,6 @@
                     }else{
                         $('#id_edit').val('');
                         $('#method').val('post');
-                        $('#nama').val('');
                         $('#alamat').val('-');
                         $('#jab').val('');
                         $('#kode_jab').val('');
@@ -597,16 +599,8 @@
                         $('#btn-update').attr('type','submit');
                         $('#btn-update').attr('id','btn-save');
                         $('#judul-form').html('Tambah Data Karyawan');
-                        
-                        if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
-                        else $('#flag_aktif')[0].selectize.setValue(1);
-    
-                        if(line2.foto !== '-'){
-                            var html = "<img style='width:120px' src='"+line2.foto+"'>";
-                            $('.preview').html(html);              
-                        }else{
-                            $('.preview').html('');              
-                        }    
+                        $('#flag_aktif')[0].selectize.setValue(1);
+                        $('.preview').html('');              
                     }
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
