@@ -627,10 +627,9 @@
 
     // PREVIEW saat klik di list data //
     $('#table-data tbody').on('click','td',function(e){
-        if($(this).index() != 6){
+        if($(this).index() != 10){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var status = data.flag_status;
             var html = `<tr>
                 <td style='border:none'>NIK</td>
                 <td style='border:none'>`+id+`</td>
@@ -640,20 +639,20 @@
                 <td>`+data.nama+`</td>
             </tr>
             <tr>
-                <td>Kode Regional</td>
-                <td>`+data.kode_pp+`</td>
+                <td>PP</td>
+                <td>`+data.pp+`</td>
             </tr>
             <tr>
-                <td>Kode Jabatan</td>
-                <td>`+data.kode_jab+`</td>
+                <td>Jabatan</td>
+                <td>`+data.jabatan+`</td>
             </tr>
             <tr>
                 <td>Email</td>
                 <td>`+data.email+`</td>
             </tr>
             <tr>
-                <td>No Telepon</td>
-                <td>`+data.no_telp+`</td>
+                <td>No HP</td>
+                <td>`+data.no_hp+`</td>
             </tr>
             `;
             $('#table-preview tbody').html(html);
