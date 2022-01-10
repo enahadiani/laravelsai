@@ -546,6 +546,35 @@ function createChartKelompok(kode_grafik = null) {
             success:function(result) {
                 var data = result.data;
                 trendChartFP = Highcharts.chart('trend-chart', {
+                    chart: {
+                        events: {
+                            drilldown: function(e) {
+                                if (!e.seriesOptions) {
+                                    var chart = this;
+                                    chart.yAxis[0].update({
+                                        type: 'logarithmic',
+                                        minorTickInterval: 0.1,
+                                        accessibility: {
+                                            rangeDescription: 'Range: 0.1 to 1000'
+                                        },
+                                        title: {
+                                            text: 'Nilai'
+                                        },
+                                        labels: {
+                                            formatter: function() {
+                                                return singkatNilai(this.value);
+                                            }
+                                        }
+                                    });
+                                    var drilldown = data.drilldown;
+                                    for(d=0; d < drilldown.length; d++){
+                                        chart.addSingleSeriesAsDrilldown(e.point, drilldown[d]);
+                                    }
+                                    chart.applyDrilldown();
+                                }
+                            }
+                        }
+                    },
                     title: { text: '' },
                     subtitle: { text: '' },
                     exporting:{ 
@@ -559,6 +588,11 @@ function createChartKelompok(kode_grafik = null) {
                         categories: data.kategori
                     },
                     yAxis: {
+                        type: 'logarithmic',
+                        minorTickInterval: 0.1,
+                        accessibility: {
+                            rangeDescription: 'Range: 0.1 to 1000'
+                        },
                         title: {
                             text: 'Nilai'
                         },
@@ -606,7 +640,10 @@ function createChartKelompok(kode_grafik = null) {
                             pointStart: parseInt(data.kategori[0])
                         }
                     },
-                    series: data.series
+                    series: data.series,
+                    drilldown: {
+                        series: []
+                    }
                 });
     
                 $render = 1;
