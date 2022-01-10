@@ -95,10 +95,10 @@ var $height = $(window).height();
             }
 
             if(pdpt.ach < 100) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconPdptAch = '&nbsp;'
             }
 
@@ -146,10 +146,10 @@ var $height = $(window).height();
             }
 
             if(beban.ach > 100) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconBebanAch = '&nbsp;'
             }
 
@@ -197,10 +197,10 @@ var $height = $(window).height();
             }
 
             if(shu.ach < 100) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconShuAch = '&nbsp;'
             }
 
@@ -231,10 +231,10 @@ var $height = $(window).height();
             }
 
             if(or.ach > 100) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconOrAch = '&nbsp;'
             }
 
@@ -935,10 +935,10 @@ function updateBox() {
             }
 
             if(pdpt.ach < 100) {
-                $('#pdpt-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#pdpt-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
             } else {
-                $('#pdpt-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#pdpt-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconPdptAch = '&nbsp;'
             }
 
@@ -986,10 +986,10 @@ function updateBox() {
             }
 
             if(beban.ach > 100) {
-                $('#beban-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#beban-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconBebanAch = '&nbsp;'
             } else {
-                $('#beban-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#beban-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconBebanAch = '&nbsp;'
             }
 
@@ -1037,10 +1037,10 @@ function updateBox() {
             }
 
             if(shu.ach < 100) {
-                $('#shu-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#shu-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconShuAch = '&nbsp;'
             } else {
-                $('#shu-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#shu-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconShuAch = '&nbsp;'
             }
 
@@ -1071,10 +1071,10 @@ function updateBox() {
             }
 
             if(or.ach > 100) {
-                $('#or-ach-percentage').removeClass('green-text').addClass('orange-text')
+                $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconOrAch = '&nbsp;'
             } else {
-                $('#or-ach-percentage').removeClass('orange-text').addClass('green-text')
+                $('#or-ach-percentage').removeClass('red-text').addClass('green-text')
                 iconOrAch = '&nbsp;'
             }
 
