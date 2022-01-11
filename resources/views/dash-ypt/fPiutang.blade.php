@@ -96,48 +96,62 @@ $(window).on('resize', function(){
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
-    /* Komen dulu
-        if($full == '2'){
-            console.log('this fullscreen mode');
-            var height = screen.height;
-            heighChart = height;
-            if(nilaiAsetChart != null){
-                nilaiAsetChart.update({
-                    chart: {
-                        height: heighChart,
-                    }
-                })
-            }
-            if(aggAsetChart != null){
-                aggAsetChart.update({
-                    chart: {
-                        height: heighChart,
-                    }
-                })
-            }
-        }else{
-            
-            console.log('this browser mode');
-            var win = $(this); //this = window
-            var height = win.height();
-            heighChart = (height - 320);
-            if(nilaiAsetChart != null){
-                nilaiAsetChart.update({
-                    chart: {
-                        height: heighChart,
-                    }
-                })
-            }
-            heighChart = (height - 430);
-            if(aggAsetChart != null){
-                aggAsetChart.update({
-                    chart: {
-                        height: heighChart,
-                    }
-                })
-            }
+    
+    if($full == '2'){
+        console.log('this fullscreen mode');
+        var height = screen.height;
+        heighChart = height;
+        if(piuSaldoChart != null){
+            piuSaldoChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
         }
-    */ 
+        if(piuUmurChart != null){
+            piuUmurChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        if(piuKomposisiChart != null){
+            piuKomposisiChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }else{
+        
+        console.log('this browser mode');
+        var win = $(this); //this = window
+        var height = win.height();
+        heighChart = (height - 300)/2;
+        if(piuUmurChart != null){
+            piuUmurChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        heighChart = (height - 300)/2;
+        if(piuSaldoChart != null){
+            piuSaldoChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+        heighChart = (height - 300);
+        if(piuKomposisiChart != null){
+            piuKomposisiChart.update({
+                chart: {
+                    height: heighChart,
+                }
+            })
+        }
+    }
 });
 
 $(window).click(function() {
@@ -486,7 +500,7 @@ function getSaldoPiutang(param) {
         dataType: 'json',
         async: true,
         success:function(result) {
-            soakhirChart = Highcharts.chart('saldo-piu', {
+            piuSaldoChart = Highcharts.chart('saldo-piu', {
                 chart: {
                     type: 'spline',
                     height: ($height - 300)/2
@@ -693,67 +707,67 @@ $('.icon-menu').click(function(event) {
 
 var colors = ['#EEBE00', '#830000'];
 
-$('#export-nilai-aset.menu-chart-custom ul li').click(function(event) {
+$('#export-saldo-piu.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
-    var idParent = $(this).parent('#dash-nilai-aset').attr('id')
+    var idParent = $(this).parent('#dash-saldo-piu').attr('id')
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
         $full = '2';
-        nilaiAsetChart.update({
+        piuSaldoChart.update({
             title: {
-                text: `Nilai Aset Lembaga 5 Tahun`,
+                text: `Pertumbuhan Saldo Piutang 5 Tahun`,
                 floating: true,
                 x: 40,
                 y: 20
             }
         })
-        nilaiAsetChart.fullscreen.toggle();
+        piuSaldoChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        nilaiAsetChart.print()
+        piuSaldoChart.print()
     } else if(jenis == 'Download PNG image') {
-        nilaiAsetChart.exportChart({
+        piuSaldoChart.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
             title: {
-                text: `Nilai Aset Lembaga 5 Tahun`,
+                text: `Pertumbuhan Saldo Piutang 5 Tahun`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        nilaiAsetChart.exportChart({
+        piuSaldoChart.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Nilai Aset Lembaga 5 Tahun`,
+                text: `Pertumbuhan Saldo Piutang 5 Tahun`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download PDF document') {
-        nilaiAsetChart.exportChart({
+        piuSaldoChart.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Nilai Aset Lembaga 5 Tahun`,
+                text: `Pertumbuhan Saldo Piutang 5 Tahun`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        nilaiAsetChart.exportChart({
+        piuSaldoChart.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Nilai Aset Lembaga 5 Tahun`,
+                text: `Pertumbuhan Saldo Piutang 5 Tahun`,
             },
             subtitle: {
                 text: ''
@@ -761,7 +775,7 @@ $('#export-nilai-aset.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        nilaiAsetChart.viewData()
+        piuSaldoChart.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
@@ -774,68 +788,68 @@ $('#export-nilai-aset.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-$('#export-agg-aset.menu-chart-custom ul li').click(function(event) {
+$('#export-umur-piu.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()
-    var idParent = $(this).parent('#dash-agg-aset').attr('id')
+    var idParent = $(this).parent('#dash-umur-piu').attr('id')
     var jenis = $(this).text()
     
     if(jenis == 'View in full screen') {
         
         $full = '2';
-        aggAsetChart.update({
+        piuUmurChart.update({
             title: {
-                text: `Anggaran Tahun Lembaga`,
+                text: `Umur Piutang`,
                 floating: true,
                 x: 40,
                 y: 20
             }
         })
-        aggAsetChart.fullscreen.toggle();
+        piuUmurChart.fullscreen.toggle();
     } else if(jenis == 'Print chart') {
-        aggAsetChart.print()
+        piuUmurChart.print()
     } else if(jenis == 'Download PNG image') {
-        aggAsetChart.exportChart({
+        piuUmurChart.exportChart({
             type: 'image/png',
             filename: 'chart-png'
         }, {
             title: {
-                text: `Anggaran Tahun Lembaga`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download JPEG image') {
-        aggAsetChart.exportChart({
+        piuUmurChart.exportChart({
             type: 'image/jpeg',
             filename: 'chart-jpg'
         }, {
             title: {
-                text: `Anggaran Tahun Lembaga`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download PDF document') {
-        aggAsetChart.exportChart({
+        piuUmurChart.exportChart({
             type: 'application/pdf',
             filename: 'chart-pdf'
         }, {
             title: {
-                text: `Anggaran Tahun Lembaga`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
             }
         });
     } else if(jenis == 'Download SVG vector image') {
-        aggAsetChart.exportChart({
+        piuUmurChart.exportChart({
             type: 'image/svg+xml',
             filename: 'chart-svg'
         }, {
             title: {
-                text: `Anggaran Tahun Lembaga`,
+                text: `Umur Piutang`,
             },
             subtitle: {
                 text: ''
@@ -843,7 +857,90 @@ $('#export-agg-aset.menu-chart-custom ul li').click(function(event) {
         });
     } else if(jenis == 'View table data') {
         $(this).text('Hide table data')
-        aggAsetChart.viewData()
+        piuUmurChart.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+
+
+$('#export-komposisi-piu.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-komposisi-piu').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        
+        $full = '2';
+        piuKomposisiChart.update({
+            title: {
+                text: `Komposisi Piutang`,
+                floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        piuKomposisiChart.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        piuKomposisiChart.print()
+    } else if(jenis == 'Download PNG image') {
+        piuKomposisiChart.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        piuKomposisiChart.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        piuKomposisiChart.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        piuKomposisiChart.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Komposisi Piutang`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        piuKomposisiChart.viewData()
         var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
         if(!cek) {
             $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
