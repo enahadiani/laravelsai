@@ -473,7 +473,10 @@ function createChartKelompok(kode_grafik = null) {
                                     var chart = this;
                                     chart.yAxis[0].update({
                                         type: 'logarithmic',
-                                        minorTickInterval: 0.1,
+                                        custom: {
+                                            allowNegativeLog: true
+                                        },
+                                        minorTickInterval: 'auto',
                                         accessibility: {
                                             rangeDescription: 'Range: 0.1 to 1000'
                                         },
@@ -512,7 +515,10 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     yAxis: {
                         type: 'logarithmic',
-                        minorTickInterval: 0.1,
+                        minorTickInterval: 'auto',
+                        custom: {
+                            allowNegativeLog: true
+                        },
                         accessibility: {
                             rangeDescription: 'Range: 0.1 to 1000'
                         },
@@ -593,7 +599,7 @@ function createChartKelompok(kode_grafik = null) {
                                         custom: {
                                             allowNegativeLog: true
                                         },
-                                        minorTickInterval: 0.1,
+                                        minorTickInterval: 'auto',
                                         accessibility: {
                                             rangeDescription: 'Range: 0.1 to 1000'
                                         },
@@ -632,7 +638,7 @@ function createChartKelompok(kode_grafik = null) {
                         custom: {
                             allowNegativeLog: true
                         },
-                        minorTickInterval: 0.1,
+                        minorTickInterval: 'auto',
                         accessibility: {
                             rangeDescription: 'Range: 0.1 to 1000'
                         },

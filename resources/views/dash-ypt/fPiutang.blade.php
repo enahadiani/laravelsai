@@ -690,6 +690,30 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "sort":sort,
         "kode_bidang": $filter_kode_bidang
     });
+    getSaldoPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
+    });
+    getUmurPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
+    });
+    getKomposisiPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
+    });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
 
