@@ -1,10 +1,5 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/ccr.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-ypt/global.dekstop.css?version=_').time() }}" />
-<style>
-    body{
-        overflow: unset !important;
-    }
-</style>
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
 window.scrollTo(0, 0);
@@ -265,7 +260,7 @@ function getKomposisiPiutang(param) {
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    height: ($height - 250),
+                    height: ($height - 300),
                     width: 350
                 },
                 title: { text: '' },
@@ -384,7 +379,7 @@ function getUmurPiutang(param) {
             piuUmurChart = Highcharts.chart('umur-piu', {
                 chart: {
                     type: 'column',
-                    height: ($height - 180)/2
+                    height: ($height - 300)/2
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -449,6 +444,9 @@ function getUmurPiutang(param) {
                             enabled:true
                         }
                     },
+                    series:{
+                        pointWidth: 40
+                    }
                     // series: {
                     //     dataLabels: {
                     //         // padding:10,
@@ -1059,16 +1057,16 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                 <div class="col-6 pl-12 pr-0">
                     <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
-                            <div class="col-9">
+                            <div class="col-12">
                                 <h4 class="header-card">Piutang</h4>
                             </div>
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="nom-piu" class="main-nominal">0 M</p>
+                                <p id="nom-piu" class="main-nominal mb-2">0 M</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-piutang-yoy">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-yoy">
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
@@ -1086,16 +1084,16 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                 <div class="col-6 pl-1 pr-0">
                     <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
-                            <div class="col-9">
+                            <div class="col-12">
                                 <h4 class="header-card">Cadangan Piutang</h4>
                             </div>
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="nom-piu-cadangan" class="main-nominal">0 M</p>
+                                <p id="nom-piu-cadangan" class="main-nominal mb-2">0 M</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-piutang-cadangan-yoy">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-cadangan-yoy">
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
@@ -1114,7 +1112,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
             <div class="row mb-1">
                 <div class="col-12 pl-12 pr-0">
                     <div class="card card-dash border-r-0" id="dash-saldo-piu" 
-                    style="height:calc((100vh - 135px)/2)">
+                    style="height:calc((100vh - 250px)/2)">
                         <div class="row header-div" id="card-saldo-piu">
                             <div class="col-9">
                                 <h4 class="header-card">Pertumbuhan Saldo Piutang 5 Tahun</h4>
@@ -1143,7 +1141,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
             <div class="row">
                 <div class="col-12 pl-12 pr-0">
                     <div class="card card-dash border-r-0" id="dash-umur-piu" 
-                    style="height:calc((100vh - 135px)/2)">
+                    style="height:calc((100vh - 250px)/2)">
                         <div class="row header-div" id="card-umur-piu">
                             <div class="col-9">
                                 <h4 class="header-card">Umur Piutang</h4>
@@ -1174,16 +1172,16 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                 <div class="col-12 pl-1 pr-0">
                     <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
-                            <div class="col-9">
+                            <div class="col-12">
                                 <h4 class="header-card">Penghapusan Piutang</h4>
                             </div>
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="nom-piu-hapus" class="main-nominal">0 M</p>
+                                <p id="nom-piu-hapus" class="main-nominal mb-2">0 M</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2" id="table-piutang-hapus-yoy">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-hapus-yoy">
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
@@ -1202,7 +1200,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
             <div class="row">
                 <div class="col-12 pl-1 pr-0">
                     <div class="card card-dash border-r-0" id="dash-komposisi-piu" 
-                    style="height:calc(100vh - 130px)">
+                    style="height:calc(100vh - 246px)">
                         <div class="row header-div" id="card-komposisi-piu">
                             <div class="col-9">
                                 <h4 class="header-card">Komposisi Piutang</h4>
@@ -1232,7 +1230,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-top-piu" style="height:calc(100vh);">
+                    <div class="card card-dash border-r-0" id="dash-top-piu" style="height:calc(100vh - 141px);">
                         <div class="row header-div px-1" id="card-top">
                             <div class="col-5">
                                 <h4 class="header-card">Top Piutang</h4>
@@ -1245,7 +1243,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                                 </select>
                             </div>
                         </div>
-                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 120px);position:relative">
+                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 180px);position:relative">
                             <style>
                                 #table-top-piu th
                                 {
