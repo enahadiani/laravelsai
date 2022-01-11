@@ -17,9 +17,11 @@ var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter1_kode = "PRD";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter_kode_lokasi = "";
-var $filter_kode_neraca = "";
-var nilaiAsetChart = null;
-var aggAsetChart = null;
+var $filter_kode_pp = "";
+var $filter_kode_bidang = "";
+var piuSaldoChart = null;
+var piuUmurChart = null;
+var piuKomposisiChart = null;
 
 // CONFIG FUNCTION
 function showNotification(message) {
@@ -99,46 +101,48 @@ $(window).on('resize', function(){
     if (win.height() < 800) { 
         $("body").css("overflow", "scroll");
     }
-    if($full == '2'){
-        console.log('this fullscreen mode');
-        var height = screen.height;
-        heighChart = height;
-        if(nilaiAsetChart != null){
-            nilaiAsetChart.update({
-                chart: {
-                    height: heighChart,
-                }
-            })
+    /* Komen dulu
+        if($full == '2'){
+            console.log('this fullscreen mode');
+            var height = screen.height;
+            heighChart = height;
+            if(nilaiAsetChart != null){
+                nilaiAsetChart.update({
+                    chart: {
+                        height: heighChart,
+                    }
+                })
+            }
+            if(aggAsetChart != null){
+                aggAsetChart.update({
+                    chart: {
+                        height: heighChart,
+                    }
+                })
+            }
+        }else{
+            
+            console.log('this browser mode');
+            var win = $(this); //this = window
+            var height = win.height();
+            heighChart = (height - 320);
+            if(nilaiAsetChart != null){
+                nilaiAsetChart.update({
+                    chart: {
+                        height: heighChart,
+                    }
+                })
+            }
+            heighChart = (height - 430);
+            if(aggAsetChart != null){
+                aggAsetChart.update({
+                    chart: {
+                        height: heighChart,
+                    }
+                })
+            }
         }
-        if(aggAsetChart != null){
-            aggAsetChart.update({
-                chart: {
-                    height: heighChart,
-                }
-            })
-        }
-    }else{
-        
-        console.log('this browser mode');
-        var win = $(this); //this = window
-        var height = win.height();
-        heighChart = (height - 320);
-        if(nilaiAsetChart != null){
-            nilaiAsetChart.update({
-                chart: {
-                    height: heighChart,
-                }
-            })
-        }
-        heighChart = (height - 430);
-        if(aggAsetChart != null){
-            aggAsetChart.update({
-                chart: {
-                    height: heighChart,
-                }
-            })
-        }
-    }
+    */ 
 });
 
 $(window).click(function() {
@@ -160,35 +164,63 @@ $(window).click(function() {
 });
 
 // AJAX FUNCTION GET DATA
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-piutang-bidang') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var select = $('#kode_bidang').selectize();
+            select = select[0];
+            var control = select.selectize;
+            control.clearOptions();
+            control.addOption([{text:'Semua Bidang', value:''}]);
+            if(result.status){
+                if(typeof result.data !== 'undefined' && result.data.length>0){
+                    for(i=0;i<result.data.length;i++){
+                        control.addOption([{text:result.data[i].nama, value:result.data[i].kode_bidang}]);
+                    }
+                }
+            }
+            control.setValue('');
+        }
+    });
+})();
 
 function getDataBox(param) {
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-inves-box') }}",
+        url: "{{ url('dash-ypt-dash/data-piutang-box') }}",
         data: param,
         dataType: 'json',
         async: true,
         success:function(result) {
             var data = result.data;
-            $('#persen_ytd').text(number_format(data[0].persen_ytd,1)+'%');
-            $('#rka_ytd').text(toMilyar(data[0].rka_ytd,1));
-            $('#real_ytd').text(toMilyar(data[0].real_ytd,1));
+            
+            $('#nom-piu').text(`${toMilyar(data.piutang.nominal_tahun_ini,2)}`)
+            $('#nom-piu-lalu').text(`${toMilyar(data.piutang.nominal_tahun_lalu,2)}`)
+            $('#yoy-piu-percentage').text(`${number_format(data.piutang.yoy_persentase,2)}%`)
+            if (data.piutang.yoy_persentase >= 0){
+                $('#yoy-piu-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(data.piutang.yoy_persentase,2)+'%');
+                $('#yoy-piu-percentage').addClass('red-text');
+                $('#yoy-piu-percentage').removeClass('green-text'); 
+            }else{
+                
+                $('#yoy-piu-percentage').html('<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(data.piutang.yoy_persentase,2)+'%');
+                $('#yoy-piu-percentage').addClass('green-text');
+                $('#yoy-piu-percentage').removeClass('red-text'); 
+            }
 
-            $('#persen_tahun').text(number_format(data[0].persen_tahun,1)+'%');
-            $('#rka_tahun').text(toMilyar(data[0].rka_tahun,1));
-            $('#real_tahun').text(toMilyar(data[0].real_tahun,1));
 
-            $('#persen_ach').text(number_format(data[0].persen_ach,1)+'%');
-            $('#ach_now').text(toMilyar(data[0].real_now,1));
-            $('#ach_lalu').text(toMilyar(data[0].real_lalu,1));
         }
     });
 }
 
-function getSerapAgg(param) {
+function getTopPiutang(param) {
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-inves-serap-agg') }}",
+        url: "{{ url('dash-ypt-dash/data-piutang-top') }}",
         data: param,
         dataType: 'json',
         async: true,
@@ -198,7 +230,7 @@ function getSerapAgg(param) {
             if(result.data.length > 0){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
-                    if(line.kode_aset == $filter_kode_neraca){
+                    if(line.kode_pp == $filter_kode_pp){
                         var select = 'class="selected-row"';
                         var display = 'unset';
                     }else{
@@ -207,10 +239,10 @@ function getSerapAgg(param) {
                     }
                     html+=`
                     <tr ${select}>
-                        <td ><p class="kode hidden">${line.kode_aset}</p>
+                        <td><p class="kode hidden">${line.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
-                            <span class="nama-aset">${line.nama_aset}</span></td>
-                        <td class='text-right'>${number_format(line.ach,1)}%</td>
+                            <span class="nama-pp">${line.nama}</span></td>
+                        <td class='text-right'>${toMilyar(line.sak_total,2)}</td>
                     </tr>`;
                 }
             }
@@ -219,300 +251,9 @@ function getSerapAgg(param) {
     });
 }
 
-function getNilaiAset(param) {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-inves-nilai-aset') }}",
-        data: param,
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            nilaiAsetChart = Highcharts.chart('nilai-aset', {
-                chart: {
-                    type: 'spline',
-                    height: ($height - 320)
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ 
-                    enabled: true 
-                },
-                credits: { enabled: false },
-                xAxis: {
-                    categories: result.data.kategori
-                },
-                yAxis: {
-                    title: {
-                        text: 'Nilai'
-                    },
-                    labels: {
-                        formatter: function () {
-                            return singkatNilai(this.value);
-                        }
-                    },
-                },
-                tooltip: {
-                    formatter: function () {   
-                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + toMilyar(this.y,2);
-                    }
-                },
-                plotOptions: {
-                    series: {
-                        dataLabels: {
-                            // padding:10,
-                            allowOverlap:true,
-                            enabled: true,
-                            crop: false,
-                            overflow: 'justify',
-                            useHTML: true,
-                            formatter: function () {
-                                // return toMilyar(this.y,2);
-                                return $('<div/>').css({
-                                        // 'color' : 'white', // work
-                                        'padding': '0 3px',
-                                        'font-size': '9px',
-                                        // 'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(toMilyar(this.point.y,2))[0].outerHTML;
-                            }
-                        },
-                        label: {
-                            connectorAllowed: true
-                        },
-                        marker:{
-                            enabled:true
-                        }
-                    }
-                },
-                series: result.data.series
-            });
-        }
-    });
-}
-
-function getAggLembaga(param) {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-inves-agg-lembaga') }}",
-        data: param,
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            aggAsetChart = Highcharts.chart('agg-aset', {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie',
-                    height: ($height - 430),
-                    width: 350
-                },
-                title: { text: '' },
-                subtitle: { text: '' },
-                exporting:{ 
-                    enabled: false
-                },
-                legend:{ enabled: false },
-                credits: { enabled: false },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                accessibility: {
-                    point: {
-                        valueSuffix: '%'
-                    }
-                },
-                defs: {
-                    patterns: [{
-                        'id': 'custom-pattern',
-                        'path': {
-                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
-                            stroke: Highcharts.getOptions().colors[1],
-                            strokeWidth: 2
-                        }
-                    }]
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        center: ['40%', '50%'],
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            formatter: function() {
-                                var y = this.point.percentage;
-                                var negative = this.point.negative;
-                                var key = this.key;
-                                var html = null;
-
-                                if(negative) {
-                                    html = `<b>${this.point.name}</b>`;
-                                } else {
-                                    html = `<b>${this.point.name}</b>`;
-                                }
-                                return html;
-                            }
-                        },
-                        size: '50%',
-                        showInLegend: true
-                    },
-                    series: {
-                        dataLabels: {
-                            style: {
-                                fontSize: '9px'
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Jumlah',
-                    colorByPoint: true,
-                    data: result.data
-                }]
-            }, function() {
-                var series = this.series;
-                $('.lembaga-legend').html('');
-                var html = "";
-                for(var i=0;i<series.length;i++) {
-                    var point = series[i].data;
-                    for(var j=0;j<point.length;j++) {
-                        var color = point[j].color;
-                        var negative = point[j].negative;
-                        if(point[j].key == $filter_kode_lokasi){
-                            var select = 'selected-row';
-                            var display = 'unset';
-                        }else{
-                            var select = "";
-                            var display = 'none';
-                        }
-                        if(negative) {
-                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
-                            point[j].color = 'url(#custom-pattern)'  
-                            point[j].connector.element.style.stroke = 'black'
-                            point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
-                        }else{
-                            if(color == '#7cb5ec') {
-                                point[j].graphic.element.style.fill = '#830000'
-                                point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
-                            }else{
-
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
-                            }
-                        }
-                    }
-                }
-                $('.lembaga-legend').html(html);
-            });
-        }
-    });
-}
-
-// LEGEND LEMBAGA EVET
-$('.lembaga-legend').on('click', 'div.td-klik', function() {
-    var table = '.lembaga-legend';
-    var tr = $(this).closest('.td-klik')
-    var kode = $(this).closest('.td-klik').find('.td-kode').text()
-    var icon = $(this).closest('.td-klik').find('.check-row')
-    var tmp = $(this).closest('.td-klik').find('.serieName').text().split(':');
-    $(`${table} .check-row`).hide()
-    var lembaga = tmp[0];
-    $filter_kode_lokasi = kode;
-    if($(tr).hasClass('selected-row')) {
-        $filter_kode_lokasi="";
-        $(`${table} div.td-klik`).removeClass('selected-row');
-        getDataBox({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-        });
-        getNilaiAset({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-        });
-        getSerapAgg({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-        });
-        $('#lokasi-title').text('');
-        showNotification(`Menampilkan dashboard YPT`);
-        return;
-    }else{
-        
-        icon.show();
-        $(`${table} div.td-klik`).removeClass('selected-row')
-        $(tr).addClass('selected-row')
-        getDataBox({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
-        });
-        getNilaiAset({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
-        });
-        getSerapAgg({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
-        });
-        
-        $('#lokasi-title').text(lembaga);
-        showNotification(`Menampilkan dashboard ${lembaga} `);
-    }
-})
-
-// END LEGEND LEMBAGA EVENT
 
 var timeoutID = null;
 // END FUNCTION GET DATA
-
-// getDataBox({
-//   'periode[0]': '=',
-//   'periode[1]': $month,
-//   'tahun': $tahun,
-//   'jenis': $filter1_kode
-// });
-// getNilaiAset({
-//   'periode[0]': '=',
-//   'periode[1]': $month,
-//   'tahun': $tahun,
-//   'jenis': $filter1_kode
-// });
-// getAggLembaga({
-//   'periode[0]': '=',
-//   'periode[1]': $month,
-//   'tahun': $tahun,
-//   'jenis': $filter1_kode
-// });
-// getSerapAgg({
-//   'periode[0]': '=',
-//   'periode[1]': $month,
-//   'tahun': $tahun,
-//   'jenis': $filter1_kode
-// });
-
 </script>
 
 <script type="text/javascript">
@@ -521,13 +262,19 @@ document.addEventListener('fullscreenchange', (event) => {
     console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);    
   } else {
     $full = '0';
-    nilaiAsetChart.update({
+    piuSaldoChart.update({
         title: {
             text: ''
         }
     })
 
-    aggAsetChart.update({
+    piuUmurChart.update({
+        title: {
+            text: ''
+        }
+    })
+
+    piuKomposisiChart.update({
         title: {
             text: ''
         }
@@ -612,36 +359,21 @@ $('#list-filter-2').on('click', 'div', function(event) {
     $('#select-text-piu').text(`${nama_filter} ${$filter2} ${$tahun}`);
     
     getDataBox({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_pp": $filter_kode_pp,
+        "kode_bidang": $filter_kode_bidang
     });
-    getNilaiAset({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
-    });
-    getAggLembaga({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
-    });
-    getSerapAgg({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
+    getTopPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "sort":sort,
+        "kode_bidang": $filter_kode_bidang
     });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
@@ -823,6 +555,37 @@ $('#export-agg-aset.menu-chart-custom ul li').click(function(event) {
     }
 })
 
+$('#kode_bidang').change(function(){
+    $filter_kode_bidang = $(this).val();
+    var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "")
+    $('#bidang-title').text(bidang);
+    $('#pp-title').text('Telkom School');
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
+    $filter_kode_pp = "";
+    timeoutID = null;
+    timeoutID = setTimeout(getDataBox.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = setTimeout(getTopPiutang.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "sort": sort,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    if(bidang != ""){
+        showNotification(`Menampilkan dashboard `+bidang);
+    }
+});
+
+
 // TABLE TOP EVET
 $('#table-top-piu tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
@@ -914,7 +677,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Piutang  <span id="piutang-title"></span> <span id="bidang-title"></span> <span id="lokasi-title"></span></h2>
+                    <h2 class="title-dash" id="title-dash">Piutang  <span id="piutang-title"></span> <span id="bidang-title"></span> <span id="pp-title"></span></h2>
                 </div>
             </div>
         </div>
@@ -1026,7 +789,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
-                                            <td id="yoy-piu" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="nom-piu-lalu" class="w-30 text-bold text-right px-0">0 M</td>
                                             <td id="yoy-piu-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
@@ -1053,7 +816,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
-                                            <td id="yoy-piu-cadangan" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="nom-piu-cadangan-lalu" class="w-30 text-bold text-right px-0">0 M</td>
                                             <td id="yoy-piu-cadangan-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
@@ -1141,7 +904,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
-                                            <td id="yoy-piu-hapus" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="nom-piu-hapus-lalu" class="w-30 text-bold text-right px-0">0 M</td>
                                             <td id="yoy-piu-hapus-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
@@ -1199,7 +962,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                                 </select>
                             </div>
                         </div>
-                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 180px);position:relative">
+                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 120px);position:relative">
                             <style>
                                 #table-top-piu th
                                 {

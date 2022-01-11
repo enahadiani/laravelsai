@@ -49,4 +49,10 @@ Route::get('data-rasio-ytd', 'DashYpt\DashboardRasioController@getRasioYTD');
 Route::get('data-rasio-yoy', 'DashYpt\DashboardRasioController@getRasioYoY');
 Route::get('data-rasio-tahun', 'DashYpt\DashboardRasioController@getRasioTahun');
 
+// PIUTANG
+
+Route::get('data-piutang-box', 'DashYpt\DashboardPiutangController@getDataBox');
+Route::get('data-piutang-top', 'DashYpt\DashboardPiutangController@getTopPiutang');
+Route::get('data-piutang-bidang', 'DashYpt\DashboardPiutangController@getBidang');
+
 ?>
