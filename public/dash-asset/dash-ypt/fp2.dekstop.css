@@ -3,7 +3,7 @@
 }
 /* END CARD */
 
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+/* @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) { */
     /* HEADER */
     section.header {
         background-color: #ffffff;
@@ -320,17 +320,17 @@
         display: none;
     } */
     /* END CHART */
-}
+/* }
 
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-    .card.card-dash .circle-bar .value-circle .text-circle {
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) { */
+    /* .card.card-dash .circle-bar .value-circle .text-circle {
         font-size: 14px !important;
         margin-right: 8px;
-    }
+    } */
     /* section.header {
         width: calc(100vw - 171px);
     } */
-}
+/* } */
 
 .item {
     height:20px;
