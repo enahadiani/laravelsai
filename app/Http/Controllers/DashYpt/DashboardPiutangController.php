@@ -275,7 +275,7 @@ class DashboardPiutangController extends Controller {
             }
             
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-ccr-trend-saldo',[
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-piutang-saldo',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

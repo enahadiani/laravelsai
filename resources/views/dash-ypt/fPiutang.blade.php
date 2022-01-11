@@ -366,7 +366,6 @@ function getKomposisiPiutang(param) {
     });
 }
 
-
 function getUmurPiutang(param) {
     $.ajax({
         type: 'GET',
@@ -472,6 +471,79 @@ function getUmurPiutang(param) {
                     //         enabled:true
                     //     }
                     // }
+                },
+                series: result.data.series
+            });
+        }
+    });
+}
+
+function getSaldoPiutang(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-piutang-saldo') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            soakhirChart = Highcharts.chart('saldo-piu', {
+                chart: {
+                    type: 'spline',
+                    height: ($height - 300)/2
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ 
+                    enabled: false 
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: result.data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + toMilyar(this.y,2);
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                        // 'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        // 'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.point.y,2))[0].outerHTML;
+                            }
+                        },
+                        label: {
+                            connectorAllowed: true
+                        },
+                        marker:{
+                            enabled:true
+                        }
+                    }
                 },
                 series: result.data.series
             });
@@ -817,6 +889,14 @@ $('#kode_bidang').change(function(){
     }), 500);
     timeoutID = null;
     timeoutID = null;timeoutID = setTimeout(getUmurPiutang.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = null;timeoutID = setTimeout(getSaldoPiutang.bind(undefined,{
         "periode[0]": "=", 
         "periode[1]": $month,
         "tahun": $tahun,
