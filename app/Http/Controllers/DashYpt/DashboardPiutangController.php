@@ -172,7 +172,7 @@ class DashboardPiutangController extends Controller {
         }
     }
 
-    public function getTrendCCR(Request $r) {
+    public function getKomposisiPiutang(Request $r) {
         try {
             $req = $r->all();
             $tahun = $r->query('tahun');
@@ -192,6 +192,8 @@ class DashboardPiutangController extends Controller {
                 } elseif($r->query('periode')[1] == "SMT2") {
                     $req['periode'][1] = $tahun."12";
                 }
+            } elseif ($r->query('jenis') == 'YTM') {
+                $req['periode'][1] = $tahun.$req['periode'][1];
             } else {
                 $req['periode'][1] = $tahun.$req['periode'][1];
             }
@@ -199,6 +201,7 @@ class DashboardPiutangController extends Controller {
             $fields = [
                 'periode' => $req['periode']
             ];
+
             if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
                     'kode_pp' => $req['kode_pp']
@@ -211,7 +214,7 @@ class DashboardPiutangController extends Controller {
             }
             
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-ccr-trend',[
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-piutang-komposisi',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -333,7 +336,7 @@ class DashboardPiutangController extends Controller {
             }
             
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-ccr-umur-piutang',[
+            $response = $client->request('GET',  config('api.url').'dash-ypt-dash/data-piutang-umur',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',

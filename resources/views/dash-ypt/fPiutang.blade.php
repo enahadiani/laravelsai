@@ -251,6 +251,236 @@ function getTopPiutang(param) {
     });
 }
 
+function getKomposisiPiutang(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-piutang-komposisi') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            piuKomposisiChart = Highcharts.chart('komposisi-piu', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: ($height - 250),
+                    width: 350
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend:{ enabled: false },
+                credits: { enabled: false },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
+                        }
+                    }]
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        center: ['40%', '50%'],
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function() {
+                                var y = this.point.percentage;
+                                var negative = this.point.negative;
+                                var key = this.key;
+                                var html = null;
+
+                                if(negative) {
+                                    html = `<b>${this.point.name}</b>`;
+                                } else {
+                                    html = `<b>${this.point.name}</b>`;
+                                }
+                                return html;
+                            }
+                        },
+                        size: '50%',
+                        showInLegend: true
+                    },
+                    series: {
+                        dataLabels: {
+                            style: {
+                                fontSize: '9px'
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Jumlah',
+                    colorByPoint: true,
+                    data: result.data
+                }]
+            }, function() {
+                var series = this.series;
+                $('.komposisi-legend').html('');
+                var html = "";
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        var negative = point[j].negative;
+                        if(point[j].key == $filter_kode_lokasi){
+                            var select = 'selected-row';
+                            var display = 'unset';
+                        }else{
+                            var select = "";
+                            var display = 'none';
+                        }
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            point[j].connector.element.style.stroke = 'black'
+                            point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                        }else{
+                            if(color == '#7cb5ec') {
+                                point[j].graphic.element.style.fill = '#830000'
+                                point[j].connector.element.style.stroke = '#830000'
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            }else{
+
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            }
+                        }
+                    }
+                }
+                $('.komposisi-legend').html(html);
+            });
+        }
+    });
+}
+
+
+function getUmurPiutang(param) {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-piutang-umur') }}",
+        data: param,
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+          
+            piuUmurChart = Highcharts.chart('umur-piu', {
+                chart: {
+                    type: 'column',
+                    height: ($height - 180)/2
+                },
+                title: { text: '' },
+                subtitle: { text: '' },
+                exporting:{ 
+                    enabled: false
+                },
+                legend: {
+                    align: 'right',
+                    x: -30,
+                    verticalAlign: 'top',
+                    y: 0,
+                    floating: true,
+                    backgroundColor:
+                        Highcharts.defaultOptions.legend.backgroundColor || 'white',
+                    borderColor: '#CCC',
+                    borderWidth: 1,
+                    shadow: false
+                },
+                credits: { enabled: false },
+                xAxis: {
+                    categories: result.data.kategori
+                },
+                yAxis: {
+                    title: {
+                        text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return singkatNilai(this.value);
+                        }
+                    },
+                },
+                tooltip: {
+                    formatter: function () {   
+                        return '<span style="color:' + this.series.color + '">' + this.series.name + '</span>: <b>' + toMilyar(this.y,2);
+                    }
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        dataLabels: {
+                            // padding:10,
+                            allowOverlap:true,
+                            enabled: true,
+                            crop: false,
+                            overflow: 'justify',
+                            useHTML: true,
+                            formatter: function () {
+                                // return toMilyar(this.y,2);
+                                return $('<div/>').css({
+                                        // 'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        // 'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.point.y,2))[0].outerHTML;
+                            }
+                        },
+                        label: {
+                            connectorAllowed: true
+                        },
+                        marker:{
+                            enabled:true
+                        }
+                    },
+                    // series: {
+                    //     dataLabels: {
+                    //         // padding:10,
+                    //         allowOverlap:true,
+                    //         enabled: true,
+                    //         crop: false,
+                    //         overflow: 'justify',
+                    //         useHTML: true,
+                    //         formatter: function () {
+                    //             // return toMilyar(this.y,2);
+                    //             return $('<div/>').css({
+                    //                     // 'color' : 'white', // work
+                    //                     'padding': '0 3px',
+                    //                     'font-size': '9px',
+                    //                     // 'backgroundColor' : this.point.color  // just white in my case
+                    //                 }).text(toMilyar(this.point.y,2))[0].outerHTML;
+                    //         }
+                    //     },
+                    //     label: {
+                    //         connectorAllowed: true
+                    //     },
+                    //     marker:{
+                    //         enabled:true
+                    //     }
+                    // }
+                },
+                series: result.data.series
+            });
+        }
+    });
+}
+
+
 
 var timeoutID = null;
 // END FUNCTION GET DATA
@@ -579,9 +809,61 @@ $('#kode_bidang').change(function(){
         "sort": sort,
         "kode_bidang": $filter_kode_bidang
     }), 500);
+    timeoutID = null;timeoutID = setTimeout(getKomposisiPiutang.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
+    timeoutID = null;
+    timeoutID = null;timeoutID = setTimeout(getUmurPiutang.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    }), 500);
     timeoutID = null;
     if(bidang != ""){
         showNotification(`Menampilkan dashboard `+bidang);
+    }
+});
+
+
+$('#sort-top').click(function(){
+    if($(this).hasClass('sort-asc')){
+        $(this).removeClass('sort-asc')
+        $(this).removeClass('red-text')
+        $(this).addClass('green-text')
+        $(this).addClass('sort-desc')
+        $(this).html(`<i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Tertinggi`);
+        var sort = 'desc'; 
+        getTopPiutang({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "sort":sort,
+            "kode_bidang":$filter_kode_bidang
+        });
+        
+    }else{
+        
+        $(this).removeClass('sort-desc')
+        $(this).addClass('sort-asc')
+        $(this).removeClass('green-text')
+        $(this).addClass('red-text')
+        $(this).html(`<i class="iconsminds-sync" style="font-size: 16px !important;display: inline-block;transform: rotate(90deg);"></i> Terendah`);
+        var sort = 'asc'; 
+        getTopPiutang({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "sort":sort,
+            "kode_bidang":$filter_kode_bidang
+        });
     }
 });
 

@@ -54,5 +54,7 @@ Route::get('data-rasio-tahun', 'DashYpt\DashboardRasioController@getRasioTahun')
 Route::get('data-piutang-box', 'DashYpt\DashboardPiutangController@getDataBox');
 Route::get('data-piutang-top', 'DashYpt\DashboardPiutangController@getTopPiutang');
 Route::get('data-piutang-bidang', 'DashYpt\DashboardPiutangController@getBidang');
+Route::get('data-piutang-komposisi', 'DashYpt\DashboardPiutangController@getKomposisiPiutang');
+Route::get('data-piutang-umur', 'DashYpt\DashboardPiutangController@getUmurPiutang');
 
 ?>
