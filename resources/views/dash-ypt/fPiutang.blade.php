@@ -909,7 +909,6 @@ $('#kode_bidang').change(function(){
     }
 });
 
-
 $('#sort-top').click(function(){
     if($(this).hasClass('sort-asc')){
         $(this).removeClass('sort-asc')
@@ -946,7 +945,6 @@ $('#sort-top').click(function(){
     }
 });
 
-
 // TABLE TOP EVET
 $('#table-top-piu tbody').on('click', 'tr td', function() {
     var table = $(this).parents('table').attr('id')
@@ -954,8 +952,8 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
     var icon = $(this).closest('tr').find('td:first').find('.check-row')
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
-    var aset = $(this).closest('tr').find('td:first').find('.nama-aset').text()
-    $filter_kode_neraca = $(this).closest('tr').find('td:first').find('.kode').text()
+    var pp = $(this).closest('tr').find('td:first').find('.nama-pp').text()
+    $filter_kode_pp = $(this).closest('tr').find('td:first').find('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -967,62 +965,89 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
     $(icon).show()
     setTimeout(function() {
         getDataBox({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
-            'kode_neraca' : $filter_kode_neraca
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
-        getNilaiAset({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
-            'kode_neraca' : $filter_kode_neraca
+        getSaldoPiutang({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
-        getAggLembaga({
-            'periode[0]': '=',
-            'periode[1]': $month,
-            'tahun': $tahun,
-            'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
-            'kode_neraca' : $filter_kode_neraca
+        getUmurPiutang({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
+        });
+        getKomposisiPiutang({
+            "periode[0]": "=", 
+            "periode[1]": $month,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         });
     }, 200)
-    $('#aset-title').text(aset.toLowerCase())
-    showNotification(`Menampilkan dashboard ${toCapitalize(aset.toLowerCase())}`);
+    $('#pp-title').text(pp)
+    $('#bidang-title').text('')
+    showNotification(`Menampilkan dashboard ${pp}`);
 })
 
 $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_kode_neraca="";
+    $filter_kode_pp="";
+    var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "");
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#aset-title').text('')
+    $('#pp-title').text('Telkom School')
+    $('#bidang-title').text(bidang)
     getDataBox({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
     });
-    getNilaiAset({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
+    getTopPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "sort":sort,
+        "kode_bidang": $filter_kode_bidang
     });
-    getAggLembaga({
-        'periode[0]': '=',
-        'periode[1]': $month,
-        'tahun': $tahun,
-        'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+    getSaldoPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
     });
-    showNotification(`Menampilkan dashboard YPT`);
+    getUmurPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    });
+    getKomposisiPiutang({
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_bidang": $filter_kode_bidang
+    });
+    showNotification(`Menampilkan dashboard Telkom School`);
     
 })
 // END TABLE TOP EVENT

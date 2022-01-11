@@ -277,6 +277,15 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
 #table-top-ccr.table tbody tr td:first-child {
     cursor: pointer;
 }
+#table-top-piu.table tbody tr {
+    cursor: pointer;
+}
+#table-top-piu.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+#table-top-piu.table tbody tr td:first-child {
+    cursor: pointer;
+}
 .table tbody tr td .check-row {
     display: inline;
     margin-right: 4px;
