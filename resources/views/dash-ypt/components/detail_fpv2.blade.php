@@ -409,6 +409,42 @@ function createChartLembaga(kode_grafik = null) {
     });
 }
 
+(function (H) {
+    H.addEvent(H.Axis, 'afterInit', function () {
+        const logarithmic = this.logarithmic;
+
+        if (logarithmic && typeof this.options.custom == 'object') {
+
+            // Avoid errors on negative numbers on a log axis
+            this.positiveValuesOnly = false;
+
+            // Override the converter functions
+            logarithmic.log2lin = num => {
+                const isNegative = num < 0;
+
+                let adjustedNum = Math.abs(num);
+
+                if (adjustedNum < 10) {
+                    adjustedNum += (10 - adjustedNum) / 10;
+                }
+
+                const result = Math.log(adjustedNum) / Math.LN10;
+                return isNegative ? -result : result;
+            };
+
+            logarithmic.lin2log = num => {
+                const isNegative = num < 0;
+
+                let result = Math.pow(10, Math.abs(num));
+                if (result < 10) {
+                    result = (10 * (result - 1)) / (10 - 1);
+                }
+                return isNegative ? -result : result;
+            };
+        }
+    });
+}(Highcharts));
+
 function createChartKelompok(kode_grafik = null) {
     
     if(kode_grafik != "PI04" && kode_grafik != "PI03"){
@@ -438,9 +474,6 @@ function createChartKelompok(kode_grafik = null) {
                                     chart.yAxis[0].update({
                                         type: 'logarithmic',
                                         minorTickInterval: 0.1,
-                                        custom: {
-                                            allowNegativeLog: true
-                                        },
                                         accessibility: {
                                             rangeDescription: 'Range: 0.1 to 1000'
                                         },
@@ -479,9 +512,6 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     yAxis: {
                         type: 'logarithmic',
-                        custom: {
-                            allowNegativeLog: true
-                        },
                         minorTickInterval: 0.1,
                         accessibility: {
                             rangeDescription: 'Range: 0.1 to 1000'
