@@ -3,7 +3,7 @@
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
-
+window.scrollTo(0, 0);
 var $height = $(window).height();
 var $tahun = parseInt($('#year-filter').text())
 var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
@@ -237,93 +237,93 @@ function getDataBox(param) {
                 $('#ccr-prev').removeClass('green-text'); 
             }
 
-            var growth_all_mom =( data.ccr_total.mom != 0 ? ((data.ccr_total.inflow - data.ccr_total.mom)/ data.ccr_total.mom)*100 : 0);
-            var growth_all_yoy =( data.ccr_total.yoy != 0 ? ((data.ccr_total.inflow - data.ccr_total.yoy)/ data.ccr_total.yoy)*100 : 0);
+            var growth_all_yoy_ar =( data.ccr_total.prev_ar != 0 ? ((data.ccr_total.ar - data.ccr_total.prev_ar)/ data.ccr_total.prev_ar)*100 : 0);
+            var growth_all_yoy_inf =( data.ccr_total.prev_inflow != 0 ? ((data.ccr_total.inflow - data.ccr_total.prev_inflow)/ data.ccr_total.prev_inflow)*100 : 0);
 
-            if (growth_all_mom >= 0){
-                $('#all-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_mom,2)+'%');
-                $('#all-mom-percentage').addClass('green-text');
-                $('#all-mom-percentage').removeClass('red-text'); 
+            if (growth_all_yoy_ar >= 0){
+                $('#all-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_yoy_ar,2)+'%');
+                $('#all-yoy-ar-percentage').addClass('green-text');
+                $('#all-yoy-ar-percentage').removeClass('red-text'); 
             }else{
                 
-                $('#all-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_mom,2)+'%');
-                $('#all-mom-percentage').addClass('red-text');
-                $('#all-mom-percentage').removeClass('green-text'); 
+                $('#all-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_yoy_ar,2)+'%');
+                $('#all-yoy-ar-percentage').addClass('red-text');
+                $('#all-yoy-ar-percentage').removeClass('green-text'); 
             }
 
-            if (growth_all_yoy >= 0){
+            if (growth_all_yoy_inf >= 0){
                 
-                $('#all-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_yoy,2)+'%');
-                $('#all-yoy-percentage').addClass('green-text');
-                $('#all-yoy-percentage').removeClass('red-text'); 
+                $('#all-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_all_yoy_inf,2)+'%');
+                $('#all-yoy-inf-percentage').addClass('green-text');
+                $('#all-yoy-inf-percentage').removeClass('red-text'); 
             }else{
-                $('#all-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_yoy,2)+'%');
-                $('#all-yoy-percentage').addClass('red-text');
-                $('#all-yoy-percentage').removeClass('green-text'); 
+                $('#all-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_all_yoy_inf,2)+'%');
+                $('#all-yoy-inf-percentage').addClass('red-text');
+                $('#all-yoy-inf-percentage').removeClass('green-text'); 
             }
 
-            var growth_now_mom =( data.ccr_tahun_ini.mom != 0 ? ((data.ccr_tahun_ini.inflow - data.ccr_tahun_ini.mom)/ data.ccr_tahun_ini.mom)*100 : 0);
-            var growth_now_yoy =( data.ccr_tahun_ini.yoy != 0 ? ((data.ccr_tahun_ini.inflow - data.ccr_tahun_ini.yoy)/ data.ccr_tahun_ini.yoy)*100 : 0);
+            var growth_now_yoy_ar =( data.ccr_tahun_ini.prev_ar != 0 ? ((data.ccr_tahun_ini.ar - data.ccr_tahun_ini.prev_ar)/ data.ccr_tahun_ini.prev_ar)*100 : 0);
+            var growth_now_yoy_inf =( data.ccr_tahun_ini.prev_inflow != 0 ? ((data.ccr_tahun_ini.inflow - data.ccr_tahun_ini.prev_inflow)/ data.ccr_tahun_ini.prev_inflow)*100 : 0);
 
-            if (growth_now_mom >= 0){
-                $('#now-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_mom,2)+'%');
-                $('#now-mom-percentage').addClass('green-text');
-                $('#now-mom-percentage').removeClass('red-text'); 
-            }else{
-                
-                $('#now-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_mom,2)+'%');
-                $('#now-mom-percentage').addClass('red-text');
-                $('#now-mom-percentage').removeClass('green-text'); 
-            }
-
-            if (growth_now_yoy >= 0){
-                
-                $('#now-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_yoy,2)+'%');
-                $('#now-yoy-percentage').addClass('green-text');
-                $('#now-yoy-percentage').removeClass('red-text'); 
-            }else{
-                $('#now-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_yoy,2)+'%');
-                $('#now-yoy-percentage').addClass('red-text');
-                $('#now-yoy-percentage').removeClass('green-text'); 
-            }
-
-            var growth_prev_mom =( data.ccr_tahun_lalu.mom != 0 ? ((data.ccr_tahun_lalu.inflow - data.ccr_tahun_lalu.mom)/ data.ccr_tahun_lalu.mom)*100 : 0);
-            var growth_prev_yoy =( data.ccr_tahun_lalu.yoy != 0 ? ((data.ccr_tahun_lalu.inflow - data.ccr_tahun_lalu.yoy)/ data.ccr_tahun_lalu.yoy)*100 : 0);
-
-            if (growth_prev_mom >= 0){
-                $('#prev-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_mom,2)+'%');
-                $('#prev-mom-percentage').addClass('green-text');
-                $('#prev-mom-percentage').removeClass('red-text'); 
+            if (growth_now_yoy_ar >= 0){
+                $('#now-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_yoy_ar,2)+'%');
+                $('#now-yoy-ar-percentage').addClass('green-text');
+                $('#now-yoy-ar-percentage').removeClass('red-text'); 
             }else{
                 
-                $('#prev-mom-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_mom,2)+'%');
-                $('#prev-mom-percentage').addClass('red-text');
-                $('#prev-mom-percentage').removeClass('green-text'); 
+                $('#now-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_yoy_ar,2)+'%');
+                $('#now-yoy-ar-percentage').addClass('red-text');
+                $('#now-yoy-ar-percentage').removeClass('green-text'); 
             }
 
-            if (growth_prev_yoy >= 0){
+            if (growth_now_yoy_inf >= 0){
                 
-                $('#prev-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_yoy,2)+'%');
-                $('#prev-yoy-percentage').addClass('green-text');
-                $('#prev-yoy-percentage').removeClass('red-text'); 
+                $('#now-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_now_yoy_inf,2)+'%');
+                $('#now-yoy-inf-percentage').addClass('green-text');
+                $('#now-yoy-inf-percentage').removeClass('red-text'); 
             }else{
-                $('#prev-yoy-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_yoy,2)+'%');
-                $('#prev-yoy-percentage').addClass('red-text');
-                $('#prev-yoy-percentage').removeClass('green-text'); 
+                $('#now-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_now_yoy_inf,2)+'%');
+                $('#now-yoy-inf-percentage').addClass('red-text');
+                $('#now-yoy-inf-percentage').removeClass('green-text'); 
+            }
+
+            var growth_prev_yoy_ar =( data.ccr_tahun_lalu.prev_ar != 0 ? ((data.ccr_tahun_lalu.ar - data.ccr_tahun_lalu.prev_ar)/ data.ccr_tahun_lalu.prev_ar)*100 : 0);
+            var growth_prev_yoy_inf =( data.ccr_tahun_lalu.prev_inflow != 0 ? ((data.ccr_tahun_lalu.inflow - data.ccr_tahun_lalu.prev_inflow)/ data.ccr_tahun_lalu.prev_inflow)*100 : 0);
+
+            if (growth_prev_yoy_ar >= 0){
+                $('#prev-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_yoy_ar,2)+'%');
+                $('#prev-yoy-ar-percentage').addClass('green-text');
+                $('#prev-yoy-ar-percentage').removeClass('red-text'); 
+            }else{
+                
+                $('#prev-yoy-ar-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_yoy_ar,2)+'%');
+                $('#prev-yoy-ar-percentage').addClass('red-text');
+                $('#prev-yoy-ar-percentage').removeClass('green-text'); 
+            }
+
+            if (growth_prev_yoy_inf >= 0){
+                
+                $('#prev-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(growth_prev_yoy_inf,2)+'%');
+                $('#prev-yoy-inf-percentage').addClass('green-text');
+                $('#prev-yoy-inf-percentage').removeClass('red-text'); 
+            }else{
+                $('#prev-yoy-inf-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(growth_prev_yoy_inf,2)+'%');
+                $('#prev-yoy-inf-percentage').addClass('red-text');
+                $('#prev-yoy-inf-percentage').removeClass('green-text'); 
             }
 
 
-            $('#ccr-all-mom').text(`${toMilyar(data.ccr_total.mom,2)}`)
-            $('#ccr-prev-mom').text(`${toMilyar(data.ccr_tahun_lalu.mom,2)}`)
-            $('#ccr-now-mom').text(`${toMilyar(data.ccr_tahun_ini.mom,2)}`)
+            $('#ccr-all-yoy-ar').text(`${toMilyar(data.ccr_total.prev_ar,2)}`)
+            $('#ccr-prev-yoy-ar').text(`${toMilyar(data.ccr_tahun_lalu.prev_ar,2)}`)
+            $('#ccr-now-yoy-ar').text(`${toMilyar(data.ccr_tahun_ini.prev_ar,2)}`)
             $('#ccr-all-ar').text(`${toMilyar(data.ccr_total.ar,2)}`)
             $('#ccr-prev-ar').text(`${toMilyar(data.ccr_tahun_lalu.ar,2)}`)
             $('#ccr-now-ar').text(`${toMilyar(data.ccr_tahun_ini.ar,2)}`)
 
             
-            $('#ccr-all-yoy').text(`${toMilyar(data.ccr_total.yoy,2)}`)
-            $('#ccr-prev-yoy').text(`${toMilyar(data.ccr_tahun_lalu.yoy,2)}`)
-            $('#ccr-now-yoy').text(`${toMilyar(data.ccr_tahun_ini.yoy,2)}`)
+            $('#ccr-all-yoy-inf').text(`${toMilyar(data.ccr_total.prev_inflow,2)}`)
+            $('#ccr-prev-yoy-inf').text(`${toMilyar(data.ccr_tahun_lalu.prev_inflow,2)}`)
+            $('#ccr-now-yoy-inf').text(`${toMilyar(data.ccr_tahun_ini.prev_inflow,2)}`)
             $('#ccr-all-inflow').text(`${toMilyar(data.ccr_total.inflow,2)}`)
             $('#ccr-prev-inflow').text(`${toMilyar(data.ccr_tahun_lalu.inflow,2)}`)
             $('#ccr-now-inflow').text(`${toMilyar(data.ccr_tahun_ini.inflow,2)}`)
@@ -1341,16 +1341,16 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">MoM Growth</td>
-                                            <td id="ccr-now-mom" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="now-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Tagihan</td>
+                                            <td id="ccr-now-yoy-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-yoy-ar-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY Growth</td>
-                                            <td id="ccr-now-yoy" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="now-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Pembayaran</td>
+                                            <td id="ccr-now-yoy-inf" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="now-yoy-inf-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1390,16 +1390,16 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">MoM Growth</td>
-                                            <td id="ccr-prev-mom" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="prev-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Tagihan</td>
+                                            <td id="ccr-prev-yoy-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-yoy-ar-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY Growth</td>
-                                            <td id="ccr-prev-yoy" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="prev-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Pembayaran</td>
+                                            <td id="ccr-prev-yoy-inf" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="prev-yoy-inf-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1439,16 +1439,16 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">MoM Growth</td>
-                                            <td id="ccr-all-mom" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="all-mom-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Tagihan</td>
+                                            <td id="ccr-all-yoy-ar" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="all-yoy-ar-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY Growth</td>
-                                            <td id="ccr-all-yoy" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="all-yoy-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td class="w-40 pl-0">YoY Pembayaran</td>
+                                            <td id="ccr-all-yoy-inf" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="all-yoy-inf-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>

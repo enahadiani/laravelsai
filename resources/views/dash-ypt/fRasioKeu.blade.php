@@ -3,6 +3,7 @@
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
     $('body').addClass('scroll-hide');
+    window.scrollTo(0, 0);
     var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
     var $filter1 = "Periode";
     var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");

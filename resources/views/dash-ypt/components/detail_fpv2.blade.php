@@ -410,6 +410,7 @@ function createChartLembaga(kode_grafik = null) {
 }
 
 function createChartKelompok(kode_grafik = null) {
+    
     if(kode_grafik != "PI04" && kode_grafik != "PI03"){
 
         $.ajax({
@@ -437,6 +438,9 @@ function createChartKelompok(kode_grafik = null) {
                                     chart.yAxis[0].update({
                                         type: 'logarithmic',
                                         minorTickInterval: 0.1,
+                                        custom: {
+                                            allowNegativeLog: true
+                                        },
                                         accessibility: {
                                             rangeDescription: 'Range: 0.1 to 1000'
                                         },
@@ -475,6 +479,9 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     yAxis: {
                         type: 'logarithmic',
+                        custom: {
+                            allowNegativeLog: true
+                        },
                         minorTickInterval: 0.1,
                         accessibility: {
                             rangeDescription: 'Range: 0.1 to 1000'
@@ -553,6 +560,9 @@ function createChartKelompok(kode_grafik = null) {
                                     var chart = this;
                                     chart.yAxis[0].update({
                                         type: 'logarithmic',
+                                        custom: {
+                                            allowNegativeLog: true
+                                        },
                                         minorTickInterval: 0.1,
                                         accessibility: {
                                             rangeDescription: 'Range: 0.1 to 1000'
@@ -589,6 +599,9 @@ function createChartKelompok(kode_grafik = null) {
                     },
                     yAxis: {
                         type: 'logarithmic',
+                        custom: {
+                            allowNegativeLog: true
+                        },
                         minorTickInterval: 0.1,
                         accessibility: {
                             rangeDescription: 'Range: 0.1 to 1000'

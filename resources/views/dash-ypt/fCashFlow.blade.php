@@ -3,6 +3,7 @@
 
 <script src="{{ asset('main.js?version=_').time() }}"></script>
 <script type="text/javascript">
+window.scrollTo(0, 0);
 var $filter_kode_lokasi = "";
 var $tahun = parseInt($('#year-filter').text())
 var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
