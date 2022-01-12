@@ -13,6 +13,7 @@ var $filter1_kode = "PRD";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter_kode_lokasi = "";
 var $filter_kode_pp = "";
+var $filter_kode_param = "";
 var $filter_kode_bidang = "";
 var piuSaldoChart = null;
 var piuUmurChart = null;
@@ -361,7 +362,7 @@ function getKomposisiPiutang(param) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
-                        if(point[j].key == $filter_kode_lokasi){
+                        if(point[j].key == $filter_kode_param){
                             var select = 'selected-row';
                             var display = 'unset';
                         }else{
@@ -693,6 +694,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "kode_pp": $filter_kode_pp,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
@@ -702,6 +704,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "sort":sort,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getSaldoPiutang({
@@ -710,6 +713,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "kode_pp": $filter_kode_pp,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getUmurPiutang({
@@ -718,6 +722,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "kode_pp": $filter_kode_pp,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getKomposisiPiutang({
@@ -726,6 +731,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "kode_pp": $filter_kode_pp,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
@@ -1004,6 +1010,7 @@ $('#kode_bidang').change(function(){
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;
@@ -1013,6 +1020,7 @@ $('#kode_bidang').change(function(){
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "sort": sort,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;timeoutID = setTimeout(getKomposisiPiutang.bind(undefined,{
@@ -1020,6 +1028,7 @@ $('#kode_bidang').change(function(){
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;
@@ -1028,6 +1037,7 @@ $('#kode_bidang').change(function(){
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;
@@ -1036,6 +1046,7 @@ $('#kode_bidang').change(function(){
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     }), 500);
     timeoutID = null;
@@ -1105,6 +1116,7 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_pp": $filter_kode_pp,
+            'kode_param': $filter_kode_param,
             "kode_bidang": $filter_kode_bidang
         });
         getSaldoPiutang({
@@ -1113,6 +1125,7 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_pp": $filter_kode_pp,
+            'kode_param': $filter_kode_param,
             "kode_bidang": $filter_kode_bidang
         });
         getUmurPiutang({
@@ -1121,6 +1134,7 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_pp": $filter_kode_pp,
+            'kode_param': $filter_kode_param,
             "kode_bidang": $filter_kode_bidang
         });
         getKomposisiPiutang({
@@ -1129,6 +1143,7 @@ $('#table-top-piu tbody').on('click', 'tr td', function() {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_pp": $filter_kode_pp,
+            'kode_param': $filter_kode_param,
             "kode_bidang": $filter_kode_bidang
         });
     }, 200)
@@ -1150,6 +1165,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
@@ -1159,6 +1175,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "sort":sort,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getSaldoPiutang({
@@ -1166,6 +1183,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getUmurPiutang({
@@ -1173,6 +1191,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     getKomposisiPiutang({
@@ -1180,12 +1199,115 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
         "periode[1]": $month,
         "tahun": $tahun,
         "jenis": $filter1_kode,
+        'kode_param': $filter_kode_param,
         "kode_bidang": $filter_kode_bidang
     });
     showNotification(`Menampilkan dashboard Telkom School`);
     
 })
 // END TABLE TOP EVENT
+
+
+// LEGEND PARAM EVET
+$('.komposisi-legend').on('click', 'div.td-klik', function() {
+    var table = '.komposisi-legend';
+    var tr = $(this).closest('.td-klik')
+    var kode = $(this).closest('.td-klik').find('.td-kode').text()
+    var icon = $(this).closest('.td-klik').find('.check-row')
+    var tmp = $(this).closest('.td-klik').find('.serieName').text().split(':');
+    $(`${table} .check-row`).hide()
+    var param = tmp[0];
+    $filter_kode_param = kode;
+    if($(tr).hasClass('selected-row')) {
+        $filter_kode_param="";
+        $(`${table} div.td-klik`).removeClass('selected-row');
+        getDataBox({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getSaldoPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getTopPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getUmurPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        $('#param-title').text('');
+        showNotification(`Menampilkan dashboard YPT`);
+        return;
+    }else{
+        
+        icon.show();
+        $(`${table} div.td-klik`).removeClass('selected-row')
+        $(tr).addClass('selected-row')
+        getDataBox({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getSaldoPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getTopPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        getUmurPiutang({
+            'periode[0]': '=',
+            'periode[1]': $month,
+            'tahun': $tahun,
+            'jenis': $filter1_kode,
+            'kode_param': $filter_kode_param,
+            'kode_pp': $filter_kode_pp,
+            'kode_bidang': $filter_kode_bidang,
+        });
+        
+        $('#param-title').text(param);
+        showNotification(`Menampilkan dashboard ${param} `);
+    }
+})
+
+// END LEGEND PARAM EVENT
 </script>
 {{-- DEKSTOP --}}
 
@@ -1198,7 +1320,7 @@ $('#table-top-piu tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Piutang  <span id="piutang-title"></span> <span id="bidang-title"></span> <span id="pp-title"></span></h2>
+                    <h2 class="title-dash" id="title-dash">Piutang  <span id="piutang-title"></span> <span id="bidang-title"></span> <span id="pp-title"></span> <span id="param-title"></span></h2>
                 </div>
             </div>
         </div>

@@ -55,6 +55,11 @@ class DashboardPiutangController extends Controller {
                     'kode_pp' => $req['kode_pp']
                 ]);
             }
+            if(isset($req['kode_param'])){
+                $fields = array_merge($fields,[
+                    'kode_param' => $req['kode_param']
+                ]);
+            }
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
@@ -115,6 +120,11 @@ class DashboardPiutangController extends Controller {
             if(isset($req['sort'])){
                 $fields = array_merge($fields,[
                     'sort' => $req['sort']
+                ]);
+            }
+            if(isset($req['kode_param'])){
+                $fields = array_merge($fields,[
+                    'kode_param' => $req['kode_param']
                 ]);
             }
             if(isset($req['kode_bidang'])){
@@ -268,6 +278,11 @@ class DashboardPiutangController extends Controller {
                     'kode_pp' => $req['kode_pp']
                 ]);
             }
+            if(isset($req['kode_param'])){
+                $fields = array_merge($fields,[
+                    'kode_param' => $req['kode_param']
+                ]);
+            }
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
@@ -327,6 +342,12 @@ class DashboardPiutangController extends Controller {
             if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
                     'kode_pp' => $req['kode_pp']
+                ]);
+            }
+            
+            if(isset($req['kode_param'])){
+                $fields = array_merge($fields,[
+                    'kode_param' => $req['kode_param']
                 ]);
             }
             if(isset($req['kode_bidang'])){
