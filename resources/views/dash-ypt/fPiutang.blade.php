@@ -1535,20 +1535,20 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                     <div class="card card-dash border-r-0" style="">
                         <div class="row header-div">
                             <div class="col-12">
-                                <h4 class="header-card">Penghapusan Piutang</h4>
+                                <h4 class="header-card">Beban Cadangan Piutang</h4>
                             </div>
                         </div>
                         <div class="row body-div">
                             <div class="col-12">
-                                <p id="nom-piu-hapus" class="main-nominal mb-2">0 M</p>
+                                <p id="nom-piu-beban" class="main-nominal mb-2">0 M</p>
                             </div>
                             <div class="col-12">
-                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-hapus-yoy">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-beban-yoy">
                                     <tbody>
                                         <tr>
                                             <td class="w-40 pl-0">YoY</td>
-                                            <td id="nom-piu-hapus-lalu" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="yoy-piu-hapus-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td id="nom-piu-beban-lalu" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="yoy-piu-beban-percentage" class="green-text pr-2 w-30 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1592,7 +1592,36 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
         <div class="col-3 col-grid">
             <div class="row mb-1">
                 <div class="col-12 pl-1 pr-0">
-                    <div class="card card-dash border-r-0" id="dash-top-piu" style="height:calc(100vh - 141px);">
+                    <div class="card card-dash border-r-0" style="">
+                        <div class="row header-div">
+                            <div class="col-12">
+                                <h4 class="header-card">Penghapusan Piutang</h4>
+                            </div>
+                        </div>
+                        <div class="row body-div">
+                            <div class="col-12">
+                                <p id="nom-piu-hapus" class="main-nominal mb-2">0 M</p>
+                            </div>
+                            <div class="col-12">
+                                <table class="table table-borderless table-py-2 mb-0" id="table-piutang-hapus-yoy">
+                                    <tbody>
+                                        <tr>
+                                            <td class="w-40 pl-0">YoY</td>
+                                            <td id="nom-piu-hapus-lalu" class="w-30 text-bold text-right px-0">0 M</td>
+                                            <td id="yoy-piu-hapus-percentage" class="green-text pr-2 w-30 text-right">
+                                                0%
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col-12 pl-1 pr-0">
+                    <div class="card card-dash border-r-0" id="dash-top-piu" style="height:calc(100vh - 246px);">
                         <div class="row header-div px-1" id="card-top">
                             <div class="col-5">
                                 <h4 class="header-card">Top Piutang</h4>
@@ -1605,7 +1634,7 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                                 </select>
                             </div>
                         </div>
-                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 180px);position:relative">
+                        <div class="table-responsive mt-2" id="div-top-piu" style="height:calc(100vh - 286px);position:relative">
                             <style>
                                 #table-top-piu th
                                 {
