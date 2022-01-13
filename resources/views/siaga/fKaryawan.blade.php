@@ -611,6 +611,8 @@
                     $('#modal-preview').modal('hide');
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
+                    setHeightForm();
+                    setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
                     window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
