@@ -1772,3 +1772,65 @@ function getArrTW($bulan){
         break;
     }
 }
+
+function isiEdit(value, tipe, kode, view, defaultVal = false) {
+    var hasil = "";
+    switch (tipe) {
+        case "number":
+            hasil =
+                value == "" || value == null || value == undefined ? 0 : value;
+            $(kode).val(hasil);
+            $(kode).prop("readonly", view);
+            break;
+        case "text":
+            hasil =
+                value == "" || value == null || value == undefined
+                    ? "-"
+                    : value;
+            $(kode).val(hasil);
+            $(kode).prop("readonly", view);
+            break;
+        case "cbbl":
+            hasil =
+                value == "" || value == null || value == undefined
+                    ? "-"
+                    : value;
+            $(kode).val(hasil);
+            $(kode).prop("readonly", view);
+            if (view) {
+                $(kode).parent(".input-group").addClass("readonly");
+            } else {
+                $(kode).parent(".input-group").removeClass("readonly");
+            }
+            break;
+        case "select":
+            hasil =
+                value == "" || value == null || value == undefined
+                    ? defaultVal
+                    : value;
+            $(kode)[0].selectize.setValue(hasil);
+            if (view) {
+                $(kode)[0].selectize.lock();
+            } else {
+                $(kode)[0].selectize.unlock();
+            }
+            break;
+        case "date":
+            hasil =
+                value == "" || value == null || value == undefined
+                    ? "01/01/1990"
+                    : value;
+            $(kode).val(hasil);
+            $(kode).prop("readonly", view);
+            break;
+        case "button":
+            if (view) {
+                $(kode).addClass("disabled");
+            } else {
+                $(kode).removeClass("disabled");
+            }
+            $(kode).prop("disabled", view);
+            break;
+    }
+}
+

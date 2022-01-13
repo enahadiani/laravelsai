@@ -540,34 +540,35 @@
                     $('#nik').val(id);
                     $('#id').val(id);
                     var line = result.data[0];
-                    $('#nik2').val(line.nik2);
-                    $('#nama').val(line.nama);						
-                    $('#sts_sdm').val(line.sts_sdm);			
-                    $('#tgl_lahir').val(line.tgl_lahir);
-                    $('#alamat').val(line.alamat);	
-                    console.log(line.sts_sdm);	
+                    
+                    isiEdit(line.nama,"text",'#nama',true);
+                    isiEdit(line.nik2,"text",'#nik2',true);
+                    isiEdit(line.sts_sdm,"text",'#sts_sdm',true);					
+                    isiEdit(line.tgl_lahir,"text",'#tgl_lahir',true);	
+                    isiEdit(line.alamat,"text",'#alamat',true);
                     
                     if(result.data2.length > 0){
                         var line2 = result.data2[0];
-                        $('#nama').val(line2.nama);
-                        $('#alamat').val(line2.alamat);
-                        $('#jab').val(line2.jabatan);
-                        $('#kode_jab').val(line2.kode_jab);
-                        $('#no_telp').val(line2.no_telp);
-                        $('#email').val(line2.email);
-                        $('#npwp').val(line2.npwp);						
-                        $('#bank').val(line2.bank);
-                        $('#cabang').val(line2.cabang);
-                        $('#no_rek').val(line2.no_rek);
-                        $('#nama_rek').val(line2.nama_rek);
-                        $('#flag_aktif').val(line2.status);
-                        $('#band').val(line2.grade);
-                        $('#kota').val(line2.kota);
-                        $('#kode_pos').val(line2.kode_pos);
-                        $('#no_hp').val(line2.no_hp);					
-                        $('#kode_pp').val(line2.kode_pp);						
-                        $('#kode_pp2').val(line2.kode_pp);	
                         
+                        isiEdit(line2.nama,"text",'#nama',true);
+                        isiEdit(line2.alamat,"text",'#alamat',true);
+                        isiEdit(line2.jabatan,"text",'#jab',false);
+                        isiEdit(line2.kode_jab,"text",'#kode_jab',false);
+                        isiEdit(line2.no_telp,"text",'#no_telp',false);
+                        isiEdit(line2.email,"text",'#email',false);
+                        isiEdit(line2.npwp,"text",'#npwp',true);
+                        isiEdit(line2.bank,"text",'#bank',true);
+                        isiEdit(line2.cabang,"text",'#cabang',true);
+                        isiEdit(line2.no_rek,"text",'#no_rek',true);
+                        isiEdit(line2.nama_rek,"text",'#nama_rek',true);
+                        isiEdit(line2.flag_aktif,"select",'#flag_aktif',false);
+                        
+                        isiEdit(line2.grade,"text",'#band',true);
+                        isiEdit(line2.kota,"text",'#kota',true);
+                        isiEdit(line2.kode_pos,"text",'#kode_pos',true);
+                        isiEdit(line2.no_hp,"text",'#no_hp',false);
+                        isiEdit(line2.kode_pp,"cbbl",'#kode_pp',false);
+                        isiEdit(line2.kode_pp,"cbbl",'#kode_pp2',false);	
                         
                         if (line2.flag_aktif == "0") $('#flag_aktif')[0].selectize.setValue(0);
                         else $('#flag_aktif')[0].selectize.setValue(1);
