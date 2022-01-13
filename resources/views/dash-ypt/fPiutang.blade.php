@@ -222,18 +222,18 @@ function getDataBox(param) {
                 $('#yoy-piu-percentage').removeClass('red-text'); 
             }
 
-            $('#nom-piu-hapus').text(`${toMilyar(data.penghapusan_piutang.nominal_tahun_ini,2)}`)
-            $('#nom-piu-hapus-lalu').text(`${toMilyar(data.penghapusan_piutang.nominal_tahun_lalu,2)}`)
-            $('#yoy-piu-hapus-percentage').text(`${number_format(data.penghapusan_piutang.yoy_persentase,2)}%`)
-            if (data.penghapusan_piutang.yoy_persentase >= 0){
-                $('#yoy-piu-hapus-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(data.penghapusan_piutang.yoy_persentase,2)+'%');
-                $('#yoy-piu-hapus-percentage').addClass('green-text');
-                $('#yoy-piu-hapus-percentage').removeClass('red-text'); 
+            $('#nom-piu-cadangan').text(`${toMilyar(data.cadangan_piutang.nominal_tahun_ini,2)}`)
+            $('#nom-piu-cadangan-lalu').text(`${toMilyar(data.cadangan_piutang.nominal_tahun_lalu,2)}`)
+            $('#yoy-piu-cadangan-percentage').text(`${number_format(data.cadangan_piutang.yoy_persentase,2)}%`)
+            if (data.cadangan_piutang.yoy_persentase >= 0){
+                $('#yoy-piu-cadangan-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">&nbsp;'+number_format(data.cadangan_piutang.yoy_persentase,2)+'%');
+                $('#yoy-piu-cadangan-percentage').addClass('green-text');
+                $('#yoy-piu-cadangan-percentage').removeClass('red-text'); 
             }else{
                 
-                $('#yoy-piu-hapus-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(data.penghapusan_piutang.yoy_persentase,2)+'%');
-                $('#yoy-piu-hapus-percentage').addClass('red-text');
-                $('#yoy-piu-hapus-percentage').removeClass('green-text'); 
+                $('#yoy-piu-cadangan-percentage').html('<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">&nbsp;'+number_format(data.cadangan_piutang.yoy_persentase,2)+'%');
+                $('#yoy-piu-cadangan-percentage').addClass('red-text');
+                $('#yoy-piu-cadangan-percentage').removeClass('green-text'); 
             }
 
 
