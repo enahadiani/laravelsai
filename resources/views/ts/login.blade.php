@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>SAKU - Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
+    
+    <meta name="_token" content="{{ csrf_token() }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/iconsmind-s/css/iconsminds.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/font/simple-line-icons/css/simple-line-icons.css') }}" />
 
@@ -13,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
+    <link href="{{ asset('asset_elite/selectize.bootstrap3.css') }}" rel="stylesheet">
     <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
@@ -133,6 +135,7 @@
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/dore.script.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-notify.min.js') }}"></script>
+    <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
         var $theme = "dore.light.redruby.min.css";
@@ -196,6 +199,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-12 col-sm-12">
+                                                <label for="login_pp">Sekolah</label>
+                                                <select name="login_pp" id="login_pp" class="form-control" required>
+                                                    <option value="" disabled>Pilih</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="text-right">
                                     <label style='cursor:pointer'>Lupa password?</label>
                                 </div>
@@ -224,6 +239,41 @@
         </footer>
     </main>
     <script>
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            }
+        });
+
+        $('#login_pp').selectize({
+            selectOnTab: true,
+        });
+
+        $('#username').on('change', function(){
+            var nis = $(this).val();
+            var selectize = $('#login_pp')[0].selectize;
+            
+            $.ajax({
+                url: "{{ url('ts-auth/sekolah') }}",
+                type: 'POST',
+                dataType: 'json',
+                data: {'nis': nis},
+                success: function(data){
+                    selectize.clearOptions();
+                    if(data.pp.length > 0){
+                        for(i=0; i<data.pp.length; i++){
+                            var new_text = data.pp[i].kode_pp+' - '+data.pp[i].nama;
+                            selectize.addOption({value:data.pp[i].kode_pp, text:new_text});
+                            selectize.addItem(new_text);
+                        }
+                        selectize.setValue(data.pp[0].kode_pp);
+                    }else{
+                        alert('Data NIS belum terdaftar di sekolah');
+                    }
+                }
+            });
+        });
       
         function showNotification(placementFrom, placementAlign, type,title,message) {
             $.notify(

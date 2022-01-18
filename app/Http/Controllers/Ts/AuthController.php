@@ -44,7 +44,8 @@
                 $response = $client->request('POST',  config('api.url').'ts/login',[
                     'form_params' => [
                         'nik' => $request->input('nik'),
-                        'password' => $request->input('password')
+                        'password' => $request->input('password'),
+                        'kode_pp' => $request->input('kode_pp')
                     ]
                 ]);
                 if ($response->getStatusCode() == 200) { // 200 OK
@@ -541,6 +542,36 @@
                     $data = $data;
                 }
                 return response()->json($data["success"], 200); 
+    
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res, 'status'=>false], 200);
+            }
+        }
+
+        public function getSekolah(Request $request){
+            $this->validate($request,[
+                'nis' => 'required',
+            ]);
+            try {
+                $client = new Client();
+                $response = $client->request('GET',  config('api.url').'ts/sekolah',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'nis' => $request->nis,
+                    ]
+                ]);
+    
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $data = json_decode($response_data,true);
+                }
+                return response()->json($data, 200); 
     
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

@@ -52,6 +52,7 @@ Route::post('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 Route::get('/finish-trans', 'Ts\DashSiswaController@notificationHandler2');
 Route::get('/callback', 'Ts\BayarMandiriController@updateStatus');
 
+Route::post('/sekolah', 'Ts\AuthController@getSekolah');
 
 
 
