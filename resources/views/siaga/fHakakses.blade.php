@@ -574,7 +574,8 @@
                     var kode_klp_menu = (result.data[0].kode_klp_menu == '' || result.data[0].kode_klp_menu == null || result.data[0].kode_klp_menu == undefined ? '-' : result.data[0].kode_klp_menu);
                     $('#kode_klp_menu').val(kode_klp_menu);
                     $('#kode_menu_saku').val(result.data[0].kode_menu_saku);
-                    $('#menu_mobile').val(result.data[0].menu_mobile);
+                    var menu_mobile = (result.data[0].menu_mobile == '' || result.data[0].menu_mobile == null || result.data[0].menu_mobile == undefined ? '-' : result.data[0].menu_mobile);
+                    $('#menu_mobile').val(menu_mobile);
                     var path_view = (result.data[0].path_view == '' || result.data[0].path_view == null || result.data[0].path_view == undefined ? '-' : result.data[0].path_view);
                     $('#path_view').val(path_view);
                     $('#status')[0].selectize.setValue(result.data[0].status_admin);
