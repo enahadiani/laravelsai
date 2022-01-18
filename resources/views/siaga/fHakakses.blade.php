@@ -506,10 +506,10 @@
                         $('#judul-form').html('Tambah Data Hak Akses');
                         resetForm();
                         msgDialog({
-                            id:kode,
+                            id:result.data.kode,
                             type:'simpan'
                         });
-                        last_add(dataTable,"nik",kode);
+                        last_add(dataTable,"nik",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
                         window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
