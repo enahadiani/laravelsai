@@ -29,3 +29,7 @@ Route::get('sis-mandiri-bill', 'Ts\BayarMandiriController@index');
 Route::get('fetch-mandiri-bill', 'Ts\BayarMandiriController@show');
 Route::post('create-mandiri-bill', 'Ts\BayarMandiriController@store');
 Route::put('cancel-mandiri-bill', 'Ts\BayarMandiriController@update');
+
+Route::get('hash-pass-pp', 'Ts\HashPasswordController@index');
+Route::get('hash-pass-pp-batch', 'Ts\HashPasswordController@getBatch');
+Route::post('hash-pass-pp', 'Ts\HashPasswordController@hashPass');
