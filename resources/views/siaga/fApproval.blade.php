@@ -146,7 +146,7 @@
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12">
+                        <div class="form-group col-md-6 col-sm-12" hidden>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="tanggal">Tanggal Approval</label>
@@ -165,20 +165,7 @@
                                     <input class="form-control" type="text" placeholder="No Urut" id="nu" name="nu" readonly autocomplete="off" required >
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="no_aju">No Pengajuan</label>
-                                    <input class="form-control" type="text" placeholder="No Pengajuan" id="no_aju" name="no_aju" autocomplete="off" required readonly>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" readonly autocomplete="off" required >
-                                </div>
-                            </div>
-                        </div>
-                        
+                        </div>                        
                     </div>
                     <div class="form-row">
                        
@@ -191,6 +178,16 @@
                             </div>
                         </div>
                         <div class="form-group col-md-6 col-sm-12">
+                            <div class="row mb-2">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="no_aju">No Pengajuan</label>
+                                    <input class="form-control" type="text" placeholder="No Pengajuan" id="no_aju" name="no_aju" autocomplete="off" required readonly>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="dokumen">No Dokumen</label>
+                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" readonly autocomplete="off" required >
+                                </div>
+                            </div>
                             <div class="row mb-2">
                                 <div class="col-md-12 col-sm-12">
                                     <label for="deskripsi">Deskripsi Pengajuan</label>
