@@ -309,8 +309,8 @@ function createChartLembaga(kode_grafik = null) {
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    height: 275,
-                    width: 470
+                    height: 400,
+                    width: 500
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -1239,7 +1239,7 @@ document.addEventListener('fullscreenchange', (event) => {
 <section id="detail-dash" class="mt-20 pb-24" style="display: none">
     {{-- ROW 4 --}}
     <div id="dekstop-4" class="row dekstop">
-        <div class="col-8 pl-12 pr-0">
+        <div class="col-6 pl-12 pr-0">
             <div class="card card-dash border-r-0" id="dash-perform">
                 <div class="row header-div" id="card-perform">
                     <div class="col-9">
@@ -1264,7 +1264,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="perfomansi-chart" class="mt-8"></div>
             </div>
         </div>
-        <div class="col-4 pl-1 pr-0">
+        <div class="col-6 pl-1 pr-0">
             <div class="card card-dash  border-r-0" id="dash-lembaga">
                 <div class="row header-div" id="card-lembaga">
                     <div class="col-9">
@@ -1286,8 +1286,14 @@ document.addEventListener('fullscreenchange', (event) => {
                         </ul>
                     </div>
                 </div>
-                <div id="lembaga-chart" class="mt-8"></div>
-                <div class="lembaga-legend"></div>
+                <div class="row">
+                    <div class="col-8">
+                        <div id="lembaga-chart" class="mt-8"></div>
+                    </div>
+                    <div class="col-4">
+                        <div class="lembaga-legend mt-5"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
