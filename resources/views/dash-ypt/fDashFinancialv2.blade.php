@@ -231,7 +231,7 @@ var $height = $(window).height();
                 iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach > 100) {
+            if(or.ach < 100) {
                 $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconOrAch = '&nbsp;'
             } else {
@@ -406,7 +406,7 @@ var $height = $(window).height();
                     }else{
                         classTd6 = "green-text"
                     }
-                    if(row.or_ach > 100) {
+                    if(row.or_ach < 100) {
                         classTd7 = "red-text"
                     }else{
                         classTd7 = "green-text"
@@ -842,7 +842,7 @@ function updateChart(table = false) {
                         }else{
                             classTd6 = "green-text"
                         }
-                        if(row.or_ach > 100) {
+                        if(row.or_ach < 100) {
                             classTd7 = "red-text"
                         }else{
                             classTd7 = "green-text"
@@ -1071,7 +1071,7 @@ function updateBox() {
                 iconOrYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             }
 
-            if(or.ach > 100) {
+            if(or.ach < 100) {
                 $('#or-ach-percentage').removeClass('green-text').addClass('red-text')
                 iconOrAch = '&nbsp;'
             } else {
