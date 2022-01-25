@@ -1,0 +1,274 @@
+html,
+body {
+    overflow: hidden !important;
+}
+/* @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {  */
+    /* HEADER */
+    section.header {
+        background-color: #ffffff;
+        margin-top: -32px;
+        padding: 16px 8px 8px 8px;
+        width: calc(100vw - 155px);
+    }
+    .header .glyph-icon.iconsminds-left.header {
+        font-size: 28px;
+        cursor: pointer;
+        margin-top: 4px;
+    }
+    .header .glyph-icon.iconsminds-left.header::before {
+        font-weight: 700;
+    }
+    .header .title-dash {
+        margin-bottom: 0;
+        margin-top: 12px;
+        font-size: 22px !important;
+        font-weight: bold;
+    }
+    .header .message-div .icon-message {
+        float: right;
+        margin-top: 8px;
+        margin-right: 4px;
+    }
+    .header .select-custom {
+        border: 1px solid #9ca3af;
+        height: 42px;
+        width: 260px;
+        float: right;
+        margin-right: 4px;
+        border-radius: 10px;
+    }
+    .header .select-custom .icon-calendar {
+        margin-top: 6px;
+    }
+    .header .select-custom .icon-drop-arrow {
+        margin-top: 16px;
+    }
+    .header .select-custom .select-text {
+        font-size: 14px !important;
+        margin-top: 10px;
+        margin-bottom: 0 !important;
+        font-weight: 300;
+    }
+    /* END HEADER */
+
+    /* CARD */
+    .card.card-dash {
+        border: 0.2px solid #9ca3af;
+        box-shadow: none;
+        padding: 8px 8px 6px 12px;
+    }
+    .card.card-dash.cursor-pointer {
+        cursor: pointer;
+    }
+    .card.card-dash .header-div .icon-arrows {
+        float: right;
+        margin-top: 4px;
+        margin-right: 4px;
+    }
+    .card.card-dash .header-card {
+        font-size: 16px !important;
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+    .card.card-dash .header-card span {
+        font-size: 16px !important;
+        margin-bottom: 0;
+        font-weight: bold;
+    }
+    .card.card-dash .main-nominal {
+        margin-top: 12px;
+        font-size: 32px !important;
+        color: #000744;
+        font-weight: bold;
+    }
+    .card.card-dash .header-div .icon-menu {
+        float: right;
+        margin-top: 6px;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    .card.card-dash .header-div .icon-menu::before {
+        font-weight: bold;
+    }
+    /* END CARD */
+
+    /* TABLE */
+    .table.table-ml-24 {
+        margin-left: 24px;
+    }
+    .table.table-py-0 tbody tr td {
+        padding: 0 12px;
+    }
+    .table.table-px-0 tbody tr td {
+        padding: 0;
+    }
+    .table.table-pr-16 tbody tr td {
+        padding-left: 0;
+        padding-right: 16px;
+    }
+    .table.table-py-2 tbody tr td {
+        padding: 2px 12px;
+    }
+    .table .glyph-icon.icon-card {
+        display: inline;
+    }
+    .table.table-no-padding thead tr th,
+    .table.table-no-padding tbody tr th,
+    .table.table-no-padding tbody tr td {
+        padding: 0 12px;
+    }
+    .highcharts-data-table table caption {
+        display: none;
+    }
+    /* END TABLE */
+
+    /* CHECKBOX */
+    .container-checkbox-filter {
+        display: block;
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    .container-checkbox-filter .container-checkbox-filter-text {
+        color: #b0b0b0;
+    }
+    /* Hide the browser's default checkbox */
+    .container-checkbox-filter input[type="checkbox"] {
+        position: absolute !important;
+        opacity: 0 !important;
+        cursor: pointer !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+    /* Create a custom checkbox */
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 5px;
+        background-color: #e4e4e4;
+    }
+    /* On mouse-over, add a grey background color */
+    .container-checkbox-filter:hover input[type="checkbox"] ~ .checkmark {
+        background-color: #adadad;
+    }
+    input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
+        color: #000000;
+        font-weight: bold;
+    }
+    /* When the checkbox is checked, add a blue background */
+    .container-checkbox-filter input[type="checkbox"]:checked ~ .checkmark {
+        background-color: #ff0022;
+    }
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    /* Show the checkmark when checked */
+    .container-checkbox-filter input[type="checkbox"]:checked ~ .checkmark:after {
+        display: block;
+    }
+    /* Style the checkmark/indicator */
+    .container-checkbox-filter .checkmark:after {
+        left: 8px;
+        top: 3px;
+        width: 6px;
+        height: 12px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    /* END CHECKBOX */
+
+    /* MENU CHART CUSTOM */
+    .menu-chart-custom {
+        height: 260px;
+        width: 200px;
+        background-color: #ffffff;
+        border: 1px solid rgb(153, 153, 153);
+        border-radius: 4px;
+        position: absolute;
+        z-index: 10;
+        top: 28px;
+        right: 20px;
+    }
+    .menu-chart-custom ul {
+        list-style: none;
+        margin: 0;
+        padding: 5px 0;
+    }
+    .menu-chart-custom ul li {
+        cursor: pointer;
+        padding: 4px 16px;
+    }
+    .menu-chart-custom ul li:hover {
+        background-color: rgb(51, 92, 173);
+        color: #ffffff;
+    }
+    /* END MENU CHART CUSTOM */
+
+    /* FILTER BOX */
+    .header .filter-box {
+        position: absolute;
+        background-color: #ffffff;
+        z-index: 10;
+        top: 80px;
+        right: 16px;
+        min-height: 220px;
+        width: 380px;
+        border-radius: 15px;
+        box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
+    }
+    .header .filter-box .icon-filter {
+        margin-top: 8px;
+    }
+    .header .filter-box .icon-filter::before {
+        font-weight: bold;
+    }
+    .header .filter-box .list-filter-1 ul {
+        list-style: none;
+        margin: 0;
+        padding: 5px 0;
+    }
+    .header .filter-box .list-filter-1 ul li {
+        cursor: pointer;
+        padding: 2px 8px;
+    }
+    .header .filter-box .list-filter-1 ul li:hover {
+        background-color: #f3f4f6;
+    }
+    .header .filter-box .list-filter-1 ul li.selected {
+        background-color: #830000;
+        color: #ffffff;
+    }
+    .header .filter-box .list-filter-2 div:not(.selected) {
+        background-color: #f3f4f6;
+    }
+    .header .filter-box .list-filter-2 .selected {
+        background-color: #830000;
+        color: #ffffff;
+    }
+    /* END FILTER BOX */
+
+    /* BODY CONTENT */
+    .body-content {
+        margin-top: -16px;
+    }
+    /* END BODY CONTENT */
+/* } */
+/* 
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+    section.header {
+        width: calc(100vw - 171px);
+    }
+} */

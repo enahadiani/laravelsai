@@ -1,0 +1,278 @@
+/* HEADER */
+.header .glyph-icon.iconsminds-left.header {
+    font-size: 28px;
+    cursor: pointer;
+    margin-top: 4px;
+}
+.header .glyph-icon.iconsminds-left.header::before {
+    font-weight: 700;
+}
+.header .title-dash {
+    margin-bottom: 0;
+    margin-top: 12px;
+    font-size: 22px !important;
+    font-weight: bold;
+}
+.header .message-div .icon-message {
+    float: right;
+    margin-top: 8px;
+    margin-right: 4px;
+}
+.header .select-custom {
+    border: 1px solid #e5e5e5;
+    height: 42px;
+    width: 100%;
+    float: right;
+    margin-right: 0px;
+    border-radius: 10px;
+}
+.header .select-custom .icon-calendar {
+    margin-top: 6px;
+}
+.header .select-custom .icon-drop-arrow {
+    margin-top: 16px;
+}
+.header .select-custom .select-text {
+    font-size: 14px !important;
+    margin-top: 10px;
+    margin-bottom: 0 !important;
+    font-weight: 300;
+}
+/* END HEADER */
+
+/* CARD */
+.card.card-dash {
+    border: 0.2px solid #e5e7eb;
+    box-shadow: none;
+    padding: 8px 8px 6px 12px;
+}
+.card.card-dash.cursor-pointer {
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-arrows {
+    float: right;
+    margin-top: 4px;
+    margin-right: 4px;
+}
+.card.card-dash .header-card {
+    font-size: 16px !important;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.card.card-dash .header-card span {
+    font-size: 16px !important;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+.card.card-dash .main-nominal {
+    margin-top: 12px;
+    font-size: 32px !important;
+    color: #000744;
+    font-weight: bold;
+}
+.card.card-dash .header-div .icon-menu {
+    float: right;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.card.card-dash .header-div .icon-menu::before {
+    font-weight: bold;
+}
+/* END CARD */
+
+/* TABLE */
+.table.table-ml-24 {
+    margin-left: 24px;
+}
+.table.table-py-0 tbody tr td {
+    padding: 0 12px;
+}
+.table.table-px-0 tbody tr td {
+    padding: 0;
+}
+.table.table-pr-16 tbody tr td {
+    padding-left: 0;
+    padding-right: 16px;
+}
+.table.table-py-2 tbody tr td {
+    padding: 2px 12px;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-no-padding thead tr th,
+.table.table-no-padding tbody tr th,
+.table.table-no-padding tbody tr td {
+    padding: 0 12px;
+}
+.highcharts-data-table table caption {
+    display: none;
+}
+/* END TABLE */
+
+/* CUSTOM CHECKBOX */
+.label-checkbox {
+    display: block;
+    position: relative;
+    padding-left: 32px;
+    padding-top: 4px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default radio button */
+.label-checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+/* Create a custom radio button */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+/* On mouse-over, add a grey background color */
+.label-checkbox:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+/* When the radio button is checked, add a blue background */
+input:checked ~ .text {
+    font-weight: bold;
+}
+.label-checkbox input:checked ~ .checkmark {
+    background-color: #830000;
+}
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the indicator (dot/circle) when checked */
+.label-checkbox input:checked ~ .checkmark:after {
+    display: block;
+}
+/* END CUSTOM CHECKBOX */
+
+
+/* MENU CHART CUSTOM */
+.menu-chart-custom {
+    height: 260px;
+    width: 200px;
+    background-color: #ffffff;
+    border: 1px solid rgb(153, 153, 153);
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    top: 28px;
+    right: 20px;
+}
+.menu-chart-custom ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.menu-chart-custom ul li {
+    cursor: pointer;
+    padding: 4px 16px;
+}
+.menu-chart-custom ul li:hover {
+    background-color: rgb(51, 92, 173);
+    color: #ffffff;
+}
+/* END MENU CHART CUSTOM */
+
+/* FILTER BOX */
+.header .filter-box {
+    position: absolute;
+    background-color: #ffffff;
+    z-index: 10;
+    top: 80px;
+    right: 16px;
+    min-height: 220px;
+    width: 580px;
+    border-radius: 15px;
+    box-shadow: 0 1px 15px rgb(0 0 0 / 4%), 0 1px 6px rgb(0 0 0 / 4%);
+}
+.header .filter-box .icon-filter {
+    margin-top: 8px;
+}
+.header .filter-box .icon-filter::before {
+    font-weight: bold;
+}
+.header .filter-box .list-filter-1 ul {
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+.header .filter-box .list-filter-1 ul li {
+    cursor: pointer;
+    color: #5A5A5A;
+}
+.header .filter-box .list-filter-1 ul li:hover {
+    background-color: #ffffff;
+}
+.header .filter-box .list-filter-1 ul li.selected {
+    color: #B91C1C;
+    font-weight: 700;
+}
+.header .filter-box .list-filter-2 div:not(.selected) span {
+    background-color: #ffffff;
+}
+.header .filter-box .list-filter-2 .selected span {
+    border: 2px solid #B91C1C;
+    color: #B91C1C;
+    font-weight: bold;
+}
+#year-filter
+{
+    font-size: 0.85rem !important;
+}
+.filter-box-tahun
+{
+    padding-top: 0.5rem;
+}
+#table-cf-inflow td, 
+#table-cf-outflow td,
+#table-cf-balance td,
+#table-cf-closing td
+{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+/* END FILTER BOX */
+
+#table-selisih-cf.table tbody tr {
+    cursor: pointer;
+}
+#table-selisih-cf.table tbody tr:hover {
+    background-color: #e5e7eb;
+}
+#table-selisih-cf.table tbody tr td:first-child {
+    cursor: pointer;
+}
+.table tbody tr td .check-row {
+    display: inline;
+    margin-right: 4px;
+}
+.table tbody tr td .check-row::before {
+    background-color: #830000;
+    color: #ffffff;
+    border-radius: 50%;
+}
+.table .glyph-icon.icon-card {
+    display: inline;
+}
+.table.table-py-0 tbody tr td {
+    padding-top: 12px;
+    padding-bottom: 11px;
+}
