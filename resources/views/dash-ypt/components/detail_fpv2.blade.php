@@ -202,7 +202,23 @@ function createChartPerform(kode_grafik = null) {
                     data: data.realisasi,
                     pointPadding: 0.6,
                     pointPlacement: 0,
-                    pointWidth: 30
+                    pointWidth: 30,
+                    dataLabels: {
+                        enabled: true,
+                        overflow: 'justify',
+                        allowOverlap:true,
+                        crop: false,
+                        useHTML: true,
+                        formatter: function () {
+                            // return toMilyar(this.y,2);
+                            return $('<div/>').css({
+                                // 'color' : 'white', // work
+                                'padding': '0 3px',
+                                'font-size': '12px',
+                                // 'backgroundColor' : this.point.color  // just white in my case
+                            }).text(number_format(this.point.y,1)+'%')[0].outerHTML;
+                        }
+                    }
                 }]
             });
             // performChart = Highcharts.chart('perfomansi-chart', {
@@ -364,7 +380,7 @@ function createChartLembaga(kode_grafik = null) {
                     series: {
                         dataLabels: {
                             style: {
-                                fontSize: '9px'
+                                fontSize: '12px'
                             }
                         }
                     }
