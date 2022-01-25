@@ -1290,8 +1290,8 @@ document.addEventListener('fullscreenchange', (event) => {
                     <div class="col-8">
                         <div id="lembaga-chart" class="mt-8"></div>
                     </div>
-                    <div class="col-4">
-                        <div class="lembaga-legend mt-5"></div>
+                    <div class="col-4 my-auto">
+                        <div class="lembaga-legend"></div>
                     </div>
                 </div>
             </div>
