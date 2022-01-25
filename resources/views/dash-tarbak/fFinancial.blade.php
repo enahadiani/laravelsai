@@ -343,7 +343,7 @@ $(window).click(function() {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                    html = `<span style="color: #000744;">${key} : -${y}</span>`;
                                 } else {
                                     html = `<span style="color: #000000;">${key} : ${y}</span>`;
                                 }
@@ -374,7 +374,7 @@ $(window).click(function() {
                         var color = point[j].color;
                         var negative = point[j].negative;
                         if(color == '#7cb5ec') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
 
                         if(negative) {
@@ -440,7 +440,7 @@ $(window).click(function() {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                    html = `<span style="color: #000744;">${key} : -${y}</span>`;
                                 } else {
                                     html = `<span style="color: #000000;">${key} : ${y}</span>`;
                                 }
@@ -471,7 +471,7 @@ $(window).click(function() {
                         var color = point[j].color;
                         var negative = point[j].negative;
                         if(color == '#7cb5ec') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
 
                         if(negative) {
@@ -537,7 +537,7 @@ $(window).click(function() {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">${key} : -${y}</span>`;
+                                    html = `<span style="color: #000744;">${key} : -${y}</span>`;
                                 } else {
                                     html = `<span style="color: #000000;">${key} : ${y}</span>`;
                                 }
@@ -568,7 +568,7 @@ $(window).click(function() {
                         var color = point[j].color;
                         var negative = point[j].negative;
                         if(color == '#7cb5ec') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
 
                         if(negative) {

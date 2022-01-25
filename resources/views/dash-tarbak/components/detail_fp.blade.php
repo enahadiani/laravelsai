@@ -334,7 +334,7 @@ function createChartLembaga(kode_grafik = null) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         if(color == '#434348') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
                     }
                 }
@@ -477,7 +477,7 @@ function createChartAkun(kode_grafik = null) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         if(color == '#434348') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
                     }
                 }

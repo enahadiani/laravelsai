@@ -237,7 +237,7 @@ document.addEventListener('fullscreenchange', (event) => {
                     align: 'left',
                     formatter: function () { 
                         var color = '#000000'
-                        if(this.point.color == '#830000') {
+                        if(this.point.color == '#000744') {
                             color = '#ffffff'
                         } else {
                             color = '#000000'
@@ -509,7 +509,7 @@ $('#export-lembaga.menu-chart-custom ul li').click(function(event) {
     }
 })
 
-var colors = ['#EEBE00', '#830000'];
+var colors = ['#EEBE00', '#000744'];
 var piutangChart = Highcharts.chart('komposisi-piutang', {
     chart: {
         plotBackgroundColor: null,
@@ -552,7 +552,7 @@ var piutangChart = Highcharts.chart('komposisi-piutang', {
                 align: 'left',
                 formatter: function () { 
                     var color = '#000000'
-                    if(this.point.color == '#830000') {
+                    if(this.point.color == '#000744') {
                         color = '#ffffff'
                     } else {
                         color = '#000000'
@@ -621,7 +621,7 @@ $('#export-piutang.menu-chart-custom ul li').click(function(event) {
                         align: 'left',
                         formatter: function () { 
                             var color = '#000000'
-                            if(this.point.color == '#830000') {
+                            if(this.point.color == '#000744') {
                                 color = '#ffffff'
                             } else {
                                 color = '#000000'
@@ -763,7 +763,7 @@ var soakhirChart = Highcharts.chart('saldo-akhir', {
         {
             name: 'Nilai',
             data: [4, 3, 7, 6, 5, 5, 6, 10, 9, 5, 3, 2],
-            color: '#830000',
+            color: '#000744',
         },
     ],
 });

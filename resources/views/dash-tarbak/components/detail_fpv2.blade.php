@@ -367,7 +367,7 @@ function createChartLembaga(kode_grafik = null) {
                                 var html = null;
 
                                 if(negative) {
-                                    html = `<span style="color: #830000;">-${number_format(y,2)}%</span>`;
+                                    html = `<span style="color: #000744;">-${number_format(y,2)}%</span>`;
                                 } else {
                                     html = `<span style="color: #000000;">${number_format(y,2)}%</span>`;
                                 }
@@ -404,12 +404,12 @@ function createChartLembaga(kode_grafik = null) {
                             point[j].color = 'url(#custom-pattern)'  
                             point[j].connector.element.style.stroke = 'black'
                             point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#830000">'+toMilyar(point[j].nilai,2)+'</div></div></div>';                  
+                            html+= '<div class="item"><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold" style="color:#000744">'+toMilyar(point[j].nilai,2)+'</div></div></div>';                  
                         }else{
                             if(color == '#7cb5ec') {
-                                point[j].graphic.element.style.fill = '#830000'
-                                point[j].connector.element.style.stroke = '#830000'
-                                html+= '<div class="item"><div class="symbol" style="background-color:#830000"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].nilai,2)+'</div></div></div>';
+                                point[j].graphic.element.style.fill = '#000744'
+                                point[j].connector.element.style.stroke = '#000744'
+                                html+= '<div class="item"><div class="symbol" style="background-color:#000744"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].nilai,2)+'</div></div></div>';
                             }else{
 
                                 html+= '<div class="item"><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-4"> ' + point[j].name.substring(0,10) + ' : </div><div class="col-8 text-right bold">'+toMilyar(point[j].nilai,2)+'</div></div></div>';
@@ -787,7 +787,7 @@ function createChartAkun(kode_grafik = null) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         if(color == '#434348') {
-                            point[j].graphic.element.style.fill = '#830000'
+                            point[j].graphic.element.style.fill = '#000744'
                         }
                     }
                 }

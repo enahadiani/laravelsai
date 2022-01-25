@@ -273,7 +273,7 @@
                         {
                             name: 'Nilai',
                             data: result.series,
-                            color: '#830000'
+                            color: '#000744'
                         },
                     ],
                 });

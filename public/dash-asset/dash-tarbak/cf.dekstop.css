@@ -149,7 +149,7 @@ input:checked ~ .text {
     font-weight: bold;
 }
 .label-checkbox input:checked ~ .checkmark {
-    background-color: #830000;
+    background-color: #000744;
 }
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .checkmark:after {
@@ -265,7 +265,7 @@ input:checked ~ .text {
     margin-right: 4px;
 }
 .table tbody tr td .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }

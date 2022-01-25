@@ -118,7 +118,7 @@
     font-weight: 700;
 }
 .red-text-700 {
-    color: #830000;
+    color: #000744;
     font-weight: 700;
 }
 .grey-text {
@@ -155,7 +155,7 @@
     width: 25px;
 }
 .bg-red {
-    background-color: #830000 !important;
+    background-color: #000744 !important;
 }
 .bg-red-100 {
     background-color: #ee0000 !important;

@@ -120,7 +120,7 @@ section.header {
     padding-left: 0;
 }
 .table.table-th-red thead tr th {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border: none !important;
 }
@@ -145,7 +145,7 @@ section.header {
     margin-right: 4px;
 }
 .table tbody tr td .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }
@@ -229,14 +229,14 @@ section.header {
     background-color: #f3f4f6;
 }
 .header .filter-box .list-filter-1 ul li.selected {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
 }
 .header .filter-box .list-filter-2 div:not(.selected) {
     background-color: #f3f4f6;
 }
 .header .filter-box .list-filter-2 .selected {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
 }
 /* END FILTER BOX */
@@ -255,7 +255,7 @@ section.header {
 .window-drag .header-window {
     padding: 4px 8px;
     z-index: 10;
-    background-color: #830000;
+    background-color: #000744;
 }
 .window-drag .header-window .window-title {
     color: #ffffff;
@@ -282,7 +282,7 @@ section.header {
 #first .tour-arrow,
 #pesanInfo .titleContainer,
 #pesanInfo .tour-arrow {
-    background-color: #830000;
+    background-color: #000744;
 }
 #first .titleContainer h3,
 #pesanInfo .titleContainer h3 {

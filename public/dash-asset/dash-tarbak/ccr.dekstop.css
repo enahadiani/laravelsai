@@ -291,7 +291,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     margin-right: 4px;
 }
 .table tbody tr td .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }
@@ -350,7 +350,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     margin-right: 4px;
 }
 .table tbody tr td .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }
@@ -383,7 +383,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     margin-right: 4px;
 }
 .lembaga-legend .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }
@@ -395,7 +395,7 @@ input[type="checkbox"]:checked ~ .container-checkbox-filter-text {
     margin-right: 4px;
 }
 .komposisi-legend .check-row::before {
-    background-color: #830000;
+    background-color: #000744;
     color: #ffffff;
     border-radius: 50%;
 }

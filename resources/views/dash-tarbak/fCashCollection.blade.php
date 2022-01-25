@@ -911,7 +911,7 @@ $('.card-klik').click(function(e){
     $('.ccr-trend-header').html($ccr_trend_header);
 })
 
-var colors = ['#EEBE00', '#830000'];
+var colors = ['#EEBE00', '#000744'];
 
 $('#export-soakhir.menu-chart-custom ul li').click(function(event) {
     event.stopPropagation()

@@ -248,14 +248,14 @@ body {
         background-color: #f3f4f6;
     }
     .header .filter-box .list-filter-1 ul li.selected {
-        background-color: #830000;
+        background-color: #000744;
         color: #ffffff;
     }
     .header .filter-box .list-filter-2 div:not(.selected) {
         background-color: #f3f4f6;
     }
     .header .filter-box .list-filter-2 .selected {
-        background-color: #830000;
+        background-color: #000744;
         color: #ffffff;
     }
     /* END FILTER BOX */
