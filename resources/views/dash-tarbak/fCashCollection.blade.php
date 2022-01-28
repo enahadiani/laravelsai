@@ -4,14 +4,15 @@
 
 <script type="text/javascript">
 window.scrollTo(0, 0);
+var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
 var $height = $(window).height();
 var $tahun = parseInt($('#year-filter').text())
-var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
+var $tahun = $periode_aktif.substr(0,4);
 var $filter1 = "Periode";
-var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
-var $month = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2 = namaPeriodeBulan($periode_aktif);
+var $month = $periode_aktif.substr(4,2);
 var $filter1_kode = "PRD";
-var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2_kode = $periode_aktif.substr(4,2);
 var $filter_lokasi = "";
 var $filter_kode_pp = "";
 var $filter_kode_bidang = "";
@@ -848,7 +849,6 @@ $('#kode_bidang').change(function(){
     $filter_kode_bidang = $(this).val();
     var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "")
     $('#bidang-title').text(bidang);
-    $('#pp-title').text('Telkom School');
     var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
     $filter_kode_pp = "";
     timeoutID = null;
@@ -1167,7 +1167,6 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
     var bidang = ($('#kode_bidang option:selected').text() != "Semua Bidang" ? $('#kode_bidang option:selected').text() : "");
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#pp-title').text('Telkom School')
     $('#bidang-title').text(bidang)
     getDataBox({
         "periode[0]": "=", 
@@ -1199,7 +1198,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
         "jenis": $filter1_kode,
         "kode_bidang": $filter_kode_bidang
     });
-    showNotification(`Menampilkan dashboard Telkom School`);
+    showNotification(`Menampilkan dashboard Tarbak`);
     
 })
 // END TABLE TOP EVENT
@@ -1215,7 +1214,7 @@ $('#table-top-ccr tbody').on('click', 'tr.selected-row', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Cash Collection <span class="pp-title">Telkom School</span><span class="bidang-title"></span> </h2>
+                    <h2 class="title-dash" id="title-dash">Cash Collection <span class="pp-title"></span><span class="bidang-title"></span> </h2>
                 </div>
             </div>
         </div>

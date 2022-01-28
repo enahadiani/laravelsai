@@ -10,13 +10,15 @@
 <script type="text/javascript">
 window.scrollTo(0, 0);
 var $height = $(window).height();
+var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
+var $height = $(window).height();
 var $tahun = parseInt($('#year-filter').text())
-var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
+var $tahun = $periode_aktif.substr(0,4);
 var $filter1 = "Periode";
-var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
-var $month = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2 = namaPeriodeBulan($periode_aktif);
+var $month = $periode_aktif.substr(4,2);
 var $filter1_kode = "PRD";
-var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2_kode = $periode_aktif.substr(4,2);
 var $filter_kode_lokasi = "";
 var $filter_kode_neraca = "";
 var nilaiAsetChart = null;
