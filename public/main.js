@@ -606,8 +606,13 @@ function clearInputFilter(par) {
 }
 
 function toMilyar(x,decimal=0) {
-    var nil = x / 1000000000;
-    return number_format(nil,decimal) + " M";
+    if(x.toString().length <= 9){
+        var nil = x / 1000000;
+        return number_format(nil,decimal) + " Jt";
+    }else{
+        var nil = x / 1000000000;
+        return number_format(nil,decimal) + " M";
+    }
 }
 
 function toJuta(x,decimal=0) {
