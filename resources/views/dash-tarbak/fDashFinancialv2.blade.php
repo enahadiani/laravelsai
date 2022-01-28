@@ -1222,8 +1222,8 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#lembaga-title').text('YPT')
-    showNotification(`Menampilkan dashboard lembaga YPT`);
+    $('#lembaga-title').text('Tarbak')
+    showNotification(`Menampilkan dashboard `);
     updateAllChart();
 })
 // END TABLE LEMBAGA EVENT
@@ -1738,7 +1738,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title">YPT</span></h2>
+                    <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title"></span></h2>
                 </div>
             </div>
         </div>
