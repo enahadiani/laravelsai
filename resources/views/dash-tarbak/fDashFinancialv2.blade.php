@@ -1180,7 +1180,7 @@ function setHeightPage() {
 // EVENT CARD DASH
 // KEMBALI
 $('#back').click(function() {
-    $('#title-dash').text('Financial Performance YPT')
+    $('#title-dash').text('Financial Performance')
     $('#back-div').addClass('hidden')
     $('#dash-title-div').removeClass('pl-0')
     $('#dash-title-div').addClass('pl-8')
