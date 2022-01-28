@@ -53,9 +53,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             
@@ -113,9 +113,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -173,9 +173,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -233,9 +233,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -293,9 +293,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -353,9 +353,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             $client = new Client();
@@ -412,9 +412,9 @@ class DashboardFPController extends Controller
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -473,9 +473,9 @@ class DashboardFPController extends Controller
                 'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -534,9 +534,9 @@ class DashboardFPController extends Controller
                 'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -595,9 +595,9 @@ class DashboardFPController extends Controller
                 'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -656,9 +656,9 @@ class DashboardFPController extends Controller
                 'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             $client = new Client();
@@ -716,9 +716,9 @@ class DashboardFPController extends Controller
                 'jenis' => $req['jenis'],
                 'kode_grafik' => $req['kode_grafik']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 

@@ -45,9 +45,9 @@ class DashboardFPV2Controller extends Controller {
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             $client = new Client();
@@ -104,9 +104,9 @@ class DashboardFPV2Controller extends Controller {
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -164,9 +164,9 @@ class DashboardFPV2Controller extends Controller {
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -224,9 +224,9 @@ class DashboardFPV2Controller extends Controller {
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
 
@@ -284,9 +284,9 @@ class DashboardFPV2Controller extends Controller {
                 'periode' => $req['periode'],
                 'jenis' => $req['jenis']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             

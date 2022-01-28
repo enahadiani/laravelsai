@@ -6,14 +6,15 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
-var $filter_lokasi = "";
-var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
+var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
+var $filter_pp = "";
+var $tahun = $periode_aktif.substr(0,4);
 var $filter1 = "Periode";
-var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
-var $month = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2 = namaPeriodeBulan($periode_aktif);
+var $month = $periode_aktif.substr(4,2);
 var $judulChart = null;
 var $filter1_kode = "YTM";
-var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2_kode = $periode_aktif.substr(4,2);
 var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
@@ -419,7 +420,7 @@ var $height = $(window).height();
 
                     html += `<tr>
                         <td>
-                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <p class="kode hidden">${row.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
@@ -641,7 +642,7 @@ function updateChart(table = false) {
     //         "periode[1]": $filter2_kode,
     //         "tahun": $tahun,
     //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
+    //         "kode_pp": $filter_pp
     //     },
     //     dataType: 'json',
     //     async: true,
@@ -669,7 +670,7 @@ function updateChart(table = false) {
     //         "periode[1]": $filter2_kode,
     //         "tahun": $tahun,
     //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
+    //         "kode_pp": $filter_pp
     //     },
     //     dataType: 'json',
     //     async: true,
@@ -697,7 +698,7 @@ function updateChart(table = false) {
     //         "periode[1]": $filter2_kode,
     //         "tahun": $tahun,
     //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
+    //         "kode_pp": $filter_pp
     //     },
     //     dataType: 'json',
     //     async: true,
@@ -725,7 +726,7 @@ function updateChart(table = false) {
     //         "periode[1]": $filter2_kode,
     //         "tahun": $tahun,
     //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
+    //         "kode_pp": $filter_pp
     //     },
     //     dataType: 'json',
     //     async: true,
@@ -753,7 +754,7 @@ function updateChart(table = false) {
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_pp": $filter_pp
         },
         dataType: 'json',
         async: true,
@@ -852,7 +853,7 @@ function updateChart(table = false) {
                         }else{
                             classTd8 = "green-text"
                         }
-                        if(row.kode_lokasi == $filter_lokasi){
+                        if(row.kode_pp == $filter_pp){
                             var select = 'class="selected-row"';
                             var display = 'unset';
                         }else{
@@ -861,7 +862,7 @@ function updateChart(table = false) {
                         }
                         html += `<tr ${select}>
                             <td>
-                                <p class="kode hidden">${row.kode_lokasi}</p>
+                                <p class="kode hidden">${row.kode_pp}</p>
                                 <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
@@ -892,7 +893,7 @@ function updateBox() {
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_pp": $filter_pp
         },
         dataType: 'json',
         async: true,
@@ -1199,7 +1200,7 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
     var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
-    $filter_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    $filter_pp = $(this).closest('tr').find('td:first').find('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -1219,7 +1220,7 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
 
 $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_lokasi="";
+    $filter_pp="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     $('#lembaga-title').text('Tarbak')
