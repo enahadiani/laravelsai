@@ -52,9 +52,9 @@ class DashboardInvesController extends Controller {
                 'periode' => $req['periode']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_neraca'])){
@@ -117,9 +117,9 @@ class DashboardInvesController extends Controller {
                 'periode' => $req['periode']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_neraca'])){
@@ -181,9 +181,9 @@ class DashboardInvesController extends Controller {
                 'periode' => $req['periode']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_neraca'])){
@@ -245,9 +245,9 @@ class DashboardInvesController extends Controller {
                 'periode' => $req['periode']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_pp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_neraca'])){

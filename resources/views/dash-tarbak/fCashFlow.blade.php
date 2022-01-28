@@ -5,7 +5,7 @@
 <script type="text/javascript">
 window.scrollTo(0, 0);
 var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
-var $filter_kode_lokasi = "";
+var $filter_kode_pp = "";
 var $tahun = parseInt($('#year-filter').text())
 var $tahun = $periode_aktif.substr(0,4);
 var $filter1 = "Periode";
@@ -501,7 +501,7 @@ $('.icon-menu').click(function(event) {
                     // }
                     html+=`
                     <tr ${select}>
-                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                        <td ><p class="kode hidden">${line.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-lokasi">${line.skode}</span></td>
                         <td class='text-right'>${toMilyar(line.so_akhir,1)}</td>
@@ -579,7 +579,7 @@ function getDataBox(){
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_kode_lokasi
+            "kode_pp": $filter_kode_pp
         },
         dataType: 'json',
         async: true,
@@ -790,7 +790,7 @@ function getCFChart() {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "kode_lokasi": $filter_kode_lokasi
+            "kode_pp": $filter_kode_pp
         },
         dataType: 'json',
         async: true,
@@ -892,7 +892,7 @@ function getSoAkhir(){
                     // }
                     html+=`
                     <tr ${select}>
-                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                        <td ><p class="kode hidden">${line.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-lokasi">${line.skode}</span></td>
                         <td class='text-right'>${toMilyar(line.so_akhir,1)}</td>
@@ -915,7 +915,7 @@ $('#table-selisih-cf tbody').on('click', 'tr td', function() {
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
     var lokasi = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
-    $filter_kode_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    $filter_kode_pp = $(this).closest('tr').find('td:first').find('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -934,7 +934,7 @@ $('#table-selisih-cf tbody').on('click', 'tr td', function() {
 
 $('#table-selisih-cf tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_kode_lokasi="";
+    $filter_kode_pp="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     $('#lokasi-title').text('YPT')

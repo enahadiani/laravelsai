@@ -19,7 +19,7 @@ var $filter2 = namaPeriodeBulan($periode_aktif);
 var $month = $periode_aktif.substr(4,2);
 var $filter1_kode = "PRD";
 var $filter2_kode = $periode_aktif.substr(4,2);
-var $filter_kode_lokasi = "";
+var $filter_kode_pp = "";
 var $filter_kode_neraca = "";
 var nilaiAsetChart = null;
 var aggAsetChart = null;
@@ -383,7 +383,7 @@ function getAggLembaga(param) {
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
-                        if(point[j].key == $filter_kode_lokasi){
+                        if(point[j].key == $filter_kode_pp){
                             var select = 'selected-row';
                             var display = 'unset';
                         }else{
@@ -423,9 +423,9 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
     var tmp = $(this).closest('.td-klik').find('.serieName').text().split(':');
     $(`${table} .check-row`).hide()
     var lembaga = tmp[0];
-    $filter_kode_lokasi = kode;
+    $filter_kode_pp = kode;
     if($(tr).hasClass('selected-row')) {
-        $filter_kode_lokasi="";
+        $filter_kode_pp="";
         $(`${table} div.td-klik`).removeClass('selected-row');
         getDataBox({
             'periode[0]': '=',
@@ -462,7 +462,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'tahun': $tahun,
             'jenis': $filter1_kode,
             'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
+            'kode_pp': $filter_kode_pp
         });
         getNilaiAset({
             'periode[0]': '=',
@@ -470,7 +470,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'tahun': $tahun,
             'jenis': $filter1_kode,
             'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
+            'kode_pp': $filter_kode_pp
         });
         getSerapAgg({
             'periode[0]': '=',
@@ -478,7 +478,7 @@ $('.lembaga-legend').on('click', 'div.td-klik', function() {
             'tahun': $tahun,
             'jenis': $filter1_kode,
             'kode_neraca': $filter_kode_neraca,
-            'kode_lokasi': $filter_kode_lokasi
+            'kode_pp': $filter_kode_pp
         });
         
         $('#lokasi-title').text(lembaga);
@@ -620,7 +620,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         'tahun': $tahun,
         'jenis': $filter1_kode,
         'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+        'kode_pp': $filter_kode_pp
     });
     getNilaiAset({
         'periode[0]': '=',
@@ -628,7 +628,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         'tahun': $tahun,
         'jenis': $filter1_kode,
         'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+        'kode_pp': $filter_kode_pp
     });
     getAggLembaga({
         'periode[0]': '=',
@@ -636,7 +636,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         'tahun': $tahun,
         'jenis': $filter1_kode,
         'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+        'kode_pp': $filter_kode_pp
     });
     getSerapAgg({
         'periode[0]': '=',
@@ -644,7 +644,7 @@ $('#list-filter-2').on('click', 'div', function(event) {
         'tahun': $tahun,
         'jenis': $filter1_kode,
         'kode_neraca': $filter_kode_neraca,
-        'kode_lokasi': $filter_kode_lokasi
+        'kode_pp': $filter_kode_pp
     });
     showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
 })
@@ -850,7 +850,7 @@ $('#table-serap-agg tbody').on('click', 'tr td', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_pp' : $filter_kode_pp,
             'kode_neraca' : $filter_kode_neraca
         });
         getNilaiAset({
@@ -858,7 +858,7 @@ $('#table-serap-agg tbody').on('click', 'tr td', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_pp' : $filter_kode_pp,
             'kode_neraca' : $filter_kode_neraca
         });
         getAggLembaga({
@@ -866,7 +866,7 @@ $('#table-serap-agg tbody').on('click', 'tr td', function() {
             'periode[1]': $month,
             'tahun': $tahun,
             'jenis': $filter1_kode,
-            'kode_lokasi' : $filter_kode_lokasi,
+            'kode_pp' : $filter_kode_pp,
             'kode_neraca' : $filter_kode_neraca
         });
     }, 200)
@@ -885,21 +885,21 @@ $('#table-serap-agg tbody').on('click', 'tr.selected-row', function() {
         'periode[1]': $month,
         'tahun': $tahun,
         'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+        'kode_pp' : $filter_kode_pp
     });
     getNilaiAset({
         'periode[0]': '=',
         'periode[1]': $month,
         'tahun': $tahun,
         'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+        'kode_pp' : $filter_kode_pp
     });
     getAggLembaga({
         'periode[0]': '=',
         'periode[1]': $month,
         'tahun': $tahun,
         'jenis': $filter1_kode,
-        'kode_lokasi' : $filter_kode_lokasi
+        'kode_pp' : $filter_kode_pp
     });
     showNotification(`Menampilkan dashboard YPT`);
     
