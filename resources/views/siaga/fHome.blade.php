@@ -1,4 +1,4 @@
-<link href="{{ asset('dash-siaga.css') }}" rel="stylesheet">
+<link href="{{ asset('dash-siaga.css?version=_').time() }}"  rel="stylesheet">
 <div id='dash_page_home' class="mt-120">
     <div class="row header-dash mb-2">
         <div class="col-md-8 px-0">

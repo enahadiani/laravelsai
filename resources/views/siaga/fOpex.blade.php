@@ -1,4 +1,4 @@
-<link href="{{ asset('dash-siaga.css') }}" rel="stylesheet">
+<link href="{{ asset('dash-siaga.css?version=_').time() }}"  rel="stylesheet">
 <style>
     .table td{
         padding: 4px !important;
