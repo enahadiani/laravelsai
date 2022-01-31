@@ -171,18 +171,16 @@ class AuthController extends Controller
                             Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                         }
                     }
-                    $success['message'] = 'Login Berhasil';
-                    $success['status'] = true;
+                    
+                    return redirect('siaga-auth/');
                 }else{
-                    $success['message'] = 'Password atau NIK, Salah !';
-                    $success['status'] = false;
+                    return redirect('siaga-auth/login')->with('alert','Password atau NIK, Salah !');
                 }
             
             }else if($response->getStatusCode() == 401){
-                $success['message'] = 'Password atau NIK, Salah !';
-                $success['status'] = false;
+                return redirect('siaga-auth/login')->with('alert','Password atau NIK, Salah !');
             }
-            return response()->json($success, 200);
+
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
@@ -191,9 +189,7 @@ class AuthController extends Controller
             }else{
                 $message = $res["message"];
             }
-            $success['message'] = $message;
-            $success['status'] = false;
-            return response()->json($success, 200);
+            return redirect('siaga-auth/login')->with('alert',$message);
         }
         
     }
