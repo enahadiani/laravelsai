@@ -4,7 +4,7 @@
         padding: 4px !important;
     }
 </style>
-<div id='dash_page_financial'>
+<div id='dash_page_financial' class="mt-120">
     <div class="row header-dash mb-2">
         <div class="col-md-8 px-0">
             <h6 class='font-weight-light' style='color: #000000; font-size:22px !important;'>Dashboard Operating Expense</h6>
