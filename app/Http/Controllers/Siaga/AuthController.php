@@ -114,6 +114,90 @@ class AuthController extends Controller
         
     }
 
+    public function autoLogin(Request $request){
+
+        try {
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'siaga-auth/login',[
+                'form_params' => [
+                    'nik' => $request->input('nik'),
+                    'password' => $request->input('password')
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+                if($data["message"] == "success"){
+                    Session::put('token',$data["token"]);
+                    Session::put('login',TRUE);
+                    $response2 = $client->request('GET',  config('api.url').'siaga-auth/profile',[
+                        'headers' => [
+                            'Authorization' => 'Bearer '.$data["token"],
+                            'Accept'     => 'application/json',
+                        ]
+                    ]);
+            
+                    if ($response2->getStatusCode() == 200) { // 200 OK
+                        $response_data2 = $response2->getBody()->getContents();
+                        
+                        $data2 = json_decode($response_data2,true);
+                        $res = $data2['user'];
+                        if(count($res) > 0){
+                            Session::put('isLoggedIn',true);
+                            Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
+                            Session::put('userLog',$res[0]["nik"]);
+                            Session::put('namaUser',$res[0]["nama"]);
+                            Session::put('statusAdmin',$res[0]["status_admin"]);
+                            Session::put('klpAkses',$res[0]["klp_akses"]);
+                            Session::put('lokasi',$res[0]["kode_lokasi"]);
+                            Session::put('namaLokasi',$res[0]["nmlok"]);
+                            Session::put('kodePP',$res[0]["kode_pp"]);
+                            Session::put('namaPP',$res[0]["nama_pp"]);
+                            Session::put('kode_kota',$res[0]["kode_kota"]);
+                            Session::put('jabatan',$res[0]["jabatan"]);
+                            Session::put('nikUser',$res[0]["nik"].'_'.time());
+                            // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
+                            $tmp = explode("_",$res[0]["path_view"]);
+                            if(isset($tmp[2])){
+                                $dash = $tmp[2];
+                            }else{
+                                $dash = "-";
+                            }
+                            
+                            Session::put('dash',$dash);
+                            Session::put('foto',$res[0]["foto"]);
+                            Session::put('logo',$res[0]["logo"]);
+                            Session::put('periode',$data2["periode"][0]["periode"]);
+                            Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
+                        }
+                    }
+                    $success['message'] = 'Login Berhasil';
+                    $success['status'] = true;
+                }else{
+                    $success['message'] = 'Password atau NIK, Salah !';
+                    $success['status'] = false;
+                }
+            
+            }else if($response->getStatusCode() == 401){
+                $success['message'] = 'Password atau NIK, Salah !';
+                $success['status'] = false;
+            }
+            return response()->json($success, 200);
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            if($response->getStatusCode() == 401){
+                $message = "Username dan/atau password kamu salah, silahkan periksa dan ulangi lagi.";
+            }else{
+                $message = $res["message"];
+            }
+            $success['message'] = $message;
+            $success['status'] = false;
+            return response()->json($success, 200);
+        }
+        
+    }
+
     public function login(){
         return view('siaga.login');
     }

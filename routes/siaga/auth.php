@@ -34,7 +34,7 @@ Route::get('/menu', 'Siaga\AuthController@getMenu');
 Route::get('/login', 'Siaga\AuthController@login');
 Route::post('/login', 'Siaga\AuthController@cek_auth');
 Route::get('/logout', 'Siaga\AuthController@logout');
-
+Route::post('/autologin', 'Siaga\AuthController@autoLogin');
 
 Route::get('/profile', 'Siaga\AuthController@getProfile');
 Route::post('/update-password', 'Siaga\AuthController@updatePassword');
