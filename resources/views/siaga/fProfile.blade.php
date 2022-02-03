@@ -259,7 +259,7 @@ function loadService(index,method,url,param={}){
                         <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" class="img-thumbnail card-img social-profile-img"  style="width:120px;height:120px;border-radius: 50%;">
                         `;
                     }else{
-                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data[0].foto;
+                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data[0].foto;
                         var img= `
                         <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
                             <button id="editPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
@@ -274,7 +274,7 @@ function loadService(index,method,url,param={}){
 
                         var background = `<img class="social-header card-img" style="height:200px;" src="{{ asset('/img/gambar2.jpg') }}" />`;
                     }else{
-                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data[0].background;
+                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data[0].background;
                         var background = `<img class="social-header card-img" style="height:200px;" src="`+foto+`" />`;
                     }
 
@@ -426,7 +426,7 @@ $('.crop_image').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
                         loadForm("{{url('siaga-auth/form/fProfile')}}");
                         
@@ -498,7 +498,7 @@ $('.crop_image_bg').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'toko-auth/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
                         loadForm("{{url('siaga-auth/form/fProfile')}}");
                         
