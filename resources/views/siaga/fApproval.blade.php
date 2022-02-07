@@ -684,6 +684,8 @@
                             var idDokumen = 'dokumenpo-ke__'+no
                             var idFile = 'filepo-ke__'+no
                             var idUpload = 'uploadpo-ke__'+no
+                            var url = "{{ config('api.doc_url_siaga') }}";
+                            console.log(url);
                             html += `
                                 <tr class='row-grid'>
                                     <td class='no-grid text-center'>${no}</td>
@@ -694,7 +696,7 @@
                                         <span id='text-${idFile}' class='tooltip-span'>${data.no_gambar}</span>
                                     </td>
                                     <td class='text-center'>
-                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="https://devsiaga.simkug.com/server/media/${data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
+                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="${url+''+data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
                                     </td>
                                 </tr>
                             `;
