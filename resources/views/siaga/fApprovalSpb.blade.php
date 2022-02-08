@@ -277,10 +277,10 @@
                         </div>
                     </div>
                     <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
-                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
+                        <div style="vertical-align: middle;" class="col-md-6 text-right p-0">
                             <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
                         </div>
-                        <div style="text-align: right;" class="col-md-2 p-0 ">
+                        <div style="text-align: right;" class="col-md-6 p-0 ">
                             <button type="submit" style="margin-top: 10px;" id="btn-return" class="btn btn-warning"><i class=""></i> Return</button>
                             <button type="submit" style="margin-top: 10px;" id="btn-app" class="btn btn-success"><i class=""></i> Approve</button>
                         </div>
