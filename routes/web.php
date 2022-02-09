@@ -60,6 +60,9 @@ Route::get('/', function () {
         case 'bisimkug.ypt.or.id' : 
             return redirect('dash-ypt/login');
         break;
+        case 'devapp.simkug.com' : 
+            return redirect('siaga-auth/login');
+        break;
         default : 
             return view('welcome');
         break;
