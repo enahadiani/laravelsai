@@ -25,3 +25,11 @@ Route::delete('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@destroy');
 Route::get('juskeb-preview/{no_bukti}','Sukka\PengajuanJuskebController@getPreview');
 
 Route::post('send-email','Sukka\PengajuanJuskebController@sendEmail');
+
+Route::get('app-juskeb','Sukka\ApprovalJuskebController@index');
+Route::get('app-juskeb-aju','Sukka\ApprovalJuskebController@getPengajuan');
+Route::get('app-juskeb-detail','Sukka\ApprovalJuskebController@show');
+Route::post('app-juskeb','Sukka\ApprovalJuskebController@store');
+Route::get('app-juskeb-status','Sukka\ApprovalJuskebController@getStatus');
+Route::get('app-juskeb-preview','Sukka\ApprovalJuskebController@getPreview');
+Route::post('app-juskeb-send-email','Sukka\ApprovalJuskebController@sendEmail');

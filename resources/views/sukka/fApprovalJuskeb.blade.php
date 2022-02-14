@@ -1,132 +1,7 @@
-<link rel="stylesheet" href="{{ asset('trans.css') }}" />
-<style>
-    div.inp-div-jenis > input{
-        border-radius:0 !important;
-        z-index:1;
-        position:relative;
-    }
-
-    div.inp-div-jenis > .search-item{
-        position: absolute;
-        font-size: 18px;
-        margin-top: -27px;
-        z-index: 2;
-        margin-left: 99px;
-    }
-    .btn-full-round{
-        border-radius: 20px !important;
-    }
-    .btn-light3{
-        background: #b3b3b3;
-        color: white;
-    }
-    .icon-tambah{
-        background: #505050;
-        /* mask: url("{{ url('img/add.svg') }}"); */
-        -webkit-mask-image: url("{{ url('img/add.svg') }}");
-        mask-image: url("{{ url('img/add.svg') }}");
-        width: 12px;
-        height: 12px;
-    }
-    
-    .popover{
-        top: -80px !important;
-    }
-
-    .btn-back
-    {
-        line-height:1.5;padding: 0;background: none;appearance: unset;opacity: unset;right: -40px;position: relative;
-        top: 5px;
-        z-index: 10;
-        float: right;
-        margin-top: -30px;
-    }
-    .btn-back > span 
-    {
-        border-radius: 50%;padding: 0 0.45rem 0.1rem 0.45rem;font-size: 1.2rem !important;font-weight: lighter;box-shadow:0px 1px 5px 1px #80808054;
-        color:white;
-        background:red;
-    }
-
-    .btn-back > span:hover
-    {
-        color:white;
-        background:red;
-    }
-    .card-body-footer{
-        background: white;
-        position: fixed;
-        bottom: 15px;
-        right: 0;
-        margin-right: 30px;
-        z-index:3;
-        height: 60px;
-        border-top: ;
-        border-bottom-right-radius: 1rem;
-        border-bottom-left-radius: 1rem;
-        box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
-    }
-
-    .card-body-footer > button{
-        float: right;
-        margin-top: 10px;
-        margin-right: 25px;
-    }
-
-    .bold{
-        font-weight:bold;
-    }
-    .modal p{
-        color: #505050 !important;
-    }
-    .table-header-prev td,th{
-        padding: 2px 8px !important;
-    }
-    #modal-preview .modal-content
-    {
-        border-bottom-left-radius: 0px !important;
-        border-bottom-right-radius: 0px !important;
-    }
-
-    #modal-preview
-    {
-        top: calc(100vh - calc(100vh - 30px)) !important;
-        overflow: hidden;
-    }
-
-    #modal-preview #content-preview 
-    {
-        height: calc(100vh - 105px) !important;
-    }
-
-    .animate-bottom {
-        animation: animatebottom 0.5s;
-    }
-
-    @keyframes animatebottom {
-        from {
-            bottom: -400px;
-            opacity: 0.8;
-        }
-        
-        to {
-            bottom: 0;
-            opacity: 1;
-        }
-    }
-
-    /* .bottom-sheet{
-        max-height: 100% !important;
-    }
-
-    .bottom-sheet .modal.content{
-        width: 60%; 
-        margin: 0px auto
-    } */
-
-    </style>
+<link rel="stylesheet" href="{{ asset('trans-new.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
 <!-- LIST DATA -->
-<x-list-data judul="Data Approval" tambah="" :thead="array('No Bukti', 'No Dokumen', 'PP', 'Tanggal', 'Keterangan', 'Aksi')" :thwidth="array(10,10,10,15,45,10)" :thclass="array('','','','','','text-center')" />
+<x-list-data judul="Data Approval" tambah="" :thead="array('No Bukti', 'Jenis', 'Unit Kerja', 'Periode', 'Kegiatan', 'Aksi')" :thwidth="array(10,10,10,15,45,10)" :thclass="array('','','','','','text-center')" />
 <!-- END LIST DATA -->
 
 <!-- FORM  -->
@@ -138,35 +13,16 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
-                        <h6 id="judul-form" style="position:absolute;top:13px"></h6>
-                        <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <h6 id="judul-form" style="position:absolute;top:13px"></h6>
+                    <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="submit" style="margin-top: 10px;" id="btn-return" class="btn btn-warning"><i class=""></i> Return</button>
+                    <button type="submit" style="margin-top: 10px;" id="btn-app" class="btn btn-success"><i class=""></i> Approve</button>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
-                    <div class="form-row">
-                        <div class="form-group col-md-6 col-sm-12" hidden>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="tanggal">Tanggal Approval</label>
-                                    <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
-                                </div>
-                                <div class="col-md-4 col-sm-12">
-                                    <input type="hidden" name="status" class="form-control" value="2" id="status">
-                                    <!-- <label for="status">Status</label> -->
-                                    <!-- <select class='form-control selectize' id="status" name="status">
-                                        <option value="2" selected>Approved</option>
-                                        <option value="3">Return</option>
-                                    </select> -->
-                                </div>
-                                <div class="col-md-2 col-sm-12">
-                                    <label for="nu">No Urut</label>
-                                    <input class="form-control" type="text" placeholder="No Urut" id="nu" name="nu" readonly autocomplete="off" required >
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
+                    <input class="form-control" type="hidden" id="nu" name="nu" readonly autocomplete="off" required >
                     <div class="form-row">
                        
                         <div class="form-group col-md-6 col-sm-12">
@@ -180,23 +36,7 @@
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row mb-2">
                                 <div class="col-md-6 col-sm-12">
-                                    <label for="no_aju">No Pengajuan</label>
-                                    <input class="form-control" type="text" placeholder="No Pengajuan" id="no_aju" name="no_aju" autocomplete="off" required readonly>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="dokumen">No Dokumen</label>
-                                    <input class="form-control" type="text" placeholder="No Dokumen" id="dokumen" name="no_dokumen" readonly autocomplete="off" required >
-                                </div>
-                            </div>
-                            <div class="row mb-2">
-                                <div class="col-md-12 col-sm-12">
-                                    <label for="deskripsi">Deskripsi Pengajuan</label>
-                                    <input class="form-control" type="text" placeholder="Deskripsi Pengajuan" id="deskripsi" name="deskripsi" readonly autocomplete="off" required >
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12">
-                                    <label for="kode_pp">PP</label>
+                                    <label for="kode_pp">Unit Kerja</label>
                                     <div class="input-group readonly">
                                         <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                             <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
@@ -209,55 +49,70 @@
                                         <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
                                     </div>
                                 </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="periode">Periode Penggunaan</label>
+                                    <input class="form-control" type="text" id="periode" name="periode" autocomplete="off" required readonly>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="no_aju">No Pengajuan</label>
+                                    <input class="form-control" type="text" id="no_aju" name="no_aju" autocomplete="off" required readonly>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="jenis">Jenis Anggaran</label>
+                                    <input class="form-control" type="text" id="jenis" name="jenis" readonly autocomplete="off" required >
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12 col-sm-12">
+                                    <label for="kegiatan">Kegiatan</label>
+                                    <input class="form-control" type="text" id="kegiatan" name="kegiatan" readonly autocomplete="off" required >
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        
-                       
-                    </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
-                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data RKM</span></a></li>
-                        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-dokumen-po" role="tab" aria-selected="false"><span class="hidden-xs-down">Data Dokumen</span></a></li>
+                        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Juskeb</span></a></li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
                         <div class="tab-pane active row" id="data-barang" role="tabpanel">
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-barang" ></span></a>
+                            <div class="form-row mt-3">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label for="latar">Latar Belakang</label>
+                                            <textarea class="form-control" type="text" rows="3" placeholder="" id="latar" name="latar" readonly autocomplete="off" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label for="aspek">Aspek Strategis</label>
+                                            <textarea class="form-control" type="text" rows="3" placeholder="" id="aspek" name="aspek" readonly autocomplete="off" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-barang" data-table="Tab data barang" style="width:100%;table-layout:fixed;">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:5%;">No</th>
-                                            <th style="width:40%;">Nama Barang</th>
-                                            <th style="width:10%;">Satuan</th>
-                                            <th style="width:10%;">Jumlah</th>
-                                            <th style="width:20%;">Harga</th>
-                                            <th style="width:25%;">Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane row" id="data-dokumen-po" role="tabpanel">
-                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
-                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-dokumen-po"></span></a>
-                            </div>
-                            <div class="col-md-12">
-                                <table class="table table-bordered table-condensed gridexample input-grid" id="input-dokumen-po" data-table="Tab data dokumen PO" style="width:100%;table-layout:fixed;">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:3%;">No</th>
-                                            <th style="width:25%;">Nama Dokumen</th>
-                                            <th style="width:20%;">Nama File Upload</th>
-                                            <th style="width:5%;"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
+                            <div class="form-row mt-3">
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label for="spesifikasi">Spesifikasi Teknis</label>
+                                            <textarea class="form-control" type="text" rows="3" placeholder="" id="spesifikasi" name="spesifikasi" readonly autocomplete="off" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <label for="rencana">Rencana Pelaksanaan</label>
+                                            <textarea class="form-control" type="text" rows="3" placeholder="" id="rencana" name="rencana" readonly autocomplete="off" required></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-approve" role="tabpanel">
@@ -282,17 +137,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body-footer row" style="width: 900px;padding: 0 25px;">
-                        <div style="vertical-align: middle;" class="col-md-6 text-right p-0">
-                            <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
-                        </div>
-                        <div style="text-align: right;" class="col-md-6 p-0 ">
-                            <button type="submit" style="margin-top: 10px;" id="btn-return" class="btn btn-warning"><i class=""></i> Return</button>
-                            <button type="submit" style="margin-top: 10px;" id="btn-app" class="btn btn-success"><i class=""></i> Approve</button>
-                        </div>
-                    </div>
                 </div>
-                
             </div>
         </div>
     </div>
@@ -367,7 +212,7 @@
     //     // $('#grid-load').show();
     //     $.ajax({
     //         type: 'GET',
-    //         url: "{{ url('siaga-trans/cek-akses-form') }}",
+    //         url: "{{ url('sukka-trans/cek-akses-form') }}",
     //         dataType: 'json',
     //         data: { modul:'RKM' },
     //         async:false,
@@ -426,7 +271,7 @@
     var action_html = "<a href='#' title='Approve' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('siaga-trans/app-aju') }}", 
+        "{{ url('sukka-trans/app-juskeb-aju') }}", 
         [
             {
                 "targets": 0,
@@ -441,12 +286,12 @@
         ],
         [
             { data: 'no_bukti' },
-            { data: 'no_dokumen' },
+            { data: 'jenis' },
             { data: 'nama_pp' },
-            { data: 'tanggal' },
-            { data: 'keterangan' }
+            { data: 'periode' },
+            { data: 'kegiatan' }
         ],
-        "{{ url('siaga-auth/sesi-habis') }}",
+        "{{ url('sukka-auth/sesi-habis') }}",
         [[0 ,"asc"]]
     );
 
@@ -476,18 +321,6 @@
 
     
     // GRID FORM 
-    // GRID BARANG
-    function hitungTotalRowBarang(){
-        var total_row = $('#input-barang tbody tr').length;
-        $('#total-barang').html(total_row+' Baris');
-    }
-    // END GRID BARANG
-    // GRID DOKUMEN PO
-    function hitungTotalRowDokumenPO(){
-        var total_row = $('#input-dokumen-po tbody tr').length;
-        $('#total-dokumen-po').html(total_row+' Baris');
-    }
-    // END GRID DOKUMEN PO
     // GRID APPROVE
     function hitungTotalRowApprove(){
         var total_row = $('#input-approve tbody tr').length;
@@ -500,10 +333,10 @@
     $('#form-tambah').validate({
         ignore: [],
         rules: {
-            tanggal: {
+            periode: {
                 required: true,   
             },
-            waktu: {
+            jenis: {
                 required: true,   
             },
             status: {
@@ -515,10 +348,10 @@
             kode_pp: {
                 required: true,   
             },
-            no_dokumen:{
+            keterangan:{
                 required: true,   
             },
-            keterangan:{
+            kegiatan:{
                 required: true,   
             },
         },
@@ -527,7 +360,7 @@
             event.preventDefault()
             var parameter = $('#id_edit').val();
             var id = $('#id').val();
-            var url = "{{ url('siaga-trans/app') }}";
+            var url = "{{ url('sukka-trans/app-juskeb') }}";
             var pesan = "saved";
             var text = "Data tersimpan dengan kode";
 
@@ -549,8 +382,6 @@
                     if(result.data.status){
                         var kode = result.data.no_aju;
                         $('#input-barang tbody').empty();
-                        $('#input-dokumen-po tbody').empty();
-                        $('#input-dokumen-compare tbody').empty();
                         $('#input-approve tbody').empty();
                         dataTable.ajax.reload();
                         resetForm();
@@ -567,7 +398,7 @@
                         }
                         printPreview(kode, 'default')
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
-                        window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
                     }else{
                         Swal.fire({
                             icon: 'error',
@@ -615,7 +446,7 @@
         $('#judul-form').html('Form Approval');
         $.ajax({ 
             type: 'GET',
-            url: "{{ url('siaga-trans/app-detail') }}",
+            url: "{{ url('sukka-trans/app-juskeb-detail') }}",
             dataType: 'json',
             data:{no_aju: id},
             async:false,
@@ -625,97 +456,20 @@
                     $('#id').val(id);
                     $('#nu').val(result.data[0].no_urut);
                     $('#no_aju').val(result.data[0].no_bukti);
-                    $('#dokumen').val(result.data[0].no_dokumen);
+                    $('#jenis').val(result.data[0].jenis);
                     $('#kode_pp').val(result.data[0].kode_pp);
-                    $('#deskripsi').val(result.data[0].keterangan);
+                    $('#kegiatan').val(result.data[0].kegiatan);
+                    $('#periode').val(result.data[0].periode);
+                    $('#latar').val(result.data[0].latar);
+                    $('#aspek').val(result.data[0].aspek);
+                    $('#spesifikasi').val(result.data[0].spesifikasi);
+                    $('#rencana').val(result.data[0].rencana);
 
                     if(result.data_detail.length > 0) { 
                         var html = "";
                         var no = 1;
-
                         for(var i=0;i<result.data_detail.length;i++) { 
                             var data = result.data_detail[i];
-                            var idnama = 'nama-ke__'+no
-                            var idsatuan = 'satuan-ke__'+no
-                            var idjumlah = 'jumlah-ke__'+no
-                            var idharga = 'harga-ke__'+no
-                            var idnu = 'nu-ke__'+no
-                            var idtotal = 'total-ke__'+no
-                            var total = parseFloat(data.jumlah)*parseFloat(data.harga);
-
-                            html += `
-                                <tr class='row-grid'>
-                                    <td class='no-grid text-center'>${no}</td>
-                                    <td id='${idnama}'>
-                                        <span id='text-${idnama}' class='tooltip-span'>${data.nama_brg}</span>
-                                    </td>
-                                    <td id='${idsatuan}'>
-                                        <span id='text-${idsatuan}' class='tooltip-span'>${data.satuan}</span>
-                                    </td>
-                                    <td class='text-right' id='${idjumlah}'>
-                                        <span id='text-${idjumlah}' class='tooltip-span'>${sepNum(data.jumlah)}</span>
-                                    </td>
-                                    <td class='text-right' id='${idharga}'>
-                                        <span id='text-${idharga}' class='tooltip-span'>${sepNum(data.harga)}</span>
-                                    </td>
-                                    <td class='text-right' id='${idtotal}'>
-                                        <span id='text-${idtotal}' class='tooltip-span'>${sepNum(total)}</span>
-                                    </td>
-                                </tr>
-                            `;
-                            no++;
-                        }
-                        $('#input-barang tbody').append(html)
-                                
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        });
-
-                        hitungTotalRowBarang()
-                    }
-
-                    if(result.data_dokumen.length > 0) { 
-                        var html = "";
-                        var no = 1;
-                        for(var i=0;i<result.data_dokumen.length;i++) { 
-                            var data = result.data_dokumen[i];
-                            var idDokumen = 'dokumenpo-ke__'+no
-                            var idFile = 'filepo-ke__'+no
-                            var idUpload = 'uploadpo-ke__'+no
-                            var url = "{{ config('api.doc_url_siaga') }}";
-                            console.log(url);
-                            html += `
-                                <tr class='row-grid'>
-                                    <td class='no-grid text-center'>${no}</td>
-                                    <td id='${idDokumen}'>
-                                        <span id='text-${idDokumen}' class='tooltip-span'>${data.kode_jenis}</span>
-                                    </td>
-                                    <td id='${idFile}' class='readonly'>
-                                        <span id='text-${idFile}' class='tooltip-span'>${data.no_gambar}</span>
-                                    </td>
-                                    <td class='text-center'>
-                                        <a class='download-item' style='font-size:12px;cursor:pointer;' href="${url+''+data.no_gambar}" target='_blank'><i class='simple-icon-cloud-download'></i></a>
-                                    </td>
-                                </tr>
-                            `;
-                            no++;
-                        }
-                        $('#input-dokumen-po tbody').append(html)
-                        $('.tooltip-span').tooltip({
-                            title: function(){
-                                return $(this).text();
-                            }
-                        });
-                        hitungTotalRowDokumenPO()
-                    }
-
-                    if(result.data_histori.length > 0) { 
-                        var html = "";
-                        var no = 1;
-                        for(var i=0;i<result.data_histori.length;i++) { 
-                            var data = result.data_histori[i];
                             var idNik = 'nik-ke__'+no
                             var idNama = 'nama-ke__'+no
                             var idTgl = 'tgl-ke__'+no
@@ -758,7 +512,7 @@
                     setWidthFooterCardBody();
                     showInfoField("kode_pp",result.data[0].kode_pp,result.data[0].nama_pp);
                 } else if(!result.status && result.message === "Unauthorized"){
-                    window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -780,7 +534,7 @@
     function printPreview(id, jenis) {
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-trans/app-preview') }}",
+            url: "{{ url('sukka-trans/app-juskeb-preview') }}",
             dataType: 'json',
             data:{id: id, jenis: jenis},
             async:false,
@@ -876,7 +630,7 @@
         
         $.ajax({
             type: 'POST',
-            url: "{{ url('siaga-trans/send-email') }}",
+            url: "{{ url('sukka-trans/app-send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
             async:false,

@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class ApprovalController extends Controller
+class ApprovalJuskebController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -113,7 +113,7 @@ class ApprovalController extends Controller
     public function index(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-trans/app',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/app-juskeb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -138,7 +138,7 @@ class ApprovalController extends Controller
     public function getPengajuan(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-trans/app-aju',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/app-juskeb-aju',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -169,7 +169,6 @@ class ApprovalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'tanggal' => 'required',
             'no_aju' => 'required',
             'status' => 'required',
             'keterangan' => 'required',
@@ -179,14 +178,13 @@ class ApprovalController extends Controller
         try{
            
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'sukka-trans/app',[
+            $response = $client->request('POST',  config('api.url').'sukka-trans/app-juskeb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
-                    'tanggal' => $this->reverseDate($request->tanggal,"/","-"),
                     'no_aju' => $request->no_aju,
                     'status' => $request->status,
                     'keterangan' => $request->keterangan,
@@ -221,7 +219,7 @@ class ApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-trans/app-detail',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/app-juskeb-detail',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -249,7 +247,7 @@ class ApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-trans/app-status',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/app-juskeb-status',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -276,7 +274,7 @@ class ApprovalController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-trans/app-preview',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/app-juskeb-preview',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -307,7 +305,7 @@ class ApprovalController extends Controller
         try{
     
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'sukka-trans/send-email',[
+            $response = $client->request('POST',  config('api.url').'sukka-trans/app-send-email',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
