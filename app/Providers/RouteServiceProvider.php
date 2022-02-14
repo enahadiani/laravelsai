@@ -115,6 +115,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapDashTarbakRoutes();
 
         $this->mapSdm2Routes();
+        
+        $this->mapSukkaRoutes();
     }
 
     /**
@@ -842,5 +844,33 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/sdm2/report.php'));
+    }
+
+    protected function mapSukkaRoutes()
+    {
+        Route::prefix('sukka-auth')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sukka/auth.php'));
+
+        Route::prefix('sukka-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sukka/dash.php'));
+
+        Route::prefix('sukka-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sukka/master.php'));
+
+        Route::prefix('sukka-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sukka/trans.php'));
+
+        Route::prefix('sukka-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sukka/report.php'));
     }
 }
