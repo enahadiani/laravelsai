@@ -116,7 +116,14 @@
                                 </div>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <label for="btn-control">&nbsp;</label>
+                                        <div id="btn-control">
+                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2 btn-sm">Tampil Approval</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
