@@ -322,7 +322,7 @@ class PengajuanJuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sakku-trans/juskeb-pp',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/juskeb-pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -349,7 +349,7 @@ class PengajuanJuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sakku-trans/juskeb-jenis',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/juskeb-jenis',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -376,12 +376,15 @@ class PengajuanJuskebController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sakku-trans/juskeb-app-flow',[
+            $response = $client->request('GET',  config('api.url').'sukka-trans/juskeb-app-flow',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => $request->input()
+                'query' => [
+                    'nilai' => $this->joinNum($request->input('nilai')),
+                    'kode_jenis' => $request->input('kode_jenis'),
+                ]
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
