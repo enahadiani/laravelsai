@@ -22,5 +22,6 @@ Route::get('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@show');
 Route::post('juskeb','Sukka\PengajuanJuskebController@store');
 Route::put('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@update');
 Route::delete('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@destroy');
+Route::get('juskeb-preview/{no_bukti}','Sukka\PengajuanJuskebController@getPreview');
 
 Route::post('send-email','Sukka\PengajuanJuskebController@sendEmail');

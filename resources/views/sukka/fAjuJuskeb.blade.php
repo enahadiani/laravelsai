@@ -192,6 +192,25 @@
     </form>
     <!-- FORM INPUT  -->
 
+    {{-- PRINT PREVIEW --}}
+    <div id="saku-print" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:42.8px">
+                    <button type="button" id="btn-back" aria-label="Kembali" class="btn btn-back" style="top: 28px !important;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2 mr-4" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body" id="print-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END PRINT PREVIEW --}}
+
     <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     @include('modal_upload')
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
@@ -584,6 +603,147 @@
         });
     });
 
+    function printPreview(id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sukka-trans/juskeb-preview') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result) {
+                if(typeof result.data !== 'undefined' && result.data.length > 0) {
+                    var html = "";
+                    var no = 1;
+                    var total = 0
+                    var data = result.data[0];
+                    html += `
+                    <div class="row px-4">
+                        <div class="col-12" style="border-bottom:3px solid black;text-align:center">
+                            <h6 style="margin-bottom:0px !important">JUSTIFIKASI</h6>
+                            <h6>KEBUTUHAN</h6>
+                        </div>
+                        <div class="col-12 my-2" style="text-align:center">
+                            <h6>Nomor : ${data.no_bukti}</h6>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-condensed table-bordered" width="100%"  id="table-m">
+                                <tbody>
+                                    <tr>
+                                        <td width="5%">1</td>
+                                        <td width="25">UNIT KERJA</td>
+                                        <td width="70%" id="print-unit">${data.nama_pp}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%">2</td>
+                                        <td width="25">JENIS ANGGARAN</td>
+                                        <td width="70%" id="print-unit">${data.jenis}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%">3</td>
+                                        <td width="25">JENIS RRA</td>
+                                        <td width="70%" id="print-unit">${data.nama_jenis}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>TOTAL NILAI</td>
+                                        <td id="print-kegiatan2">${ number_format(data.nilai) }</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>TERBILANG</td>
+                                        <td id="print-kegiatan2" style="text-transform: capitalize">${ terbilang(data.nilai) } Rupiah</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>PERIODE PENGGUNAAN</td>
+                                        <td id="print-waktu">${ namaPeriode(data.periode) }</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>KEGIATAN</td>
+                                        <td id="print-pic">${ data.kegiatan }</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>LATAR BELAKANG</u></p>
+                            <p>${data.latar}</p>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>ASPEK STRATEGIS</u></p>
+                            <p>${data.aspek}</p>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>SPESIFIKASI TEKNIS</u></p>
+                            <p>${data.spesifikasi}</p>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>RENCANA PELAKSANAAN</u></p>
+                            <p>${data.rencana}</p>
+                        </div>
+                            <div class="col-12">
+                                <p style="font-weight:bold"># <u>LAMPIRAN</u></p>
+                            </div>
+                            <div class="col-12">
+                            <table class="table table-condensed table-bordered" style='border:1px solid black;border-collapse:collapse' border="1" width="100%" id="table-penutup">
+                                <thead class="text-center">
+                                <tr>
+                                <td width="10%"></td>
+                                <td width="25">NAMA/NIK</td>
+                                <td width="15%">JABATAN</td>
+                                <td width="10%">TANGGAL</td>
+                                <td width="15%">NO APPROVAL</td>
+                                <td width="10%">STATUS</td>
+                                <td width="15%">TTD</td>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                            var total =0; var no=0;
+                            for(var i=0; i < result.detail.length; i++){
+                                var line2 = result.detail[i];
+                                no++;
+                                html+=`
+                                <tr>
+                                <td>${line2.ket } </td>
+                                <td>${line2.nama_kar } / ${line2.nik } </td>
+                                <td>${line2.nama_jab } </td>
+                                <td>${line2.tanggal } </td>
+                                <td>${line2.no_app } </td>
+                                <td>${line2.status } </td>
+                                <td>&nbsp;</td>
+                                </tr>`;
+                            }
+                            html+=`
+                            </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+                        
+                    $('#print-content').html(html)
+                    $('#saku-form').hide()
+                    $('#saku-datatable').hide()
+                    $('#saku-print').show()
+                }
+            }
+        });
+    }
+
+    $('#saku-print #btn-back').click(function() {
+        $('#saku-print').hide()
+        $('#saku-datatable').show()
+        $('#saku-form').hide()
+    });
+
+    $('#saku-print #btn-cetak').click(function() {
+        $('#print-content').printThis({
+            importCSS: true,            // import parent page css
+            importStyle: true,         // import style tags
+            printContainer: true,       // print outer container/$.selector
+        });
+    });
+
     // END BUTTON KEMBALI
 
     // BUTTON UPDATE DATA
@@ -854,15 +1014,18 @@
                             $('#input-flow tbody').html('');
                             $('[id^=label]').html('');
                             $('#kode_form').val($form_aktif);
-                            
                             msgDialog({
                                 id:result.data.no_bukti,
-                                type:'simpan'
+                                type:'warning',
+                                title: 'Sukses',
+                                text: result.data.message
                             });
 
+                            
                             if(result.data.no_pooling != undefined){
                                 kirimWAEmail(result.data.no_pooling);
                             }
+                            printPreview(result.data.no_bukti);
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){

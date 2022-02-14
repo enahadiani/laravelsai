@@ -206,6 +206,35 @@ class PengajuanJuskebController extends Controller
         }
     }
 
+    public function getPreview($no_bukti)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-trans/juskeb-preview',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $no_bukti
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json($data, 200);
+        }
+    }
+
 
     /**
      * Show the form for editing the specified resource.
