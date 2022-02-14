@@ -4,6 +4,12 @@
     <x-list-data judul="Data Justifikasi Kebutuhan" tambah="true" :thead="array('No Bukti','Kegiatan','Periode','Jenis','Unit Kerja','Progress','Nilai','Tgl Input','Aksi')" :thwidth="array(10,20,10,10,15,10,10,0,10)" :thclass="array('','','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
+        
+        #btn-refresh 
+        {
+            padding: 8px 8px 4px 8px !important;
+        }
+
         #tanggal-dp .datepicker-dropdown
         {
             left: 20px !important;
@@ -118,7 +124,7 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Approval</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
-                            <div class="tab-pane active" id="data-lokasi" role="tabpanel">
+                            <div class="tab-pane active" id="data-juskeb" role="tabpanel">
                                 <div class="form-row mt-3">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
