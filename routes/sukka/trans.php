@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
-Route::get('app','Sukka\ApprovalController@index');
-Route::get('app-aju','Sukka\ApprovalController@getPengajuan');
-Route::get('app-detail','Sukka\ApprovalController@show');
-Route::post('app','Sukka\ApprovalController@store');
-Route::get('app-status','Sukka\ApprovalController@getStatus');
-Route::get('app-preview','Sukka\ApprovalController@getPreview');
+Route::get('juskeb-pp','Sukka\PengajuanJuskebController@getPP');
+Route::get('juskeb-jenis','Sukka\PengajuanJuskebController@getJenis');
+Route::get('juskeb-app-flow','Sukka\PengajuanJuskebController@getAppFlow');
+Route::get('juskeb','Sukka\PengajuanJuskebController@index');
+Route::get('juskeb-detail','Sukka\PengajuanJuskebController@show');
+Route::post('juskeb','Sukka\PengajuanJuskebController@store');
+Route::put('juskeb','Sukka\PengajuanJuskebController@update');
+Route::delete('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@destroy');
 
-Route::post('send-email','Sukka\ApprovalController@sendEmail');
+Route::post('send-email','Sukka\PengajuanJuskebController@sendEmail');
