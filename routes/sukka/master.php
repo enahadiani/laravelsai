@@ -4,6 +4,27 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 
+// Data Form //
+Route::get('form', 'Sukka\FormController@index');
+Route::get('form/{id}', 'Sukka\FormController@getData');
+Route::post('form', 'Sukka\FormController@store');
+Route::put('form/{id}', 'Sukka\FormController@update');
+Route::delete('form/{id}', 'Sukka\FormController@delete');
+
+// Setting Menu Form //
+Route::get('setting-menu', 'Sukka\SettingMenuController@show');
+Route::post('setting-menu', 'Sukka\SettingMenuController@store');
+Route::post('setting-menu-move', 'Sukka\SettingMenuController@storeMove');
+Route::put('setting-menu', 'Sukka\SettingMenuController@update');
+Route::delete('setting-menu', 'Sukka\SettingMenuController@delete');
+
+// Data Klp Menu //
+Route::get('menu-klp', 'Sukka\KelompokMenuController@index');
+Route::get('menu-klp/{id}', 'Sukka\KelompokMenuController@getData');
+Route::post('menu-klp', 'Sukka\KelompokMenuController@store');
+Route::put('menu-klp/{id}', 'Sukka\KelompokMenuController@update');
+Route::delete('menu-klp/{id}', 'Sukka\KelompokMenuController@delete');
+
 Route::get('/karyawan', 'Sukka\KaryawanController@index');
 Route::post('/karyawan', 'Sukka\KaryawanController@store');
 Route::get('/karyawan/{nik}', 'Sukka\KaryawanController@show');
@@ -34,7 +55,6 @@ Route::get('/hakakses/{nik}','Sukka\HakaksesController@show');
 Route::post('/hakakses','Sukka\HakaksesController@store');
 Route::put('/hakakses/{nik}','Sukka\HakaksesController@update');
 Route::delete('/hakakses/{nik}','Sukka\HakaksesController@destroy');
-Route::get('/form','Sukka\HakaksesController@getForm');
 Route::get('/hakakses_menu','Sukka\HakaksesController@getMenu');
 
 Route::get('filter-pp','Sukka\FilterController@getFilterPP');
