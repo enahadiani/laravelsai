@@ -1,5 +1,6 @@
 <link href="{{ asset('asset_elite/css/jquery.treegrid.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
+<link rel="stylesheet" href="{{ asset('master-new.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <form id="menu-form">
         <div class="row" id="saku-filter">
             <div class="col-12 mb-2">
@@ -39,7 +40,7 @@
                         </div>
                     </div>
                     <div class="separator"></div>
-                    <div id="detMenu" class="card-body pt-0" style="height: calc(100vh - 300px); position:relative; overflow-y:scroll">
+                    <div id="detMenu" class="card-body pt-0" style="height: calc(100vh - 285px); position:relative; overflow-y:scroll">
                         
                     </div>
                 </div>

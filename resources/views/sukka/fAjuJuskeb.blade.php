@@ -1,15 +1,9 @@
-    <link rel="stylesheet" href="{{ asset('trans.css?version=_').time() }}" />
-    <link rel="stylesheet" href="{{ asset('form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('trans-new.css?version=_').time() }}" />
+    <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Justifikasi Kebutuhan" tambah="true" :thead="array('No Bukti','Kegiatan','Periode','Jenis','Unit Kerja','Progress','Nilai','Tgl Input','Aksi')" :thwidth="array(10,20,10,10,15,10,10,0,10)" :thclass="array('','','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
-        
-        #btn-refresh 
-        {
-            padding: 8px 8px 4px 8px !important;
-        }
-
         #tanggal-dp .datepicker-dropdown
         {
             left: 20px !important;

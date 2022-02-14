@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap.rtl.only.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />        
-    <!-- <link rel="stylesheet" href="{{ asset('asset_dore/css/loading.css') }}" /> -->
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />       
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/new.css?version=_').time() }}" />
     <style>
         @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
         body {
@@ -46,11 +46,6 @@
         h6{
             font-size: 1.25rem !important;
         }
-
-        button,label{
-            font-size: 0.75rem !important;
-        }
-
         p,li,ul,a,input,select,textarea,span[class*="info-code"],span[class*="info-name"],.selectize-input,span{
             font-size: 0.8rem !important;
         }
@@ -67,9 +62,6 @@
         }
         .form-side{
             margin: 0 auto;
-        }
-        input{
-            border-radius: 10px !important;
         }
         /* button{
             border-radius: 15px !important;
@@ -99,23 +91,11 @@
         #btn-lihat
         {
             position: absolute;
-            top: 36px;
-            font-size: 0.75rem !important;
+            top: 30px;
+            font-size: 14px !important;
             right: 25px;left: unset;
             height: 40px; opacity: 0.5;cursor: pointer;
         }
-
-        .btn{
-            border-radius: 8px !important;
-        }
-
-        .form-control {
-            padding: 0.1rem 0.5rem; 
-            height: calc(1.3rem + 1rem);
-            border-radius:0.5rem !important;
-            
-        }
-
         .auth-card .form-side {
             width: 50%;
             padding: 80px; }
@@ -201,7 +181,7 @@
                                 <div class="text-right">
                                     <label style='cursor:pointer'>Lupa password?</label>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mt-4">
+                                <div class="d-flex justify-content-between align-items-center mt-3">
                                     <button class="btn btn-primary btn-block" type="submit">Masuk</button>
                                 </div>
                             </form>

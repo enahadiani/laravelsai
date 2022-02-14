@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/component-custom-switch.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('asset_dore/css/new.css') }}" />
     <link rel="stylesheet" href="{{ asset('asset_dore/css/vendor/bootstrap-float-label.min.css') }}" />
     
     <link rel="stylesheet" href="{{ asset('asset_elite/dist/js/swal/sweetalert2.min.css') }}">
@@ -387,9 +388,9 @@
                     <span class="name">{{ $nama }}</span>
                     <span id="foto-profile">
                     @if (Session::get('foto') == "" || Session::get('foto') == "-" )
-                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" style="width:40px;height:40px"/>
+                    <img alt="Profile Picture" src="{{ asset('asset_elite/images/user.png') }}" style="width:30px;height:30px"/>
                     @else
-                    <img alt="Profile Picture" src="{{ config('api.url').'sukka-auth/storage/'.Session::get('foto') }}" style="width:40px;height:40px"/>
+                    <img alt="Profile Picture" src="{{ config('api.url').'sukka-auth/storage/'.Session::get('foto') }}" style="width:30px;height:30px"/>
                     @endif
                     </span>
                 </button>
@@ -1296,10 +1297,6 @@
     $('.dropdown-periode').html("<span class='periode-label'>Periode</span> <span class='periode-app float-right'>"+namaPeriode2("{{ Session::get('periode') }}</span>"));
     $('.dropdown-lokasi').html("<span class='lokasi-label'>Lokasi</span> <span class='periode-app float-right'>{{ Session::get('lokasi') }}</span>");
     
-    if(form !="" || form != "-"){
-        loadForm("{{ url('sukka-auth/form')}}/"+form)
-    }
-    
     $('.sub-menu').on('click','.a_link',function(e){
         e.preventDefault();
         var form = $(this).data('href');
@@ -1415,7 +1412,7 @@
         // var tinggi = content-header-40;
         var title = 69;
         // var body = tinggi-title;
-        var height = content-header-title-45;
+        var height = content-header-title-40;
     
         if($('#saku-form').length > 0){
             
