@@ -121,7 +121,8 @@ class PengajuanJuskebController extends Controller
             'rencana' => 'required|max:1000',
             'nik' => 'required|array',
             'kode_jab' => 'required|array',
-            'kode_role' => 'required|array'
+            'kode_role' => 'required|array',
+            'email' => 'required|array'
         ]);
             
         try{
@@ -139,6 +140,7 @@ class PengajuanJuskebController extends Controller
                 'nik' => $request->input('nik'),
                 'kode_jab' => $request->input('kode_jab'),
                 'kode_role' => $request->input('kode_role'),
+                'email' => $request->input('email'),
             ];
 
             $client = new Client();
@@ -154,7 +156,9 @@ class PengajuanJuskebController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-               
+                if(isset($data['no_pesan'])){
+                    $this->sendNotifApproval($data['no_pesan']);
+                }
                 return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
@@ -236,11 +240,13 @@ class PengajuanJuskebController extends Controller
             'rencana' => 'required|max:1000',
             'nik' => 'required|array',
             'kode_jab' => 'required|array',
-            'kode_role' => 'required|array'
+            'kode_role' => 'required|array',
+            'email' => 'required|array'
         ]);
             
         try{
             $fields = [
+                'no_bukti' => $no_bukti,
                 'periode' => $request->input('periode'),
                 'kegiatan' => $request->input('kegiatan'),
                 'kode_pp' => $request->input('kode_pp'),
@@ -254,6 +260,7 @@ class PengajuanJuskebController extends Controller
                 'nik' => $request->input('nik'),
                 'kode_jab' => $request->input('kode_jab'),
                 'kode_role' => $request->input('kode_role'),
+                'email' => $request->input('email'),
             ];
                 
             $client = new Client();
@@ -269,6 +276,9 @@ class PengajuanJuskebController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if(isset($data['no_pesan'])){
+                    $this->sendNotifApproval($data['no_pesan']);
+                }
                 return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
@@ -345,6 +355,38 @@ class PengajuanJuskebController extends Controller
         }
     }
 
+    function sendNotifApproval($no_pesan){ 	
+        try {
+            
+            $fields = array(
+                'no_pesan' => $no_pesan,
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'sukka-auth/notif-approval', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     public function getJenis(Request $request)
     {
         try{
@@ -400,6 +442,39 @@ class PengajuanJuskebController extends Controller
             $data['status'] = false;
             return response()->json($data, 200);
         }
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $this->validate($request, [
+            'no_pooling' => 'required'
+        ]);
+        try{
+    
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'sukka-trans/send-email',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'no_pooling' => $request->no_pooling
+                ]
+            ]);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res;
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 
 }

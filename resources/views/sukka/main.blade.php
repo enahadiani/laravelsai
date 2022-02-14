@@ -40,10 +40,10 @@
             line-height: 35px;
         }
         .menu .main-menu ul li a {
-            height: 70px;
+            height: 60px;
         }
         .menu .main-menu ul li.active::after{
-            height: 70px;
+            height: 60px;
             top: 45%;
         }
         .menu .sub-menu ul li a{

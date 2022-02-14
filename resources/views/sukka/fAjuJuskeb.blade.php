@@ -39,7 +39,7 @@
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
                                 <input type="hidden" name="kode_form" id="kode_form">
-                                <input type="hidden" name="jenis_upload" id="jenis_upload">
+                                <input type="hidden" name="no_bukti" id="no_bukti">
                             </div>
                         </div>
                         <div class="form-row">
@@ -173,9 +173,10 @@
                                         <tr>
                                             <th style="width:20px">No</th>
                                             <th style="width:80px">Kode Role</th>
-                                            <th style="width:250px">Nama Jab</th>
+                                            <th style="width:80px">Kode Jab</th>
                                             <th style="width:80px">NIK</th>
                                             <th style="width:200px">Nama</th>
+                                            <th style="width:150px">Email</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -358,6 +359,7 @@
                                 <td>${row.kode_jab}</td>    
                                 <td>${row.nik}</td>    
                                 <td>${row.nama}</td>    
+                                <td>${row.email}</td>    
                             </tr>
                             `;
                             no++;
@@ -413,7 +415,7 @@
             { data: 'kode_pp' },
             { data: 'progress' },
             { data: 'nilai' },
-            { data: 'tgl_input' }
+            { data: 'tanggal' }
         ],
         "{{ url('sukka-auth/sesi-habis') }}",
         [[6 ,"desc"]]
@@ -446,7 +448,7 @@
                 if(result.status){
                     $('#input-flow tbody').html('');
                     $('#id').val('edit');
-                    $('#method').val('post');
+                    $('#method').val('put');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
                     $('#kode_pp').val(result.data[0].kode_pp);
@@ -455,6 +457,10 @@
                     $('#kode_jenis').val(result.data[0].kode_jenis); 
                     $('#kegiatan').val(result.data[0].kegiatan);
                     $('#nilai').val(result.data[0].nilai);
+                    $('#latar').val(result.data[0].latar);
+                    $('#aspek').val(result.data[0].aspek);
+                    $('#spesifikasi').val(result.data[0].spesifikasi);
+                    $('#rencana').val(result.data[0].rencana);
                     if(result.detail.length > 0){
                         var input = '';
                         var no=1;
@@ -466,6 +472,7 @@
                                 <td>${line.kode_jab}</td>    
                                 <td>${line.nik}</td>    
                                 <td>${line.nama}</td>    
+                                <td>${line.email}</td>    
                             </tr>`;
                             no++;
                         }
@@ -660,95 +667,60 @@
                                         <td width="1%">:</td>
                                         <td width="20%">`+result.data[0].kegiatan+`</td>
                                     </tr>
+                                    <tr>
+                                        <td width="14%">Latar Belakang</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.data[0].latar+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="14%">Aspek Strategis</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.data[0].aspek+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="14%">Spesifikasi Teknis</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.data[0].spesifikasi+`</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="14%">Rencana Pelaksanaan</td>
+                                        <td width="1%">:</td>
+                                        <td width="20%">`+result.data[0].rencana+`</td>
+                                    </tr>
                                 </table>
                             </div>
                             <div style="padding:0 1.9rem">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
-                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penerima</span></a> </li>
-                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-beri" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemberi</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Approval</span></a> </li>
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
-                                    <div class="tab-pane active" id="prev-terima" role="tabpanel">
+                                    <div class="tab-pane active" id="prev-approval" role="tabpanel">
                                         <table class="table table-striped table-body-prev mt-2" width="100%">
                                         <tr style="background: var(--theme-color-1) !important;color:white !important">
-                                                <th style="width:15%">Kode MTA</th>
-                                                <th style="width:15%">Nama MTA</th>
-                                                <th style="width:15">Nama PP</th>
-                                                <th style="width:15">Nama DRK</th>
-                                                <th style="width:10%">TW</th>
-                                                <th style="width:15%">Nilai</th>
+                                                <th style="width:15%">No</th>
+                                                <th style="width:15%">Kode Jab</th>
+                                                <th style="width:15">Kode Role</th>
+                                                <th style="width:15">NIK</th>
+                                                <th style="width:15">Nama</th>
+                                                <th style="width:15">Email</th>
                                         </tr>`;
                                             var det = '';
                                             var total_saldo = 0; var total =0;
-                                            if(result.detail_terima.length > 0){
+                                            if(result.detail.length > 0){
                                                 var no=1;
-                                                for(var i=0;i<result.detail_terima.length;i++){
-                                                    var line =result.detail_terima[i];
-                                                    total+=parseFloat(line.nilai);
-                                                    if (line.bulan == "01")	var tw = "TW1";
-                                                    if (line.bulan == "04")	var tw = "TW2";
-                                                    if (line.bulan == "07")	var tw = "TW3";
-                                                    if (line.bulan == "10")	var tw = "TW4";	
+                                                for(var i=0;i<result.detail.length;i++){
+                                                    var line =result.detail[i];
                                                     det += "<tr>";
-                                                    det += "<td >"+line.kode_akun+"</td>";
-                                                    det += "<td >"+line.nama_akun+"</td>";
-                                                    det += "<td >"+line.nama_pp+"</td>";
-                                                    det += "<td >"+line.nama_drk+"</td>";
-                                                    det += "<td >"+tw+"</td>";
-                                                    det += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
+                                                    det += "<td >"+no+"</td>";
+                                                    det += "<td >"+line.kode_role+"</td>";
+                                                    det += "<td >"+line.kode_jab+"</td>";
+                                                    det += "<td >"+line.nik+"</td>";
+                                                    det += "<td >"+line.nama+"</td>";
+                                                    det += "<td >"+line.email+"</td>";
                                                     det += "</tr>";
                                                     no++;
                                                 }
                                             }
-                                            det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
-                                                <th colspan="5"></th>
-                                                <th style="width:10%" class="text-right">`+format_number(total)+`</th>
-                                        </tr>`;
-                                        
-                                        html+=det+`
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane" id="prev-beri" role="tabpanel">
-                                        <table class="table table-striped table-body-prev mt-2" width="100%">
-                                        <tr style="background: var(--theme-color-1) !important;color:white !important">
-                                                <th style="width:15%">Kode MTA</th>
-                                                <th style="width:15%">Nama MTA</th>
-                                                <th style="width:15">Nama PP</th>
-                                                <th style="width:15">Nama DRK</th>
-                                                <th style="width:10%">TW</th>
-                                                <th style="width:15%">Saldo</th>
-                                                <th style="width:15%">Nilai</th>
-                                        </tr>`;
-                                            var det = '';
-                                            var total_saldo = 0; var total =0;
-                                            if(result.detail_beri.length > 0){
-                                                var no=1;
-                                                for(var i=0;i<result.detail_beri.length;i++){
-                                                    var line =result.detail_beri[i];
-                                                    total+=parseFloat(line.nilai);
-                                                    total_saldo+=parseFloat(line.saldo);
-                                                    if (line.bulan == "01")	var tw = "TW1";
-                                                    if (line.bulan == "04")	var tw = "TW2";
-                                                    if (line.bulan == "07")	var tw = "TW3";
-                                                    if (line.bulan == "10")	var tw = "TW4";	
-                                                    det += "<tr>";
-                                                    det += "<td >"+line.kode_akun+"</td>";
-                                                    det += "<td >"+line.nama_akun+"</td>";
-                                                    det += "<td >"+line.nama_pp+"</td>";
-                                                    det += "<td >"+line.nama_drk+"</td>";
-                                                    det += "<td >"+tw+"</td>";
-                                                    det += "<td class='text-right'>"+format_number(line.saldo)+"</td>";
-                                                    det += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
-                                                    det += "</tr>";
-                                                    no++;
-                                                }
-                                            }
-                                            det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
-                                                <th colspan="5"></th>
-                                                <th style="width:10%" class="text-right">`+format_number(total_saldo)+`</th>
-                                                <th style="width:10%" class="text-right">`+format_number(total)+`</th>
-                                        </tr>`;
-                                        
                                         html+=det+`
                                         </table>
                                     </div>
@@ -798,14 +770,8 @@
                             $('.dropdown-ke2').addClass('hidden');
                         });
 
-                        if(posted == "Close"){
-                            console.log(posted);
-                            $('.preview-header #btn-delete2').css('display','none');
-                            $('.preview-header #btn-edit2').css('display','none');
-                        }else{
-                            $('.preview-header #btn-delete2').css('display','inline-block');
-                            $('.preview-header #btn-edit2').css('display','inline-block');
-                        }
+                        $('.preview-header #btn-edit2').css('display','inline-block');
+                        $('.preview-header #btn-delete2').css('display','inline-block');
                         $('#trigger-bottom-sheet').trigger("click");
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -829,17 +795,19 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            $("#input-budget tbody tr").each(function(i, v){
+            $("#input-flow tbody tr").each(function(i, v){
                 var kode_role = $(this).closest('tr').find('td:eq(1)').text()
                 var kode_jab = $(this).closest('tr').find('td:eq(2)').text()
                 var nik = $(this).closest('tr').find('td:eq(3)').text()
+                var email = $(this).closest('tr').find('td:eq(5)').text()
                 formData.append('kode_role[]',kode_role)
                 formData.append('kode_jab[]',kode_jab)
                 formData.append('nik[]',nik)
+                formData.append('email[]',email)
             });
             
             var total_d = toNilai($('#nilai').val());
-            var jumdet = $('#input-approval tr').length;
+            var jumdet = $('#input-flow tr').length;
             var param = $('#id').val();
             var id = $('#no_bukti').val();
             // $iconLoad.show();
@@ -861,7 +829,7 @@
                     id: '-',
                     type: 'warning',
                     title: 'Transaksi tidak valid',
-                    text: "Detail Approval tidak boleh kosong "
+                    text: "Detail Approval tidak boleh kosong (jumlah baris: "+jumdet+")"
                 });
             }else{
 
@@ -1047,7 +1015,7 @@
         
         $.ajax({
             type: 'POST',
-            url: "{{ url('sukka-trans/juskeb-notifikasi') }}",
+            url: "{{ url('sukka-trans/send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
             async:false,
