@@ -6,7 +6,7 @@
                 @if($tambah)
                 <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;">Tambah</button>
                 @endif
-                <button id="btn-refresh" title="refresh" style='padding: 6px !important;border-radius: 50% !important;' class="btn btn-light float-right mr-3">
+                <button id="btn-refresh" title="refresh" style='padding: 6px;border-radius: 50% !important;' class="btn btn-light float-right mr-3">
                     <i class="simple-icon-reload" style='font-size:18px'></i>
                 </button>
             </div>

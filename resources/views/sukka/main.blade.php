@@ -1415,7 +1415,7 @@
         // var tinggi = content-header-40;
         var title = 69;
         // var body = tinggi-title;
-        var height = content-header-title-40;
+        var height = content-header-title-45;
     
         if($('#saku-form').length > 0){
             
