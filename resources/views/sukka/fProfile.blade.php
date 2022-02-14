@@ -259,7 +259,7 @@ function loadService(index,method,url,param={}){
                         <img alt="Profile" src="{{ asset('asset_elite/images/user.png') }}" class="img-thumbnail card-img social-profile-img"  style="width:120px;height:120px;border-radius: 50%;">
                         `;
                     }else{
-                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data[0].foto;
+                        var foto = "{{ config('api.url').'sukka-auth/storage' }}/"+result.data[0].foto;
                         var img= `
                         <div class="position-absolute card-top-buttons" style="top: -15px;left: 50%;z-index: 10;opacity: ;">
                             <button id="editPhoto" alt="Edit Photo" class="btn icon-button " style="background: white;border: 1px solid #8080802b;opacity: 0.8;">
@@ -274,7 +274,7 @@ function loadService(index,method,url,param={}){
 
                         var background = `<img class="social-header card-img" style="height:200px;" src="{{ asset('/img/gambar2.jpg') }}" />`;
                     }else{
-                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data[0].background;
+                        var foto = "{{ config('api.url').'sukka-auth/storage' }}/"+result.data[0].background;
                         var background = `<img class="social-header card-img" style="height:200px;" src="`+foto+`" />`;
                     }
 
@@ -300,7 +300,7 @@ function loadService(index,method,url,param={}){
                 var msg = "Internal server error";
             }else if(jqXHR.status == 401){
                 var msg = "Unauthorized";
-                window.location="{{ url('/siaga-auth/sesi-habis') }}";
+                window.location="{{ url('/sukka-auth/sesi-habis') }}";
             }else if(jqXHR.status == 405){
                 var msg = "Route not valid. Page not found";
             }
@@ -309,7 +309,7 @@ function loadService(index,method,url,param={}){
     });
 }
 function initDash(){
-    loadService('profile','GET',"siaga-auth/profile"); 
+    loadService('profile','GET',"sukka-auth/profile"); 
 }
 initDash();
 
@@ -329,7 +329,7 @@ $('.btn-eye').click(function(){
 $('#form-ubahPass').on('submit', function(e){
     e.preventDefault();
         var parameter = $('#id').val();
-        var url = "siaga-auth/update-password";
+        var url = "sukka-auth/update-password";
         var pesan = "saved";
 
         var formData = new FormData(this);
@@ -358,7 +358,7 @@ $('#form-ubahPass').on('submit', function(e){
 
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 else{
                    alert(result.data.message);
@@ -374,7 +374,7 @@ $('#form-ubahPass').on('submit', function(e){
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/siaga-auth/sesi-habis') }}";
+                    window.location="{{ url('/sukka-auth/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -408,9 +408,9 @@ $('.crop_image').click(function(event){
         var formData = new FormData();
         var tipe = $('#tipe_upload').val();
         if(tipe == 'foto'){
-            var toUrl = "{{ url('siaga-auth/update-foto') }}";
+            var toUrl = "{{ url('sukka-auth/update-foto') }}";
         }else{
-            var toUrl = "{{ url('siaga-auth/update-background') }}";
+            var toUrl = "{{ url('sukka-auth/update-background') }}";
         }
         formData.append('foto', response, 'profile.png');
         $.ajax({
@@ -426,18 +426,18 @@ $('.crop_image').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'sukka-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
-                        loadForm("{{url('siaga-auth/form/fProfile')}}");
+                        loadForm("{{url('sukka-auth/form/fProfile')}}");
                         
                         $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" style='width:40px;height:40px'/>`);
                     }else{
                         alert('Update background sukses!');
-                        loadForm("{{url('siaga-auth/form/fProfile')}}");
+                        loadForm("{{url('sukka-auth/form/fProfile')}}");
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 else{
                     alert(result.data.message);
@@ -480,9 +480,9 @@ $('.crop_image_bg').click(function(event){
         var formData = new FormData();
         var tipe = $('#tipe_upload-bg').val();
         if(tipe == 'foto'){
-            var toUrl = "{{ url('siaga-auth/update-foto') }}";
+            var toUrl = "{{ url('sukka-auth/update-foto') }}";
         }else{
-            var toUrl = "{{ url('siaga-auth/update-background') }}";
+            var toUrl = "{{ url('sukka-auth/update-background') }}";
         }
         formData.append('foto', response, 'profile.png');
         $.ajax({
@@ -498,18 +498,18 @@ $('.crop_image_bg').click(function(event){
                     
                     if(tipe == 'foto'){
                         alert('Update foto sukses!');
-                        var foto = "{{ config('api.url').'siaga-auth/storage' }}/"+result.data.foto;
+                        var foto = "{{ config('api.url').'sukka-auth/storage' }}/"+result.data.foto;
                         $('#foto-profile').html("<img alt='Profile Picture' src='"+foto+"' style='width:40px;height:40px'>");
-                        loadForm("{{url('siaga-auth/form/fProfile')}}");
+                        loadForm("{{url('sukka-auth/form/fProfile')}}");
                         
                         $('#adminProfilePhoto').html(`<img alt="Profile Picture" class="imgprofile ml-0" src="`+foto+`" style='width:40px;height:40px'/>`);
                     }else{
                         alert('Update background sukses!');
-                        loadForm("{{url('siaga-auth/form/fProfile')}}");
+                        loadForm("{{url('sukka-auth/form/fProfile')}}");
                     }
                 }
                 else if(!result.data.status && result.data.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 else{
                     alert(result.data.message);
