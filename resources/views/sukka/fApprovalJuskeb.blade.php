@@ -630,7 +630,7 @@
         
         $.ajax({
             type: 'POST',
-            url: "{{ url('sukka-trans/app-send-email') }}",
+            url: "{{ url('sukka-trans/app-juskeb-send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
             async:false,

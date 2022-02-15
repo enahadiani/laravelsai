@@ -305,7 +305,7 @@ class ApprovalJuskebController extends Controller
         try{
     
             $client = new Client();
-            $response = $client->request('POST',  config('api.url').'sukka-trans/app-send-email',[
+            $response = $client->request('POST',  config('api.url').'sukka-trans/app-juskeb-send-email',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
