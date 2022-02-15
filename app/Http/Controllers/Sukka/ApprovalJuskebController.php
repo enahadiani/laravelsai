@@ -148,10 +148,10 @@ class ApprovalJuskebController extends Controller
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'status'=>true, 'res'=>$res], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();

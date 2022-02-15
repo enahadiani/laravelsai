@@ -17,14 +17,14 @@
                     <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <button type="submit" style="margin-top: 10px;" id="btn-return" class="btn btn-warning"><i class=""></i> Return</button>
-                    <button type="submit" style="margin-top: 10px;" id="btn-app" class="btn btn-success"><i class=""></i> Approve</button>
+                    <button type="submit" id="btn-return" class="btn btn-warning float-right mr-4"><i class=""></i> Return</button>
+                    <button type="submit" id="btn-app" class="btn btn-success float-right mr-2"><i class=""></i> Approve</button>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
                     <input class="form-control" type="hidden" id="nu" name="nu" readonly autocomplete="off" required >
+                    <input class="form-control" type="hidden" id="status" name="status" readonly autocomplete="off" required >
                     <div class="form-row">
-                       
                         <div class="form-group col-md-6 col-sm-12">
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
@@ -77,7 +77,7 @@
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
-                        <div class="tab-pane active row" id="data-barang" role="tabpanel">
+                        <div class="tab-pane active row px-3" id="data-barang" role="tabpanel">
                             <div class="form-row mt-3">
                                 <div class="form-group col-md-6 col-sm-12">
                                     <div class="row">
@@ -547,7 +547,7 @@
                     html += `
                             <div class='row'>
                                 <div class='col-12 text-center' style='margin-bottom:20px;'>
-                                    <h3>TANDA TERIMA</h3>
+                                    <h6>TANDA TERIMA</h6>
                                 </div>    
                                 <div class='col-12'>
                                     <table class='table table-borderless table-condensed'>
