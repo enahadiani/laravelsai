@@ -33,3 +33,23 @@ Route::post('app-juskeb','Sukka\ApprovalJuskebController@store');
 Route::get('app-juskeb-status','Sukka\ApprovalJuskebController@getStatus');
 Route::get('app-juskeb-preview','Sukka\ApprovalJuskebController@getPreview');
 Route::post('app-juskeb-send-email','Sukka\ApprovalJuskebController@sendEmail');
+
+// PENGAJUAN RRA
+Route::get('aju-rra-nobukti', 'Sukka\PengajuanRRAController@generateNoBukti');
+Route::get('aju-rra', 'Sukka\PengajuanRRAController@index');
+Route::post('aju-rra', 'Sukka\PengajuanRRAController@store');
+Route::get('aju-rra/{id}', 'Sukka\PengajuanRRAController@show');
+Route::post('aju-rra/{id}','Sukka\PengajuanRRAController@update');
+Route::delete('aju-rra/{id}','Sukka\PengajuanRRAController@destroy');
+Route::get('aju-rra-pp', 'Sukka\PengajuanRRAController@getPP');
+Route::get('aju-rra-drk', 'Sukka\PengajuanRRAController@getDRK');
+Route::get('aju-rra-drk-beri', 'Sukka\PengajuanRRAController@getDRKPemberi');
+Route::get('aju-rra-jenis-dok', 'Sukka\PengajuanRRAController@getJenisDok');
+Route::get('aju-rra-akun', 'Sukka\PengajuanRRAController@getAkun');
+Route::get('aju-rra-lokasi', 'Sukka\PengajuanRRAController@getLokasi');
+Route::get('aju-rra-nik-app', 'Sukka\PengajuanRRAController@getNIKApp');
+Route::post('aju-rra-excel', 'Sukka\PengajuanRRAController@importExcel');
+Route::get('aju-rra-tmp', 'Sukka\PengajuanRRAController@getTmp');
+Route::post('aju-rra-cek-budget', 'Sukka\PengajuanRRAController@cekBudget');
+Route::get('aju-rra-saldo', 'Sukka\PengajuanRRAController@getSaldo');
+Route::get('aju-rra-flow','Sukka\PengajuanRRAController@getAppFlow');
