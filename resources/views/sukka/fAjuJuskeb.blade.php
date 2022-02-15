@@ -395,7 +395,7 @@
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    var action_html2 = "<a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
+    var action_html2 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('sukka-trans/juskeb') }}", 
@@ -421,8 +421,13 @@
             {
                 "targets" : 8,
                 "data": null,
+                'className' : 'text-center',
                 "render": function ( data, type, row, meta ) {
-                    return action_html;
+                    if(row.sts_log == "0" || row.sts_log == "R"){
+                        return action_html;
+                    }else{
+                        return action_html2;
+                    }
                 }
             }
         ],
@@ -569,6 +574,11 @@
             id: id,
             type:'hapus'
         });
+    });
+
+    $('#saku-datatable').on('click','#btn-preview',function(e){
+        var id = $(this).closest('tr').find('td').eq(0).html();
+        printPreview(id);
     });
     // END HAPUS DATA
 
