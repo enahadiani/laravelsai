@@ -53,3 +53,13 @@ Route::get('aju-rra-tmp', 'Sukka\PengajuanRRAController@getTmp');
 Route::post('aju-rra-cek-budget', 'Sukka\PengajuanRRAController@cekBudget');
 Route::get('aju-rra-saldo', 'Sukka\PengajuanRRAController@getSaldo');
 Route::get('aju-rra-flow','Sukka\PengajuanRRAController@getAppFlow');
+Route::get('aju-rra-preview/{no_bukti}','Sukka\PengajuanRRAController@getPreview');
+Route::post('aju-rra-email','Sukka\PengajuanRRAController@sendEmail');
+
+Route::get('app-rra','Sukka\ApprovalRRAController@index');
+Route::get('app-rra-aju','Sukka\ApprovalRRAController@getPengajuan');
+Route::get('app-rra-detail','Sukka\ApprovalRRAController@show');
+Route::post('app-rra','Sukka\ApprovalRRAController@store');
+Route::get('app-rra-status','Sukka\ApprovalRRAController@getStatus');
+Route::get('app-rra-preview','Sukka\ApprovalRRAController@getPreview');
+Route::post('app-rra-send-email','Sukka\ApprovalRRAController@sendEmail');

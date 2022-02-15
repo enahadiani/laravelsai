@@ -63,17 +63,17 @@
                                     <div class="col-md-6 col-sm-12">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_jenis">Jenis RRA</label>
+                                        <label for="jenis_rra">Jenis RRA</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_jenis" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                <span class="input-group-text info-code_jenis_rra" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-kode_jenis" id="kode_jenis" name="kode_jenis" value="" title="">
-                                            <span class="info-name_kode_jenis hidden">
+                                            <input type="text" class="form-control inp-label-jenis_rra" id="jenis_rra" name="jenis_rra" value="" title="">
+                                            <span class="info-name_jenis_rra hidden">
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_jenis_rra"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +126,6 @@
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Cek Anggaran</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Approval</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-ctt" role="tab" aria-selected="true"><span class="hidden-xs-down">Catatan Approval</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-lokasi" role="tabpanel">
@@ -186,10 +185,10 @@
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-terima" role="tabpanel">
-                                <div class='col-md-12 nav-control-terima' style="padding: 0px 5px;">
+                                <div class='col-md-12 nav-control nav-control-terima' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
-                                    <div class="dropdown d-inline-block mx-0">
+                                    {{-- <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px !important'>
                                         <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Data<i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
@@ -197,7 +196,7 @@
                                             <a class="dropdown-item" href="#"  id="download-template" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel-terima" >Upload</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
@@ -226,7 +225,7 @@
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
                                     <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
-                                    <div class="dropdown d-inline-block mx-0">
+                                    {{-- <div class="dropdown d-inline-block mx-0">
                                         <a class="btn dropdown-toggle mb-1 px-0" href="#" role="button" id="dropdown-import" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style='font-size:18px !important'>
                                         <i class='simple-icon-doc' ></i> <span style="font-size:12.8px">Upload Data<i class='simple-icon-arrow-down' style="font-size:10px"></i></span> 
                                         </a>
@@ -234,7 +233,7 @@
                                             <a class="dropdown-item" href="#"  id="download-template2" >Download Template</a>
                                             <a class="dropdown-item" href="#" id="import-excel-beri" >Upload</a>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
@@ -331,9 +330,6 @@
                                     </table>
                                 </div>
                             </div>
-                            <div class="tab-pane" id="data-ctt" role="tabpanel">
-                                <div id="catatan_log"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -341,6 +337,25 @@
         </div>
     </form>
     <!-- FORM INPUT  -->
+
+    {{-- PRINT PREVIEW --}}
+    <div id="saku-print" class="row" style="display: none;">
+        <div class="col-12">
+            <div class="card" style="height: 100%;">
+                <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:42.8px">
+                    <button type="button" id="btn-back" aria-label="Kembali" class="btn btn-back" style="top: 28px !important;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <button type="button" class="btn btn-primary ml-2 mr-4" id="btn-cetak" style="float:right;"><i class="fa fa-print"></i> Print</button>
+                </div>
+                <div class="separator mb-2"></div>
+                <div class="card-body" id="print-content">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- END PRINT PREVIEW --}}
 
     <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     @include('modal_upload')
@@ -597,15 +612,15 @@
             success:function(result){    
                 if(result.status){
                     if(id == null){
-                        showInfoField('kode_jenis',result.kode_jenis,result.nama_app);
+                        showInfoField('jenis_rra',result.kode_jenis,result.nama_app);
                     }else{
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            showInfoField('kode_jenis',result.daftar[0].kode_jenis,result.daftar[0].nama);
+                            showInfoField('jenis_rra',result.daftar[0].kode_jenis,result.daftar[0].nama);
                         }else{
-                            $('#kode_jenis').attr('readonly',false);
-                            $('#kode_jenis').css('border-left','1px solid #d7d7d7');
-                            $('#kode_jenis').val('');
-                            $('#kode_jenis').focus();
+                            $('#jenis_rra').attr('readonly',false);
+                            $('#jenis_rra').css('border-left','1px solid #d7d7d7');
+                            $('#jenis_rra').val('');
+                            $('#jenis_rra').focus();
                         }
                     }
                 }
@@ -896,7 +911,7 @@
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
-    var action_html2 = "<a href='#' title='Upload' id='btn-upload'><i class='simple-icon-cloud-upload' style='font-size:18px'></i></a>";
+    var action_html2 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('sukka-trans/aju-rra') }}", 
@@ -923,7 +938,11 @@
                 "targets" : 7,
                 "data": null,
                 "render": function ( data, type, row, meta ) {
-                    return action_html;
+                    if(row.sts_log == "0" || row.sts_log == "R"){
+                        return action_html;
+                    }else{
+                        return action_html2;
+                    }
                 }
             }
             // {   'targets': 7, data: null, 'defaultContent': action_html, 'className': 'text-center' }
@@ -1267,7 +1286,7 @@
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#jenis')[0].selectize.setValue(result.data[0].jenis_agg);
                     $('#deskripsi').val(result.data[0].keterangan);
-                    $('#kode_jenis').val(result.data[0].kode_jenis); 
+                    $('#jenis_rra').val(result.data[0].kode_jenis); 
                     $('#lokasi_beri').val(result.data[0].lokasi_beri);
                     $('#lokasi_terima').val(result.data[0].lokasi_terima);
                     $('#total_terima').val(result.data[0].nilai);
@@ -1433,73 +1452,33 @@
                         }
                     }
                     $('#form-tambah #input-dok tbody').html(input2);
-                    var html= "";
-                    if(result.detail_catatan.length > 0){
-                        for(var i=0;i<result.detail_catatan.length;i++) {
-                            var line2 = result.detail_catatan[i];
-                            for(var j = 0; j <line2.detail.length; j++){
-                                var line = line2.detail[j];
-                                if (line.status == "1") {
-                                    var color = "var(--success)"; 
-                                    var icon= "simple-icon-check"; 
-                                    var vStatus ='VERIFIKASI RRA - APPROVE';
-                                }
-                                if (line.status == "K") {
-                                    var color = "var(--warning)";	
-                                    var icon= "simple-icon-reload"; 
-                                    var vStatus ='VERIFIKASI RRA - RETURN';
-                                }
-                                if (line.status == "X") {
-                                    var color = "var(--danger)";	
-                                    var icon= "simple-icon-close"; 
-                                    var vStatus ='VERIFIKASI RRA - NONAPP';
-                                }
-                                
-                                if (line.status == "2") {
-                                    var color = "var(--success)"; 
-                                    var icon= "simple-icon-check";var vStatus ='APPROVAL RRA APPROVE';
-                                }
-                                if (line.status == "A") {
-                                    var color = "var(--warning)";	
-                                    var icon= "simple-icon-reload";
-                                    var vStatus ='APPROVAL RRA - RETURN';
-                                }
-                                if (line.status == "Z") {
-                                    var color = "var(--danger)";
-                                    var icon= "simple-icon-close";
-                                    var vStatus ='APPROVAL RRA - NONAPP';		
-                                }
-                                html += `
-                                    <div class="d-flex flex-row mb-3 px-2">
-                                        <a class="d-block position-relative" href="#" style='top:8px'>
-                                            <div style='padding-top: 2px; border: 1px solid ${color}; border-radius: 50%; background: ${color}; color: #ffffff; width: 30px; height:30px;text-align: center;'>
-                                            <i style='font-size: 25px;' class='${icon}'></i>
-                                            </div>
-                                        </a>
-                                        <div class="col-12 pl-3 pt-2 pr-2 pb-2">
-                                            <a href="#">
-                                                <p class="list-item-heading"><a href='javascript:void(0)' class='link'>
-                                                ${line.nik_user} (${vStatus})<span class='sl-date float-right mr-3'>${line.tgl} ${line.jam}</span>
-                                                </a></p>
-                                                <div class="pr-2 row">
-                                                    <div class='col-3'>No Bukti :</div>    
-                                                    <div class='col-9'>${line.no_app}</div>    
-                                                    <div class='col-3'>Catatan :</div>    
-                                                    <div class='col-9'>${line.catatan}</div>  
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    
-                                    <hr />
-                                    `;
-                            }
+
+                    $('#input-flow tbody').html('');
+                    if(result.detail_app.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail_app.length;i++){
+                            var line =result.detail_app[i];
+                            input+=` <tr>
+                                <td>${no}</td>    
+                                <td>${line.kode_role}</td>    
+                                <td>${line.kode_jab}</td>    
+                                <td>${line.nik}</td>    
+                                <td>${line.nama}</td>    
+                                <td>${line.email}</td>    
+                            </tr>`;
+                            no++;
                         }
-                        
-                    }else{
-                        html += "Catatan tidak tersedia";
+                        $('#input-flow tbody').html(input);
+                        $('.tooltip-span').attr('title','tooltip');
+                        $('.tooltip-span').tooltip({
+                            content: function(){
+                                return $(this).text();
+                            },
+                            tooltipClass: "custom-tooltip-sai"
+                        });
                     }
-                    $('#catatan_log').html(html);
+
                     hitungTotalBeri();
                     hitungTotalTerima();
                     hitungTotalRowTerima();
@@ -1507,7 +1486,7 @@
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
-                    showInfoField("kode_jenis",result.data[0].kode_jenis,result.data[0].nama_jenis);
+                    showInfoField("jenis_rra",result.data[0].kode_jenis,result.data[0].nama_jenis);
                     showInfoField("lokasi_terima",result.data[0].lokasi_terima,result.data[0].nama_terima);
                     showInfoField("lokasi_beri",result.data[0].lokasi_beri,result.data[0].nama_beri);
                     setHeightForm();
@@ -1608,7 +1587,163 @@
         });
     });
 
+    $('#saku-datatable').on('click','#btn-preview',function(e){
+        var id = $(this).closest('tr').find('td').eq(1).html();
+        printPreview(id);
+    });
+
     // END BUTTON KEMBALI
+
+    function printPreview(id) {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sukka-trans/aju-rra-preview') }}/"+id,
+            dataType: 'json',
+            async:false,
+            success:function(result) {
+                if(typeof result.data !== 'undefined' && result.data.length > 0) {
+                    var html = "";
+                    var no = 1;
+                    var total = 0
+                    var data = result.data[0];
+                    html += `
+                    <div class="row px-4">
+                        <div class="col-12" style="border-bottom:3px solid black;text-align:center">
+                            <h6 style="margin-bottom:0px !important">PENGAJUAN</h6>
+                            <h6>RRA</h6>
+                        </div>
+                        <div class="col-12 my-2" style="text-align:center">
+                            <h6>Nomor : ${data.no_pdrk}</h6>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-condensed table-bordered" width="100%"  id="table-m">
+                                <tbody>
+                                    <tr>
+                                        <td width="5%">1</td>
+                                        <td width="25">PERIODE</td>
+                                        <td width="70%" id="print-unit">${data.periode}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%">2</td>
+                                        <td width="25">TANGGAL</td>
+                                        <td width="70%" id="print-unit">${data.tanggal}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="5%">3</td>
+                                        <td width="25">KETERANGAN</td>
+                                        <td width="70%" id="print-unit">${data.keterangan}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>DIBUAT OLEH</td>
+                                        <td id="print-pic">${data.nik_buat} ${data.nama_buat}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>DETAIL</u></p>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-condensed table-bordered" style='border:1px solid black;border-collapse:collapse' border="1" width="100%" id="table-penutup">
+                                <thead class="text-center">
+                                <tr>
+                                <td width="5%">NO</td>
+                                <td width="10">KODE AKUN</td>
+                                <td width="25">NAMA AKUN</td>
+                                <td width="10">KODE PP</td>
+                                <td width="25">NAMA PP</td>
+                                <td width="10">KODE DRK</td>
+                                <td width="25">NAMA DRK</td>
+                                <td width="10%">PERIODE</td>
+                                <td width="10%">DONOR</td>
+                                <td width="10%">PENERIMA</td>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                            var total =0; var no=0; 
+                            for(i=0; i < data.detail.length; i++){
+                                var line2 = data.detail[i];
+                                no++;
+                                html+=`
+                                <tr>
+                                <td>${no}</td>
+                                <td>${line2.kode_akun}</td>
+                                <td>${line2.nama_akun}</td>
+                                <td>${line2.kode_pp}</td>
+                                <td>${line2.nama_pp}</td>
+                                <td>${line2.kode_drk}</td>
+                                <td>${line2.nama_drk}</td>
+                                <td>${line2.periode}</td>
+                                <td align='right' class='isi_laporan'>${number_format(line2.kredit)}</td>
+                                <td align='right' class='isi_laporan'>${number_format(line2.debet)}</td>
+                                </tr>`;
+                            } 
+                            html+=`
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>LAMPIRAN</u></p>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-condensed table-bordered" style='border:1px solid black;border-collapse:collapse' border="1" width="100%" id="table-penutup">
+                                <thead class="text-center">
+                                <tr>
+                                <td width="10%"></td>
+                                <td width="25">NAMA/NIK</td>
+                                <td width="15%">JABATAN</td>
+                                <td width="10%">TANGGAL</td>
+                                <td width="15%">NO APPROVAL</td>
+                                <td width="10%">STATUS</td>
+                                <td width="15%">TTD</td>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                                var total =0; var no=0; 
+                                for(i=0; i < result.detail_app.length; i++){
+                                    var line2 = result.detail_app[i];
+                                    no++;
+                                    html+=`
+                                    <tr>
+                                    <td>${line2.ket} </td>
+                                    <td>${line2.nama_kar} / ${line2.nik} </td>
+                                    <td>${line2.nama_jab} </td>
+                                    <td>${line2.tanggal} </td>
+                                    <td>${line2.no_app} </td>
+                                    <td>${line2.status} </td>
+                                    <td>&nbsp;</td>
+                                    </tr>`;
+                                }
+                            html+=`
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    `;
+                        
+                    $('#print-content').html(html)
+                    $('#saku-form').hide()
+                    $('#saku-datatable').hide()
+                    $('#saku-print').show()
+                }
+            }
+        });
+    }
+
+    $('#saku-print #btn-back').click(function() {
+        $('#saku-print').hide()
+        $('#saku-datatable').show()
+        $('#saku-form').hide()
+    });
+
+    $('#saku-print #btn-cetak').click(function() {
+        $('#print-content').printThis({
+            importCSS: true,            // import parent page css
+            importStyle: true,         // import style tags
+            printContainer: true,       // print outer container/$.selector
+        });
+    });
 
     // BUTTON UPDATE DATA
     $('#saku-form').on('click', '#btn-update', function(){
@@ -1961,8 +2096,12 @@
                             
                             msgDialog({
                                 id:result.data.no_bukti,
-                                type:'simpan'
+                                type:'warning',
+                                title: 'Sukses',
+                                text:result.data.message
                             });
+
+                            printPreview(result.data.no_bukti);
 
                             if(result.data.no_pooling != undefined){
                                 kirimWAEmail(result.data.no_pooling);
@@ -2024,9 +2163,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#kode_jenis,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
+    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','kode_jenis','total_terima','total_beri','lokasi_terima','lokasi_beri'];
+        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -2086,7 +2225,7 @@
                     width : ["30%","70%"]
                 }
             break;
-            case 'kode_jenis':
+            case 'jenis_rra':
                 var options = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -2120,13 +2259,13 @@
         getLokasi(par);
     });
 
-    $('#form-tambah').on('change', '#kode_jenis', function(){
+    $('#form-tambah').on('change', '#jenis_rra', function(){
         var par = $(this).val();
         getJenis(par);
     });
 
     $('#form-tambah').on('click', '#load-app', function(){
-        var kode_jenis = $('#kode_jenis').val();
+        var kode_jenis = $('#jenis_rra').val();
         var nilai = $('#total_terima').val();
         getAppFlow(kode_jenis,nilai);
     });
@@ -4194,7 +4333,7 @@
         
         $.ajax({
             type: 'POST',
-            url: "{{ url('sukka-trans/aju-rra-notifikasi') }}",
+            url: "{{ url('sukka-trans/aju-rra-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
             async:false,

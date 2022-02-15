@@ -41,6 +41,38 @@ class PengajuanRRAController extends Controller
         return $arr[2].$new_sep.$arr[1].$new_sep.$arr[0];
     }
 
+    function sendNotifApproval($no_pesan){ 	
+        try {
+            
+            $fields = array(
+                'no_pesan' => $no_pesan,
+            );
+            
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'sukka-auth/notif-approval', [
+                'headers' => [
+                    'Authorization' =>  'Bearer '.Session::get('token'),
+                    'Content-Type'     => 'application/json; charset=utf-8'
+                ],
+                'body' => json_encode($fields)
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                $data = json_decode($response_data,true);
+            }
+            $result = array('result' => $data, 'status'=>true, 'fields'=>$fields, 'message'=>'Send notif success!');
+            return $result;
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result = array('message' => $res, 'status'=>false, 'fields'=> $fields);
+            return $result;
+        }
+
+    }
+
     public function index(){
         try { 
             $client = new Client();
@@ -319,7 +351,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'jenis' => 'required',
-            'kode_jenis' => 'required',
+            'jenis_rra' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -358,8 +390,8 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->kode_form,
                 ],
                 [
-                    'name' => 'kode_jenis',
-                    'contents' => $request->kode_jenis,
+                    'name' => 'jenis_rra',
+                    'contents' => $request->jenis_rra,
                 ],
                 [
                     'name' => 'jenis',
@@ -462,6 +494,36 @@ class PengajuanRRAController extends Controller
                 $send_data = array_merge($send_data,$fields_nilai_terima);
             }
             
+            $fields_nik = array();
+            $fields_kode_role = array();
+            $fields_kode_jab = array();
+            $fields_email = array();
+            if(count($request->nik) > 0){
+
+                for($i=0;$i<count($request->nik);$i++){
+                    $fields_nik[$i] = array(
+                        'name'     => 'nik[]',
+                        'contents' => $request->nik[$i],
+                    );
+                    $fields_kode_role[$i] = array(
+                        'name'     => 'kode_role[]',
+                        'contents' => $request->kode_role[$i],
+                    );
+                    $fields_kode_jab[$i] = array(
+                        'name'     => 'kode_jab[]',
+                        'contents' => $request->kode_jab[$i],
+                    );
+                    $fields_email[$i] = array(
+                        'name'     => 'email[]',
+                        'contents' => $request->email[$i],
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_nik);
+                $send_data = array_merge($send_data,$fields_kode_role);
+                $send_data = array_merge($send_data,$fields_kode_jab);
+                $send_data = array_merge($send_data,$fields_email);
+            }
+
             $fields_foto = array();
             $fields_nama_file_seb = array();
             $fields_jenis = array();
@@ -510,36 +572,6 @@ class PengajuanRRAController extends Controller
                 }
             }
 
-            $fields_nik = array();
-            $fields_kode_role = array();
-            $fields_kode_jab = array();
-            $fields_email = array();
-            if(count($request->nik) > 0){
-
-                for($i=0;$i<count($request->nik);$i++){
-                    $fields_nik[$i] = array(
-                        'name'     => 'nik[]',
-                        'contents' => $request->nik[$i],
-                    );
-                    $fields_kode_role[$i] = array(
-                        'name'     => 'kode_role[]',
-                        'contents' => $request->kode_role[$i],
-                    );
-                    $fields_kode_jab[$i] = array(
-                        'name'     => 'kode_jab[]',
-                        'contents' => $request->kode_jab[$i],
-                    );
-                    $fields_email[$i] = array(
-                        'name'     => 'email[]',
-                        'contents' => $request->email[$i],
-                    );
-                }
-                $send_data = array_merge($send_data,$fields_nik);
-                $send_data = array_merge($send_data,$fields_kode_role);
-                $send_data = array_merge($send_data,$fields_kode_jab);
-                $send_data = array_merge($send_data,$fields_email);
-            }
-
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'sukka-trans/aju-rra',[
                 'headers' => [
@@ -553,6 +585,9 @@ class PengajuanRRAController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if(isset($data['no_pesan'])){
+                    $this->sendNotifApproval($data['no_pesan']);
+                }
                 return response()->json(["data" =>$data], 200);  
             }
 
@@ -647,7 +682,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'jenis' => 'required',
-            'kode_jenis' => 'required',
+            'jenis_rra' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -690,8 +725,8 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->kode_form,
                 ],
                 [
-                    'name' => 'kode_jenis',
-                    'contents' => $request->kode_jenis,
+                    'name' => 'jenis_rra',
+                    'contents' => $request->jenis_rra,
                 ],
                 [
                     'name' => 'jenis',
@@ -793,6 +828,36 @@ class PengajuanRRAController extends Controller
                 $send_data = array_merge($send_data,$fields_tw_terima);
                 $send_data = array_merge($send_data,$fields_nilai_terima);
             }
+
+            $fields_nik = array();
+            $fields_kode_role = array();
+            $fields_kode_jab = array();
+            $fields_email = array();
+            if(count($request->nik) > 0){
+
+                for($i=0;$i<count($request->nik);$i++){
+                    $fields_nik[$i] = array(
+                        'name'     => 'nik[]',
+                        'contents' => $request->nik[$i],
+                    );
+                    $fields_kode_role[$i] = array(
+                        'name'     => 'kode_role[]',
+                        'contents' => $request->kode_role[$i],
+                    );
+                    $fields_kode_jab[$i] = array(
+                        'name'     => 'kode_jab[]',
+                        'contents' => $request->kode_jab[$i],
+                    );
+                    $fields_email[$i] = array(
+                        'name'     => 'email[]',
+                        'contents' => $request->email[$i],
+                    );
+                }
+                $send_data = array_merge($send_data,$fields_nik);
+                $send_data = array_merge($send_data,$fields_kode_role);
+                $send_data = array_merge($send_data,$fields_kode_jab);
+                $send_data = array_merge($send_data,$fields_email);
+            }
             
             $fields_foto = array();
             $fields_nama_file_seb = array();
@@ -842,37 +907,6 @@ class PengajuanRRAController extends Controller
                 }
             }
 
-            $fields_nik = array();
-            $fields_kode_role = array();
-            $fields_kode_jab = array();
-            $fields_email = array();
-            if(count($request->nik) > 0){
-
-                for($i=0;$i<count($request->nik);$i++){
-                    $fields_nik[$i] = array(
-                        'name'     => 'nik[]',
-                        'contents' => $request->nik[$i],
-                    );
-                    $fields_kode_role[$i] = array(
-                        'name'     => 'kode_role[]',
-                        'contents' => $request->kode_role[$i],
-                    );
-                    $fields_kode_jab[$i] = array(
-                        'name'     => 'kode_jab[]',
-                        'contents' => $request->kode_jab[$i],
-                    );
-                    $fields_email[$i] = array(
-                        'name'     => 'email[]',
-                        'contents' => $request->email[$i],
-                    );
-                }
-                $send_data = array_merge($send_data,$fields_nik);
-                $send_data = array_merge($send_data,$fields_kode_role);
-                $send_data = array_merge($send_data,$fields_kode_jab);
-                $send_data = array_merge($send_data,$fields_email);
-            }
-            
-
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'sukka-trans/aju-rra-ubah',[
                 'headers' => [
@@ -886,6 +920,9 @@ class PengajuanRRAController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+                if(isset($data['no_pesan'])){
+                    $this->sendNotifApproval($data['no_pesan']);
+                }
                 return response()->json(["data" =>$data], 200);  
             }
         } catch (BadResponseException $ex) {
@@ -1121,5 +1158,67 @@ class PengajuanRRAController extends Controller
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
+    }
+
+    public function getPreview($no_bukti)
+    {
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-trans/aju-rra-preview',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'no_bukti' => $no_bukti
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json($data, 200);
+        }
+    }
+
+    public function sendEmail(Request $request)
+    {
+        $this->validate($request, [
+            'no_pooling' => 'required'
+        ]);
+        try{
+    
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'sukka-trans/aju-rra-email',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'no_pooling' => $request->no_pooling
+                ]
+            ]);  
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(["data" =>$data], 200);  
+            }
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $result['message'] = $res;
+            $result['status']=false;
+            return response()->json(["data" => $result], 200);
+        } 
+        
     }
 }
