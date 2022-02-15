@@ -937,6 +937,7 @@
             {
                 "targets" : 7,
                 "data": null,
+                'className': 'text-center',
                 "render": function ( data, type, row, meta ) {
                     if(row.sts_log == "0" || row.sts_log == "R"){
                         return action_html;
