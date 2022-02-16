@@ -1,7 +1,7 @@
     <link rel="stylesheet" href="{{ asset('trans-new.css?version=_').time() }}" />
     <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Pengajuan RRA" tambah="true" :thead="array('Tanggal','No Bukti','No Dokumen','Deskripsi','Progress','Nilai','Tgl Input','Aksi')" :thwidth="array(15,15,15,20,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Pengajuan RRA" tambah="" :thead="array('No Bukti','Kegiatan','Periode','Jenis','Unit Kerja','Nilai','Tgl Input','Aksi')" :thwidth="array(10,20,10,10,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         #tanggal-dp .datepicker-dropdown
@@ -62,17 +62,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <label for="no_juskeb">No Juskeb</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_no_juskeb" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-no_juskeb" id="no_juskeb" name="no_juskeb" value="" title="">
-                                            <span class="info-name_no_juskeb hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_no_juskeb"></i>
-                                        </div>
+                                        <input type="text" class="form-control" id="no_juskeb" name="no_juskeb" readonly>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="jenis_rra">Jenis RRA</label>
@@ -529,44 +519,6 @@
         });
     }
 
-    function getJuskeb(id = null){
-        if(id == null){
-            var param = {}
-        }else{
-            var param = {no_bukti : id}
-        }
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('/sukka-trans/aju-rra-juskeb') }}",
-            dataType: 'json',
-            data: param,
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    if(id == null){
-                        showInfoField('no_juskeb',result.no_bukti,result.kegiatan);
-                    }else{
-                        if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            showInfoField('no_juskeb',result.daftar[0].no_bukti,result.daftar[0].kegiatan);
-                            $('#kode_pp_juskeb').val(result.daftar[0].nama_pp);
-                            $('#nilai_juskeb').val(result.daftar[0].nilai);
-                            $('#jenis_rra').val(result.daftar[0].kode_jenis);
-                            showInfoField('jenis_rra',result.daftar[0].kode_jenis,result.daftar[0].nama_jenis);
-                        }else{
-                            $('#no_juskeb').attr('readonly',false);
-                            $('#no_juskeb').css('border-left','1px solid #d7d7d7');
-                            $('#no_juskeb').val('');
-                            $('#no_juskeb').focus();
-                        }
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
-                }
-            }
-        });
-    }
-
     function activaTab(tab){
         $('.nav-tabs a[href="#' + tab + '"]').tab('show');
     }
@@ -666,11 +618,11 @@
     })
 
     // LIST DATA
-    var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
+    var action_html = "<a href='#' title='Pilih' id='btn-edit'><i class='simple-icon-check' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp;";
     var action_html2 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('sukka-trans/aju-rra') }}", 
+        "{{ url('sukka-trans/aju-rra-juskeb') }}", 
         [
             {
                 "targets": 0,
@@ -693,28 +645,23 @@
             {
                 "targets" : 7,
                 "data": null,
-                'className': 'text-center',
+                'className' : 'text-center',
                 "render": function ( data, type, row, meta ) {
-                    if(row.sts_log == "0" || row.sts_log == "R"){
-                        return action_html;
-                    }else{
-                        return action_html2;
-                    }
+                    return action_html;
                 }
             }
-            // {   'targets': 7, data: null, 'defaultContent': action_html, 'className': 'text-center' }
         ],
         [
-            { data: 'tgl' },
-            { data: 'no_pdrk' },
-            { data: 'no_dokumen' },
-            { data: 'keterangan' },
-            { data: 'progress' },
+            { data: 'no_bukti' },
+            { data: 'kegiatan' },
+            { data: 'periode' },
+            { data: 'jenis' },
+            { data: 'kode_pp' },
             { data: 'nilai' },
-            { data: 'tgl_input' }
+            { data: 'tanggal' }
         ],
         "{{ url('sukka-auth/sesi-habis') }}",
-        [[6 ,"desc"]]
+        [[5 ,"desc"]]
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -1036,14 +983,16 @@
                     $('#input-dok tbody').html('');
                     $('#id').val('edit');
                     $('#method').val('post');
-                    $('#no_bukti').val(id);
-                    $('#no_bukti').attr('readonly', true);
-                    $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
+                    var tanggal = $('#tanggal').val();
+                    generateNoBukti(tanggal);
                     $('#no_dokumen').val(result.data[0].no_dokumen);
                     $('#deskripsi').val(result.data[0].keterangan);
-                    $('#no_juskeb').val(result.data[0].justifikasi).trigger('change'); 
-                    $('#lokasi_beri').val(result.data[0].lokasi_beri);
-                    $('#lokasi_terima').val(result.data[0].lokasi_terima);
+                    $('#no_juskeb').val(result.data[0].no_bukti); 
+                    $('#kode_pp_juskeb').val(result.data[0].nama_pp); 
+                    $('#jenis_rra').val(result.data[0].kode_jenis); 
+                    $('#lokasi_beri').val(result.data[0].lok_donor);
+                    $('#lokasi_terima').val(result.data[0].lok_terima);
+                    $('#nilai_juskeb').val(result.data[0].nilai);
                     $('#total_terima').val(result.data[0].nilai);
                     $('#total_beri').val(result.data[0].nilai);
                     if(result.detail_beri.length > 0){
@@ -1199,32 +1148,6 @@
                     }
                     $('#form-tambah #input-dok tbody').html(input2);
 
-                    $('#input-flow tbody').html('');
-                    if(result.detail_app.length > 0){
-                        var input = '';
-                        var no=1;
-                        for(var i=0;i<result.detail_app.length;i++){
-                            var line =result.detail_app[i];
-                            input+=` <tr>
-                                <td>${no}</td>    
-                                <td>${line.kode_role}</td>    
-                                <td>${line.kode_jab}</td>    
-                                <td>${line.nik}</td>    
-                                <td>${line.nama}</td>    
-                                <td>${line.email}</td>    
-                            </tr>`;
-                            no++;
-                        }
-                        $('#input-flow tbody').html(input);
-                        $('.tooltip-span').attr('title','tooltip');
-                        $('.tooltip-span').tooltip({
-                            content: function(){
-                                return $(this).text();
-                            },
-                            tooltipClass: "custom-tooltip-sai"
-                        });
-                    }
-
                     hitungTotalBeri();
                     hitungTotalTerima();
                     hitungTotalRowTerima();
@@ -1232,9 +1155,10 @@
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
-                    resizeNameField('jenis_rra');
-                    showInfoField("lokasi_terima",result.data[0].lokasi_terima,result.data[0].nama_terima);
-                    showInfoField("lokasi_beri",result.data[0].lokasi_beri,result.data[0].nama_beri);
+                    
+                    showInfoField("jenis_rra",result.data[0].kode_jenis,result.data[0].nama_jenis);
+                    showInfoField("lokasi_terima",result.data[0].lok_terima,result.data[0].nama_terima);
+                    showInfoField("lokasi_beri",result.data[0].lok_donor,result.data[0].nama_beri);
                     setHeightForm();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -1245,10 +1169,10 @@
     }
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
-        var id= $(this).closest('tr').find('td').eq(1).html();
+        var id= $(this).closest('tr').find('td').eq(0).html();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
-        $('#judul-form').html('Edit Data Pengajuan RRA');
+        $('#judul-form').html('Data Pengajuan RRA');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
         editData(id)
@@ -1288,39 +1212,13 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(1).html();
+        var id = $(this).closest('tr').find('td').eq(0).html();
         msgDialog({
             id: id,
             type:'hapus'
         });
     });
     // END HAPUS DATA
-
-    // BUTTON TAMBAH
-    $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#row-id').hide();
-        $('#method').val('post');
-        $('#judul-form').html('Tambah Data Pengajuan RRA');
-        $('#btn-update').attr('id','btn-save');
-        $('#btn-save').attr('type','submit');
-        $('#form-tambah')[0].reset();
-        $('#form-tambah').validate().resetForm();
-        $('#id').val('');
-        $('#input-beri tbody').html('');
-        $('#input-terima tbody').html('');
-        $('#input-dok tbody').html('');
-        $('#saku-datatable').hide();
-        $('#saku-form').show();
-        $('.input-group-prepend').addClass('hidden');
-        $('span[class^=info-name]').addClass('hidden');
-        $('.info-icon-hapus').addClass('hidden');
-        $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
-        setHeightForm();
-        $('#kode_form').val($form_aktif);
-        var tanggal = $('#tanggal').val();
-        generateNoBukti(tanggal);
-    });
-    // END BUTTON TAMBAH
 
     // BUTTON KEMBALI
     $('#saku-form').on('click', '#btn-kembali', function(){
@@ -1332,7 +1230,7 @@
     });
 
     $('#saku-datatable').on('click','#btn-preview',function(e){
-        var id = $(this).closest('tr').find('td').eq(1).html();
+        var id = $(this).closest('tr').find('td').eq(0).html();
         printPreview(id);
     });
 
@@ -1445,8 +1343,8 @@
                             </thead>
                             <tbody>`;
                                 var total =0; var no=0; 
-                                for(i=0; i < result.detail_app.length; i++){
-                                    var line2 = result.detail_app[i];
+                                for(i=0; i < result.detail.length; i++){
+                                    var line2 = result.detail[i];
                                     no++;
                                     html+=`
                                     <tr>
@@ -1503,7 +1401,7 @@
     $('#table-data tbody').on('click','td',function(e){
         if($(this).index() != 6 && $(this).index() != 5){
 
-            var id = $(this).closest('tr').find('td').eq(1).html();
+            var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var posted = data.posted;
             $.ajax({
@@ -1682,7 +1580,7 @@
 
                         $('.preview-header').on('click', '#btn-edit2', function(){
                             var id= $('#preview-id').text();
-                            $('#judul-form').html('Edit Data Pengajuan RRA');
+                            $('#judul-form').html('Data Pengajuan RRA');
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
                             
@@ -1940,29 +1838,6 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"]
-                }
-            break;
-            case 'no_juskeb':
-                var options = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('sukka-trans/aju-rra-juskeb') }}",
-                    columns : [
-                        { data: 'no_bukti' },
-                        { data: 'kegiatan' }
-                    ],
-                    judul : "Daftar Juskeb",
-                    pilih : "juskeb",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
-                    width : ["30%","70%"],
-                    onItemSelected:function(data){
-                        getJuskeb(data.no_bukti);
-                    }
                 }
             break;
         }
