@@ -3,7 +3,23 @@
 <!-- LIST DATA -->
 <x-list-data judul="Data Approval" tambah="" :thead="array('No Bukti', 'Jenis', 'Unit Kerja', 'Periode', 'Kegiatan', 'Aksi')" :thwidth="array(10,10,10,15,45,10)" :thclass="array('','','','','','text-center')" />
 <!-- END LIST DATA -->
+<style>
+    #tanggal-dp .datepicker-dropdown
+    {
+        left: 20px !important;
+        top: 190px !important;
+    }
 
+    #input-terima tbody td, #input-beri tbody td,#input-budget tbody td
+    {
+        overflow:hidden;
+    }
+
+    #input-beri td:nth-child(9), #input-terima td:nth-child(9)
+    {
+        overflow:unset !important;
+    }
+</style>
 <!-- FORM  -->
 <form id="form-tambah" class="tooltip-label-right" novalidate>
     <input class="form-control" type="hidden" id="id_edit" name="id_edit">
@@ -26,10 +42,16 @@
                     <input class="form-control" type="hidden" id="status" name="status" readonly autocomplete="off" required >
                     <div class="form-row">
                         <div class="form-group col-md-6 col-sm-12">
-                            <div class="row">
+                            <div class="row mb-2">
                                 <div class="col-md-12 col-sm-12">
                                     <label for="keterangan">Keterangan</label>
                                     <textarea class="form-control" type="text" rows="4" placeholder="Keterangan" id="keterangan" name="keterangan" autocomplete="off" required></textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12">
+                                    <label for="kegiatan">Kegiatan</label>
+                                    <input class="form-control" type="text" id="kegiatan" name="kegiatan" readonly autocomplete="off" required >
                                 </div>
                             </div>
                         </div>
@@ -54,7 +76,7 @@
                                     <input class="form-control" type="text" id="periode" name="periode" autocomplete="off" required readonly>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-2">
                                 <div class="col-md-6 col-sm-12">
                                     <label for="no_aju">No Pengajuan</label>
                                     <input class="form-control" type="text" id="no_aju" name="no_aju" autocomplete="off" required readonly>
@@ -64,16 +86,23 @@
                                     <input class="form-control" type="text" id="jenis" name="jenis" readonly autocomplete="off" required >
                                 </div>
                             </div>
-                            <div class="row mb-2">
-                                <div class="col-md-12 col-sm-12">
-                                    <label for="kegiatan">Kegiatan</label>
-                                    <input class="form-control" type="text" id="kegiatan" name="kegiatan" readonly autocomplete="off" required >
+                            <div class="row">
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="total_terima">Nilai Terima</label>
+                                    <input class="form-control currency" type="text" id="total_terima" name="total_terima" autocomplete="off" required readonly>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <label for="total_beri">Total Pemberi</label>
+                                    <input class="form-control currency" type="text" id="total_beri" name="total_beri" readonly autocomplete="off" required >
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="nav nav-tabs col-12 " role="tablist">
                         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#data-barang" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Juskeb</span></a></li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penerima</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-beri" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemberi</span></a> </li>
+                        <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#data-approve" role="tab" aria-selected="false"><span class="hidden-xs-down">Catatan Approve</span></a></li>
                     </ul>
                     <div class="tab-content tabcontent-border col-12 p-0" style="margin-bottom: 2rem;">
@@ -113,6 +142,76 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-terima" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-terima" ></span></a>
+                            </div>
+                            <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="input-terima" style="width:1125px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <thead style="background:#F8F8F8">
+                                    <tr>
+                                        <th style="width:15px">No</th>
+                                        <th style="width:20px"></th>
+                                        <th style="width:80px">Kode MTA</th>
+                                        <th style="width:250px">Nama MTA</th>
+                                        <th style="width:80px">Kode PP</th>
+                                        <th style="width:200px">Nama PP</th>
+                                        <th style="width:80px">Kode DRK</th>
+                                        <th style="width:250px">Nama DRK</th>
+                                        <th style="width:100px">TW</th>
+                                        <th style="width:100px">Nilai</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-beri" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-beri" ></span></a>
+                            </div>
+                            <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="input-beri" style="width:1125px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                <thead style="background:#F8F8F8">
+                                    <tr>
+                                        <th style="width:15px">No</th>
+                                        <th style="width:20px"></th>
+                                        <th style="width:80px">Kode MTA</th>
+                                        <th style="width:200px">Nama MTA</th>
+                                        <th style="width:80px">Kode PP</th>
+                                        <th style="width:200px">Nama PP</th>
+                                        <th style="width:80px">Kode DRK</th>
+                                        <th style="width:200px">Nama DRK</th>
+                                        <th style="width:100px">TW</th>
+                                        <th style="width:100px">Nilai</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="data-dok" role="tabpanel">
+                            <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                            </div>
+                            <div class='col-md-12' style='margin:0px; padding:0px;'>
+                                <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:3%">No</th>
+                                            <th style="width:10%">Jenis</th>
+                                            <th style="width:27%">Nama</th>
+                                            <th style="width:40%">Path File</th>
+                                            <th width="10%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                         <div class="tab-pane row" id="data-approve" role="tabpanel">
@@ -207,6 +306,15 @@
     var scrollform = document.querySelector('.form-body');
     new PerfectScrollbar(scrollform);
     $('.selectize').selectize();
+
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });   
 
     // function cekAksesForm(){
     //     // $('#grid-load').show();
@@ -326,6 +434,39 @@
         var total_row = $('#input-approve tbody tr').length;
         $('#total-approve').html(total_row+' Baris');
     }
+
+    function hitungTotalRowBeri(){
+        var total_row = $('#input-beri tbody tr').length;
+        $('#total-row-beri').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowTerima(){
+        var total_row = $('#input-terima tbody tr').length;
+        $('#total-row-terima').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowUpload(form){
+        var total_row = $('#'+form+' #input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+
+    function hitungTotalBeri(){
+        var total = 0;
+        $('.row-beri').each(function(){
+            var nilai = $(this).closest('tr').find('td:eq(8)').text();
+            total += +toNilai(nilai);
+        });
+        $('#total_beri').val(total);
+    }
+
+    function hitungTotalTerima(){
+        var total = 0;
+        $('.row-terima').each(function(){
+            var nilai = $(this).closest('tr').find('td:eq(8)').text();
+            total += +toNilai(nilai);
+        });
+        $('#total_terima').val(total);
+    }
     // END GRID APPROVE
     // END GRID FORM
 
@@ -441,7 +582,9 @@
     function editData(id) { 
         $('#form-tambah').validate().resetForm();
         $('#input-barang tbody').empty();
-        $('#input-dokumen-po tbody').empty();
+        $('#input-terima tbody').empty();
+        $('#input-beri tbody').empty();
+        $('#input-dok tbody').empty();
         $('#input-approve tbody').empty();
         $('#judul-form').html('Form Approval');
         $.ajax({ 
@@ -464,6 +607,96 @@
                     $('#aspek').val(result.data[0].aspek);
                     $('#spesifikasi').val(result.data[0].spesifikasi);
                     $('#rencana').val(result.data[0].rencana);
+
+                    
+                    if(result.detail_beri.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail_beri.length;i++){
+                            var line =result.detail_beri[i];
+                            if (line.bulan == "01")	var tw = "TW1";
+                            if (line.bulan == "04")	var tw = "TW2";
+                            if (line.bulan == "07")	var tw = "TW3";
+                            if (line.bulan == "10")	var tw = "TW4";	
+                            input += "<tr class='row-beri'>";
+                            input += "<td class='no-beri text-center' colspan='2'>"+no+"</td>";
+                            input += "<td>"+line.kode_akun+"</td>";
+                            input += "<td>"+line.nama_akun+"</td>";
+                            input += "<td>"+line.kode_pp+"</td>";
+                            input += "<td>"+line.nama_pp+"</td>";
+                            input += "<td>"+line.kode_drk+"</td>";
+                            input += "<td>"+line.nama_drk+"</td>";
+                            input += "<td >"+tw+"</td>";
+                            input += "<td class='text-right'>"+number_format(parseFloat(line.nilai))+"</td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-beri tbody').html(input);
+                        $('.tooltip-span').attr('title','tooltip');
+                        $('.tooltip-span').tooltip({
+                            content: function(){
+                                return $(this).text();
+                            },
+                            tooltipClass: "custom-tooltip-sai"
+                        });
+                        
+                    }
+
+                    if(result.detail_terima.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail_terima.length;i++){
+                            var line =result.detail_terima[i];
+                            if (line.bulan == "01")	var tw = "TW1";
+                            if (line.bulan == "04")	var tw = "TW2";
+                            if (line.bulan == "07")	var tw = "TW3";
+                            if (line.bulan == "10")	var tw = "TW4";	
+                            input += "<tr class='row-terima'>";
+                            input += "<td class='no-terima text-center' colspan='2'>"+no+"</td>";
+                            input += "<td>"+line.kode_akun+"</td>";
+                            input += "<td>"+line.nama_akun+"</td>";
+                            input += "<td>"+line.kode_pp+"</td>";
+                            input += "<td>"+line.nama_pp+"</td>";
+                            input += "<td>"+line.kode_drk+"</td>";
+                            input += "<td>"+line.nama_drk+"</td>";
+                            input += "<td >"+tw+"</td>";
+                            input += "<td class='text-right'>"+number_format(parseFloat(line.nilai))+"</td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-terima tbody').html(input);
+                        $('.tooltip-span').attr('title','tooltip');
+                        $('.tooltip-span').tooltip({
+                            content: function(){
+                                return $(this).text();
+                            },
+                            tooltipClass: "custom-tooltip-sai"
+                        });
+                    }
+
+                    var input2 = "";
+                    if(result.dokumen.length > 0){
+                        var no=1;
+                        for(var i=0;i<result.dokumen.length;i++){
+                            var line =result.dokumen[i];
+                            input2 += "<tr class='row-dok'>";
+                            input2 += "<td class='no-dok text-center'>"+no+"</td>";
+                            input2 += "<td class='px-0 py-0'>"+line.jenis+"</td>";
+                            input2 += "<td class='px-0 py-0'>"+line.nama+"</td>";
+                            var dok = "{{ config('api.url').'sukka-auth/storage' }}/"+line.fileaddres;
+                            input2 += "<td>"+line.fileaddres+"</td>";
+                            input2+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.fileaddres != "-"){
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;`;
+                                }else{
+                                    var link =``;
+                                }
+                            input2+=link+"</td></tr>";
+                            no++;
+                        }
+                    }
+                    $('#form-tambah #input-dok tbody').html(input2);
 
                     if(result.data_detail.length > 0) { 
                         var html = "";
@@ -509,6 +742,12 @@
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
+                    hitungTotalRowApprove();
+                    hitungTotalRowBeri();
+                    hitungTotalRowTerima();
+                    hitungTotalRowUpload();
+                    hitungTotalBeri();
+                    hitungTotalTerima();
                     setWidthFooterCardBody();
                     showInfoField("kode_pp",result.data[0].kode_pp,result.data[0].nama_pp);
                 } else if(!result.status && result.message === "Unauthorized"){

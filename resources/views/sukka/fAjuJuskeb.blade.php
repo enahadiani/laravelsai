@@ -39,24 +39,54 @@
                             <div class="col-9">
                                 <input class="form-control" type="text" id="id" name="id" readonly hidden>
                                 <input type="hidden" name="kode_form" id="kode_form">
-                                <input type="hidden" name="no_bukti" id="no_bukti">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="tanggal">Tanggal</label>
+                                        <span id="tanggal-dp"></span>
+                                        <input class='form-control datepicker' type="text" id="tanggal" name="tanggal" value="{{ date('d/m/Y') }}">
+                                        <i style="font-size: 18px;margin-top:28px;margin-left:5px;position: absolute;top: 0;right: 25px;" class="simple-icon-calendar date-search"></i>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12">
+                                        <label for="no_bukti">No Bukti</label>
+                                        <input class='form-control' type="text" id="no_bukti" name="no_bukti" readonly>
+                                        <i style="font-size: 18px;margin-top:28px;margin-left:5px;position: absolute;top: 0;right: 25px;cursor:pointer" class="simple-icon-refresh" id="generate-nobukti"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_pp">Unit Kerja</label>
+                                        <label for="unit_kerja">Unit Kerja</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                <span class="input-group-text info-code_unit_kerja" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
-                                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="">
-                                            <span class="info-name_kode_pp hidden">
+                                            <input type="text" class="form-control inp-label-unit_kerja" id="unit_kerja" name="unit_kerja" value="" title="">
+                                            <span class="info-name_unit_kerja hidden">
                                                 <span></span> 
                                             </span>
                                             <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_unit_kerja"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="jenis_rra">Jenis RRA</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_jenis_rra" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-jenis_rra" id="jenis_rra" name="jenis_rra" value="" title="">
+                                            <span class="info-name_jenis_rra hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_jenis_rra"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -65,37 +95,22 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-4 col-sm-12">
+                                    <div class="col-md-6 col-sm-12">
                                         <label for="jenis">Jenis Anggaran</label>
                                         <input class='form-control' type="text" id="jenis" name="jenis" >
                                     </div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_jenis">Jenis RRA</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_jenis" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_jenis" id="kode_jenis" name="kode_jenis" value="" title="">
-                                            <span class="info-name_kode_jenis hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_jenis"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <div class="row">
-                                    <div class="col-md-4 col-sm-12">
                                         <label for="periode">Periode Penggunaan</label>
                                         <input class='form-control' type="text" id="periode" name="periode" >
                                     </div>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12"></div>
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="nilai" >Nilai Pengajuan</label>
-                                        <input class="form-control currency" type="text"  id="nilai" name="nilai" value="0">
+                                        <label for="total_terima" >Nilai Penerima</label>
+                                        <input class="form-control currency" type="text" placeholder="Total Terima" readonly id="total_terima" name="total_terima" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -111,17 +126,20 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6 col-12">
-                                        <label for="btn-control">&nbsp;</label>
-                                        <div id="btn-control">
-                                            <button type="button" href="#" id="loadData" class="btn btn-primary mr-2 btn-sm">Tampil Approval</button>
-                                        </div>
+                                    <div class="col-md-6 col-sm-12"></div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <label for="total_beri" >Total Pemberi</label>
+                                        <input class="form-control currency" type="text" placeholder="Total Pemberi" readonly id="total_beri" name="total_beri" value="0">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <ul class="nav nav-tabs col-12 " role="tablist">
-                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-juskeb" role="tab" aria-selected="true"><span class="hidden-xs-down">Juskeb</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-juskeb" role="tab" aria-selected="true"><span class="hidden-xs-down">Detail</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-lokasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Lokasi</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penerima</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-beri" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemberi</span></a> </li>
+                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Approval</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
@@ -163,8 +181,130 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="tab-pane" id="data-lokasi" role="tabpanel">
+                                <div class="form-row mt-3">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="lokasi_terima">Lokasi Penerima</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_lokasi_terima" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-lokasi_terima" id="lokasi_terima" name="lokasi_terima" value="" title="">
+                                                    <span class="info-name_lokasi_terima hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_lokasi_terima"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label for="lokasi_beri">Lokasi Pemberi</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                        <span class="input-group-text info-code_lokasi_beri" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                                    </div>
+                                                    <input type="text" class="form-control inp-label-lokasi_beri" id="lokasi_beri" name="lokasi_beri" value="" title="">
+                                                    <span class="info-name_lokasi_beri hidden">
+                                                        <span></span> 
+                                                    </span>
+                                                    <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                                    <i class="simple-icon-magnifier search-item2" id="search_lokasi_beri"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-terima" role="tabpanel">
+                                <div class='col-md-12 nav-control nav-control-terima' style="padding: 0px 5px;">
+                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
+                                    <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                </div>
+                                <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-terima" style="width:1125px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:15px">No</th>
+                                            <th style="width:20px"></th>
+                                            <th style="width:80px">Kode MTA</th>
+                                            <th style="width:250px">Nama MTA</th>
+                                            <th style="width:80px">Kode PP</th>
+                                            <th style="width:200px">Nama PP</th>
+                                            <th style="width:80px">Kode DRK</th>
+                                            <th style="width:250px">Nama DRK</th>
+                                            <th style="width:100px">TW</th>
+                                            <th style="width:100px">Nilai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row-terima btn btn-light2 btn-block btn-sm" style="margin-bottom:100px"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-beri" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a type="button" href="#" id="copy-row" data-toggle="tooltip" title="Copy Row" style='font-size:18px'><i class='iconsminds-duplicate-layer' ></i> <span style="font-size:12.8px">Copy Row</span></a>
+                                    <span class="pemisah mx-2" style="border:1px solid #d7d7d7;font-size:20px"></span>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                </div>
+                                <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-beri" style="width:1125px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                    <thead style="background:#F8F8F8">
+                                        <tr>
+                                            <th style="width:15px">No</th>
+                                            <th style="width:20px"></th>
+                                            <th style="width:80px">Kode MTA</th>
+                                            <th style="width:200px">Nama MTA</th>
+                                            <th style="width:80px">Kode PP</th>
+                                            <th style="width:200px">Nama PP</th>
+                                            <th style="width:80px">Kode DRK</th>
+                                            <th style="width:200px">Nama DRK</th>
+                                            <th style="width:100px">TW</th>
+                                            <th style="width:100px">Nilai</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm" style="margin-bottom:100px"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="data-dok" role="tabpanel">
+                                <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_dok" ></span></a>
+                                </div>
+                                <div class='col-md-12' style='margin:0px; padding:0px;'>
+                                    <table class="table table-bordered table-condensed gridexample" id="input-dok" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
+                                        <thead style="background:#F8F8F8">
+                                            <tr>
+                                                <th style="width:3%">No</th>
+                                                <th style="width:10%">Jenis</th>
+                                                <th style="width:27%">Nama</th>
+                                                <th style="width:20%">Path File</th>
+                                                <th width="20%">Upload File</th>
+                                                <th width="10%">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <a type="button" href="#" data-id="0" title="add-row-dok" class="add-row-dok btn btn-light2 btn-block btn-sm"> 
+                                    <i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
+                                </div>
+                            </div>
                             <div class="tab-pane" id="data-approval" role="tabpanel">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
+                                    <a type="button" href="#" id="load-app" data-toggle="tooltip" title="Load Approval" style=""><i class="simple-icon-refresh" style="font-size: 18px !important;position: relative;top: 5px;"></i> <span style="font-size:12.8px;top: 3px !important;position: relative;">Tampil Approval</span></a>
                                     <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
@@ -233,6 +373,16 @@
         }
     });
 
+    $("#tanggal").bootstrapDP({
+        autoclose: true,
+        format: 'dd/mm/yyyy',
+        container:'span#tanggal-dp',
+        templates: {
+            leftArrow: '<i class="simple-icon-arrow-left"></i>',
+            rightArrow: '<i class="simple-icon-arrow-right"></i>'
+        },
+        orientation: 'bottom left'
+    });
     // FUNCTION TAMBAHAN
 
     function reverseDate2(date_str, separator, newseparator){
@@ -247,6 +397,39 @@
     function hitungTotalRowAppFlow(){
         var total_row = $('#input-flow tbody tr').length;
         $('#total-row').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowBeri(){
+        var total_row = $('#input-beri tbody tr').length;
+        $('#total-row').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowTerima(){
+        var total_row = $('#input-terima tbody tr').length;
+        $('#total-row').html(total_row+' Baris');
+    }
+
+    function hitungTotalRowUpload(form){
+        var total_row = $('#'+form+' #input-dok tbody tr').length;
+        $('#total-row_dok').html(total_row+' Baris');
+    }
+
+    function hitungTotalBeri(){
+        var total = 0;
+        $('.row-beri').each(function(){
+            var nilai = $(this).closest('tr').find('.inp-nilai').val();
+            total += +toNilai(nilai);
+        });
+        $('#total_beri').val(total);
+    }
+
+    function hitungTotalTerima(){
+        var total = 0;
+        $('.row-terima').each(function(){
+            var nilai = $(this).closest('tr').find('.inp-nilai_terima').val();
+            total += +toNilai(nilai);
+        });
+        $('#total_terima').val(total);
     }
     
     $('.info-icon-hapus').click(function(){
@@ -290,9 +473,10 @@
     
     // END 
 
-    function getPP(id){
+    function getUnitKerja(id){
         var tmp = id.split(" - ");
         kode = tmp[0];
+        
         $.ajax({
             type: 'GET',
             url: "{{ url('/sukka-trans/juskeb-pp') }}",
@@ -302,12 +486,12 @@
             success:function(result){    
                 if(result.status){
                     if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                        showInfoField('kode_pp',result.daftar[0].kode_pp,result.daftar[0].nama);
+                        showInfoField('unit_kerja',result.daftar[0].kode_pp,result.daftar[0].nama);
                     }else{
-                        $('#kode_pp').attr('readonly',false);
-                        $('#kode_pp').css('border-left','1px solid #d7d7d7');
-                        $('#kode_pp').val('');
-                        $('#kode_pp').focus();
+                        $('#unit_kerja').attr('readonly',false);
+                        $('#unit_kerja').css('border-left','1px solid #d7d7d7');
+                        $('#unit_kerja').val('');
+                        $('#unit_kerja').focus();
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -471,20 +655,27 @@
                 var result= res.data;
                 if(result.status){
                     $('#input-flow tbody').html('');
+                    $('#input-beri tbody').html('');
+                    $('#input-terima tbody').html('');
+                    $('#input-dok tbody').html('');
                     $('#id').val('edit');
-                    $('#method').val('put');
+                    $('#method').val('post');
                     $('#no_bukti').val(id);
                     $('#no_bukti').attr('readonly', true);
-                    $('#kode_pp').val(result.data[0].kode_pp);
+                    $('#unit_kerja').val(result.data[0].kode_pp);
                     $('#jenis').val(result.data[0].jenis); 
                     $('#periode').val(result.data[0].periode); 
-                    $('#kode_jenis').val(result.data[0].kode_jenis); 
+                    $('#jenis_rra').val(result.data[0].jenis_rra); 
                     $('#kegiatan').val(result.data[0].kegiatan);
-                    $('#nilai').val(result.data[0].nilai);
                     $('#latar').val(result.data[0].latar);
                     $('#aspek').val(result.data[0].aspek);
                     $('#spesifikasi').val(result.data[0].spesifikasi);
                     $('#rencana').val(result.data[0].rencana);
+                    $('#lokasi_beri').val(result.data[0].lok_donor);
+                    $('#lokasi_terima').val(result.data[0].lok_terima);
+                    $('#total_terima').val(result.data[0].nilai);
+                    $('#total_beri').val(result.data[0].nilai);
+                    
                     if(result.detail.length > 0){
                         var input = '';
                         var no=1;
@@ -510,12 +701,171 @@
                         });
                     }
 
+                    if(result.detail_beri.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail_beri.length;i++){
+                            var line =result.detail_beri[i];
+                            input += "<tr class='row-beri'>";
+                            input += "<td class='no-beri text-center'>"+no+"</td>";
+                            input += "<td class='text-center'><a href='#' class='hapus-item'  style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+line.kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+line.kode_akun+"'  style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+line.nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+line.kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+line.kode_pp+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+line.nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+line.nama_pp+"' readonly ></td>";
+                            input += "<td><span class='td-drk tddrkke"+no+" tooltip-span'>"+line.kode_drk+"</span><input type='text' id='drkkode"+no+"' name='kode_drk[]' class='form-control inp-drk drkke"+no+" hidden' value='"+line.kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_drk tdnmdrkke"+no+" tooltip-span'>"+line.nama_drk+"</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke"+no+" hidden'  value='"+line.nama_drk+"' readonly ></td>";
+                            input += "<td ><span class='td-tw tdtwke"+no+" tooltip-span'></span><select hidden name='tw[]' class='form-control inp-tw twke"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
+                            input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+number_format(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+number_format(line.nilai)+"' ></td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-beri tbody').html(input);
+                        $('.tooltip-span').attr('title','tooltip');
+                        $('.tooltip-span').tooltip({
+                            content: function(){
+                                return $(this).text();
+                            },
+                            tooltipClass: "custom-tooltip-sai"
+                        });
+                        no= 1;
+                        for(var i=0;i<result.detail_beri.length;i++){
+                            var line =result.detail_beri[i];
+                            
+                            if (line.bulan == "01")	var tw = "TW1";
+                            if (line.bulan == "04")	var tw = "TW2";
+                            if (line.bulan == "07")	var tw = "TW3";
+                            if (line.bulan == "10")	var tw = "TW4";	
+                            $('.twke'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tdtwke'+no).text(value);
+                                    hitungTotalBeri();
+                                }
+                            });
+                            $('.twke'+no)[0].selectize.setValue(tw,true);
+                            $('.tdtwke'+no).text(tw);
+                            $('.selectize-control.twke'+no).addClass('hidden');
+                            $('.nilke'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        
+                    }
+
+                    if(result.detail_terima.length > 0){
+                        var input = '';
+                        var no=1;
+                        for(var i=0;i<result.detail_terima.length;i++){
+                            var line =result.detail_terima[i];
+                            input += "<tr class='row-terima'>";
+                            input += "<td class='no-terima text-center'>"+no+"</td>";
+                            input += "<td class='text-center'><a href='#' class='hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+                            input += "<td><span class='td-kode_terima tdakunterimake"+no+" tooltip-span'>"+line.kode_akun+"</span><input type='text' name='kode_akun_terima[]' class='form-control inp-kode_terima akun_terimake"+no+" hidden' value='"+line.kode_akun+"' style='z-index: 1;position: relative;' id='akun_terimakode"+no+"'><a href='#' class='search-item search-akun_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_terima tdnmakun_terimake"+no+" tooltip-span'>"+line.nama_akun+"</span><input type='text' name='nama_akun_terima[]' class='form-control inp-nama_terima nmakun_terimake"+no+" hidden'  value='"+line.nama_akun+"' readonly></td>";
+                            input += "<td><span class='td-pp_terima tdpp_terimake"+no+" tooltip-span'>"+line.kode_pp+"</span><input type='text' id='pp_terimakode"+no+"' name='kode_pp_terima[]' class='form-control inp-pp_terima pp_terimake"+no+" hidden' value='"+line.kode_pp+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_pp_terima tdnmpp_terimake"+no+" tooltip-span'>"+line.nama_pp+"</span><input type='text' name='nama_pp_terima[]' class='form-control inp-nama_pp_terima nmpp_terimake"+no+" hidden'  value='"+line.nama_pp+"' readonly ></td>";
+                            input += "<td><span class='td-drk_terima tddrk_terimake"+no+" tooltip-span'>"+line.kode_drk+"</span><input type='text' id='drk_terimakode"+no+"' name='kode_drk_terima[]' class='form-control inp-drk_terima drk_terimake"+no+" hidden' value='"+line.kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+                            input += "<td><span class='td-nama_drk_terima tdnmdrk_terimake"+no+" tooltip-span'>"+line.nama_drk+"</span><input type='text' name='nama_drk_terima[]' class='form-control inp-nama_drk_terima nmdrk_terimake"+no+" hidden'  value='"+line.nama_drk+"' readonly ></td>";
+                            input += "<td ><span class='td-tw_terima tdtw_terimake"+no+" tooltip-span'></span><select hidden name='tw_terima[]' class='form-control inp-tw_terima tw_terimake"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
+                            input += "<td class='text-right'><span class='td-nilai_terima tdnil_terimake"+no+" tooltip-span'>"+number_format(line.nilai)+"</span><input type='text' name='nilai_terima[]' class='form-control inp-nilai_terima nil_terimake"+no+" hidden'  value='"+number_format(line.nilai)+"' ></td>";
+                            input += "</tr>";
+                            no++;
+                        }
+                        $('#input-terima tbody').html(input);
+                        $('.tooltip-span').attr('title','tooltip');
+                        $('.tooltip-span').tooltip({
+                            content: function(){
+                                return $(this).text();
+                            },
+                            tooltipClass: "custom-tooltip-sai"
+                        });
+                        no= 1;
+                        for(var i=0;i<result.detail_terima.length;i++){
+                            var line =result.detail_terima[i];
+                            
+                            if (line.bulan == "01")	var tw = "TW1";
+                            if (line.bulan == "04")	var tw = "TW2";
+                            if (line.bulan == "07")	var tw = "TW3";
+                            if (line.bulan == "10")	var tw = "TW4";	
+                            $('.tw_terimake'+no).selectize({
+                                selectOnTab:true,
+                                onChange: function(value) {
+                                    $('.tdtw_terimake'+no).text(value);
+                                    hitungTotalTerima();
+                                }
+                            });
+                            $('.tw_terimake'+no)[0].selectize.setValue(tw,true);
+                            $('.tdtw_terimake'+no).text(tw);
+                            $('.selectize-control.tw_terimake'+no).addClass('hidden');
+                            $('.nil_terimake'+no).inputmask("numeric", {
+                                radixPoint: ",",
+                                groupSeparator: ".",
+                                digits: 2,
+                                autoGroup: true,
+                                rightAlign: true,
+                                oncleared: function () { self.Value(''); }
+                            });
+                            no++;
+                        }
+                        
+                    }
+
+                    var input2 = "";
+                    if(result.dokumen.length > 0){
+                        var no=1;
+                        for(var i=0;i<result.dokumen.length;i++){
+                            var line =result.dokumen[i];
+                            input2 += "<tr class='row-dok'>";
+                            input2 += "<td class='no-dok text-center'>"+no+"</td>";
+                            input2 += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='kode_jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+line.jenis+"'  style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+                            input2 += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+line.nama+"' readonly></td>";
+                            var dok = "{{ config('api.url').'sukka-auth/storage' }}/"+line.fileaddres;
+                            input2 += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
+                            if(line.fileaddres == "-" || line.fileaddres == ""){
+                                input2+=`
+                                <td>
+                                    <input type='file' name='file_dok[]' class='inp-file_dok'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }else{
+                                input2+=`
+                                <td>
+                                    <input type='file' name='file_dok[]'>
+                                    <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                </td>`;
+                            }
+                            input2+=`
+                                <td class='text-center action-dok'>`;
+                                if(line.fileaddres != "-"){
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
+                                }else{
+                                    var link =``;
+                                }
+                            input2+=link+"</td></tr>";
+                            no++;
+                        }
+                    }
+                    $('#form-tambah #input-dok tbody').html(input2);
+                    
                     hitungTotalRowAppFlow();
+                    hitungTotalBeri();
+                    hitungTotalTerima();
+                    hitungTotalRowTerima();
+                    hitungTotalRowUpload("form-tambah");
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
-                    showInfoField("kode_pp",result.data[0].kode_pp,result.data[0].nama_pp);
-                    showInfoField("kode_jenis",result.data[0].kode_jenis,result.data[0].nama_jenis);
+                    showInfoField("unit_kerja",result.data[0].kode_pp,result.data[0].nama_pp);
+                    showInfoField("jenis_rra",result.data[0].kode_jenis,result.data[0].nama_jenis);
+                    showInfoField("lokasi_terima",result.data[0].lok_terima,result.data[0].nama_terima);
+                    showInfoField("lokasi_beri",result.data[0].lok_donor,result.data[0].nama_beri);
                     setHeightForm();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -599,6 +949,9 @@
         $('span[class^=info-name]').addClass('hidden');
         $('.info-icon-hapus').addClass('hidden');
         $('[class*=inp-label-]').attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important;border-left:1px solid #d7d7d7 !important');
+        var tanggal = $('#tanggal').val();
+        generateNoBukti(tanggal);
+        generatePeriode(tanggal);
         setHeightForm();
         $('#kode_form').val($form_aktif);
     });
@@ -612,6 +965,68 @@
             type:'keluar'
         });
     });
+
+    function generateNoBukti(tanggal){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sukka-trans/juskeb-nobukti') }}",
+            dataType: 'json',
+            async:false,
+            data:{tanggal: tanggal},
+            success:function(result){   
+                $('#no_bukti').val('');
+                if(result.status){
+                    $('#no_bukti').val(result.no_bukti);
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
+                }else{
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Error',
+                        text: 'Generate ID Gagal'
+                    });
+                }
+            }
+        });
+    }
+
+    function generatePeriode(tanggal){
+        var periode = reverseDate2(tanggal,'/','').substr(0,6);
+        $('#periode').val(periode);
+    }
+
+    $('#generate-nobukti').click(function(e){
+        e.preventDefault();
+        var tanggal = $('#tanggal').val();
+        if(tanggal == ""){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Tanggal wajib diisi'
+            });
+            return false;
+        }
+        generateNoBukti(tanggal);
+    });
+
+    $('#tanggal').change(function(e){
+        // e.preventDefault();
+        var tanggal = $('#tanggal').val();
+        if(tanggal == ""){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Tanggal wajib diisi'
+            });
+            return false;
+        }
+        generateNoBukti(tanggal);
+        generatePeriode(tanggal);
+    })
 
     function printPreview(id) {
         $.ajax({
@@ -691,10 +1106,52 @@
                             <p style="font-weight:bold"># <u>RENCANA PELAKSANAAN</u></p>
                             <p>${data.rencana}</p>
                         </div>
-                            <div class="col-12">
-                                <p style="font-weight:bold"># <u>LAMPIRAN</u></p>
-                            </div>
-                            <div class="col-12">
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>DETAIL</u></p>
+                        </div>
+                        <div class="col-12">
+                            <table class="table table-condensed table-bordered" style='border:1px solid black;border-collapse:collapse' border="1" width="100%" id="table-penutup">
+                                <thead class="text-center">
+                                <tr>
+                                <td width="5%">NO</td>
+                                <td width="10">KODE AKUN</td>
+                                <td width="25">NAMA AKUN</td>
+                                <td width="10">KODE PP</td>
+                                <td width="25">NAMA PP</td>
+                                <td width="10">KODE DRK</td>
+                                <td width="25">NAMA DRK</td>
+                                <td width="10%">PERIODE</td>
+                                <td width="10%">DONOR</td>
+                                <td width="10%">PENERIMA</td>
+                                </tr>
+                            </thead>
+                            <tbody>`;
+                            var total =0; var no=0; 
+                            for(i=0; i < data.detail.length; i++){
+                                var line2 = data.detail[i];
+                                no++;
+                                html+=`
+                                <tr>
+                                <td>${no}</td>
+                                <td>${line2.kode_akun}</td>
+                                <td>${line2.nama_akun}</td>
+                                <td>${line2.kode_pp}</td>
+                                <td>${line2.nama_pp}</td>
+                                <td>${line2.kode_drk}</td>
+                                <td>${line2.nama_drk}</td>
+                                <td>${line2.periode}</td>
+                                <td align='right' class='isi_laporan'>${number_format(line2.kredit)}</td>
+                                <td align='right' class='isi_laporan'>${number_format(line2.debet)}</td>
+                                </tr>`;
+                            } 
+                            html+=`
+                            </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight:bold"># <u>LAMPIRAN</u></p>
+                        </div>
+                        <div class="col-12">
                             <table class="table table-condensed table-bordered" style='border:1px solid black;border-collapse:collapse' border="1" width="100%" id="table-penutup">
                                 <thead class="text-center">
                                 <tr>
@@ -861,10 +1318,90 @@
                             </div>
                             <div style="padding:0 1.9rem">
                                 <ul class="nav nav-tabs col-12 " role="tablist">
-                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Approval</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#prev-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penerima</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-beri" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemberi</span></a> </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#prev-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Approval</span></a> </li>
                                 </ul>
                                 <div class="tab-content tabcontent-border col-12 p-0">
-                                    <div class="tab-pane active" id="prev-approval" role="tabpanel">
+                                    <div class="tab-pane active" id="prev-terima" role="tabpanel">
+                                        <table class="table table-striped table-body-prev mt-2" width="100%">
+                                        <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                                <th style="width:15%">Kode MTA</th>
+                                                <th style="width:15%">Nama MTA</th>
+                                                <th style="width:15">Nama PP</th>
+                                                <th style="width:15">Nama DRK</th>
+                                                <th style="width:10%">TW</th>
+                                                <th style="width:15%">Nilai</th>
+                                        </tr>`;
+                                            var det = ''; var total =0;
+                                            if(result.detail_terima.length > 0){
+                                                var no=1;
+                                                for(var i=0;i<result.detail_terima.length;i++){
+                                                    var line =result.detail_terima[i];
+                                                    total+=parseFloat(line.nilai);
+                                                    if (line.bulan == "01")	var tw = "TW1";
+                                                    if (line.bulan == "04")	var tw = "TW2";
+                                                    if (line.bulan == "07")	var tw = "TW3";
+                                                    if (line.bulan == "10")	var tw = "TW4";	
+                                                    det += "<tr>";
+                                                    det += "<td >"+line.kode_akun+"</td>";
+                                                    det += "<td >"+line.nama_akun+"</td>";
+                                                    det += "<td >"+line.nama_pp+"</td>";
+                                                    det += "<td >"+line.nama_drk+"</td>";
+                                                    det += "<td >"+tw+"</td>";
+                                                    det += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
+                                                    det += "</tr>";
+                                                    no++;
+                                                }
+                                            }
+                                            det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                                <th colspan="5"></th>
+                                                <th style="width:10%" class="text-right">`+format_number(total)+`</th>
+                                        </tr>`;
+                                        
+                                        html+=det+`
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="prev-beri" role="tabpanel">
+                                        <table class="table table-striped table-body-prev mt-2" width="100%">
+                                        <tr style="background: var(--theme-color-1) !important;color:white !important">
+                                                <th style="width:15%">Kode MTA</th>
+                                                <th style="width:15%">Nama MTA</th>
+                                                <th style="width:15">Nama PP</th>
+                                                <th style="width:15">Nama DRK</th>
+                                                <th style="width:10%">TW</th>
+                                                <th style="width:15%">Nilai</th>
+                                        </tr>`;
+                                            var det = ''; var total =0;
+                                            if(result.detail_beri.length > 0){
+                                                var no=1;
+                                                for(var i=0;i<result.detail_beri.length;i++){
+                                                    var line =result.detail_beri[i];
+                                                    total+=parseFloat(line.nilai);
+                                                    if (line.bulan == "01")	var tw = "TW1";
+                                                    if (line.bulan == "04")	var tw = "TW2";
+                                                    if (line.bulan == "07")	var tw = "TW3";
+                                                    if (line.bulan == "10")	var tw = "TW4";	
+                                                    det += "<tr>";
+                                                    det += "<td >"+line.kode_akun+"</td>";
+                                                    det += "<td >"+line.nama_akun+"</td>";
+                                                    det += "<td >"+line.nama_pp+"</td>";
+                                                    det += "<td >"+line.nama_drk+"</td>";
+                                                    det += "<td >"+tw+"</td>";
+                                                    det += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
+                                                    det += "</tr>";
+                                                    no++;
+                                                }
+                                            }
+                                            det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
+                                                <th colspan="5"></th>
+                                                <th style="width:10%" class="text-right">`+format_number(total)+`</th>
+                                        </tr>`;
+                                        
+                                        html+=det+`
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="prev-approval" role="tabpanel">
                                         <table class="table table-striped table-body-prev mt-2" width="100%">
                                         <tr style="background: var(--theme-color-1) !important;color:white !important">
                                                 <th style="width:15%">No</th>
@@ -976,8 +1513,11 @@
                 formData.append('email[]',email)
             });
             
-            var total_d = toNilai($('#nilai').val());
-            var jumdet = $('#input-flow tr').length;
+            var total_d = toNilai($('#total_beri').val());
+            var total_k = toNilai($('#total_terima').val());
+            var jumdet1 = $('#input-flow tr').length;
+            var jumdet2 = $('#input-beri tr').length;
+            var jumdet3 = $('#input-terima tr').length;
             var param = $('#id').val();
             var id = $('#no_bukti').val();
             // $iconLoad.show();
@@ -994,12 +1534,12 @@
                     title: 'Transaksi tidak valid',
                     text: "Nilai Justifikasi tidak boleh sama dengan 0 atau kurang"
                 });
-            }else if(jumdet <= 1 ){
+            }else if(jumdet1 <= 1 || jumdet2 <= 1 || jumdet3 <= 1  ){
                 msgDialog({
                     id: '-',
                     type: 'warning',
                     title: 'Transaksi tidak valid',
-                    text: "Detail Approval tidak boleh kosong (jumlah baris: "+jumdet+")"
+                    text: "Detail Penerima, Pemberi dan Approval tidak boleh kosong"
                 });
             }else{
 
@@ -1093,9 +1633,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#kode_pp,#jenis,#kode_jenis,#periode,#nilai,#kegiatan,#latar,#aspek,#spesifikasi,#rencana').keydown(function(e){
+    $('#tanggal,#no_bukti,#unit_kerja,#jenis_rra,#jenis,#periode,#kegiatan,#total_terima,#total_beri,#latar,#aspek,#spesifikasi,#rencana,#lokasi_terima,#lokasi_beri').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_pp','jenis','kode_jenis','periode','nilai','kegiatan','latar','aspek','spesifikasi','rencana'];
+        var nxt = ['tanggal','no_bukti','unit_kerja','jenis_rra','jenis','periode','kegiatan','total_terima','total_beri','latar','aspek','spesifikasi','rencana','lokasi_terima','lokasi_beri'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -1115,7 +1655,7 @@
     $('#form-tambah').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         switch(id){
-            case 'kode_jenis':
+            case 'jenis_rra':
                 var options = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -1135,7 +1675,7 @@
                     width : ["30%","70%"]
                 }
             break;
-            case 'kode_pp':
+            case 'unit_kerja':
                 var options = {
                     id : id,
                     header : ['Kode', 'Nama'],
@@ -1155,23 +1695,74 @@
                     width : ["30%","70%"]
                 }
             break;
+            case 'lokasi_beri':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-lokasi') }}",
+                    columns : [
+                        { data: 'kode_lokasi' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Lokasi",
+                    pilih : "lokasi",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
+            case 'lokasi_terima':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-lokasi') }}",
+                    columns : [
+                        { data: 'kode_lokasi' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Lokasi",
+                    pilih : "lokasi",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
         }
         showInpFilterBSheet(options);
     });
 
-    $('#form-tambah').on('change', '#kode_pp', function(){
+    $('#form-tambah').on('change', '#unit_kerja', function(){
         var par = $(this).val();
         getPP(par);
     });
 
-    $('#form-tambah').on('change', '#kode_jenis', function(){
+    $('#form-tambah').on('change', '#jenis_rra', function(){
         var par = $(this).val();
         getJenis(par);
     });
 
-    $('#form-tambah').on('click', '#loadData', function(){
-        var kode_jenis = $('#kode_jenis').val();
-        var nilai = $('#nilai').val();
+    $('#form-tambah').on('change', '#lokasi_terima', function(){
+        var par = $(this).val();
+        getLokasi(par);
+    });
+
+    $('#form-tambah').on('change', '#lokasi_beri', function(){
+        var par = $(this).val();
+        getLokasi(par);
+    });
+
+
+    $('#form-tambah').on('click', '#load-app', function(){
+        var kode_jenis = $('#jenis_rra').val();
+        var nilai = $('#total_terima').val();
         getAppFlow(kode_jenis,nilai);
     });
 
@@ -1197,5 +1788,1850 @@
             }
         });
     }
+
+     // CBBL
+     function getPP(id,target1,target2,jenis,kode_lokasi,table){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/sukka-trans/juskeb-pp') }}",
+            dataType: 'json',
+            data:{kode_pp: id,kode_lokasi:kode_lokasi},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+
+                        }else{
+                            $("#"+table+" td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            var kode2 = table.replace('input-','');
+                            if(kode2 == 'terima'){
+                                $('.'+target1).closest('tr').find('.search-pp_terima').hide();
+                            }else{
+                                $('.'+target1).closest('tr').find('.search-pp').hide();
+                            }
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'Kode PP tidak valid'
+                        });
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
+                }
+                else{
+                    $('.'+target1).val('');
+                    $('.'+target2).val('');
+                    $('.td'+target2).text('');
+                    $('.'+target1).focus();
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Inputan tidak valid',
+                        text: 'Kode PP tidak valid'
+                    });
+                }
+            }
+        });
+    }
+
+    function getAkun(id,target1,target2,target3,kode_lokasi,jenis,table){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('sukka-trans/juskeb-akun') }}",
+            dataType: 'json',
+            data:{kode_akun: id,kode_lokasi: kode_lokasi},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(kode);
+                            $('.td'+target1).text(kode);
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            // $('.'+target3)[0].selectize.focus();
+                            $('.td'+target3).text('D');
+                        }else{
+
+                            $("#"+table+" td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            var kode2 = table.replace('input-','');
+                            if(kode2 == 'terima'){
+                                $('.'+target1).closest('tr').find('.search-akun_terima').hide();
+                            }else{
+                                $('.'+target1).closest('tr').find('.search-akun').hide();
+                            }
+                            $('.'+target1).val(id);
+                            $('.td'+target1).text(id);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                            $('.td'+target3).text('D');
+                        }
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'Kode MTA tidak valid'
+                        });
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
+                }
+                else{
+                    $('.'+target1).val('');
+                    $('.'+target2).val('');
+                    $('.td'+target2).text('');
+                    $('.'+target1).focus();
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Inputan tidak valid',
+                        text: 'Kode MTA tidak valid'
+                    });
+                }
+            }
+        });
+    }
+
+    function getDRK(id,target1,target2,target3,jenis,kode_akun,kode_pp,periode,kode_lokasi,table){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/sukka-trans/juskeb-drk') }}",
+            dataType: 'json',
+            data:{kode_drk: id,kode_akun:kode_akun,kode_pp:kode_pp,periode:periode,kode_lokasi:kode_lokasi},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(result.daftar[0].kode_drk);
+                            $('.td'+target1).text(result.daftar[0].kode_drk);
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            // $('.'+target3)[0].selectize.focus();
+                            $('.td'+target3).text('D');
+                        }else{
+
+                            $("#"+table+" td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-drk_terima').hide();
+                            $('.'+target1).val(result.daftar[0].kode_drk);
+                            $('.td'+target1).text(result.daftar[0].kode_drk);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                    }else{
+                        
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'Kode DRK tidak valid'
+                        });
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
+                }
+                else{
+                    $('.'+target1).val('');
+                    $('.'+target2).val('');
+                    $('.td'+target2).text('');
+                    $('.'+target1).focus();
+                    
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Inputan tidak valid',
+                        text: 'Kode DRK tidak valid'
+                    });
+                }
+            }
+        });
+    }
+
+    function getDRKPemberi(id,target1,target2,target3,jenis,kode_akun,kode_pp,periode,kode_lokasi,table){
+        var tmp = id.split(" - ");
+        kode = tmp[0];
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('/sukka-trans/juskeb-drk-beri') }}",
+            dataType: 'json',
+            data:{kode_drk: id,kode_akun:kode_akun,kode_pp:kode_pp,periode:periode,kode_lokasi:kode_lokasi},
+            async:false,
+            success:function(result){    
+                if(result.status){
+                    if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
+                        if(jenis == 'change'){
+                            $('.'+target1).val(result.daftar[0].kode_drk);
+                            $('.td'+target1).text(result.daftar[0].kode_drk);
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            // $('.'+target3)[0].selectize.focus();
+                            $('.td'+target3).text('D');
+                        }else{
+
+                            $("#"+table+" td").removeClass("px-0 py-0 aktif");
+                            $('.'+target2).closest('td').addClass("px-0 py-0 aktif");
+
+                            $('.'+target1).closest('tr').find('.search-drk').hide();
+                            $('.'+target1).val(result.daftar[0].kode_drk);
+                            $('.td'+target1).text(result.daftar[0].kode_drk);
+                            $('.'+target1).hide();
+                            $('.td'+target1).show();
+
+                            $('.'+target2).val(result.daftar[0].nama);
+                            $('.td'+target2).text(result.daftar[0].nama);
+                            $('.'+target2).show();
+                            $('.td'+target2).hide();
+                            $('.'+target2).focus();
+                        }
+                    }else{
+                        $('.'+target1).val('');
+                        $('.'+target2).val('');
+                        $('.td'+target2).text('');
+                        $('.'+target1).focus();
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'Kode DRK tidak valid'
+                        });
+                    }
+                }
+                else if(!result.status && result.message == 'Unauthorized'){
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
+                }
+                else{
+                    $('.'+target1).val('');
+                    $('.'+target2).val('');
+                    $('.td'+target2).text('');
+                    $('.'+target1).focus();
+                    msgDialog({
+                        id: '-',
+                        type: 'warning',
+                        title: 'Inputan tidak valid',
+                        text: 'Kode DRK tidak valid'
+                    });
+                }
+            }
+        });
+    }
+
+    // END CBBL
+
+    // GRID 
+    function addRow(param){
+        if($('#lokasi_beri').val() == ""){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Lokasi Pemberi wajib diisi terlebih dahulu!'
+            });
+            return false;
+        }
+        if(param == "copy"){
+            var kode_akun = $('#input-beri tbody tr.selected-row').find(".inp-kode").val();
+            var nama_akun = $('#input-beri tbody tr.selected-row').find(".inp-nama").val();
+            var kode_pp = $('#input-beri tbody tr.selected-row').find(".inp-pp").val();
+            var nama_pp = $('#input-beri tbody tr.selected-row').find(".inp-nama_pp").val();
+            var kode_drk = $('#input-beri tbody tr.selected-row').find(".inp-drk").val();
+            var nama_drk = $('#input-beri tbody tr.selected-row').find(".inp-nama_drk").val();
+            var tw = $('#input-beri tbody tr.selected-row').find(".inp-tw")[0].selectize.getValue();
+            var nilai = $('#input-beri tbody tr.selected-row').find(".inp-nilai").val();
+        }else{
+            
+            var kode_akun = "";
+            var nama_akun = "";
+            var kode_pp = "";
+            var nama_pp = "";
+            var kode_drk = "";
+            var nama_drk = "";
+            var tw = "";
+            var nilai = "";
+        }
+        var no=$('#input-beri .row-beri:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-beri'>";
+        input += "<td class='no-beri text-center'>"+no+"</td>";
+        input += "<td class='text-center'><a href='#' class='hapus-item'  style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode tdakunke"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun[]' class='form-control inp-kode akunke"+no+" hidden' value='"+kode_akun+"'  style='z-index: 1;position: relative;' id='akunkode"+no+"'><a href='#' class='search-item search-akun hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama tdnmakunke"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun[]' class='form-control inp-nama nmakunke"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+        input += "<td><span class='td-pp tdppke"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='ppkode"+no+"' name='kode_pp[]' class='form-control inp-pp ppke"+no+" hidden' value='"+kode_pp+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp tdnmppke"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp[]' class='form-control inp-nama_pp nmppke"+no+" hidden'  value='"+nama_pp+"' readonly ></td>";
+        input += "<td><span class='td-drk tddrkke"+no+" tooltip-span'>"+kode_drk+"</span><input type='text' id='drkkode"+no+"' name='kode_drk[]' class='form-control inp-drk drkke"+no+" hidden' value='"+kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_drk tdnmdrkke"+no+" tooltip-span'>"+nama_drk+"</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke"+no+" hidden'  value='"+nama_drk+"' readonly ></td>";
+        input += "<td ><span class='td-tw tdtwke"+no+" tooltip-span'>"+tw+"</span><select hidden name='tw[]' class='form-control inp-tw twke"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
+        input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' ></td>";
+        input += "</tr>";
+        $('#input-beri tbody').append(input);
+
+        if(param != "copy"){
+            $('.row-beri:last').addClass('selected-row');
+            $('#input-beri tbody tr').not('.row-beri:last').removeClass('selected-row');
+        }
+        $('.twke'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tdtwke'+no).text(value);
+                hitungTotalBeri();
+            }
+        });
+        $('.twke'+no)[0].selectize.setValue(tw,true);
+        $('.selectize-control.twke'+no).addClass('hidden');
+        $('.nilke'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+
+        hideUnselectedRow();
+        if(param == "add"){
+            $('#input-beri td').removeClass('px-0 py-0 aktif');
+            $('#input-beri tbody tr:last').find("td:eq(2)").addClass('px-0 py-0 aktif');
+            $('#input-beri tbody tr:last').find(".inp-kode").show();
+            $('#input-beri tbody tr:last').find(".td-kode").hide();
+            $('#input-beri tbody tr:last').find(".search-akun").show();
+            $('#input-beri tbody tr:last').find(".inp-kode").focus();
+        }
+
+        $('.tooltip-span').attr('title','tooltip');
+        $('.tooltip-span').tooltip({
+            content: function(){
+                return $(this).text();
+            }
+        });
+        hitungTotalRowBeri();
+    }
+
+    function addRowTerima(param){
+        if($('#lokasi_terima').val() == ""){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Lokasi Penerima wajib diisi terlebih dahulu!'
+            });
+            return false;
+        }
+        if(param == "copy"){
+            var kode_akun = $('#input-terima tbody tr.selected-row').find(".inp-kode_terima").val();
+            var nama_akun = $('#input-terima tbody tr.selected-row').find(".inp-nama_terima").val();
+            var kode_pp = $('#input-terima tbody tr.selected-row').find(".inp-pp_terima").val();
+            var nama_pp = $('#input-terima tbody tr.selected-row').find(".inp-nama_pp_terima").val();
+            var kode_drk = $('#input-terima tbody tr.selected-row').find(".inp-drk_terima").val();
+            var nama_drk = $('#input-terima tbody tr.selected-row').find(".inp-nama_drk_terima").val();
+            var tw = $('#input-terima tbody tr.selected-row').find(".inp-tw_terima")[0].selectize.getValue();
+            var nilai = $('#input-terima tbody tr.selected-row').find(".inp-nilai_terima").val();
+        }else{
+            
+            var kode_akun = "";
+            var nama_akun = "";
+            var kode_pp = "";
+            var nama_pp = "";
+            var kode_drk = "";
+            var nama_drk = "";
+            var tw = "";
+            var nilai = "";
+        }
+        var no=$('#input-terima .row-terima:last').index();
+        no=no+2;
+        var input = "";
+        input += "<tr class='row-terima'>";
+        input += "<td class='no-terima text-center'>"+no+"</td>";
+        input += "<td class='text-center'><a href='#' class='hapus-item' style='font-size:18px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
+        input += "<td><span class='td-kode_terima tdakunterimake"+no+" tooltip-span'>"+kode_akun+"</span><input type='text' name='kode_akun_terima[]' class='form-control inp-kode_terima akun_terimake"+no+" hidden' value='"+kode_akun+"' style='z-index: 1;position: relative;' id='akun_terimakode"+no+"'><a href='#' class='search-item search-akun_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_terima tdnmakun_terimake"+no+" tooltip-span'>"+nama_akun+"</span><input type='text' name='nama_akun_terima[]' class='form-control inp-nama_terima nmakun_terimake"+no+" hidden'  value='"+nama_akun+"' readonly></td>";
+        input += "<td><span class='td-pp_terima tdpp_terimake"+no+" tooltip-span'>"+kode_pp+"</span><input type='text' id='pp_terimakode"+no+"' name='kode_pp_terima[]' class='form-control inp-pp_terima pp_terimake"+no+" hidden' value='"+kode_pp+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-pp_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_pp_terima tdnmpp_terimake"+no+" tooltip-span'>"+nama_pp+"</span><input type='text' name='nama_pp_terima[]' class='form-control inp-nama_pp_terima nmpp_terimake"+no+" hidden'  value='"+nama_pp+"' readonly ></td>";
+        input += "<td><span class='td-drk_terima tddrk_terimake"+no+" tooltip-span'>"+kode_drk+"</span><input type='text' id='drk_terimakode"+no+"' name='kode_drk_terima[]' class='form-control inp-drk_terima drk_terimake"+no+" hidden' value='"+kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk_terima hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
+        input += "<td><span class='td-nama_drk_terima tdnmdrk_terimake"+no+" tooltip-span'>"+nama_drk+"</span><input type='text' name='nama_drk_terima[]' class='form-control inp-nama_drk_terima nmdrk_terimake"+no+" hidden'  value='"+nama_drk+"' readonly ></td>";
+        input += "<td ><span class='td-tw_terima tdtw_terimake"+no+" tooltip-span'></span><select hidden name='tw_terima[]' class='form-control inp-tw_terima tw_terimake"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
+        input += "<td class='text-right'><span class='td-nilai_terima tdnil_terimake"+no+" tooltip-span'>"+number_format(nilai)+"</span><input type='text' name='nilai_terima[]' class='form-control inp-nilai_terima nil_terimake"+no+" hidden'  value='"+number_format(nilai)+"' ></td>";
+        input += "</tr>";
+        $('#input-terima tbody').append(input);
+
+        if(param != "copy"){
+            $('.row-terima:last').addClass('selected-row');
+            $('#input-terima tbody tr').not('.row-terima:last').removeClass('selected-row');
+        }
+        $('.tw_terimake'+no).selectize({
+            selectOnTab:true,
+            onChange: function(value) {
+                $('.tdtw_terimake'+no).text(value);
+                hitungTotalTerima();
+            }
+        });
+        $('.tw_terimake'+no)[0].selectize.setValue(tw,true);
+        $('.selectize-control.tw_terimake'+no).addClass('hidden');
+        $('.nil_terimake'+no).inputmask("numeric", {
+            radixPoint: ",",
+            groupSeparator: ".",
+            digits: 2,
+            autoGroup: true,
+            rightAlign: true,
+            oncleared: function () { self.Value(''); }
+        });
+
+        hideUnselectedRowTerima();
+        if(param == "add"){
+            $('#input-terima td').removeClass('px-0 py-0 aktif');
+            $('#input-terima tbody tr:last').find("td:eq(2)").addClass('px-0 py-0 aktif');
+            $('#input-terima tbody tr:last').find(".inp-kode_terima").show();
+            $('#input-terima tbody tr:last').find(".td-kode_terima").hide();
+            $('#input-terima tbody tr:last').find(".search-akun_terima").show();
+            $('#input-terima tbody tr:last').find(".inp-kode_terima").focus();
+        }
+
+        $('.tooltip-span').attr('title','tooltip');
+        $('.tooltip-span').tooltip({
+            content: function(){
+                return $(this).text();
+            }
+        });
+        hitungTotalRowTerima();
+    }
+
+    function addRowDok(form){
+        var no=$('#'+form+' #input-dok .row-dok:last').index();
+        no=no+2;
+        console.log(no);
+        var input = "";
+        input += "<tr class='row-dok'>";
+        input += "<td class='no-dok text-center'>"+no+"</td>";
+        input += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='kode_jenis[]' class='form-control inp-jenis jeniske"+no+" ' value=''  style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
+        input += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='' readonly></td>";
+        input += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>-</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='-' readonly></td>";
+        input+=`
+        <td>
+        <input type='file' name='file_dok[]'>
+        <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        </td>`;
+        input+=`
+        <td class='text-center action-dok'><a href='#' class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
+        console.log(form);
+        $('#'+form+' #input-dok tbody').append(input);
+        hitungTotalRowUpload(form);
+    }
+
+    $('#form-tambah #input-dok').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+
+        var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        
+        switch(par){
+            case 'kode_jenis[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-jenis-dok') }}",
+                    columns : [
+                        { data: 'kode_jenis' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Jenis Dokumen",
+                    pilih : "jenis",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilterBSheet(options);
+
+    });
+
+    $('#input-beri').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        
+        switch(par){
+            case 'kode_akun[]': 
+                var par2 = "nama_akun[]";
+            break;
+            case 'kode_pp[]': 
+                var par2 = "nama_pp[]";
+            break;
+            case 'kode_drk[]': 
+                var par2 = "nama_drk[]";
+            break;
+        }
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        
+        switch(par){
+            case 'kode_akun[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-akun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar MTA",
+                    pilih : "akun",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    width : ["30%","70%"],
+                    parameter:{
+                        kode_lokasi: $('#lokasi_beri').val(),
+                    },
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-kode").val(data.kode_akun).hide();
+                        $('.'+target1).closest("tr").find(".td-kode").text(data.kode_akun).show();
+                        $('.'+target1).closest("tr").find(".search-akun").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama").closest('td').addClass('px-0 py-0 aktif');
+                        
+                        var idx_next = tmp[1].replace("td","");
+                        var kode_akun = data.kode_akun;
+                        var kode_pp = $('.'+target1).closest("tr").find(".td-pp").text();
+                        var kode_drk = $('.'+target1).closest("tr").find(".td-drk").text();
+                        var tw = $('.'+target1).closest("tr").find(".inp-tw")[0].selectize.getValue();
+                        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
+                        var kode_lokasi = $('#lokasi_beri').val();
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama").focus(); }, 100);
+                    },
+                };
+            break;
+            case 'kode_pp[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "pp",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-pp").val(data.kode_pp).hide();
+                        $('.'+target1).closest("tr").find(".td-pp").text(data.kode_pp).show();
+                        $('.'+target1).closest("tr").find(".search-pp").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama_pp").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama_pp").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama_pp").closest('td').addClass('px-0 py-0 aktif');
+                        
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_pp").focus(); }, 100);
+                    },
+                    parameter:{
+                        kode_lokasi: $('#lokasi_beri').val(),
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'kode_drk[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-drk-beri') }}",
+                    columns : [
+                        { data: 'kode_drk' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar DRK",
+                    pilih : "drk",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-drk").val(data.kode_drk).hide();
+                        $('.'+target1).closest("tr").find(".td-drk").text(data.kode_drk).show();
+                        $('.'+target1).closest("tr").find(".search-drk").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama_drk").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama_drk").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama_drk").closest('td').addClass('px-0 py-0 aktif');
+
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_drk").focus(); }, 100);
+                    },
+                    width : ["30%","70%"],
+                    parameter:{
+                        kode_pp: $(this).closest('tr').find('input[name="kode_pp[]"]').val(),
+                        kode_akun: $(this).closest('tr').find('input[name="kode_akun[]"]').val(),
+                        periode: $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2),
+                        kode_lokasi: $('#lokasi_beri').val()
+                    }
+                };
+            break;
+        }
+        showInpFilterBSheet(options);
+
+    });
+
+    $('#input-terima').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        
+        switch(par){
+            case 'kode_akun_terima[]': 
+                var par2 = "nama_akun_terima[]";
+            break;
+            case 'kode_pp_terima[]': 
+                var par2 = "nama_pp_terima[]";
+            break;
+            case 'kode_drk_terima[]': 
+                var par2 = "nama_drk_terima[]";
+            break;
+        }
+        
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        
+        tmp = $(this).closest('tr').find('input[name="'+par2+'"]').attr('class');
+        tmp2 = tmp.split(" ");
+        target2 = tmp2[2];
+        
+        switch(par){
+            case 'kode_akun_terima[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-akun') }}",
+                    columns : [
+                        { data: 'kode_akun' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar MTA",
+                    pilih : "akun",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    width : ["30%","70%"],
+                    parameter:{
+                        kode_lokasi: $('#lokasi_terima').val(),
+                    },
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-kode_terima").val(data.kode_akun).hide();
+                        $('.'+target1).closest("tr").find(".td-kode_terima").text(data.kode_akun).show();
+                        $('.'+target1).closest("tr").find(".search-akun_terima").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama_terima").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama_terima").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama_terima").closest('td').addClass('px-0 py-0 aktif');
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_terima").focus(); }, 100);
+                    },
+                };
+            break;
+            case 'kode_pp_terima[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "pp",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-pp_terima").val(data.kode_pp).hide();
+                        $('.'+target1).closest("tr").find(".td-pp_terima").text(data.kode_pp).show();
+                        $('.'+target1).closest("tr").find(".search-pp_terima").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama_pp_terima").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama_pp_terima").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama_pp_terima").closest('td').addClass('px-0 py-0 aktif');
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_pp_terima").focus(); }, 100);
+                    },
+                    parameter:{
+                        kode_lokasi: $('#lokasi_terima').val(),
+                    },
+                    width : ["30%","70%"]
+                };
+            break;
+            case 'kode_drk_terima[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('sukka-trans/juskeb-drk') }}",
+                    columns : [
+                        { data: 'kode_drk' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar DRK",
+                    pilih : "drk",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "."+target1,
+                    target2 : "."+target2,
+                    target3 : ".td"+target2,
+                    target4 : "",
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
+                        $('.'+target1).closest("tr").find(".inp-drk_terima").val(data.kode_drk).hide();
+                        $('.'+target1).closest("tr").find(".td-drk_terima").text(data.kode_drk).show();
+                        $('.'+target1).closest("tr").find(".search-drk_terima").hide();
+                        $('.'+target1).closest("tr").find(".inp-nama_drk_terima").val(data.nama).show();
+                        $('.'+target1).closest("tr").find(".td-nama_drk_terima").html(data.nama).hide();
+                        $('.'+target1).closest("tr").find(".td-nama_drk_terima").closest('td').addClass('px-0 py-0 aktif');
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_drk_terima").focus(); }, 100);
+                    },
+                    width : ["30%","70%"],
+                    parameter:{
+                        kode_pp: $(this).closest('tr').find('input[name="kode_pp[]"]').val(),
+                        kode_akun: $(this).closest('tr').find('input[name="kode_akun[]"]').val(),
+                        periode: $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2),
+                        kode_lokasi: $('#lokasi_terima').val()
+                    }
+                };
+            break;
+        }
+        showInpFilterBSheet(options);
+
+    });
+    
+    $('#input-beri').on('keydown','.inp-kode, .inp-nama, .inp-pp, .inp-nama_pp, .inp-drk, .inp-nama_drk, .inp-tw, .inp-nilai',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-kode','.inp-nama','.inp-pp','.inp-nama_pp','.inp-drk','.inp-nama_drk','.inp-tw','.inp-nilai'];
+        var nxt2 = ['.td-kode','.td-nama','.td-pp','.td-nama_pp','.td-drk','.td-nama_drk','.td-tw','.td-nilai'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-2;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    var noidx = $(this).parents("tr").find(".no-beri").text();
+                    var kode = $(this).val();
+                    var target1 = "akunke"+noidx;
+                    var target2 = "nmakunke"+noidx;
+                    var target3 = "";
+                    var kode_lokasi= $('#lokasi_beri').val();
+                    getAkun(kode,target1,target2,target3,kode_lokasi,'tab','input-beri');                    
+                    break;
+                case 1:
+                    $("#input-beri td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find('.search-pp').show();
+                    break;
+                case 2:
+                    var noidx = $(this).parents("tr").find(".no-beri").text();
+                    var kode = $(this).val();
+                    var target1 = "ppke"+noidx;
+                    var target2 = "nmppke"+noidx;
+                    var target3 = "";
+                    var kode_lokasi= $('#lokasi_beri').val();
+                    getPP(kode,target1,target2,'tab',kode_lokasi,'input-beri');   
+                    break;
+                case 3:
+                    $("#input-beri td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find('.search-drk').show();
+                    break;
+                case 4:
+                    var noidx = $(this).parents("tr").find(".no-beri").text();
+                    var kode = $(this).val();
+                    var target1 = "drkke"+noidx;
+                    var target2 = "nmdrkke"+noidx;
+                    var target3 = "";
+                    var kode_akun = $(this).parents("tr").find(".td-kode").text();
+                    var kode_pp = $(this).parents("tr").find(".td-pp").text();
+                    var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
+                    var kode_lokasi = $('#lokasi_beri').val();
+                    getDRKPemberi(kode,target1,target2,target3,'tab',kode_akun,kode_pp,periode,kode_lokasi,'input-beri'); 
+                    break;
+                case 5:
+                    $("#input-beri td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).closest('tr').find(nxt[idx_next])[0].selectize.focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
+                case 6:
+                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
+                    if(isi == 'TW1' || isi == 'TW2' || isi == 'TW3' || isi == 'TW4' ){
+                        $("#input-beri td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi,true);
+                        $(this).parents("tr").find(nxt2[idx]).text(isi);
+                        $(this).parents("tr").find(".selectize-control").hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+                    }else{
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'TW yang dimasukkan tidak valid'
+                        });
+                        
+                        return false;
+                    }
+                    break;
+                case 7:
+                    $("#input-beri td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
+                case 8:
+                    $("#input-beri td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    hitungTotalBeri();
+                    var cek = $(this).parents('tr').next('tr').find('.td-kode');
+                    if(cek.length > 0){
+                        cek.click();
+                    }else{
+                        $('.add-row').click();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#input-terima').on('keydown','.inp-kode_terima, .inp-nama_terima, .inp-pp_terima, .inp-nama_pp_terima, .inp-drk_terima, .inp-nama_drk_terima, .inp-tw_terima, .inp-nilai_terima',function(e){
+        var code = (e.keyCode ? e.keyCode : e.which);
+        var nxt = ['.inp-kode_terima','.inp-nama_terima','.inp-pp_terima','.inp-nama_pp_terima','.inp-drk_terima','.inp-nama_drk_terima','.inp-tw_terima','.inp-nilai_terima'];
+        var nxt2 = ['.td-kode_terima','.td-nama_terima','.td-pp_terima','.td-nama_pp_terima','.td-drk_terima','.td-nama_drk_terima','.td-tw_terima','.td-nilai_terima'];
+        if (code == 13 || code == 9) {
+            e.preventDefault();
+            var idx = $(this).closest('td').index()-2;
+            var idx_next = idx+1;
+            var kunci = $(this).closest('td').index()+1;
+            var isi = $(this).val();
+            switch (idx) {
+                case 0:
+                    var noidx = $(this).parents("tr").find(".no-terima").text();
+                    var kode = $(this).val();
+                    var target1 = "akun_terimake"+noidx;
+                    var target2 = "nmakun_terimake"+noidx;
+                    var target3 = "";
+                    var kode_lokasi= $('#lokasi_terima').val();
+                    getAkun(kode,target1,target2,target3,kode_lokasi,'tab','input-terima');                    
+                    break;
+                case 1:
+                    $("#input-terima td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find('.search-pp_terima').show();
+                    break;
+                case 2:
+                    var noidx = $(this).parents("tr").find(".no-terima").text();
+                    var kode = $(this).val();
+                    var target1 = "pp_terimake"+noidx;
+                    var target2 = "nmpp_terimake"+noidx;
+                    var target3 = "";
+                    var kode_lokasi= $('#lokasi_terima').val();
+                    getPP(kode,target1,target2,'tab',kode_lokasi,'input-terima');     
+                    break;
+                case 3:
+                    $("#input-terima td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).show();
+                    $(this).closest('tr').find(nxt[idx_next]).focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    $(this).closest('tr').find('.search-drk_terima').show();
+                    break;
+                case 4:
+                    var noidx = $(this).parents("tr").find(".no-terima").text();
+                    var kode = $(this).val();
+                    var target1 = "drk_terimake"+noidx;
+                    var target2 = "nmdrk_terimake"+noidx;
+                    var target3 = "";
+                    var kode_akun = $(this).parents("tr").find(".td-kode_terima").text();
+                    var kode_pp = $(this).parents("tr").find(".td-pp_terima").text();
+                    var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
+                    var kode_lokasi = $('#lokasi_terima').val();
+                    getDRK(kode,target1,target2,target3,'tab',kode_akun,kode_pp,periode,kode_lokasi,'input-terima'); 
+                    break;
+                case 5:
+                    $("#input-terima td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).closest('tr').find(nxt[idx_next])[0].selectize.focus();
+                    $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    break;
+                case 6:
+                    var isi = $(this).parents("tr").find(nxt[idx])[0].selectize.getValue();
+                    if(isi == 'TW1' || isi == 'TW2' || isi == 'TW3' || isi == 'TW4' ){
+                        $("#input-terima td").removeClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                        $(this).parents("tr").find(nxt[idx])[0].selectize.setValue(isi,true);
+                        $(this).parents("tr").find(nxt2[idx]).text(isi);
+                        $(this).parents("tr").find(".selectize-control").hide();
+                        $(this).closest('tr').find(nxt2[idx]).show();
+
+                        $(this).closest('tr').find(nxt[idx_next]).show();
+                        $(this).closest('tr').find(nxt[idx_next]).focus();
+                        $(this).closest('tr').find(nxt2[idx_next]).hide();
+                    }else{
+                        msgDialog({
+                            id: '-',
+                            type: 'warning',
+                            title: 'Inputan tidak valid',
+                            text: 'TW yang dimasukkan tidak valid'
+                        });
+                        
+                        return false;
+                    }
+                    break;
+                case 7:
+                    $("#input-terima td").removeClass("px-0 py-0 aktif");
+                    $(this).parents("tr").find("td:eq("+kunci+")").addClass("px-0 py-0 aktif");
+                    $(this).closest('tr').find(nxt[idx]).val(isi);
+                    $(this).closest('tr').find(nxt2[idx]).text(isi);
+                    $(this).closest('tr').find(nxt[idx]).hide();
+                    $(this).closest('tr').find(nxt2[idx]).show();
+                    hitungTotalTerima();
+                    var cek = $(this).parents('tr').next('tr').find('.td-kode_terima');
+                    if(cek.length > 0){
+                        cek.click();
+                    }else{
+                        $('.add-row-terima').click();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }else if(code == 38){
+            e.preventDefault();
+            var idx = nxt.indexOf(e.target.id);
+            idx--;
+        }
+    });
+
+    $('#form-tambah').on('click', '.add-row', function(){
+        addRow("add");
+    });
+
+    $('#form-tambah').on('click', '.add-row-terima', function(){
+        addRowTerima("add");
+    });
+
+    $('#form-tambah').on('click', '.add-row-dok', function(){
+        addRowDok("form-tambah");
+    });
+
+    function hideUnselectedRow() {
+        $('#input-beri > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-kode").val();
+                var nama_akun = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama").val();
+                var kode_pp = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-pp").val();
+                var nama_pp = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val();
+                var kode_drk = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-drk").val();
+                var nama_drk = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_drk").val();
+                var tw = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-tw")[0].selectize.getValue();
+                var nilai = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
+
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-kode").text(kode_akun);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama").val(nama_akun);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama").text(nama_akun);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-pp").val(kode_pp);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-pp").text(kode_pp);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").val(nama_pp);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_pp").text(nama_pp);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-drk").val(kode_drk);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-drk").text(kode_drk);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_drk").val(nama_drk);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_drk").text(nama_drk);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-tw")[0].selectize.setValue(tw,true);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-tw").text(tw);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
+
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-kode").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-kode").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".search-akun").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-pp").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-pp").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".search-pp").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_pp").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_pp").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-drk").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-drk").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".search-drk").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_drk").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_drk").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-tw").show();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
+                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
+            }
+        })
+    }
+
+    function hideUnselectedRowTerima() {
+        $('#input-terima > tbody > tr').each(function(index, row) {
+            if(!$(row).hasClass('selected-row')) {
+                var kode_akun = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-kode_terima").val();
+                var nama_akun = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_terima").val();
+                var kode_pp = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-pp_terima").val();
+                var nama_pp = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_pp_terima").val();
+                var kode_drk = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-drk_terima").val();
+                var nama_drk = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_drk_terima").val();
+                var tw = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-tw_terima")[0].selectize.getValue();
+                var nilai = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").val();
+
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-kode_terima").val(kode_akun);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-kode_terima").text(kode_akun);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_terima").val(nama_akun);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_terima").text(nama_akun);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-pp_terima").val(kode_pp);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-pp_terima").text(kode_pp);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_pp_terima").val(nama_pp);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_pp_terima").text(nama_pp);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-drk_terima").val(kode_drk);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-drk_terima").text(kode_drk);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_drk_terima").val(nama_drk);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_drk_terima").text(nama_drk);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-tw_terima")[0].selectize.setValue(tw,true);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-tw_terima").text(tw);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").val(nilai);
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nilai_terima").text(nilai);
+
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-kode_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-kode_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".search-akun_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-pp_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-pp_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".search-pp_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_pp_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_pp_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-drk_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-drk_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".search-drk_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_drk_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_drk_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-tw_terima").show();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").hide();
+                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nilai_terima").show();
+            }
+        })
+    }
+
+    $('#input-beri tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row');
+        $('#input-beri tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRow();
+    });
+
+    $('#input-terima tbody').on('click', 'tr', function(){
+        $(this).addClass('selected-row-terima');
+        $('#input-terima tbody tr').not(this).removeClass('selected-row');
+        hideUnselectedRowTerima();
+    });
+
+    $('.nav-control').on('click', '#copy-row', function(){
+        if($(".selected-row").length != 1){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Harap pilih row yang akan dicopy terlebih dahulu!'
+            });
+            return false;
+        }else{
+            addRow("copy");
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        }
+    });
+
+    $('.nav-control-terima').on('click', '#copy-row', function(){
+        if($(".selected-row-terima").length != 1){
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Peringatan',
+                text: 'Harap pilih row yang akan dicopy terlebih dahulu!'
+            });
+            return false;
+        }else{
+            addRowTerima("copy");
+            $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+        }
+
+    });
+
+    $('#input-beri').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-beri td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var kode_akun = $(this).parents("tr").find(".inp-kode").val();
+                var nama_akun = $(this).parents("tr").find(".inp-nama").val();
+                var kode_pp = $(this).parents("tr").find(".inp-pp").val();
+                var nama_pp = $(this).parents("tr").find(".inp-nama_pp").val();
+                var kode_drk = $(this).parents("tr").find(".inp-drk").val();
+                var nama_drk = $(this).parents("tr").find(".inp-nama_drk").val();
+                var tw = $(this).parents("tr").find(".inp-tw")[0].selectize.getValue();
+                var nilai = $(this).parents("tr").find(".inp-nilai").val();
+                var no = $(this).parents("tr").find(".no-beri").text();
+                $(this).parents("tr").find(".inp-kode").val(kode_akun);
+                $(this).parents("tr").find(".td-kode").text(kode_akun);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-kode").show();
+                    $(this).parents("tr").find(".td-kode").hide();
+                    $(this).parents("tr").find(".search-akun").show();
+                    $(this).parents("tr").find(".inp-kode").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-kode").hide();
+                    $(this).parents("tr").find(".td-kode").show();
+                    $(this).parents("tr").find(".search-akun").hide();
+                    
+                }
+        
+                $(this).parents("tr").find(".inp-nama").val(nama_akun);
+                $(this).parents("tr").find(".td-nama").text(nama_akun);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-nama").show();
+                    $(this).parents("tr").find(".td-nama").hide();
+                    $(this).parents("tr").find(".inp-nama").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama").hide();
+                    $(this).parents("tr").find(".td-nama").show();
+                }
+        
+                $(this).parents("tr").find(".inp-pp").val(kode_pp);
+                $(this).parents("tr").find(".td-pp").text(kode_pp);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-pp").show();
+                    $(this).parents("tr").find(".td-pp").hide();
+                    $(this).parents("tr").find(".search-pp").show();
+                    $(this).parents("tr").find(".inp-pp").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-pp").hide();
+                    $(this).parents("tr").find(".td-pp").show();
+                    $(this).parents("tr").find(".search-pp").hide();
+                }
+        
+                
+                $(this).parents("tr").find(".inp-nama_pp").val(nama_pp);
+                $(this).parents("tr").find(".td-nama_pp").text(nama_pp);
+                if(idx == 5){
+                    
+                    $(this).parents("tr").find(".inp-nama_pp").show();
+                    $(this).parents("tr").find(".td-nama_pp").hide();
+                    $(this).parents("tr").find(".inp-nama_pp").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_pp").hide();
+                    $(this).parents("tr").find(".td-nama_pp").show();
+                }
+
+                $(this).parents("tr").find(".inp-drk").val(kode_drk);
+                $(this).parents("tr").find(".td-drk").text(kode_drk);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-drk").show();
+                    $(this).parents("tr").find(".td-drk").hide();
+                    $(this).parents("tr").find(".search-drk").show();
+                    $(this).parents("tr").find(".inp-drk").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-drk").hide();
+                    $(this).parents("tr").find(".td-drk").show();
+                    $(this).parents("tr").find(".search-drk").hide();
+                }
+        
+                
+                $(this).parents("tr").find(".inp-nama_drk").val(nama_drk);
+                $(this).parents("tr").find(".td-nama_drk").text(nama_drk);
+                if(idx == 7){
+                    
+                    $(this).parents("tr").find(".inp-nama_drk").show();
+                    $(this).parents("tr").find(".td-nama_drk").hide();
+                    $(this).parents("tr").find(".inp-nama_drk").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_drk").hide();
+                    $(this).parents("tr").find(".td-nama_drk").show();
+                }
+
+                $(this).parents("tr").find(".inp-tw")[0].selectize.setValue(tw,true);
+                $(this).parents("tr").find(".td-tw").text(tw);
+                if(idx == 8){
+                    $('.twke'+no)[0].selectize.setValue(tw,true);
+                    
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".td-tw").hide();
+                    $(this).parents("tr").find(".inp-tw")[0].selectize.focus();
+                    
+                }else{
+                    
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".td-tw").show();
+                }
+        
+                $(this).parents("tr").find(".inp-nilai").val(nilai);
+                $(this).parents("tr").find(".td-nilai").text(nilai);
+                if(idx == 9){
+                    $(this).parents("tr").find(".inp-nilai").show();
+                    $(this).parents("tr").find(".td-nilai").hide();
+                    $(this).parents("tr").find(".inp-nilai").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai").hide();
+                    $(this).parents("tr").find(".td-nilai").show();
+                }
+                hitungTotalBeri();
+            }
+        }
+    });
+
+    $('#input-terima').on('click', 'td', function(){
+        var idx = $(this).index();
+        if(idx == 0){
+            return false;
+        }else{
+            if($(this).hasClass('px-0 py-0 aktif')){
+                return false;            
+            }else{
+                $('#input-terima td').removeClass('px-0 py-0 aktif');
+                $(this).addClass('px-0 py-0 aktif');
+        
+                var kode_akun = $(this).parents("tr").find(".inp-kode_terima").val();
+                var nama_akun = $(this).parents("tr").find(".inp-nama_terima").val();
+                var kode_pp = $(this).parents("tr").find(".inp-pp_terima").val();
+                var nama_pp = $(this).parents("tr").find(".inp-nama_pp_terima").val();
+                var kode_drk = $(this).parents("tr").find(".inp-drk_terima").val();
+                var nama_drk = $(this).parents("tr").find(".inp-nama_drk_terima").val();
+                var tw = $(this).parents("tr").find(".inp-tw_terima")[0].selectize.getValue();
+                var nilai = $(this).parents("tr").find(".inp-nilai_terima").val();
+                var no = $(this).parents("tr").find(".no-terima").text();
+                $(this).parents("tr").find(".inp-kode_terima").val(kode_akun);
+                $(this).parents("tr").find(".td-kode_terima").text(kode_akun);
+                if(idx == 2){
+                    $(this).parents("tr").find(".inp-kode_terima").show();
+                    $(this).parents("tr").find(".td-kode_terima").hide();
+                    $(this).parents("tr").find(".search-akun_terima").show();
+                    $(this).parents("tr").find(".inp-kode_terima").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-kode_terima").hide();
+                    $(this).parents("tr").find(".td-kode_terima").show();
+                    $(this).parents("tr").find(".search-akun_terima").hide();
+                    
+                }
+        
+                $(this).parents("tr").find(".inp-nama_terima").val(nama_akun);
+                $(this).parents("tr").find(".td-nama_terima").text(nama_akun);
+                if(idx == 3){
+                    $(this).parents("tr").find(".inp-nama_terima").show();
+                    $(this).parents("tr").find(".td-nama_terima").hide();
+                    $(this).parents("tr").find(".inp-nama_terima").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_terima").hide();
+                    $(this).parents("tr").find(".td-nama_terima").show();
+                }
+        
+                $(this).parents("tr").find(".inp-pp_terima").val(kode_pp);
+                $(this).parents("tr").find(".td-pp_terima").text(kode_pp);
+                if(idx == 4){
+                    $(this).parents("tr").find(".inp-pp_terima").show();
+                    $(this).parents("tr").find(".td-pp_terima").hide();
+                    $(this).parents("tr").find(".search-pp_terima").show();
+                    $(this).parents("tr").find(".inp-pp_terima").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-pp_terima").hide();
+                    $(this).parents("tr").find(".td-pp_terima").show();
+                    $(this).parents("tr").find(".search-pp_terima").hide();
+                }
+        
+                
+                $(this).parents("tr").find(".inp-nama_pp_terima").val(nama_pp);
+                $(this).parents("tr").find(".td-nama_pp_terima").text(nama_pp);
+                if(idx == 5){
+                    
+                    $(this).parents("tr").find(".inp-nama_pp_terima").show();
+                    $(this).parents("tr").find(".td-nama_pp_terima").hide();
+                    $(this).parents("tr").find(".inp-nama_pp_terima").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_pp_terima").hide();
+                    $(this).parents("tr").find(".td-nama_pp_terima").show();
+                }
+
+                $(this).parents("tr").find(".inp-drk_terima").val(kode_drk);
+                $(this).parents("tr").find(".td-drk_terima").text(kode_drk);
+                if(idx == 6){
+                    $(this).parents("tr").find(".inp-drk_terima").show();
+                    $(this).parents("tr").find(".td-drk_terima").hide();
+                    $(this).parents("tr").find(".search-drk_terima").show();
+                    $(this).parents("tr").find(".inp-drk_terima").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-drk_terima").hide();
+                    $(this).parents("tr").find(".td-drk_terima").show();
+                    $(this).parents("tr").find(".search-drk_terima").hide();
+                }
+        
+                
+                $(this).parents("tr").find(".inp-nama_drk_terima").val(nama_drk);
+                $(this).parents("tr").find(".td-nama_drk_terima").text(nama_drk);
+                if(idx == 7){
+                    
+                    $(this).parents("tr").find(".inp-nama_drk_terima").show();
+                    $(this).parents("tr").find(".td-nama_drk_terima").hide();
+                    $(this).parents("tr").find(".inp-nama_drk_terima").focus();
+                }else{
+                    
+                    $(this).parents("tr").find(".inp-nama_drk_terima").hide();
+                    $(this).parents("tr").find(".td-nama_drk_terima").show();
+                }
+
+                $(this).parents("tr").find(".inp-tw_terima")[0].selectize.setValue(tw,true);
+                $(this).parents("tr").find(".td-tw_terima").text(tw);
+                if(idx == 8){
+                    $('.tw_terimake'+no)[0].selectize.setValue(tw,true);
+                    
+                    $(this).parents("tr").find(".selectize-control").show();
+                    $(this).parents("tr").find(".td-tw_terima").hide();
+                    $(this).parents("tr").find(".inp-tw_terima")[0].selectize.focus();
+                    
+                }else{
+                    
+                    $(this).parents("tr").find(".selectize-control").hide();
+                    $(this).parents("tr").find(".td-tw_terima").show();
+                }
+        
+                $(this).parents("tr").find(".inp-nilai_terima").val(nilai);
+                $(this).parents("tr").find(".td-nilai_terima").text(nilai);
+                if(idx == 9){
+                    $(this).parents("tr").find(".inp-nilai_terima").show();
+                    $(this).parents("tr").find(".td-nilai_terima").hide();
+                    $(this).parents("tr").find(".inp-nilai_terima").focus();
+                }else{
+                    $(this).parents("tr").find(".inp-nilai_terima").hide();
+                    $(this).parents("tr").find(".td-nilai_terima").show();
+                }
+        
+                hitungTotalTerima();
+            }
+        }
+    });
+
+    $('.currency').inputmask("numeric", {
+        radixPoint: ",",
+        groupSeparator: ".",
+        digits: 2,
+        autoGroup: true,
+        rightAlign: true,
+        oncleared: function () { self.Value(''); }
+    });    
+
+    $('#input-beri').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-beri').each(function(){
+            var nom = $(this).closest('tr').find('.no-beri');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalBeri();
+        hitungTotalRowBeri();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-terima').on('click', '.hapus-item', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-terima').each(function(){
+            var nom = $(this).closest('tr').find('.no-terima');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalTerima();
+        hitungTotalRowTerima();
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#input-beri').on('change', '.inp-kode', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents('tr').find('.no-beri').html();
+        target1 = "akunke"+noidx;
+        target2 = "nmakunke"+noidx;
+        target3 = "";
+        if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
+            var kode = $(this).val();
+            var kode_lokasi= $('#lokasi_beri').val();
+            getAkun(kode,target1,target2,target3,kode_lokasi,'change','input-beri');
+            // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'MTA yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-terima').on('change', '.inp-kode_terima', function(e){
+        e.preventDefault();
+        var noidx =  $(this).parents('tr').find('.no-terima').html();
+        target1 = "akun_terimake"+noidx;
+        target2 = "nmakun_terimake"+noidx;
+        target3 = "";
+        if($.trim($(this).closest('tr').find('.inp-kode_terima').val()).length){
+            var kode = $(this).val();
+            var kode_lokasi= $('#lokasi_terima').val();
+            getAkun(kode,target1,target2,target3,kode_lokasi,'change','input-terima');
+            // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'MTA yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-beri').on('keypress', '.inp-kode', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val() != undefined){
+                $(this).val($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-kode').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-terima').on('keypress', '.inp-kode_terima', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-kode_terima').val() != undefined){
+                $(this).val($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-kode_terima').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-beri').on('change', '.inp-nilai', function(){
+        
+        console.log('nilai change');
+        if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
+            hitungTotalBeri();
+        }
+        else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'Nilai yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-terima').on('change', '.inp-nilai_terima', function(){
+        
+        if($(this).closest('tr').find('.inp-nilai_terima').val() != "" && $(this).closest('tr').find('.inp-nilai_terima').val() != 0){
+            hitungTotalTerima();
+        }
+        else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'Nilai yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-beri').on('change', '.inp-pp', function(e){
+        e.preventDefault();
+        var noidx =  $(this).closest('tr').find('.no-beri').html();
+        target1 = "ppke"+noidx;
+        target2 = "nmppke"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-pp').val()).length){
+            var kode = $(this).val();
+            var kode_lokasi= $('#lokasi_beri').val();
+            getPP(kode,target1,target2,'change',kode_lokasi,'input-beri');   
+            // hitungTotal();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'PP yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-beri').on('keypress', '.inp-pp', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val() != undefined){
+                $(this).val($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-pp').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-terima').on('change', '.inp-pp_terima', function(e){
+        e.preventDefault();
+        var noidx =  $(this).closest('tr').find('.no-terima').html();
+        target1 = "pp_terimake"+noidx;
+        target2 = "nmpp_terimake"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-pp_terima').val()).length){
+            var kode = $(this).val();
+            var kode_lokasi= $('#lokasi_terima').val();
+            getPP(kode,target1,target2,'change',kode_lokasi,'input-terima');   
+            // hitungTotal();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'PP yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-terima').on('keypress', '.inp-pp_terima', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-pp_terima').val() != undefined){
+                $(this).val($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-pp_terima').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-beri').on('change', '.inp-drk', function(e){
+        e.preventDefault();
+        var noidx =  $(this).closest('tr').find('.no-beri').html();
+        target1 = "drkke"+noidx;
+        target2 = "nmdrkke"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-drk').val()).length){
+            var kode = $(this).val();
+            var kode_akun = $(this).parents("tr").find(".td-kode").text();
+            var kode_pp = $(this).parents("tr").find(".td-pp").text();
+            var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
+            var kode_lokasi = $('#lokasi_beri').val();
+            getDRKPemberi(kode,target1,target2,'','change',kode_akun,kode_pp,periode,kode_lokasi,'input-beri');
+            // hitungTotal();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'DRK yang dimasukkan tidak valid'
+            });
+            return false;
+        }
+    });
+
+    $('#input-beri').on('keypress', '.inp-drk', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-drk').val() != undefined){
+                $(this).val($("#input-beri tbody tr:eq("+(this_index - 1)+")").find('.inp-drk').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    $('#input-terima').on('change', '.inp-drk_terima', function(e){
+        e.preventDefault();
+        var noidx =  $(this).closest('tr').find('.no-terima').html();
+        target1 = "drk_terimake"+noidx;
+        target2 = "nmdrk_terimake"+noidx;
+        if($.trim($(this).closest('tr').find('.inp-drk_terima').val()).length){
+            var kode = $(this).val();
+            var kode_akun = $(this).parents("tr").find(".td-kode_terima").text();
+            var kode_pp = $(this).parents("tr").find(".td-pp_terima").text();
+            var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
+            var kode_lokasi = $('#lokasi_terima').val();
+            getDRK(kode,target1,target2,'','change',kode_akun,kode_pp,periode,kode_lokasi,'input-terima');
+            // hitungTotal();
+        }else{
+            msgDialog({
+                id: '-',
+                type: 'warning',
+                title: 'Inputan tidak valid',
+                text: 'DRK yang dimasukkan tidak valid'
+            });
+            
+            return false;
+        }
+    });
+
+    $('#input-terima').on('keypress', '.inp-drk_terima', function(e){
+        var this_index = $(this).closest('tbody tr').index();
+        if (e.which == 42) {
+            e.preventDefault();
+            if($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-drk_terima').val() != undefined){
+                $(this).val($("#input-terima tbody tr:eq("+(this_index - 1)+")").find('.inp-drk_terima').val());
+            }else{
+                $(this).val('');
+            }
+        }
+    });
+
+    function hapusDok(param){
+        var no_bukti = param.no_bukti; 
+        var kode_jenis= param.kode_jenis;
+        var nama_file= param.nama_file;
+        var td_nama_file= param.td_nama_file;
+        var action_dok= param.action_dok;
+        var no_urut= param.no_urut;
+        console.log(param);
+        $.ajax({
+            type: 'DELETE',
+            url: "{{ url('sukka-trans/juskeb-dok') }}",
+            dataType: 'json',
+            data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'no_urut':no_urut},
+            success:function(result){
+                // console.log(result.data.message);
+                if(result.data.status){
+                    td_nama_file.closest('tr').remove();
+                    no=1;
+                    $('.row-dok').each(function(){
+                        var nom = td_nama_file.closest('tr').find('.no-dok');
+                        nom.html(no);
+                        no++;
+                    });
+                    hitungTotalRowUpload(param.form);
+                    $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        type:'sukses',
+                        title:'Sukses',
+                        text:'Dokumen Pengajuan RRA '+kode_jenis+' dengan no urut: '+no_urut+' berhasil dihapus'
+                    });
+
+                }else{
+                    msgDialog({
+                        id:result.data.no_bukti,
+                        title:'Error',
+                        back: false,
+                        text:result.data.message
+                    });
+                }
+            }
+        });
+    }
+
+    $('#input-dok').on('click', '.hapus-dok', function(){
+        var no_bukti = $('#no_bukti').val();
+        var kode_jenis = $(this).closest('tr').find('.inp-jenis').val();
+        var nama_file = $(this).closest('tr').find('.inp-nama_file');
+        var td_nama_file = $(this).closest('tr').find('.td-nama_file');
+        var action_dok = $(this).closest('tr').find('.action-dok');
+        var no_urut = $(this).closest('tr').find('.inp-no_urut').val();
+        var ini = $(this);
+        msgDialog({
+            id: kode_jenis,
+            text: 'Dokumen akan terhapus secara permanen dari server dan tidak dapat mengurungkan.<br> ID Data : <b>'+kode_jenis+'</b> No urut : <b>'+no_urut+'</b>',
+            param: {'kode_jenis':kode_jenis,'no_bukti':no_bukti,'nama_file':nama_file,'td_nama_file':td_nama_file,'action_dok':action_dok, 'no_urut':no_urut,'ini':ini,'form':'form-tambah'},
+            type:'hapusDok'
+        });
+       
+    });
+
+    $('#input-dok').on('click', '.hapus-dok2', function(){
+        $(this).closest('tr').remove();
+        no=1;
+        $('.row-dok').each(function(){
+            var nom = $(this).closest('tr').find('.no-dok');
+            nom.html(no);
+            no++;
+        });
+        hitungTotalRowUpload('form-tambah');
+        $("html, body").animate({ scrollTop: $(document).height() }, 1000);     
+    });
+
+    $('a[href="#data-lokasi"]').on('shown.bs.tab', function (e) {
+        resizeNameField("lokasi_beri");
+        resizeNameField("lokasi_terima");
+    })
     
     </script>

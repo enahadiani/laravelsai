@@ -14,15 +14,22 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+Route::get('juskeb-nobukti','Sukka\PengajuanJuskebController@generateNoBukti');
 Route::get('juskeb-pp','Sukka\PengajuanJuskebController@getPP');
 Route::get('juskeb-jenis','Sukka\PengajuanJuskebController@getJenis');
 Route::get('juskeb-app-flow','Sukka\PengajuanJuskebController@getAppFlow');
+Route::get('juskeb-akun','Sukka\PengajuanJuskebController@getAkun');
+Route::get('juskeb-drk','Sukka\PengajuanJuskebController@getDRK');
+Route::get('juskeb-drk-beri','Sukka\PengajuanJuskebController@getDRKPemberi');
+Route::get('juskeb-jenis-dok','Sukka\PengajuanJuskebController@getJenisDokumen');
+Route::get('juskeb-lokasi','Sukka\PengajuanJuskebController@getLokasi');
 Route::get('juskeb','Sukka\PengajuanJuskebController@index');
 Route::get('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@show');
 Route::post('juskeb','Sukka\PengajuanJuskebController@store');
-Route::put('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@update');
+Route::post('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@update');
 Route::delete('juskeb/{no_bukti}','Sukka\PengajuanJuskebController@destroy');
 Route::get('juskeb-preview/{no_bukti}','Sukka\PengajuanJuskebController@getPreview');
+Route::delete('juskeb-dok','Sukka\PengajuanJuskebController@destroyDok');
 
 Route::post('send-email','Sukka\PengajuanJuskebController@sendEmail');
 
@@ -37,6 +44,7 @@ Route::post('app-juskeb-send-email','Sukka\ApprovalJuskebController@sendEmail');
 // PENGAJUAN RRA
 Route::get('aju-rra-nobukti', 'Sukka\PengajuanRRAController@generateNoBukti');
 Route::get('aju-rra', 'Sukka\PengajuanRRAController@index');
+Route::get('aju-rra-juskeb', 'Sukka\PengajuanRRAController@getJuskeb');
 Route::post('aju-rra', 'Sukka\PengajuanRRAController@store');
 Route::get('aju-rra/{id}', 'Sukka\PengajuanRRAController@show');
 Route::post('aju-rra/{id}','Sukka\PengajuanRRAController@update');

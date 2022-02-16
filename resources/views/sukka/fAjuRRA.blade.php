@@ -10,7 +10,7 @@
             top: 190px !important;
         }
 
-        #input-terima tbody td, #input-beri tbody td,#input-budget tbody td
+        #input-terima tbody td, #input-beri tbody td
         {
             overflow:hidden;
         }
@@ -61,10 +61,22 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="no_juskeb">No Juskeb</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                                <span class="input-group-text info-code_no_juskeb" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                            </div>
+                                            <input type="text" class="form-control inp-label-no_juskeb" id="no_juskeb" name="no_juskeb" value="" title="">
+                                            <span class="info-name_no_juskeb hidden">
+                                                <span></span> 
+                                            </span>
+                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
+                                            <i class="simple-icon-magnifier search-item2" id="search_no_juskeb"></i>
+                                        </div>
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="jenis_rra">Jenis RRA</label>
-                                        <div class="input-group">
+                                        <div class="input-group readonly">
                                             <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
                                                 <span class="input-group-text info-code_jenis_rra" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                             </div>
@@ -91,6 +103,8 @@
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="kode_pp_juskeb" >Unit Kerja</label>
+                                        <input class="form-control " type="text"  readonly id="kode_pp_juskeb" name="kode_pp_juskeb">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total_terima" >Nilai Penerima</label>
@@ -111,6 +125,8 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
+                                        <label for="nilai_juskeb" >Nilai Juskeb</label>
+                                        <input class="form-control currency" type="text" readonly id="nilai_juskeb" name="nilai_juskeb" value="0">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total_beri" >Total Pemberi</label>
@@ -123,27 +139,12 @@
                             <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#data-lokasi" role="tab" aria-selected="true"><span class="hidden-xs-down">Lokasi</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-terima" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Penerima</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-beri" role="tab" aria-selected="true"><span class="hidden-xs-down">Data Pemberi</span></a> </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-budget" role="tab" aria-selected="true"><span class="hidden-xs-down">Cek Anggaran</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-dok" role="tab" aria-selected="true"><span class="hidden-xs-down">Berkas Bukti</span></a> </li>
                             <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#data-approval" role="tab" aria-selected="true"><span class="hidden-xs-down">Approval</span></a> </li>
                         </ul>
                         <div class="tab-content tabcontent-border col-12 p-0">
                             <div class="tab-pane active" id="data-lokasi" role="tabpanel">
                                 <div class="form-row mt-3">
-                                    <div class="form-group col-md-6 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-12">
-                                                <label for="jenis">Jenis Budget</label>
-                                                <select class="form-control selectize" id="jenis" name="jenis" required>
-                                                    <option value="" disabled selected>-Pilih-</option>
-                                                    <option value="ANGGARAN">ANGGARAN</option>
-                                                    <option value="RELEASE">RELEASE</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-row">
                                     <div class="form-group col-md-6 col-sm-12">
                                         <div class="row">
                                             <div class="col-md-6 col-sm-12">
@@ -249,7 +250,6 @@
                                             <th style="width:80px">Kode DRK</th>
                                             <th style="width:200px">Nama DRK</th>
                                             <th style="width:100px">TW</th>
-                                            <th style="width:100px">Saldo Awal</th>
                                             <th style="width:100px">Nilai</th>
                                         </tr>
                                     </thead>
@@ -257,32 +257,6 @@
                                     </tbody>
                                     </table>
                                     <a type="button" href="#" data-id="0" title="add-row" class="add-row btn btn-light2 btn-block btn-sm" style="margin-bottom:100px"><i class="saicon icon-tambah mr-1"></i>Tambah Baris</a>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="data-budget" role="tabpanel">
-                                <div class='col-md-12 nav-control' style="padding: 0px 5px;height:43.2px">
-                                    <a type="button" href="#" id="cek-budget" data-toggle="tooltip" title="Cek Budget" style='position:relative;top: 5px;'><i class='iconsminds-coins' style='font-size:18px;'></i> <span style="font-size:12.8px">Cek Budget</span></a>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
-                                </div>
-                                <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
-                                    <table class="table table-bordered table-condensed gridexample" id="input-budget" style="width:1165px;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
-                                    <thead style="background:#F8F8F8">
-                                        <tr>
-                                            <th style="width:15px">No</th>
-                                            <th style="width:80px">Kode MTA</th>
-                                            <th style="width:200px">Nama MTA</th>
-                                            <th style="width:80px">Kode PP</th>
-                                            <th style="width:200px">Nama PP</th>
-                                            <th style="width:80px">Kode DRK</th>
-                                            <th style="width:200px">Nama DRK</th>
-                                            <th style="width:100px">Saldo Awal</th>
-                                            <th style="width:100px">Nilai</th>
-                                            <th style="width:100px">TW</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                    </table>
                                 </div>
                             </div>
                             <div class="tab-pane" id="data-dok" role="tabpanel">
@@ -555,72 +529,34 @@
         });
     }
 
-    function getSaldo(target,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,jenis){
-        var jenis_agg = $('#jenis')[0].selectize.getValue();
-        $.ajax({
-            type: 'GET',
-            url: "{{ url('sukka-trans/aju-rra-saldo') }}",
-            dataType: 'json',
-            data:{kode_akun: kode_akun,kode_pp: kode_pp,kode_drk: kode_drk,tw: tw,periode: periode,kode_lokasi: kode_lokasi,saldo_seb: saldo_seb,no_bukti:no_bukti,jenis:jenis_agg},
-            async:false,
-            success:function(result){    
-                if(result.status){
-                    $('.'+target).val(result.saldo_awal);
-                    $('.td'+target).text(result.saldo_awal);
-                    if(jenis == 'tab'){
-                        $('.'+target).show();
-                        $('.td'+target).hide();
-                        $('.'+target).focus();
-                        $('#input-beri td').removeClass('px-0 py-0 aktif');
-                        $('.td'+target).closest('td').addClass('px-0 py-0 aktif');
-                        hideUnselectedRow();
-                    }else{
-                        $('.'+target).click();
-                    }
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
-                }
-                else{
-                    msgDialog({
-                        id: '-',
-                        type: 'warning',
-                        title: 'Failed',
-                        text: JSON.stringify(result.message)
-                    });
-                    $('.'+target).val('');
-                    $('.td'+target).text('');
-                    $('.'+target).focus();
-                }
-            }
-        });
-    }
-
-    
-    function getJenis(id = null){
+    function getJuskeb(id = null){
         if(id == null){
             var param = {}
         }else{
-            var param = {nik : id}
+            var param = {no_bukti : id}
         }
         $.ajax({
             type: 'GET',
-            url: "{{ url('/sukka-trans/juskeb-jenis') }}",
+            url: "{{ url('/sukka-trans/aju-rra-juskeb') }}",
             dataType: 'json',
             data: param,
             async:false,
             success:function(result){    
                 if(result.status){
                     if(id == null){
-                        showInfoField('jenis_rra',result.kode_jenis,result.nama_app);
+                        showInfoField('no_juskeb',result.no_bukti,result.kegiatan);
                     }else{
                         if(typeof result.daftar !== 'undefined' && result.daftar.length>0){
-                            showInfoField('jenis_rra',result.daftar[0].kode_jenis,result.daftar[0].nama);
+                            showInfoField('no_juskeb',result.daftar[0].no_bukti,result.daftar[0].kegiatan);
+                            $('#kode_pp_juskeb').val(result.daftar[0].nama_pp);
+                            $('#nilai_juskeb').val(result.daftar[0].nilai);
+                            $('#jenis_rra').val(result.daftar[0].kode_jenis);
+                            showInfoField('jenis_rra',result.daftar[0].kode_jenis,result.daftar[0].nama_jenis);
                         }else{
-                            $('#jenis_rra').attr('readonly',false);
-                            $('#jenis_rra').css('border-left','1px solid #d7d7d7');
-                            $('#jenis_rra').val('');
-                            $('#jenis_rra').focus();
+                            $('#no_juskeb').attr('readonly',false);
+                            $('#no_juskeb').css('border-left','1px solid #d7d7d7');
+                            $('#no_juskeb').val('');
+                            $('#no_juskeb').focus();
                         }
                     }
                 }
@@ -673,160 +609,6 @@
         });
     }
 
-    function cekBudget(){
-        $('#input-budget tbody').html('');
-        var nilai = total = 0;
-        var data = Array();
-        var data2 = Array();
-
-        $("#input-beri tbody tr").each(function(i, v){
-            data[i] = Array();
-            $(this).children('td').each(function(ii, vv){
-                if(ii == 8){
-                    data[i][ii] = $(this).find('select[class*="inp-"]')[0].selectize.getValue();
-                }else{
-
-                    data[i][ii] = $(this).find('input[class*="inp-"]').val();
-                }
-            }); 
-        })
-
-        $("#input-budget tbody tr").each(function(i, v){
-            data2[i] = Array();
-            $(this).children('td').each(function(ii, vv){
-                data2[i][ii] = $(this).find('span').text();
-            }); 
-        })
-
-        for(var i=0; i< data.length; i++){
-            var nilai = toNilai(data[i][10]);
-            if(nilai != 0){
-                var kode_akun = data[i][2];
-                var nama_akun = data[i][3];
-                var kode_pp = data[i][4];
-                var nama_pp = data[i][5];
-                var kode_drk = data[i][6];
-                var nama_drk = data[i][7];
-                var tw = data[i][8];
-                var isAda = false;
-                var idx = total = 0;
-                var data2 = Array();
-                $("#input-budget tbody tr").each(function(i, v){
-                    data2[i] = Array();
-                    $(this).children('td').each(function(ii, vv){
-                        data2[i][ii] = $(this).find('span').text();
-                    }); 
-                });
-                for(var j=0; j< data2.length; j++){
-                    var kode_akun_agg = data2[j][1];
-                    var kode_pp_agg = data2[j][3];
-                    var kode_drk_agg = data2[j][5];
-                    var tw_agg = data2[j][9];
-                    if (kode_akun == kode_akun_agg && kode_pp == kode_pp_agg && kode_drk == kode_drk_agg && tw == tw_agg) {
-                        isAda = true;
-                        idx = j;
-                        break;
-                    }
-                }
-
-                if (!isAda) {
-                    $('#input-budget tbody').append(`
-                    <tr class='row-budget'>
-                        <td>${i+1}</td>
-                        <td><span>${kode_akun}</span><input type='hidden' name='kode_akun_agg[]' value='${kode_akun}'></td>
-                        <td>${nama_akun}</td>
-                        <td><span>${kode_pp}</span><input type='hidden' name='kode_pp_agg[]' value='${kode_pp}'></td>
-                        <td>${nama_pp}</td>
-                        <td><span>${kode_drk}</span><input type='hidden' name='kode_drk_agg[]' value='${kode_drk}'></td>
-                        <td>${nama_drk}</td>
-                        <td class="text-right"><span>0</span><input type='hidden' name='so_awal_agg[]' class='currency' value='0'></td>
-                        <td class="text-right"><span>${number_format(nilai)}</span><input type='hidden' name='nilai_agg[]' class='currency' value='${nilai}'><input type='hidden' name='so_akhir_agg[]' class='currency' value='0'></td>
-                        <td><span>${tw}</span><input type='hidden' name='tw_agg[]' value='${tw}'></td>
-                    </tr>
-                    `);
-                } 
-                else { 
-                    var total = toNilai($("#input-budget tbody tr:contains('"+kode_akun+"')tr:contains('"+kode_pp+"')tr:contains('"+kode_drk+"')tr:contains('"+tw+"')").find('input[name="nilai_agg[]"]').val());
-                    total += nilai;
-                    $("#input-budget tbody tr:contains('"+kode_akun+"')tr:contains('"+kode_pp+"')tr:contains('"+kode_drk+"')tr:contains('"+tw+"')").find('input[name="nilai_agg[]"]').val(total);
-                    $("#input-budget tbody tr:contains('"+kode_akun+"')tr:contains('"+kode_pp+"')tr:contains('"+kode_drk+"')tr:contains('"+tw+"')").find('input[name="nilai_agg[]"]').siblings('span').text(format_number(total));
-    
-                }
-            }
-        }
-
-        var data2 = new Object();
-
-        data2.kode_akun_agg = Array();
-        data2.kode_pp_agg = Array();
-        data2.kode_drk_agg = Array();
-        data2.nilai_agg = Array();
-        data2.tw_agg = Array();
-        $("#input-budget tbody tr").each(function(i, v){
-            $(this).children('td').each(function(ii, vv){
-                if(ii == 1){
-                    data2.kode_akun_agg[i] = $(this).find('span').text();
-                }
-                if(ii == 3){
-                    data2.kode_pp_agg[i] = $(this).find('span').text();
-                }
-                if(ii == 5){
-                    data2.kode_drk_agg[i] = $(this).find('span').text();
-                }
-                if(ii == 8){
-                    data2.nilai_agg[i] = $(this).find('span').text();
-                }
-                if(ii == 9){
-                    data2.tw_agg[i] = $(this).find('span').text();
-                }
-            }); 
-        });
-
-        data2 = Object.assign(data2,{periode: $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2)});
-        data2 = Object.assign(data2,{no_bukti: $('#no_bukti').val()});
-        data2 = Object.assign(data2,{kode_lokasi: $('#lokasi_beri').val()});
-        data2 = Object.assign(data2,{jenis: $('#jenis')[0].selectize.getValue()});
-
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('sukka-trans/aju-rra-cek-budget') }}",
-            dataType: 'json',
-            async:false,
-            contentType: 'application/json',
-            data:JSON.stringify(data2),
-            success:function(result){   
-                var html = '';
-                if(result.status){
-                    for(var i=0; i < result.data.length; i++){
-                        var line = result.data[i];
-                        $("#input-budget tbody tr:contains('"+line.kode_akun_agg+"')tr:contains('"+line.kode_pp_agg+"')tr:contains('"+line.kode_drk_agg+"')tr:contains('"+line.tw_agg+"')").find('input[name="so_awal_agg[]"]').val(line.so_awal_agg);
-                        $("#input-budget tbody tr:contains('"+line.kode_akun_agg+"')tr:contains('"+line.kode_pp_agg+"')tr:contains('"+line.kode_drk_agg+"')tr:contains('"+line.tw_agg+"')").find('input[name="so_awal_agg[]"]').siblings('span').text(format_number(line.so_awal_agg));
-                        $("#input-budget tbody tr:contains('"+line.kode_akun_agg+"')tr:contains('"+line.kode_pp_agg+"')tr:contains('"+line.kode_drk_agg+"')tr:contains('"+line.tw_agg+"')").find('input[name="so_akhir_agg[]"]').val(line.so_akhir_agg);
-                    }
-                    
-                    $('.currency').inputmask("numeric", {
-                        radixPoint: ",",
-                        groupSeparator: ".",
-                        digits: 2,
-                        autoGroup: true,
-                        rightAlign: true,
-                        oncleared: function () { self.Value(''); }
-                    });
-                }
-                else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
-                }else{
-                    msgDialog({
-                        id: '-',
-                        type: 'warning',
-                        title: 'Error',
-                        text: JSON.stringify(result.data.message)
-                    });
-                }
-            }
-        });
-    }
-
     function generateNoBukti(tanggal){
         $.ajax({
             type: 'GET',
@@ -868,12 +650,6 @@
         generateNoBukti(tanggal);
     });
 
-    $('#cek-budget').click(function(e){
-        e.preventDefault();
-        cekBudget();
-        $('a[href="#data-budget"]').click();
-    });
-
     $('#tanggal').change(function(e){
         // e.preventDefault();
         var tanggal = $('#tanggal').val();
@@ -888,26 +664,6 @@
         }
         generateNoBukti(tanggal);
     })
-
-    // getDataTypeAhead("{{ url('budget-master/unit') }}","kode_pp","kode_pp");
-    // getDataTypeAhead("{{ url('sukka-trans/nikperiksa') }}","nik_periksa","nik");
-    // getDataTypeAhead("{{ url('budget-master/masakun') }}","kode_akun","kode_akun");
-
-    // $('#nik_periksa').typeahead({
-    //     source:$dtnik_periksa,
-    //     fitToElement:true,
-    //     displayText:function(item){
-    //         return item.id+' - '+item.name;
-    //     },
-    //     autoSelect:false,
-    //     changeInputOnSelect:false,
-    //     changeInputOnMove:false,
-    //     selectOnBlur:false,
-    //     afterSelect: function (item) {
-    //         console.log(item.id);
-    //     }
-    // });
-    // END SUGGESTION
 
     // LIST DATA
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
@@ -1277,7 +1033,6 @@
                 if(result.status){
                     $('#input-beri tbody').html('');
                     $('#input-terima tbody').html('');
-                    $('#input-budget tbody').html('');
                     $('#input-dok tbody').html('');
                     $('#id').val('edit');
                     $('#method').val('post');
@@ -1285,9 +1040,8 @@
                     $('#no_bukti').attr('readonly', true);
                     $('#tanggal').val(reverseDate2(result.data[0].tanggal,'-','/'));
                     $('#no_dokumen').val(result.data[0].no_dokumen);
-                    $('#jenis')[0].selectize.setValue(result.data[0].jenis_agg);
                     $('#deskripsi').val(result.data[0].keterangan);
-                    $('#jenis_rra').val(result.data[0].kode_jenis); 
+                    $('#no_juskeb').val(result.data[0].justifikasi).trigger('change'); 
                     $('#lokasi_beri').val(result.data[0].lokasi_beri);
                     $('#lokasi_terima').val(result.data[0].lokasi_terima);
                     $('#total_terima').val(result.data[0].nilai);
@@ -1307,7 +1061,6 @@
                             input += "<td><span class='td-drk tddrkke"+no+" tooltip-span'>"+line.kode_drk+"</span><input type='text' id='drkkode"+no+"' name='kode_drk[]' class='form-control inp-drk drkke"+no+" hidden' value='"+line.kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                             input += "<td><span class='td-nama_drk tdnmdrkke"+no+" tooltip-span'>"+line.nama_drk+"</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke"+no+" hidden'  value='"+line.nama_drk+"' readonly ></td>";
                             input += "<td ><span class='td-tw tdtwke"+no+" tooltip-span'></span><select hidden name='tw[]' class='form-control inp-tw twke"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
-                            input += "<td class='text-right'><span class='td-saldo tdsaldoke"+no+" tooltip-span'>"+number_format(line.saldo)+"</span><input type='text' name='saldo[]' class='form-control inp-saldo saldoke"+no+" hidden'  value='"+number_format(line.saldo)+"' readonly ></td>";
                             input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+number_format(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+number_format(line.nilai)+"' ></td>";
                             input += "</tr>";
                             no++;
@@ -1339,14 +1092,6 @@
                             $('.tdtwke'+no).text(tw);
                             $('.selectize-control.twke'+no).addClass('hidden');
                             $('.nilke'+no).inputmask("numeric", {
-                                radixPoint: ",",
-                                groupSeparator: ".",
-                                digits: 2,
-                                autoGroup: true,
-                                rightAlign: true,
-                                oncleared: function () { self.Value(''); }
-                            });
-                            $('.saldoke'+no).inputmask("numeric", {
                                 radixPoint: ",",
                                 groupSeparator: ".",
                                 digits: 2,
@@ -1426,7 +1171,7 @@
                             input2 += "<td class='no-dok text-center'>"+no+"</td>";
                             input2 += "<td class='px-0 py-0'><div class='inp-div-jenis'><input type='text' name='kode_jenis[]' class='form-control inp-jenis jeniske"+no+" ' value='"+line.jenis+"'  style='z-index: 1;' id='jeniskode"+no+"'><a href='#' class='search-item search-jenis'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>";
                             input2 += "<td class='px-0 py-0'><input type='text' name='nama_dok[]' class='form-control inp-nama_dok nama_dokke"+no+"' value='"+line.nama+"' readonly></td>";
-                            var dok = "{{ config('api.url').'budget-auth/storage' }}/"+line.fileaddres;
+                            var dok = "{{ config('api.url').'sukka-auth/storage' }}/"+line.fileaddres;
                             input2 += "<td><span class='td-nama_file tdnmfileke"+no+" tooltip-span'>"+line.fileaddres+"</span><input type='text' name='nama_file[]' class='form-control inp-nama_file nmfileke"+no+" hidden'  value='"+line.fileaddres+"' readonly></td>";
                             if(line.fileaddres == "-" || line.fileaddres == ""){
                                 input2+=`
@@ -1487,7 +1232,7 @@
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#kode_form').val($form_aktif);
-                    showInfoField("jenis_rra",result.data[0].kode_jenis,result.data[0].nama_jenis);
+                    resizeNameField('jenis_rra');
                     showInfoField("lokasi_terima",result.data[0].lokasi_terima,result.data[0].nama_terima);
                     showInfoField("lokasi_beri",result.data[0].lokasi_beri,result.data[0].nama_beri);
                     setHeightForm();
@@ -1563,7 +1308,6 @@
         $('#id').val('');
         $('#input-beri tbody').html('');
         $('#input-terima tbody').html('');
-        $('#input-budget tbody').html('');
         $('#input-dok tbody').html('');
         $('#saku-datatable').hide();
         $('#saku-form').show();
@@ -1575,7 +1319,6 @@
         $('#kode_form').val($form_aktif);
         var tanggal = $('#tanggal').val();
         generateNoBukti(tanggal);
-        getNIKApp();
     });
     // END BUTTON TAMBAH
 
@@ -1849,8 +1592,7 @@
                                                 <th style="width:10%">TW</th>
                                                 <th style="width:15%">Nilai</th>
                                         </tr>`;
-                                            var det = '';
-                                            var total_saldo = 0; var total =0;
+                                            var det = ''; var total =0;
                                             if(result.detail_terima.length > 0){
                                                 var no=1;
                                                 for(var i=0;i<result.detail_terima.length;i++){
@@ -1887,17 +1629,14 @@
                                                 <th style="width:15">Nama PP</th>
                                                 <th style="width:15">Nama DRK</th>
                                                 <th style="width:10%">TW</th>
-                                                <th style="width:15%">Saldo</th>
                                                 <th style="width:15%">Nilai</th>
                                         </tr>`;
-                                            var det = '';
-                                            var total_saldo = 0; var total =0;
+                                            var det = ''; var total =0;
                                             if(result.detail_beri.length > 0){
                                                 var no=1;
                                                 for(var i=0;i<result.detail_beri.length;i++){
                                                     var line =result.detail_beri[i];
                                                     total+=parseFloat(line.nilai);
-                                                    total_saldo+=parseFloat(line.saldo);
                                                     if (line.bulan == "01")	var tw = "TW1";
                                                     if (line.bulan == "04")	var tw = "TW2";
                                                     if (line.bulan == "07")	var tw = "TW3";
@@ -1908,7 +1647,6 @@
                                                     det += "<td >"+line.nama_pp+"</td>";
                                                     det += "<td >"+line.nama_drk+"</td>";
                                                     det += "<td >"+tw+"</td>";
-                                                    det += "<td class='text-right'>"+format_number(line.saldo)+"</td>";
                                                     det += "<td class='text-right'>"+format_number(line.nilai)+"</td>";
                                                     det += "</tr>";
                                                     no++;
@@ -1916,7 +1654,6 @@
                                             }
                                             det+=`<tr style="background: var(--theme-color-1) !important;color:white !important">
                                                 <th colspan="5"></th>
-                                                <th style="width:10%" class="text-right">`+format_number(total_saldo)+`</th>
                                                 <th style="width:10%" class="text-right">`+format_number(total)+`</th>
                                         </tr>`;
                                         
@@ -2000,26 +1737,6 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            cekBudget();
-            // var data2 = Array();
-            // $("#input-budget tbody tr").each(function(i, v){
-            //     data2[i] = Array();
-            //     $(this).children('td').each(function(ii, vv){
-            //         data2[i][ii] = $(this).find('span').text();
-            //     }); 
-            // });
-            // for (var i=0;i < data2.length;i++){
-            //     if (parseFloat(toNilai(data2[i][8]))>0 && parseFloat(toNilai(data2[i][7])) < parseFloat(toNilai(data2[i][8]))) {
-            //         var k =i+1;
-            //         msgDialog({
-            //             id: '-',
-            //             type: 'warning',
-            //             title: 'Transaksi tidak valid',
-            //             text: "Saldo Anggaran tidak mencukupi. [Baris : "+k+"]"
-            //         });
-            //         return false;						
-            //     }
-            // }
 
             $("#input-flow tbody tr").each(function(i, v){
                 var kode_role = $(this).closest('tr').find('td:eq(1)').text()
@@ -2051,7 +1768,7 @@
                     id: '-',
                     type: 'warning',
                     title: 'Transaksi tidak valid',
-                    text: "Total Pemberi dan Total Terima tidak sama"
+                    text: "Total Pemberi,Total Terima, dan Nilai Juskeb tidak sama"
                 });
             }else if( total_d <= 0 || total_k <= 0){
                 msgDialog({
@@ -2090,7 +1807,6 @@
                             $('#id').val('');
                             $('#input-beri tbody').html('');
                             $('#input-terima tbody').html('');
-                            $('#input-budget tbody').html('');
                             $('#input-dok tbody').html('');
                             $('[id^=label]').html('');
                             $('#kode_form').val($form_aktif);
@@ -2164,9 +1880,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
+    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#no_juskeb,#kode_pp_juskeb,#nilai_juskeb,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
+        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','no_juskeb','kode_pp_juskeb','nilai_juskeb','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -2226,24 +1942,27 @@
                     width : ["30%","70%"]
                 }
             break;
-            case 'jenis_rra':
+            case 'no_juskeb':
                 var options = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('sukka-trans/juskeb-jenis') }}",
+                    url : "{{ url('sukka-trans/aju-rra-juskeb') }}",
                     columns : [
-                        { data: 'kode_jenis' },
-                        { data: 'nama' }
+                        { data: 'no_bukti' },
+                        { data: 'kegiatan' }
                     ],
-                    judul : "Daftar Jenis RRA",
-                    pilih : "jenis",
+                    judul : "Daftar Juskeb",
+                    pilih : "juskeb",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
                     target2 : ".info-name_"+id,
                     target3 : "",
                     target4 : "",
-                    width : ["30%","70%"]
+                    width : ["30%","70%"],
+                    onItemSelected:function(data){
+                        getJuskeb(data.no_bukti);
+                    }
                 }
             break;
         }
@@ -2260,9 +1979,9 @@
         getLokasi(par);
     });
 
-    $('#form-tambah').on('change', '#jenis_rra', function(){
+    $('#form-tambah').on('change', '#no_juskeb', function(){
         var par = $(this).val();
-        getJenis(par);
+        getJuskeb(par);
     });
 
     $('#form-tambah').on('click', '#load-app', function(){
@@ -2290,7 +2009,6 @@
             var kode_drk = $('#input-beri tbody tr.selected-row').find(".inp-drk").val();
             var nama_drk = $('#input-beri tbody tr.selected-row').find(".inp-nama_drk").val();
             var tw = $('#input-beri tbody tr.selected-row').find(".inp-tw")[0].selectize.getValue();
-            var saldo = $('#input-beri tbody tr.selected-row').find(".inp-saldo").val();
             var nilai = $('#input-beri tbody tr.selected-row').find(".inp-nilai").val();
         }else{
             
@@ -2301,7 +2019,6 @@
             var kode_drk = "";
             var nama_drk = "";
             var tw = "";
-            var saldo = "";
             var nilai = "";
         }
         var no=$('#input-beri .row-beri:last').index();
@@ -2317,7 +2034,6 @@
         input += "<td><span class='td-drk tddrkke"+no+" tooltip-span'>"+kode_drk+"</span><input type='text' id='drkkode"+no+"' name='kode_drk[]' class='form-control inp-drk drkke"+no+" hidden' value='"+kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
         input += "<td><span class='td-nama_drk tdnmdrkke"+no+" tooltip-span'>"+nama_drk+"</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke"+no+" hidden'  value='"+nama_drk+"' readonly ></td>";
         input += "<td ><span class='td-tw tdtwke"+no+" tooltip-span'>"+tw+"</span><select hidden name='tw[]' class='form-control inp-tw twke"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
-        input += "<td class='text-right'><span class='td-saldo tdsaldoke"+no+" tooltip-span'>"+saldo+"</span><input type='text' name='saldo[]' class='form-control inp-saldo saldoke"+no+" hidden'  value='"+saldo+"' readonly ></td>";
         input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+nilai+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+nilai+"' ></td>";
         input += "</tr>";
         $('#input-beri tbody').append(input);
@@ -2336,15 +2052,6 @@
         $('.twke'+no)[0].selectize.setValue(tw,true);
         $('.selectize-control.twke'+no).addClass('hidden');
         $('.nilke'+no).inputmask("numeric", {
-            radixPoint: ",",
-            groupSeparator: ".",
-            digits: 2,
-            autoGroup: true,
-            rightAlign: true,
-            oncleared: function () { self.Value(''); }
-        });
-
-        $('.saldoke'+no).inputmask("numeric", {
             radixPoint: ",",
             groupSeparator: ".",
             digits: 2,
@@ -2571,7 +2278,6 @@
                         $('.'+target1).closest("tr").find(".td-nama").html(data.nama).hide();
                         $('.'+target1).closest("tr").find(".td-nama").closest('td').addClass('px-0 py-0 aktif');
                         
-                        var tmp = $('.'+target1).closest("tr").find(".td-saldo").attr("class").split(" ");
                         var idx_next = tmp[1].replace("td","");
                         var kode_akun = data.kode_akun;
                         var kode_pp = $('.'+target1).closest("tr").find(".td-pp").text();
@@ -2579,26 +2285,7 @@
                         var tw = $('.'+target1).closest("tr").find(".inp-tw")[0].selectize.getValue();
                         var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
                         var kode_lokasi = $('#lokasi_beri').val();
-                        if(kode_akun != "" && kode_pp != "" && kode_drk != "" && tw != "" && kode_lokasi != ""){
-                            var saldo_seb = 0;
-                            var no_bukti = $('#no_bukti').val();
-                            var row = $('.'+target1).closest('tr').index();
-                            var data = Array();
-                            $("#input-beri tbody tr").each(function(i, v){
-                                data[i] = Array();
-                                $(this).children('td').each(function(ii, vv){
-                                    data[i][ii] = $(this).find('span[class*="tooltip-span"]').text();
-                                }); 
-                            })
-                            for (var j=0; j < data.length;j++){
-                                if (j < row && kode_akun == data[j][2] && kode_pp == data[j][4] && kode_drk == data[j][6] && tw == data[j][8]) {
-                                    saldo_seb += parseFloat(toNilai(data[j][10]));
-                                }
-                            }
-                            getSaldo(idx_next,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,'change');
-                        }else{
-                            setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama").focus(); }, 100);
-                        }
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama").focus(); }, 100);
                     },
                 };
             break;
@@ -2627,34 +2314,8 @@
                         $('.'+target1).closest("tr").find(".inp-nama_pp").val(data.nama).show();
                         $('.'+target1).closest("tr").find(".td-nama_pp").html(data.nama).hide();
                         $('.'+target1).closest("tr").find(".td-nama_pp").closest('td').addClass('px-0 py-0 aktif');
-                        var tmp = $('.'+target1).closest("tr").find(".td-saldo").attr('class').split(" ");
-                        var idx_next = tmp[1].replace("td","");
-                        var kode_pp = data.kode_pp;
-                        var kode_akun = $('.'+target1).closest("tr").find(".td-kode").text();
-                        var kode_drk = $('.'+target1).closest("tr").find(".td-drk").text();
-                        var tw = $('.'+target1).closest("tr").find(".inp-tw")[0].selectize.getValue();
-                        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
-                        var kode_lokasi = $('#lokasi_beri').val();
-                        if(kode_akun != "" && kode_pp != "" && kode_drk != "" && tw != "" && kode_lokasi != ""){
-                            var saldo_seb = 0;
-                            var no_bukti = $('#no_bukti').val();
-                            var row = $('.'+target1).closest('tr').index();
-                            var data = Array();
-                            $("#input-beri tbody tr").each(function(i, v){
-                                data[i] = Array();
-                                $(this).children('td').each(function(ii, vv){
-                                    data[i][ii] = $(this).find('span[class*="tooltip-span"]').text();
-                                }); 
-                            })
-                            for (var j=0; j < data.length;j++){
-                                if (j < row && kode_akun == data[j][2] && kode_pp == data[j][4] && kode_drk == data[j][6] && tw == data[j][8]) {
-                                    saldo_seb += parseFloat(toNilai(data[j][10]));
-                                }
-                            }
-                            getSaldo(idx_next,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,'change');
-                        }else{
-                            setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_pp").focus(); }, 100);
-                        }
+                        
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_pp").focus(); }, 100);
                     },
                     parameter:{
                         kode_lokasi: $('#lokasi_beri').val(),
@@ -2688,35 +2349,7 @@
                         $('.'+target1).closest("tr").find(".td-nama_drk").html(data.nama).hide();
                         $('.'+target1).closest("tr").find(".td-nama_drk").closest('td').addClass('px-0 py-0 aktif');
 
-                        var tmp = $('.'+target1).closest("tr").find(".td-saldo").attr('class').split(" ");
-                        var idx_next = tmp[1].replace("td","");
-                        var kode_drk = data.kode_drk;
-                        var kode_pp = $('.'+target1).closest("tr").find(".td-pp").text();
-                        var kode_akun = $('.'+target1).closest("tr").find(".td-kode").text();
-                        var tw = $('.'+target1).closest("tr").find(".inp-tw")[0].selectize.getValue();
-                        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
-                        var kode_lokasi = $('#lokasi_beri').val();
-                        
-                        if(kode_akun != "" && kode_pp != "" && kode_drk != "" && tw != "" && kode_lokasi != ""){
-                            var saldo_seb = 0;
-                            var no_bukti = $('#no_bukti').val();
-                            var row = $('.'+target1).closest('tr').index();
-                            var data = Array();
-                            $("#input-beri tbody tr").each(function(i, v){
-                                data[i] = Array();
-                                $(this).children('td').each(function(ii, vv){
-                                    data[i][ii] = $(this).find('span[class*="tooltip-span"]').text();
-                                }); 
-                            })
-                            for (var j=0; j < data.length;j++){
-                                if (j < row && kode_akun == data[j][2] && kode_pp == data[j][4] && kode_drk == data[j][6] && tw == data[j][8]) {
-                                    saldo_seb += parseFloat(toNilai(data[j][10]));
-                                }
-                            }
-                            getSaldo(idx_next,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,'change');
-                        }else{
-                            setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_drk").focus(); }, 100);
-                        }
+                        setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama_drk").focus(); }, 100);
                     },
                     width : ["30%","70%"],
                     parameter:{
@@ -2860,10 +2493,10 @@
 
     });
     
-    $('#input-beri').on('keydown','.inp-kode, .inp-nama, .inp-pp, .inp-nama_pp, .inp-drk, .inp-nama_drk, .inp-tw, .inp-saldo, .inp-nilai',function(e){
+    $('#input-beri').on('keydown','.inp-kode, .inp-nama, .inp-pp, .inp-nama_pp, .inp-drk, .inp-nama_drk, .inp-tw, .inp-nilai',function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['.inp-kode','.inp-nama','.inp-pp','.inp-nama_pp','.inp-drk','.inp-nama_drk','.inp-tw','.inp-saldo','.inp-nilai'];
-        var nxt2 = ['.td-kode','.td-nama','.td-pp','.td-nama_pp','.td-drk','.td-nama_drk','.td-tw','.td-saldo','.td-nilai'];
+        var nxt = ['.inp-kode','.inp-nama','.inp-pp','.inp-nama_pp','.inp-drk','.inp-nama_drk','.inp-tw','.inp-nilai'];
+        var nxt2 = ['.td-kode','.td-nama','.td-pp','.td-nama_pp','.td-drk','.td-nama_drk','.td-tw','.td-nilai'];
         if (code == 13 || code == 9) {
             e.preventDefault();
             var idx = $(this).closest('td').index()-2;
@@ -2951,35 +2584,6 @@
                         $(this).parents("tr").find(nxt2[idx]).text(isi);
                         $(this).parents("tr").find(".selectize-control").hide();
                         $(this).closest('tr').find(nxt2[idx]).show();
-
-                        // $(this).closest('tr').find(nxt[idx_next]).show();
-                        // $(this).closest('tr').find(nxt[idx_next]).focus();
-                        // $(this).closest('tr').find(nxt2[idx_next]).hide();
-                        var kode_akun = $(this).parents("tr").find(".td-kode").text();
-                        var kode_pp = $(this).parents("tr").find(".td-pp").text();
-                        var kode_drk = $(this).parents("tr").find(".td-drk").text();
-                        var tw = $(this).parents("tr").find(".inp-tw")[0].selectize.getValue();
-                        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
-                        var kode_lokasi = $('#lokasi_beri').val();
-                        var saldo_seb = 0;
-                        
-                        var tmp = $(this).closest("tr").find(".td-saldo").attr('class').split(" ");
-                        var target = tmp[1].replace("td","");
-                        var row = $(this).closest('tr').index();
-                        var no_bukti = $('#no_bukti').val();
-                        var data = Array();
-                        $("#input-beri tbody tr").each(function(i, v){
-                            data[i] = Array();
-                            $(this).children('td').each(function(ii, vv){
-                                data[i][ii] = $(this).find('span[class*="tooltip-span"]').text();
-                            }); 
-                        })
-                        for (var j=0; j < data.length;j++){
-                            if (j < row && kode_akun == data[j][2] && kode_pp == data[j][4] && kode_drk == data[j][6] && tw == data[j][8]) {
-                                saldo_seb += parseFloat(toNilai(data[j][10]));
-                            }
-                        }
-                        getSaldo(target,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,'tab');
                     }else{
                         msgDialog({
                             id: '-',
@@ -3180,7 +2784,6 @@
                 var kode_drk = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-drk").val();
                 var nama_drk = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nama_drk").val();
                 var tw = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-tw")[0].selectize.getValue();
-                var saldo = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-saldo").val();
                 var nilai = $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").val();
 
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-kode").val(kode_akun);
@@ -3197,8 +2800,6 @@
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_drk").text(nama_drk);
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-tw")[0].selectize.setValue(tw,true);
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-tw").text(tw);
-                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-saldo").val(saldo);
-                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-saldo").text(saldo);
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").val(nilai);
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nilai").text(nilai);
 
@@ -3219,8 +2820,6 @@
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nama_drk").show();
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-tw").show();
-                $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-saldo").hide();
-                $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-saldo").show();
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".inp-nilai").hide();
                 $('#input-beri > tbody > tr:eq('+index+') > td').find(".td-nilai").show();
             }
@@ -3237,7 +2836,6 @@
                 var kode_drk = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-drk_terima").val();
                 var nama_drk = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nama_drk_terima").val();
                 var tw = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-tw_terima")[0].selectize.getValue();
-                var saldo = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-saldo_terima").val();
                 var nilai = $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").val();
 
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-kode_terima").val(kode_akun);
@@ -3254,8 +2852,6 @@
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_drk_terima").text(nama_drk);
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-tw_terima")[0].selectize.setValue(tw,true);
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-tw_terima").text(tw);
-                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-saldo_terima").val(saldo);
-                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-saldo_terima").text(saldo);
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").val(nilai);
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nilai_terima").text(nilai);
 
@@ -3276,8 +2872,6 @@
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nama_drk_terima").show();
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".selectize-control").hide();
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-tw_terima").show();
-                $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-saldo_terima").hide();
-                $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-saldo_terima").show();
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".inp-nilai_terima").hide();
                 $('#input-terima > tbody > tr:eq('+index+') > td').find(".td-nilai_terima").show();
             }
@@ -3345,7 +2939,6 @@
                 var kode_drk = $(this).parents("tr").find(".inp-drk").val();
                 var nama_drk = $(this).parents("tr").find(".inp-nama_drk").val();
                 var tw = $(this).parents("tr").find(".inp-tw")[0].selectize.getValue();
-                var saldo = $(this).parents("tr").find(".inp-saldo").val();
                 var nilai = $(this).parents("tr").find(".inp-nilai").val();
                 var no = $(this).parents("tr").find(".no-beri").text();
                 $(this).parents("tr").find(".inp-kode").val(kode_akun);
@@ -3445,20 +3038,9 @@
                     $(this).parents("tr").find(".td-tw").show();
                 }
         
-                $(this).parents("tr").find(".inp-saldo").val(saldo);
-                $(this).parents("tr").find(".td-saldo").text(saldo);
-                if(idx == 9){
-                    $(this).parents("tr").find(".inp-saldo").show();
-                    $(this).parents("tr").find(".td-saldo").hide();
-                    $(this).parents("tr").find(".inp-saldo").focus();
-                }else{
-                    $(this).parents("tr").find(".inp-saldo").hide();
-                    $(this).parents("tr").find(".td-saldo").show();
-                }
-        
                 $(this).parents("tr").find(".inp-nilai").val(nilai);
                 $(this).parents("tr").find(".td-nilai").text(nilai);
-                if(idx == 10){
+                if(idx == 9){
                     $(this).parents("tr").find(".inp-nilai").show();
                     $(this).parents("tr").find(".td-nilai").hide();
                     $(this).parents("tr").find(".inp-nilai").focus();
@@ -3705,36 +3287,6 @@
         }
     });
 
-    $('#input-beri').on('change', '.inp-tw', function(e){
-        e.preventDefault();
-        var tmp = $(this).closest("tr").find(".td-saldo").attr('class').split(" ");
-        var idx_next = tmp[1].replace("td","");
-        var kode_akun = $(this).closest("tr").find(".td-kode").text();
-        var kode_pp = $(this).closest("tr").find(".td-pp").text();
-        var kode_drk = $(this).closest("tr").find(".td-drk").text();
-        var tw = $(this).closest("tr").find(".inp-tw")[0].selectize.getValue();
-        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
-        var kode_lokasi = $('#lokasi_beri').val();
-        if(kode_akun != "" && kode_pp != "" && kode_drk != "" && tw != "" && kode_lokasi != ""){
-            var saldo_seb = 0;
-            var no_bukti = $('#no_bukti').val();
-            var row = $(this).closest('tr').index();
-            var data = Array();
-            $("#input-beri tbody tr").each(function(i, v){
-                data[i] = Array();
-                $(this).children('td').each(function(ii, vv){
-                    data[i][ii] = $(this).find('span[class*="tooltip-span"]').text();
-                }); 
-            })
-            for (var j=0; j < data.length;j++){
-                if (j < row && kode_akun == data[j][2] && kode_pp == data[j][4] && kode_drk == data[j][6] && tw == data[j][8]) {
-                    saldo_seb += parseFloat(toNilai(data[j][10]));
-                }
-            }
-            getSaldo(idx_next,kode_akun,kode_pp,kode_drk,tw,periode,kode_lokasi,saldo_seb,no_bukti,'change');
-        }
-    });
-
     $('#input-beri').on('change', '.inp-nilai', function(){
         
         console.log('nilai change');
@@ -3912,7 +3464,6 @@
     $('#import-excel-beri').click(function(e){
         $('#jenis_upload').val('BERI');
         var kode_lokasi = $('#lokasi_beri').val();
-        var jenis = $('#jenis').val();
         if(kode_lokasi == "" || jenis == ""){
             msgDialog({
                 id: '-',
@@ -3937,7 +3488,6 @@
     $('#import-excel-terima').click(function(e){
         $('#jenis_upload').val('TERIMA');
         var kode_lokasi = $('#lokasi_terima').val();
-        var jenis = $('#jenis').val();
         if(kode_lokasi == ""){
             msgDialog({
                 id: '-',
@@ -3975,7 +3525,6 @@
             }
             formData.append('no_bukti',$('#no_bukti').val());
             formData.append('jenis',$('#jenis_upload').val());
-            formData.append('jenis_agg',$('#jenis').val());
             formData.append('periode',$('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2));
             if($('#jenis_upload').val() == "BERI"){
                 formData.append('kode_lokasi',$('#lokasi_beri').val());
@@ -4102,12 +3651,11 @@
         }else{
             var kode_lokasi = $('#lokasi_terima').val();
         }
-        var jenis_agg = $('#jenis')[0].selectize.getValue();
         $.ajax({
             type: 'GET',
             url: "{{ url('/sukka-trans/aju-rra-tmp') }}",
             dataType: 'json',
-            data:{jenis: jenis, kode_lokasi: kode_lokasi, jenis_agg:jenis_agg},
+            data:{jenis: jenis, kode_lokasi: kode_lokasi},
             async:false,
             success:function(res){
                 var result= res.data;
@@ -4128,7 +3676,6 @@
                                 input += "<td><span class='td-drk tddrkke"+no+" tooltip-span'>"+line.kode_drk+"</span><input type='text' id='drkkode"+no+"' name='kode_drk[]' class='form-control inp-drk drkke"+no+" hidden' value='"+line.kode_drk+"'   style='z-index: 1;position: relative;'><a href='#' class='search-item search-drk hidden' style='position: absolute;z-index: 2;margin-top:8px;margin-left:-25px'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></td>";
                                 input += "<td><span class='td-nama_drk tdnmdrkke"+no+" tooltip-span'>"+line.nama_drk+"</span><input type='text' name='nama_drk[]' class='form-control inp-nama_drk nmdrkke"+no+" hidden'  value='"+line.nama_drk+"' readonly ></td>";
                                 input += "<td ><span class='td-tw tdtwke"+no+" tooltip-span'></span><select hidden name='tw[]' class='form-control inp-tw twke"+no+"' value='' ><option value='TW1'>TW1</option><option value='TW2'>TW2</option><option value='TW3'>TW3</option><option value='TW4'>TW4</option></select></td>";
-                                input += "<td class='text-right'><span class='td-saldo tdsaldoke"+no+" tooltip-span'>"+number_format(line.saldo)+"</span><input type='text' name='saldo[]' class='form-control inp-saldo saldoke"+no+" hidden'  value='"+number_format(line.saldo)+"' readonly ></td>";
                                 input += "<td class='text-right'><span class='td-nilai tdnilke"+no+" tooltip-span'>"+number_format(line.nilai)+"</span><input type='text' name='nilai[]' class='form-control inp-nilai nilke"+no+" hidden'  value='"+number_format(line.nilai)+"' ></td>";
                                 input += "</tr>";
                                 no++;
@@ -4156,14 +3703,6 @@
                                 $('.tdtwke'+no).text(tw);
                                 $('.selectize-control.twke'+no).addClass('hidden');
                                 $('.nilke'+no).inputmask("numeric", {
-                                    radixPoint: ",",
-                                    groupSeparator: ".",
-                                    digits: 2,
-                                    autoGroup: true,
-                                    rightAlign: true,
-                                    oncleared: function () { self.Value(''); }
-                                });
-                                $('.saldoke'+no).inputmask("numeric", {
                                     radixPoint: ",",
                                     groupSeparator: ".",
                                     digits: 2,

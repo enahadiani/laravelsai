@@ -206,6 +206,32 @@ class PengajuanRRAController extends Controller
         } 
     }
 
+    public function getJuskeb(Request $request){
+        try{
+            
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-trans/aju-rra-juskeb',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query'=>$request->all()
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data = $data["data"];
+            }
+            return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
     public function getAkun(Request $request){
         try{
             
@@ -351,7 +377,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'jenis' => 'required',
-            'jenis_rra' => 'required',
+            'no_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -390,8 +416,8 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->kode_form,
                 ],
                 [
-                    'name' => 'jenis_rra',
-                    'contents' => $request->jenis_rra,
+                    'name' => 'no_juskeb',
+                    'contents' => $request->no_juskeb,
                 ],
                 [
                     'name' => 'jenis',
@@ -682,7 +708,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'jenis' => 'required',
-            'jenis_rra' => 'required',
+            'no_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -725,8 +751,8 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->kode_form,
                 ],
                 [
-                    'name' => 'jenis_rra',
-                    'contents' => $request->jenis_rra,
+                    'name' => 'no_juskeb',
+                    'contents' => $request->no_juskeb,
                 ],
                 [
                     'name' => 'jenis',
