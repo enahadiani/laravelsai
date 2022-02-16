@@ -620,14 +620,14 @@
                             if (line.bulan == "10")	var tw = "TW4";	
                             input += "<tr class='row-beri'>";
                             input += "<td class='no-beri text-center' colspan='2'>"+no+"</td>";
-                            input += "<td>"+line.kode_akun+"</td>";
-                            input += "<td>"+line.nama_akun+"</td>";
-                            input += "<td>"+line.kode_pp+"</td>";
-                            input += "<td>"+line.nama_pp+"</td>";
-                            input += "<td>"+line.kode_drk+"</td>";
-                            input += "<td>"+line.nama_drk+"</td>";
-                            input += "<td >"+tw+"</td>";
-                            input += "<td class='text-right'>"+number_format(parseFloat(line.nilai))+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_akun+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_akun+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_pp+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_pp+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_drk+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_drk+"</td>";
+                            input += "<td class='tooltip-span'>"+tw+"</td>";
+                            input += "<td class='text-right tooltip-span'>"+number_format(parseFloat(line.nilai))+"</td>";
                             input += "</tr>";
                             no++;
                         }
@@ -652,15 +652,15 @@
                             if (line.bulan == "07")	var tw = "TW3";
                             if (line.bulan == "10")	var tw = "TW4";	
                             input += "<tr class='row-terima'>";
-                            input += "<td class='no-terima text-center' colspan='2'>"+no+"</td>";
-                            input += "<td>"+line.kode_akun+"</td>";
-                            input += "<td>"+line.nama_akun+"</td>";
-                            input += "<td>"+line.kode_pp+"</td>";
-                            input += "<td>"+line.nama_pp+"</td>";
-                            input += "<td>"+line.kode_drk+"</td>";
-                            input += "<td>"+line.nama_drk+"</td>";
-                            input += "<td >"+tw+"</td>";
-                            input += "<td class='text-right'>"+number_format(parseFloat(line.nilai))+"</td>";
+                            input += "<td class='no-terima text-center tooltip-span' colspan='2'>"+no+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_akun+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_akun+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_pp+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_pp+"</td>";
+                            input += "<td class='tooltip-span'>"+line.kode_drk+"</td>";
+                            input += "<td class='tooltip-span'>"+line.nama_drk+"</td>";
+                            input += "<td class='tooltip-span' >"+tw+"</td>";
+                            input += "<td class='text-right tooltip-span'>"+number_format(parseFloat(line.nilai))+"</td>";
                             input += "</tr>";
                             no++;
                         }
@@ -681,8 +681,8 @@
                             var line =result.dokumen[i];
                             input2 += "<tr class='row-dok'>";
                             input2 += "<td class='no-dok text-center'>"+no+"</td>";
-                            input2 += "<td class='px-0 py-0'>"+line.jenis+"</td>";
-                            input2 += "<td class='px-0 py-0'>"+line.nama+"</td>";
+                            input2 += "<td class='px-0 py-0 tooltip-span'>"+line.jenis+"</td>";
+                            input2 += "<td class='px-0 py-0 tooltip-span'>"+line.nama+"</td>";
                             var dok = "{{ config('api.url').'sukka-auth/storage' }}/"+line.fileaddres;
                             input2 += "<td>"+line.fileaddres+"</td>";
                             input2+=`
@@ -732,7 +732,7 @@
                         }
                         $('#input-approve tbody').append(html)
                         $('.tooltip-span').tooltip({
-                            title: function(){
+                            content: function(){
                                 return $(this).text();
                             }
                         });
