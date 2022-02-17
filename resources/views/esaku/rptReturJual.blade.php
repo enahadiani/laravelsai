@@ -13,6 +13,15 @@ function drawLap(formData){
 
 drawLap($formData);
 
+function sepNum2(x) {
+    var num = parseFloat(x).toFixed(0);
+    var parts = num.toString().split(".");
+    var len = num.toString().length;
+    // parts[1] = parts[1]/(Math.pow(10, len));
+    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g, "$1.");
+    return parts.join(",");
+}
+
 function drawRptPage(data,res,from,to){ 
     var data = data;
     var html = "";
@@ -74,7 +83,7 @@ function drawRptPage(data,res,from,to){
                     html += "<td  class='isi_laporan'>"+value2.satuan+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.harga)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.stok)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.jumlah)+"</td>";
+                    html += "<td align='right' class='isi_laporan'>"+sepNum2(value2.jumlah)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.total)+"</td>";
                     html += "</tr>";
                     no++;
