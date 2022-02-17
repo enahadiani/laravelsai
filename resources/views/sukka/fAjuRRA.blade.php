@@ -1563,7 +1563,7 @@
                                     <tr>
                                         <td width="14%">Tanggal</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.data[0].tgl+`</td>
+                                        <td width="20%">`+result.data[0].tgl_pdrk+`</td>
                                         <td width="30%" rowspan="3"></td>
                                         <td width="10%" rowspan="3" style="vertical-align:top !important">Deskripsi</td>
                                         <td width="1%" rowspan="3" style="vertical-align:top !important">:</td>
@@ -1582,12 +1582,12 @@
                                     <tr>
                                         <td width="14%">Lokasi Penerima</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.data[0].lokasi_terima+` - `+result.data[0].nama_terima+`</td>
+                                        <td width="20%">`+result.data[0].lok_terima+` - `+result.data[0].nama_terima+`</td>
                                     </tr>
                                     <tr>
                                         <td width="14%">Lokasi Pemberi</td>
                                         <td width="1%">:</td>
-                                        <td width="20%">`+result.data[0].lokasi_beri+` - `+result.data[0].nama_beri+`</td>
+                                        <td width="20%">`+result.data[0].lok_donor+` - `+result.data[0].nama_beri+`</td>
                                     </tr>
                                 </table>
                             </div>
