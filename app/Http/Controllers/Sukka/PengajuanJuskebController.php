@@ -390,9 +390,9 @@ class PengajuanJuskebController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                if(isset($data['no_pesan'])){
-                    $this->sendNotifApproval($data['no_pesan']);
-                }
+                // if(isset($data['no_pesan'])){
+                //     $this->sendNotifApproval($data['no_pesan']);
+                // }
                 return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
@@ -491,6 +491,7 @@ class PengajuanJuskebController extends Controller
     public function update(Request $request, $no_bukti)
     {
         $this->validate($request, [
+            'no_bukti' => 'required',
             'tanggal' => 'required|date_format:d/m/Y',
             'periode' => 'required|date_format:Ym',
             'kegiatan' => 'required|max:1000',
@@ -523,6 +524,10 @@ class PengajuanJuskebController extends Controller
             
         try{
             $fields = [
+                [
+                    'name'=>'no_bukti', 
+                    'contents'=> $request->input('no_bukti')
+                ],
                 [
                     'name' => 'tanggal',
                     'contents' => $this->reverseDate($request->tanggal,'/','-'),
@@ -738,16 +743,16 @@ class PengajuanJuskebController extends Controller
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'multipart' => $fields
+                'multipart' => $send_data
             ]);
             
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                if(isset($data['no_pesan'])){
-                    $this->sendNotifApproval($data['no_pesan']);
-                }
+                // if(isset($data['no_pesan'])){
+                //     $this->sendNotifApproval($data['no_pesan']);
+                // }
                 return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {

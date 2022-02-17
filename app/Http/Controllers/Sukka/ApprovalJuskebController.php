@@ -195,9 +195,9 @@ class ApprovalJuskebController extends Controller
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 $data = json_decode($response_data,true);
-                if(isset($data['no_pesan'])){
-                    $this->sendNotifApproval($data['no_pesan']);
-                }
+                // if(isset($data['no_pesan'])){
+                //     $this->sendNotifApproval($data['no_pesan']);
+                // }
                 return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {

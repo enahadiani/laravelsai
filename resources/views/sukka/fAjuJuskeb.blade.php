@@ -1503,7 +1503,7 @@
             }
             var kode_jenis = $('#jenis_rra').val();
             var nilai = $('#total_terima').val();
-            getAppFlow();
+            getAppFlow(kode_jenis,nilai);
             $("#input-flow tbody tr").each(function(i, v){
                 var kode_role = $(this).closest('tr').find('td:eq(1)').text()
                 var kode_jab = $(this).closest('tr').find('td:eq(2)').text()
@@ -1571,12 +1571,10 @@
                                 type:'warning',
                                 title: 'Sukses',
                                 text: result.data.message
-                            });
-
-                            
-                            if(result.data.no_pooling != undefined){
-                                kirimWAEmail(result.data.no_pooling);
-                            }
+                            });                            
+                            // if(result.data.no_pooling != undefined){
+                            //     kirimWAEmail(result.data.no_pooling);
+                            // }
                             printPreview(result.data.no_bukti);
 
                         }
