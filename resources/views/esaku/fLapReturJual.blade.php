@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Retur Pembelian"/>
+            <x-report-header judul="Laporan Retur Penjualan"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -117,11 +117,11 @@
                 { data: 'nik_user' },
                 { data: 'nama' }
             ],[
-                { data: 'no_bukti' },
+                { data: 'no_jual' },
                 { data: 'keterangan' }
             ]
         ],
-        url :["{{ url('esaku-report/filter-periode-retur') }}","{{ url('esaku-report/filter-nik-retur') }}","{{ url('esaku-report/filter-bukti-retur') }}"],
+        url :["{{ url('esaku-report/filter-periode-retur-jual') }}","{{ url('esaku-report/filter-nik-retur-jual') }}","{{ url('esaku-report/filter-bukti-retur-jual') }}"],
         parameter:[{},{},{}],
         orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
         width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -142,11 +142,11 @@
                         { data: 'nik_user' },
                         { data: 'nama' }
                     ],[
-                        { data: 'no_bukti' },
+                        { data: 'no_jual' },
                         { data: 'keterangan' }
                     ]
                 ],
-                url :["{{ url('esaku-report/filter-periode-retur') }}","{{ url('esaku-report/filter-nik-retur') }}","{{ url('esaku-report/filter-bukti-retur') }}"],
+                url :["{{ url('esaku-report/filter-periode-retur-jual') }}","{{ url('esaku-report/filter-nik-retur-jual') }}","{{ url('esaku-report/filter-bukti-retur-jual') }}"],
                 parameter:[{},{},{}],
                 orderby:[[[0,"desc"]],[[0,"desc"]],[[0,"asc"]]],
                 width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -173,7 +173,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptReturBeli') }}";
+        xurl = "{{ url('esaku-auth/form/rptReturJual') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -192,7 +192,7 @@
             console.log(pair[0]+ ', '+ pair[1]); 
         }
         $('#saku-report').removeClass('hidden');
-        xurl = "{{ url('esaku-auth/form/rptReturBeli') }}";
+        xurl = "{{ url('esaku-auth/form/rptReturJual') }}";
         $('#saku-report #canvasPreview').load(xurl);
     });
 
@@ -212,8 +212,8 @@
         e.preventDefault();
         $("#saku-report #canvasPreview").table2excel({
             // exclude: ".excludeThisClass",
-            name: "Lap_ReturBeli_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-            filename: "Lap_ReturBeli_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+            name: "Lap_ReturJual_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+            filename: "Lap_ReturJual_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
             preserveColors: false // set to true if you want background colors and font colors preserved
         });
     });
