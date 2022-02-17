@@ -436,7 +436,7 @@
                 if(isset($request->back)){
                     $res['back']=true;
                 }
-                
+
                 return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'sumju'=>$request->sumju,'res'=>$res], 200); 
             } catch (BadResponseException $ex) {
                 $response = $ex->getResponse();

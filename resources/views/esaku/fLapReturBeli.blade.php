@@ -2,7 +2,7 @@
 <div class="row" id="saku-filter">
     <div class="col-12">
         <div class="card" >
-            <x-report-header judul="Laporan Penjualan"/>
+            <x-report-header judul="Laporan Retur Pembelian"/>
             <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
