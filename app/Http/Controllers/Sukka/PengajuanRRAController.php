@@ -376,7 +376,6 @@ class PengajuanRRAController extends Controller
             'deskripsi' => 'required|max:200',
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
-            'jenis' => 'required',
             'no_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
@@ -420,10 +419,6 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->no_juskeb,
                 ],
                 [
-                    'name' => 'jenis',
-                    'contents' => $request->jenis,
-                ],
-                [
                     'name' => 'lokasi_beri',
                     'contents' => $request->lokasi_beri,
                 ],
@@ -445,7 +440,6 @@ class PengajuanRRAController extends Controller
             $fields_kode_pp = array();
             $fields_kode_drk = array();
             $fields_tw = array();
-            $fields_saldo = array();
             $fields_nilai = array();
             $send_data = $fields;
             if(count($request->kode_akun) > 0){
@@ -467,10 +461,6 @@ class PengajuanRRAController extends Controller
                         'name'     => 'tw[]',
                         'contents' => $request->tw[$i],
                     );
-                    $fields_saldo[$i] = array(
-                        'name'     => 'saldo[]',
-                        'contents' => $this->joinNum($request->saldo[$i]),
-                    );
                     $fields_nilai[$i] = array(
                         'name'     => 'nilai[]',
                         'contents' => $this->joinNum($request->nilai[$i]),
@@ -480,7 +470,6 @@ class PengajuanRRAController extends Controller
                 $send_data = array_merge($send_data,$fields_kode_pp);
                 $send_data = array_merge($send_data,$fields_kode_drk);
                 $send_data = array_merge($send_data,$fields_tw);
-                $send_data = array_merge($send_data,$fields_saldo);
                 $send_data = array_merge($send_data,$fields_nilai);
             }
             
@@ -707,7 +696,6 @@ class PengajuanRRAController extends Controller
             'deskripsi' => 'required|max:200',
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
-            'jenis' => 'required',
             'no_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
@@ -755,10 +743,6 @@ class PengajuanRRAController extends Controller
                     'contents' => $request->no_juskeb,
                 ],
                 [
-                    'name' => 'jenis',
-                    'contents' => $request->jenis,
-                ],
-                [
                     'name' => 'lokasi_beri',
                     'contents' => $request->lokasi_beri,
                 ],
@@ -780,7 +764,6 @@ class PengajuanRRAController extends Controller
             $fields_kode_pp = array();
             $fields_kode_drk = array();
             $fields_tw = array();
-            $fields_saldo = array();
             $fields_nilai = array();
             $send_data = $fields;
             if(count($request->kode_akun) > 0){
@@ -802,10 +785,6 @@ class PengajuanRRAController extends Controller
                         'name'     => 'tw[]',
                         'contents' => $request->tw[$i],
                     );
-                    $fields_saldo[$i] = array(
-                        'name'     => 'saldo[]',
-                        'contents' => $this->joinNum($request->saldo[$i]),
-                    );
                     $fields_nilai[$i] = array(
                         'name'     => 'nilai[]',
                         'contents' => $this->joinNum($request->nilai[$i]),
@@ -815,7 +794,6 @@ class PengajuanRRAController extends Controller
                 $send_data = array_merge($send_data,$fields_kode_pp);
                 $send_data = array_merge($send_data,$fields_kode_drk);
                 $send_data = array_merge($send_data,$fields_tw);
-                $send_data = array_merge($send_data,$fields_saldo);
                 $send_data = array_merge($send_data,$fields_nilai);
             }
             

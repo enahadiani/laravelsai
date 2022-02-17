@@ -1502,6 +1502,9 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
+            var kode_jenis = $('#jenis_rra').val();
+            var nilai = $('#total_terima').val();
+            getAppFlow();
             $("#input-flow tbody tr").each(function(i, v){
                 var kode_role = $(this).closest('tr').find('td:eq(1)').text()
                 var kode_jab = $(this).closest('tr').find('td:eq(2)').text()
@@ -1782,7 +1785,6 @@
             url: "{{ url('sukka-trans/send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
-            async:false,
             success:function(res){
                 console.log(res);
             }

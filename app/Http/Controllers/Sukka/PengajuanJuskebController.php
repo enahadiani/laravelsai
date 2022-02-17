@@ -340,34 +340,36 @@ class PengajuanJuskebController extends Controller
                 if(count($request->file_dok) > 0){
                     
                     for($i=0;$i<count($request->kode_jenis);$i++){
-                        if(isset($request->file('file_dok')[$i])){
-                            $image_path = $request->file('file_dok')[$i]->getPathname();
-                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
-                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
-                            $fields_foto[$i] = array(
-                                'name'     => 'file_dok['.$i.']',
-                                'filename' => $image_org,
-                                'Mime-Type'=> $image_mime,
-                                'contents' => fopen( $image_path, 'r' ),
+                        if($request->modul[$i] == "RRA"){
+                            if(isset($request->file('file_dok')[$i])){
+                                $image_path = $request->file('file_dok')[$i]->getPathname();
+                                $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                                $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                                $fields_foto[$i] = array(
+                                    'name'     => 'file_dok['.$i.']',
+                                    'filename' => $image_org,
+                                    'Mime-Type'=> $image_mime,
+                                    'contents' => fopen( $image_path, 'r' ),
+                                );
+                                
+                            }
+                            $fields_jenis[$i] = array(
+                                'name'     => 'kode_jenis[]',
+                                'contents' => $request->kode_jenis[$i],
                             );
-                            
+                            $fields_nama_dok[$i] = array(
+                                'name'     => 'nama_dok[]',
+                                'contents' => $request->nama_dok[$i],
+                            );
+                            $fields_no_urut[$i] = array(
+                                'name'     => 'no_urut[]',
+                                'contents' => $request->no_urut[$i],
+                            );
+                            $fields_nama_file_seb[$i] = array(
+                                'name'     => 'nama_file_seb[]',
+                                'contents' => $request->nama_file[$i],
+                            );
                         }
-                        $fields_jenis[$i] = array(
-                            'name'     => 'kode_jenis[]',
-                            'contents' => $request->kode_jenis[$i],
-                        );
-                        $fields_nama_dok[$i] = array(
-                            'name'     => 'nama_dok[]',
-                            'contents' => $request->nama_dok[$i],
-                        );
-                        $fields_no_urut[$i] = array(
-                            'name'     => 'no_urut[]',
-                            'contents' => $request->no_urut[$i],
-                        );
-                        $fields_nama_file_seb[$i] = array(
-                            'name'     => 'nama_file_seb[]',
-                            'contents' => $request->nama_file[$i],
-                        );
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file_seb);
@@ -695,34 +697,36 @@ class PengajuanJuskebController extends Controller
                 if(count($request->file_dok) > 0){
                     
                     for($i=0;$i<count($request->kode_jenis);$i++){
-                        if(isset($request->file('file_dok')[$i])){
-                            $image_path = $request->file('file_dok')[$i]->getPathname();
-                            $image_mime = $request->file('file_dok')[$i]->getmimeType();
-                            $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
-                            $fields_foto[$i] = array(
-                                'name'     => 'file_dok['.$i.']',
-                                'filename' => $image_org,
-                                'Mime-Type'=> $image_mime,
-                                'contents' => fopen( $image_path, 'r' ),
+                        if($request->modul[$i] == "RRA"){
+                            if(isset($request->file('file_dok')[$i])){
+                                $image_path = $request->file('file_dok')[$i]->getPathname();
+                                $image_mime = $request->file('file_dok')[$i]->getmimeType();
+                                $image_org  = $request->file('file_dok')[$i]->getClientOriginalName();
+                                $fields_foto[$i] = array(
+                                    'name'     => 'file_dok['.$i.']',
+                                    'filename' => $image_org,
+                                    'Mime-Type'=> $image_mime,
+                                    'contents' => fopen( $image_path, 'r' ),
+                                );
+                                
+                            }
+                            $fields_jenis[$i] = array(
+                                'name'     => 'kode_jenis[]',
+                                'contents' => $request->kode_jenis[$i],
                             );
-                            
+                            $fields_nama_dok[$i] = array(
+                                'name'     => 'nama_dok[]',
+                                'contents' => $request->nama_dok[$i],
+                            );
+                            $fields_no_urut[$i] = array(
+                                'name'     => 'no_urut[]',
+                                'contents' => $request->no_urut[$i],
+                            );
+                            $fields_nama_file_seb[$i] = array(
+                                'name'     => 'nama_file_seb[]',
+                                'contents' => $request->nama_file[$i],
+                            );
                         }
-                        $fields_jenis[$i] = array(
-                            'name'     => 'kode_jenis[]',
-                            'contents' => $request->kode_jenis[$i],
-                        );
-                        $fields_nama_dok[$i] = array(
-                            'name'     => 'nama_dok[]',
-                            'contents' => $request->nama_dok[$i],
-                        );
-                        $fields_no_urut[$i] = array(
-                            'name'     => 'no_urut[]',
-                            'contents' => $request->no_urut[$i],
-                        );
-                        $fields_nama_file_seb[$i] = array(
-                            'name'     => 'nama_file_seb[]',
-                            'contents' => $request->nama_file[$i],
-                        );
                     }
                     $send_data = array_merge($send_data,$fields_foto);
                     $send_data = array_merge($send_data,$fields_nama_file_seb);

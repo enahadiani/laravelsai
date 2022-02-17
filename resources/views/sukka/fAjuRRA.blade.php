@@ -750,14 +750,14 @@
         });
     }
 
-    function getAkun(id,target1,target2,target3,jenis,table){
+    function getAkun(id,target1,target2,target3,kode_lokasi,jenis,table){
         var tmp = id.split(" - ");
         kode = tmp[0];
         $.ajax({
             type: 'GET',
             url: "{{ url('sukka-trans/aju-rra-akun') }}",
             dataType: 'json',
-            data:{kode_akun: id},
+            data:{kode_akun: id,kode_lokasi:kode_lokasi},
             async:false,
             success:function(result){    
                 if(result.status){
@@ -1127,18 +1127,20 @@
                                 <td>
                                     <input type='file' name='file_dok[]' class='inp-file_dok'>
                                     <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                    <input type='hidden' name='modul[]' class='form-control inp-modul' value='`+line.modul+`'>
                                 </td>`;
                             }else{
                                 input2+=`
                                 <td>
                                     <input type='file' name='file_dok[]'>
                                     <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+                                    <input type='hidden' name='modul[]' class='form-control inp-modul' value='`+line.modul+`'>
                                 </td>`;
                             }
                             input2+=`
                                 <td class='text-center action-dok'>`;
                                 if(line.fileaddres != "-"){
-                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
+                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>`;
                                 }else{
                                     var link =``;
                                 }
@@ -2056,6 +2058,7 @@
         <td>
         <input type='file' name='file_dok[]'>
         <input type='hidden' name='no_urut[]' class='form-control inp-no_urut' value='`+no+`'>
+        <input type='hidden' name='modul[]' class='form-control inp-modul' value='RRA'>
         </td>`;
         input+=`
         <td class='text-center action-dok'><a href='#' class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
@@ -2144,6 +2147,9 @@
                     target3 : ".td"+target2,
                     target4 : "",
                     width : ["30%","70%"],
+                    parameter:{
+                        kode_lokasi: $('#lokasi_beri').val(),
+                    },
                     onItemSelected: function(data){
                         $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
                         $('.'+target1).closest("tr").find(".inp-kode").val(data.kode_akun).hide();
@@ -2153,13 +2159,6 @@
                         $('.'+target1).closest("tr").find(".td-nama").html(data.nama).hide();
                         $('.'+target1).closest("tr").find(".td-nama").closest('td').addClass('px-0 py-0 aktif');
                         
-                        var idx_next = tmp[1].replace("td","");
-                        var kode_akun = data.kode_akun;
-                        var kode_pp = $('.'+target1).closest("tr").find(".td-pp").text();
-                        var kode_drk = $('.'+target1).closest("tr").find(".td-drk").text();
-                        var tw = $('.'+target1).closest("tr").find(".inp-tw")[0].selectize.getValue();
-                        var periode = $('#tanggal').val().substr(6,4)+''+$('#tanggal').val().substr(3,2);
-                        var kode_lokasi = $('#lokasi_beri').val();
                         setTimeout(function() {  $('.'+target1).closest("tr").find(".inp-nama").focus(); }, 100);
                     },
                 };
@@ -2282,6 +2281,9 @@
                     target3 : ".td"+target2,
                     target4 : "",
                     width : ["30%","70%"],
+                    parameter:{
+                        kode_lokasi: $('#lokasi_terima').val(),
+                    },
                     onItemSelected: function(data){
                         $('.'+target1).closest('tr').removeClass('px-0 py-0 aktif');
                         $('.'+target1).closest("tr").find(".inp-kode_terima").val(data.kode_akun).hide();
@@ -2385,7 +2387,8 @@
                     var target1 = "akunke"+noidx;
                     var target2 = "nmakunke"+noidx;
                     var target3 = "";
-                    getAkun(kode,target1,target2,target3,'tab','input-beri');                    
+                    var kode_lokasi= $('#lokasi_beri').val();
+                    getAkun(kode,target1,target2,target3,kode_lokasi,'tab','input-beri');                    
                     break;
                 case 1:
                     $("#input-beri td").removeClass("px-0 py-0 aktif");
@@ -2523,7 +2526,8 @@
                     var target1 = "akun_terimake"+noidx;
                     var target2 = "nmakun_terimake"+noidx;
                     var target3 = "";
-                    getAkun(kode,target1,target2,target3,'tab','input-terima');                    
+                    var kode_lokasi= $('#lokasi_terima').val();
+                    getAkun(kode,target1,target2,target3,kode_lokasi,'tab','input-terima');                    
                     break;
                 case 1:
                     $("#input-terima td").removeClass("px-0 py-0 aktif");
@@ -3104,7 +3108,9 @@
         target3 = "";
         if($.trim($(this).closest('tr').find('.inp-kode').val()).length){
             var kode = $(this).val();
-            getAkun(kode,target1,target2,target3,'change','input-beri');
+            
+            var kode_lokasi= $('#lokasi_beri').val();
+            getAkun(kode,target1,target2,target3,kode_lokasi,'change','input-beri');
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             msgDialog({
@@ -3125,7 +3131,8 @@
         target3 = "";
         if($.trim($(this).closest('tr').find('.inp-kode_terima').val()).length){
             var kode = $(this).val();
-            getAkun(kode,target1,target2,target3,'change','input-terima');
+            var kode_lokasi= $('#lokasi_terima').val();
+            getAkun(kode,target1,target2,target3,kode_lokasi,'change','input-terima');
             // $(this).closest('tr').find('.inp-dc')[0].selectize.focus();
         }else{
             msgDialog({
@@ -3751,7 +3758,6 @@
             url: "{{ url('sukka-trans/aju-rra-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
-            async:false,
             success:function(res){
                 console.log(res);
             }
