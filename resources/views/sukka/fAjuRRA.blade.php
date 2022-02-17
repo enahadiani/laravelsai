@@ -1,7 +1,7 @@
     <link rel="stylesheet" href="{{ asset('trans-new.css?version=_').time() }}" />
     <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Pengajuan RRA" tambah="" :thead="array('No Bukti','Kegiatan','Periode','Jenis','Unit Kerja','Nilai','Tgl Input','Aksi')" :thwidth="array(10,20,10,10,15,10,0,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Pengajuan RRA" tambah="" :thead="array('No Bukti','Kegiatan','Periode','Jenis','Unit Kerja','Nilai','Tgl Input','No PDRK','Aksi')" :thwidth="array(10,20,10,10,15,10,0,0,10)" :thclass="array('','','','','','','','','text-center')" />
     <!-- END LIST DATA -->
     <style>
         #tanggal-dp .datepicker-dropdown
@@ -275,7 +275,7 @@
                             <div class="tab-pane" id="data-approval" role="tabpanel">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="load-app" data-toggle="tooltip" title="Load Approval" style=""><i class="simple-icon-refresh" style="font-size: 18px !important;position: relative;top: 5px;"></i> <span style="font-size:12.8px;top: 3px !important;position: relative;">Tampil Approval</span></a>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row-ap" ></span></a>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_flow" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
                                     <table class="table table-bordered table-condensed gridexample" id="input-flow" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
@@ -321,8 +321,46 @@
     </div>
     {{-- END PRINT PREVIEW --}}
 
+    <!-- FORM INPUT  -->
+    <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+    aria-labelledby="modalFilter" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="max-width: 280px;">
+            <div class="modal-content" style="border-radius:0px !important">
+                <form id="form-filter">
+                    <div class="modal-header pb-0" style="border:none">
+                        <h6 class="modal-title pl-0">Filter</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="right: 0px !important;top: 25px !important;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="border:none">
+                        <div class="form-group row inp-filter">
+                            <label class="col-md-12">No PDRK</label>
+                            <div class="input-group col-12">
+                                <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                    <span class="input-group-text info-code_no_pdrk" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                </div>
+                                <input type="text" class="form-control inp-label-no_pdrk" id="no_pdrk" name="no_pdrk" value="" title="">
+                                <span class="info-name_no_pdrk hidden">
+                                    <span></span> 
+                                </span>
+                                <i class="simple-icon-close float-right info-icon-hapus hidden" style="right: 50px;"></i>
+                                <i class="simple-icon-magnifier search-item2" id="search_no_pdrk" style="right: 25px;"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
+                        <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     @include('modal_upload')
+    @include('modal_search')
     <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
@@ -360,6 +398,11 @@
         var str = date_str[0].split(separator);
 
         return str[2]+newseparator+str[1]+newseparator+str[0];
+    }
+
+    function hitungTotalRowAppFlow(){
+        var total_row = $('#input-flow tbody tr').length;
+        $('#total-row_flow').html(total_row+' Baris');
     }
 
     function hitungTotalRowBeri(){
@@ -405,6 +448,14 @@
         $('.info-name_'+par).addClass('hidden');
         $(this).addClass('hidden');
     });
+
+    function removeInfoField(par){
+        $('#'+par).val('');
+        $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+        $('.info-code_'+par).parent('div').addClass('hidden');
+        $('.info-name_'+par).addClass('hidden');
+        $('#search_'+par).siblings('i').addClass('hidden');
+    }
 
     function resizeNameField(kode){
         var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
@@ -617,9 +668,17 @@
         generateNoBukti(tanggal);
     })
 
+    var $filter_listdata = {
+        no_pdrk: "",
+        keterangan: ""
+    };
+    
+    jumFilter();
+
     // LIST DATA
     var action_html = "<a href='#' title='Pilih' id='btn-edit'><i class='simple-icon-check' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp;";
-    var action_html2 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
+    var action_html2 = "<a href='#' title='Pilih' id='btn-edit'><i class='simple-icon-check' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp;<a href='#' title='Hapus' id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp;";
+    var action_html3 = "<a href='#' title='Preview' id='btn-preview'><i class='simple-icon-doc' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
         "{{ url('sukka-trans/aju-rra-juskeb') }}", 
@@ -638,16 +697,24 @@
                 'render': $.fn.dataTable.render.number( '.', ',', 0, '' ) 
             },
             {
-                "targets": [6],
+                "targets": [6,7],
                 "visible": false,
                 "searchable": false
             },
             {
-                "targets" : 7,
+                "targets" : 8,
                 "data": null,
                 'className' : 'text-center',
                 "render": function ( data, type, row, meta ) {
-                    return action_html;
+                    if(row.no_pdrk == "-"){
+                        return action_html;
+                    }else{
+                        if(row.progress_pdrk == "0" || row.progress_pdrk == 'R'){
+                            return action_html2;
+                        }else{
+                            return action_html3;
+                        }
+                    }
                 }
             }
         ],
@@ -658,10 +725,12 @@
             { data: 'jenis' },
             { data: 'kode_pp' },
             { data: 'nilai' },
-            { data: 'tanggal' }
+            { data: 'tanggal' },
+            { data: 'no_pdrk' }
         ],
         "{{ url('sukka-auth/sesi-habis') }}",
-        [[5 ,"desc"]]
+        [[5 ,"desc"]],
+        '$filter_listdata'
     );
 
     $.fn.DataTable.ext.pager.numbers_length = 5;
@@ -981,12 +1050,26 @@
                     $('#input-beri tbody').html('');
                     $('#input-terima tbody').html('');
                     $('#input-dok tbody').html('');
-                    $('#id').val('edit');
-                    $('#method').val('post');
-                    var tanggal = $('#tanggal').val();
-                    generateNoBukti(tanggal);
-                    $('#no_dokumen').val(result.data[0].no_dokumen);
-                    $('#deskripsi').val(result.data[0].keterangan);
+                    $('#input-flow tbody').html('');
+                    if(result.data[0].no_pdrk == "-"){
+                        $('#btn-update').attr('type','submit');
+                        $('#btn-update').attr('id','btn-save');
+                        $('#id').val('');
+                        $('#method').val('post');
+                        $('#generate-nobukti').bind('click');
+                        var tanggal = $('#tanggal').val();
+                        generateNoBukti(tanggal);
+                    }else{
+                        $('#btn-save').attr('type','button');
+                        $('#btn-save').attr('id','btn-update');
+                        $('#generate-nobukti').unbind('click');
+                        $('#no_bukti').val(result.data[0].no_pdrk);
+                        $('#id').val('edit');
+                        $('#method').val('post');
+                        $('#no_dokumen').val(result.data[0].no_dokumen);
+                        $('#deskripsi').val(result.data[0].keterangan);
+                        $('#tanggal').val(result.data[0].tgl_pdrk);
+                    }
                     $('#no_juskeb').val(result.data[0].no_bukti); 
                     $('#kode_pp_juskeb').val(result.data[0].nama_pp); 
                     $('#jenis_rra').val(result.data[0].kode_jenis); 
@@ -1140,7 +1223,11 @@
                             input2+=`
                                 <td class='text-center action-dok'>`;
                                 if(line.fileaddres != "-"){
-                                   var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>`;
+                                    if(line.modul == "RRA"){
+                                        var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>&nbsp;&nbsp;&nbsp;<a class='hapus-dok' href='#' title='Hapus Dokumen'><i class='simple-icon-trash' style='font-size:18px' ></i></a>`;
+                                    }else{
+                                        var link =`<a class='download-dok' href='`+dok+`'target='_blank' title='Download'><i style='font-size:18px' class='simple-icon-cloud-download'></i></a>`;
+                                    }
                                 }else{
                                     var link =``;
                                 }
@@ -1149,6 +1236,35 @@
                         }
                     }
                     $('#form-tambah #input-dok tbody').html(input2);
+
+                    if(result.data[0].no_pdrk != "-"){
+                        if(result.detail.length > 0){
+                            var input = '';
+                            var no=1;
+                            for(var i=0;i<result.detail.length;i++){
+                                var line =result.detail[i];
+                                input+=` <tr>
+                                    <td>${no}</td>    
+                                    <td>${line.kode_role}</td>    
+                                    <td>${line.kode_jab}</td>    
+                                    <td>${line.nik}</td>    
+                                    <td>${line.nama}</td>    
+                                    <td>${line.email}</td>    
+                                </tr>`;
+                                no++;
+                            }
+                            $('#input-flow tbody').html(input);
+                            $('.tooltip-span').attr('title','tooltip');
+                            $('.tooltip-span').tooltip({
+                                content: function(){
+                                    return $(this).text();
+                                },
+                                tooltipClass: "custom-tooltip-sai"
+                            });
+                            
+                            hitungTotalRowAppFlow();
+                        }
+                    }
 
                     hitungTotalBeri();
                     hitungTotalTerima();
@@ -1172,8 +1288,8 @@
 
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        $('#btn-save').attr('type','button');
-        $('#btn-save').attr('id','btn-update');
+        // $('#btn-save').attr('type','button');
+        // $('#btn-save').attr('id','btn-update');
         $('#judul-form').html('Data Pengajuan RRA');
         $('#form-tambah')[0].reset();
         $('#form-tambah').validate().resetForm();
@@ -1214,9 +1330,9 @@
     }
 
     $('#saku-datatable').on('click','#btn-delete',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
+        var data = dataTable.row($(this).parents('tr')).data()
         msgDialog({
-            id: id,
+            id: data.no_pdrk,
             type:'hapus'
         });
     });
@@ -1405,7 +1521,6 @@
 
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var posted = data.posted;
             $.ajax({
                 type: 'GET',
                 url: "{{ url('/sukka-trans/aju-rra') }}/"+id,
@@ -1572,7 +1687,7 @@
                         $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
 
                         $('.preview-header').on('click','#btn-delete2',function(e){
-                            var id = $('#preview-id').text();
+                            var id = data.no_pdrk;
                             $('.c-bottom-sheet').removeClass('active');
                             msgDialog({
                                 id:id,
@@ -1586,8 +1701,8 @@
                             $('#form-tambah')[0].reset();
                             $('#form-tambah').validate().resetForm();
                             
-                            $('#btn-save').attr('type','button');
-                            $('#btn-save').attr('id','btn-update');
+                            // $('#btn-save').attr('type','button');
+                            // $('#btn-save').attr('id','btn-update');
                             $('.c-bottom-sheet').removeClass('active');
                             editData(id);
                         });
@@ -1800,6 +1915,7 @@
     // END ENTER FIELD FORM
 
     $('#form-tambah').on('click', '.search-item2', function(){
+        $('#modal-search .modal-body').html('');
         var id = $(this).closest('div').find('input').attr('name');
         switch(id){
             case 'lokasi_beri':
@@ -2068,6 +2184,7 @@
     }
 
     $('#form-tambah #input-dok').on('click', '.search-item', function(){
+        $('#modal-search .modal-body').html('');
         var par = $(this).closest('td').find('input').attr('name');
         
         var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
@@ -2106,6 +2223,7 @@
     });
 
     $('#input-beri').on('click', '.search-item', function(){
+        $('#modal-search .modal-body').html('');
         var par = $(this).closest('td').find('input').attr('name');
         
         switch(par){
@@ -2240,6 +2358,7 @@
     });
 
     $('#input-terima').on('click', '.search-item', function(){
+        $('#modal-search .modal-body').html('');
         var par = $(this).closest('td').find('input').attr('name');
         
         switch(par){
@@ -3804,5 +3923,84 @@
         var link = "{{ config('api.url').'sukka-trans/aju-rra-export' }}?kode_lokasi="+kode_lokasi+"&nik_user="+nik_user+"&nik="+nik+"&type=template&jenis="+jenis;
         window.open(link, '_blank'); 
     });
+
+    // FILTER
+    function jumFilter(){
+        if($('#no_pdrk').val() == ""){
+            $('#jum-filter').html('');
+        }else{
+            $('#jum-filter').html(1);
+        }
+    }
+
+    $('#modalFilter').on('submit','#form-filter',function(e){
+        e.preventDefault();
+        $filter_listdata = {
+            no_pdrk: $('#no_pdrk').val(),
+            keterangan: $('.info-name_no_pdrk span').text()
+        }
+        dataTable.ajax.reload();
+        jumFilter();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        removeInfoField('no_pdrk');
+        jumFilter();
+    });
+
+    $('#no_pdrk').change(function(e){
+        e.preventDefault();
+        jumFilter();
+    });
+    
+    $('#filter-btn').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#modalFilter').on('shown.bs.modal', function (e) {
+        if($filter_listdata.no_pdrk != ""){
+            showInfoField('no_pdrk',$filter_listdata.no_pdrk,$filter_listdata.keterangan);
+        }
+        resizeNameField('no_pdrk');
+    })
+
+    // END FILTER
+
+    $('#modalFilter').on('click', '.search-item2', function(){
+        $('#content-bottom-sheet').html('');
+        var id = $(this).closest('div').find('input').attr('name');
+        console.log(no_pdrk);
+        switch(id){
+            case 'no_pdrk':
+                var options = {
+                    id : id,
+                    header : ['No Bukti', 'Keterangan'],
+                    url : "{{ url('sukka-trans/aju-rra') }}",
+                    columns : [
+                        { data: 'no_pdrk' },
+                        { data: 'keterangan' }
+                    ],
+                    judul : "Daftar PDRK",
+                    pilih : "no_pdrk",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
+        }
+        showInpFilter(options);
+    });
+    
     
     </script>

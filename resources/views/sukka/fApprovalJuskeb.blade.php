@@ -872,7 +872,6 @@
             url: "{{ url('sukka-trans/app-juskeb-send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
-            async:false,
             success:function(res){
                 console.log(res);
             }

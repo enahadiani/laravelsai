@@ -393,8 +393,8 @@
         $('#total-row-terima').html(total_row+' Baris');
     }
 
-    function hitungTotalRowUpload(form){
-        var total_row = $('#'+form+' #input-dok tbody tr').length;
+    function hitungTotalRowUpload(){
+        var total_row = $('#input-dok tbody tr').length;
         $('#total-row_dok').html(total_row+' Baris');
     }
 
@@ -824,7 +824,6 @@
             url: "{{ url('sukka-trans/app-rra-send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
-            async:false,
             success:function(res){
                 console.log(res);
             }

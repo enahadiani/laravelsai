@@ -305,7 +305,7 @@
                             <div class="tab-pane" id="data-approval" role="tabpanel">
                                 <div class='col-md-12 nav-control' style="padding: 0px 5px;">
                                     <a type="button" href="#" id="load-app" data-toggle="tooltip" title="Load Approval" style=""><i class="simple-icon-refresh" style="font-size: 18px !important;position: relative;top: 5px;"></i> <span style="font-size:12.8px;top: 3px !important;position: relative;">Tampil Approval</span></a>
-                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row" ></span></a>
+                                    <a style="font-size:18px;float: right;margin-top: 6px;text-align: right;" class=""><span style="font-size:12.8px;padding: .5rem .5rem .5rem 1.25rem;margin: auto 0;" id="total-row_flow" ></span></a>
                                 </div>
                                 <div class='col-md-12 table-responsive' style='margin:0px; padding:0px;'>
                                     <table class="table table-bordered table-condensed gridexample" id="input-flow" style="width:100%;table-layout:fixed;word-wrap:break-word;white-space:nowrap">
@@ -396,7 +396,7 @@
 
     function hitungTotalRowAppFlow(){
         var total_row = $('#input-flow tbody tr').length;
-        $('#total-row').html(total_row+' Baris');
+        $('#total-row_flow').html(total_row+' Baris');
     }
 
     function hitungTotalRowBeri(){
