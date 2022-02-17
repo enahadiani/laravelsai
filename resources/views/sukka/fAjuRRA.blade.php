@@ -1348,8 +1348,8 @@
     });
 
     $('#saku-datatable').on('click','#btn-preview',function(e){
-        var id = $(this).closest('tr').find('td').eq(0).html();
-        printPreview(id);
+        var data = dataTable.row($(this).parents('tr')).data()
+        printPreview(data.no_pdrk);
     });
 
     // END BUTTON KEMBALI
