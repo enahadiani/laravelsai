@@ -1711,7 +1711,6 @@
                             e.stopPropagation();
                             $('.dropdown-ke1').addClass('hidden');
                             $('.dropdown-ke2').removeClass('hidden');
-                            console.log('ok');
                         });
 
                         $('.preview-header').on('click','#btn-cetak2',function(e){
@@ -1721,14 +1720,8 @@
                             $('.dropdown-ke2').addClass('hidden');
                         });
 
-                        if(posted == "Close"){
-                            console.log(posted);
-                            $('.preview-header #btn-delete2').css('display','none');
-                            $('.preview-header #btn-edit2').css('display','none');
-                        }else{
-                            $('.preview-header #btn-delete2').css('display','inline-block');
-                            $('.preview-header #btn-edit2').css('display','inline-block');
-                        }
+                        $('.preview-header #btn-delete2').css('display','inline-block');
+                        $('.preview-header #btn-edit2').css('display','inline-block');
                         $('#trigger-bottom-sheet').trigger("click");
                     }
                     else if(!result.status && result.message == 'Unauthorized'){
@@ -2163,7 +2156,6 @@
     function addRowDok(form){
         var no=$('#'+form+' #input-dok .row-dok:last').index();
         no=no+2;
-        console.log(no);
         var input = "";
         input += "<tr class='row-dok'>";
         input += "<td class='no-dok text-center'>"+no+"</td>";
@@ -2178,7 +2170,6 @@
         </td>`;
         input+=`
         <td class='text-center action-dok'><a href='#' class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
-        console.log(form);
         $('#'+form+' #input-dok tbody').append(input);
         hitungTotalRowUpload(form);
     }
@@ -2194,7 +2185,6 @@
         var tmp = $(this).closest('tr').find('input[name="nama_dok[]"]').attr('class');
         var tmp2 = tmp.split(" ");
         target2 = tmp2[2];
-        console.log(par,target1,target2)
         
         switch(par){
             case 'kode_jenis[]': 
@@ -3290,7 +3280,6 @@
 
     $('#input-beri').on('change', '.inp-nilai', function(){
         
-        console.log('nilai change');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotalBeri();
         }
@@ -3640,7 +3629,6 @@
     
     $('.custom-file-input').change(function(){
         var fileName = $(this).val();
-        console.log(fileName);
         $('.custom-file-label').html(fileName);
         $('#form-import').submit();
     })
@@ -3804,14 +3792,12 @@
         var td_nama_file= param.td_nama_file;
         var action_dok= param.action_dok;
         var no_urut= param.no_urut;
-        console.log(param);
         $.ajax({
             type: 'DELETE',
             url: "{{ url('sukka-trans/aju-rra-dok') }}",
             dataType: 'json',
             data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'no_urut':no_urut},
             success:function(result){
-                // console.log(result.data.message);
                 if(result.data.status){
                     td_nama_file.closest('tr').remove();
                     no=1;
@@ -3976,7 +3962,6 @@
     $('#modalFilter').on('click', '.search-item2', function(){
         $('#content-bottom-sheet').html('');
         var id = $(this).closest('div').find('input').attr('name');
-        console.log(no_pdrk);
         switch(id){
             case 'no_pdrk':
                 var options = {

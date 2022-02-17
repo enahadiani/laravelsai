@@ -1467,7 +1467,6 @@
                             e.stopPropagation();
                             $('.dropdown-ke1').addClass('hidden');
                             $('.dropdown-ke2').removeClass('hidden');
-                            console.log('ok');
                         });
 
                         $('.preview-header').on('click','#btn-cetak2',function(e){
@@ -2260,7 +2259,6 @@
     function addRowDok(form){
         var no=$('#'+form+' #input-dok .row-dok:last').index();
         no=no+2;
-        console.log(no);
         var input = "";
         input += "<tr class='row-dok'>";
         input += "<td class='no-dok text-center'>"+no+"</td>";
@@ -2274,7 +2272,6 @@
         </td>`;
         input+=`
         <td class='text-center action-dok'><a href='#' class='hapus-dok2'><i class='simple-icon-trash' style='font-size:18px'></i></a></td></tr>`;
-        console.log(form);
         $('#'+form+' #input-dok tbody').append(input);
         hitungTotalRowUpload(form);
     }
@@ -3387,8 +3384,6 @@
     });
 
     $('#input-beri').on('change', '.inp-nilai', function(){
-        
-        console.log('nilai change');
         if($(this).closest('tr').find('.inp-nilai').val() != "" && $(this).closest('tr').find('.inp-nilai').val() != 0){
             hitungTotalBeri();
         }
@@ -3565,14 +3560,12 @@
         var td_nama_file= param.td_nama_file;
         var action_dok= param.action_dok;
         var no_urut= param.no_urut;
-        console.log(param);
         $.ajax({
             type: 'DELETE',
             url: "{{ url('sukka-trans/juskeb-dok') }}",
             dataType: 'json',
             data: {'no_bukti':no_bukti,'kode_jenis':kode_jenis, 'no_urut':no_urut},
             success:function(result){
-                // console.log(result.data.message);
                 if(result.data.status){
                     td_nama_file.closest('tr').remove();
                     no=1;
