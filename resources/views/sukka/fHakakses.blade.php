@@ -1,83 +1,22 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
-    <link rel="stylesheet" href="{{ asset('form.css') }}" />
-    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-new.css?version=_').time() }}" />
+    <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Hak Akses" tambah="true" :thead="array('NIK','Nama','Kode Menu','Kode Lokasi','Status Admin','Aksi')" :thwidth="array(20,25,20,20,20,10)" :thclass="array('','','','','','text-center')" />
-    <!-- END LIST DATA -->
-    <!-- LIST DATA -->
-    {{-- <div class="row" id="saku-datatable">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body pb-3" style="padding-top:1rem;min-height:69.2px">
-                    <h5 style="position:absolute;top: 25px;">Data Hak Akses</h5>
-                    <button type="button" id="btn-tambah" class="btn btn-primary" style="float:right;" ><i class="fa fa-plus-circle"></i> Tambah</button>
-                </div>
-                <div class="separator mb-2"></div>
-                <div class="row" style="padding-right:1.75rem;padding-left:1.75rem">
-                    <div class="dataTables_length col-sm-12" id="table-data_length"></div>
-                    <div class="d-block d-md-inline-block float-left col-md-6 col-sm-12">
-                        <div class="page-countdata">
-                            <label>Menampilkan 
-                            <select style="border:none" id="page-count">
-                                <option value="10">10 per halaman</option>
-                                <option value="25">25 per halaman</option>
-                                <option value="50">50 per halaman</option>
-                                <option value="100">100 per halaman</option>
-                            </select>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="d-block d-md-inline-block float-right col-md-6 col-sm-12">
-                        <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search..."
-                                aria-label="Search..." aria-describedby="filter-btn" id="searchData">
-                            <div class="input-group-append" id="filter-btn">
-                                <span class="input-group-text"><span class="badge badge-pill badge-outline-primary mb-0" id="jum-filter" style="font-size: 8px;margin-right: 5px;padding: 0.5em 0.75em;"></span><i class="simple-icon-equalizer mr-1"></i>Filter</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body" style="min-height: 560px !important;padding-top:0;">                    
-                    <div class="table-responsive ">
-                        <table id="table-data" style='width:100%'>                                    
-                            <thead>
-                                <tr>
-                                    <th>NIK</th>
-                                    <th>Nama</th>
-                                    <th>Kode Menu</th>
-                                    <th>Kode Lokasi</th>
-                                    <th>Status Admin</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-    <!-- END LIST DATA -->
     <!-- FORM  -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
         <input type="hidden" id="id" name="id">
-        <input type="hidden" id="kode_klp_menu" name="kode_klp_menu" value="-">
-        <input type="hidden" id="path_view" name="path_view" value="-">
-        <input type="hidden" id="kode_menu_lab" name="kode_menu_lab" value="-">
         <input type="hidden" id="nama" name="nama" value="-">
-        <input type="hidden" id="nik2" name="nik2" value="-">
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                         <h6 id="judul-form" style="position:absolute;top:13px"></h6>
                         <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <button type="submit" id="btn-save" class="btn btn-primary float-right"><i class="fa fa-save"></i> Simpan</button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -103,31 +42,31 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="kode_menu_saku">Menu Esaku</label>
+                                <label for="kode_klp_menu">Menu Esaku</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_kode_menu_saku" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        <span class="input-group-text info-code_kode_klp_menu" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
-                                    <input type="text" class="form-control inp-label-kode_menu_saku" autocomplete="off" id="kode_menu_saku" name="kode_menu_saku" value="" title="" data-input="cbbl" readonly>
-                                    <span class="info-name_kode_menu_saku hidden">
+                                    <input type="text" class="form-control inp-label-kode_klp_menu" autocomplete="off" id="kode_klp_menu" name="kode_klp_menu" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_kode_klp_menu hidden">
                                         <span></span> 
                                     </span>
                                     <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_kode_menu_saku"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_kode_klp_menu"></i>
                                 </div>                        
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="menu_mobile">Form Default Awal</label>
+                                <label for="path_view">Form Default Awal</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                        <span class="input-group-text info-code_menu_mobile" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                                        <span class="input-group-text info-code_path_view" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
                                     </div>
-                                    <input type="text" class="form-control inp-label-menu_mobile" autocomplete="off" id="menu_mobile" name="menu_mobile" value="" title="" data-input="cbbl" readonly>
-                                    <span class="info-name_menu_mobile hidden">
+                                    <input type="text" class="form-control inp-label-path_view" autocomplete="off" id="path_view" name="path_view" value="" title="" data-input="cbbl" readonly>
+                                    <span class="info-name_path_view hidden">
                                         <span></span> 
                                     </span>
                                     <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                    <i class="simple-icon-magnifier search-item2" id="search_menu_mobile"></i>
+                                    <i class="simple-icon-magnifier search-item2" id="search_path_view"></i>
                                 </div>                        
                             </div>
                         </div>
@@ -147,16 +86,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-form-footer">
-                        <div class="footer-form-container">
-                            <div class="text-right message-action">
-                                <p class="text-success"></p>
-                            </div>
-                            <div class="action-footer">
-                                <button type="submit" id="btn-save" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -167,22 +96,23 @@
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 0 !important;">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
                         <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close mt-2" data-dismiss="modal" aria-label="Close" style="position: relative;
+                        right: 0px !important;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label>Kode Menu</label>
                             <select class="form-control" data-width="100%" name="inp-filter_menu" id="inp-filter_menu">
                                 <option value=''>Pilih Menu</option>
                             </select>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label>Status Admin</label>
                             <select class="form-control" data-width="100%" name="inp-filter_status" id="inp-filter_status">
                                 <option value=''>Pilih Status</option>
@@ -192,7 +122,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none">
+                    <div class="modal-footer" style="border:none;bottom: 0;position: absolute;width: 100%;justify-content: right;">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
                     </div>
@@ -277,7 +207,7 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/hakakses_menu') }}",
+            url: "{{ url('sukka-master/hakakses_menu') }}",
             dataType: 'json',
             async:false,
             success:function(res){
@@ -298,7 +228,7 @@
     function getNIK(kode_cbbl,kode){
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/karyawan') }}",
+            url: "{{ url('sukka-master/karyawan') }}",
             dataType: 'json',
             async:false,
             success:function(result){    
@@ -318,7 +248,7 @@
     function getKlpMenu(kode_cbbl,kode){
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/hakakses_menu') }}",
+            url: "{{ url('sukka-master/hakakses_menu') }}",
             dataType: 'json',
             async:false,
             success:function(res){
@@ -340,7 +270,7 @@
     function getMenu(kode_cbbl,kode){
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/form') }}",
+            url: "{{ url('sukka-master/form') }}",
             dataType: 'json',
             async:false,
             success:function(res){ 
@@ -361,7 +291,7 @@
     function getPath(kode_cbbl,kode){
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/form') }}",
+            url: "{{ url('sukka-master/form') }}",
             dataType: 'json',
             async:false,
             success:function(res){    
@@ -386,9 +316,9 @@
         var value = $(this).val();
         getNIK('nik',value);
     });
-    $('#kode_menu_saku').change(function(){
+    $('#kode_klp_menu').change(function(){
         var value = $(this).val();
-        getKlpMenu('kode_menu_saku',value);
+        getKlpMenu('kode_klp_menu',value);
     });
     $('#menu_mobile').change(function(){
         var value = $(this).val();
@@ -405,7 +335,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('siaga-master/hakakses') }}", 
+        "{{ url('sukka-master/hakakses') }}", 
         [
             {'targets': 5, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -421,11 +351,11 @@
         [
             { data: 'nik' },
             { data: 'nama' },
-            { data: 'kode_menu_saku' },
+            { data: 'kode_klp_menu' },
             { data: 'kode_lokasi' },
             { data: 'status_admin' }
         ],
-        "{{ url('siaga-auth/sesi-habis') }}",
+        "{{ url('sukka-auth/sesi-habis') }}",
         [[5 ,"desc"]]
     );
 
@@ -475,11 +405,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#nik').val();
             if(parameter == "edit"){
-                var url = "{{ url('siaga-master/hakakses') }}/"+id;
+                var url = "{{ url('sukka-master/hakakses') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('siaga-master/hakakses') }}";
+                var url = "{{ url('sukka-master/hakakses') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -512,7 +442,7 @@
                         last_add(dataTable,"nik",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -554,7 +484,7 @@
         $('#judul-form').html('Edit Data Hak Akses');
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/hakakses') }}/" + id,
+            url: "{{ url('sukka-master/hakakses') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -564,30 +494,23 @@
                     $('#method').val('put');
                     $('#id').val(id);
                     $('#nik').val(result.data[0].nik);
-                    var nik2 = (result.data[0].nik2 == '' || result.data[0].nik2 == null || result.data[0].nik2 == undefined ? '-' : result.data[0].nik2);
-                    $('#nik2').val(nik2);
                     $('#nama').val(result.data[0].nama);
                     $('#password').val(result.data[0].pass);
                     $('#klp_akses').val(result.data[0].klp_akses);
-                    var kode_menu_lab = (result.data[0].kode_menu_lab == '' || result.data[0].kode_menu_lab == null || result.data[0].kode_menu_lab == undefined ? '-' : result.data[0].kode_menu_lab);
-                    $('#kode_menu_lab').val(kode_menu_lab);
                     var kode_klp_menu = (result.data[0].kode_klp_menu == '' || result.data[0].kode_klp_menu == null || result.data[0].kode_klp_menu == undefined ? '-' : result.data[0].kode_klp_menu);
                     $('#kode_klp_menu').val(kode_klp_menu);
-                    $('#kode_menu_saku').val(result.data[0].kode_menu_saku);
-                    var menu_mobile = (result.data[0].menu_mobile == '' || result.data[0].menu_mobile == null || result.data[0].menu_mobile == undefined ? '-' : result.data[0].menu_mobile);
-                    $('#menu_mobile').val(menu_mobile);
                     var path_view = (result.data[0].path_view == '' || result.data[0].path_view == null || result.data[0].path_view == undefined ? '-' : result.data[0].path_view);
                     $('#path_view').val(path_view);
                     $('#status')[0].selectize.setValue(result.data[0].status_admin);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
-                    showInfoField('kode_menu_saku',result.data[0].kode_menu_saku,result.data[0].nama_klp3)
-                    showInfoField('menu_mobile',result.data[0].menu_mobile,result.data[0].nama_form3)
+                    showInfoField('kode_klp_menu',result.data[0].kode_klp_menu,result.data[0].nama_klp)
+                    showInfoField('path_view',result.data[0].path_view,result.data[0].nama_form)
                     showInfoField('nik',result.data[0].nik,result.data[0].nama)
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -606,47 +529,92 @@
         if($(this).index() != 5){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var html = `<tr>
-                <td style='border:none'>NIK</td>
-                <td style='border:none'>`+data.nik+`</td>
-            </tr>
-            <tr>
-                <td>Nama</td>
-                <td>`+data.nama+`</td>
-            </tr>
-            <tr>
-                <td>Kode Menu</td>
-                <td>`+data.kode_menu_saku+`</td>
-            </tr>
-            <tr>
-                <td>Kode Lokasi</td>
-                <td>`+data.kode_lokasi+`</td>
-            </tr>
-            <tr>
-                <td>Status Admin</td>
-                <td>`+data.status_admin+`</td>
-            </tr>
+            var html = `<div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
+                <div class="dropdown d-inline-block float-right">
+                    <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                    <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                    </div>
+                </div>
+            </div>
+            <div class='separator'></div>
+            <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px);position:sticky'>
+                <table class="table table-prev mt-2" width="100%">
+                    <tr>
+                        <td style='border:none'>NIK</td>
+                        <td style='border:none'>`+data.nik+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>`+data.nama+`</td>
+                    </tr>
+                    <tr>
+                        <td>Kode Menu</td>
+                        <td>`+data.kode_klp_menu+`</td>
+                    </tr>
+                    <tr>
+                        <td>Kode Lokasi</td>
+                        <td>`+data.kode_lokasi+`</td>
+                    </tr>
+                    <tr>
+                        <td>Status Admin</td>
+                        <td>`+data.status_admin+`</td>
+                    </tr>
+                </table>
+            </div>
             `;
-            $('#table-preview tbody').html(html);
+            $('#content-bottom-sheet').html(html);
+            $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
             
-            $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
+            $('.preview-header').on('click','#btn-delete2',function(e){
+                var id = $('#preview-id').text();
+                $('.c-bottom-sheet').removeClass('active');
+                msgDialog({
+                    id:id,
+                    type:'hapus'
+                });
+            });
+
+            $('.preview-header').on('click', '#btn-edit2', function(){
+                var id= $('#preview-id').text();
+                $('#judul-form').html('Edit Data Jurnal');
+                $('#form-tambah')[0].reset();
+                $('#form-tambah').validate().resetForm();
+                
+                $('#btn-save').attr('type','button');
+                $('#btn-save').attr('id','btn-update');
+                $('.c-bottom-sheet').removeClass('active');
+                editData(id);
+            });
+
+            $('.preview-header').on('click','#btn-cetak',function(e){
+                e.stopPropagation();
+                $('.dropdown-ke1').addClass('hidden');
+                $('.dropdown-ke2').removeClass('hidden');
+                console.log('ok');
+            });
+
+            $('.preview-header').on('click','#btn-cetak2',function(e){
+                // $('#dropdownAksi').dropdown('toggle');
+                e.stopPropagation();
+                $('.dropdown-ke1').removeClass('hidden');
+                $('.dropdown-ke2').addClass('hidden');
+            });
+
+            $('#trigger-bottom-sheet').trigger("click");
         }
     });
 
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        editData(id)
-    });
-
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
     // END PREVIEW saat klik di list data //
 
     
@@ -654,7 +622,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('siaga-master/hakakses') }}/"+id,
+            url: "{{ url('sukka-master/hakakses') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -754,7 +722,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-nik') }}",
+                    url : "{{ url('sukka-master/filter-nik') }}",
                     columns : [
                         { data: 'nik' },
                         { data: 'nama' }
@@ -774,11 +742,11 @@
                     }
                 }
             break;
-            case 'kode_menu_saku': 
+            case 'kode_klp_menu': 
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-klp-menu') }}",
+                    url : "{{ url('sukka-master/filter-klp-menu') }}",
                     columns : [
                         { data: 'kode_klp' },
                         { data: 'kode_klp' }
@@ -798,7 +766,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('siaga-master/filter-form') }}",
+                    url : "{{ url('sukka-master/filter-form') }}",
                     columns : [
                         { data: 'kode_form' },
                         { data: 'nama_form' }
@@ -817,13 +785,13 @@
             default:
             break;
         }
-            showInpFilter(settings);
+        showInpFilterBSheet(settings);
     });
     //END SHOW CBBL//
 
-    $('#nik,#password,#kode_menu_saku,#menu_mobile,#klp_akses').keydown(function(e){
+    $('#nik,#password,#kode_klp_menu,#menu_mobile,#klp_akses').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['nik','password','kode_menu_saku','menu_mobile','klp_akses'];
+        var nxt = ['nik','password','kode_klp_menu','menu_mobile','klp_akses'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
