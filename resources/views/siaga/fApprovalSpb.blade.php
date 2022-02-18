@@ -902,7 +902,7 @@
             url: "{{ url('siaga-trans/send-email') }}",
             dataType: 'json',
             data:{'no_pooling': id},
-            async:false,
+            // async:false,
             success:function(res){
                 console.log(res);
             }
