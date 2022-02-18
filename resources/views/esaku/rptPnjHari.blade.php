@@ -13,6 +13,15 @@ function drawLap(formData){
 
 drawLap($formData);
 
+function sepNum2(x) {
+    var num = parseFloat(x).toFixed(0);
+    var parts = num.toString().split(".");
+    var len = num.toString().length;
+    // parts[1] = parts[1]/(Math.pow(10, len));
+    parts[0] = parts[0].replace(/(.)(?=(.{3})+$)/g, "$1.");
+    return parts.join(",");
+}
+
 function drawRptPage(data,res,from,to){ 
     var data = data;
     var html = "";
@@ -63,10 +72,10 @@ function drawRptPage(data,res,from,to){
                 if(value.tanggal == value2.tanggal && value.nik_kasir == value2.nik_user){
                     harga+=+value2.harga;
                     diskon+=+value2.diskon;
-                    jumlah+=+value2.jumlah;
+                    jumlah = jumlah + value2.jumlah;
                     bonus+=+value2.bonus;
-                    total+=+value2.total_ex;
-                    subTot+= +parseFloat(value2.total_ex);
+                    total = total + value2.total_ex;
+                    subTot = subTot + parseFloat(value2.total_ex);
                     html += "<tr>"
                     html += "<td align='center' class='isi_laporan'>"+no+"</td>";
                     html += "<td  class='isi_laporan'>"+value2.kode_barang+"</td>";
@@ -74,9 +83,9 @@ function drawRptPage(data,res,from,to){
                     html += "<td  class='isi_laporan'>"+value2.satuan+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.harga)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.diskon)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.jumlah)+"</td>";
+                    html += "<td align='right' class='isi_laporan'>"+sepNum2(value2.jumlah)+"</td>";
                     html += "<td align='right' class='isi_laporan'>"+sepNum(value2.bonus)+"</td>";
-                    html += "<td align='right' class='isi_laporan'>"+sepNum(value2.total)+"</td>";
+                    html += "<td align='right' class='isi_laporan'>"+sepNum2(value2.total)+"</td>";
                     html += "</tr>";
                     no++;
                 }
@@ -84,9 +93,9 @@ function drawRptPage(data,res,from,to){
             html += "<tr>";
             html += "<td colspan='5' style='text-align: right; font-weight: bold;'>Total</td>"
             html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(diskon)+"</td>"
-            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(jumlah)+"</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum2(jumlah)+"</td>"
             html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(bonus)+"</td>"
-            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum(total)+"</td>"
+            html += "<td style='text-align: right; font-weight: bold;'>"+sepNum2(total)+"</td>"
             html += "</tr>";
             html += "</tbody>";
             html += "</table>";
