@@ -42,7 +42,7 @@ class HakaksesController extends Controller
             $response_data = $response->getBody()->getContents();
             
             $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            $data = $data["data"];
         }
         return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
@@ -57,16 +57,12 @@ class HakaksesController extends Controller
     {
         $this->validate($request, [
             'nik' => 'required',
-            'nik2' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
-            'kode_menu_saku' => 'required',
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab'=> 'required',
             'path_view' => 'required',
-            'menu_mobile' => 'required',
         ]);
 
         try{
@@ -80,16 +76,12 @@ class HakaksesController extends Controller
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
                     'nik' => $request->nik,
-                    'nik2' => $request->nik2,
                     'nama' => $request->nama,
                     'kode_klp_menu' => $request->kode_klp_menu,
                     'pass' => $request->pass,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
-                    'path_view'=> $request->path_view,
-                    'menu_mobile'=> $request->menu_mobile,
-                    'kode_menu_lab'=> $request->kode_menu_lab,
-                    'kode_menu_saku'=> $request->kode_menu_saku
+                    'path_view'=> $request->path_view
                 ]
             ]);        
             
@@ -97,7 +89,7 @@ class HakaksesController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"]], 200);  
+                return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -130,7 +122,7 @@ class HakaksesController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
             
@@ -166,16 +158,12 @@ class HakaksesController extends Controller
     {
         $this->validate($request, [
             'nik' => 'required',
-            'nik2' => 'required',
             'nama' => 'required',
             'kode_klp_menu' => 'required',
-            'kode_menu_saku' => 'required',
             'pass' => 'required',
             'status_admin' => 'required',
             'klp_akses' => 'required',
-            'kode_menu_lab'=> 'required',
             'path_view' => 'required',
-            'menu_mobile' => 'required',
         ]);
 
         try{
@@ -189,23 +177,19 @@ class HakaksesController extends Controller
                 'form_params' => [
                     'kode_lokasi' => Session::get('lokasi'),
                     'nik' => $request->nik,
-                    'nik2' => $request->nik2,
                     'nama' => $request->nama,
                     'kode_klp_menu' => $request->kode_klp_menu,
                     'pass' => $request->pass,
                     'status_admin' => $request->status_admin,
                     'klp_akses' => $request->klp_akses,
-                    'path_view'=> $request->path_view,
-                    'menu_mobile'=> $request->menu_mobile,
-                    'kode_menu_lab'=> $request->kode_menu_lab,
-                    'kode_menu_saku'=> $request->kode_menu_saku
+                    'path_view'=> $request->path_view
                 ]
             ]);        
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"]], 200);  
+                return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -238,7 +222,7 @@ class HakaksesController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
         } catch (BadResponseException $ex) {
@@ -255,7 +239,7 @@ class HakaksesController extends Controller
     {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-master/menu',[
+            $response = $client->request('GET',  config('api.url').'sukka-master/menu-klp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -266,7 +250,7 @@ class HakaksesController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
             
@@ -294,7 +278,7 @@ class HakaksesController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
 

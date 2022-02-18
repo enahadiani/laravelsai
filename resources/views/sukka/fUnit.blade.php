@@ -1,8 +1,7 @@
-<link rel="stylesheet" href="{{ asset('master.css') }}" />
-    <link rel="stylesheet" href="{{ asset('form.css') }}" />
-    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-new.css?version=_').time() }}" />
+    <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Regional/Unit" tambah="true" :thead="array('Kode Regional/Unit','Nama','Aksi')" :thwidth="array(20,25,10)" :thclass="array('','','text-center')" />
+    <x-list-data judul="Data Unit" tambah="true" :thead="array('Kode Unit','Nama','Aksi')" :thwidth="array(20,25,10)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
     <!-- FORM  -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -12,34 +11,25 @@
         <div class="row" id="saku-form" style="display:none;">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px;">
+                    <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
                         <h6 id="judul-form" style="position:absolute;top:13px"></h6>
                         <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <button type="submit" id="btn-save" class="btn btn-primary float-right"><i class="fa fa-save"></i> Simpan</button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="kode">Kode</label>
-                                <input class="form-control" type="text" placeholder="Kode Regional/Unit" id="kode" name="kode_pp" autocomplete="off">                        
+                                <input class="form-control" type="text" placeholder="Kode Unit" id="kode" name="kode_pp" autocomplete="off">                        
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12">
                                 <label for="nama">Nama</label>
-                                <input class="form-control" type="text" placeholder="Nama Regional/Unit" id="nama" name="nama" autocomplete="off">                        
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-form-footer">
-                        <div class="footer-form-container">
-                            <div class="text-right message-action">
-                                <p class="text-success"></p>
-                            </div>
-                            <div class="action-footer">
-                                <button type="submit" id="btn-save" style="margin-top: 10px;" class="btn btn-primary btn-save"><i class="fa fa-save"></i> Simpan</button>
+                                <input class="form-control" type="text" placeholder="Nama Unit" id="nama" name="nama" autocomplete="off">                        
                             </div>
                         </div>
                     </div>
@@ -53,23 +43,24 @@
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 0 !important;">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
                         <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close mt-2" data-dismiss="modal" aria-label="Close" style="position: relative;
+                        right: 0px !important;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group row">
-                            <label>Kode Regional</label>
+                        <div class="form-group">
+                            <label>Kode Unit</label>
                             <select class="form-control" data-width="100%" name="inp-filter_regional" id="inp-filter_regional">
-                                <option value=''>Pilih Kode Regional</option>
+                                <option value=''>Pilih Kode Unit</option>
                             </select>
                         </div>
                     </div>
-                    <div class="modal-footer" style="border:none">
+                    <div class="modal-footer" style="border:none;bottom: 0;position: absolute;width: 100%;justify-content: right;">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
                     </div>
@@ -77,7 +68,7 @@
             </div>
         </div>
     </div>
-    @include('modal_search')
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script type="text/javascript">
@@ -85,8 +76,13 @@
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
+    
+    var bottomSheet = new BottomSheet("country-selector");
+        document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+        window.bottomSheet = bottomSheet;
+
     var $iconLoad = $('.preloader');
-    var selectRegional = $('#inp-filter_regional').selectize();
+    var selectUnit = $('#inp-filter_regional').selectize();
 
     $.ajaxSetup({
         headers: {
@@ -105,13 +101,13 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/unit') }}",
+            url: "{{ url('sukka-master/unit') }}",
             dataType: 'json',
             async:false,
             success:function(res){
                 var result= res.daftar;    
                 if(res.status){
-                    var select = selectRegional[0]
+                    var select = selectUnit[0]
                     var control = select.selectize;
                     if(typeof result !== 'undefined' && result.length>0){
                         for(i=0;i<result.length;i++){
@@ -155,7 +151,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('siaga-master/unit') }}", 
+        "{{ url('sukka-master/unit') }}", 
         [
             {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -172,7 +168,7 @@
             { data: 'kode_pp' },
             { data: 'nama' }
         ],
-        "{{ url('siaga-auth/sesi-habis') }}",
+        "{{ url('sukka-auth/sesi-habis') }}",
         [[2 ,"desc"]]
     );
 
@@ -190,7 +186,7 @@
 
     // BUTTON TAMBAH
     $('#saku-datatable').on('click', '#btn-tambah', function(){
-        $('#judul-form').html('Tambah Data Regional');
+        $('#judul-form').html('Tambah Data Unit');
         $('#kode').attr('readonly', false);
         newForm()
     });
@@ -231,11 +227,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode').val();
             if(parameter == "edit"){
-                var url = "{{ url('siaga-master/unit') }}/"+id;
+                var url = "{{ url('sukka-master/unit') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('siaga-master/unit') }}";
+                var url = "{{ url('sukka-master/unit') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -262,7 +258,7 @@
                     if(result.data.status){
                         dataTable.ajax.reload();
                         var kode = $('#kode').val();
-                        $('#judul-form').html('Tambah Data Regional');
+                        $('#judul-form').html('Tambah Data Unit');
                         $('#kode').attr('readonly', false);
                         resetForm()
                         msgDialog({
@@ -272,7 +268,7 @@
                         last_add(dataTable,"nik",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -307,7 +303,7 @@
     // END BUTTON SIMPAN
 
     // BUTTON EDIT TABLE //
-    function ediData(id) {
+    function editData(id) {
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -315,7 +311,7 @@
         
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/unit') }}/" + id,
+            url: "{{ url('sukka-master/unit') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -332,7 +328,7 @@
                     $('#saku-form').show();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -340,7 +336,7 @@
     }
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        ediData(id)
+        editData(id)
     });
     // END BUTTON TABLE EDIT //
 
@@ -350,35 +346,81 @@
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
             var status = data.flag_status;
-            var html = `<tr>
-                <td style='border:none'>Kode Regional</td>
-                <td style='border:none'>`+id+`</td>
-            </tr>
-            <tr>
-                <td>Nama</td>
-                <td>`+data.nama+`</td>
-            </tr>
+            var html = `
+            <div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
+                <div class="dropdown d-inline-block float-right">
+                    <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                    <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                    </div>
+                </div>
+            </div>
+            <div class='separator'></div>
+            <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px);position:sticky'>
+                <table class="table table-prev mt-2" width="100%">
+                    <tr>
+                        <td style='border:none'>Kode Unit</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>`+data.nama+`</td>
+                    </tr>
+                </table>
+            </div>
             `;
-            $('#table-preview tbody').html(html);
+            $('#content-bottom-sheet').html(html);
+            $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
             
-            $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
+            $('.preview-header').on('click','#btn-delete2',function(e){
+                var id = $('#preview-id').text();
+                $('.c-bottom-sheet').removeClass('active');
+                msgDialog({
+                    id:id,
+                    type:'hapus'
+                });
+            });
+
+            $('.preview-header').on('click', '#btn-edit2', function(){
+                var id= $('#preview-id').text();
+                $('#judul-form').html('Edit Data Jurnal');
+                $('#form-tambah')[0].reset();
+                $('#form-tambah').validate().resetForm();
+                
+                $('#btn-save').attr('type','button');
+                $('#btn-save').attr('id','btn-update');
+                $('.c-bottom-sheet').removeClass('active');
+                editData(id);
+            });
+
+            $('.preview-header').on('click','#btn-cetak',function(e){
+                e.stopPropagation();
+                $('.dropdown-ke1').addClass('hidden');
+                $('.dropdown-ke2').removeClass('hidden');
+                console.log('ok');
+            });
+
+            $('.preview-header').on('click','#btn-cetak2',function(e){
+                // $('#dropdownAksi').dropdown('toggle');
+                e.stopPropagation();
+                $('.dropdown-ke1').removeClass('hidden');
+                $('.dropdown-ke2').addClass('hidden');
+            });
+
+            $('#trigger-bottom-sheet').trigger("click");
         }
     });
 
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        ediData(id)
-    });
-
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
     // END PREVIEW saat klik di list data //
 
     
@@ -386,7 +428,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('siaga-master/unit') }}/"+id,
+            url: "{{ url('sukka-master/unit') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -397,7 +439,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',

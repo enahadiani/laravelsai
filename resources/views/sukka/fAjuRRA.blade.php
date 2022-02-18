@@ -19,6 +19,21 @@
         {
             overflow:unset !important;
         }
+
+        
+        div.inp-div-nik > input {
+            border-radius: 0 !important;
+            z-index: 1;
+            position: relative;
+            display: inline-block;
+            background: white !important;
+        }
+
+        div.inp-div-nik > .search-item {
+            margin-top: -27px;
+            z-index: 2;
+            margin-left: -20px;
+        }
     </style>
     <!-- FORM INPUT -->
     <form id="form-tambah" class="tooltip-label-right" novalidate>
@@ -93,8 +108,9 @@
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_pp_juskeb" >Unit Kerja</label>
-                                        <input class="form-control " type="text"  readonly id="kode_pp_juskeb" name="kode_pp_juskeb">
+                                        <label for="nama_pp_juskeb" >Unit Kerja</label>
+                                        <input class="form-control " type="text"  readonly id="nama_pp_juskeb" name="nama_pp_juskeb">
+                                        <input type="hidden" name="kode_pp_juskeb" id="kode_pp_juskeb">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total_terima" >Nilai Penerima</label>
@@ -595,7 +611,7 @@
                                 <td>${no}</td>    
                                 <td>${row.kode_role}</td>    
                                 <td>${row.kode_jab}</td>    
-                                <td>${row.nik}</td>    
+                                <td class="p-0"><div class='inp-div-nik'><input type='text' name='nik[]' class='form-control inp-nik nikke`+no+`' value='`+row.nik+`'  style='z-index: 1;' id='nikkode`+no+`' readonly><a href='#' class='search-item search-nik'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>   
                                 <td>${row.nama}</td>    
                                 <td>${row.email}</td>    
                             </tr>
@@ -1071,7 +1087,8 @@
                         $('#tanggal').val(result.data[0].tgl_pdrk);
                     }
                     $('#no_juskeb').val(result.data[0].no_bukti); 
-                    $('#kode_pp_juskeb').val(result.data[0].nama_pp); 
+                    $('#nama_pp_juskeb').val(result.data[0].nama_pp); 
+                    $('#kode_pp_juskeb').val(result.data[0].kode_pp); 
                     $('#jenis_rra').val(result.data[0].kode_jenis); 
                     $('#lokasi_beri').val(result.data[0].lok_donor);
                     $('#lokasi_terima').val(result.data[0].lok_terima);
@@ -1247,7 +1264,7 @@
                                     <td>${no}</td>    
                                     <td>${line.kode_role}</td>    
                                     <td>${line.kode_jab}</td>    
-                                    <td>${line.nik}</td>    
+                                    <td class="p-0"><div class='inp-div-nik'><input type='text' name='nik[]' class='form-control inp-nik nikke`+no+`' value='`+line.nik+`'  style='z-index: 1;' id='nikkode`+no+`' readonly><a href='#' class='search-item search-nik'><i class='simple-icon-magnifier' style='font-size: 18px;'></i></a></div></td>   
                                     <td>${line.nama}</td>    
                                     <td>${line.email}</td>    
                                 </tr>`;
@@ -1749,11 +1766,11 @@
             $("#input-flow tbody tr").each(function(i, v){
                 var kode_role = $(this).closest('tr').find('td:eq(1)').text()
                 var kode_jab = $(this).closest('tr').find('td:eq(2)').text()
-                var nik = $(this).closest('tr').find('td:eq(3)').text()
+                // var nik = $(this).closest('tr').find('td:eq(3)').text()
                 var email = $(this).closest('tr').find('td:eq(5)').text()
                 formData.append('kode_role[]',kode_role)
                 formData.append('kode_jab[]',kode_jab)
-                formData.append('nik[]',nik)
+                // formData.append('nik[]',nik)
                 formData.append('email[]',email)
             });
             
@@ -1888,9 +1905,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#no_juskeb,#kode_pp_juskeb,#nilai_juskeb,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
+    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#no_juskeb,#nama_pp_juskeb,#nilai_juskeb,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','no_juskeb','kode_pp_juskeb','nilai_juskeb','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
+        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','no_juskeb','nama_pp_juskeb','nilai_juskeb','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
@@ -2205,6 +2222,43 @@
                     target3 : "",
                     target4 : "",
                     width : ["30%","70%"]
+                };
+            break;
+        }
+        showInpFilterBSheet(options);
+
+    });
+
+    $('#input-flow').on('click', '.search-item', function(){
+        var par = $(this).closest('td').find('input').attr('name');
+        var tmp = $(this).closest('tr').find('input[name="'+par+'"]').attr('class');
+        var tmp2 = tmp.split(" ");
+        target1 = tmp2[2];
+        switch(par){
+            case 'nik[]': 
+                var options = { 
+                    id : par,
+                    header : ['Kode', 'Nama','Email'],
+                    url : "{{ url('sukka-master/karyawan') }}",
+                    columns : [
+                        { data: 'nik' },
+                        { data: 'nama' },
+                        { data: 'email'}
+                    ],
+                    judul : "Daftar Karyawan",
+                    pilih : "karyawan",
+                    jTarget1 : "val",
+                    jTarget2 : "val",
+                    target1 : "",
+                    target2 : "",
+                    target3 : "",
+                    target4 : "",
+                    width : ["20%","50%","30%"],
+                    onItemSelected: function(data){
+                        $('.'+target1).closest('tr').find('td:eq(3) input').val(data.nik);
+                        $('.'+target1).closest('tr').find('td:eq(4)').text(data.nama);
+                        $('.'+target1).closest('tr').find('td:eq(5)').text(data.email);
+                    },
                 };
             break;
         }

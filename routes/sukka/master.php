@@ -45,6 +45,7 @@ Route::put('/jabatan/{kode_jab}','Sukka\JabatanController@update');
 Route::delete('/jabatan/{kode_jab}','Sukka\JabatanController@destroy');
 
 Route::get('/role', 'Sukka\RoleController@index');
+Route::get('/role-jenis', 'Sukka\RoleController@getJenis');
 Route::post('/role', 'Sukka\RoleController@store');
 Route::get('/role/{kode_role}', 'Sukka\RoleController@show');
 Route::put('/role/{kode_role}','Sukka\RoleController@update');
