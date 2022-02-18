@@ -50,7 +50,26 @@ class RoleController extends Controller
             $response_data = $response->getBody()->getContents();
             
             $data = json_decode($response_data,true);
-            $data = $data["success"]["data"];
+            $data = $data["data"];
+        }
+        return response()->json(['daftar' => $data, 'status'=>true], 200); 
+    }
+
+    public function getJenis(Request $request){
+        $client = new Client();
+        $response = $client->request('GET',  config('api.url').'sukka-master/role-jenis',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ],
+            'query' => $request->input()
+        ]);
+
+        if ($response->getStatusCode() == 200) { // 200 OK
+            $response_data = $response->getBody()->getContents();
+            
+            $data = json_decode($response_data,true);
+            $data = $data["data"];
         }
         return response()->json(['daftar' => $data, 'status'=>true], 200); 
     }
@@ -66,10 +85,10 @@ class RoleController extends Controller
         $this->validate($request, [
             'kode_role' => 'required',
             'nama' => 'required',
-            'kode_pp' => 'required',
+            'jenis' => 'required',
             'bawah' => 'required',
             'atas' => 'required',
-            'modul' => 'required',
+            'form' => 'required',
             'detail.*.kode_jab'=> 'required'
         ]);
 
@@ -90,10 +109,10 @@ class RoleController extends Controller
                   array (
                     'kode_role' => $request->kode_role,
                     'nama' => $request->nama,
-                    'kode_pp' => $request->kode_pp,
+                    'jenis' => $request->jenis,
                     'bawah' => $this->joinNum($request->bawah),
                     'atas' => $this->joinNum($request->atas),
-                    'modul' => $request->modul,
+                    'form' => $request->form,
                     'detail' => $detail
                   );
     
@@ -110,7 +129,7 @@ class RoleController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"]], 200);  
+                return response()->json(['data' => $data], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -143,7 +162,7 @@ class RoleController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
             
@@ -180,10 +199,10 @@ class RoleController extends Controller
         $this->validate($request, [
             'kode_role' => 'required',
             'nama' => 'required',
-            'kode_pp' => 'required',
+            'jenis' => 'required',
             'bawah' => 'required',
             'atas' => 'required',
-            'modul' => 'required',
+            'form' => 'required',
             'detail.*.kode_jab'=> 'required'
         ]);
 
@@ -204,10 +223,10 @@ class RoleController extends Controller
                   array (
                     'kode_role' => $request->kode_role,
                     'nama' => $request->nama,
-                    'kode_pp' => $request->kode_pp,
+                    'jenis' => $request->jenis,
                     'bawah' => $this->joinNum($request->bawah),
                     'atas' => $this->joinNum($request->atas),
-                    'modul' => $request->modul,
+                    'form' => $request->form,
                     'detail' => $detail
                   );
     
@@ -224,7 +243,7 @@ class RoleController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                return response()->json(['data' => $data["success"],'fields'=>$fields], 200);  
+                return response()->json(['data' => $data,'fields'=>$fields], 200);  
             }
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -257,7 +276,7 @@ class RoleController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
-                $data = $data["success"];
+                $data = $data;
             }
             return response()->json(['data' => $data], 200); 
 

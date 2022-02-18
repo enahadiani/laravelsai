@@ -83,7 +83,6 @@
     <script type="text/javascript">
     // SET UP FORM //
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
-    $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
     var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
