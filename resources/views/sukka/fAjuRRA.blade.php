@@ -108,8 +108,9 @@
                             <div class="form-group col-md-6">
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
-                                        <label for="kode_pp_juskeb" >Unit Kerja</label>
-                                        <input class="form-control " type="text"  readonly id="kode_pp_juskeb" name="kode_pp_juskeb">
+                                        <label for="nama_pp_juskeb" >Unit Kerja</label>
+                                        <input class="form-control " type="text"  readonly id="nama_pp_juskeb" name="nama_pp_juskeb">
+                                        <input type="hidden" name="kode_pp_juskeb" id="kode_pp_juskeb">
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="total_terima" >Nilai Penerima</label>
@@ -1086,7 +1087,8 @@
                         $('#tanggal').val(result.data[0].tgl_pdrk);
                     }
                     $('#no_juskeb').val(result.data[0].no_bukti); 
-                    $('#kode_pp_juskeb').val(result.data[0].nama_pp); 
+                    $('#nama_pp_juskeb').val(result.data[0].nama_pp); 
+                    $('#kode_pp_juskeb').val(result.data[0].kode_pp); 
                     $('#jenis_rra').val(result.data[0].kode_jenis); 
                     $('#lokasi_beri').val(result.data[0].lok_donor);
                     $('#lokasi_terima').val(result.data[0].lok_terima);
@@ -1903,9 +1905,9 @@
     // END SIMPAN
 
     // ENTER FIELD FORM
-    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#no_juskeb,#kode_pp_juskeb,#nilai_juskeb,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
+    $('#tanggal,#no_bukti,#no_dokumen,#deskripsi,#no_juskeb,#nama_pp_juskeb,#nilai_juskeb,#jenis_rra,#total_terima,#total_beri,#lokasi_terima,#lokasi_beri').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','no_juskeb','kode_pp_juskeb','nilai_juskeb','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
+        var nxt = ['tanggal','no_bukti','no_dokumen','deskripsi','no_juskeb','nama_pp_juskeb','nilai_juskeb','jenis_rra','total_terima','total_beri','lokasi_terima','lokasi_beri'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);

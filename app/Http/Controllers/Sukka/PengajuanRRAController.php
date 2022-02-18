@@ -377,6 +377,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'no_juskeb' => 'required',
+            'kode_pp_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -416,6 +417,10 @@ class PengajuanRRAController extends Controller
                 [
                     'name' => 'no_juskeb',
                     'contents' => $request->no_juskeb,
+                ],
+                [
+                    'name' => 'kode_pp_juskeb',
+                    'contents' => $request->kode_pp_juskeb,
                 ],
                 [
                     'name' => 'lokasi_beri',
@@ -698,6 +703,7 @@ class PengajuanRRAController extends Controller
             'lokasi_terima' => 'required',
             'lokasi_beri' => 'required',
             'no_juskeb' => 'required',
+            'kode_pp_juskeb' => 'required',
             'total_terima' => 'required',
             'total_beri' => 'required',
             'kode_akun' => 'required|array',
@@ -741,6 +747,10 @@ class PengajuanRRAController extends Controller
                 [
                     'name' => 'no_juskeb',
                     'contents' => $request->no_juskeb,
+                ],
+                [
+                    'name' => 'kode_pp_juskeb',
+                    'contents' => $request->kode_pp_juskeb,
                 ],
                 [
                     'name' => 'lokasi_beri',
