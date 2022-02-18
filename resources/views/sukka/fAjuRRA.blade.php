@@ -1828,9 +1828,9 @@
 
                             printPreview(result.data.no_bukti);
 
-                            if(result.data.no_pooling != undefined){
-                                kirimWAEmail(result.data.no_pooling);
-                            }
+                            // if(result.data.no_pooling != undefined){
+                            //     kirimWAEmail(result.data.no_pooling);
+                            // }
 
                         }
                         else if(!result.data.status && result.data.message == 'Unauthorized'){

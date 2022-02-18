@@ -488,12 +488,12 @@
                             'Your data has been '+pesan+' '+result.data.message,
                             'success'
                         )
-                        if(result.data.no_pooling != undefined){
-                            kirimWAEmail(result.data.no_pooling);
-                        }
-                        if(result.data.no_pooling2 != undefined){
-                            kirimWAEmail(result.data.no_pooling2);
-                        }
+                        // if(result.data.no_pooling != undefined){
+                        //     kirimWAEmail(result.data.no_pooling);
+                        // }
+                        // if(result.data.no_pooling2 != undefined){
+                        //     kirimWAEmail(result.data.no_pooling2);
+                        // }
                         printPreview(kode, 'default')
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                         window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
