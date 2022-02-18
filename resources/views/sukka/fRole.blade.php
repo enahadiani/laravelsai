@@ -661,6 +661,7 @@
         $('#kode').attr('readonly', false);
         addRowDefault();
         newForm();
+        setHeightForm();
     });
     // END BUTTON TAMBAH
 
