@@ -1,31 +1,9 @@
-    <link rel="stylesheet" href="{{ asset('master.css') }}" />
-    <link rel="stylesheet" href="{{ asset('form.css') }}" />
-    <link rel="stylesheet" href="{{ asset('master-esaku/form.css') }}" />
+    <link rel="stylesheet" href="{{ asset('master-new.css?version=_').time() }}" />
+    <link rel="stylesheet" href="{{ asset('form-new.css?version=_').time() }}" />
     <!-- LIST DATA -->
     <x-list-data judul="Data Jabatan" tambah="true" :thead="array('Kode Jabatan','Nama','Aksi')" :thwidth="array(20,25,10)" :thclass="array('','','text-center')" />
     <!-- END LIST DATA -->
     <!-- FORM  -->
-    <style>
-        
-.card-body-footer{
-    background: white;
-    position: fixed;
-    bottom: 15px;
-    right: 0;
-    margin-right: 30px;
-    z-index:3;
-    height: 60px;
-    border-bottom-right-radius: 1rem;
-    border-bottom-left-radius: 1rem;
-    box-shadow: 0 -5px 20px rgba(0,0,0,.04),0 1px 6px rgba(0,0,0,.04);
-}
-
-.card-body-footer > button{
-    float: right;
-    margin-top: 10px;
-    margin-right: 25px;
-}
-    </style>
     <form id="form-tambah" class="tooltip-label-right" novalidate>
         <input class="form-control" type="hidden" id="id_edit" name="id_edit">
         <input type="hidden" id="method" name="_method" value="post">
@@ -38,6 +16,7 @@
                         <button type="button" id="btn-kembali" aria-label="Kembali" class="btn btn-back">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                        <button type="submit" id="btn-save" class="btn btn-primary float-right"><i class="fa fa-save"></i> Simpan</button>
                     </div>
                     <div class="separator mb-2"></div>
                     <div class="card-body pt-3 form-body">
@@ -53,24 +32,6 @@
                                 <input class="form-control" type="text" placeholder="Nama Jabatan" id="nama" name="nama" autocomplete="off">                        
                             </div>
                         </div>
-                        {{-- <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="status">Status</label>
-                                <select class='form-control' id="status" name="flag_aktif">
-                                    <option value=''>--- Pilih Status ---</option>
-                                    <option value='1'>AKTIF</option>
-                                    <option value='0'>NONAKTIF</option>
-                                </select>                       
-                            </div>
-                        </div> --}}
-                    </div>
-                    <div class="card-body-footer row mx-auto" style="padding: 0 25px;">
-                        <div style="vertical-align: middle;" class="col-md-10 text-right p-0">
-                            <p class="text-success" id="balance-label" style="margin-top: 20px;"></p>
-                        </div>
-                        <div style="text-align: right;" class="col-md-2 p-0 ">
-                            <button type="submit" style="margin-top: 10px;" id="btn-save" class="btn btn-primary"><i class="fa fa-save"></i> Simpan</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -82,16 +43,17 @@
     <div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
     aria-labelledby="modalFilter" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="border-radius: 0 !important;">
                 <form id="form-filter">
                     <div class="modal-header pb-0" style="border:none">
                         <h6 class="modal-title pl-0">Filter</h6>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close mt-2" data-dismiss="modal" aria-label="Close" style="position: relative;
+                        right: 0px !important;">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body" style="border:none">
-                        <div class="form-group row">
+                        <div class="form-group">
                             <label>Kode Jabatan</label>
                             <select class="form-control" data-width="100%" name="inp-filter_kode_jab" id="inp-filter_kode_jab">
                                 <option value=''>Pilih Kode Jabatan</option>
@@ -106,7 +68,7 @@
                             </select>
                         </div> --}}
                     </div>
-                    <div class="modal-footer" style="border:none">
+                    <div class="modal-footer" style="border:none;bottom: 0;position: absolute;width: 100%;justify-content: right;">
                         <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
                         <button type="submit" class="btn btn-primary" id="btn-tampil">Tampilkan</button>
                     </div>
@@ -115,7 +77,7 @@
         </div>
     </div>
     {{-- End Modal Filter --}}
-    @include('modal_search')
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
     <script src="{{ asset('helper.js') }}"></script>
     <script type="text/javascript">
@@ -123,11 +85,10 @@
     $('#saku-form > .col-12').addClass('mx-auto col-lg-6');
     $('#modal-preview > .modal-dialog').css({ 'max-width':'600px'});
     setHeightForm();
-    
-    var $iconLoad = $('.preloader');
-    // var selectStatus = $('#status').selectize();
+    var bottomSheet = new BottomSheet("country-selector");
+    document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+    window.bottomSheet = bottomSheet;
     var selectJabatan = $('#inp-filter_kode_jab').selectize();
-    // var selectStatusFilter = $('#inp-filter_status').selectize();
 
     $.ajaxSetup({
         headers: {
@@ -146,7 +107,7 @@
     (function() {
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/jabatan') }}",
+            url: "{{ url('sukka-master/jabatan') }}",
             dataType: 'json',
             async:false,
             success:function(res){
@@ -197,7 +158,7 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('siaga-master/jabatan') }}", 
+        "{{ url('sukka-master/jabatan') }}", 
         [
             {'targets': 2, data: null, 'defaultContent': action_html,'className': 'text-center' },
             {
@@ -214,7 +175,7 @@
             { data: 'kode_jab' },
             { data: 'nama' }
         ],
-        "{{ url('siaga-auth/sesi-habis') }}",
+        "{{ url('sukka-auth/sesi-habis') }}",
         [[0 ,"asc"]]
     );
 
@@ -275,11 +236,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#kode').val();
             if(parameter == "edit"){
-                var url = "{{ url('siaga-master/jabatan') }}/"+id;
+                var url = "{{ url('sukka-master/jabatan') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('siaga-master/jabatan') }}";
+                var url = "{{ url('sukka-master/jabatan') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -312,7 +273,7 @@
                         last_add(dataTable,"nik",kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/sukka-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -354,7 +315,7 @@
         $('#judul-form').html('Edit Data Jabatan');
         $.ajax({
             type: 'GET',
-            url: "{{ url('siaga-master/jabatan') }}/" + id,
+            url: "{{ url('sukka-master/jabatan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -373,7 +334,7 @@
                     setWidthFooterCardBody();
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -391,36 +352,84 @@
         if($(this).index() != 2){
             var id = $(this).closest('tr').find('td').eq(0).html();
             var data = dataTable.row(this).data();
-            var html = `<tr>
-                <td style='border:none'>Kode Jabatan</td>
-                <td style='border:none'>`+id+`</td>
-            </tr>
-            <tr>
-                <td>Nama</td>
-                <td>`+data.nama+`</td>
-            </tr>
+            var html = `
+            <div class="preview-header" style="display:block;height:39px;padding: 0 1.75rem" >
+                <h6 style="position: absolute;" id="preview-judul">Preview Data</h6>
+                <span id="preview-nama" style="display:none"></span><span id="preview-id" style="display:none">`+id+`</span> 
+                <div class="dropdown d-inline-block float-right">
+                    <button type="button" id="dropdownAksi" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 0.2rem 1rem;border-radius: 1rem !important;" class="btn dropdown-toggle btn-light">
+                    <span class="my-0">Aksi <i style="font-size: 10px;" class="simple-icon-arrow-down ml-3"></i></span>
+                    </button>
+                    <div class="dropdown-menu dropdown-aksi" aria-labelledby="dropdownAksi" x-placement="bottom-start" style="position: absolute; will-change: transform; top: -10px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-delete2"><i class="simple-icon-trash mr-1"></i> Hapus</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-edit2"><i class="simple-icon-pencil mr-1"></i> Edit</a>
+                        <a class="dropdown-item dropdown-ke1" href="#" id="btn-cetak"><i class="simple-icon-printer mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-cetak2" style="border-bottom: 1px solid #d7d7d7;"><i class="simple-icon-arrow-left mr-1"></i> Cetak</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-excel"> Excel</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-pdf"> PDF</a>
+                        <a class="dropdown-item dropdown-ke2 hidden" href="#" id="btn-print"> Print</a>
+                    </div>
+                </div>
+            </div>
+            <div class='separator'></div>
+            <div class='preview-body' style='padding: 0 1.75rem;height: calc(75vh - 56px);position:sticky'>
+                <table class="table table-prev mt-2" width="100%">
+                    <tr>
+                        <td style='border:none'>Kode Jabatan</td>
+                        <td style='border:none'>`+id+`</td>
+                    </tr>
+                    <tr>
+                        <td>Nama</td>
+                        <td>`+data.nama+`</td>
+                    </tr>
+                </table>
+            </div>
             `;
-            $('#table-preview tbody').html(html);
+             
+            $('#content-bottom-sheet').html(html);
+            $('.c-bottom-sheet__sheet').css({ "width":"70%","margin-left": "15%", "margin-right":"15%"});
             
-            $('#modal-preview-id').text(id);
-            $('#modal-preview').modal('show');
+            $('.preview-header').on('click','#btn-delete2',function(e){
+                var id = $('#preview-id').text();
+                $('.c-bottom-sheet').removeClass('active');
+                msgDialog({
+                    id:id,
+                    type:'hapus'
+                });
+            });
+
+            $('.preview-header').on('click', '#btn-edit2', function(){
+                var id= $('#preview-id').text();
+                $('#judul-form').html('Edit Data Jurnal');
+                $('#form-tambah')[0].reset();
+                $('#form-tambah').validate().resetForm();
+                
+                $('#btn-save').attr('type','button');
+                $('#btn-save').attr('id','btn-update');
+                $('.c-bottom-sheet').removeClass('active');
+                editData(id);
+            });
+
+            $('.preview-header').on('click','#btn-cetak',function(e){
+                e.stopPropagation();
+                $('.dropdown-ke1').addClass('hidden');
+                $('.dropdown-ke2').removeClass('hidden');
+                console.log('ok');
+            });
+
+            $('.preview-header').on('click','#btn-cetak2',function(e){
+                // $('#dropdownAksi').dropdown('toggle');
+                e.stopPropagation();
+                $('.dropdown-ke1').removeClass('hidden');
+                $('.dropdown-ke2').addClass('hidden');
+            });
+
+            $('#trigger-bottom-sheet').trigger("click");
+
         }
     });
 
-    $('.modal-header').on('click', '#btn-edit2', function(){
-        var id= $('#modal-preview-id').text();
-        // $iconLoad.show();
-        editData(id)
-    });
 
-    $('.modal-header').on('click','#btn-delete2',function(e){
-        var id = $('#modal-preview-id').text();
-        $('#modal-preview').modal('hide');
-        msgDialog({
-            id:id,
-            type:'hapus'
-        });
-    });
     // END PREVIEW saat klik di list data //
 
     
@@ -428,7 +437,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('siaga-master/jabatan') }}/"+id,
+            url: "{{ url('sukka-master/jabatan') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -439,7 +448,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('sukka-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',

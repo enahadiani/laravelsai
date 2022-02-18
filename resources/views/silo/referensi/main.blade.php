@@ -1118,7 +1118,7 @@ class BottomSheet {
         $("[class^=info-name]").each(function (e) {
             $(this).addClass("hidden");
         });
-        $("[class^=input-group-text]").each(function (e) {
+        $("[class^=input-group-text]:not(#filter-btn)").each(function (e) {
             $(this).text("");
         });
         $("[class^=input-group-prepend]").each(function (e) {
