@@ -303,7 +303,7 @@
     // END BUTTON SIMPAN
 
     // BUTTON EDIT TABLE //
-    function ediData(id) {
+    function editData(id) {
         $('#form-tambah').validate().resetForm();
         $('#btn-save').attr('type','button');
         $('#btn-save').attr('id','btn-update');
@@ -336,7 +336,7 @@
     }
     $('#saku-datatable').on('click', '#btn-edit', function(){
         var id= $(this).closest('tr').find('td').eq(0).html();
-        ediData(id)
+        editData(id)
     });
     // END BUTTON TABLE EDIT //
 
