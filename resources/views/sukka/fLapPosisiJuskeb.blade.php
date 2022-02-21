@@ -314,7 +314,7 @@
         });
 
         // TRACE
-        $('#saku-report #canvasPreview').on('click', '.btn-history', function(e){
+        $('#saku-report #canvasPreview').on('click', '.history-aju', function(e){
             e.preventDefault();
             var no_bukti = $(this).data('no_bukti');
             param_trace.no_bukti = no_bukti;
@@ -334,12 +334,12 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="histori">Histori App</li>
             `);
-            xurl ="sukka-auth/form/rptHistoryApp";
+            xurl ="sukka-auth/form/rptHistoryAppJuskeb";
             $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });
 
-        $('#saku-report #canvasPreview').on('click', '.btn-print', function(e){
+        $('#saku-report #canvasPreview').on('click', '.detail-aju', function(e){
             e.preventDefault();
             var no_bukti = $(this).data('no_bukti');
             param_trace.no_bukti = no_bukti;
@@ -359,7 +359,7 @@
                 </li>
                 <li class="breadcrumb-item active" aria-current="form">Form Justifikasi</li>
             `);
-            xurl ="sukka-auth/form/rptAjuForm";
+            xurl ="sukka-auth/form/rptAjuJuskebForm";
             $('#saku-report #canvasPreview').load(xurl);
             // drawLapReg(formData);
         });

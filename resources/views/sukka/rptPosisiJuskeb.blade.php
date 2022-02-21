@@ -101,7 +101,7 @@
                                 <td valign='top' class='isi_laporan'>`+line.periode+`</td>
                                 <td valign='top' class='isi_laporan' align='right'>`+number_format(parseFloat(line.nilai))+`</td>
                                 <td valign='top' class='isi_laporan' align='right'>`+number_format(parseFloat(line.nilai_rra))+`</td>
-                                <td valign='top' class='isi_laporan'>`+line.posisi+`</td>
+                                <td valign='top' class='isi_laporan'><a href='#' style='color:blue' class='history-aju' data-no_bukti='`+line.no_bukti+`' >`+line.posisi+`</a></td>
                             </tr>`;
                             no++;
                         }
