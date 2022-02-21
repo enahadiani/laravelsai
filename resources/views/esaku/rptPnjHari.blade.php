@@ -69,12 +69,12 @@ function drawRptPage(data,res,from,to){
             html += "<tbody>";
             for (var j=0;j<res.res.data_detail.length;j++) {
                 var value2 = res.res.data_detail[j];
-                if(value.tanggal == value2.tanggal && value.nik_kasir == value2.nik_user){
+                if(value.tanggal == value2.tanggal && value.nik_kasir == value2.nik_user) {
                     harga+=+value2.harga;
                     diskon+=+value2.diskon;
-                    jumlah = jumlah + value2.jumlah;
+                    jumlah+=parseFloat(value2.jumlah);
                     bonus+=+value2.bonus;
-                    total = total + value2.total_ex;
+                    total+=parseFloat(value2.total_ex);
                     subTot = subTot + parseFloat(value2.total_ex);
                     html += "<tr>"
                     html += "<td align='center' class='isi_laporan'>"+no+"</td>";
