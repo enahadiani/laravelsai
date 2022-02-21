@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Pengajun Juskeb</title>
+    <title>Pengajun RRA</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
        
@@ -67,7 +67,7 @@
             <td class="vmiddle text-center no-border" style='width:120px'></td>
         </tr>
         <tr>
-            <td colspan="3" class="no-border" >LAPORAN POSISI PENGAJUAN JUSTIFIKASI KEBUTUHAN</td>
+            <td colspan="3" class="no-border" >LAPORAN POSISI PENGAJUAN RRA</td>
             <td colspan="12" class="vtop no-border">&nbsp;</td>
             <td class="vtop no-border text-right">&nbsp;</td>
         </tr>
@@ -88,7 +88,6 @@
                 <th class='header_laporan' align='center'>Kegiatan </th>
                 <th class='header_laporan' align='center'>Unit Kerja</th>
                 <th class='header_laporan' align='center'>Periode Penggunaan</th>
-                <th class='header_laporan' align='center'>Nilai</th>
                 <th class='header_laporan' align='center'>Nilai RRA</th>
                 <th class='header_laporan' align='center'>Posisi</th>
             </tr>
@@ -100,17 +99,15 @@
         @for($i=0;$i < count($data);$i++)
             @php 
                 $line = $data[$i]; 
-                $nilai += floatval($line['nilai']);
                 $nilai_rra += floatval($line['nilai_rra']);
             @endphp
             <tr>
                 <td valign='top' class='isi_laporan'>{{ $no }}</td>
                 <td valign='top' class='isi_laporan'>{{ $line['no_bukti'] }}</td>
                 <td valign='top' class='isi_laporan'>{{ $line['tanggal'] }}</td>
-                <td valign='top' class='isi_laporan'>{{ $line['kegiatan'] }}</td>
+                <td valign='top' class='isi_laporan'>{{ $line['keterangan'] }}</td>
                 <td valign='top' class='isi_laporan'>{{ $line['nama_pp'] }}</td>
                 <td valign='top' class='isi_laporan'>{{ $line['periode'] }}</td>
-                <td valign='top' class='isi_laporan' align='right'>{{ number_format(floatval($line['nilai']),0,",",".") }}</td>
                 <td valign='top' class='isi_laporan' align='right'>{{ number_format(floatval($line['nilai_rra']),0,",",".") }}</td>
                 <td valign='top' class='isi_laporan'>{{ $line['posisi'] }}</td>
             </tr>
@@ -118,7 +115,6 @@
         @endfor
         <tr>
             <th valign='top' class='isi_laporan' colspan="6"></th>
-            <th valign='top' class='isi_laporan text-right'>{{ number_format(floatval($nilai),0,",",".") }}</th>
             <th valign='top' class='isi_laporan text-right'>{{ number_format(floatval($nilai_rra),0,",",".") }}</th>
             <th valign='top' class='isi_laporan'></th>
         </tr>

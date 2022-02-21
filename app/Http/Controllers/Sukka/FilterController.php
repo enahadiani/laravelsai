@@ -32,6 +32,23 @@
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
         }
 
+        public function getFilterPeriodeRRA() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/filter-periode-rra',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
         public function getFilterPP(Request $request) {
 
             $client = new Client();
@@ -92,6 +109,42 @@
         public function getFilterDefaultJuskeb() {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'sukka-report/filter-default-juskeb',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
+        }
+
+        public function getFilterBuktiRRA(Request $request) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/filter-bukti-rra',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterDefaultRRA() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/filter-default-rra',[
             'headers' => [
                 'Authorization' => 'Bearer '.Session::get('token'),
                 'Accept'     => 'application/json',

@@ -92,42 +92,6 @@ class LaporanController extends Controller
         } 
     }
 
-    public function getHistoryApp(Request $request){
-        try{
-            $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-report/lap-history-app',[
-                'headers' => [
-                    'Authorization' => 'Bearer '.Session::get('token'),
-                    'Accept'     => 'application/json',
-                ],
-                'query' => $request->all()
-            ]);
-
-            if ($response->getStatusCode() == 200) { // 200 OK
-                $response_data = $response->getBody()->getContents();
-                
-                $res = json_decode($response_data,true);
-                $data = $res["data"];
-            }
-            if($request->periode != ""){
-                $periode = $request->periode;
-            }else{
-                $periode = "Semua Periode";
-            }
-
-            if(isset($request->back)){
-                $res['back']=true;
-            }
-            
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res
-            ], 200); 
-        } catch (BadResponseException $ex) {
-            $response = $ex->getResponse();
-            $res = json_decode($response->getBody(),true);
-            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
-        } 
-    }
-
     public function getAjuJuskebForm(Request $request){
         try{
             $client = new Client();
@@ -202,7 +166,7 @@ class LaporanController extends Controller
         } 
     }
 
-    function getPosisiJuskebPDF(Request $request)
+    public function getPosisiJuskebPDF(Request $request)
     {
         set_time_limit(300);
         $tmp = app('App\Http\Controllers\Sukka\LaporanController')->getPosisiJuskeb($request);
@@ -212,6 +176,134 @@ class LaporanController extends Controller
         $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
         $pdf = PDF::loadview('sukka.rptPosisiJuskebPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi'],'periode'=>$periode])->setPaper($paper, 'landscape');
         return $pdf->download('laporan-posisi-pengajuan-juskeb-pdf');
+    }
+
+    public function getPosisiRRA(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/lap-posisi-rra',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'kode_lokasi' => $request->kode_lokasi,
+                    'kode_pp' => $request->kode_pp,
+                    'no_bukti' => $request->no_bukti,
+                    'periode' => $request->periode
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
+                $lokasi = (count($res["lokasi"]) > 0 ? $res["lokasi"][0]["nama"] : '-');
+            }
+            if($request->periode != ""){
+                $periode = $request->periode;
+            }else{
+                $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+            
+            return response()->json(['result' => $data,'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'lokasi' => $lokasi
+            ], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
+    public function getAjuRRAForm(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/lap-rra-form',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res['data'];
+                $detail = $res["detail_app"];
+            }
+            if($request->periode != ""){
+                $periode = $request->periode;
+            }else{
+                $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+            
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'detail'=>$detail
+            ], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
+    public function getHistoryAppRRA(Request $request){
+        try{
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'sukka-report/lap-history-app-rra',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->all()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
+                $lokasi = (count($res["lokasi"]) > 0 ? $res["lokasi"][0]["nama"] : '-');
+            }
+            if($request->periode != ""){
+                $periode = $request->periode;
+            }else{
+                $periode = "Semua Periode";
+            }
+
+            if(isset($request->back)){
+                $res['back']=true;
+            }
+            
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'lokasi' => $lokasi
+            ], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+        } 
+    }
+
+    function getPosisiRRAPDF(Request $request)
+    {
+        set_time_limit(300);
+        $tmp = app('App\Http\Controllers\Sukka\LaporanController')->getPosisiRRA($request);
+        $tmp = json_decode(json_encode($tmp),true);
+        $data = $tmp['original'];
+        $paper = 'A2';
+        $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+        $pdf = PDF::loadview('sukka.rptPosisiRRAPDF',['data'=>$data["result"],'lokasi'=>$data['lokasi'],'periode'=>$periode])->setPaper($paper, 'landscape');
+        return $pdf->download('laporan-posisi-pengajuan-rra-pdf');
     }
   
 }
