@@ -539,13 +539,13 @@ document.addEventListener('fullscreenchange', (event) => {
 
 $('#kurang-tahun').click(function(event) {
     event.stopPropagation();
-    $tahun = $tahun - 1;
+    $tahun = parseInt($tahun) - 1;
     $('#year-filter').text($tahun);
 })
 
 $('#tambah-tahun').click(function(event) {
     event.stopPropagation();
-    $tahun = $tahun + 1;
+    $tahun = parseInt($tahun) + 1;
     $('#year-filter').text($tahun);
 })
 

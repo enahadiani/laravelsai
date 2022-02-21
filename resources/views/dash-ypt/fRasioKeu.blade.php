@@ -328,7 +328,7 @@
 
     $('#kurang-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun - 1;
+        $tahun = parseInt($tahun) - 1;
         $('#year-filter').text($tahun);
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();
@@ -340,7 +340,7 @@
 
     $('#tambah-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun + 1;
+        $tahun = parseInt($tahun) + 1;
         $('#year-filter').text($tahun);
         var periode = $tahun+''+$month;
         var jenis = $("input[name='jenis']:checked").val();

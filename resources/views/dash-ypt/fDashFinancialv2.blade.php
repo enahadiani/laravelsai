@@ -1283,14 +1283,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     // KURANG TAHUN FILTER
     $('#kurang-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun - 1;
+        $tahun = parseInt($tahun) - 1;
         $('#year-filter').text($tahun);
     })
 
     // TAMBAH TAHUN FILTER
     $('#tambah-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun + 1;
+        $tahun = parseInt($tahun) + 1;
         $('#year-filter').text($tahun);
     })
 

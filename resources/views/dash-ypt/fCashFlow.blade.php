@@ -85,15 +85,16 @@ document.addEventListener('fullscreenchange', (event) => {
 
 $('#kurang-tahun').click(function(event) {
     event.stopPropagation();
-    $tahun = $tahun - 1;
+    $tahun = parseInt($tahun) - 1;
     $('#year-filter').text($tahun);
-});
+})
 
+// TAMBAH TAHUN FILTER
 $('#tambah-tahun').click(function(event) {
     event.stopPropagation();
-    $tahun = $tahun + 1;
+    $tahun = parseInt($tahun) + 1;
     $('#year-filter').text($tahun);
-});
+})
 
 $('#custom-row').click(function(event) {
     event.stopPropagation();
