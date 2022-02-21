@@ -13,3 +13,10 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('filter-lokasi','Sukka\FilterController@getFilterLokasi');
+Route::get('filter-periode-juskeb','Sukka\FilterController@getFilterPeriodeJuskeb');
+Route::get('filter-pp','Sukka\FilterController@getFilterPP');
+Route::get('filter-bukti-juskeb','Sukka\FilterController@getFilterBuktiJuskeb');
+Route::get('filter-default-juskeb','Sukka\FilterController@getFilterDefaultJuskeb');
+
+Route::post('lap-posisi-juskeb','Sukka\LaporanController@getPosisiJuskeb');

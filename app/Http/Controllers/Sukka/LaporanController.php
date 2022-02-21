@@ -29,15 +29,16 @@ class LaporanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function getPosisi(Request $request){
+    public function getPosisiJuskeb(Request $request){
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'sukka-report/lap-posisi',[
+            $response = $client->request('GET',  config('api.url').'sukka-report/lap-posisi-juskeb',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
                 'query' => [
+                    'kode_lokasi' => $request->kode_lokasi,
                     'kode_pp' => $request->kode_pp,
                     'no_bukti' => $request->no_bukti,
                     'periode' => $request->periode
@@ -49,6 +50,7 @@ class LaporanController extends Controller
                 
                 $res = json_decode($response_data,true);
                 $data = $res["data"];
+                $lokasi = (count($res["lokasi"]) > 0 ? $res["lokasi"][0]["nama"] : '-');
             }
             if($request->periode != ""){
                 $periode = $request->periode;
@@ -60,7 +62,7 @@ class LaporanController extends Controller
                 $res['back']=true;
             }
             
-            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res
+            return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'periode'=>$periode,'res'=>$res,'lokasi' => $lokasi
             ], 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
