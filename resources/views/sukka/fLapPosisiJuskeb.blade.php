@@ -18,8 +18,8 @@
                                         <x-inp-filter kode="no_bukti" nama="No Bukti" selected="1" :option="array('1','2','3','i')"/>
                                         <!-- END COMPONENT -->
                                     </div>
-                                    <button id="btn-tampil" style="float:right;width:110px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
-                                    <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:110px" type="button" >Tutup</button>
+                                    <button id="btn-tampil" style="float:right;width:120px" class="btn btn-primary ml-2 mb-3" type="submit" >Tampilkan</button>
+                                    <button type="button" id="btn-tutup" class="btn btn-light mb-3" style="float:right;width:120px" type="button" >Tutup</button>
                                 </form>
                             </div>
                         </div>
@@ -41,7 +41,10 @@
     <script src="{{ asset('helper.js') }}"></script>
     <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <script>
-        
+        $(".header-report").removeClass('pt-4');
+        $(".header-report").addClass('pt-2');
+        $(".header-report").css('min-height','46px');
+        $(".header-report > h6").css('top','10px');
         var bottomSheet = new BottomSheet("country-selector");
         document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
         window.bottomSheet = bottomSheet;
