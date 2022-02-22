@@ -441,8 +441,8 @@
                     for(i=0;i<res.length;i++){
                         control.addOption([{text:res[i].kode_barang + ' - ' + res[i].nama, value:res[i].kode_barang}]);
                         control2.addOption([{kd_barang:res[i].kode_barang, nama:res[i].nama,barcode:res[i].barcode}]);
-                        $dtBrg[res[i].kode_barang] = {harga:res[i].harga_seb,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga};  
-                        $dtBrg2[res[i].barcode] = {harga:res[i].harga_seb,nama:res[i].nama,kd_barang:res[i].kode_barang,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga};
+                        $dtBrg[res[i].kode_barang] = {harga:res[i].harga_seb,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga,flag_ppn:res[i].flag_ppn};  
+                        $dtBrg2[res[i].barcode] = {harga:res[i].harga_seb,nama:res[i].nama,kd_barang:res[i].kode_barang,satuan:res[i].satuan,kode_akun:res[i].kode_akun,saldo:res[i].saldo,hrgjual:res[i].harga,flag_ppn:res[i].flag_ppn};
                     }
 
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
@@ -518,6 +518,22 @@
             return "("+sepNum(num * -1)+")";
         }else{
             return sepNum(num);
+        }
+    }
+
+    function setFlagPPN(id) {
+        if (id != ""){
+            return $dtBrg[id].flag_ppn;  
+        }else{
+            return "";
+        }
+    }
+
+    function setFlagPPN2(id) {
+        if (id != ""){
+            return $dtBrg[id].flag_ppn;  
+        }else{
+            return "";
         }
     }
 
@@ -758,6 +774,7 @@
         var hrg1 = setHarga2(kd1);
         var saldo = setSaldo(kd1);
         var hrgjual = setHrgJual(kd1);
+        var flag_ppn = setFlagPPN(kd1);
         if(kd1 == ''){
             msgDialog({
                 id: '',
@@ -804,7 +821,7 @@
             input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+qty+"' required></td>";
             input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control '  value='"+disc+"' readonly required></td>";
             input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency2'  value='"+sub+"' required></td>";
-            input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></td>";
+            input += "<td class='text-center'><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></a><input type='hidden' name='flag_ppn[]' value='"+flag_ppn+"'></td>";
             input += "</tr>";
             
             $("#input-grid2").append(input);
@@ -831,6 +848,7 @@
         var qty1 = 1;
         var disc1 = 0;
         var hrg1 = setHarga3(kd1);
+        var flag_ppn = setFlagPPN2(kd1);
         
         var hrgjual = setHrgJual2(kd1);
         var kd=getKode(kd1);
@@ -888,7 +906,7 @@
             input += "<td style='text-align:right'><input type='text' name='qty_barang[]' class='change-validation inp-qtyb form-control currency'  value='"+qty+"' required></td>";
             input += "<td style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control currency'  value='"+disc+"' readonly required></td>";
             input += "<td style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control currency'  value='"+sub+"' required></td>";
-            input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i></td>";
+            input += "<td class='text-center'></a><a class='btn btn-sm ubah-barang' style='padding:0;font-size:18px !important'><i class='simple-icon-pencil'></i></a>&nbsp;<a class='btn btn-sm hapus-item ml-2' style='padding:0;font-size:18px !important'><i class='simple-icon-trash'></i><input type='hidden' name='flag_ppn[]' value='"+flag_ppn+"'></td>";
             input += "</tr>";
             
             $("#input-grid2").append(input);

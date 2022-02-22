@@ -109,11 +109,13 @@ class Pembelian3Controller extends Controller
             $data_diskon = array();
             $data_sub = array();
             $data_harga_jual = array();
+            $data_flag_ppn = array();
             for($i=0;$i<count($request->kode_barang);$i++){
                 $data_harga[] = $this->joinNum($request->harga_barang[$i]);
                 $data_diskon[] = $this->joinNum($request->disc_barang[$i]);
                 $data_sub[] = $this->joinNum($request->sub_barang[$i]);
                 $data_harga_jual[] = $this->joinNum($request->harga_jual[$i]);
+                $data_flag_ppn[] = $this->joinNum($request->flag_ppn[$i]);
             }
 
             $fields = array (
@@ -131,7 +133,8 @@ class Pembelian3Controller extends Controller
                 'harga_barang' => $data_harga,
                 'harga_jual' => $data_harga_jual,
                 'disc_barang' => $data_diskon,
-                'sub_barang'=> $data_sub
+                'sub_barang'=> $data_sub,
+                'flag_ppn'=> $data_flag_ppn
             );
             $client = new Client();
             $response = $client->request('POST',  config('api.url').'esaku-trans/pembelian3',[
