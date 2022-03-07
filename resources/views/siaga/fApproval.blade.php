@@ -872,6 +872,7 @@
                     var no = 1;
                     var total = 0
                     var data = result.data[0]
+                    var data2 = result.data2[0]
                     var det='';
                     var no=1;var total=0;
                     for(var i=0;i<result.detail.length;i++){
@@ -890,66 +891,202 @@
                     <td colspan='5'>Total</td>
                     <td class='text-right'>`+toRp(total)+`</td>
                     </tr>`;
-            
-                    var no=1;var det2='';
-                    for(var i=0;i<result.histori.length;i++){
-                        det2 +=`<tr>
-                        <td>`+result.histori[i].ket+`</td>
-                        <td>`+result.histori[i].nama_kar+`/`+result.histori[i].nik+`</td>
-                        <td>`+result.histori[i].nama_jab+`</td>
-                        <td>`+result.histori[i].tanggal+`</td>
-                        <td>`+result.histori[i].no_app+`</td>
-                        <td>`+result.histori[i].status+`</td>
-                        <td>&nbsp;</td>
+
+                    var detakun='';
+                    var no=1;var total=0; var saldo=0; var nilai=0; var sisa=0;
+                    for(var i=0;i<result.detail_akun.length;i++){
+                        var linea = result.detail_akun[i];
+                        saldo+=parseFloat(linea.saldo);
+                        nilai+=parseFloat(linea.nilai);
+                        sisa+=parseFloat(linea.sisa);
+                        detakun +=`<tr>
+                            <td class='isi_laporan' align='center'>${no}</td>
+                            <td class='isi_laporan'>${linea.kode_akun}</td>
+                            <td class='isi_laporan'>${linea.nama_akun}</td>
+                            <td class='isi_laporan' align='right'>${ number_format(linea.saldo) }</td>
+                            <td class='isi_laporan' align='right'>${ number_format(linea.nilai) }</td>
+                            <td class='isi_laporan' align='right'>${ number_format(linea.sisa) }</td>
                         </tr>`;
                         no++;
                     }
+            
                 var html=`<div class="row px-4">
-                    <div class="col-12" style='border-bottom:3px solid black;text-align:center'>
+                    <div class="col-12" style='text-align:center'>
                         <h6 class='mb-0'>JUSTIFIKASI</h6>
                         <h6>KEBUTUHAN BARANG ATAU JASA</h6>
                     </div>
                     <div class="col-12 my-2" style='text-align:center'>
-                        <h6>Nomor : `+result.data[0].no_pb+`</h6>
+                        <h6>`+data.no_pb+`</h6>
                     </div>
                     <div class="col-12">
-                        <table class="table table-condensed table-bordered" width="100%" id='table-m'>
+                        <table class="table table-condensed table-borderless" width="100%" id='table-m'>
                             <tbody>
                                 <tr>
                                     <td width="5%">1</td>
-                                    <td width="25">UNIT KERJA</td>
-                                    <td width="70%" id='print-unit'>`+result.data[0].nama_pp+`</td>
+                                    <td width="25" style='text-transform:capitalize'>Unit Kerja</td>
+                                    <td width="70%" id='print-unit'>`+data.nama_pp+`</td>
                                 </tr>
                                 <tr>
                                     <td width="5%">2</td>
-                                    <td width="25">JENIS ANGGARAN</td>
-                                    <td width="70%" id='print-unit'>`+result.data[0].jenis+`</td>
+                                    <td width="25" style='text-transform:capitalize'>Jenis Anggaran</td>
+                                    <td width="70%" id='print-unit'>`+data.jenis+`</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td style='text-transform:capitalize'>Total Nilai</td>
+                                    <td id='print-kegiatan2'>`+sepNum(data.nilai)+`</td>
                                 </tr>
                                 <tr>
                                     <td>3</td>
-                                    <td>TOTAL NILAI</td>
-                                    <td id='print-kegiatan2'>`+sepNum(result.data[0].nilai)+`</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>TERBILANG</td>
-                                    <td id='print-kegiatan2'>`+terbilang(result.data[0].nilai)+` Rupiah</td>
+                                    <td style='text-transform:capitalize'>Terbilang</td>
+                                    <td id='print-kegiatan2' style='text-transform:capitalize'>`+terbilang(data.nilai)+` Rupiah</td>
                                 </tr>
                                 <tr>
                                     <td>4</td>
-                                    <td>KEBUTUHAN</td>
-                                    <td id='print-pic'>`+result.data[0].keterangan+`</td>
+                                    <td style='text-transform:capitalize'>Kebutuhan</td>
+                                    <td id='print-pic'>`+data.keterangan+`</td>
                                 </tr>
                                 <tr>
                                     <td>5</td>
-                                    <td>SAAT PENGGUNAAN</td>
-                                    <td id='print-waktu'>`+result.data[0].tanggal.substr(8,2)+' '+getNamaBulan(result.data[0].tanggal.substr(5,2))+' '+result.data[0].tanggal.substr(0,4)+`</td>
+                                    <td style='text-transform:capitalize'>Saat Penggunaan</td>
+                                    <td id='print-waktu'>`+data.tanggal.substr(8,2)+' '+getNamaBulan(data.tanggal.substr(5,2))+' '+data.tanggal.substr(0,4)+`</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-12">
-                        <p style='font-weight:bold'># <u>KEBUTUHAN</u></p>
+                        <p style='font-weight:bold'># <u>DETAIL</u></p>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-condensed table-bordered" width="100%" id="table-d">
+                            <thead>
+                                <tr>
+                                    <th width='5%' class='header_laporan'>No</th>
+                                    <th width='20%' class='header_laporan'>No Akun </th>
+                                    <th width='30%' class='header_laporan'>Nama Akun </th>
+                                    <th width='15%' class='header_laporan'>Anggaran</th>
+                                    <th width='15%' class='header_laporan'>Nilai</th>
+                                    <th width='15%' class='header_laporan'>Saldo Anggaran</th>
+                                </tr>
+                            </thead>
+                            <tbody>`+detakun+`
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>LATAR BELAKANG</u></p>
+                        <p>`+data.latar+`</p>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>ASPEK STRATEGIS</u></p>
+                        <p>`+data.strategis+`</p>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>ASPEK BISNIS</u></p>
+                        <p>`+data.bisnis+`</p>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>SPESIFIKASI TEKNIS</u></p>
+                        <p>`+data.teknis+`</p>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>ASPEK LAIN</u></p>
+                        <p>`+data.lain+`</p>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>LAMPIRAN</u></p>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
+                        <thead class="text-center">
+                        <tr>
+                        <td width="10%"></td>
+                        <td width="25">NAMA/NIK</td>
+                        <td width="15%">JABATAN</td>
+                        <td width="10%">TANGGAL</td>
+                        <td width="15%">NO APPROVAL</td>
+                        <td width="10%">STATUS</td>
+                        <td width="15%">TTD</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td height='40' class='header_laporan'>Admin Unit</td>
+                                <td align='center'>${data.nama_buat} / ${data.nik_buat}</td>
+                                <td align='center'>${data.jab1}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='40' class='header_laporan'>Mgr Unit</td>
+                                <td align='center'>${data.nama_tahu} / ${data.nik_tahu}</td>
+                                <td align='center'>${data.jab2}</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='40' class='header_laporan'>VP Unit</td>
+                                <td align='center'>${data.nama_sah} / ${data.nik_sah}</td>
+                                <td align='center'>${data.jab3}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='40' class='header_laporan'>VP Anggaran</td>
+                                <td align='center'>${data.nama_ver} / ${data.nik_ver}</td>
+                                <td align='center'>${data.jab4}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td height='40' class='header_laporan'>Dir Unit</td>
+                                <td align='center'>${data.nama_dir} / ${data.nik_dir}</td>
+                                <td align='center'>${data.jab5}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <DIV style='page-break-after:always'></DIV>
+                    <div class="col-12" style='text-align:center'>
+                        <h6 class='mb-0'>FORM KEBUTUHAN BARANG / JASA</h6>
+                        <h6 class='mb-3' style='text-transform:capitalize'>(${data2.keterangan})</h6>
+                    </div>
+                    <div class="col-12">
+                        <table class="table table-condensed table-bordered" width="100%" id='table-m'>
+                            <tbody>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Nomor Dokumen</td>
+                                    <td width="70%" id='print-unit'>`+data2.no_pb+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Unit Kerja</td>
+                                    <td width="70%" id='print-unit'>`+data2.nama_pp+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Nomor Akun</td>
+                                    <td width="70%" id='print-unit'>-</td>
+                                </tr>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Total Nilai Anggaran</td>
+                                    <td id='print-kegiatan2'>`+sepNum(saldo)+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Saat Penggunaan</td>
+                                    <td id='print-kegiatan2'>`+sepNum(nilai)+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="25" colspan="2" style='text-transform:capitalize'>Sisa Penggunaan</td>
+                                    <td id='print-kegiatan2'>`+sepNum(sisa)+`</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <p style='font-weight:bold'># <u>DETAIL</u></p>
                     </div>
                     <div class="col-12">
                         <table class="table table-condensed table-bordered" width="100%" id="table-d">
@@ -968,46 +1105,34 @@
                         </table>
                     </div>
                     <div class="col-12">
-                        <p style='font-weight:bold'># <u>LATAR BELAKANG</u></p>
-                        <p>`+result.data[0].latar+`</p>
-                    </div>
-                    <div class="col-12">
-                        <p style='font-weight:bold'># <u>ASPEK STRATEGIS</u></p>
-                        <p>`+result.data[0].strategis+`</p>
-                    </div>
-                    <div class="col-12">
-                        <p style='font-weight:bold'># <u>ASPEK BISNIS</u></p>
-                        <p>`+result.data[0].bisnis+`</p>
-                    </div>
-                    <div class="col-12">
-                        <p style='font-weight:bold'># <u>SPESIFIKASI TEKNIS</u></p>
-                        <p>`+result.data[0].teknis+`</p>
-                    </div>
-                    <div class="col-12">
-                        <p style='font-weight:bold'># <u>ASPEK LAIN</u></p>
-                        <p>`+result.data[0].lain+`</p>
-                    </div>
-                        <div class="col-12">
-                            <p style='font-weight:bold'># <u>LAMPIRAN</u></p>
-                        </div>
-                        <div class="col-12">
-                        <table class="table table-condensed table-bordered" width="100%" id="table-penutup">
-                        <thead class="text-center">
-                        <tr>
-                        <td width="10%"></td>
-                        <td width="25">NAMA/NIK</td>
-                        <td width="15%">JABATAN</td>
-                        <td width="10%">TANGGAL</td>
-                        <td width="15%">NO APPROVAL</td>
-                        <td width="10%">STATUS</td>
-                        <td width="15%">TTD</td>
-                        </tr>
-                        </thead>
-                        <tbody>`+det2+`
-                        </tbody>
+                        <table class="table table-condensed table-borderless" width="100%" id='table-m'>
+                            <tbody>
+                                <tr>
+                                    <td width="100%" colspan="3" style='text-transform:capitalize'>Terbilang : `+terbilang(data2.nilai)+`</td>
+                                </tr>
+                                <tr>
+                                    <td width="100%" colspan="3">Jakarta, `+data2.tanggal.substr(8,2)+` `+namaPeriode(data2.tanggal.substr(0,4)+''+data2.tanggal.substr(5,2))+` </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" colspan="2">Dibuat Oleh,</td>
+                                    <td width="50%" id='print-kegiatan2' >Disetujui Oleh,</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" colspan="2" style="height:60px">&nbsp;</td>
+                                    <td width="50%" id='print-kegiatan2' >&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" colspan="2">${data2.nama_buat}</td>
+                                    <td width="50%" id='print-kegiatan2' >${data2.nama_tahu}</td>
+                                </tr>
+                                <tr>
+                                    <td width="50%" colspan="2">${data2.nik_buat}</td>
+                                    <td width="50%" id='print-kegiatan2' >${data2.nik_tahu}</td>
+                                </tr>
+                            </tbody>
                         </table>
-                        </div>
-                    </div>`;
+                    </div>
+                    `;
                 html+="</div>"; 
                         $('#prev-content').html(html)
                         
