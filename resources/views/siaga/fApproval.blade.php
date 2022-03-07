@@ -887,10 +887,10 @@
                         </tr>`;
                         no++;
                     }
-                    det +=`<tr>
-                    <td colspan='5'>Total</td>
-                    <td class='text-right'>`+toRp(total)+`</td>
-                    </tr>`;
+                    // det +=`<tr>
+                    // <td colspan='5'>Total</td>
+                    // <td class='text-right'>`+toRp(total)+`</td>
+                    // </tr>`;
 
                     var detakun='';
                     var no=1;var total=0; var saldo=0; var nilai=0; var sisa=0;
