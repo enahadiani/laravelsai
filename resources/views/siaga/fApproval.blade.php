@@ -961,12 +961,12 @@
                         <table class="table table-condensed table-bordered" width="100%" id="table-d">
                             <thead>
                                 <tr>
-                                    <th width='5%' class='header_laporan'>No</th>
-                                    <th width='20%' class='header_laporan'>No Akun </th>
-                                    <th width='30%' class='header_laporan'>Nama Akun </th>
-                                    <th width='15%' class='header_laporan'>Anggaran</th>
-                                    <th width='15%' class='header_laporan'>Nilai</th>
-                                    <th width='15%' class='header_laporan'>Saldo Anggaran</th>
+                                    <th width='5%' class='header_laporan text-center'>No</th>
+                                    <th width='20%' class='header_laporan text-center'>No Akun </th>
+                                    <th width='30%' class='header_laporan text-center'>Nama Akun </th>
+                                    <th width='15%' class='header_laporan text-center'>Anggaran</th>
+                                    <th width='15%' class='header_laporan text-center'>Nilai</th>
+                                    <th width='15%' class='header_laporan text-center'>Saldo Anggaran</th>
                                 </tr>
                             </thead>
                             <tbody>`+detakun+`
@@ -1092,12 +1092,12 @@
                         <table class="table table-condensed table-bordered" width="100%" id="table-d">
                             <thead>
                                 <tr>
-                                    <td style="width:5%">No</td>
-                                    <td style="width:55%">Nama Barang</td>
-                                    <td style="width:5%">Satuan</td>
-                                    <td style="width:5%">Qty</td>
-                                    <td style="width:15%">Harga</td>
-                                    <td style="width:15%">Jumlah Harga</td>
+                                    <th class="text-center" style="width:5%">No</th>
+                                    <th class="text-center" style="width:55%">Nama Barang</th>
+                                    <th class="text-center" style="width:5%">Satuan</th>
+                                    <th class="text-center" style="width:5%">Qty</th>
+                                    <th class="text-center" style="width:15%">Harga</th>
+                                    <th class="text-center" style="width:15%">Jumlah Harga</th>
                                 </tr>
                             </thead>
                             <tbody>`+det+`
