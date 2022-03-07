@@ -878,12 +878,12 @@
                     for(var i=0;i<result.detail.length;i++){
                         total+=+parseFloat(result.detail[i].harga)*parseFloat(result.detail[i].jumlah);
                         det +=`<tr>
-                        <td>`+no+`</td>
-                        <td>`+result.detail[i].nama_brg+`</td>
-                        <td>`+result.detail[i].satuan+`</td>
-                        <td class='text-right'>`+toRp(result.detail[i].jumlah)+`</td>
-                        <td class='text-right'>`+toRp(result.detail[i].harga)+`</td>
-                        <td class='text-right'>`+toRp(total)+`</td>
+                        <td style='width:5%'>`+no+`</td>
+                        <td style='width:40%'>`+result.detail[i].nama_brg+`</td>
+                        <td style='width:10%'>`+result.detail[i].satuan+`</td>
+                        <td class='text-right' style='width:15%'>`+toRp(result.detail[i].jumlah)+`</td>
+                        <td class='text-right' style='width:15%'>`+toRp(result.detail[i].harga)+`</td>
+                        <td class='text-right' style='width:15%'>`+toRp(total)+`</td>
                         </tr>`;
                         no++;
                     }
