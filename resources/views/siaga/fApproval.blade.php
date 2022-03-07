@@ -878,12 +878,12 @@
                     for(var i=0;i<result.detail.length;i++){
                         total+=+parseFloat(result.detail[i].harga)*parseFloat(result.detail[i].jumlah);
                         det +=`<tr>
-                        <td style='width:5%'>`+no+`</td>
-                        <td style='width:40%'>`+result.detail[i].nama_brg+`</td>
-                        <td style='width:10%'>`+result.detail[i].satuan+`</td>
-                        <td class='text-right' style='width:15%'>`+toRp(result.detail[i].jumlah)+`</td>
-                        <td class='text-right' style='width:15%'>`+toRp(result.detail[i].harga)+`</td>
-                        <td class='text-right' style='width:15%'>`+toRp(total)+`</td>
+                        <td >`+no+`</td>
+                        <td>`+result.detail[i].nama_brg+`</td>
+                        <td>`+result.detail[i].satuan+`</td>
+                        <td class='text-right'>`+toRp(result.detail[i].jumlah)+`</td>
+                        <td class='text-right'>`+toRp(result.detail[i].harga)+`</td>
+                        <td class='text-right'>`+toRp(total)+`</td>
                         </tr>`;
                         no++;
                     }
@@ -1092,11 +1092,11 @@
                         <table class="table table-condensed table-bordered" width="100%" id="table-d">
                             <thead>
                                 <tr>
-                                    <td style="width:3%">No</td>
-                                    <td style="width:15%">Nama Barang</td>
-                                    <td style="width:30%">Satuan</td>
-                                    <td style="width:10%">Harga</td>
-                                    <td style="width:6%">Qty</td>
+                                    <td style="width:5%">No</td>
+                                    <td style="width:55%">Nama Barang</td>
+                                    <td style="width:5%">Satuan</td>
+                                    <td style="width:5%">Qty</td>
+                                    <td style="width:15%">Harga</td>
                                     <td style="width:15%">Jumlah Harga</td>
                                 </tr>
                             </thead>
