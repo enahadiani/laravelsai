@@ -819,7 +819,7 @@
                     html += `
                             <div class='row'>
                                 <div class='col-12 text-center' style='margin-bottom:20px;'>
-                                    <h3>TANDA TERIMA</h3>
+                                    <h5>Appv Report</h5>
                                 </div>    
                                 <div class='col-12'>
                                     <table class='table table-borderless table-condensed'>
