@@ -141,7 +141,7 @@
                                                 <td>: ${data.status}</td>
                                             </tr>    
                                             <tr>
-                                                <td colspan='2'>Bandung, ${data.tgl.substr(0, 2)} ${getNamaBulan(data.tgl.substr(3, 2))} ${data.tgl.substr(6, 4)}</td>
+                                                <td colspan='2'>Jakarta, ${data.tgl.substr(0, 2)} ${getNamaBulan(data.tgl.substr(3, 2))} ${data.tgl.substr(6, 4)}</td>
                                             </tr>
                                             <tr>
                                                 <td>Dibuat Oleh:</td>

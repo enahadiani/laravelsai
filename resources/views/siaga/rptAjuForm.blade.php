@@ -97,7 +97,7 @@
                             <tr>
                                 <td>3</td>
                                 <td>TERBILANG</td>
-                                <td id='print-kegiatan2'>`+terbilang(result.data[0].nilai)+` Rupiah</td>
+                                <td id='print-kegiatan2'>`+terbilang(result.data[0].nilai)+`</td>
                             </tr>
                             <tr>
                                 <td>4</td>
