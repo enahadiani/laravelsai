@@ -13,3 +13,9 @@ use Illuminate\Support\Facades\Session;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
+Route::get('dash-databox','Sukka\DashboardController@getDataBox');
+Route::get('dash-return','Sukka\DashboardController@getDataReturn');
+Route::get('dash-datatable','Sukka\DashboardController@index');
