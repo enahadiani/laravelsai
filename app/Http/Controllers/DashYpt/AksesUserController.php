@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DashTelu;
+namespace App\Http\Controllers\DashYpt;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;

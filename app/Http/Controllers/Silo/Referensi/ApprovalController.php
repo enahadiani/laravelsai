@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Rkap;
+namespace App\Http\Controllers\Silo\Referensi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;

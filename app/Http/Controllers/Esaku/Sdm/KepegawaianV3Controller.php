@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
 use GuzzleHttp\Exception\BadResponseException;
 
-class Kepegawaianv3Controller extends Controller
+class KepegawaianV3Controller extends Controller
 {
     /**
      * Display a listing of the resource.

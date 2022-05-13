@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Rkap;
+namespace App\Http\Controllers\Sima;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
