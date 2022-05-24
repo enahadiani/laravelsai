@@ -58,7 +58,7 @@
             }
         
             // Hasil yang berupa array, disatukan kembali menjadi string dan tambahkan \n disetiap barisnya.
-            return implode($hasilBaris, "\n") . "\n";
+            return implode("\n",$hasilBaris) . "\n";
         } 
 
         function getNamaBulan($no_bulan){
@@ -1850,7 +1850,7 @@
                                 $printer -> setEmphasis(true);
                                 foreach ($row['detail'] as $item) {
                                     $printer->text($item['nama']."\n");
-                                    $printer->text(buatBaris3Kolom(number_format($item['jumlah'],0,",",".")."x", number_format($item['harga'],0,",","."), number_format($item['total'],0,",",".")));
+                                    $printer->text($this->buatBaris3Kolom(number_format($item['jumlah'],0,",",".")."x", number_format($item['harga'],0,",","."), number_format($item['total'],0,",",".")));
                                 }
                                 $printer -> setEmphasis(true);
                                 $printer -> text("--------------------------------");
@@ -1861,12 +1861,12 @@
                                 $total_byr=$row['tobyr'];
                                 $kembalian=$row['tobyr']-($total_stlh);
         
-                                $printer->text(buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
+                                $printer->text($this->buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
                                 $printer -> setEmphasis(false);
-                                $printer->text(buatBaris3Kolom("Total Diskon", "", number_format($total_disk,0,",",".")));
-                                $printer->text(buatBaris3Kolom("Total Set. Disk.", "", number_format($total_stlh,0,",",".")));
-                                $printer->text(buatBaris3Kolom("Total Bayar", "", number_format($total_byr,0,",",".")));
-                                $printer->text(buatBaris3Kolom("Kembalian", "", number_format($kembalian,0,",",".")));
+                                $printer->text($this->buatBaris3Kolom("Total Diskon", "", number_format($total_disk,0,",",".")));
+                                $printer->text($this->buatBaris3Kolom("Total Set. Disk.", "", number_format($total_stlh,0,",",".")));
+                                $printer->text($this->buatBaris3Kolom("Total Bayar", "", number_format($total_byr,0,",",".")));
+                                $printer->text($this->buatBaris3Kolom("Kembalian", "", number_format($kembalian,0,",",".")));
                                 $printer -> text("--------------------------------");
                                 $printer -> feed();
                         
