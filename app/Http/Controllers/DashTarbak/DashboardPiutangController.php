@@ -222,7 +222,11 @@ class DashboardPiutangController extends Controller {
                     'kode_bidang' => $req['kode_bidang']
                 ]);
             }
-            
+
+            $fields = array_merge($fields,[
+                'nik_user' => Session::get('nikUser')
+            ]);
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'dash-tarbak-dash/data-piutang-komposisi',[
                 'headers' => [
