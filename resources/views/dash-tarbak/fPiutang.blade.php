@@ -292,7 +292,7 @@ function getKomposisiPiutang(param) {
                     plotShadow: false,
                     type: 'pie',
                     height: ($height - 300),
-                    width: 350
+                    width: 300
                 },
                 title: { text: '' },
                 subtitle: { text: '' },
@@ -1431,9 +1431,9 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                                 <table class="table table-borderless table-py-2 mb-0" id="table-piutang-yoy">
                                     <tbody>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY</td>
+                                            <td class="w-30 pl-0">YoY</td>
                                             <td id="nom-piu-lalu" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="yoy-piu-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td id="yoy-piu-percentage" class="green-text pr-2 w-40 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1458,9 +1458,9 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                                 <table class="table table-borderless table-py-2 mb-0" id="table-piutang-cadangan-yoy">
                                     <tbody>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY</td>
+                                            <td class="w-30 pl-0">YoY</td>
                                             <td id="nom-piu-cadangan-lalu" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="yoy-piu-cadangan-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td id="yoy-piu-cadangan-percentage" class="green-text pr-2 w-40 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1546,9 +1546,9 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                                 <table class="table table-borderless table-py-2 mb-0" id="table-piutang-beban-yoy">
                                     <tbody>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY</td>
+                                            <td class="w-30 pl-0">YoY</td>
                                             <td id="nom-piu-beban-lalu" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="yoy-piu-beban-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td id="yoy-piu-beban-percentage" class="green-text pr-2 w-40 text-right">
                                                 0%
                                             </td>
                                         </tr>
@@ -1606,9 +1606,9 @@ $('.komposisi-legend').on('click', 'div.td-klik', function() {
                                 <table class="table table-borderless table-py-2 mb-0" id="table-piutang-hapus-yoy">
                                     <tbody>
                                         <tr>
-                                            <td class="w-40 pl-0">YoY</td>
+                                            <td class="w-30 pl-0">YoY</td>
                                             <td id="nom-piu-hapus-lalu" class="w-30 text-bold text-right px-0">0 M</td>
-                                            <td id="yoy-piu-hapus-percentage" class="green-text pr-2 w-30 text-right">
+                                            <td id="yoy-piu-hapus-percentage" class="green-text pr-2 w-40 text-right">
                                                 0%
                                             </td>
                                         </tr>
