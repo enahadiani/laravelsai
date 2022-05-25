@@ -268,7 +268,7 @@ function getTopPiutang(param) {
                         <td><p class="kode hidden">${line.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-pp">${line.nama}</span></td>
-                        <td class='text-right'>${toMilyar(line.sak_total,2)}</td>
+                        <td class='text-right'>${toJuta(line.sak_total,2)}</td>
                     </tr>`;
                 }
             }
