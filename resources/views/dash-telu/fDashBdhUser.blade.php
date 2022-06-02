@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/global.dekstop.css?version=_').time() }}" />
-<link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
+<link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-bdhuser.dekstop.css?version=_').time() }}" />
 
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
@@ -30,7 +30,7 @@
             enabled: false
         },
         title: {
-            text: 'Rata-rata Hari Proses Tiap Bulan',
+            text: 'Pengajuan Setiap Bulan',
             align: 'left'
         },
         xAxis: {
@@ -47,7 +47,6 @@
                 'Oct',
                 'Nov',
                 'Dec'
-            
             ],
             crosshair: true,
             title: {
@@ -62,7 +61,7 @@
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:green;padding:0">{series.name}: </td>' +
+            pointFormat: '<tr><td style="color:{green};padding:0">{series.name}: </td>' +
                 '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
@@ -79,31 +78,14 @@
             verticalAlign: 'top'
         },
         series: [{
-            name: '2 hari',
+            name: 'Pengajuan',
             data: [180, 180, 106.4, 129.2, 144.0, 176.0,100,100,100,100,100,100]
 
         }, {
-            name: '3 hari',
+            name: 'Selesai',
             data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
 
-        },{
-            name: '4 hari',
-            data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
-
-        },{
-            name: '5 hari',
-            data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
-
-        },
-        {
-            name: '',
-            type: 'spline',
-            data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
-            tooltip: {
-                valueSuffix: ''
-            }
-        }
-    ]
+        }]
     });
     // END CHART HARIAN
     // CHART Pengajuan Bulan
@@ -210,6 +192,8 @@
                         name: "Other",
                         y: 7.62,
                     }
+                    
+
                 ]
             }
         ]
@@ -518,7 +502,6 @@
                 'Oct',
                 'Nov',
                 'Dec'
-            
             ],
             crosshair: true,
             title: {
@@ -533,7 +516,7 @@
         },
         tooltip: {
             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:green;padding:0">{series.name}: </td>' +
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
                 '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
             footerFormat: '</table>',
             shared: true,
@@ -557,8 +540,7 @@
             name: 'Tahun Sekarang',
             data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
 
-        }
-    ]
+        }]
     });
     //END KAS
     // test lagi
@@ -568,7 +550,7 @@
 <section id="header" class="header">
     <div class="row">
         <div class="col-12">
-            <h2 id="title-dash" class="title-dash mt-0">Pembendaharaan</h2>
+            <h2 id="title-dash" class="title-dash mt-0">Fakultas/Direktorat...</h2>
         </div>
     </div>
 </section>
@@ -647,17 +629,19 @@
 
             {{-- SUDAH BAYAR --}}
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
-                <div class="card card-dash rounded-lg">
-                    <div class="card-body pt-2" style="width:100%; height:6rem;">
+            <div class="card card-dash rounded-lg">
+                    <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Sudah Bayar</span></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">39</div>
+                                <span class="text-success">+5 hari ini</span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">78 Jt</div>
+                                <span class="text-success">Proses ... hari</span>
                             </div>
                         </div>
                     </div>
@@ -688,32 +672,51 @@
                 {{-- END PENGAJUAN --}}
             </div>
 
+           
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
-                {{-- PENGAJUAN--}}
                 <div class="card card-dash rounded-lg">
-                    <div class="card-body">
-                        <div class="p-2" style="width:100%; height:12.5rem;">
-                            <div class="row">
-                                <div class="col-12"><span style="font-size: 1.5rem;">Rata-rata Proses</span></div>
+                    <div class="card-body pt-2" style="width:100%; height:6rem;">
+                        <div class="row">
+                            <div class="col-12"><span style="font-size: 1rem;">SPB</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">39</div>
                             </div>
-                            <div class="row">
-                                <div class="col-6 font-weight-bold" style="font-size: 2rem;">3 hari</div>
-                                <div class="col-6">
-                                    <i class="simple-icon-check" style="font-size: 2rem; color:green"></i>
-                                </div>
+                            <div class="col-6" style="border-left: 1px dashed black;">
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">78 Jt</div>
                             </div>
-                            Proses pengerjaan sudah sesuai sasaran mutu yang diterapkan.
                         </div>
                     </div>
                 </div>
-                {{-- END PENGAJUAN --}}
+                
+
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <div class="card card-dash rounded-lg">
+                            <div class="card-body pt-2" style="width:100%; height:6rem;">
+                            <span style="font-size: 1rem;">Rata-rata Proses</span>
+                            <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">39</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 ">
+                        <div class="card card-dash rounded-lg">
+                            <div class="card-body pt-2" style="width:100%; height:6rem;">
+                            <span style="font-size: 1rem;" class="text-danger" >Revisi</span>
+                                <div class="text-danger" style="font-size: 1.5rem;">10</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+                </div>
         </div>
 
         <div class="row">
             <div class="col-lg-6 col-md-12 px-1">
                 {{-- RATA2 HARI --}}
-                <div class="card card-dash rounded-lg">
+                <div class="card card-dash ">
                     <div class="card-header">
                         <div class="card-body">
                             <div id="chart-harian" style="width:100%; height:12.5rem;"></div>
