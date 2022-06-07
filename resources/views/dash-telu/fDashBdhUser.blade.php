@@ -672,7 +672,6 @@
                 {{-- END PENGAJUAN --}}
             </div>
 
-           
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
                 <div class="card card-dash rounded-lg">
                     <div class="card-body pt-2" style="width:100%; height:6rem;">
