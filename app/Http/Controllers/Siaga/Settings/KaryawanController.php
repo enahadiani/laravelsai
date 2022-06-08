@@ -74,6 +74,9 @@ class KaryawanController extends Controller
             } else {
                 $name = array('nik','nama','alamat','email','kode_pp','jabatan','no_telp','no_hp','status','flag_aktif');
             }
+            if(isset($request->kode_jab) && $request->kode_jab != ""){
+                array_push($name,'kode_jab');
+            }
             $req = $request->all();
             $fields = array();
             $data = array();
@@ -101,29 +104,30 @@ class KaryawanController extends Controller
                 }
                 $data[$i] = $name[$i];
             }
-                $fields = array_merge($fields,$fields_data);
 
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'siaga-master/set-karyawan',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'multipart' => $fields
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $fields = array_merge($fields,$fields_data);
+            
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'siaga-master/set-karyawan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'multipart' => $fields
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
         }
     }
 

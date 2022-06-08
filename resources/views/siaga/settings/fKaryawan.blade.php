@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('master.css?version=_').time() }}" />
     <!-- LIST DATA -->
-    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Kode Lokasi','Jabatan','No Telp','Email','Kode PP','Aksi')" :thwidth="array(10,20,10,20,10,10,10,10)" :thclass="array('','','','','','','','text-center')" />
+    <x-list-data judul="Data Karyawan" tambah="true" :thead="array('NIK','Nama','Jabatan','No Telp','Email','Kode PP','Aksi')" :thwidth="array(10,20,20,10,10,10,10)" :thclass="array('','','','','','','text-center')" />
     <!-- END LIST DATA -->
 
     <!-- FORM INPUT -->
@@ -26,20 +26,6 @@
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-12">
-                                        <label for="kode_lokasi">Kode Lokasi</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
-                                                <span class="input-group-text info-code_kode_lokasi" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
-                                            </div>
-                                            <input type="text" class="form-control inp-label-kode_lokasi" id="kode_lokasi" name="kode_lokasi" value="" title="">
-                                            <span class="info-name_kode_lokasi hidden">
-                                                <span></span> 
-                                            </span>
-                                            <i class="simple-icon-close float-right info-icon-hapus hidden"></i>
-                                            <i class="simple-icon-magnifier search-item2" id="search_kode_lokasi"></i>
-                                        </div>
-                                    </div>
                                     <div class="col-md-6 col-sm-12">
                                         <label for="nik">NIK</label>
                                         <input class="form-control" type="text" id="nik" name="nik" required>
@@ -141,22 +127,7 @@
                                         <div class="preview text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
                                     </div>
                                 </div>
-                                <div class="row mb-2">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label>TTD</label>
-                                        <div class="input-group">
-                                            <div class="custom-file">
-                                                <input type="file" name="ttd" class="custom-file-input" id="ttd" accept="image/*" onchange="readURLTTD(this)">
-                                                <label class="custom-file-label" style="border-radius: 0.5rem;" for="ttd">Choose file</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row mb-2 text-center">
-                                    <div style="" class="col-12">
-                                        <div class="preview2 text-center" style="height:120px;width:120px;margin: 0 auto;border: 1px solid #d7d7d7;border-radius: 0.5rem;">Preview</div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>                   
                     </div>
@@ -245,20 +216,19 @@
     var action_html = "<a href='#' title='Edit' id='btn-edit'><i class='simple-icon-pencil' style='font-size:18px'></i></a> &nbsp;&nbsp;&nbsp; <a href='#' title='Hapus'  id='btn-delete'><i class='simple-icon-trash' style='font-size:18px'></i></a>";
     var dataTable = generateTable(
         "table-data",
-        "{{ url('gl-master/karyawan') }}", 
+        "{{ url('siaga-master/set-karyawan') }}", 
         [
-            {'targets': 7, data: null, 'defaultContent': action_html,'className': 'text-center' },
+            {'targets': 6, data: null, 'defaultContent': action_html,'className': 'text-center' },
         ],
         [
             { data: 'nik' },
             { data: 'nama' },
-            { data: 'kode_lokasi' },
             { data: 'jabatan' },
             { data: 'no_telp' },
             { data: 'email' },
             { data: 'kode_pp' },
         ],
-        "{{ url('bdh-auth/sesi-habis') }}",
+        "{{ url('siaga-auth/sesi-habis') }}",
         []
     );
 
@@ -306,7 +276,7 @@
     function getKodePP(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('gl-master/unit') }}",
+            url: "{{ url('siaga-master/set-unit') }}",
             dataType: 'json',
             data:{'kode_pp':id, kode_lokasi: $('#kode_lokasi').val()},
             async:false,
@@ -322,7 +292,7 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
                 }
             }
         });
@@ -331,7 +301,7 @@
     function getLokasi(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('gl-master/karyawan-lokasi') }}",
+            url: "{{ url('siaga-master/set-karyawan-lokasi') }}",
             dataType: 'json',
             data:{'kode_lokasi':id},
             async:false,
@@ -347,7 +317,7 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
                 }
             }
         });
@@ -356,7 +326,7 @@
     function getJabatan(id=null){
         $.ajax({
             type: 'GET',
-            url: "{{ url('simlog-master/jabatan') }}",
+            url: "{{ url('siaga-master/jabatan') }}",
             dataType: 'json',
             data:{'kode_jab':id, kode_lokasi: $('#kode_lokasi').val()},
             async:false,
@@ -372,7 +342,7 @@
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
                 }
             }
         });
@@ -385,7 +355,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('gl-master/karyawan-lokasi') }}",
+                    url : "{{ url('siaga-master/set-karyawan-lokasi') }}",
                     columns : [
                         { data: 'kode_lokasi' },
                         { data: 'nama' }
@@ -405,7 +375,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('gl-master/unit') }}",
+                    url : "{{ url('siaga-master/set-unit') }}",
                     columns : [
                         { data: 'kode_pp' },
                         { data: 'nama' }
@@ -428,7 +398,7 @@
                 var settings = {
                     id : id,
                     header : ['Kode', 'Nama'],
-                    url : "{{ url('simlog-master/jabatan') }}",
+                    url : "{{ url('siaga-master/jabatan') }}",
                     columns : [
                         { data: 'kode_jab' },
                         { data: 'nama' }
@@ -540,11 +510,11 @@
             var parameter = $('#id_edit').val();
             var id = $('#nik').val();
             if(parameter == "edit"){
-                var url = "{{ url('gl-master/karyawan-ubah') }}/"+id;
+                var url = "{{ url('siaga-master/set-karyawan-ubah') }}/"+id;
                 var pesan = "updated";
                 var text = "Perubahan data "+id+" telah tersimpan";
             }else{
-                var url = "{{ url('gl-master/karyawan') }}";
+                var url = "{{ url('siaga-master/set-karyawan') }}";
                 var pesan = "saved";
                 var text = "Data tersimpan dengan kode "+id;
             }
@@ -582,7 +552,7 @@
                         last_add("nik",result.data.kode);
                     }else if(!result.data.status && result.data.message === "Unauthorized"){
                     
-                        window.location.href = "{{ url('/bdh-auth/sesi-habis') }}";
+                        window.location.href = "{{ url('/siaga-auth/sesi-habis') }}";
                         
                     }else{
                         if(result.data.kode == "-" && result.data.jenis != undefined){
@@ -620,7 +590,7 @@
     function hapusData(id){
         $.ajax({
             type: 'DELETE',
-            url: "{{ url('gl-master/karyawan') }}/"+id,
+            url: "{{ url('siaga-master/set-karyawan') }}/"+id,
             dataType: 'json',
             async:false,
             success:function(result){
@@ -631,7 +601,7 @@
                     $('#table-delete tbody').html('');
                     $('#modal-pesan').modal('hide');
                 }else if(!result.data.status && result.data.message == "Unauthorized"){
-                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
                 }else{
                     Swal.fire({
                         icon: 'error',
@@ -658,7 +628,7 @@
     function editData(id){
         $.ajax({
             type: 'GET',
-            url: "{{ url('gl-master/karyawan') }}/" + id,
+            url: "{{ url('siaga-master/set-karyawan') }}/" + id,
             dataType: 'json',
             async:false,
             success:function(res){
@@ -681,9 +651,6 @@
 
                     var html = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].foto+"'>";
                     $('.preview').html(html);
-                    
-                    var html2 = "<img style='width:120px' style='margin:0 auto' src='"+result.data[0].ttd+"'>";
-                    $('.preview2').html(html2);
                     $('#saku-datatable').hide();
                     $('#modal-preview').modal('hide');
                     $('#saku-form').show();
@@ -692,7 +659,7 @@
                     showInfoField('kode_jab',result.data[0].kode_jab,result.data[0].nama_jab);
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
-                    window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    window.location.href = "{{ url('siaga-auth/sesi-habis') }}";
                 }
                 // $iconLoad.hide();
             }
@@ -712,9 +679,9 @@
     // END BUTTON EDIT
     
     // HANDLER untuk enter dan tab
-    $('#kode_lokasi,nik,#nama,#alamat,#jabatan,#no_telp,#email,#kode_pp,#flag_aktif,#no_hp,#kode_jab,#file_gambar,#ttd').keydown(function(e){
+    $('#kode_lokasi,nik,#nama,#alamat,#jabatan,#no_telp,#email,#kode_pp,#flag_aktif,#no_hp,#kode_jab,#file_gambar').keydown(function(e){
         var code = (e.keyCode ? e.keyCode : e.which);
-        var nxt = ['kode_lokasi','nik','nama','alamat','jabatan','no_telp','email','kode_pp','flag_aktif','no_hp','kode_jab','file_gambar','ttd'];
+        var nxt = ['kode_lokasi','nik','nama','alamat','jabatan','no_telp','email','kode_pp','flag_aktif','no_hp','kode_jab','file_gambar'];
         if (code == 13 || code == 40) {
             e.preventDefault();
             var idx = nxt.indexOf(e.target.id);
