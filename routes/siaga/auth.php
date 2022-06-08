@@ -14,12 +14,18 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+
 Route::get('/form/{id}', function ($id) {
     if(!Session::has('isLoggedIn')){
         // return redirect('dash-telu/login');
         return view('siaga.sesi');
     }else{
-        return view('siaga.'.$id);
+        $tmp = explode("_",$id);
+        if(isset($tmp[1])){
+            return view('siaga.'.$tmp[0].'.'.$tmp[1]);
+        }else{
+            return view('siaga.'.$id);
+        }
     }
 });
 
