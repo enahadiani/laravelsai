@@ -7,12 +7,15 @@
     var chartHarian = null;
     var chartCapai = null
     var chartKas = null
+    var tahun = "{{ substr(Session::get('periode'),0,4) }}";
+    var kode_pp = "{{ substr(Session::get('kodePP'),0,4) }}";
     function getDataBox(){
         $.ajax({
             type: 'GET',
             url: "{{ url('telu-dash/data-pbh-box') }}",
             data: {
-                tahun: tahun
+                tahun: tahun,
+                kode_pp: kode_pp
             },
             dataType: 'json',
             async: true,
@@ -45,7 +48,8 @@
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jenis-aju') }}",
             data: {
-                tahun: tahun
+                tahun: tahun,
+                kode_pp: kode_pp
             },
             dataType:"JSON",
             success:function(result){
@@ -125,7 +129,8 @@
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-kas') }}",
              data: {
-                tahun: tahun
+                tahun: tahun,
+                kode_pp: kode_pp
             },
             dataType:"JSON",
             success:function(result){
