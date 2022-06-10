@@ -777,8 +777,11 @@
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-10">
+        <div class="col-8">
             <h2 id="title-dash" class="title-dash mt-0">{{ Session::get('namaPP') }}</h2>
+        </div>
+        <div class="col-2">
+            <a class="btn btn-outline-light" href="#" id="btn-filter" style="position: absolute;right: 15px;border:1px solid black;font-size:1rem;top:0"><i class="simple-icon-equalizer" style="transform-style: ;"></i> &nbsp;&nbsp; Filter</a>
         </div>
         <div class="col-2 text-right">
             <a href="#" id="dash-refresh">

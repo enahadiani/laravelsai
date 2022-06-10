@@ -154,4 +154,7 @@ Route::get('data-pbh-box','DashTelu\DashboardPBHController@getDataBox');
 Route::get('data-pbh-jenis-aju','DashTelu\DashboardPBHController@getJenisPengajuan');
 Route::get('data-pbh-kas','DashTelu\DashboardPBHController@getNilaiKas');
 
+Route::get('bidang','DashTelu\DashboardPBHController@getBidang');
+Route::get('pp','DashTelu\DashboardPBHController@getPP');
+
 ?>

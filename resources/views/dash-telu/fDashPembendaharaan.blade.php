@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
 
 <script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
@@ -11,13 +12,13 @@
     var chartCapai = null
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    function getDataBox(){
+    var kode_bidang = "";
+    var kode_pp = "";
+    function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
             url: "{{ url('telu-dash/data-pbh-box') }}",
-            data: {
-                tahun: tahun
-            },
+            data: param,
             dataType: 'json',
             async: true,
             success:function(result) {    
@@ -44,13 +45,11 @@
         });
     }
     
-    function getJenisPengajuan(){
+    function getJenisPengajuan(param = {tahun: tahun}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jenis-aju') }}",
-            data: {
-                tahun: tahun
-            },
+            data: param,
             dataType:"JSON",
             success:function(result){
                 
@@ -124,13 +123,11 @@
         })
     }
 
-    function getNilaiKas(){
+    function getNilaiKas(param = {tahun: tahun}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-kas') }}",
-            data: {
-                tahun: tahun
-            },
+            data: param,
             dataType:"JSON",
             success:function(result){
                 chartKas = Highcharts.chart('chart-kas', {
@@ -782,15 +779,110 @@
         getJenisPengajuan();
         getNilaiKas();
     });
+
+    //FILTER
+     
+    $('#form-filter').submit(function(e){
+        e.preventDefault();
+        kode_bidang = $('#kode_bidang').val();
+        kode_pp = $('#kode_pp').val();
+        getDataBox({
+            tahun: tahun,
+            kode_bidang: kode_bidang,
+            kode_pp: kode_pp
+        })
+        getJenisPengajuan({
+            tahun: tahun,
+            kode_bidang: kode_bidang,
+            kode_pp: kode_pp
+        })
+        getNilaiKas({
+            tahun: tahun,
+            kode_bidang: kode_bidang,
+            kode_pp: kode_pp
+        })
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#periode')[0].selectize.setValue('');
+        
+    });
+    
+    $('#dash-filter').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#modalFilter').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id){
+            case 'kode_bidang':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('telu-dash/bidang') }}",
+                    columns : [
+                        { data: 'kode_bidang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Bidang",
+                    pilih : "kode_bidang",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
+            case 'kode_pp':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('telu-dash/pp') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "kode_pp",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    parameter: {
+                        kode_bidang: $('#kode_bidang').val()
+                    },
+                    width : ["30%","70%"]
+                }
+            break;
+        }
+        showInpFilter(options);
+    });
+    $('#modal-search').css({'z-index':2000,'border':'1px solid #d7d7d7'});
 </script>
 
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <h2 id="title-dash" class="title-dash mt-0">Pembendaharaan</h2>
         </div>
-        <div class="col-2 text-right">
+        <div class="col-3 text-right">
+            <a href="#" id="dash-filter" class="mr-3">
+                <i class="simple-icon-equalizer" style="font-size:20px;color:#9e9e9e"></i>
+                <span style="position: relative;top: -3px;">Filter</span>
+            </a>
             <a href="#" id="dash-refresh">
                 <i class="simple-icon-refresh" style="font-size:20px;color:#9e9e9e"></i>
                 <span style="position: relative;top: -3px;">Refresh</span>
@@ -962,3 +1054,55 @@
 
 </section>
 {{-- END BODY --}}
+
+@include('modal_search')
+
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 350px;">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="form-group row inp-filter">
+                        <label class="col-md-12">Bidang</label>
+                        <div class="input-group col-12">
+                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                <span class="input-group-text info-code_kode_bidang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                            </div>
+                            <input type="text" class="form-control inp-label-kode_bidang" id="kode_bidang" name="kode_bidang" value="" title="" readonly>
+                            <span class="info-name_kode_bidang hidden">
+                                <span></span> 
+                            </span>
+                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="right: 50px;"></i>
+                            <i class="simple-icon-magnifier search-item2" id="search_kode_bidang" style="right: 25px;"></i>
+                        </div>
+                    </div>
+                    <div class="form-group row inp-filter">
+                        <label class="col-md-12">PP</label>
+                        <div class="input-group col-12">
+                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                            </div>
+                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="" readonly>
+                            <span class="info-name_kode_pp hidden">
+                                <span></span> 
+                            </span>
+                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="right: 50px;"></i>
+                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp" style="right: 25px;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="submit" class="btn btn-primary">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
