@@ -8,7 +8,7 @@
     var chartCapai = null
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    var kode_pp = "{{ substr(Session::get('kodePP'),0,4) }}";
+    var kode_pp = "5799";
     function getDataBox(){
         $.ajax({
             type: 'GET',
