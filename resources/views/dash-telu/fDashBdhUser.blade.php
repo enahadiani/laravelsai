@@ -3,12 +3,15 @@
 
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
+    $('body').addClass('dash-contents');
+    $('html').addClass('dash-contents');
+    
     var chartAju = null;
     var chartHarian = null;
     var chartCapai = null
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    var kode_pp = "5799";
+    var kode_pp = "{{ Session::get('kodePP') }}";
     function getDataBox(){
         $.ajax({
             type: 'GET',

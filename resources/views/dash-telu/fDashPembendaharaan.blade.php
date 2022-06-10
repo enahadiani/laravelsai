@@ -3,6 +3,9 @@
 
 <script src="{{ asset('main.js') }}"></script>
 <script type="text/javascript">
+    $('body').addClass('dash-contents');
+    $('html').addClass('dash-contents');
+
     var chartAju = null;
     var chartHarian = null;
     var chartCapai = null
