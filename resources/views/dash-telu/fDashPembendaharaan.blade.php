@@ -193,10 +193,12 @@
                     },
                     series: [{
                         name: 'Tahun Lalu',
+                        color: '#D9D9D9',
                         data: result.data.tahun_lalu
 
                     }, {
                         name: 'Tahun Sekarang',
+                        color: '#007AFF',
                         data: result.data.tahun_ini
 
                     }]
