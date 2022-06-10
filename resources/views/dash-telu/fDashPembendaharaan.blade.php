@@ -793,6 +793,7 @@
         <div class="col-2 text-right">
             <a href="#" id="dash-refresh">
                 <i class="simple-icon-refresh" style="font-size:20px;color:#9e9e9e"></i>
+                <span style="position: relative;top: -3px;">Refresh</span>
             </a>
         </div>
     </div>

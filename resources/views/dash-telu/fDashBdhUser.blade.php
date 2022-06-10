@@ -778,11 +778,12 @@
 <section id="header" class="header">
     <div class="row">
         <div class="col-10">
-            <h2 id="title-dash" class="title-dash mt-0">Fakultas/Direktorat...</h2>
+            <h2 id="title-dash" class="title-dash mt-0">{{ Session::get('namaPP') }}</h2>
         </div>
         <div class="col-2 text-right">
             <a href="#" id="dash-refresh">
-                <i class="simple-icon-refresh" style="font-size:20px;color:#9e9e9e"></i>
+                <i class="simple-icon-refresh" style="font-size:20px;color:#9e9e9e"></i> 
+                <span style="position: relative;top: -3px;">Refresh</span>
             </a>
         </div>
     </div>
