@@ -7,11 +7,14 @@
     var chartHarian = null;
     var chartCapai = null
     var chartKas = null
+    var tahun = "{{ substr(Session::get('periode'),0,4) }}";
     function getDataBox(){
         $.ajax({
             type: 'GET',
             url: "{{ url('telu-dash/data-pbh-box') }}",
-            data: {},
+            data: {
+                tahun: tahun
+            },
             dataType: 'json',
             async: true,
             success:function(result) {    
@@ -42,7 +45,9 @@
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jenis-aju') }}",
-            data:{},
+            data: {
+                tahun: tahun
+            },
             dataType:"JSON",
             success:function(result){
                 
@@ -120,7 +125,9 @@
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-kas') }}",
-            data:{},
+            data: {
+                tahun: tahun
+            },
             dataType:"JSON",
             success:function(result){
                 chartKas = Highcharts.chart('chart-kas', {
@@ -767,13 +774,23 @@
     // });
     //END KAS
     // test lagi
+    $('#dash-refresh').click(function(){
+        getDataBox();
+        getJenisPengajuan();
+        getNilaiKas();
+    });
 </script>
 
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-12">
+        <div class="col-10">
             <h2 id="title-dash" class="title-dash mt-0">Pembendaharaan</h2>
+        </div>
+        <div class="col-2 text-right">
+            <a href="#" id="dash-refresh">
+                <i class="simple-icon-refresh" style="font-size:20px;color:#9e9e9e"></i>
+            </a>
         </div>
     </div>
 </section>
