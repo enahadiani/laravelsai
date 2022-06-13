@@ -366,7 +366,7 @@
                     series: [
                         {
                             name: "Jumlah Pengajuan Selesai",
-                            colorByPoint: true,
+                            color: '#FFCC00',
                             data: result.data
                         }
                     ]
