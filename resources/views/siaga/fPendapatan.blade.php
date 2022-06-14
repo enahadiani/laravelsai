@@ -521,7 +521,7 @@ Highcharts.chart('chart-yoy', {
         </div>
     <div class="col-3 pl-1 pr-0" style="padding-top: 1em;">
             <div class="row">
-                <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;">
+                <div class="card card-dash rounded-lg" style="padding-left: 0.5em; padding-right:1.5em; padding-top:1em;">
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">

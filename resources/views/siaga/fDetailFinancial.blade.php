@@ -758,7 +758,7 @@ Highcharts.chart('chart-yoy', {
                         </div>
 
                         </div>
-                        <div class="p-2" style="width:100%; height:46em;">
+                        <div class="p-2" style="width:100%; height:15.2em;">
                         
                     </div>
                 </div>
@@ -775,5 +775,4 @@ Highcharts.chart('chart-yoy', {
     loadForm(url);
 })
 </script>
-    
 </script>

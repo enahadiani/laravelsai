@@ -386,7 +386,7 @@ Highcharts.chart('chart-contribusi', {
                 <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
-                <div id="dash-title-div" class="col-11 pr-0" >
+                <div id="dash-title-div" class="col-11 pr-0" style="padding-right:7em ;">
                     <h2 class="title-dash" id="title-dash">Financial Performance</h2>
                 </div>
                 <div class="row">
@@ -400,7 +400,7 @@ Highcharts.chart('chart-contribusi', {
         </div>
         <div class="col-3 pl-1 pr-0" style="padding-top: 1em;">
             <div class="row">
-                <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;">
+                <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:0.5em; padding-top:1em;">
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
@@ -501,10 +501,10 @@ Highcharts.chart('chart-contribusi', {
 </section>
 
     <div class="row body-dash row-box" style="position: relative;">
-        <div class='col-md-2dot4 col-12'>
-        <div class="card card-dash rounded-lg link-detail"  data-box="revenue">
+        <div class='col-md-2dot4 col-12 px-1' >
+        <div class="card card-dash rounded-lg link-detail md-1"  data-box="revenue">
         <p hidden class="link-tujuan">fDetailFinance</p>
-                    <div class="card-body pt-2">
+                    <div class="card-body pt-2 ">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Revenue</span></div>
                             <div class="col-12"><b>173,14M</b></div>
@@ -530,7 +530,7 @@ Highcharts.chart('chart-contribusi', {
                 </div>
         </div>
 
-        <div class='col-md-2dot4 col-12'>
+        <div class='col-md-2dot4 col-12 px-1'>
         <div class="card card-dash rounded-lg link-detail" data-box="cogs">
         <p hidden class="link-tujuan">fDetailFinance</p>
                     <div class="card-body pt-2">
@@ -558,7 +558,7 @@ Highcharts.chart('chart-contribusi', {
                     </div>
                 </div>
         </div>
-        <div class='col-md-2dot4'>
+        <div class='col-md-2dot4 px-1'>
         <div class="card card-dash rounded-lg link-detail" data-box="profit">
         <p hidden class="link-tujuan">fDetailFinance</p>
                     <div class="card-body pt-2">
@@ -586,7 +586,7 @@ Highcharts.chart('chart-contribusi', {
                     </div>
                 </div>
         </div>
-        <div class='col-md-2dot4'>
+        <div class='col-md-2dot4 px-1'>
         <div class="card card-dash rounded-lg link-detail" data-box="opex">
         <p hidden class="link-tujuan">fDetailFinance</p>
                     <div class="card-body pt-2">
@@ -614,7 +614,7 @@ Highcharts.chart('chart-contribusi', {
                     </div>
                 </div>
         </div>
-        <div class='col-md-2dot4'>
+        <div class='col-md-2dot4 px-1'>
         <div class="card card-dash rounded-lg link-detail" data-box="income">
         <p hidden class="link-tujuan">fDetailFinance</p>
         <div class="card-body pt-2">
@@ -646,11 +646,11 @@ Highcharts.chart('chart-contribusi', {
 
 
     <div class="row mb-2">
-    <div class="col-lg-6 col-md-12 px-1">
+    <div class="col-lg-6 col-md-12 px-1" >
                 {{-- REVENUE--}}
                 <div class="card card-dash rounded-lg">
                     <div class="card-body">
-                        <div id="chart-revenue" style="width:100%; height:18.5rem;"></div>
+                        <div id="chart-revenue" style="width:100%; height: calc(78vh - 180px)"></div>
                     </div>
                 </div>
                 {{-- END REVENUE --}}
@@ -658,18 +658,20 @@ Highcharts.chart('chart-contribusi', {
             <div class="col-lg-3 col-md-6 px-1">
                 {{-- REVENUE--}}
                         <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;">
-                            <div class="card card-dash rounded-lg" >
+                            
                                 <div class="row"> 
-                            <div class="col-8">
-                                    <p id="select-text-fp" class="select-text" style="text-align:center; padding-top:0.5em;">Revenue Contribusi</p>
+                            <div class="col-8" style="padding-left: 5em;">
+                                    <select name="revenue" id="revenue">
+                                        <option value="Revenue Contribution">Revenue Contribution</option>
+                                        <option value="COGS">COGS</option>
+                                        <option value="Gross Profit">Gross Profit</option>
+                                        <option value="OPEX">OPEX</option>
+                                        <option value="Net Income">Net Income</option>
+                                    </select>
                                 </div>
-                                <div class="col-2">
-                                    <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}" style=" padding-top:1em;">
-                                </div>
-                            </div>
                             </div>
                             <div class="card-body">
-                            <div id="chart-contribusi" style="width:100%; height:12.5rem;"></div>\
+                            <div id="chart-contribusi" style="width:100%; height: calc(73vh - 180px)"></div>
                             </div>
                         </div>
                 {{-- END REVENUE --}}
@@ -678,7 +680,7 @@ Highcharts.chart('chart-contribusi', {
                 {{-- PENGAJUAN--}}
                 <div class="card card-dash rounded-lg">
                     <div class="card-body">
-                        <div class="p-2" style="width:100%; height:18.5rem;">
+                        <div class="p-2" style="width:100%; height: calc(78vh - 180px)">
                         <div class="row">
                             <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
                             <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
