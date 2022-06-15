@@ -74,14 +74,11 @@
         });
     }
     
-    function getJenisPengajuan(){
+    function getJenisPengajuan(param = {tahun: tahun}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jenis-aju') }}",
-            data: {
-                tahun: tahun,
-                kode_pp: kode_pp
-            },
+            data: param,
             dataType:"JSON",
             success:function(result){
                 
@@ -156,14 +153,11 @@
         })
     }
 
-    function getNilaiKas(){
+    function getNilaiKas(param = {tahun: tahun}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-kas') }}",
-             data: {
-                tahun: tahun,
-                kode_pp: kode_pp
-            },
+            data: param,
             dataType:"JSON",
             success:function(result){
                 chartKas = Highcharts.chart('chart-kas', {
