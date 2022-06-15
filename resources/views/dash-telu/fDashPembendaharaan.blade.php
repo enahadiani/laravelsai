@@ -57,7 +57,7 @@
                     $('#spb_bayar_nilai').text(toMilyar(line.spb_bayar.nilai));
                     $('#spb_bayar_hari_ini').text('+'+number_format(line.spb_bayar.hari_ini)+' hari ini');
                     $('#spb_bayar_jml_hari').text('Proses '+number_format(line.spb_bayar.jml_hari)+' hari');
-                    $('#rata2-proses').text(number_format(line.aju.jml_hari,1)+' Hari');
+                    $('#rata2-proses').text(number_format(line.rata_rata.jml_hari,1)+' Hari');
                     
                 }
             }
