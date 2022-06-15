@@ -832,7 +832,7 @@
 
     $('#btn-reset').click(function(e){
         e.preventDefault();
-        $('#periode')[0].selectize.setValue('');
+        removeInfoField('kode_pp');
         
     });
     
