@@ -6,7 +6,7 @@
 <script type="text/javascript">
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
-
+    var $height = $(window).height();
     var chartAju = null;
     var chartHarian = null;
     var chartCapai = null
@@ -74,7 +74,8 @@
                 
                 chartAju = Highcharts.chart('chart-pengajuan', {
                     chart: {
-                        type: 'pie'
+                        type: 'pie',
+                        height: ($height - 250)/2
                     },
                     title: {
                         text: '',
@@ -151,7 +152,8 @@
             success:function(result){
                 chartKas = Highcharts.chart('chart-kas', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: ($height - 250)/2
                     },
                     credits: {
                         enabled: false
@@ -242,7 +244,8 @@
             success:function(result){
                 chartHarian = Highcharts.chart('chart-harian', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: ($height - 250)/2
                     },
                     credits: {
                         enabled: false
@@ -316,7 +319,8 @@
             success:function(result){
                 chartCapai = Highcharts.chart('chart-pencapaian', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: ($height - 250)/2
                     },
                     title: {
                         align: 'left',
@@ -1083,12 +1087,41 @@
         showInpFilter(options);
     });
     $('#modal-search').css({'z-index':2000,'border':'1px solid #d7d7d7'});
+
+    $(window).on('resize', function(){
+        var win = $(this); //this = window
+        var height = win.height();
+        var heighChart = 0;
+
+        heighChart = (height - 250)/2;
+
+        chartAju.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+        chartCapai.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+        chartHarian.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+        chartKas.update({
+            chart: {
+                height: heighChart,
+            }
+        })
+    });
 </script>
 
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-9">
+        <div class="col-9 px-0">
             <h2 id="title-dash" class="title-dash mt-0">Pembendaharaan</h2>
         </div>
         <div class="col-3 text-right">
@@ -1203,9 +1236,9 @@
         <div class="row mb-2">
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
                 {{-- PENGAJUAN--}}
-                <div class="card card-dash rounded-lg">
-                    <div class="card-body">
-                        <div id="chart-pengajuan" style="width:100%; height:12.5rem;"></div>
+                <div class="card card-dash rounded-lg" >
+                    <div class="card-body p-1">
+                        <div id="chart-pengajuan" style="width:100%;"></div>
                     </div>
                 </div>
                 {{-- END PENGAJUAN --}}
@@ -1213,9 +1246,9 @@
 
             <div class="col-lg-6 col-md-12 px-1">
                 {{-- KAS--}}
-                <div class="card card-dash rounded-lg">
-                    <div class="card-body">
-                        <div id="chart-kas" style="width:100%; height:12.5rem;"></div>
+                <div class="card card-dash rounded-lg" >
+                    <div class="card-body p-1">
+                        <div id="chart-kas" style="width:100%;"></div>
                     </div>
                 </div>
                 {{-- END PENGAJUAN --}}
@@ -1223,19 +1256,19 @@
 
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
                 {{-- PENGAJUAN--}}
-                <div class="card card-dash rounded-lg">
+                <div class="card card-dash rounded-lg" style="height: calc((100vh - 230px)/2)">
                     <div class="card-body">
-                        <div class="p-2" style="width:100%; height:12.5rem;">
+                        <div class="p-2" style="width:100%;">
                             <div class="row">
                                 <div class="col-12"><span style="font-size: 1.5rem;">Rata-rata Proses</span></div>
                             </div>
                             <div class="row">
-                                <div class="col-6 font-weight-bold" style="font-size: 2rem;" id="rata2-proses"></div>
-                                <div class="col-6">
+                                <div class="col-8 font-weight-bold" style="font-size: 2rem;" id="rata2-proses"></div>
+                                <div class="col-4 text-center">
                                     <i class="simple-icon-check" style="font-size: 2rem; color:green"></i>
                                 </div>
                             </div>
-                            Proses pengerjaan sudah sesuai sasaran mutu yang diterapkan.
+                            <p>Proses pengerjaan sudah sesuai sasaran mutu yang diterapkan.</p>
                         </div>
                     </div>
                 </div>
@@ -1247,10 +1280,8 @@
             <div class="col-lg-6 col-md-12 px-1">
                 {{-- RATA2 HARI --}}
                 <div class="card card-dash rounded-lg">
-                    <div class="card-header">
-                        <div class="card-body">
-                            <div id="chart-harian" style="width:100%; height:12.5rem;"></div>
-                        </div>
+                    <div class="card-body p-1">
+                        <div id="chart-harian" style="width:100%;"></div>
                     </div>
                 </div>
                 {{-- END RATA2 HARI --}}
@@ -1258,8 +1289,8 @@
             <div class="col-lg-6 col-md-12 px-1">
                 {{-- PENCAPAIAN SASARAN MUTU --}}
                 <div class="card card-dash rounded-lg">
-                    <div class="card-body">
-                        <div id="chart-pencapaian" style="width:100%; height:12.5rem;"></div>
+                    <div class="card-body p-1">
+                        <div id="chart-pencapaian" style="width:100%;"></div>
                     </div>
                 </div>
                 {{-- END PENCAPAIAN SASARAN MUTU --}}
