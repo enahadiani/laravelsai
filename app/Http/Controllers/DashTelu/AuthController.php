@@ -102,7 +102,11 @@
                             $res = $data2['user'];
                             if(count($res) > 0){
                                 $tmp = explode("_",$res[0]["path_view"]);
-                                $dash = $tmp[2];
+                                if(isset($tmp[2])){
+                                    $dash = $tmp[2];
+                                }else{
+                                    $dash = "-";
+                                }
                                 Session::put('isLoggedIn',TRUE);
                                 Session::put('dash',$dash);
                                 Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
