@@ -158,5 +158,6 @@ Route::get('data-pbh-jml-selesai','DashTelu\DashboardPBHController@getJmlSelesai
 
 Route::get('bidang','DashTelu\DashboardPBHController@getBidang');
 Route::get('pp','DashTelu\DashboardPBHController@getPP');
+Route::get('pp-karyawan','DashTelu\DashboardPBHController@getPPKaryawan');
 
 ?>

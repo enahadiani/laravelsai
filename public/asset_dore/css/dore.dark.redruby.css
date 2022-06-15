@@ -7787,3 +7787,9 @@ div.row-notif  a:hover {
 .card.card-dash {
   border: 0px;
 }
+span[class^="info-name"]{
+  background: #0d0c0c;
+}
+.readonly > span[class^="info-name"]{
+  background: #0d0c0c;
+}

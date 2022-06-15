@@ -12,35 +12,62 @@
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
     var kode_pp = "{{ Session::get('kodePP') }}";
-    function getDataBox(){
+    function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
             url: "{{ url('telu-dash/data-pbh-box') }}",
-            data: {
-                tahun: tahun,
-                kode_pp: kode_pp
-            },
+            data: param,
             dataType: 'json',
             async: true,
             success:function(result) {    
+                $('#aju_jml').text(0);
+                $('#aju_nilai').text(0);
+                $('#aju_jml_hari').text(0);
+                $('#aju_hari_ini').text(0);
                 $('#ver_dok_jml').text(0);
                 $('#ver_dok_nilai').text(0);
+                $('#ver_dok_jml_hari').text(0);
+                $('#ver_dok_hari_ini').text(0);
                 $('#ver_akun_jml').text(0);
                 $('#ver_akun_nilai').text(0);
+                $('#ver_akun_jml_hari').text(0);
+                $('#ver_akun_hari_ini').text(0);
                 $('#spb_jml').text(0);
                 $('#spb_nilai').text(0);
+                $('#spb_jml_hari').text(0);
+                $('#spb_hari_ini').text(0);
                 $('#spb_bayar_jml').text(0);
                 $('#spb_bayar_nilai').text(0);
+                $('#revisi').text(0);
+                // $('#spb_bayar_jml_hari').text(0);
+                // $('#spb_bayar_hari_ini').text(0);
+                $('#rata2-proses').text('0 Hari');
                 if(result.status){
                     var line = result.data;
+                    $('#aju_jml').text(number_format(line.aju.jml));
+                    $('#aju_nilai').text(toMilyar(line.aju.nilai));
+                    $('#aju_jml_hari').text('Proses '+number_format(line.aju.jml_hari)+' hari');
+                    $('#aju_hari_ini').text('+'+number_format(line.aju.hari_ini)+' hari ini');
                     $('#ver_dok_jml').text(number_format(line.ver_dok.jml));
                     $('#ver_dok_nilai').text(toMilyar(line.ver_dok.nilai));
+                    $('#ver_dok_jml_hari').text('Proses '+number_format(line.ver_dok.jml_hari)+' hari');
+                    $('#ver_dok_hari_ini').text('+'+number_format(line.ver_dok.hari_ini)+' hari ini');
                     $('#ver_akun_jml').text(number_format(line.ver_akun.jml));
                     $('#ver_akun_nilai').text(toMilyar(line.ver_akun.nilai));
+                    $('#ver_akun_jml_hari').text('Proses '+number_format(line.ver_akun.jml_hari)+' hari');
+                    $('#ver_akun_hari_ini').text('+'+number_format(line.ver_akun.hari_ini)+' hari ini');
                     $('#spb_jml').text(number_format(line.spb.jml));
                     $('#spb_nilai').text(toMilyar(line.spb.nilai));
+                    $('#spb_jml_hari').text('Proses '+number_format(line.spb.jml_hari)+' hari');
+                    $('#spb_hari_ini').text('+'+number_format(line.spb.hari_ini)+' hari ini');
                     $('#spb_bayar_jml').text(number_format(line.spb_bayar.jml));
                     $('#spb_bayar_nilai').text(toMilyar(line.spb_bayar.nilai));
+                    // $('#spb_bayar_hari_ini').text('+'+number_format(line.spb_bayar.hari_ini)+' hari ini');
+                    // $('#spb_bayar_jml_hari').text('Proses '+number_format(line.spb_bayar.jml_hari)+' hari');
+                    $('#rata2-proses').text(number_format(line.aju.jml_hari,1)+' Hari');
+                    $('#revisi').text(number_format(line.revisi.jml));
+                    
+                    
                 }
             }
         });
@@ -777,6 +804,73 @@
         getNilaiKas();
     });
 
+    
+
+    //FILTER
+     
+    $('#form-filter').submit(function(e){
+        e.preventDefault();
+        kode_pp = $('#kode_pp').val();
+        getDataBox({
+            tahun: tahun,
+            kode_pp: kode_pp
+        })
+        getJenisPengajuan({
+            tahun: tahun,
+            kode_pp: kode_pp
+        })
+        getNilaiKas({
+            tahun: tahun,
+            kode_pp: kode_pp
+        })
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#btn-reset').click(function(e){
+        e.preventDefault();
+        $('#periode')[0].selectize.setValue('');
+        
+    });
+    
+    $('#dash-filter').click(function(){
+        $('#modalFilter').modal('show');
+    });
+
+    $("#btn-close").on("click", function (event) {
+        event.preventDefault();
+        
+        $('#modalFilter').modal('hide');
+    });
+
+    $('#modalFilter').on('click', '.search-item2', function(){
+        var id = $(this).closest('div').find('input').attr('name');
+        switch(id){
+            case 'kode_pp':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('telu-dash/pp-karyawan') }}",
+                    columns : [
+                        { data: 'kode_pp' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar PP",
+                    pilih : "kode_pp",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
+        }
+        showInpFilter(options);
+    });
+    $('#modal-search').css({'z-index':2000,'border':'1px solid #d7d7d7'});
+
+
     $(window).on('resize', function(){
         var win = $(this); //this = window
         var height = win.height();
@@ -810,8 +904,8 @@
 {{-- HEADER --}}
 <section id="header" class="header">
     <div class="row">
-        <div class="col-9">
-            <h2 id="title-dash" class="title-dash mt-0">{{ Session::get('namaPP') }}</h2>
+        <div class="col-9 px-0">
+            <h2 id="title-dash" class="title-dash mt-0 listing-heading ellipsis">{{ Session::get('namaPP') }}</h2>
         </div>
         <div class="col-3 text-right">
             <a href="#" id="dash-filter" class="mr-3">
@@ -832,6 +926,27 @@
     <div id="dekstop-1" class="dekstop">
         {{-- FIRST ROW CARD --}}
         <div class="row mb-2">
+            {{-- PENGAJUAN --}}
+            <div class="col-lg-3 col-md-4 col-sm-6 px-1">
+                <div class="card card-dash rounded-lg">
+                    <div class="card-body pt-2">
+                        <div class="row">
+                            <div class="col-12"><span style="font-size: 1rem;">Pengajuan</span></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="aju_jml"></div>
+                                <span class="text-success" id="aju_hari_ini"></span>
+                            </div>
+                            <div class="col-6" style="border-left: 1px dashed black;">
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="aju_nilai"></div>
+                                <span class="text-success" id="aju_jml_hari"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- END PENGAJUAN --}}
             {{-- VERIFIKASI DOKUMEN --}}
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
                 <div class="card card-dash rounded-lg">
@@ -842,11 +957,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span class="text-success">+12 hari ini</span>
+                                <span class="text-success" id="ver_dok_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span class="text-success">Proses 2 hari</span>
+                                <span class="text-success" id="ver_dok_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -864,11 +979,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_akun_jml"></div>
-                                <span class="text-success">+12 hari ini</span>
+                                <span class="text-success" id="ver_akun_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_akun_nilai"></div>
-                                <span class="text-success">Proses ... hari</span>
+                                <span class="text-success" id="ver_akun_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -886,39 +1001,17 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_jml"></div>
-                                <span class="text-success">+5 hari ini</span>
+                                <span class="text-success" id="spb_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_nilai"></div>
-                                <span class="text-success">Proses ... hari</span>
+                                <span class="text-success" id="spb_jml_hari"></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             {{-- END SPB --}}
-
-            {{-- SUDAH BAYAR --}}
-            <div class="col-lg-3 col-md-4 col-sm-6 px-1">
-            <div class="card card-dash rounded-lg">
-                    <div class="card-body pt-2">
-                        <div class="row">
-                            <div class="col-12"><span style="font-size: 1rem;">Sudah Bayar</span></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_jml">39</div>
-                                <span class="text-success">+5 hari ini</span>
-                            </div>
-                            <div class="col-6" style="border-left: 1px dashed black;">
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_nilai">78 Jt</div>
-                                <span class="text-success">Proses ... hari</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- END SUDAH BAYAR --}}
         </div>
         {{-- END FIRST ROW CARD --}}
 
@@ -947,26 +1040,24 @@
                 <div class="card card-dash rounded-lg">
                     <div class="card-body pt-2" style="width:100%; height: calc((100vh - 250px)/4)">
                         <div class="row">
-                            <div class="col-12"><span style="font-size: 1rem;">SPB</span></div>
+                            <div class="col-12"><span style="font-size: 1rem;">SPB Bayar</span></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">39</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_jml"></div>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">78 Jt</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_nilai"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-
                 <div class="row mt-2">
                     <div class="col-6 pr-1">
                         <div class="card card-dash rounded-lg">
                             <div class="card-body pt-2" style="width:100%; height: calc((100vh - 250px)/4)">
                             <span style="font-size: 1rem;">Rata-rata Proses</span>
-                            <div class="font-weight-bold mb-1" style="font-size: 1.5rem;">39</div>
+                            <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="rata2-proses">39</div>
                             </div>
                         </div>
                     </div>
@@ -974,7 +1065,7 @@
                         <div class="card card-dash rounded-lg">
                             <div class="card-body pt-2" style="width:100%; height: calc((100vh - 250px)/4)">
                             <span style="font-size: 1rem;" class="text-danger" >Revisi</span>
-                                <div class="text-danger" style="font-size: 1.5rem;">10</div>
+                                <div class="text-danger" style="font-size: 1.5rem;" id="revisi"></div>
                             </div>
                         </div>
                     </div>
@@ -1007,3 +1098,41 @@
 
 </section>
 {{-- END BODY --}}
+
+@include('modal_search')
+
+<div class="modal fade modal-right" id="modalFilter" tabindex="-1" role="dialog"
+aria-labelledby="modalFilter" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 350px;">
+        <div class="modal-content">
+            <form id="form-filter">
+                <div class="modal-header pb-0" style="border:none">
+                    <h6 class="modal-title pl-0">Filter</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="border:none">
+                    <div class="form-group row inp-filter">
+                        <label class="col-md-12">PP</label>
+                        <div class="input-group col-12">
+                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                <span class="input-group-text info-code_kode_pp" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                            </div>
+                            <input type="text" class="form-control inp-label-kode_pp" id="kode_pp" name="kode_pp" value="" title="" readonly>
+                            <span class="info-name_kode_pp hidden">
+                                <span></span> 
+                            </span>
+                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="right: 50px;"></i>
+                            <i class="simple-icon-magnifier search-item2" id="search_kode_pp" style="right: 25px;"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="border:none;position:absolute;bottom:0;justify-content:flex-end;width:100%">
+                    <button type="button" class="btn btn-outline-primary" id="btn-reset">Reset</button>
+                    <button type="submit" class="btn btn-primary">Tampilkan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
