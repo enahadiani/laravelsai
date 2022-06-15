@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-bdhuser.dekstop.css?version=_').time() }}" />
 
 <script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('helper.js') }}"></script>
 <script type="text/javascript">
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
