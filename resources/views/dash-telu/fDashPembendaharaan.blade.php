@@ -24,22 +24,41 @@
             success:function(result) {    
                 $('#ver_dok_jml').text(0);
                 $('#ver_dok_nilai').text(0);
+                $('#ver_dok_jml_hari').text(0);
+                $('#ver_dok_hari_ini').text(0);
                 $('#ver_akun_jml').text(0);
                 $('#ver_akun_nilai').text(0);
+                $('#ver_akun_jml_hari').text(0);
+                $('#ver_akun_hari_ini').text(0);
                 $('#spb_jml').text(0);
                 $('#spb_nilai').text(0);
+                $('#spb_jml_hari').text(0);
+                $('#spb_hari_ini').text(0);
                 $('#spb_bayar_jml').text(0);
                 $('#spb_bayar_nilai').text(0);
+                $('#spb_bayar_jml_hari').text(0);
+                $('#spb_bayar_hari_ini').text(0);
+                $('#rata2-proses').text('0 Hari');
                 if(result.status){
                     var line = result.data;
                     $('#ver_dok_jml').text(number_format(line.ver_dok.jml));
                     $('#ver_dok_nilai').text(toMilyar(line.ver_dok.nilai));
+                    $('#ver_dok_jml_hari').text('Proses '+number_format(line.ver_dok.jml_hari)+' hari');
+                    $('#ver_dok_hari_ini').text('+'+number_format(line.ver_dok.hari_ini)+' hari ini');
                     $('#ver_akun_jml').text(number_format(line.ver_akun.jml));
                     $('#ver_akun_nilai').text(toMilyar(line.ver_akun.nilai));
+                    $('#ver_akun_jml_hari').text('Proses '+number_format(line.ver_akun.jml_hari)+' hari');
+                    $('#ver_akun_hari_ini').text('+'+number_format(line.ver_akun.hari_ini)+' hari ini');
                     $('#spb_jml').text(number_format(line.spb.jml));
                     $('#spb_nilai').text(toMilyar(line.spb.nilai));
+                    $('#spb_jml_hari').text('Proses '+number_format(line.spb.jml_hari)+' hari');
+                    $('#spb_hari_ini').text('+'+number_format(line.spb.hari_ini)+' hari ini');
                     $('#spb_bayar_jml').text(number_format(line.spb_bayar.jml));
                     $('#spb_bayar_nilai').text(toMilyar(line.spb_bayar.nilai));
+                    $('#spb_bayar_hari_ini').text('+'+number_format(line.spb_bayar.hari_ini)+' hari ini');
+                    $('#spb_bayar_jml_hari').text('Proses '+number_format(line.spb_bayar.jml_hari)+' hari');
+                    $('#rata2-proses').text(number_format(line.rata_rata.jml_hari,1)+' Hari');
+                    
                 }
             }
         });
@@ -1101,11 +1120,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span class="text-success">+12 hari ini</span>
+                                <span class="text-success" id="ver_dok_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span class="text-success">Proses 2 hari</span>
+                                <span class="text-success" id="ver_dok_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -1123,11 +1142,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_akun_jml"></div>
-                                <span class="text-success">+12 hari ini</span>
+                                <span class="text-success" id="ver_akun_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_akun_nilai"></div>
-                                <span class="text-success">Proses ... hari</span>
+                                <span class="text-success" id="ver_akun_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -1145,11 +1164,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_jml"></div>
-                                <span class="text-success">+5 hari ini</span>
+                                <span class="text-success" id="spb_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_nilai"></div>
-                                <span class="text-success">Proses ... hari</span>
+                                <span class="text-success" id="spb_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -1167,9 +1186,11 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_jml"></div>
+                                <span class="text-success" id="spb_bayar_hari_ini"></span>
                             </div>
                             <div class="col-6" style="border-left: 1px dashed black;">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="spb_bayar_nilai"></div>
+                                <span class="text-success" id="spb_bayar_jml_hari"></span>
                             </div>
                         </div>
                     </div>
@@ -1209,7 +1230,7 @@
                                 <div class="col-12"><span style="font-size: 1.5rem;">Rata-rata Proses</span></div>
                             </div>
                             <div class="row">
-                                <div class="col-6 font-weight-bold" style="font-size: 2rem;">3 hari</div>
+                                <div class="col-6 font-weight-bold" style="font-size: 2rem;" id="rata2-proses"></div>
                                 <div class="col-6">
                                     <i class="simple-icon-check" style="font-size: 2rem; color:green"></i>
                                 </div>
