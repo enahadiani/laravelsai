@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
 
-<script src="{{ asset('main.js') }}"></script>
-<script src="{{ asset('helper.js') }}"></script>
+<script src="{{ asset('main.js?version=_').time() }}"></script>
+<script src="{{ asset('helper.js?version=_').time() }}"></script>
 <script type="text/javascript">
     $('body').addClass('dash-contents');
     $('html').addClass('dash-contents');
