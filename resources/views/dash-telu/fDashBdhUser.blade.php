@@ -824,6 +824,8 @@
     $('#form-filter').submit(function(e){
         e.preventDefault();
         kode_pp = $('#kode_pp').val();
+        nama_pp = $('.info-name_kode_pp').text();
+        $('#title-dash').html(nama_pp);
         getDataBox({
             tahun: tahun,
             kode_pp: kode_pp
