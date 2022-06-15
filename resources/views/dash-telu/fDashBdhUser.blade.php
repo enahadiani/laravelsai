@@ -46,23 +46,23 @@
                 if(result.status){
                     var line = result.data;
                     $('#aju_jml').text(number_format(line.aju.jml));
-                    $('#aju_nilai').text(toMilyar(line.aju.nilai));
+                    $('#aju_nilai').text(toJuta(line.aju.nilai));
                     $('#aju_jml_hari').text('Proses '+number_format(line.aju.jml_hari)+' hari');
                     $('#aju_hari_ini').text('+'+number_format(line.aju.hari_ini)+' hari ini');
                     $('#ver_dok_jml').text(number_format(line.ver_dok.jml));
-                    $('#ver_dok_nilai').text(toMilyar(line.ver_dok.nilai));
+                    $('#ver_dok_nilai').text(toJuta(line.ver_dok.nilai));
                     $('#ver_dok_jml_hari').text('Proses '+number_format(line.ver_dok.jml_hari)+' hari');
                     $('#ver_dok_hari_ini').text('+'+number_format(line.ver_dok.hari_ini)+' hari ini');
                     $('#ver_akun_jml').text(number_format(line.ver_akun.jml));
-                    $('#ver_akun_nilai').text(toMilyar(line.ver_akun.nilai));
+                    $('#ver_akun_nilai').text(toJuta(line.ver_akun.nilai));
                     $('#ver_akun_jml_hari').text('Proses '+number_format(line.ver_akun.jml_hari)+' hari');
                     $('#ver_akun_hari_ini').text('+'+number_format(line.ver_akun.hari_ini)+' hari ini');
                     $('#spb_jml').text(number_format(line.spb.jml));
-                    $('#spb_nilai').text(toMilyar(line.spb.nilai));
+                    $('#spb_nilai').text(toJuta(line.spb.nilai));
                     $('#spb_jml_hari').text('Proses '+number_format(line.spb.jml_hari)+' hari');
                     $('#spb_hari_ini').text('+'+number_format(line.spb.hari_ini)+' hari ini');
                     $('#spb_bayar_jml').text(number_format(line.spb_bayar.jml));
-                    $('#spb_bayar_nilai').text(toMilyar(line.spb_bayar.nilai));
+                    $('#spb_bayar_nilai').text(toJuta(line.spb_bayar.nilai));
                     // $('#spb_bayar_hari_ini').text('+'+number_format(line.spb_bayar.hari_ini)+' hari ini');
                     // $('#spb_bayar_jml_hari').text('Proses '+number_format(line.spb_bayar.jml_hari)+' hari');
                     $('#rata2-proses').text(number_format(line.rata_rata.jml_hari,1)+' Hari');
