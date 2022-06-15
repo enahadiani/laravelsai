@@ -251,9 +251,18 @@
         });
     }
 
-    getDataBox();
-    getJenisPengajuan();
-    getNilaiKas();
+    getDataBox({
+        tahun: tahun,
+        kode_pp: kode_pp
+    })
+    getJenisPengajuan({
+        tahun: tahun,
+        kode_pp: kode_pp
+    })
+    getNilaiKas({
+        tahun: tahun,
+        kode_pp: kode_pp
+    })
 
     // CIRCLE
     $('#circle-agenda').circleProgress({
