@@ -14,6 +14,8 @@
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
     var kode_bidang = "";
     var kode_pp = "";
+    var nama_bidang = "";
+    var nama_pp = "";
     function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
@@ -991,8 +993,10 @@
      
     $('#form-filter').submit(function(e){
         e.preventDefault();
-        kode_bidang = $('#kode_bidang').val();
         kode_pp = $('#kode_pp').val();
+        nama_pp = kode_pp != "" ? trim($('.info-name_kode_pp').text()) : "";
+        kode_bidang = $('#kode_bidang').val();
+        nama_bidang = kode_bidang != "" ? trim($('.info-name_kode_bidang').text()) : "";
         getDataBox({
             tahun: tahun,
             kode_bidang: kode_bidang,
@@ -1028,6 +1032,16 @@
     });
     
     $('#dash-filter').click(function(){
+        if(kode_bidang != ""){
+            showInfoField('kode_bidang',kode_bidang,nama_bidang)
+        }else{
+            removeInfoField('kode_bidang');
+        }
+        if(kode_pp != ""){
+            showInfoField('kode_pp',kode_pp,nama_pp)
+        }else{
+            removeInfoField('kode_pp');
+        }
         $('#modalFilter').modal('show');
     });
 
@@ -1036,6 +1050,11 @@
         
         $('#modalFilter').modal('hide');
     });
+
+    $('#modalFilter').on('shown.bs.modal', function () {
+        resizeNameField('kode_bidang');
+        resizeNameField('kode_pp');
+    })
 
     $('#modalFilter').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');

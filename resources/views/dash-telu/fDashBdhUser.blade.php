@@ -13,6 +13,9 @@
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
     var kode_pp = "{{ Session::get('kodePP') }}";
+    var kode_bidang = "{{ Session::get('kodeBidang') }}";
+    var nama_pp = "{{ Session::get('namaPP') }}";
+    var nama_bidang = "{{ Session::get('namaBidang') }}";
     function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
@@ -247,15 +250,18 @@
 
     getDataBox({
         tahun: tahun,
-        kode_pp: kode_pp
+        kode_pp: kode_pp,
+        kode_bidang: kode_bidang
     })
     getJenisPengajuan({
         tahun: tahun,
-        kode_pp: kode_pp
+        kode_pp: kode_pp,
+        kode_bidang: kode_bidang
     })
     getNilaiKas({
         tahun: tahun,
-        kode_pp: kode_pp
+        kode_pp: kode_pp,
+        kode_bidang: kode_bidang
     })
 
     // CIRCLE
@@ -805,15 +811,18 @@
     $('#dash-refresh').click(function(){
         getDataBox({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
         getJenisPengajuan({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
         getNilaiKas({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
     });
 
@@ -824,32 +833,54 @@
     $('#form-filter').submit(function(e){
         e.preventDefault();
         kode_pp = $('#kode_pp').val();
-        nama_pp = $('.info-name_kode_pp').text();
-        $('#title-dash').html(nama_pp);
+        nama_pp = kode_pp != "" ? trim($('.info-name_kode_pp').text()) : "";
+        kode_bidang = $('#kode_bidang').val();
+        nama_bidang = kode_bidang != "" ? trim($('.info-name_kode_bidang').text()) : "";
+
+        $('#title-dash').html(nama_pp != "" ? nama_pp : nama_bidang);
         getDataBox({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
         getJenisPengajuan({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
         getNilaiKas({
             tahun: tahun,
-            kode_pp: kode_pp
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
         })
         $('#modalFilter').modal('hide');
     });
 
     $('#btn-reset').click(function(e){
         e.preventDefault();
+        removeInfoField('kode_bidang');
         removeInfoField('kode_pp');
         
     });
     
     $('#dash-filter').click(function(){
+        if(kode_bidang != ""){
+            showInfoField('kode_bidang',kode_bidang,nama_bidang)
+        }else{
+            removeInfoField('kode_bidang');
+        }
+        if(kode_pp != ""){
+            showInfoField('kode_pp',kode_pp,nama_pp)
+        }else{
+            removeInfoField('kode_pp');
+        }
         $('#modalFilter').modal('show');
     });
+
+    $('#modalFilter').on('shown.bs.modal', function () {
+        resizeNameField('kode_bidang');
+        resizeNameField('kode_pp');
+    })
 
     $("#btn-close").on("click", function (event) {
         event.preventDefault();
@@ -871,6 +902,26 @@
                     ],
                     judul : "Daftar PP",
                     pilih : "kode_pp",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
+            case 'kode_bidang':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('telu-dash/bidang-karyawan') }}",
+                    columns : [
+                        { data: 'kode_bidang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Bidang",
+                    pilih : "kode_bidang",
                     jTarget1 : "text",
                     jTarget2 : "text",
                     target1 : ".info-code_"+id,
@@ -1128,6 +1179,20 @@ aria-labelledby="modalFilter" aria-hidden="true">
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <div class="form-group row inp-filter">
+                        <label class="col-md-12">Bidang</label>
+                        <div class="input-group col-12">
+                            <div class="input-group-prepend hidden" style="border: 1px solid #d7d7d7;">
+                                <span class="input-group-text info-code_kode_bidang" readonly="readonly" title="" data-toggle="tooltip" data-placement="top" ></span>
+                            </div>
+                            <input type="text" class="form-control inp-label-kode_bidang" id="kode_bidang" name="kode_bidang" value="" title="" readonly>
+                            <span class="info-name_kode_bidang hidden">
+                                <span></span> 
+                            </span>
+                            <i class="simple-icon-close float-right info-icon-hapus hidden" style="right: 50px;"></i>
+                            <i class="simple-icon-magnifier search-item2" id="search_kode_bidang" style="right: 25px;"></i>
+                        </div>
+                    </div>
                     <div class="form-group row inp-filter">
                         <label class="col-md-12">PP</label>
                         <div class="input-group col-12">
