@@ -413,6 +413,13 @@
                 </div>
             </div>
             <div class="header-icons d-inline-block align-middle mr-4">
+                <div class="d-none d-md-inline-block align-text-bottom mr-3">
+                    <div class="custom-switch custom-switch-primary-inverse custom-switch-small pl-1"
+                        data-toggle="tooltip" data-placement="left" title="Dark Mode">
+                        <input class="custom-switch-input" id="switchDark" type="checkbox" checked>
+                        <label class="custom-switch-btn" for="switchDark"></label>
+                    </div>
+                </div>
                 <div class="dropdown position-relative d-inline-block">
                     <button class="header-icon btn btn-empty" type="button" id="notificationButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -424,7 +431,7 @@
                             <div class="d-flex flex-row px-3 py-2 ">
                                 <div class="">
                                     <a href="#">
-                                        <p class="font-weight-medium py-0 my-0" style="color;black;font-weight:bold;font-size:16px">Notifikasi</p>
+                                        <p class="font-weight-medium py-0 my-0" style="color:black;font-weight:bold;font-size:16px">Notifikasi</p>
                                     </a>
                                 </div>
                             </div>
@@ -435,7 +442,7 @@
                             <div class="d-flex flex-row px-3 py-2 text-center">
                                 <div class="" style="width:100%">
                                     <a href="#">
-                                    <p class="py-0 my-0 text-small" style="color;black;">Lihat semua</p>
+                                    <p class="py-0 my-0 text-small" style="color:black;">Lihat semua</p>
                                     </a>
                                 </div>
                             </div>
@@ -508,6 +515,7 @@
 		</div>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
+    var $theme = "dore.light.redruby.min.css";
     if (!$.fn.bootstrapDP && $.fn.datepicker && $.fn.datepicker.noConflict) {
         var datepicker = $.fn.datepicker.noConflict();
         $.fn.bootstrapDP = datepicker;
@@ -1490,7 +1498,72 @@
         }
     });
     var $theme = "dore.light.redruby.min.css";
- 
+    var mode = window.localStorage.getItem('dore-theme');
+    if (mode == "dark") {
+        $theme = $theme.replace("light", "dark");
+        var url_logo = "{{ asset('img/gtk_white.png') }}";
+        var url_logo_mob = "{{ asset('img/gratika2.jpg') }}";
+        var url_logo2 = "{{ asset('img/gratika2.jpg') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'35px',
+            
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
+            'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });
+
+      // localStorage.setItem("dore-theme", mode);
+    } else if (mode == "light") {
+        $theme = $theme.replace("dark", "light");
+        var url_logo = "{{ asset('img/gratika2.jpg') }}";
+        var url_logo_mob = "{{ asset('img/gratika2.jpg') }}";
+        var url_logo2 = "{{ asset('img/gratika2.jpg') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '100px',
+            'height':'80px',
+            
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
+            'height':'35px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '60px',
+            'height': '30px',
+        });
+    }else{
+        $theme = $theme.replace("dark", "light");
+        var url_logo = "{{ asset('img/gratika2.jpg') }}";
+        var url_logo_mob = "{{ asset('img/gratika1.png') }}";
+        var url_logo2 = "{{ asset('img/gtk_white.png') }}";
+        $('.logo').css({
+            'background': "url('"+url_logo+"') no-repeat",
+            'background-size': '120px',
+            'height':'45px',
+        });
+        $('.logo2').css({
+            'background': "url('"+url_logo2+"') no-repeat",
+            'background-size': '25px',
+            'height':'25px',
+        });
+        $('.logo-mobile').css({
+            'background': "url('"+url_logo_mob+"') no-repeat",
+            'background-size': '30px',
+            'height': '30px',
+        });   
+    }
     </script>
     <script src="{{ asset('asset_dore/js/scripts.js') }}"></script>
     <script>
