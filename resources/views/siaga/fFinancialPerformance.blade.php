@@ -3,6 +3,8 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
 
+
+
 <style>
     .link-detail {
         cursor: pointer;
@@ -55,7 +57,7 @@ Highcharts.chart('chart-revenue', {
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -68,18 +70,28 @@ plotOptions: {
 },
 
 series: [{
-    name: 'pdpt',
+    name: 'beban',
     data: [9, 2, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     stack: 'male'
 }, {
     name: 'HPP',
     data: [7, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    stack: 'male'
+    stack: 'male',
+    
 }, {
-    name: 'Beban',
+    name: 'pdpt',
     data: [19, 5, 6, 0, 0],
     stack: 'female'
-}]
+},{
+        type: 'spline',
+        name: 'NI',
+        data: [7, 6, 8],
+        marker: {
+            lineWidth: 2,
+            lineColor: Highcharts.getOptions().colors[3],
+            
+        }
+    }]
 });
 //end revenue
 
@@ -87,290 +99,50 @@ series: [{
 // Create the chart
 Highcharts.chart('chart-contribusi', {
     chart: {
+        
         type: 'pie'
     },
     title: {
         text: ''
-        
     },
-    subtitle: {
-        text: ''
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
     },
     credits: {
             enabled: false
         },
-
     accessibility: {
-        announceNewData: {
-            enabled: true
-        },
         point: {
             valueSuffix: '%'
         }
     },
-
     plotOptions: {
-        series: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '{point.name}: {point.y:.1f}%'
-            }
-        }
-    },
-
-    tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-    },
-
-    series: [
-        {
-            name: "Back",
-            colorByPoint: true,
-            data: [
-                {
-                    name: "BAD",
-                    y: 42.2,
-                    drilldown: "BAD"
-                },
-                {
-                    name: "TS",
-                    y: 39.3,
-                    drilldown: "TS"
-                },
-                {
-                    name: "BS",
-                    y: 7.0,
-                    drilldown: "BS"
-                },
-                {
-                    name: "BSC",
-                    y: 11.2,
-                    drilldown: "BSC"
+                format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                distance: -40,
+                filter: {
+                    property: 'percentage',
+                    operator: '>',
+                    value: 4
                 }
-            ]
+            },
+            showInLegend: false
         }
-    ],
-    drilldown: {
-        series: [
-            {
-                name: "BAD",
-                id: "BAD",
-                data: [
-                    [
-                        "v65.0",
-                        0.1
-                    ],
-                    [
-                        "v64.0",
-                        1.3
-                    ],
-                    [
-                        "v63.0",
-                        53.02
-                    ],
-                    [
-                        "v62.0",
-                        1.4
-                    ],
-                    [
-                        "v61.0",
-                        0.88
-                    ],
-                    [
-                        "v60.0",
-                        0.56
-                    ],
-                    [
-                        "v59.0",
-                        0.45
-                    ],
-                    [
-                        "v58.0",
-                        0.49
-                    ],
-                    [
-                        "v57.0",
-                        0.32
-                    ],
-                    [
-                        "v56.0",
-                        0.29
-                    ],
-                    [
-                        "v55.0",
-                        0.79
-                    ],
-                    [
-                        "v54.0",
-                        0.18
-                    ],
-                    [
-                        "v51.0",
-                        0.13
-                    ],
-                    [
-                        "v49.0",
-                        2.16
-                    ],
-                    [
-                        "v48.0",
-                        0.13
-                    ],
-                    [
-                        "v47.0",
-                        0.11
-                    ],
-                    [
-                        "v43.0",
-                        0.17
-                    ],
-                    [
-                        "v29.0",
-                        0.26
-                    ]
-                ]
-            },
-            {
-                name: "Firefox",
-                id: "Firefox",
-                data: [
-                    [
-                        "v58.0",
-                        1.02
-                    ],
-                    [
-                        "v57.0",
-                        7.36
-                    ],
-                    [
-                        "v56.0",
-                        0.35
-                    ],
-                    [
-                        "v55.0",
-                        0.11
-                    ],
-                    [
-                        "v54.0",
-                        0.1
-                    ],
-                    [
-                        "v52.0",
-                        0.95
-                    ],
-                    [
-                        "v51.0",
-                        0.15
-                    ],
-                    [
-                        "v50.0",
-                        0.1
-                    ],
-                    [
-                        "v48.0",
-                        0.31
-                    ],
-                    [
-                        "v47.0",
-                        0.12
-                    ]
-                ]
-            },
-            {
-                name: "Internet Explorer",
-                id: "Internet Explorer",
-                data: [
-                    [
-                        "v11.0",
-                        6.2
-                    ],
-                    [
-                        "v10.0",
-                        0.29
-                    ],
-                    [
-                        "v9.0",
-                        0.27
-                    ],
-                    [
-                        "v8.0",
-                        0.47
-                    ]
-                ]
-            },
-            {
-                name: "Safari",
-                id: "Safari",
-                data: [
-                    [
-                        "v11.0",
-                        3.39
-                    ],
-                    [
-                        "v10.1",
-                        0.96
-                    ],
-                    [
-                        "v10.0",
-                        0.36
-                    ],
-                    [
-                        "v9.1",
-                        0.54
-                    ],
-                    [
-                        "v9.0",
-                        0.13
-                    ],
-                    [
-                        "v5.1",
-                        0.2
-                    ]
-                ]
-            },
-            {
-                name: "Edge",
-                id: "Edge",
-                data: [
-                    [
-                        "v16",
-                        2.6
-                    ],
-                    [
-                        "v15",
-                        0.92
-                    ],
-                    [
-                        "v14",
-                        0.4
-                    ],
-                    [
-                        "v13",
-                        0.1
-                    ]
-                ]
-            },
-            {
-                name: "Opera",
-                id: "Opera",
-                data: [
-                    [
-                        "v50.0",
-                        0.96
-                    ],
-                    [
-                        "v49.0",
-                        0.82
-                    ],
-                    [
-                        "v12.1",
-                        0.14
-                    ]
-                ]
-            }
+    },
+    series: [{
+        name: 'Share',
+        colorByPoint: true,
+        data: [
+            { name: 'TS', y: 39.30 },
+            { name: 'BAD', y: 42.20 },
+            { name: 'BS', y: 11.20 },
+            { name: 'BSC', y: 7.30 }
         ]
-    }
+    }]
 });
 
 
@@ -507,12 +279,11 @@ Highcharts.chart('chart-contribusi', {
                     <div class="card-body pt-2 ">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Revenue</span></div>
-                            <div class="col-12"><b>173,14M</b></div>
+                            <div class="col-12"><b style="font-size: 25px;">173,14M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <span>RKA 90,02M</span>
                                 <span>YoY 162,39M</span>
@@ -520,7 +291,6 @@ Highcharts.chart('chart-contribusi', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <b class="text-success">192,33%</b>
                                 <b class="text-success">+6,61%</b>
@@ -536,12 +306,11 @@ Highcharts.chart('chart-contribusi', {
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">COGS</span></div>
-                            <div class="col-12"><b>98,29M</b></div>
+                            <div class="col-12"><b style="font-size: 25px;">98,29M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <span>RKA 70,39M</span>
                                 <span>YoY 82,19M</span>
@@ -549,7 +318,6 @@ Highcharts.chart('chart-contribusi', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <b class="text-danger">139,63%</b>
                                 <b class="text-danger">+19,58%</b>
@@ -564,12 +332,11 @@ Highcharts.chart('chart-contribusi', {
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Gross Profit</span></div>
-                            <div class="col-12"><b>74,85M</b></div>
+                            <div class="col-12" ><b style="font-size: 25px;">74,85M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <span>RKA 19,63M</span>
                                 <span>YoY 80,20M</span>
@@ -577,7 +344,6 @@ Highcharts.chart('chart-contribusi', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <b class="text-success">381,30%</b>
                                 <b class="text-danger">-6,67%</b>
@@ -592,12 +358,11 @@ Highcharts.chart('chart-contribusi', {
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">OPEX</span></div>
-                            <div class="col-12"><b>36,89M</b></div>
+                            <div class="col-12"><b style="font-size: 25px;">36,89M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <span>RKA 11,22M</span>
                                 <span>YoY 38,29M</span>
@@ -605,7 +370,6 @@ Highcharts.chart('chart-contribusi', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <b class="text-danger">328,78%</b>
                                 <b class="text-success">-3,65%</b>
@@ -620,12 +384,11 @@ Highcharts.chart('chart-contribusi', {
         <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Net Income</span></div>
-                            <div class="col-12"><b>37,96M</b></div>
+                            <div class="col-12"><b style="font-size: 25px;">37,96M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <span>RKA 8,41M</span>
                                 <span>YoY 41,91M</span>
@@ -633,7 +396,6 @@ Highcharts.chart('chart-contribusi', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_nilai"></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
                                 <b class="text-success">415,36%</b>
                                 <b class="text-danger">-9,42%</b>
@@ -645,22 +407,21 @@ Highcharts.chart('chart-contribusi', {
     </div>
 
 
-    <div class="row mb-2">
+<div class="row mb-2">
     <div class="col-lg-6 col-md-12 px-1" >
                 {{-- REVENUE--}}
                 <div class="card card-dash rounded-lg">
                     <div class="card-body">
-                        <div id="chart-revenue" style="width:100%; height: calc(78vh - 180px)"></div>
+                        <div id="chart-revenue" style="width:100%; height: calc(78vh - 180px); padding-bottom:15px;"></div>
                     </div>
                 </div>
                 {{-- END REVENUE --}}
             </div>
             <div class="col-lg-3 col-md-6 px-1">
                 {{-- REVENUE--}}
-                        <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;">
-                            
+                        <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;width:121%; height: calc(79.5vh - 180px)">
                                 <div class="row"> 
-                            <div class="col-8" style="padding-left: 5em;">
+                            <div class="col-8" style="padding-left: 1em;">
                                     <select name="revenue" id="revenue">
                                         <option value="Revenue Contribution">Revenue Contribution</option>
                                         <option value="COGS">COGS</option>
@@ -676,40 +437,41 @@ Highcharts.chart('chart-contribusi', {
                         </div>
                 {{-- END REVENUE --}}
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 px-1">
+
+            <div class="col-md-2dot4 px-1 ">
                 {{-- PENGAJUAN--}}
-                <div class="card card-dash rounded-lg">
-                    <div class="card-body">
-                        <div class="p-2" style="width:100%; height: calc(78vh - 180px)">
+                <div class="card card-dash rounded-lg" style="margin-left: 4rem;width:97%; height: calc(79.5vh - 180px)">
+                    <div class="card-body ">
+                        <div class="p-1" style="width:100%; height: calc(78vh - 180px)">
                         <div class="row">
                             <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
                             <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <div class="font-weight-bold mb-1 " style="font-size: 1.5rem; padding-top:1em;" ></div>
-                                <span>Total</span>
+                                <div class="font-weight-bold mb-1  " style="font-size: 1.5rem; padding-top:1em;" ></div>
+                                <span class="link-detail">Total</span>
+                                <div class="font-weight-bold mb-1 " style="font-size: 1.5rem;" ></div>
+                                <span class="link-detail" style="padding-bottom: 1em;">Bisnis AD</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span style="padding-bottom: 1em;">Bisnis AD</span>
+                                <span class="link-detail">Telco Solution</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span>Telco Solution</span>
+                                <span class="link-detail">BS Cabang</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span>BS Cabang</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span>Business Solution</span>
+                                <span class="link-detail">Business Solution</span>
                                 
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:1em;" id="ver_dok_nilai"></div>
                                 <span ></span>46.37%</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" id="ver_dok_jml"></div>
-                                <div >20,32</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <div >47,14</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <div >39,02</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <div >61,26</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" id="ver_dok_jml"></div>
+                                <div >20,32%</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" ></div>
+                                <div >47,14%</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.6em;" ></div>
+                                <div >39,02%</div>
+                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" ></div>
+                                <div >61,26%</div>
 
                             </div>
                         </div>
@@ -718,7 +480,7 @@ Highcharts.chart('chart-contribusi', {
                 </div>
                 {{-- END PENGAJUAN --}}
             </div>
-        </div>
+        
         <script>
     $('.row-box').on('click','.link-detail',function(e){
         e.preventDefault();

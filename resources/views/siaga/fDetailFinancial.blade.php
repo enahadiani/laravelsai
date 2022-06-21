@@ -9,7 +9,7 @@
 <script>
 
 //Chart Revenue
-Highcharts.chart('chart-revenue', {
+Highcharts.chart('chart-capai', {
 
     chart: {
         type: 'column'
@@ -51,20 +51,20 @@ Highcharts.chart('chart-revenue', {
     },
     series: [{
         name: 'RKA YTD',
-        color: 'rgba(165,170,217,1)',
-        data: [150, 73, 20,80],
+        color: '#DCDCDC',
+        data: [200, 200, 200,200],
         pointPadding: 0.3,
         pointPlacement: -0.2
     }, {
         name: 'Real YTD',
-        color: 'rgba(126,86,134,.9)',
-        data: [140, 90, 40, 70],
+        color: '#228B22',
+        data: [250, 250, 250, 250],
         pointPadding: 0.4,
         pointPlacement: -0.2
     }, {
         name: 'RKA FY',
-        color: 'rgba(248,161,63,1)',
-        data: [183.6, 178.8, 198.5, 100],
+        color: '#F0E68C',
+        data: [200, 200, 200, 200],
         tooltip: {
             valuePrefix: '$',
             valueSuffix: ' M'
@@ -74,8 +74,8 @@ Highcharts.chart('chart-revenue', {
         
     }, {
         name: 'Real YTD',
-        color: 'rgba(186,60,61,.9)',
-        data: [203.6, 198.8, 208.5, 100],
+        color: '#FF0000',
+        data: [100, 100, 100, 100],
         tooltip: {
             valuePrefix: '$',
             valueSuffix: ' M'
@@ -91,290 +91,50 @@ Highcharts.chart('chart-revenue', {
 // Create the chart
 Highcharts.chart('chart-contribusi', {
     chart: {
+        
         type: 'pie'
     },
     title: {
-        text: ''
-        
-    },
-    subtitle: {
         text: ''
     },
     credits: {
             enabled: false
         },
-
     accessibility: {
-        announceNewData: {
-            enabled: true
-        },
         point: {
             valueSuffix: '%'
         }
     },
-
     plotOptions: {
-        series: {
+        pie: {
+            allowPointSelect: false,
+            cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '{point.name}: {point.y:.1f}%'
-            }
-        }
-    },
-
-    tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-    },
-
-    series: [
-        {
-            name: "Back",
-            colorByPoint: true,
-            data: [
-                {
-                    name: "BAD",
-                    y: 42.2,
-                    drilldown: "BAD"
-                },
-                {
-                    name: "TS",
-                    y: 39.3,
-                    drilldown: "TS"
-                },
-                {
-                    name: "BS",
-                    y: 7.0,
-                    drilldown: "BS"
-                },
-                {
-                    name: "BSC",
-                    y: 11.2,
-                    drilldown: "BSC"
+                format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                distance: -30,
+                filter: {
+                    property: 'percentage',
+                    operator: '>',
+                    value: 4
                 }
-            ]
+            },
+            showInLegend: false
         }
-    ],
-    drilldown: {
-        series: [
-            {
-                name: "BAD",
-                id: "BAD",
-                data: [
-                    [
-                        "v65.0",
-                        0.1
-                    ],
-                    [
-                        "v64.0",
-                        1.3
-                    ],
-                    [
-                        "v63.0",
-                        53.02
-                    ],
-                    [
-                        "v62.0",
-                        1.4
-                    ],
-                    [
-                        "v61.0",
-                        0.88
-                    ],
-                    [
-                        "v60.0",
-                        0.56
-                    ],
-                    [
-                        "v59.0",
-                        0.45
-                    ],
-                    [
-                        "v58.0",
-                        0.49
-                    ],
-                    [
-                        "v57.0",
-                        0.32
-                    ],
-                    [
-                        "v56.0",
-                        0.29
-                    ],
-                    [
-                        "v55.0",
-                        0.79
-                    ],
-                    [
-                        "v54.0",
-                        0.18
-                    ],
-                    [
-                        "v51.0",
-                        0.13
-                    ],
-                    [
-                        "v49.0",
-                        2.16
-                    ],
-                    [
-                        "v48.0",
-                        0.13
-                    ],
-                    [
-                        "v47.0",
-                        0.11
-                    ],
-                    [
-                        "v43.0",
-                        0.17
-                    ],
-                    [
-                        "v29.0",
-                        0.26
-                    ]
-                ]
-            },
-            {
-                name: "Firefox",
-                id: "Firefox",
-                data: [
-                    [
-                        "v58.0",
-                        1.02
-                    ],
-                    [
-                        "v57.0",
-                        7.36
-                    ],
-                    [
-                        "v56.0",
-                        0.35
-                    ],
-                    [
-                        "v55.0",
-                        0.11
-                    ],
-                    [
-                        "v54.0",
-                        0.1
-                    ],
-                    [
-                        "v52.0",
-                        0.95
-                    ],
-                    [
-                        "v51.0",
-                        0.15
-                    ],
-                    [
-                        "v50.0",
-                        0.1
-                    ],
-                    [
-                        "v48.0",
-                        0.31
-                    ],
-                    [
-                        "v47.0",
-                        0.12
-                    ]
-                ]
-            },
-            {
-                name: "Internet Explorer",
-                id: "Internet Explorer",
-                data: [
-                    [
-                        "v11.0",
-                        6.2
-                    ],
-                    [
-                        "v10.0",
-                        0.29
-                    ],
-                    [
-                        "v9.0",
-                        0.27
-                    ],
-                    [
-                        "v8.0",
-                        0.47
-                    ]
-                ]
-            },
-            {
-                name: "Safari",
-                id: "Safari",
-                data: [
-                    [
-                        "v11.0",
-                        3.39
-                    ],
-                    [
-                        "v10.1",
-                        0.96
-                    ],
-                    [
-                        "v10.0",
-                        0.36
-                    ],
-                    [
-                        "v9.1",
-                        0.54
-                    ],
-                    [
-                        "v9.0",
-                        0.13
-                    ],
-                    [
-                        "v5.1",
-                        0.2
-                    ]
-                ]
-            },
-            {
-                name: "Edge",
-                id: "Edge",
-                data: [
-                    [
-                        "v16",
-                        2.6
-                    ],
-                    [
-                        "v15",
-                        0.92
-                    ],
-                    [
-                        "v14",
-                        0.4
-                    ],
-                    [
-                        "v13",
-                        0.1
-                    ]
-                ]
-            },
-            {
-                name: "Opera",
-                id: "Opera",
-                data: [
-                    [
-                        "v50.0",
-                        0.96
-                    ],
-                    [
-                        "v49.0",
-                        0.82
-                    ],
-                    [
-                        "v12.1",
-                        0.14
-                    ]
-                ]
-            }
+    },
+    series: [{
+        name: 'Share',
+        colorByPoint: true,
+        minPointSize: 90,
+        innerSize: '30%',
+        zMin: 0,
+        data: [
+            { name: 'TS', y: 39.30 },
+            { name: 'BAD', y: 42.20 },
+            { name: 'BS', y: 11.20 },
+            { name: 'BSC', y: 7.30 }
         ]
-    }
+    }]
 });
 
 
@@ -634,12 +394,11 @@ Highcharts.chart('chart-yoy', {
                         <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 10rem;">Revenue</span></div>
-                            <div class="col-12"><b>173,14M</b></div>
+                            <div class="col-12"><b style="font-size: 25px;">173,14M</b></div>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span style="color: grey;">Target</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
                                 <span>RKA 90,02M</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
@@ -648,16 +407,17 @@ Highcharts.chart('chart-yoy', {
                             </div>
                             <div class="col-6" >
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span style="color: grey;">Pencapaian</span>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;"></div>
                                 <b class="text-success">192,33%</b>
                                 <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <b class="text-success">+6,61%</b>
+                                <b class="text-success" style="padding-top: 10em;">+6,61%</b>
                             </div>
                         </div>
                     </div>
                             <div class="card-body">
+                            <b style="font-size: 1.2em;padding-top:10em;">Kontribusi Pendapatan</b>
                             <div id="chart-contribusi" style="width:100%; height:36.5em;"></div>
+                            
                             </div>
                         </div>
                 {{-- END REVENUE --}}
@@ -665,7 +425,7 @@ Highcharts.chart('chart-yoy', {
             <div class="col-lg-6 col-md-12 px-1">
                 <div class="card card-dash rounded-lg">
                 <div class="card-body">
-                        <div id="chart-revenue" style="width:100%; height:17.5rem;"></div>
+                        <div id="chart-capai" style="width:100%; height:17.5rem;"></div>
                     </div>
                 </div>
                 <div class="card card-dash rounded-lg">
@@ -680,16 +440,25 @@ Highcharts.chart('chart-yoy', {
                 <div class="card card-dash rounded-lg" >
                     <div class="card-body" style="padding-left: 0.5em;">
                     <div style="padding-top:0.5em; font-size:1em" >Pendapatan YoY</div>
-                    <div class="row">
-                            <div class="col-6">
-                                <div style="width: 1em;height:1em; border-radius: 100%; background-color: #A52A2A"></div>
-                                <span>pdpt YTD</span>
+                    <div class="row ">
+                            <div class="col-1 d-inline">
+                                <div style="width: 1em;height:1em; border-radius: 100%; background-color: #A52A2A">
                             </div>
-                            <div class="col-6" >
-                            <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
+                            </div>
+                            <div class="col-4 d-inline" >
+                                <span>pdpt YTD</span>
+                                </div>
+                        
+                            <!-- <div class="col-6 d inline" > -->
+                            <div class="col-1 d-inline">
+                                <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
+                            </div>
+                            <div class="col-4 di-inline">
                                 <span>pdpt Tahun Lalu</span>
                             </div>
+                            <!-- </div> -->
                         </div>
+
                     <br>
                     <div class="row">
                     <div class="col-6">
