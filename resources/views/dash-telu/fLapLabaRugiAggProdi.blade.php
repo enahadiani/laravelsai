@@ -116,8 +116,8 @@
                         $('#kode_fs-from').val('FS4');
                         $('#output-from').val('Laporan');
                         if("{{ Session::get('statusAdmin') }}" != "A"){
-                            $('#kode_bidang-from').val("{{ Session::get('kodePP') }}");
-                            $kode_bidang = {
+                            $('#kode_pp-from').val("{{ Session::get('kodePP') }}");
+                            $kode_pp = {
                                 type : "=",
                                 from : "{{ Session::get('kodePP') }}",
                                 fromname : "{{ Session::get('kodePP') }}",
