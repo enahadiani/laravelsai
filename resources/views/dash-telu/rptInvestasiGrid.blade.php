@@ -183,7 +183,7 @@
                 }
                 html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`'>
                 <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
-                if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
+                if (line.kode_neraca!="OR" && line.kode_fs=="FS3")
                 {
                     html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n3)+`</td>
                     <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
