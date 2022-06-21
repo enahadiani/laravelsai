@@ -2,7 +2,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-        saiPostLoad("{{ url('telu-report/lap-investasi') }}", null, formData, null, function(res){
+        saiPostLoad('telu-report/lap-investasi', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -51,11 +51,18 @@
                 for (var i=0; i < data.length; i++)
                 {
                     var line = data[i];
-                    var nilai="";var nilai2="";
-                    if (line.tipe!="Header" && line.nama!="." && line.nama!="")
+                    var persen1=0;var persen2=0;var persen3=0;
+                    if (line.n3!=0)
                     {
-                        nilai=sepNum(line.n1);
-                        nilai2=sepNum(line.n2);
+                        persen1=(line.n1/line.n3)*100;
+                    }
+                    if (line.n4!=0)
+                    {
+                        persen2=(line.n1/line.n4)*100;
+                    }
+                    if (line.n2!=0)
+                    {
+                        persen3=(line.n1-line.n2)/line.n2*100;
                     }
                     if(line.tipe == 'Posting'){
                         var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -66,9 +73,24 @@
                     }
 
                     html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
-                    <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>
-                        <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                        <td class='isi_laporan'><div align='right'>`+nilai2+`</div></td>
+                    <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
+                    if (line.kode_akun!="OR" && line.kode_fs=="FS4")
+                    {
+                        html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n3)+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
+                        <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>`;
+                    }
+                    else
+                    {
+                        html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n3)+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
+                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>`;
+                    }
+                    html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
+                    <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
                     </tr>`;
                     no++;
                 }
@@ -85,14 +107,8 @@
             var lokasi = res.lokasi;
             res.data_detail = [];
             var periode = $periode.from;
-            var mm = periode.substr(4,2);
             var tahun = periode.substr(0,4);
             var tahunrev = parseInt(tahun)-1;
-            
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var totime = dd+' '+namaPeriode(tahun+''+mm);
-            var totimerev = dd+' '+namaPeriode(tahunrev+''+mm);
             var html = `
             <div id='grid-load'><img src='{{ asset("img/loadgif.gif") }}' style='width:25px;height:25px'></div>
             <div>
@@ -118,23 +134,45 @@
                 .header_laporan{
                     vertical-align: middle !important;
                 }
-            </style>`+judul_lap("LAPORAN INVESTASI",lokasi,'Posisi: '+totime+' dan '+tahunrev)+`
+            </style>
             <div class='table-responsive'>
             <table class='table table-bordered report-table'>
-                <tr>
-					<th width='60%' class='header_laporan text-center' >Keterangan</th>
-					<th width='20%' class='header_laporan text-center' >Per `+totime+`</th>
-					<th width='20%' class='header_laporan text-center' >Per `+totimerev+`</th>
-				</tr>
+            <tr>
+                <th width='23%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
+                <th width='11' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
+                <th width='11' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
+            </tr>
+            <tr>
+                <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
+                <td class='header_laporan' align='center'>1</td>
+                <td class='header_laporan' align='center'>2</td>
+                <td class='header_laporan' align='center'>3</td>
+                <td class='header_laporan' align='center'>4</td>
+                <td class='header_laporan' align='center'>5=3/1</td>
+                <td class='header_laporan' align='center'>6=3/2</td>
+                <td class='header_laporan' align='center'>7=(3-4)/4</td>
+            </tr>
             `;
             for (var i=0; i < data.length; i++)
             {
                 var line = data[i];
-                var nilai="";var nilai2="";
-                if (line.tipe!="Header" && line.nama!="." && line.nama!="")
+                var persen1=0;var persen2=0;var persen3=0;
+                if (line.n3!=0)
                 {
-                    nilai=sepNum(line.n1);
-                    nilai2=sepNum(line.n2);
+                    persen1=(line.n1/line.n3)*100;
+                }
+                if (line.n4!=0)
+                {
+                    persen2=(line.n1/line.n4)*100;
+                }
+                if (line.n2!=0)
+                {
+                    persen3=(line.n1-line.n2)/line.n2*100;
                 }
                 if(line.tipe == 'Posting'){
                     var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -144,9 +182,24 @@
                     var cursor = '';
                 }
                 html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`'>
-                <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>
-                    <td class='isi_laporan'><div align='right'>`+nilai+`</div></td>
-                    <td class='isi_laporan'><div align='right'>`+nilai2+`</div></td>
+                <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
+                if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
+                {
+                    html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n3)+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
+                    <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>`;
+                }
+                else
+                {
+                    html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n3)+`%</td>
+                    <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
+                    <td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
+                    <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>`;
+                }
+                html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
+                <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
+                <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
                 </tr>`;
             }
             html+=`</table>

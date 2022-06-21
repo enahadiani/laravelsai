@@ -71,7 +71,7 @@
         @endphp
         <table class='table table-borderless' width='100%'>
             <tr>
-                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN PRODI <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
+                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN PP <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
             </tr>
             <tr>
                 <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>

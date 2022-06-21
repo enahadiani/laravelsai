@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report-new.css?version=_').time() }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Laba Rugi Anggaran Fakultas"/>
+                <x-report-header judul="Laporan Laba Rugi Anggaran Bidang"/>
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -14,7 +14,11 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_fakultas" nama="Kode Fakultas" selected="1" :option="array('1','2','3','i')"/>
+                                        @if(Session::get('statusAdmin') == "A")
+                                        <x-inp-filter kode="kode_bidang" nama="Kode Bidang" selected="1" :option="array('1','2','3','i')"/>
+                                        @else
+                                        <x-inp-filter kode="kode_bidang" nama="Kode Bidang" selected="3" :option="array('2','3')"/>
+                                        @endif
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -32,15 +36,20 @@
         </div>
     </div>
     <x-report-result judul="Aktivitas" padding="px-4 py-4" />
-    
-    @include('yakes.modal_search')
-    @include('yakes.modal_email')
-    @php
-        date_default_timezone_set("Asia/Bangkok");
-    @endphp
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-    <script src="{{ asset('reportFilter.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <script>
+        $(".header-report").removeClass('pt-4');
+        $(".header-report").addClass('pt-2');
+        $(".header-report").css('min-height','46px');
+        $(".header-report > h6").css('top','10px');
+
+        var bottomSheet = new BottomSheet("country-selector");
+        document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+        window.bottomSheet = bottomSheet;
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
@@ -61,7 +70,7 @@
             toname : "",
         }
 
-        var $kode_fakultas = {
+        var $kode_bidang = {
             type : "All",
             from : "",
             fromname : "",
@@ -96,11 +105,73 @@
 
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
-        // $('#show').selectize();
+        function loadFilterDefault(){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('telu-report/filter-default-labarugi-agg') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){   
+                    if(result.status){
+                        $('#periode-from').val(namaPeriode(result.periode));
+                        $('#kode_fs-from').val('FS4');
+                        $('#output-from').val('Laporan');
+                        if("{{ Session::get('statusAdmin') }}" != "A"){
+                            $('#kode_bidang-from').val("{{ Session::get('kodeBidang') }}");
+                            $kode_bidang = {
+                                type : "=",
+                                from : "{{ Session::get('kodeBidang') }}",
+                                fromname : "{{ Session::get('kodeBidang') }}",
+                                to : "",
+                                toname : "",
+                            }
+                        }
+                        $periode = {
+                            type : "=",
+                            from : result.periode,
+                            fromname : namaPeriode(result.periode),
+                            to : "",
+                            toname : "",
+                        }
 
-        $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
-        $('#kode_fs-from').val("FS4");
-        $('#output-from').val("Laporan");
+                        generateRptFilter('#inputFilter',{
+                            kode : ['periode','kode_fs','kode_bidang','output'],
+                            nama : ['Periode','Kode FS','Kode Bidang','Output'],
+                            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
+                            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+                            columns: [
+                                [
+                                    { data: 'periode' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode_fs' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode_bidang' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode' }
+                                ]
+                            ],
+                            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-bidang') }}","{{ url('telu-report/filter-output') }}"],
+                            parameter:[],
+                            orderby:[[[0,"desc"]],[],[],[]],
+                            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                            display:['name','kode','kode','kode'],
+                            pageLength:[12,10,10,10]
+                        });
+                    
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    }else{
+                        alert(JSON.stringify(result.message));
+                    }
+                }
+            });
+        }
+
+        loadFilterDefault();
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -132,33 +203,7 @@
             $('#btn-export').removeClass("hidden");
         });
 
-        $('.selectize').selectize();
-        $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','kode_fakultas','output'],
-            nama : ['Periode','Kode FS','Kode Fakultas','Output'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
-            columns: [
-                [
-                    { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_fakultas' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode' }
-                ]
-            ],
-            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-fakultas') }}","{{ url('telu-report/filter-output') }}"],
-            parameter:[],
-            orderby:[[[0,"desc"]],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode'],
-            pageLength:[12,10,10,10]
-        });
+        $('.selectize').selectize();    
 
         var $formData = "";
         $('#form-filter').submit(function(e){
@@ -173,9 +218,9 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
-            $formData.append("kode_fakultas[]",$kode_fakultas.type);
-            $formData.append("kode_fakultas[]",$kode_fakultas.from);
-            $formData.append("kode_fakultas[]",$kode_fakultas.to);
+            $formData.append("kode_bidang[]",$kode_bidang.type);
+            $formData.append("kode_bidang[]",$kode_bidang.from);
+            $formData.append("kode_bidang[]",$kode_bidang.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -200,9 +245,9 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
-            $formData.append("kode_fakultas[]",$kode_fakultas.type);
-            $formData.append("kode_fakultas[]",$kode_fakultas.from);
-            $formData.append("kode_fakultas[]",$kode_fakultas.to);
+            $formData.append("kode_bidang[]",$kode_bidang.type);
+            $formData.append("kode_bidang[]",$kode_bidang.from);
+            $formData.append("kode_bidang[]",$kode_bidang.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -218,7 +263,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('telu-report/lap-labarugi-agg-fak-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to+"&kode_fakultas[]="+$kode_fakultas.type+"&kode_fakultas[]="+$kode_fakultas.from+"&kode_fakultas[]="+$kode_fakultas.to;
+            var link = "{{ url('telu-report/lap-labarugi-agg-fak-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to+"&kode_bidang[]="+$kode_bidang.type+"&kode_bidang[]="+$kode_bidang.from+"&kode_bidang[]="+$kode_bidang.to;
             window.open(link, '_blank'); 
         });
 
@@ -438,8 +483,8 @@
             e.preventDefault();
             $("#saku-report #canvasPreview").table2excel({
                 // exclude: ".excludeThisClass",
-                name: "LabaRugiAgg_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
-                filename: "LabaRugiAgg_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
+                name: "LabaRugiAggBidang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}",
+                filename: "LabaRugiAggBidang_{{ Session::get('userLog').'_'.Session::get('lokasi').'_'.date('dmy').'_'.date('Hi') }}.xls", // do include extension
                 preserveColors: false // set to true if you want background colors and font colors preserved
             });
         });
@@ -464,7 +509,7 @@
             </body>`;
             formData.append("html",html);
             formData.append("text","Berikut ini kami lampiran Laba Rugi Anggaran:");
-            formData.append("subject","Laporan Laba Rugi Anggaran Fakultas");
+            formData.append("subject","Laporan Laba Rugi Anggaran Bidang");
             $.ajax({
                 type: 'POST',
                 url: "{{ url('telu-report/send-email-report') }}",

@@ -138,7 +138,7 @@
             for(var j=0; j < data.length; j++){
 
                 var linex = data[j];
-                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN PRODI <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN PP <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
                 <div class='table-responsive'>
                 <table class='table table-bordered report-table'>
                     <tr>
