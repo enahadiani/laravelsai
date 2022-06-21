@@ -78,6 +78,7 @@
                     <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
                     <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
                     <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                    <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
                     <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
                     <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
                     <th width='12%' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
@@ -85,11 +86,12 @@
                 <tr>
                     <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
                     <td class='header_laporan' align='center'>1</td>
+                    <td class='header_laporan' align='center'>2</td>
                     <td class='header_laporan' align='center'>3</td>
                     <td class='header_laporan' align='center'>4</td>
-                    <td class='header_laporan' align='center'>6=4/1</td>
-                    <td class='header_laporan' align='center'>7=4/3</td>
-                    <td class='header_laporan' align='center'>8=(3-4)/4</td>
+                    <td class='header_laporan' align='center'>5=3/1</td>
+                    <td class='header_laporan' align='center'>6=3/2</td>
+                    <td class='header_laporan' align='center'>7=(3-4)/4</td>
                 </tr>`;
             
                 for (var i=0; i < res.res.detail.length; i++)
@@ -116,13 +118,17 @@
                         {
                             html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
                             <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>`;
+                            <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
+                            <td class='isi_laporan' align='right'>`+sepNum(line.n5)+`</td>
+                            `;
                         }
                         else
                         {
                             html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
                                 <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
-                                <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>`;
+                                <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
+                                <td class='isi_laporan' align='center'>`+sepNum(line.n5)+`%</td>
+                                `;
                         }
                             html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
                             <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>

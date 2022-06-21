@@ -86,24 +86,26 @@
                 <th width='12%' class='header_laporan text-center' align='center'>RKA {{ $tahun }}</th>
                 <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan {{ $tahun }}</th>
                 <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan {{ $tahun }}</th>
+                <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan {{ $tahunrev }}</th>
                 <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA {{ $tahun }}</th>
                 <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan {{ $tahun }}</th>
                 <th width='12%' class='header_laporan text-center' align='center'>Growth Thd {{ $tahunrev}}</th>
             </tr>
             <tr>
-                <td class='header_laporan' align='center'>&nbsp;</td>
+                <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
                 <td class='header_laporan' align='center'>1</td>
+                <td class='header_laporan' align='center'>2</td>
                 <td class='header_laporan' align='center'>3</td>
                 <td class='header_laporan' align='center'>4</td>
-                <td class='header_laporan' align='center'>6=4/1</td>
-                <td class='header_laporan' align='center'>7=4/3</td>
-                <td class='header_laporan' align='center'>8=(3-4)/4</td>
+                <td class='header_laporan' align='center'>5=3/1</td>
+                <td class='header_laporan' align='center'>6=3/2</td>
+                <td class='header_laporan' align='center'>7=(3-4)/4</td>
             </tr>
                 @for ($i=0; $i < count($detail) ; $i++)
                     @php
                     $line  = $detail[$i];
                     @endphp
-                    @if($linex['kode_pp'] == $line['kode_pp']){
+                    @if($linex['kode_pp'] == $line['kode_pp'])
                         @php
                             $persen1=0;$persen2=0;$persen3=0;
                             if ($line['n1']!=0)
@@ -126,11 +128,13 @@
                             <td class='isi_laporan' align='right'>{{ number_format($line['n1'],0,",",".") }}</td>
                             <td class='isi_laporan' align='right'>{{ number_format($line['n2'],0,",",".") }}</td>
                             <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
+                            <td class='isi_laporan' align='right'>{{ number_format($line['n5'],0,",",".") }}</td>
                         @else
                         
                             <td class='isi_laporan' align='center'>{{ number_format($line['n1'],0,",",".") }}%</td>
                             <td class='isi_laporan' align='center'>{{ number_format($line['n2'],0,",",".") }}%</td>
                             <td class='isi_laporan' align='center'>{{ number_format($line['n4'],0,",",".") }}%</td>
+                            <td class='isi_laporan' align='center'>{{ number_format($line['n5'],0,",",".") }}%</td>
                         
                         @endif
                             <td class='isi_laporan' align='center'>{{ number_format($persen1,0,",",".") }}%</td>
