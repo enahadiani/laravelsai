@@ -97,39 +97,39 @@
                 @php
                     $line  = $data[$i];
                     $persen1=0;$persen2=0;$persen3=0;
-                    if ($line['n1']!=0)
+                    if ($line['n3']!=0)
                     {
-                        $persen1=($line['n4']/$line['n1'])*100;
+                        $persen1=($line['n1']/$line['n3'])*100;
+                    }
+                    if ($line['n4']!=0)
+                    {
+                        $persen2=($line['n1']/$line['n4'])*100;
                     }
                     if ($line['n2']!=0)
                     {
-                        $persen2=($line['n4']/$line['n2'])*100;
-                    }
-                    if ($line['n5']!=0)
-                    {
-                        $persen3=($line['n4']-$line['n5'])/$line['n5']*100;
+                        $persen3=($line['n1']-$line['n2'])/$line['n2']*100;
                     }
                 @endphp
                 <tr>
                 <td height='20' class='isi_laporan'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
-                @if ($line['kode_neraca'] != "OR" && $line['kode_fs'] == "FS3")
+                @if ($line['kode_neraca'] != "48" && $line['kode_fs'] == "FS3")
                 
+                    <td class='isi_laporan' align='right'>{{ number_format($line['n3'],0,",",".") }}</td>
+                    <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
                     <td class='isi_laporan' align='right'>{{ number_format($line['n1'],0,",",".") }}</td>
                     <td class='isi_laporan' align='right'>{{ number_format($line['n2'],0,",",".") }}</td>
-                    <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
-                    <td class='isi_laporan' align='right'>{{ number_format($line['n5'],0,",",".") }}</td>
                 
                 @else
                 
-                    <td class='isi_laporan' align='center'>{{ number_format($line['n1'],0,",",".") }}%</td>
-                    <td class='isi_laporan' align='center'>{{ number_format($line['n2'],0,",",".") }}%</td>
-                    <td class='isi_laporan' align='center'>{{ number_format($line['n4'],0,",",".") }}%</td>
-                    <td class='isi_laporan' align='center'>{{ number_format($line['n5'],0,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($line['n3'],2,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($line['n4'],2,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($line['n1'],2,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($line['n2'],2,",",".") }}%</td>
                 
                 @endif
-                    <td class='isi_laporan' align='center'>{{ number_format($persen1,0,",",".") }}%</td>
-                    <td class='isi_laporan' align='center'>{{ number_format($persen2,0,",",".") }}%</td>
-                    <td class='isi_laporan' align='center'>{{ number_format($persen3,0,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($persen1,2,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($persen2,2,",",".") }}%</td>
+                    <td class='isi_laporan' align='center'>{{ number_format($persen3,2,",",".") }}%</td>
                     </tr>
             @endfor
 		</tbody>

@@ -74,7 +74,7 @@
 
                     html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+`>
                     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
-                    if (line.kode_akun!="OR" && line.kode_fs=="FS3")
+                    if (line.kode_akun!="48" && line.kode_fs=="FS3")
                     {
                         html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
                         <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
@@ -183,7 +183,7 @@
                 }
                 html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`'>
                 <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
-                if (line.kode_neraca!="OR" && line.kode_fs=="FS3")
+                if (line.kode_neraca!="48" && line.kode_fs=="FS3")
                 {
                     html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
                     <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
@@ -192,14 +192,14 @@
                 }
                 else
                 {
-                    html+=`<td class='isi_laporan' align='center'>`+number_format(line.n3)+`%</td>
-                    <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>
-                    <td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
-                    <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>`;
+                    html+=`<td class='isi_laporan' align='center'>`+number_format(line.n3,2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(line.n4,2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(line.n1,2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(line.n2,2)+`%</td>`;
                 }
-                html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
-                <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
-                <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
+                html+=`<td class='isi_laporan' align='center'>`+number_format(persen1,2)+`%</td>
+                <td class='isi_laporan' align='center'>`+number_format(persen2,2)+`%</td>
+                <td class='isi_laporan' align='center'>`+number_format(persen3,2)+`%</td>
                 </tr>`;
             }
             html+=`</table>
