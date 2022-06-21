@@ -107,21 +107,21 @@
                 <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
                 if (line.kode_neraca!="OR" && line.kode_fs=="FS3")
                 {
-                    html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>
-                    <td class='isi_laporan' align='right'>`+sepNum(line.n5)+`</td>`;
+                    html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                    <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
+                    <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
+                    <td class='isi_laporan' align='right'>`+number_format(line.n5)+`</td>`;
                 }
                 else
                 {
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n5)+`%</td>`;
+                    html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(line.n5)+`%</td>`;
                 }
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
+                    html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
                     </tr>`;
                 
             }
