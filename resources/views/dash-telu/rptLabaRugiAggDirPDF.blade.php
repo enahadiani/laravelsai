@@ -61,83 +61,77 @@
         return $tmp;
     }
     @endphp
+    <table class='table table-borderless' width='100%'>
+        <tr>
+            <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN DIREKTORAT <br><span class='sbjudul'>{{ $nama_bidang }}</span></td>
+        </tr>
+        <tr>
+            <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
+        </tr>
+        <tr>
+            <td class='text-center px-0 py-0 judul-periode'>Periode {{ $periode }}</td>
+        </tr>
+    </table>
+    <table  class='table table-bordered table-striped' width='100%'>
+        <tr>
+            <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
+            <th width='12%' class='header_laporan text-center' align='center'>RKA {{ $tahun }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan {{ $tahun }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan {{ $tahunrev }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan {{ $tahun }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA {{ $tahun }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan {{ $tahun }}</th>
+            <th width='12%' class='header_laporan text-center' align='center'>Growth Thd {{ $tahunrev}}</th>
+        </tr>
+        <tr>
+            <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
+            <td class='header_laporan' align='center'>1</td>
+            <td class='header_laporan' align='center'>2</td>
+            <td class='header_laporan' align='center'>3</td>
+            <td class='header_laporan' align='center'>4</td>
+            <td class='header_laporan' align='center'>5=3/1</td>
+            <td class='header_laporan' align='center'>6=3/2</td>
+            <td class='header_laporan' align='center'>7=(3-4)/4</td>
+        </tr>
     @for ($j=0; $j < count($data) ; $j++)
         @php
-            $linex = $data[$j];
+            $line = $data[$j];
+            $persen1=0;$persen2=0;$persen3=0;
+            if ($line['n3']!=0)
+            {
+                $persen1=($line['n1']/$line['n3'])*100;
+            }
+            if ($line['n4']!=0)
+            {
+                $persen2=($line['n1']/$line['n4'])*100;
+            }
+            if ($line['n2']!=0)
+            {
+                $persen3=($line['n1']-$line['n2'])/$line['n2']*100;
+            }
         @endphp
-        <table class='table table-borderless' width='100%'>
-            <tr>
-                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN DIREKTORAT <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
-            </tr>
-            <tr>
-                <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
-            </tr>
-            <tr>
-                <td class='text-center px-0 py-0 judul-periode'>Periode {{ $periode }}</td>
-            </tr>
-        </table>
-        <table  class='table table-bordered table-striped' width='100%'>
-            <tr>
-                <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
-                <th width='12%' class='header_laporan text-center' align='center'>RKA {{ $tahun }}</th>
-                <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan {{ $tahun }}</th>
-                <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan {{ $tahun }}</th>
-                <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA {{ $tahun }}</th>
-                <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan {{ $tahun }}</th>
-                <th width='12%' class='header_laporan text-center' align='center'>Growth Thd {{ $tahunrev}}</th>
-            </tr>
-            <tr>
-                <td class='header_laporan' align='center'>&nbsp;</td>
-                <td class='header_laporan' align='center'>1</td>
-                <td class='header_laporan' align='center'>3</td>
-                <td class='header_laporan' align='center'>4</td>
-                <td class='header_laporan' align='center'>6=4/1</td>
-                <td class='header_laporan' align='center'>7=4/3</td>
-                <td class='header_laporan' align='center'>8=(3-4)/4</td>
-            </tr>
-                @for ($i=0; $i < count($detail) ; $i++)
-                    @php
-                    $line  = $detail[$i];
-                    @endphp
-                    @if($linex['kode_rektor'] == $line['kode_rektor']){
-                        @php
-                            $persen1=0;$persen2=0;$persen3=0;
-                            if ($line['n1']!=0)
-                            {
-                                $persen1=($line['n4']/$line['n1'])*100;
-                            }
-                            if ($line['n2']!=0)
-                            {
-                                $persen2=($line['n4']/$line['n2'])*100;
-                            }
-                            if ($line['n5']!=0)
-                            {
-                                $persen3=($line['n4']-$line['n5'])/$line['n5']*100;
-                            }
-                        @endphp
-                        <tr>
-                        <td height='20' class='isi_laporan'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
-                        @if ($line['kode_neraca'] != "OR" && $line['kode_fs'] == "FS4")
-                        
-                            <td class='isi_laporan' align='right'>{{ number_format($line['n1'],0,",",".") }}</td>
-                            <td class='isi_laporan' align='right'>{{ number_format($line['n2'],0,",",".") }}</td>
-                            <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
-                        @else
-                        
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n1'],0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n2'],0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n4'],0,",",".") }}%</td>
-                        
-                        @endif
-                            <td class='isi_laporan' align='center'>{{ number_format($persen1,0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($persen2,0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($persen3,0,",",".") }}%</td>
-                            </tr>
-                    @endif
-                @endfor
-            </tbody>
-        </table>
-        <div style="page-break-after:always"></div>
+        <tr>
+            <td height='20' class='isi_laporan'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
+            @if ($line['kode_neraca'] != "OR" && $line['kode_fs'] == "FS4")
+            
+                <td class='isi_laporan' align='right'>{{ number_format($line['n3'],0,",",".") }}</td>    
+                <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
+                <td class='isi_laporan' align='right'>{{ number_format($line['n1'],0,",",".") }}</td>
+                <td class='isi_laporan' align='right'>{{ number_format($line['n2'],0,",",".") }}</td>
+            @else
+                <td class='isi_laporan' align='center'>{{ number_format($line['n3'],0,",",".") }}%</td>
+                <td class='isi_laporan' align='center'>{{ number_format($line['n4'],0,",",".") }}%</td>
+                <td class='isi_laporan' align='center'>{{ number_format($line['n1'],0,",",".") }}%</td>
+                <td class='isi_laporan' align='center'>{{ number_format($line['n2'],0,",",".") }}%</td>
+            
+            @endif
+            <td class='isi_laporan' align='center'>{{ number_format($persen1,0,",",".") }}%</td>
+            <td class='isi_laporan' align='center'>{{ number_format($persen2,0,",",".") }}%</td>
+            <td class='isi_laporan' align='center'>{{ number_format($persen3,0,",",".") }}%</td>
+        </tr>
     @endfor
+</tbody>
+</table>
+<div style="page-break-after:always"></div>
 </body>
 </html>

@@ -14,7 +14,7 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
-                                        <x-inp-filter kode="kode_rektor" nama="Kode Rektor" selected="1" :option="array('1','2','3','i')"/>
+                                        <x-inp-filter kode="kode_bidang" nama="Kode Kendali" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -66,7 +66,7 @@
             to : "",
             toname : "",
         }
-        var $kode_rektor = {
+        var $kode_bidang = {
             type : "All",
             from : "",
             fromname : "",
@@ -112,7 +112,15 @@
                         $('#periode-from').val(namaPeriode(result.periode));
                         $('#kode_fs-from').val('FS4');
                         $('#output-from').val('Laporan');
-                       
+                        $('#kode_bidang-from').val("{{ Session::get('kodeBidang') }}");
+                        $kode_bidang = {
+                            type : "=",
+                            from : "{{ Session::get('kodeBidang') }}",
+                            fromname : "{{ Session::get('namaBidang') }}",
+                            to : "",
+                            toname : "",
+                        }
+
                         $periode = {
                             type : "=",
                             from : result.periode,
@@ -122,8 +130,8 @@
                         }
 
                         generateRptFilter('#inputFilter',{
-                            kode : ['periode','kode_fs','kode_rektor','output'],
-                            nama : ['Periode','Kode FS','Kode Rektor','Output'],
+                            kode : ['periode','kode_fs','kode_bidang','output'],
+                            nama : ['Periode','Kode FS','Kode Bidang','Output'],
                             header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
                             headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
                             columns: [
@@ -134,13 +142,13 @@
                                     { data: 'kode_fs' },
                                     { data: 'nama' }
                                 ],[
-                                    { data: 'kode_rektor' },
+                                    { data: 'kode_bidang' },
                                     { data: 'nama' }
                                 ],[
                                     { data: 'kode' }
                                 ]
                             ],
-                            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-rektor') }}","{{ url('telu-report/filter-output') }}"],
+                            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-bidang') }}","{{ url('telu-report/filter-output') }}"],
                             parameter:[],
                             orderby:[[[0,"desc"]],[],[],[]],
                             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
@@ -205,9 +213,9 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
-            $formData.append("kode_rektor[]",$kode_rektor.type);
-            $formData.append("kode_rektor[]",$kode_rektor.from);
-            $formData.append("kode_rektor[]",$kode_rektor.to);
+            $formData.append("kode_bidang[]",$kode_bidang.type);
+            $formData.append("kode_bidang[]",$kode_bidang.from);
+            $formData.append("kode_bidang[]",$kode_bidang.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -231,9 +239,9 @@
             $formData.append("output[]",$output.type);
             $formData.append("output[]",$output.from);
             $formData.append("output[]",$output.to);
-            $formData.append("kode_rektor[]",$kode_rektor.type);
-            $formData.append("kode_rektor[]",$kode_rektor.from);
-            $formData.append("kode_rektor[]",$kode_rektor.to);
+            $formData.append("kode_bidang[]",$kode_bidang.type);
+            $formData.append("kode_bidang[]",$kode_bidang.from);
+            $formData.append("kode_bidang[]",$kode_bidang.to);
             for(var pair of $formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
@@ -248,7 +256,7 @@
 
         $("#sai-rpt-pdf").click(function(e) {
             e.preventDefault();
-            var link = "{{ url('telu-report/lap-labarugi-agg-dir-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to+"&kode_rektor[]="+$kode_rektor.type+"&kode_rektor[]="+$kode_rektor.from+"&kode_rektor[]="+$kode_rektor.to;
+            var link = "{{ url('telu-report/lap-labarugi-agg-dir-pdf') }}?periode[]="+$periode.type+"&periode[]="+$periode.from+"&periode[]="+$periode.to+"&kode_fs[]="+$kode_fs.type+"&kode_fs[]="+$kode_fs.from+"&kode_fs[]="+$kode_fs.to+"&output[]="+$output.type+"&output[]="+$output.from+"&output[]="+$output.to+"&kode_bidang[]="+$kode_bidang.type+"&kode_bidang[]="+$kode_bidang.from+"&kode_bidang[]="+$kode_bidang.to+"&kode_bidang[]="+$kode_bidang.fromname+"&kode_bidang[]="+$kode_bidang.toname;
             window.open(link, '_blank'); 
         });
 

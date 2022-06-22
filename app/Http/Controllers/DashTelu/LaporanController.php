@@ -159,7 +159,7 @@
                     'query' => [
                         'periode' => $request->periode,
                         'kode_fs' => $request->kode_fs,
-                        'kode_rektor' => $request->kode_rektor,
+                        'kode_bidang' => $request->kode_bidang,
                         'nik_user' => Session::get('nikUser')
                     ]
                 ]);
@@ -194,7 +194,7 @@
             $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
-            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggDirPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggDirPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'nama_bidang'=>$request->kode_bidang[3],'tahun' => $tahun, 'tahunrev' => $tahunrev]);
     	    return $pdf->download('laporan-labarugi-agg-dir.pdf');   
         }
 
