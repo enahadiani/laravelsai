@@ -7760,7 +7760,7 @@ div.row-notif  a:hover {
   color:#8f8f8f;
   border-radius: 25px !important;
 }
-.dash-contents h6,.dash-contents h5,.dash-contents p,.dash-contents span,.dash-contents label,.bg-red h6{
+.dash-contents h6,.dash-contents h5,.dash-contents p,.dash-contents span,.dash-contents div,.dash-contents label,.bg-red h6{
   color:#8f8f8f !important;
 }
 .list-menudash > .list-group-item:focus{
@@ -7783,4 +7783,13 @@ div.row-notif  a:hover {
 }
 .navbar_filter{
   color:#8f8f8f !important
+}
+.card.card-dash {
+  border: 0px;
+}
+span[class^="info-name"]{
+  background: #0d0c0c;
+}
+.readonly > span[class^="info-name"]{
+  background: #0d0c0c;
 }

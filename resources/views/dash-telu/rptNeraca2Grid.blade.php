@@ -17,7 +17,7 @@
 
    drawLap($formData);
 
-   function sepNum2(x){
+   function number_format2(x){
         if (typeof x === 'undefined' || !x) { 
             return 0;
         }else{
@@ -28,7 +28,7 @@
         }
     }
 
-    function sepNumPas(x){
+    function number_formatPas(x){
         if (typeof x === 'undefined' || !x) { 
             return 0;
         }else{
@@ -54,8 +54,8 @@
                     var nilai="";var nilai2="";
                     if (line.tipe!="Header" && line.nama!="." && line.nama!="")
                     {
-                        nilai=sepNum(line.n1);
-                        nilai2=sepNum(line.n2);
+                        nilai=number_format(line.n1);
+                        nilai2=number_format(line.n2);
                     }
                     if(line.tipe == 'Posting'){
                         var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -133,8 +133,8 @@
                 var nilai="";var nilai2="";
                 if (line.tipe!="Header" && line.nama!="." && line.nama!="")
                 {
-                    nilai=sepNum(line.n1);
-                    nilai2=sepNum(line.n2);
+                    nilai=number_format(line.n1);
+                    nilai2=number_format(line.n2);
                 }
                 if(line.tipe == 'Posting'){
                     var icon = '<i class="simple-icon-arrow-right mr-2"></i>';

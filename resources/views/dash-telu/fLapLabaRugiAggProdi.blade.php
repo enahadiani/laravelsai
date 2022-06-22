@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="{{ asset('report.css') }}" />
+    <link rel="stylesheet" href="{{ asset('report-new.css?version=_').time() }}" />
     <div class="row" id="saku-filter">
         <div class="col-12">
             <div class="card" >
-                <x-report-header judul="Laporan Laba Rugi Anggaran Prodi"/>
+                <x-report-header judul="Laporan Laba Rugi Anggaran PP"/>
                 <div class="separator"></div>
                 <div class="row">
                     <div class="col-12 col-sm-12">
@@ -14,7 +14,11 @@
                                         <!-- COMPONENT -->
                                         <x-inp-filter kode="periode" nama="Periode" selected="3" :option="array('3')"/>
                                         <x-inp-filter kode="kode_fs" nama="Kode FS" selected="3" :option="array('3')"/>
+                                        @if(Session::get('statusAdmin') == "A")
                                         <x-inp-filter kode="kode_pp" nama="Kode PP" selected="1" :option="array('1','2','3','i')"/>
+                                        @else
+                                        <x-inp-filter kode="kode_pp" nama="Kode PP" selected="3" :option="array('2','3')"/>
+                                        @endif
                                         <x-inp-filter kode="output" nama="Output" selected="3" :option="array('3')"/>
                                         
                                         <!-- END COMPONENT -->
@@ -32,15 +36,19 @@
         </div>
     </div>
     <x-report-result judul="Aktivitas" padding="px-4 py-4" />
-    
-    @include('yakes.modal_search')
-    @include('yakes.modal_email')
-    @php
-        date_default_timezone_set("Asia/Bangkok");
-    @endphp
+    <button id="trigger-bottom-sheet" style="display:none">Bottom ?</button>
     <script src="{{ asset('asset_dore/js/vendor/jquery.validate/sai-validate-custom.js') }}"></script>
-    <script src="{{ asset('reportFilter.js') }}"></script>
+    <script src="{{ asset('helper.js') }}"></script>
+    <script src="{{ asset('asset_dore/js/jquery-ui.min.js') }}"></script>
     <script>
+        $(".header-report").removeClass('pt-4');
+        $(".header-report").addClass('pt-2');
+        $(".header-report").css('min-height','46px');
+        $(".header-report > h6").css('top','10px');
+
+        var bottomSheet = new BottomSheet("country-selector");
+        document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
+        window.bottomSheet = bottomSheet;
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="-token"]').attr('content')
@@ -96,11 +104,73 @@
 
         $.fn.DataTable.ext.pager.numbers_length = 5;
 
-        // $('#show').selectize();
+        function loadFilterDefault(){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('telu-report/filter-default-labarugi-agg') }}",
+                dataType: 'json',
+                async:false,
+                success:function(result){   
+                    if(result.status){
+                        $('#periode-from').val(namaPeriode(result.periode));
+                        $('#kode_fs-from').val('FS4');
+                        $('#output-from').val('Laporan');
+                        if("{{ Session::get('statusAdmin') }}" != "A"){
+                            $('#kode_pp-from').val("{{ Session::get('kodePP') }}");
+                            $kode_pp = {
+                                type : "=",
+                                from : "{{ Session::get('kodePP') }}",
+                                fromname : "{{ Session::get('kodePP') }}",
+                                to : "",
+                                toname : "",
+                            }
+                        }
+                        $periode = {
+                            type : "=",
+                            from : result.periode,
+                            fromname : namaPeriode(result.periode),
+                            to : "",
+                            toname : "",
+                        }
 
-        $('#periode-from').val(namaPeriode("{{ Session::get('periode') }}"));
-        $('#kode_fs-from').val("FS4");
-        $('#output-from').val("Laporan");
+                        generateRptFilter('#inputFilter',{
+                            kode : ['periode','kode_fs','kode_pp','output'],
+                            nama : ['Periode','Kode FS','Kode PP','Output'],
+                            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
+                            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+                            columns: [
+                                [
+                                    { data: 'periode' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode_fs' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode_pp' },
+                                    { data: 'nama' }
+                                ],[
+                                    { data: 'kode' }
+                                ]
+                            ],
+                            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-pp') }}","{{ url('telu-report/filter-output') }}"],
+                            parameter:[],
+                            orderby:[[[0,"desc"]],[],[],[]],
+                            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                            display:['name','kode','kode','kode'],
+                            pageLength:[12,10,10,10]
+                        });
+                    
+                    }
+                    else if(!result.status && result.message == 'Unauthorized'){
+                        window.location.href = "{{ url('bdh-auth/sesi-habis') }}";
+                    }else{
+                        alert(JSON.stringify(result.message));
+                    }
+                }
+            });
+        }
+
+        loadFilterDefault();
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
@@ -133,32 +203,6 @@
         });
 
         $('.selectize').selectize();
-        $('#inputFilter').reportFilter({
-            kode : ['periode','kode_fs','kode_pp','output'],
-            nama : ['Periode','Kode FS','Kode PP','Output'],
-            header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
-            headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
-            columns: [
-                [
-                    { data: 'periode' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_fs' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode_pp' },
-                    { data: 'nama' }
-                ],[
-                    { data: 'kode' }
-                ]
-            ],
-            url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-prodi') }}","{{ url('telu-report/filter-output') }}"],
-            parameter:[],
-            orderby:[[[0,"desc"]],[],[],[]],
-            width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
-            display:['name','kode','kode','kode'],
-            pageLength:[12,10,10,10]
-        });
 
         var $formData = "";
         $('#form-filter').submit(function(e){
@@ -463,8 +507,8 @@
                 </div>
             </body>`;
             formData.append("html",html);
-            formData.append("text","Berikut ini kami lampiran Laba Rugi Anggaran Prodi:");
-            formData.append("subject","Laporan Laba Rugi Anggaran Prodi");
+            formData.append("text","Berikut ini kami lampiran Laba Rugi Anggaran PP:");
+            formData.append("subject","Laporan Laba Rugi Anggaran PP");
             $.ajax({
                 type: 'POST',
                 url: "{{ url('telu-report/send-email-report') }}",

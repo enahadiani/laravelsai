@@ -13,6 +13,8 @@ Route::get('filter-modul', 'DashTelu\FilterController@getFilterModul');
 Route::get('filter-bukti-jurnal', 'DashTelu\FilterController@getFilterBuktiJurnal');
 Route::get('filter-mutasi', 'DashTelu\FilterController@getFilterMutasi');
 Route::get('filter-pp', 'DashTelu\FilterController@getFilterPP');
+Route::get('filter-bidang', 'DashTelu\FilterController@getFilterBidang');
+Route::get('filter-default-labarugi-agg', 'DashTelu\FilterController@getFilterDefaultLabaRugiAgg');
 Route::get('filter-rektor', 'DashTelu\FilterController@getFilterRektor');
 Route::get('filter-fakultas', 'DashTelu\FilterController@getFilterFakultas');
 Route::get('filter-prodi', 'DashTelu\FilterController@getFilterProdi');

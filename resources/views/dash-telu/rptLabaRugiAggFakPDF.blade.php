@@ -67,7 +67,7 @@
         @endphp
         <table class='table table-borderless' width='100%'>
             <tr>
-                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
+                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN BIDANG <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
             </tr>
             <tr>
                 <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -95,11 +95,11 @@
                 <td class='header_laporan' align='center'>7=4/3</td>
                 <td class='header_laporan' align='center'>8=(3-4)/4</td>
             </tr>
-                @for ($i=0; $i < count($detail) ; $i++)
+                @for ($i=0; $i < count($linex['detail']) ; $i++)
                     @php
-                    $line  = $detail[$i];
+                    $line  = $linex['detail'][$i];
                     @endphp
-                    @if($linex['kode_fakultas'] == $line['kode_fakultas']){
+                    @if($linex['kode_bidang'] == $line['kode_bidang']){
                         @php
                             $persen1=0;$persen2=0;$persen3=0;
                             if ($line['n1']!=0)
@@ -137,7 +137,9 @@
                 @endfor
             </tbody>
         </table>
+        @if($j != (count($data)- 1) )
         <div style="page-break-after:always"></div>
+        @endif
     @endfor
 </body>
 </html>

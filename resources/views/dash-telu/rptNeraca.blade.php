@@ -85,8 +85,8 @@
                 var nilai="";var nilai2="";
                 if (line.tipe!="Header" && line.nama!="." && line.nama!="")
                 {
-                    nilai=sepNum(line.n1);
-                    nilai2=sepNum(line.n2);
+                    nilai=number_format(line.n1);
+                    nilai2=number_format(line.n2);
                 }
                 html +="<tr><td height='20' class='isi_laporan'>"+fnSpasi(line.level_spasi);
                 if (line.tipe=="Posting")

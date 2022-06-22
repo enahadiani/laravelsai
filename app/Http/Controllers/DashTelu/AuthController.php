@@ -102,7 +102,11 @@
                             $res = $data2['user'];
                             if(count($res) > 0){
                                 $tmp = explode("_",$res[0]["path_view"]);
-                                $dash = $tmp[2];
+                                if(isset($tmp[2])){
+                                    $dash = $tmp[2];
+                                }else{
+                                    $dash = "-";
+                                }
                                 Session::put('isLoggedIn',TRUE);
                                 Session::put('dash',$dash);
                                 Session::put('kodeMenu',$res[0]["kode_klp_menu"]);
@@ -114,6 +118,8 @@
                                 Session::put('namaLokasi',$res[0]["nmlok"]);
                                 Session::put('kodePP',$res[0]["kode_pp"]);
                                 Session::put('namaPP',$res[0]["nama_pp"]);
+                                Session::put('kodeBidang',$res[0]["kode_bidang"]);
+                                Session::put('namaBidang',$res[0]["nama_bidang"]);
                                 Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
                                 Session::put('foto',$res[0]["foto"]);
                                 Session::put('logo',$res[0]["logo"]);

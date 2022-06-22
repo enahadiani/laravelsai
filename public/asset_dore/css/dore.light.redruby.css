@@ -7736,3 +7736,12 @@ div.row-notif  a:hover {
   background: white !important;
   border-radius: 25px !important;
 }
+.card.card-dash {
+  border: 1px solid #e5e5e5;
+}
+span[class^="info-name"]{
+  background: white;
+}
+.readonly > span[class^="info-name"]{
+  background: white;
+}

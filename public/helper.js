@@ -125,6 +125,30 @@ function generateTableWithoutAjax(id,columnDefs,columns,data_def,byOrder = []) {
     return dataTable;
 }
 
+$('.info-icon-hapus').click(function(){
+    var par = $(this).closest('div').find('input').attr('name');
+    $('#'+par).val('');
+    $('#'+par).attr('readonly',false);
+    $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_'+par).parent('div').addClass('hidden');
+    $('.info-name_'+par).addClass('hidden');
+    $(this).addClass('hidden');
+});
+
+function removeInfoField(par){
+    $('#'+par).val('');
+    $('#'+par).attr('style','border-top-left-radius: 0.5rem !important;border-bottom-left-radius: 0.5rem !important');
+    $('.info-code_'+par).parent('div').addClass('hidden');
+    $('.info-name_'+par).addClass('hidden');
+    $('#search_'+par).siblings('i').addClass('hidden');
+}
+
+function resizeNameField(kode){
+    var width = $('#'+kode).width()-$('#search_'+kode).width()-10;
+    var height =$('#'+kode).height();
+    var pos =$('#'+kode).position();
+    $('.info-name_'+kode).width(width).css({'left':pos.left,'height':height});
+}
 
 function showInpFilter(settings){
     var par = settings.id;

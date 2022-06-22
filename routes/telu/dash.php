@@ -150,4 +150,15 @@ Route::get('video-list','DashTelu\DashboardController@getVideoList');
 Route::get('financial-target','DashTelu\DashboardController@getTarget');
 Route::post('note','DashTelu\DashboardController@updateNoteTarget');
 
+Route::get('data-pbh-box','DashTelu\DashboardPBHController@getDataBox');
+Route::get('data-pbh-jenis-aju','DashTelu\DashboardPBHController@getJenisPengajuan');
+Route::get('data-pbh-kas','DashTelu\DashboardPBHController@getNilaiKas');
+Route::get('data-pbh-rata2-hari','DashTelu\DashboardPBHController@getRata2Hari');
+Route::get('data-pbh-jml-selesai','DashTelu\DashboardPBHController@getJmlSelesai');
+
+Route::get('bidang','DashTelu\DashboardPBHController@getBidang');
+Route::get('pp','DashTelu\DashboardPBHController@getPP');
+Route::get('pp-karyawan','DashTelu\DashboardPBHController@getPPKaryawan');
+Route::get('bidang-karyawan','DashTelu\DashboardPBHController@getBidangKaryawan');
+
 ?>

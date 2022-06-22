@@ -35,14 +35,35 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
-        public function getFilterPP() {
+        public function getFilterPP(Request $request) {
 
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'ypt-report/filter-pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $request->query()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+                $data = $data['data'];
+            }
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
+        public function getFilterBidang(Request $request) {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-report/filter-bidang',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $request->query()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -268,6 +289,23 @@
                 $data = $data;
             }
             return response()->json(['daftar' => $data['data'], 'status' => true], 200);
+        }
+
+        public function getFilterDefaultLabaRugiAgg() {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-report/filter-default-labarugi-agg',[
+            'headers' => [
+                'Authorization' => 'Bearer '.Session::get('token'),
+                'Accept'     => 'application/json',
+            ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+            
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200);
         }
 
     }

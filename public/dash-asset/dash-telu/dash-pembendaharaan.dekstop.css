@@ -1,7 +1,9 @@
+.fs-8{
+    font-size: 8px !important;
+}
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
     /* HEADER */
     section.header {
-        background-color: #ffffff;
         margin-top: -32px;
         padding: 16px 8px 8px 8px;
         width: calc(100vw - 155px);
@@ -16,7 +18,6 @@
     /* CARD */
     .card.card-dash {
         box-shadow: none;
-        border: 1px solid #e5e5e5;
     }
     .card.card-dash .card-header {
         padding-bottom: 0;
@@ -72,4 +73,111 @@
 }
 
 @media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}
+
+.input-group input{
+    border-radius: 0.5rem !important;
+}
+span[class^="info-name"] {
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    top: 3px;
+    left: 52.36663818359375px;
+    padding: 5px 0px 5px 5px;
+    z-index: 2;
+    width: 180.883px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 22px;
+    height: unset !important;
+}
+span[class^="info-code"]{
+    background: var(--theme-color-1);
+    color: white;
+    border-radius: 5px;
+    padding: 2px 8px;
+}
+.input-group-prepend > span {
+    margin: 5px;
+    padding: 0 5px;
+    background: #e9ecef !important;
+    border: 1px solid #e9ecef !important;
+    border-radius: 0.25rem !important;
+    color: var(--theme-color-1);
+    font-weight: bold;
+    cursor: pointer;
+}
+.input-group-prepend {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+.readonly > span[class^="info-name"] {
+    cursor: pointer;
+    font-size: 12px;
+    position: absolute;
+    top: 3px;
+    left: 52.36663818359375px;
+    padding: 5px 0px 5px 5px;
+    z-index: 2;
+    width: 180.883px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 22px;
+    background: #e9ecef !important;
+    height: unset !important;
+}
+
+.info-icon-hapus {
+    font-size: 14px;
+    position: absolute;
+    top: 10px;
+    right: 35px;
+    z-index: 3;
+}
+
+.readonly > .info-icon-hapus {
+    display: none;
+}
+
+.search-item {
+    position: sticky !important;
+    top: 8px !important;
+}
+.search-item i {
+    position: relative;
+    top: 3px;
+    font-size: 16px !important;
+}
+.search-item2 {
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 5px;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    /* background: white; */
+    padding: 5px 0 5px 5px;
+    z-index: 4;
+    height: 27px;
+}
+#modal-search .modal-content{
+    border:1px solid #d7d7d7;
+    max-height: 70vh;
+    overflow: scroll;
+}
+#modal-search .modal-title {
+    top: 6px;
+}
+#modal-search button.close {
+    top: 0px !important;
+}
+#modal-search table td,
+#modal-search table th{
+    padding: 6px 8px !important;
+}
+main{
+    margin-bottom: 0px !important;
 }

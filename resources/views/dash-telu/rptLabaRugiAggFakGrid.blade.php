@@ -17,7 +17,7 @@
 
    drawLap($formData);
 
-   function sepNum2(x){
+   function number_format2(x){
         if (typeof x === 'undefined' || !x) { 
             return 0;
         }else{
@@ -28,7 +28,7 @@
         }
     }
 
-    function sepNumPas(x){
+    function number_formatPas(x){
         if (typeof x === 'undefined' || !x) { 
             return 0;
         }else{
@@ -39,12 +39,12 @@
         }
     }
 
-   function getChild(index,id,formData,url,parent = null,kode_fakultas){
+   function getChild(index,id,formData,url,parent = null,kode_bidang){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
         formData.delete('kode');
-        formData.append('kode',kode_fakultas);
+        formData.append('kode',kode_bidang);
         saiPostGrid(url, null, formData, null, function(res){
             if(res.result.length > 0){
                 var no=1; var x=0;
@@ -74,23 +74,23 @@
                         var cursor = '';
                     }
 
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_fakultas='`+line.kode_fakultas+`'>
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_bidang='`+line.kode_bidang+`'>
                     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
                     if (line.kode_akun!="OR" && line.kode_fs=="FS4")
                     {
-                        html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
-                        <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
-                        <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>`;
+                        html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                        <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
+                        <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>`;
                     }
                     else
                     {
-                        html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>`;
+                        html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>`;
                     }
-                    html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
-                    <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
+                    html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
                     </tr>`;
                     no++;
                 }
@@ -138,7 +138,7 @@
             for(var j=0; j < data.length; j++){
 
                 var linex = data[j];
-                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN BIDANG <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
                 <div class='table-responsive'>
                 <table class='table table-bordered report-table'>
                     <tr>
@@ -160,10 +160,11 @@
                         <td class='header_laporan' align='center'>8=(3-4)/4</td>
                     </tr>
                 `;
-                for (var i=0; i < res.res.detail.length; i++)
+
+                for (var i=0; i < linex.detail.length; i++)
                 {
-                    var line = res.res.detail[i];
-                    if(linex.kode_fakultas == line.kode_fakultas){
+                    var line = linex.detail[i];
+                    if(linex.kode_bidang == line.kode_bidang){
                         
                         var persen1=0;var persen2=0;var persen3=0;
                         if (line.n1!=0)
@@ -185,23 +186,23 @@
                             var icon = '';
                             var cursor = '';
                         }
-                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_fakultas='`+line.kode_fakultas+`'>
+                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_bidang='`+line.kode_bidang+`'>
                         <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
                         if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                         {
-                            html+=`<td class='isi_laporan' align='right'>`+sepNum(line.n1)+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(line.n2)+`</td>
-                            <td class='isi_laporan' align='right'>`+sepNum(line.n4)+`</td>`;
+                            html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                            <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
+                            <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>`;
                         }
                         else
                         {
-                            html+=`<td class='isi_laporan' align='center'>`+sepNum(line.n1)+`%</td>
-                            <td class='isi_laporan' align='center'>`+sepNum(line.n2)+`%</td>
-                            <td class='isi_laporan' align='center'>`+sepNum(line.n4)+`%</td>`;
+                            html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>`;
                         }
-                        html+=`<td class='isi_laporan' align='center'>`+sepNum(persen1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(persen2)+`%</td>
-                        <td class='isi_laporan' align='center'>`+sepNum(persen3)+`%</td>
+                        html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
+                        <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
                         </tr>`;
                     }
                 }
@@ -214,13 +215,13 @@
                 if(tipe == 'Posting'){
                     var id = $(this).attr('id');
                     var parent = $(this).data('parent');
-                    var kode_fakultas = $(this).data('kode_fakultas');
+                    var kode_bidang = $(this).data('kode_bidang');
                     var index = $(this).closest('tr').index();
                     if(!$(this).hasClass('clicked')){
                         $(this).addClass('clicked');
                         var top = $(this).position().top;
                         $('#grid-load').css('top',top);
-                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-fak-detail',parent,kode_fakultas);
+                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-fak-detail',parent,kode_bidang);
                     }
                     if(!$(this).hasClass('open-grid')){
                         $(this).addClass('open-grid');

@@ -53,7 +53,7 @@
             $tgl_sekarang = date('d').' '.$this->getNamaBulan(date('m')).' '.date('Y');
             
             $pdf = PDF::loadview('yakes.rptLabaRugiPDF',['data'=>$data["result"],'tgl_awal'=>$tgl_awal,'tgl_akhir'=>$tgl_akhir,'tgl_sekarang'=>$tgl_sekarang,'tahun_seb'=>$tahunseb]);
-    	    return $pdf->download('laporan-labarugi-pdf');   
+    	    return $pdf->download('laporan-labarugi.pdf');   
         }
 
         function getLabaRugiAgg(Request $request){
@@ -104,7 +104,7 @@
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
             $pdf = PDF::loadview('dash-telu.rptLabaRugiAggPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
-    	    return $pdf->download('laporan-labarugi-agg-pdf');   
+    	    return $pdf->download('laporan-labarugi-agg.pdf');   
         }
 
         function getLabaRugiAggDetail(Request $request){
@@ -159,7 +159,7 @@
                     'query' => [
                         'periode' => $request->periode,
                         'kode_fs' => $request->kode_fs,
-                        'kode_rektor' => $request->kode_rektor,
+                        'kode_bidang' => $request->kode_bidang,
                         'nik_user' => Session::get('nikUser')
                     ]
                 ]);
@@ -194,8 +194,8 @@
             $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
-            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggDirPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
-    	    return $pdf->download('laporan-labarugi-agg-dir-pdf');   
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggDirPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'nama_bidang'=>$request->kode_bidang[3],'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-dir.pdf');   
         }
 
         function getLabaRugiAggDirDetail(Request $request){
@@ -251,7 +251,7 @@
                     'query' => [
                         'periode' => $request->periode,
                         'kode_fs' => $request->kode_fs,
-                        'kode_fakultas' => $request->kode_fakultas,
+                        'kode_bidang' => $request->kode_bidang,
                         'nik_user' => Session::get('nikUser')
                     ]
                 ]);
@@ -286,8 +286,8 @@
             $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
-            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggFakPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
-    	    return $pdf->download('laporan-labarugi-agg-fak-pdf');   
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggFakPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-bidang.pdf');   
         }
 
         function getLabaRugiAggFakDetail(Request $request){
@@ -379,7 +379,7 @@
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
             $pdf = PDF::loadview('dash-telu.rptLabaRugiAggProdiPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
-    	    return $pdf->download('laporan-labarugi-agg-prodi-pdf');   
+    	    return $pdf->download('laporan-labarugi-agg-prodi.pdf');   
         }
 
 
@@ -474,7 +474,7 @@
             $totime = date('d').' '.$this->getNamaBulan($bln).' '.$tahun;
             $totimerev = date('d').' '.$this->getNamaBulan($bln).' '.$tahunrev;
             $pdf = PDF::loadview('dash-telu.rptNeraca2PDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahunrev'=>$tahunrev,'totime'=>$totime,'totimerev'=>$totimerev]);
-    	    return $pdf->download('laporan-neraca-pdf');   
+    	    return $pdf->download('laporan-neraca.pdf');   
         }
 
         function getNeraca2Detail(Request $request){
@@ -560,14 +560,11 @@
             $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getInvestasi($request);
             $tmp = json_decode(json_encode($tmp),true);
             $data = $tmp['original'];
-            $periode = $request->periode[1];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
-            $bln = substr($periode,4,2);
-            $totime = date('d').' '.$this->getNamaBulan($bln).' '.$tahun;
-            $totimerev = date('d').' '.$this->getNamaBulan($bln).' '.$tahunrev;
-            $pdf = PDF::loadview('dash-telu.rptInvestasiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahunrev'=>$tahunrev,'totime'=>$totime,'totimerev'=>$totimerev]);
-    	    return $pdf->download('laporan-investasi-pdf');   
+            $pdf = PDF::loadview('dash-telu.rptInvestasiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-investasi.pdf');   
         }
 
         function getInvestasiDetail(Request $request){

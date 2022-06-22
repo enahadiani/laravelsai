@@ -13,3 +13,8 @@ Route::put('setting-grafik', 'DashTelu\SettingGrafikController@update');
 Route::delete('setting-grafik', 'DashTelu\SettingGrafikController@destroy');
 Route::get('setting-grafik-klp', 'DashTelu\SettingGrafikController@getKlp');
 Route::get('setting-grafik-neraca', 'DashTelu\SettingGrafikController@getNeraca');
+
+Route::get('hash-pass-menu-lokasi', 'DashTelu\HashPasswordController@getLokasi');
+Route::get('hash-pass-menu', 'DashTelu\HashPasswordController@index');
+Route::get('hash-pass-menu-batch', 'DashTelu\HashPasswordController@getBatch');
+Route::post('hash-pass-menu', 'DashTelu\HashPasswordController@hashPass');

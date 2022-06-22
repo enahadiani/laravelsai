@@ -233,3 +233,17 @@ div.dataTables_wrapper div.dataTables_filter input
 {
     opacity: 1;
 }
+.sai-rpt-filter-entry-row {
+    margin-bottom: 0.5rem;
+}
+.bootstrap-tagsinput, .form-control {
+    font-size: 0.8rem !important;
+    padding: 0 0.5rem;
+    height: 30px;
+}
+.selectize-input {
+    min-height: unset !important;
+    padding: 0.1rem 0.5rem !important;
+    height: 30px !important;
+    line-height: 25px !important;
+}
