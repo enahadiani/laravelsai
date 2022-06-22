@@ -153,13 +153,13 @@ Highcharts.chart('chart-contribusi', {
 
 <section id="header" class="header" >
     <div class="row">
-        <div class="col-9 pl-12 pr-0">
+        <div class="col-9 px-0">
             <div class="row">
                 <div id="back-div" class="col-1 pr-0 hidden">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0" style="padding-right:7em ;">
-                    <h2 class="title-dash" id="title-dash">Financial Performance</h2>
+                    <div id="title-dash" class="title-dash mt-0">Financial Performance</div>
                 </div>
                 <div class="row">
                             <div class="col-12">
@@ -412,16 +412,16 @@ Highcharts.chart('chart-contribusi', {
                 {{-- REVENUE--}}
                 <div class="card card-dash rounded-lg">
                     <div class="card-body">
-                        <div id="chart-revenue" style="width:100%; height: calc(78vh - 180px); padding-bottom:15px;"></div>
+                        <div id="chart-revenue" style="width:100%; height: calc(82.2vh - 180px); padding-bottom:15px;"></div>
                     </div>
                 </div>
                 {{-- END REVENUE --}}
             </div>
             <div class="col-lg-3 col-md-6 px-1">
                 {{-- REVENUE--}}
-                        <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;width:121%; height: calc(79.5vh - 180px)">
-                                <div class="row"> 
-                            <div class="col-8" style="padding-left: 1em;">
+                        <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;width:121%; height: calc(83.5vh - 180px)">
+                            <div class="row"> 
+                                <div style="padding-left: 1em;">
                                     <select name="revenue" id="revenue">
                                         <option value="Revenue Contribution">Revenue Contribution</option>
                                         <option value="COGS">COGS</option>
@@ -432,7 +432,7 @@ Highcharts.chart('chart-contribusi', {
                                 </div>
                             </div>
                             <div class="card-body">
-                            <div id="chart-contribusi" style="width:100%; height: calc(73vh - 180px)"></div>
+                                <div id="chart-contribusi" style="width:100%; height: calc(73vh - 180px)"></div>
                             </div>
                         </div>
                 {{-- END REVENUE --}}
@@ -440,7 +440,7 @@ Highcharts.chart('chart-contribusi', {
 
             <div class="col-md-2dot4 px-1 ">
                 {{-- PENGAJUAN--}}
-                <div class="card card-dash rounded-lg" style="margin-left: 4rem;width:97%; height: calc(79.5vh - 180px)">
+                <div class="card card-dash rounded-lg" style="margin-left: 4rem;width:97%; height: calc(83.5vh - 180px)">
                     <div class="card-body ">
                         <div class="p-1" style="width:100%; height: calc(78vh - 180px)">
                         <div class="row">

@@ -416,7 +416,7 @@ Highcharts.chart('chart-yoy', {
                     </div>
                             <div class="card-body">
                             <b style="font-size: 1.2em;padding-top:10em;">Kontribusi Pendapatan</b>
-                            <div id="chart-contribusi" style="width:100%; height:36.5em;"></div>
+                            <div id="chart-contribusi" style="width:115%; height:28rem;"></div>
                             
                             </div>
                         </div>
@@ -438,7 +438,7 @@ Highcharts.chart('chart-yoy', {
             <div class="col-lg-3 col-md-4 col-sm-6 px-1">
                 {{-- PENGAJUAN--}}
                 <div class="card card-dash rounded-lg" >
-                    <div class="card-body" style="padding-left: 0.5em;">
+                    <div class="card-body" style="padding-left: 0.5em;width:115%; height:25.2rem;">
                     <div style="padding-top:0.5em; font-size:1em" >Pendapatan YoY</div>
                     <div class="row ">
                             <div class="col-1 d-inline">
