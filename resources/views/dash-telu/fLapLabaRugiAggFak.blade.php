@@ -117,11 +117,11 @@
                         $('#kode_fs-from').val('FS4');
                         $('#output-from').val('Laporan');
                         if("{{ Session::get('statusAdmin') }}" != "A"){
-                            $('#kode_bidang-from').val("{{ Session::get('kodeBidang') }}");
+                            $('#kode_bidang-from').val(result.kode_bidang);
                             $kode_bidang = {
                                 type : "=",
-                                from : "{{ Session::get('kodeBidang') }}",
-                                fromname : "{{ Session::get('kodeBidang') }}",
+                                from : result.kode_bidang,
+                                fromname : result.nama_bidang,
                                 to : "",
                                 toname : "",
                             }
