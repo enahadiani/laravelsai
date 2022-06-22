@@ -160,5 +160,6 @@ Route::get('bidang','DashTelu\DashboardPBHController@getBidang');
 Route::get('pp','DashTelu\DashboardPBHController@getPP');
 Route::get('pp-karyawan','DashTelu\DashboardPBHController@getPPKaryawan');
 Route::get('bidang-karyawan','DashTelu\DashboardPBHController@getBidangKaryawan');
+Route::get('dash-filter-default','DashTelu\DashboardPBHController@getFilterDefaultDash');
 
 ?>

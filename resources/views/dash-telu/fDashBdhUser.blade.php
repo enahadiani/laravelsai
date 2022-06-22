@@ -11,11 +11,11 @@
     var chartHarian = null;
     var chartCapai = null
     var chartKas = null
-    var tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    var kode_pp = "{{ Session::get('kodePP') }}";
-    var kode_bidang = "{{ Session::get('kodeBidang') }}";
-    var nama_pp = "{{ Session::get('namaPP') }}";
-    var nama_bidang = "{{ Session::get('namaBidang') }}";
+    var tahun = "";
+    var kode_pp = "";
+    var kode_bidang = "";
+    var nama_pp = "";
+    var nama_bidang = "";
     function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
@@ -248,22 +248,39 @@
         });
     }
 
-    getDataBox({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
-    getJenisPengajuan({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
-    getNilaiKas({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
+    function getFilterDefaultDash(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-dash/dash-filter-default') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result) { 
+                tahun = result.tahun;
+                kode_pp = result.kode_pp;
+                nama_pp = result.nama_pp;
+                kode_bidang = result.kode_bidang;
+                nama_bidang = result.nama_bidang;
+                getDataBox({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getJenisPengajuan({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getNilaiKas({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+            } 
+        })
+    }
 
+    getFilterDefaultDash();
+    
     // CIRCLE
     $('#circle-agenda').circleProgress({
         value: 0.78,
