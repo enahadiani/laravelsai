@@ -908,6 +908,9 @@
                     target2 : ".info-name_"+id,
                     target3 : "",
                     target4 : "",
+                    parameter: {
+                        kode_bidang: $('#kode_bidang').val()
+                    },
                     width : ["30%","70%"]
                 }
             break;
