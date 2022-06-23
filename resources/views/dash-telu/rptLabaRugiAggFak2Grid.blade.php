@@ -147,8 +147,8 @@
                         <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
                         <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
-                        <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahunrev+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
