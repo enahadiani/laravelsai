@@ -991,7 +991,7 @@
 <section id="header" class="header">
     <div class="row">
         <div class="col-9 px-0">
-            <h2 id="title-dash" class="title-dash mt-0 listing-heading ellipsis">{{ Session::get('namaPP') }}</h2>
+            <h6 id="title-dash" class="title-dash mt-0 listing-heading ellipsis">{{ Session::get('namaPP') }}</h6>
         </div>
         <div class="col-3 text-right">
             <a href="#" id="dash-filter" class="mr-3">
