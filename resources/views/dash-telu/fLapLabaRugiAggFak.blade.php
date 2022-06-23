@@ -154,7 +154,11 @@
                                 ]
                             ],
                             url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-bidang') }}","{{ url('telu-report/filter-output') }}"],
-                            parameter:[],
+                            parameter:[{},{},{
+                                'periode[0]':$periode.type,
+                                'periode[1]':$periode.from,
+                                'periode[2]':$periode.to,
+                            },{}],
                             orderby:[[[0,"desc"]],[],[],[]],
                             width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
                             display:['name','kode','kode','kode'],
@@ -172,6 +176,43 @@
         }
 
         loadFilterDefault();
+
+        $('#inputFilter').on('change','input',function(e){
+            setTimeout(() => {
+                e.preventDefault();
+                var periode = $periode;
+                generateRptFilter('#inputFilter',{
+                    kode : ['periode','kode_fs','kode_bidang','output'],
+                    nama : ['Periode','Kode FS','Kode Bidang','Output'],
+                    header : [['Periode', 'Nama'],['Kode', 'Nama'],['Kode', 'Nama'],['Kode']],
+                    headerpilih : [['Periode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode', 'Nama','Action'],['Kode','Action']],
+                    columns: [
+                        [
+                            { data: 'periode' },
+                            { data: 'nama' }
+                        ],[
+                            { data: 'kode_fs' },
+                            { data: 'nama' }
+                        ],[
+                            { data: 'kode_bidang' },
+                            { data: 'nama' }
+                        ],[
+                            { data: 'kode' }
+                        ]
+                    ],
+                    url :["{{ url('telu-report/filter-periode-keu') }}","{{ url('telu-report/filter-fs') }}","{{ url('telu-report/filter-bidang') }}","{{ url('telu-report/filter-output') }}"],
+                    parameter:[{},{},{
+                        'periode[0]':periode.type,
+                        'periode[1]':periode.from,
+                        'periode[2]':periode.to,
+                    },{}],
+                    orderby:[[[0,"desc"]],[],[],[]],
+                    width:[['30%','70%'],['30%','70%'],['30%','70%'],['30%','70%']],
+                    display:['name','kode','kode','kode'],
+                    pageLength:[12,10,10,10]
+                });
+            }, 500);
+        });
 
         $('#btn-filter').click(function(e){
             $('#collapseFilter').show();
