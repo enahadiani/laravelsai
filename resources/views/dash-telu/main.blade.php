@@ -276,7 +276,7 @@
         </a>
         @php
             $tmp = explode(" ",Session::get('namaUser'));
-            $nama = $tmp[0];
+            $nama = $tmp[0]." ".$tmp[1];
 
         @endphp
 
