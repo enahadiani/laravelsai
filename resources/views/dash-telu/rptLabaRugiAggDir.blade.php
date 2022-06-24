@@ -107,7 +107,7 @@
                 }
                 html+=`<tr>
                 <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
-                if (line.kode_akun!="OR" && line.kode_fs=="FS4")
+                if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                 {
                     html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
                     <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
