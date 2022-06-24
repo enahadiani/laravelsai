@@ -166,9 +166,9 @@
                         <td class='header_laporan' align='center'>7=(3-4)/4</td>
                     </tr>
                 `;
-                for (var i=0; i < res.res.detail.length; i++)
+                for (var i=0; i < linex.detail.length; i++)
                 {
-                    var line = res.res.detail[i];
+                    var line = linex.detail[i];
                     if(linex.kode_pp == line.kode_pp){
                         
                         var persen1=0;var persen2=0;var persen3=0;

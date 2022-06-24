@@ -101,9 +101,9 @@
                 <td class='header_laporan' align='center'>6=3/2</td>
                 <td class='header_laporan' align='center'>7=(3-4)/4</td>
             </tr>
-                @for ($i=0; $i < count($detail) ; $i++)
+                @for ($i=0; $i < count($linex['detail']) ; $i++)
                     @php
-                    $line  = $detail[$i];
+                    $line  = $linex['detail'][$i];
                     @endphp
                     @if($linex['kode_pp'] == $line['kode_pp'])
                         @php
