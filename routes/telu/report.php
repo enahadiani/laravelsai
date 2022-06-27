@@ -30,12 +30,15 @@ Route::post('lap-labarugi-agg-dir', 'DashTelu\LaporanController@getLabaRugiAggDi
 Route::post('lap-labarugi-agg-dir-detail', 'DashTelu\LaporanController@getLabaRugiAggDirDetail');
 Route::post('lap-labarugi-agg-fak', 'DashTelu\LaporanController@getLabaRugiAggFak');
 Route::post('lap-labarugi-agg-fak-detail', 'DashTelu\LaporanController@getLabaRugiAggFakDetail');
+Route::post('lap-labarugi-agg-fak2', 'DashTelu\LaporanController@getLabaRugiAggFak2');
+Route::post('lap-labarugi-agg-fak2-detail', 'DashTelu\LaporanController@getLabaRugiAggFak2Detail');
 Route::post('lap-labarugi-agg-prodi', 'DashTelu\LaporanController@getLabaRugiAggProdi');
 Route::post('lap-labarugi-agg-prodi-detail', 'DashTelu\LaporanController@getLabaRugiAggProdiDetail');
 
 Route::get('lap-labarugi-agg-pdf', 'DashTelu\LaporanController@getLabaRugiAggPDF');
 Route::get('lap-labarugi-agg-dir-pdf', 'DashTelu\LaporanController@getLabaRugiAggDirPDF');
 Route::get('lap-labarugi-agg-fak-pdf', 'DashTelu\LaporanController@getLabaRugiAggFakPDF');
+Route::get('lap-labarugi-agg-fak2-pdf', 'DashTelu\LaporanController@getLabaRugiAggFak2PDF');
 Route::get('lap-labarugi-agg-prodi-pdf', 'DashTelu\LaporanController@getLabaRugiAggProdiPDF');
 Route::get('lap-neraca2-pdf', 'DashTelu\LaporanController@getNeraca2PDF');
 Route::get('lap-investasi-pdf', 'DashTelu\LaporanController@getInvestasiPDF');

@@ -151,6 +151,32 @@ class DashboardPBHController extends Controller {
         }
     }
 
+    public function getJmlPengajuan(Request $r) {
+        try {
+            
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/data-pbh-jml-aju',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query' => $r->query()
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
     public function getBidang(Request $request){
         try{
             
@@ -248,6 +274,31 @@ class DashboardPBHController extends Controller {
                 $data = $data["data"];
             }
             return response()->json(['daftar' => $data , 'status'=>true, 'message'=>'success'], 200); 
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        } 
+    }
+
+    public function getFilterDefaultDash(Request $request){
+        try{
+            
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ypt-dash/dash-filter-default',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'query'=>$request->all()
+            ]);
+    
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);

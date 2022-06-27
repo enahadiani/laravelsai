@@ -163,6 +163,14 @@
             background:red;
         }
 
+        #adminProfileName{
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            height:25px !important;
+        }
+
     </style>
     <script>
         var $public_asset = "{{ asset('asset_dore') }}/";
@@ -276,7 +284,7 @@
         </a>
         @php
             $tmp = explode(" ",Session::get('namaUser'));
-            $nama = $tmp[0];
+            $nama = $tmp[0]." ".(isset($tmp[1]) ? $tmp[1] : '');
 
         @endphp
 
@@ -303,7 +311,7 @@
                                 <img alt="Profile Picture" class="imgprofile ml-0" src="{{ config('api.url').'ypt-auth/storage2/'.Session::get('foto') }}" style="width:40px;height:40px"/>
                                 @endif
                             </span>
-                            <p class="userprofile mb-0">{{ $nama }}</p>
+                            <p class="userprofile mb-0" id="adminProfileName">{{ $nama }}</p>
                             <span class="userjab" >{{ Session::get('jabatan') }}</span>
                         </div>
                     </a>

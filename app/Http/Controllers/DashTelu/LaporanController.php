@@ -238,6 +238,98 @@
            
         }
 
+        function getLabaRugiAggFak2(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'ypt-report/lap-labarugi-agg-fak2',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'kode_fakultas' => $request->kode_fakultas,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
+        function getLabaRugiAggFak2PDF(Request $request)
+        {
+            set_time_limit(300);
+            $tmp = app('App\Http\Controllers\DashTelu\LaporanController')->getLabaRugiAggFak2($request);
+            $tmp = json_decode(json_encode($tmp),true);
+            $data = $tmp['original'];
+            $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
+            $tahun = substr($periode,0,4);
+            $tahunrev = intval($tahun)-1;
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggFak2PDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+    	    return $pdf->download('laporan-labarugi-agg-fakultas.pdf');   
+        }
+
+        function getLabaRugiAggFak2Detail(Request $request){
+            try{
+    
+                $client = new Client();
+        
+                $response = $client->request('GET',  config('api.url').'ypt-report/lap-labarugi-agg-fak2-detail',[
+                    'headers' => [
+                        'Authorization' => 'Bearer '.Session::get('token'),
+                        'Accept'     => 'application/json',
+                    ],
+                    'query' => [
+                        'periode' => $request->periode,
+                        'kode_fs' => $request->kode_fs,
+                        'id' => $request->id,
+                        'kode' => $request->kode,
+                        'nik_user' => Session::get('nikUser')
+                    ]
+                ]);
+        
+                if ($response->getStatusCode() == 200) { // 200 OK
+                    $response_data = $response->getBody()->getContents();
+                    
+                    $res = json_decode($response_data,true);
+                    $data = $res["data"];
+                }
+                if(isset($request->back)){
+                    $back = true;
+                }else{
+                    $back = false;
+                }
+                
+                return response()->json(['result' => $data, 'status'=>true, 'auth_status'=>1,'res'=>$res,'lokasi'=>Session::get('namaLokasi'),'back'=>$back], 200); 
+            } catch (BadResponseException $ex) {
+                $response = $ex->getResponse();
+                $res = json_decode($response->getBody(),true);
+                return response()->json(['message' => $res["message"], 'status'=>false, 'auth_status'=>2], 200);
+            } 
+           
+        }
+
         function getLabaRugiAggFak(Request $request){
             try{
     
@@ -378,7 +470,7 @@
             $periode = $this->getNamaBulan(substr($request->periode[1],4,2)).' '.substr($request->periode[1],0,4);
             $tahun = substr($periode,0,4);
             $tahunrev = intval($tahun)-1;
-            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggProdiPDF',['data'=>$data["result"],'detail' =>$data["res"]["detail"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
+            $pdf = PDF::loadview('dash-telu.rptLabaRugiAggProdiPDF',['data'=>$data["result"],'lokasi'=>Session::get('namaLokasi'),'periode'=>$periode,'tahun' => $tahun, 'tahunrev' => $tahunrev]);
     	    return $pdf->download('laporan-labarugi-agg-prodi.pdf');   
         }
 

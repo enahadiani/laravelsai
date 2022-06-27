@@ -1,7 +1,7 @@
 <script type="text/javascript">
 
     function drawLap(formData){
-        saiPostLoad("{{ url('telu-report/lap-labarugi-agg') }}", null, formData, null, function(res){
+        saiPostLoad("{{ url('telu-report/lap-labarugi-agg-fak2') }}", null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -64,6 +64,9 @@
             .header_laporan{
                 vertical-align: middle !important;
             }
+            .sbjudul{
+                text-transform:uppercase;
+            }
             
             table.dataTable{
                 border-collapse:collapse !important;
@@ -84,18 +87,21 @@
             #table-report thead th{
                 padding: 0px 8px !important;
             }
-            </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN",lokasi,'Periode '+$periode.fromname)+`
-            <table  class='table table-bordered table-striped' id="table-report" width='100%'>
+            </style>`;
+            for(var j=0; j < data.length; j++){
+                var linex = data[j];
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                <table  class='table table-bordered table-striped' id="table-report" width='100%'>
                 <thead>
                     <tr>
-                        <th width='23%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
-                        <th width='11' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
-                        <th width='11' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
+                        <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
                     </tr>
                     <tr>
                         <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
@@ -109,49 +115,47 @@
                     </tr>
                 </thead>
                 <tbody>`;
-		
-            // for (var i=0; i < data.length; i++)
-            // {
-            //     var line = data[i];
-            //     var persen1=0;var persen2=0;var persen3=0;
-            //     if (line.n1!=0)
-            //     {
-            //         persen1=(line.n4/line.n1)*100;
-            //     }
-            //     if (line.n2!=0)
-            //     {
-            //         persen2=(line.n4/line.n2)*100;
-            //     }
-            //     if (line.n5!=0)
-            //     {
-            //         persen3=(line.n4-line.n5)/line.n5*100;
-            //     }
-            //     html+=`<tr>
-            //     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
-            //     if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
-            //     {
-            //         html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
-            //         <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
-            //         <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
-            //         <td class='isi_laporan' align='right'>`+number_format(line.n5)+`</td>`;
-            //     }
-            //     else
-            //     {
-            //         html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
-            //             <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
-            //             <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>
-            //             <td class='isi_laporan' align='center'>`+number_format(line.n5)+`%</td>`;
-            //     }
-            //         html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
-            //         <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
-            //         <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
-            //         </tr>`;
-                
-            // }
-		
-            html+=`
-            </tbody>
-            </table>`;
+                // for(var j=0; j < linex.detail.length; j++){
+                //     var line = linex.detail[j];
+                //     var persen1=0;var persen2=0;var persen3=0;
+                //     if (line.n3!=0)
+                //     {
+                //         persen1=(line.n1/line.n3)*100;
+                //     }
+                //     if (line.n4!=0)
+                //     {
+                //         persen2=(line.n1/line.n4)*100;
+                //     }
+                //     if (line.n2!=0)
+                //     {
+                //         persen3=(line.n1-line.n2)/line.n2*100;
+                //     }
+                //     html+=`<tr>
+                //     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+line.nama+`</td>`;
+                //     if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
+                //     {
+                //         html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
+                //         <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
+                //         <td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                //         <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>`;
+                //     }
+                //     else
+                //     {
+                //         html+=`<td class='isi_laporan' align='center'>`+number_format(line.n3,2)+`%</td>
+                //             <td class='isi_laporan' align='center'>`+number_format(line.n4,2)+`%</td>
+                //             <td class='isi_laporan' align='center'>`+number_format(line.n1,2)+`%</td>
+                //             <td class='isi_laporan' align='center'>`+number_format(line.n2,2)+`%</td>`;
+                //     }
+                //     html+=`<td class='isi_laporan' align='center'>`+number_format(persen1,2)+`%</td>
+                //         <td class='isi_laporan' align='center'>`+number_format(persen2,2)+`%</td>
+                //         <td class='isi_laporan' align='center'>`+number_format(persen3,2)+`%</td>
+                //         </tr>`;
+            
+                // }
+                html+=`
+                </tbody>
+                </table>`;
+            }
         }
         $('#canvasPreview').html(html);
         if($('#table-report').length > 0){
@@ -163,10 +167,10 @@
                 scrollX: false,
                 columns:[
                     { data: 'nama' }, //0
-                    { data: 'n1' }, // 1
-                    { data: 'n2' }, // 2
-                    { data: 'n4' }, // 3
-                    { data: 'n5' }, // 4
+                    { data: 'n3' }, // 1
+                    { data: 'n4' }, // 2
+                    { data: 'n1' }, // 3
+                    { data: 'n2' }, // 4
                     { data: null }, // 5
                     { data: null }, // 6
                     { data: null }, // 7
@@ -184,25 +188,14 @@
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             if(row.kode_neraca!="OR" && row.kode_fs=="FS4"){
-                                return number_format(row.n1);
+                                return number_format(row.n3);
                             }else{
-                                return number_format(row.n1,2)+'%';
+                                return number_format(row.n3,2)+'%';
                             }
                         }
                     }, 
                     {  
                         'targets': [2],
-                        'className': 'text-right',
-                        "render": function ( data, type, row, meta ) {
-                            if(row.kode_neraca!="OR" && row.kode_fs=="FS4"){
-                                return number_format(row.n2);
-                            }else{
-                                return number_format(row.n2,2)+'%';
-                            }
-                        }
-                    }, 
-                    {  
-                        'targets': [3],
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             if(row.kode_neraca!="OR" && row.kode_fs=="FS4"){
@@ -213,13 +206,24 @@
                         }
                     }, 
                     {  
+                        'targets': [3],
+                        'className': 'text-right',
+                        "render": function ( data, type, row, meta ) {
+                            if(row.kode_neraca!="OR" && row.kode_fs=="FS4"){
+                                return number_format(row.n1);
+                            }else{
+                                return number_format(row.n1,2)+'%';
+                            }
+                        }
+                    }, 
+                    {  
                         'targets': [4],
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             if(row.kode_neraca!="OR" && row.kode_fs=="FS4"){
-                                return number_format(row.n5);
+                                return number_format(row.n2);
                             }else{
-                                return number_format(row.n5,2)+'%';
+                                return number_format(row.n2,2)+'%';
                             }
                         }
                     }, 
@@ -228,9 +232,9 @@
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             var persen1=0;
-                            if (row.n1!=0)
+                            if (row.n3!=0)
                             {
-                                persen1=(row.n4/row.n1)*100;
+                                persen1=(row.n1/row.n3)*100;
                             }
                             return number_format(persen1,2)+'%';
                         }
@@ -240,9 +244,9 @@
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             var persen2=0;
-                            if (row.n2!=0)
+                            if (row.n4!=0)
                             {
-                                persen2=(row.n4/row.n2)*100;
+                                persen2=(row.n1/row.n4)*100;
                             }
                             return number_format(persen2,2)+'%';
                         }
@@ -252,9 +256,9 @@
                         'className': 'text-right',
                         "render": function ( data, type, row, meta ) {
                             var persen3=0;
-                            if (row.n5!=0)
+                            if (row.n2!=0)
                             {
-                                persen3=((row.n4-row.n5)/row.n5)*100;
+                                persen3=((row.n1-row.n2)/row.n2)*100;
                             }
                             return number_format(persen3,2)+'%';
                         }
@@ -285,7 +289,8 @@
                 }
             });
         }
-        reportTable.rows.add(data).draw(false);
+        reportTable.rows.add(data[0].detail).draw(false);
+
         $('li.prev a ').html("<i class='simple-icon-arrow-left'></i>");
         $('li.next a ').html("<i class='simple-icon-arrow-right'></i>");
     }

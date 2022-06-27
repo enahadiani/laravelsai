@@ -47,10 +47,6 @@
         .text-center{
             text-align:center;
         }
-        
-        .sbjudul{
-            text-transform:uppercase;
-        }
     </style>
 </head>
 <body>
@@ -71,7 +67,7 @@
         @endphp
         <table class='table table-borderless' width='100%'>
             <tr>
-                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN PP <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
+                <td class='text-center px-0 py-0 judul-nama'>LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>{{ $linex['nama'] }}</span></td>
             </tr>
             <tr>
                 <td class='text-center px-0 py-0 judul-lokasi'>{{ $lokasi }}</td>
@@ -104,48 +100,43 @@
                 @for ($i=0; $i < count($linex['detail']) ; $i++)
                     @php
                     $line  = $linex['detail'][$i];
+                    $persen1=0;$persen2=0;$persen3=0;
+                        if ($line['n3']!=0)
+                        {
+                            $persen1=($line['n1']/$line['n3'])*100;
+                        }
+                        if ($line['n4']!=0)
+                        {
+                            $persen2=($line['n1']/$line['n4'])*100;
+                        }
+                        if ($line['n2']!=0)
+                        {
+                            $persen3=($line['n1']-$line['n2'])/$line['n2']*100;
+                        }
                     @endphp
-                    @if($linex['kode_pp'] == $line['kode_pp'])
-                        @php
-                            $persen1=0;$persen2=0;$persen3=0;
-                            if ($line['n1']!=0)
-                            {
-                                $persen1=($line['n4']/$line['n1'])*100;
-                            }
-                            if ($line['n2']!=0)
-                            {
-                                $persen2=($line['n4']/$line['n2'])*100;
-                            }
-                            if ($line['n5']!=0)
-                            {
-                                $persen3=($line['n4']-$line['n5'])/$line['n5']*100;
-                            }
-                        @endphp
-                        <tr>
+                    <tr>
                         <td height='20' class='isi_laporan'>{!! fnSpasi($line['level_spasi']) !!} {{ $line['nama'] }}</td>
                         @if ($line['kode_neraca'] != "OR" && $line['kode_fs'] == "FS4")
-                        
+                            <td class='isi_laporan' align='right'>{{ number_format($line['n3'],0,",",".") }}</td>    
+                            <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
                             <td class='isi_laporan' align='right'>{{ number_format($line['n1'],0,",",".") }}</td>
                             <td class='isi_laporan' align='right'>{{ number_format($line['n2'],0,",",".") }}</td>
-                            <td class='isi_laporan' align='right'>{{ number_format($line['n4'],0,",",".") }}</td>
-                            <td class='isi_laporan' align='right'>{{ number_format($line['n5'],0,",",".") }}</td>
                         @else
-                        
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n1'],0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n2'],0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n4'],0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($line['n5'],0,",",".") }}%</td>
-                        
+                            <td class='isi_laporan' align='center'>{{ number_format($line['n3'],2,",",".") }}%</td>
+                            <td class='isi_laporan' align='center'>{{ number_format($line['n4'],2,",",".") }}%</td>
+                            <td class='isi_laporan' align='center'>{{ number_format($line['n1'],2,",",".") }}%</td>
+                            <td class='isi_laporan' align='center'>{{ number_format($line['n2'],2,",",".") }}%</td>
                         @endif
-                            <td class='isi_laporan' align='center'>{{ number_format($persen1,0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($persen2,0,",",".") }}%</td>
-                            <td class='isi_laporan' align='center'>{{ number_format($persen3,0,",",".") }}%</td>
-                            </tr>
-                    @endif
+                        <td class='isi_laporan' align='center'>{{ number_format($persen1,2,",",".") }}%</td>
+                        <td class='isi_laporan' align='center'>{{ number_format($persen2,2,",",".") }}%</td>
+                        <td class='isi_laporan' align='center'>{{ number_format($persen3,2,",",".") }}%</td>
+                    </tr>
                 @endfor
             </tbody>
         </table>
+        @if($j != (count($data)- 1) )
         <div style="page-break-after:always"></div>
+        @endif
     @endfor
 </body>
 </html>

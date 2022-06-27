@@ -8,14 +8,14 @@
     $('html').addClass('dash-contents');
     var $height = $(window).height();
     var chartAju = null;
-    var chartHarian = null;
+    var chartAju = null;
     var chartCapai = null
     var chartKas = null
-    var tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    var kode_pp = "{{ Session::get('kodePP') }}";
-    var kode_bidang = "{{ Session::get('kodeBidang') }}";
-    var nama_pp = "{{ Session::get('namaPP') }}";
-    var nama_bidang = "{{ Session::get('namaBidang') }}";
+    var tahun = "";
+    var kode_pp = "";
+    var kode_bidang = "";
+    var nama_pp = "";
+    var nama_bidang = "";
     function getDataBox(param = {tahun: tahun}){
         $.ajax({
             type: 'GET',
@@ -248,22 +248,229 @@
         });
     }
 
-    getDataBox({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
-    getJenisPengajuan({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
-    getNilaiKas({
-        tahun: tahun,
-        kode_pp: kode_pp,
-        kode_bidang: kode_bidang
-    })
+    function getJmlSelesai(param = {tahun: tahun}){
+        $.ajax({
+            type:"GET",
+            url:"{{ url('telu-dash/data-pbh-jml-selesai') }}",
+            data: param,
+            dataType:"JSON",
+            success:function(result){
+                chartCapai = Highcharts.chart('chart-pencapaian', {
+                    chart: {
+                        type: 'column',
+                        height: ($height - 250)/2
+                    },
+                    title: {
+                        align: 'left',
+                        text: 'Jumlah Pengajuan Selesai Tiap Bulan'
+                    },
+                    accessibility: {
+                        announceNewData: {
+                            enabled: true
+                        }
+                    },
+                    xAxis: {
+                        title: {
+                            text: 'Bulan'
+                        },
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        
+                        ]
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Jumlah'
+                        },
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                formatter: function() {
+                                    return number_format(this.y);
+                                }
+                            }
+                        }
+                    },
 
+                    credits: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        formatter: function() {
+                            return number_format(this.y);
+                        }
+                    },
+
+                    series: [
+                        {
+                            name: "Jumlah Pengajuan Selesai",
+                            color: '#FFCC00',
+                            data: result.data
+                        }
+                    ]
+                });
+            } 
+        });
+    }
+
+    function getJmlAju(param = {tahun: tahun}){
+        $.ajax({
+            type:"GET",
+            url:"{{ url('telu-dash/data-pbh-jml-aju') }}",
+            data: param,
+            dataType:"JSON",
+            success:function(result){
+                chartAju = Highcharts.chart('chart-aju', {
+                    chart: {
+                        type: 'column',
+                        height: ($height - 250)/2
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    title: {
+                        text: 'Pengajuan Setiap Bulan',
+                        align: 'left'
+                    },
+                    xAxis: {
+                        categories: [
+                            'Jan',
+                            'Feb',
+                            'Mar',
+                            'Apr',
+                            'May',
+                            'Jun',
+                            'Jul',
+                            'Aug',
+                            'Sep',
+                            'Oct',
+                            'Nov',
+                            'Dec'
+                        
+                        ],
+                        crosshair: true,
+                        title: {
+                            text: 'Bulan'
+                        }
+                    },
+                    yAxis: {
+                        title: 'Nilai',
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
+                        }
+                    },
+                    tooltip: {
+                        // headerFormat: '<span style="font-size:10px">'+point.key+'</span><table>',
+                        // pointFormat: '<tr><td style="color:green;padding:0">'+series.name+': </td>' +
+                        //     '<td style="padding:0"><b>'+point.y+'</b></td></tr>',
+                        // footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true,
+                        formatter: function() {
+                            var s = '<b>'+ this.x +'</b>';
+                            
+                            $.each(this.points, function(i, point) {
+                                s += '<br/>'+ point.series.name +': '+
+                                    number_format(point.y) +'';
+                            });
+                            
+                            return s;
+                        },
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    legend: {
+                        align: 'right',
+                        verticalAlign: 'top'
+                    },
+                    series: [{
+                        name: 'Pengajuan',
+                        // color: '#D9D9D9',
+                        data: result.data.pengajuan
+
+                    }, {
+                        name: 'Selesai',
+                        // color: '#007AFF',
+                        data: result.data.selesai
+
+                    }]
+                });
+            } 
+        });
+    }
+
+    function getFilterDefaultDash(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-dash/dash-filter-default') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result) { 
+                tahun = result.tahun;
+                kode_pp = result.kode_pp;
+                nama_pp = result.nama_pp;
+                kode_bidang = result.kode_bidang;
+                nama_bidang = result.nama_bidang;
+                getDataBox({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getJenisPengajuan({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getNilaiKas({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getJmlSelesai({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                }) 
+                getJmlAju({
+                    tahun: tahun,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+            } 
+        })
+    }
+
+    getFilterDefaultDash();
+    
     // CIRCLE
     $('#circle-agenda').circleProgress({
         value: 0.78,
@@ -281,186 +488,186 @@
     // END CIRCLE
 
     // CHART HARIAN
-    var chartHarian = null;
+    // var chartAju = null;
 
-    chartHarian = Highcharts.chart('chart-harian', {
-        chart: {
-            type: 'column',
-            height: ($height - 250)/2
-        },
-        credits: {
-            enabled: false
-        },
-        title: {
-            text: 'Pengajuan Setiap Bulan',
-            align: 'left'
-        },
-        xAxis: {
-            categories: [
-                'Jan',
-                'Feb',
-                'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
-                'Nov',
-                'Dec'
-            ],
-            crosshair: true,
-            title: {
-                text: 'Bulan'
-            }
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: 'Nilai'
-            }
-        },
-        tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{green};padding:0">{series.name}: </td>' +
-                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-        },
-        plotOptions: {
-            column: {
-                pointPadding: 0.2,
-                borderWidth: 0
-            }
-        },
-        legend: {
-            align: 'right',
-            verticalAlign: 'top'
-        },
-        series: [{
-            name: 'Pengajuan',
-            data: [180, 180, 106.4, 129.2, 144.0, 176.0,100,100,100,100,100,100]
+    // chartAju = Highcharts.chart('chart-aju', {
+    //     chart: {
+    //         type: 'column',
+    //         height: ($height - 250)/2
+    //     },
+    //     credits: {
+    //         enabled: false
+    //     },
+    //     title: {
+    //         text: 'Pengajuan Setiap Bulan',
+    //         align: 'left'
+    //     },
+    //     xAxis: {
+    //         categories: [
+    //             'Jan',
+    //             'Feb',
+    //             'Mar',
+    //             'Apr',
+    //             'May',
+    //             'Jun',
+    //             'Jul',
+    //             'Aug',
+    //             'Sep',
+    //             'Oct',
+    //             'Nov',
+    //             'Dec'
+    //         ],
+    //         crosshair: true,
+    //         title: {
+    //             text: 'Bulan'
+    //         }
+    //     },
+    //     yAxis: {
+    //         min: 0,
+    //         title: {
+    //             text: 'Nilai'
+    //         }
+    //     },
+    //     tooltip: {
+    //         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+    //         pointFormat: '<tr><td style="color:{green};padding:0">{series.name}: </td>' +
+    //             '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+    //         footerFormat: '</table>',
+    //         shared: true,
+    //         useHTML: true
+    //     },
+    //     plotOptions: {
+    //         column: {
+    //             pointPadding: 0.2,
+    //             borderWidth: 0
+    //         }
+    //     },
+    //     legend: {
+    //         align: 'right',
+    //         verticalAlign: 'top'
+    //     },
+    //     series: [{
+    //         name: 'Pengajuan',
+    //         data: [180, 180, 106.4, 129.2, 144.0, 176.0,100,100,100,100,100,100]
 
-        }, {
-            name: 'Selesai',
-            data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
+    //     }, {
+    //         name: 'Selesai',
+    //         data: [200, 150, 98.5, 93.4, 106.0, 84.5,100,100,100,100,100,100]
 
-        }]
-    });
+    //     }]
+    // });
     // END CHART HARIAN
     // CHART Pengajuan Bulan
-    var chartCapai = null
+    // var chartCapai = null
     
-    chartCapai = Highcharts.chart('chart-pencapaian', {
-        chart: {
-            type: 'column',
-            height: ($height - 250)/2
-        },
-        title: {
-            align: 'left',
-            text: 'Jumlah Pengajuan Selesai Tiap Bulan'
-        },
-        accessibility: {
-            announceNewData: {
-                enabled: true
-            }
-        },
-        xAxis: {
-            title: {
-                text: 'Bulan'
-            },
-            labels: {
-                enabled: false
-            }
-        },
-        yAxis: {
-            title: {
-                text: 'Jumlah'
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        plotOptions: {
-            series: {
-                borderWidth: 0,
-                dataLabels: {
-                    enabled: true,
-                    format: '{point.y:.1f}%'
-                }
-            }
-        },
+    // chartCapai = Highcharts.chart('chart-pencapaian', {
+    //     chart: {
+    //         type: 'column',
+    //         height: ($height - 250)/2
+    //     },
+    //     title: {
+    //         align: 'left',
+    //         text: 'Jumlah Pengajuan Selesai Tiap Bulan'
+    //     },
+    //     accessibility: {
+    //         announceNewData: {
+    //             enabled: true
+    //         }
+    //     },
+    //     xAxis: {
+    //         title: {
+    //             text: 'Bulan'
+    //         },
+    //         labels: {
+    //             enabled: false
+    //         }
+    //     },
+    //     yAxis: {
+    //         title: {
+    //             text: 'Jumlah'
+    //         }
+    //     },
+    //     legend: {
+    //         enabled: false
+    //     },
+    //     plotOptions: {
+    //         series: {
+    //             borderWidth: 0,
+    //             dataLabels: {
+    //                 enabled: true,
+    //                 format: '{point.y:.1f}%'
+    //             }
+    //         }
+    //     },
 
-        credits: {
-            enabled: false
-        },
+    //     credits: {
+    //         enabled: false
+    //     },
 
-        tooltip: {
-            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-        },
+    //     tooltip: {
+    //         headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+    //         pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+    //     },
 
-        series: [
-            {
-                name: "Browsers",
-                colorByPoint: true,
-                data: [
-                    {
-                        name: "Chrome",
-                        y: 62.74,
-                    },
-                    {
-                        name: "Firefox",
-                        y: 10.57,
-                    },
-                    {
-                        name: "Internet Explorer",
-                        y: 7.23,
-                    },
-                    {
-                        name: "Safari",
-                        y: 5.58,
-                    },
-                    {
-                        name: "Edge",
-                        y: 4.02,
-                    },
-                    {
-                        name: "Opera",
-                        y: 1.92,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    },
-                    {
-                        name: "Other",
-                        y: 7.62,
-                    }
+    //     series: [
+    //         {
+    //             name: "Browsers",
+    //             colorByPoint: true,
+    //             data: [
+    //                 {
+    //                     name: "Chrome",
+    //                     y: 62.74,
+    //                 },
+    //                 {
+    //                     name: "Firefox",
+    //                     y: 10.57,
+    //                 },
+    //                 {
+    //                     name: "Internet Explorer",
+    //                     y: 7.23,
+    //                 },
+    //                 {
+    //                     name: "Safari",
+    //                     y: 5.58,
+    //                 },
+    //                 {
+    //                     name: "Edge",
+    //                     y: 4.02,
+    //                 },
+    //                 {
+    //                     name: "Opera",
+    //                     y: 1.92,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 },
+    //                 {
+    //                     name: "Other",
+    //                     y: 7.62,
+    //                 }
                     
 
-                ]
-            }
-        ]
-    });
+    //             ]
+    //         }
+    //     ]
+    // });
     // END CHART PENCAPAIAN
     //PENGAJUAN
     // var chartAju = null
@@ -824,6 +1031,16 @@
             kode_pp: kode_pp,
             kode_bidang: kode_bidang
         })
+        getJmlSelesai({
+            tahun: tahun,
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
+        })
+        getJmlAju({
+            tahun: tahun,
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
+        })
     });
 
     
@@ -849,6 +1066,16 @@
             kode_bidang: kode_bidang
         })
         getNilaiKas({
+            tahun: tahun,
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
+        })
+        getJmlSelesai({
+            tahun: tahun,
+            kode_pp: kode_pp,
+            kode_bidang: kode_bidang
+        })
+        getJmlAju({
             tahun: tahun,
             kode_pp: kode_pp,
             kode_bidang: kode_bidang
@@ -957,7 +1184,7 @@
                 height: heighChart,
             }
         })
-        chartHarian.update({
+        chartAju.update({
             chart: {
                 height: heighChart,
             }
@@ -974,7 +1201,7 @@
 <section id="header" class="header">
     <div class="row">
         <div class="col-9 px-0">
-            <h2 id="title-dash" class="title-dash mt-0 listing-heading ellipsis">{{ Session::get('namaPP') }}</h2>
+            <h6 id="title-dash" class="title-dash mt-0 listing-heading ellipsis">{{ Session::get('namaPP') }}</h6>
         </div>
         <div class="col-3 text-right">
             <a href="#" id="dash-filter" class="mr-3">
@@ -1145,13 +1372,13 @@
 
         <div class="row">
             <div class="col-lg-6 col-md-12 px-1">
-                {{-- RATA2 HARI --}}
+                {{-- PENGAJUAN --}}
                 <div class="card card-dash ">
                     <div class="card-body p-1">
-                        <div id="chart-harian" style="width:100%;"></div>
+                        <div id="chart-aju" style="width:100%;"></div>
                     </div>
                 </div>
-                {{-- END RATA2 HARI --}}
+                {{-- END PENGAJUAN --}}
             </div>
             <div class="col-lg-6 col-md-12 px-1">
                 {{-- PENCAPAIAN SASARAN MUTU --}}

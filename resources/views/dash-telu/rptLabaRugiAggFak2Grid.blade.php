@@ -2,7 +2,7 @@
 <script type="text/javascript">
     
     function drawLap(formData){
-        saiPostLoad('telu-report/lap-labarugi-agg-prodi', null, formData, null, function(res){
+        saiPostLoad('telu-report/lap-labarugi-agg-fak2', null, formData, null, function(res){
            if(res.result.length > 0){
 
                 $('#pagination').html('');
@@ -39,12 +39,12 @@
         }
     }
 
-   function getChild(index,id,formData,url,parent = null,kode_pp){
+   function getChild(index,id,formData,url,parent = null,kode_fakultas){
         var kode = id.replace('grid-id-','');
         formData.delete('id');
         formData.append('id',kode);
         formData.delete('kode');
-        formData.append('kode',kode_pp);
+        formData.append('kode',kode_fakultas);
         saiPostGrid(url, null, formData, null, function(res){
             if(res.result.length > 0){
                 var no=1; var x=0;
@@ -54,17 +54,17 @@
                 {
                     var line = data[i];
                     var persen1=0;var persen2=0;var persen3=0;
-                    if (line.n1!=0)
+                    if (line.n3!=0)
                     {
-                        persen1=(line.n4/line.n1)*100;
+                        persen1=(line.n1/line.n3)*100;
+                    }
+                    if (line.n4!=0)
+                    {
+                        persen2=(line.n1/line.n4)*100;
                     }
                     if (line.n2!=0)
                     {
-                        persen2=(line.n4/line.n2)*100;
-                    }
-                    if (line.n5!=0)
-                    {
-                        persen3=(line.n4-line.n5)/line.n5*100;
+                        persen3=(line.n1-line.n2)/line.n2*100;
                     }
                     if(line.tipe == 'Posting'){
                         var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -74,27 +74,25 @@
                         var cursor = '';
                     }
 
-                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_pp='`+line.kode_pp+`'>
+                    html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-parent='`+id+`' data-tipe='`+line.tipe+`' data-parentop=`+parent+` data-kode_fakultas='`+line.kode_fakultas+`'>
                     <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
-                    if (line.kode_akun!="OR" && line.kode_fs=="FS4")
+                    if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                     {
-                        html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
-                        <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
+                        html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
                         <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
-                        <td class='isi_laporan' align='right'>`+number_format(line.n5)+`</td>
-                        `;
+                        <td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                        <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>`;
                     }
                     else
                     {
-                        html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
-                        <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>
-                        <td class='isi_laporan' align='center'>`+number_format(line.n5)+`%</td>
-                        `;
+                        html+=`<td class='isi_laporan' align='center'>`+number_format(line.n3,2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(line.n4,2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(line.n1,2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(line.n2,2)+`%</td>`;
                     }
-                    html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
-                    <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
-                    <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
+                    html+=`<td class='isi_laporan' align='center'>`+number_format(persen1,2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen2,2)+`%</td>
+                    <td class='isi_laporan' align='center'>`+number_format(persen3,2)+`%</td>
                     </tr>`;
                     no++;
                 }
@@ -142,15 +140,15 @@
             for(var j=0; j < data.length; j++){
 
                 var linex = data[j];
-                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN PP <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
+                html+=judul_lap("LAPORAN LABA RUGI ANGGARAN FAKULTAS <br><span class='sbjudul'>"+linex.nama+"</span>",lokasi,'Periode '+$periode.fromname)+`
                 <div class='table-responsive'>
                 <table class='table table-bordered report-table'>
                     <tr>
                         <th width='28%' height='25'  class='header_laporan text-center' align='center'>Keterangan</th>
                         <th width='12%' class='header_laporan text-center' align='center'>RKA `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahun+`</th>
-                        <th width='12%' class='header_laporan text-center' align='center'>RKA s.d Bulan Berjalan `+tahunrev+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahun+`</th>
+                        <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan `+tahunrev+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Realisasi s.d Bulan Berjalan thd RKA s.d Bulan Berjalan `+tahun+`</th>
                         <th width='12%' class='header_laporan text-center' align='center'>Growth Thd `+tahunrev+`</th>
@@ -158,31 +156,31 @@
                     <tr>
                         <td height='25'  class='header_laporan' align='center'>&nbsp;</td>
                         <td class='header_laporan' align='center'>1</td>
-                        <td class='header_laporan' align='center'>2</td>
                         <td class='header_laporan' align='center'>3</td>
                         <td class='header_laporan' align='center'>4</td>
-                        <td class='header_laporan' align='center'>5=3/1</td>
-                        <td class='header_laporan' align='center'>6=3/2</td>
-                        <td class='header_laporan' align='center'>7=(3-4)/4</td>
+                        <td class='header_laporan' align='center'>6=4/1</td>
+                        <td class='header_laporan' align='center'>7=4/3</td>
+                        <td class='header_laporan' align='center'>8=(3-4)/4</td>
                     </tr>
                 `;
+
                 for (var i=0; i < linex.detail.length; i++)
                 {
                     var line = linex.detail[i];
-                    if(linex.kode_pp == line.kode_pp){
+                    if(linex.kode_fakultas == line.kode_fakultas){
                         
                         var persen1=0;var persen2=0;var persen3=0;
-                        if (line.n1!=0)
+                        if (line.n3!=0)
                         {
-                            persen1=(line.n4/line.n1)*100;
+                            persen1=(line.n1/line.n3)*100;
+                        }
+                        if (line.n4!=0)
+                        {
+                            persen2=(line.n1/line.n4)*100;
                         }
                         if (line.n2!=0)
                         {
-                            persen2=(line.n4/line.n2)*100;
-                        }
-                        if (line.n5!=0)
-                        {
-                            persen3=(line.n4-line.n5)/line.n5*100;
+                            persen3=(line.n1-line.n2)/line.n2*100;
                         }
                         if(line.tipe == 'Posting'){
                             var icon = '<i class="simple-icon-arrow-right mr-2"></i>';
@@ -191,28 +189,26 @@
                             var icon = '';
                             var cursor = '';
                         }
-                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_pp='`+line.kode_pp+`'>
+                        html+=`<tr id='grid-id-`+line.kode_neraca+`' style='`+cursor+`' data-tipe='`+line.tipe+`' data-kode_fakultas='`+line.kode_fakultas+`'>
                         <td height='20' class='isi_laporan'>`+fnSpasi(line.level_spasi)+` `+icon+` `+line.nama+`</td>`;
                         if (line.kode_neraca!="OR" && line.kode_fs=="FS4")
                         {
-                            html+=`<td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
-                            <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>
+                            html+=`<td class='isi_laporan' align='right'>`+number_format(line.n3)+`</td>
                             <td class='isi_laporan' align='right'>`+number_format(line.n4)+`</td>
-                            <td class='isi_laporan' align='right'>`+number_format(line.n5)+`</td>
-                            `;
+                            <td class='isi_laporan' align='right'>`+number_format(line.n1)+`</td>
+                            <td class='isi_laporan' align='right'>`+number_format(line.n2)+`</td>`;
                         }
                         else
                         {
-                            html+=`<td class='isi_laporan' align='center'>`+number_format(line.n1)+`%</td>
-                            <td class='isi_laporan' align='center'>`+number_format(line.n2)+`%</td>
-                            <td class='isi_laporan' align='center'>`+number_format(line.n4)+`%</td>
-                            <td class='isi_laporan' align='center'>`+number_format(line.n5)+`%</td>
-                            `;
+                            html+=`<td class='isi_laporan' align='center'>`+number_format(line.n3,2)+`%</td>
+                                <td class='isi_laporan' align='center'>`+number_format(line.n4,2)+`%</td>
+                                <td class='isi_laporan' align='center'>`+number_format(line.n1,2)+`%</td>
+                                <td class='isi_laporan' align='center'>`+number_format(line.n2,2)+`%</td>`;
                         }
-                        html+=`<td class='isi_laporan' align='center'>`+number_format(persen1)+`%</td>
-                        <td class='isi_laporan' align='center'>`+number_format(persen2)+`%</td>
-                        <td class='isi_laporan' align='center'>`+number_format(persen3)+`%</td>
-                        </tr>`;
+                        html+=`<td class='isi_laporan' align='center'>`+number_format(persen1,2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(persen2,2)+`%</td>
+                            <td class='isi_laporan' align='center'>`+number_format(persen3,2)+`%</td>
+                            </tr>`;
                     }
                 }
             html+=`</table>
@@ -224,13 +220,13 @@
                 if(tipe == 'Posting'){
                     var id = $(this).attr('id');
                     var parent = $(this).data('parent');
-                    var kode_pp = $(this).data('kode_pp');
+                    var kode_fakultas = $(this).data('kode_fakultas');
                     var index = $(this).closest('tr').index();
                     if(!$(this).hasClass('clicked')){
                         $(this).addClass('clicked');
                         var top = $(this).position().top;
                         $('#grid-load').css('top',top);
-                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-prodi-detail',parent,kode_pp);
+                        getChild(index,id,$formData,'telu-report/lap-labarugi-agg-fak2-detail',parent,kode_fakultas);
                     }
                     if(!$(this).hasClass('open-grid')){
                         $(this).addClass('open-grid');
