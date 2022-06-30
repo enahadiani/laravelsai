@@ -17,7 +17,7 @@
     var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
     var $month = "{{ substr(Session::get('periode'),4,2) }}";
     var $judulChart = null;
-    var $filter1_kode = "YTM";
+    var $filter1_kode = "PRD";
     var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
     var nilai = "";
 
@@ -565,29 +565,25 @@
         <div class="col-9 pl-12 pr-0">
             <div class="row penddapatan">
                 <div id="dash-title-div" class="col-11 pr-0 pendapatan">
-
                     <h2 class="title-dash" id="title-dash" style="padding-left: 0.2em;">Pendapatan</h2>
-
                 </div>
                 <div class="row pendapatan">
                     <div class="col-12">
                         <div style="color: grey; padding-left:1.5em;">Support data SIMKUG || Satuan Milyar Rupiah</div>
                     </div>
-
-
                 </div>
             </div>
         </div>
-        <div class="col-3 pl-1 pr-0" style="padding-top: 1em;">
-            <div class="row" style="padding-left: 1.5rem;">
-                <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:0.5em; padding-top:1em;">
+        <div class="col-3 pl-1 pr-0">
+            <div class="row pr-4 pl-2">
+                <div class="card card-dash rounded-lg" style="padding-left: 1em; padding-right:0.5em; padding-top:1em;width: 100%;">
                     <div class="col-12">
                         <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                             <div class="col-2">
                                 <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                             </div>
                             <div class="col-8">
-                                <p id="select-text-fp" class="select-text">Bulan September {{ date('Y') }}</p>
+                                <p id="select-text-fp" class="select-text">Bulan Juni {{ date('Y') }}</p>
                             </div>
                             <div class="col-2">
                                 <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -615,11 +611,8 @@
             <div class="row filter-box-periode px-3">
                 <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        {{-- <li class="selected" data-filter1="TRW">Triwulan</li> --}}
-                        {{-- <li data-filter1="SMT">Semester</li> --}}
-                        <li class="selected py-2" data-filter1="YTM">Year To Month</li>
-                        <li class="py-2" data-filter1="PRD">Bulan</li>
-                        {{-- <li>Year to Date</li> --}}
+                        <li class="py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="selected py-2" data-filter1="PRD">Bulan</li>
                     </ul>
                 </div>
                 <div class="col-9 mt-4 mb-6">
@@ -660,19 +653,6 @@
                         <div class="col-4 py-2 px-3 cursor-pointer list text-center" data-bulan="12" data-filter2="12">
                             <span class="py-2 px-3 d-block">Desember</span>
                         </div>
-                        {{-- <div class="col-5 py-3 cursor-pointer" data-filter2="TRW1">
-                            Triwulan I
-                        </div>
-                        <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
-                            Triwulan II
-                        </div>
-                        <div class="w-100 d-none d-md-block"></div>
-                        <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
-                            Triwulan III
-                        </div>
-                        <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
-                            Triwulan IV
-                        </div> --}}
                     </div>
                 </div>
             </div>

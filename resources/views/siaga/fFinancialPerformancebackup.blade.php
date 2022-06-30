@@ -18,14 +18,9 @@ var $filter1 = "Periode";
 var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
 var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $judulChart = null;
-var $filter1_kode = "PRD";
+var $filter1_kode = "YTM";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
-var $filter_kontribusi = "41";
-
-$(window).click(function() {
-    $('#filter-box').addClass('hidden')
-    $('.menu-chart-custom').addClass('hidden');
-});
+var $fiter_kontribusi = "41";
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -65,8 +60,8 @@ function getDataBox() {
             var data = result.data;
             //Reveneu
 
-            var capai_rka=data.revenue.capai_rka;
-            var capai_yoy=data.revenue.capai_yoy;
+            var capai_rka=0;
+            var capai_yoy=0;
             if(capai_rka < 100) {
                 $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
@@ -83,15 +78,13 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-revenue').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-revenue').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-revenue').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-revenue').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
             $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
             $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
 
             //COGS
-            var capai_rka=data.cogs.capai_rka;
-            var capai_yoy=data.cogs.capai_yoy;
             if(capai_rka < 100) {
                 $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
@@ -108,15 +101,13 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-cogs').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-cogs').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-cogs').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-cogs').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
             $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
             $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1));
 
             //Gross Profit
-            var capai_rka=data.gross_profit.capai_rka;
-            var capai_yoy=data.gross_profit.capai_yoy;
             if(capai_rka < 100) {
                 $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
@@ -133,15 +124,13 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-gross_profit').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-gross_profit').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-gross_profit').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-gross_profit').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
             $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
             $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1));
             
             //OPEX
-            var capai_rka=data.opex.capai_rka;
-            var capai_yoy=data.opex.capai_yoy;
             if(capai_rka < 100) {
                 $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
@@ -158,15 +147,13 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-opex').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-opex').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-opex').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-opex').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
             $('#rka-opex').text(toMilyar(data.opex.rka,1));
             $('#yoy-opex').text(toMilyar(data.opex.yoy,1));
 
             //Net Income
-            var capai_rka=data.net_income.capai_rka;
-            var capai_yoy=data.net_income.capai_yoy;
             if(capai_rka < 100) {
                 $('#capai_rka-net-income').removeClass('green-text').addClass('red-text')
                 iconPdptAch = '&nbsp;'
@@ -183,8 +170,8 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-net_income').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-net_income').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-net_income').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-net_income').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
             $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
             $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1));
@@ -425,7 +412,7 @@ function getMargin(){
                         <td ><p class="kode hidden">${line.kode_lokasi}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-lokasi">${line.kode_klp}</span></td>
-                        <td class='text-right'>${number_format(line.persen,2)}%</td>
+                        <td class='text-right'>${number_format(line.nilai,2)}%</td>
                         
                     </tr>`;
                 }
@@ -486,100 +473,144 @@ setTimeout (function(){
 },200)
 </script>
 
-
 <script type="text/javascript">
-    // FILTER EVENT
-    // KURANG TAHUN FILTER
-    $('#kurang-tahun').click(function(event) {
-        event.stopPropagation();
-        $tahun = parseInt($tahun) - 1;
-        $('#year-filter').text($tahun);
-    })
+// FILTER EVENT
+// KURANG TAHUN FILTER
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
 
-    // TAMBAH TAHUN FILTER
-    $('#tambah-tahun').click(function(event) {
-        event.stopPropagation();
-        $tahun = parseInt($tahun) + 1;
-        $('#year-filter').text($tahun);
-    })
+// TAMBAH TAHUN FILTER
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
 
-    // MENAMPILKAN FILTER
-    $('#custom-row').click(function(event) {
-        event.stopPropagation();
-        $('#filter-box').removeClass('hidden avoid-run')
+// MENAMPILKAN FILTER
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden avoid-run')
+})
+
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    if($filter1 == 'Triwulan') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
+                Triwulan I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
+                Triwulan II
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
+                Triwulan III
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
+                Triwulan IV
+            </div>
+        `;
+    } else if($filter1 == 'Semester') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
+                Semester I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
+                Semester II
+            </div>
+        `;
+    } else if($filter1 == 'Periode') {
+        html += `
+            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
+                Januari
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
+                Februari
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
+                Maret
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
+                April
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
+                Mei
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
+                Juni
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
+                Juli
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
+                Agustus
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
+                September
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
+                Oktober
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
+                November
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
+                Desember
+            </div>
+        `;
+    }
+    $('#list-filter-2').append(html)
+
+    if($filter1 == 'Periode') {
         $('#list-filter-2').find('.list').each(function() {
-            if($filter1_kode == 'PRD'){
-                if(parseInt($(this).data('bulan')) == parseInt($month)) {
-                    $(this).addClass('selected')
-                }
-            }else{
-                if(parseInt($(this).data('bulan')) <= parseInt($month)) {
-                    $(this).addClass('selected')
-                }
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
             }
         })
-    })
+    }
+})
 
-    // MENTRIGGER FILTER 1
-    $('#list-filter-1 ul li').click(function(event) {
-        event.stopPropagation();
-        var html = '';
-        var filter = $(this).text()
-        $filter1 = filter
-        $filter1_kode = $(this).data('filter1')
-        $('#list-filter-1 ul li').not(this).removeClass('selected')
-        $(this).addClass('selected')
-        $('#list-filter-2').empty()
-        var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-        for(i=0; i < bln.length; i++){
-            if($filter1_kode == 'PRD'){
-                if(parseInt(bln[i]) == parseInt($month)){
-                    var selected = 'selected';
-                }else{
-                    var selected = '';
-                }
-            }else{
-                if(parseInt(bln[i]) <= parseInt($month)){
-                    var selected = 'selected';
-                }else{
-                    var selected = '';
-                }
-            }
-            html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
-                <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
-            </div>`;
-        }
-        $('#list-filter-2').append(html)
-        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-    })
+// MENTRIGGER FILTER 2
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    var filter = $(this).text()
+    if($(this).data('bulan')) {
+        filter = $(this).data('bulan') 
+    }
+    $filter2 = filter
+    $filter2_kode = $(this).data('filter2')
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#filter-box').addClass('hidden')
 
-    // MENTRIGGER FILTER 2
-    $('#list-filter-2').on('click', 'div', function(event) {
-        event.stopPropagation();
-        var filter = $(this).text()
-        if($(this).data('bulan')) {
-            filter = $(this).data('bulan') 
-        }
-        $month = $(this).data('bulan') 
-        $filter2 = filter
-        $filter2_kode = $(this).data('filter2')
-        $('#list-filter-2 div').not(this).removeClass('selected')
-        $(this).addClass('selected')
-        $('#filter-box').addClass('hidden')
+    if($filter2.length == 2) {
+        $filter2 = getNamaBulan($filter2)
+    }
 
-        if($month.toString().length == 2) {
-            $filter2 = getNamaBulan($filter2)
-        }
-        
-        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-        updateAllChart()
-        showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
-        $('#detail-dash').hide()
-        $('#main-dash').show()
-        $('body').addClass('scroll-hide');
-    })
+    $('#select-text-fp').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    updateAllChart()
+    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+    $('#detail-dash').hide()
+    $('#main-dash').show()
+})
 // END FILTER EVENT
 </script>
 
@@ -601,16 +632,16 @@ setTimeout (function(){
                 </div>
             </div>
         </div>
-        <div class="col-3 pl-1 pr-0">
-            <div class="row pr-4 pl-2">
-                <div class="card card-dash rounded-lg" style="padding-left: 1em; padding-right:0.5em; padding-top:1em;width: 100%;">
+        <div class="col-3 pl-1 pr-0" style="padding-top: 1em;">
+            <div class="row" style="padding-left: 1.5rem;">
+                <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:0.5em; padding-top:1em;">
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
                         <div class="col-2">
                             <img alt="message-icon" class="icon-calendar" src="{{ asset('dash-asset/dash-ypt/icon/calendar.svg') }}">
                         </div>
                         <div class="col-8">
-                            <p id="select-text-fp" class="select-text">Bulan Juni {{ date('Y') }}</p>
+                            <p id="select-text-fp" class="select-text">Bulan September {{ date('Y') }}</p>
                         </div>
                         <div class="col-2">
                             <img alt="calendar-icon" class="icon-drop-arrow" src="{{ asset('dash-asset/dash-ypt/icon/drop-arrow.svg') }}">
@@ -638,8 +669,8 @@ setTimeout (function(){
         <div class="row filter-box-periode px-3">
             <div class="col-3 border-right list-filter-1" id="list-filter-1">
                 <ul>
-                    <li class="py-2" data-filter1="YTM">Year To Month</li>
-                    <li class="selected py-2" data-filter1="PRD">Bulan</li>
+                    <li class="selected py-2" data-filter1="YTM">Year To Month</li>
+                    <li class="py-2" data-filter1="PRD">Bulan</li>
                 </ul>
             </div>
             <div class="col-9 mt-4 mb-6">
@@ -831,7 +862,7 @@ setTimeout (function(){
         </div>
         <div class="col-lg-3 col-md-6 px-1">
             {{-- REVENUE--}}
-            <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;height: calc(83.5vh - 180px)">
+            <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;width:121%; height: calc(83.5vh - 180px)">
                 <div class="row"> 
                     <div style="padding-left: 1em;">
                         <select name="nama" id="kode_neraca"></select>
@@ -843,9 +874,9 @@ setTimeout (function(){
             </div>
             {{-- END REVENUE --}}
         </div>
-        <div class="col-lg-3 col-md-6 px-1">
+        <div class="col-md-2dot4 px-1 ">
             {{-- PENGAJUAN--}}
-            <div class="card card-dash rounded-lg" style="height: calc(83.5vh - 180px)">
+            <div class="card card-dash rounded-lg" style="margin-left: 4rem;width:97%; height: calc(83.5vh - 180px)">
                 <div class="card-body ">
                     <div class="p-1" style="width:100%; height: calc(78vh - 180px)">
                         <div class="row">
@@ -867,6 +898,7 @@ setTimeout (function(){
                                 }
                             </style>
                             <table class="table table-borderless" id="margin" style="width:100%;">
+                                
                                 <tbody>
                                 </tbody>
                             </table>
