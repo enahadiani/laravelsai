@@ -22,6 +22,7 @@ var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $judulChart = null;
 var $filter1_kode = "YTM";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $fiter_kontribusi = "41";
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -36,6 +37,13 @@ if($filter1 == 'Periode') {
 $('#year-filter').text($tahun)
 var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
 $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
+
+function updateAllChart() {
+    getDataBox();
+    getFPBulan();
+    getKontribusi();
+    getMargin();
+}
 
 //get data box
 function getDataBox() {
@@ -52,270 +60,696 @@ function getDataBox() {
         async: true,
         success:function(result) {
             var data = result.data;
-            //Nilai
+            //Reveneu
+
+            var capai_rka=0;
+            var capai_yoy=0;
+            if(capai_rka < 100) {
+                $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '&nbsp;'
+            } else {
+                $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
+            }
+
+            if(capai_yoy < 0) {
+                $('#capai_yoy-revenue').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#capai_yoy-revenue').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
+
+            $('#capai_rka-revenue').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-revenue').text(capai_yoy.toFixed(2) + '%')
             $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
-            $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
-            $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
-            $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
-            $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
-            //RKA
             $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
-            $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
-            $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
-            $('#rka-opex').text(toMilyar(data.opex.rka,1));
-            $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
-            //YoY
             $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
+
+            //COGS
+            if(capai_rka < 100) {
+                $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '&nbsp;'
+            } else {
+                $('#capai_rka-cogs').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
+            }
+
+            if(capai_yoy < 0) {
+                $('#capai_yoy-cogs').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#capai_yoy-cogs').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
+
+            $('#capai_rka-cogs').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-cogs').text(capai_yoy.toFixed(2) + '%')
+            $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
+            $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
             $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1));
+
+            //Gross Profit
+            if(capai_rka < 100) {
+                $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '&nbsp;'
+            } else {
+                $('#capai_rka-gross_profit').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
+            }
+
+            if(capai_yoy < 0) {
+                $('#capai_yoy-gross_profit').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#capai_yoy-gross_profit').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
+
+            $('#capai_rka-gross_profit').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-gross_profit').text(capai_yoy.toFixed(2) + '%')
+            $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
+            $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
             $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1));
+            
+            //OPEX
+            if(capai_rka < 100) {
+                $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '&nbsp;'
+            } else {
+                $('#capai_rka-opex').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
+            }
+
+            if(capai_yoy < 0) {
+                $('#capai_yoy-opex').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#capai_yoy-opex').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
+
+            $('#capai_rka-opex').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-opex').text(capai_yoy.toFixed(2) + '%')
+            $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
+            $('#rka-opex').text(toMilyar(data.opex.rka,1));
             $('#yoy-opex').text(toMilyar(data.opex.yoy,1));
+
+            //Net Income
+            if(capai_rka < 100) {
+                $('#capai_rka-net-income').removeClass('green-text').addClass('red-text')
+                iconPdptAch = '&nbsp;'
+            } else {
+                $('#capai_rka-net-income').removeClass('red-text').addClass('green-text')
+                iconPdptAch = '&nbsp;'
+            }
+
+            if(capai_yoy < 0) {
+                $('#capai_yoy-net-income').removeClass('green-text').addClass('red-text')
+                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            } else {
+                $('#capai_yoy-net-income').removeClass('red-text').addClass('green-text')
+                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            }
+
+            $('#capai_rka-net_income').text(capai_rka.toFixed(2) + '%')
+            $('#capai_yoy-net_income').text(capai_yoy.toFixed(2) + '%')
+            $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
+            $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
             $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1));
-            //capai RKA
-            $('#capai_rka-revenue').text(number_format(data.revenue.capai_rka,1)+'%');
-            $('#capai_rka-cogs').text(number_format(data.cogs.capai_rka,1)+'%');
-            $('#capai_rka-gross_profit').text(number_format(data.gross_profit.capai_rka,1)+'%');
-            $('#capai_rka-opex').text(number_format(data.opex.capai_rka,1)+'%');
-            $('#capai_rka-net_income').text(number_format(data.net_income.capai_rka,1)+'%');
-            //capai  yoy
-            $('#capai_yoy-revenue').text(number_format(data.revenue.capai_yoy,1)+'%');
-            $('#capai_yoy-cogs').text(number_format(data.cogs.capai_yoy,1)+'%');
-            $('#capai_yoy-gross_profit').text(number_format(data.gross_profit.capai_yoy,1)+'%');
-            $('#capai_yoy-opex').text(number_format(data.opex.capai_yoy,1)+'%');
-            $('#capai_yoy-net_income').text(number_format(data.net_income.capai_yoy,1)+'%');
         }
     });
 }
 
+// function updateBox(){
+//     $.ajax({
+//         type: 'GET',
+//         url: "{{ url('siaga-dash/data-fp-box') }}",
+//         data: {
+//             "periode[0]": "=", 
+//             "periode[1]": $filter2_kode,
+//             "tahun": $tahun,
+//             "jenis": $filter1_kode,
+//             "kode_lokasi": $filter_lokasi
+//         },
+//         dataType: 'json',
+//         async: true,
+//         success:function(result) {
+//             var data = result.data;
+//             //Reveneu
 
-//Chart Revenue
-Highcharts.chart('chart-revenue', {
+//             var capai_rka=0;
+//             var capai_yoy=0;
+//             if(capai_rka < 100) {
+//                 $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
+//                 iconPdptAch = '&nbsp;'
+//             } else {
+//                 $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
+//                 iconPdptAch = '&nbsp;'
+//             }
 
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Perfomance',
-        align: 'left'
-    },
-    
-    labels: {
-        enabled: false
-    },
-    credits: {
-            enabled: false
-        },
-    xAxis: {
-        categories: [
-            'Jan',
-            'Feb',
-            'Mar',
-            'Apr',
-            'May',
-            'Jun',
-            'Jul',
-            'Aug',
-            'Sep',
-            'Oct',
-            'Nov',
-            'Dec'
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'NIlai'
-        }
-    },
+//             if(capai_yoy < 0) {
+//                 $('#capai_yoy-revenue').removeClass('green-text').addClass('red-text')
+//                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+//             } else {
+//                 $('#capai_yoy-revenue').removeClass('red-text').addClass('green-text')
+//                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+//             }
 
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} M</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
+//             $('#capai_rka-revenue').text(capai_rka.toFixed(2) + '%')
+//             $('#capai_yoy-revenue').text(capai_yoy.toFixed(2) + '%')
+//             $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
+//             $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
+//             $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
 
-plotOptions: {
-    column: {
-        stacking: 'normal'
-    }
-},
-series: [{
-    name: 'beban',
-    data: [9, 2, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    stack: 'male'
-}, {
-    name: 'HPP',
-    data: [7, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    stack: 'male',
-    
-}, {
-    name: 'pdpt',
-    data: [19, 5, 6, 0, 0],
-    stack: 'female'
-},{
-        type: 'spline',
-        name: 'NI',
-        data: [7, 6, 8],
-        marker: {
-            lineWidth: 2,
-            lineColor: Highcharts.getOptions().colors[3],
+//             //COGS
+//             if(capai_rka < 100) {
+//                 $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
+//                 iconPdptAch = '&nbsp;'
+//             } else {
+//                 $('#capai_rka-cogs').removeClass('red-text').addClass('green-text')
+//                 iconPdptAch = '&nbsp;'
+//             }
+
+//             if(capai_yoy < 0) {
+//                 $('#capai_yoy-cogs').removeClass('green-text').addClass('red-text')
+//                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+//             } else {
+//                 $('#capai_yoy-cogs').removeClass('red-text').addClass('green-text')
+//                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+//             }
+
+//             $('#capai_rka-cogs').text(capai_rka.toFixed(2) + '%')
+//             $('#capai_yoy-cogs').text(capai_yoy.toFixed(2) + '%')
+//             $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
+//             $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
+//             $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1));
+
+//             //Gross Profit
+//             if(capai_rka < 100) {
+//                 $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
+//                 iconPdptAch = '&nbsp;'
+//             } else {
+//                 $('#capai_rka-gross_profit').removeClass('red-text').addClass('green-text')
+//                 iconPdptAch = '&nbsp;'
+//             }
+
+//             if(capai_yoy < 0) {
+//                 $('#capai_yoy-gross_profit').removeClass('green-text').addClass('red-text')
+//                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+//             } else {
+//                 $('#capai_yoy-gross_profit').removeClass('red-text').addClass('green-text')
+//                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+//             }
+
+//             $('#capai_rka-gross_profit').text(capai_rka.toFixed(2) + '%')
+//             $('#capai_yoy-gross_profit').text(capai_yoy.toFixed(2) + '%')
+//             $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
+//             $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
+//             $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1));
             
+//             //OPEX
+//             if(capai_rka < 100) {
+//                 $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
+//                 iconPdptAch = '&nbsp;'
+//             } else {
+//                 $('#capai_rka-opex').removeClass('red-text').addClass('green-text')
+//                 iconPdptAch = '&nbsp;'
+//             }
+
+//             if(capai_yoy < 0) {
+//                 $('#capai_yoy-opex').removeClass('green-text').addClass('red-text')
+//                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+//             } else {
+//                 $('#capai_yoy-opex').removeClass('red-text').addClass('green-text')
+//                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+//             }
+
+//             $('#capai_rka-opex').text(capai_rka.toFixed(2) + '%')
+//             $('#capai_yoy-opex').text(capai_yoy.toFixed(2) + '%')
+//             $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
+//             $('#rka-opex').text(toMilyar(data.opex.rka,1));
+//             $('#yoy-opex').text(toMilyar(data.opex.yoy,1));
+
+//             //Net Income
+//             if(capai_rka < 100) {
+//                 $('#capai_rka-net-income').removeClass('green-text').addClass('red-text')
+//                 iconPdptAch = '&nbsp;'
+//             } else {
+//                 $('#capai_rka-net-income').removeClass('red-text').addClass('green-text')
+//                 iconPdptAch = '&nbsp;'
+//             }
+
+//             if(capai_yoy < 0) {
+//                 $('#capai_yoy-net-income').removeClass('green-text').addClass('red-text')
+//                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+//             } else {
+//                 $('#capai_yoy-net-income').removeClass('red-text').addClass('green-text')
+//                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+//             }
+
+//             $('#capai_rka-net_income').text(capai_rka.toFixed(2) + '%')
+//             $('#capai_yoy-net_income').text(capai_yoy.toFixed(2) + '%')
+//             $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
+//             $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
+//             $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1));
+//         }
+//     });
+// }
+
+//Monthly Performance
+function getFPBulan(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-per-bulan') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var data = result.data;
+            Highcharts.chart('chart-revenue', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Monthly Perfomance',
+                    align: 'left'
+                },
+                labels: {
+                    enabled: false
+                },
+                credits: {
+                        enabled: false
+                    },
+                xAxis: {
+                    categories: [
+                        'Jan',
+                        'Feb',
+                        'Mar',
+                        'Apr',
+                        'May',
+                        'Jun',
+                        'Jul',
+                        'Aug',
+                        'Sep',
+                        'Oct',
+                        'Nov',
+                        'Dec'
+                    ],
+                    crosshair: true,
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Nilai'
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                        '<td style="padding:0"><b>{point.y:.2f} M</b></td></tr>',
+                    footerFormat: '</table>',
+                    shared: true,
+                    useHTML: true
+                },
+
+                plotOptions: {
+                    column: {
+                        stacking: 'normal'
+                    }
+                },
+                series: [
+                    {
+                        name: 'Pendapatan',
+                        data: data.pendapatan.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        color: '#80b7be',
+                    }, {
+                        name: 'Beban',
+                        data: data.beban.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        stack: 'beban+hpp',
+                        color: '#fbe697',
+                    }, {
+                        name: 'HPP',
+                        data: data.hpp.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        stack: 'beban+hpp',
+                        color: '#f49b4f',
+                    }, {
+                        type: 'spline',
+                        name: 'NI',
+                        data: data.net_income.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        color: '#7e0200',
+                        marker: {
+                            lineWidth: 1,
+                        }
+                    }
+                ]
+            });
         }
-    }]
+    })
+}
+
+//end of monthly performance
+
+//filter kontribusi
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-kontribusi-filter') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var targetEl = document.getElementById('kode_neraca');
+            if(targetEl) {
+                if(result.status){
+                    targetEl.innerHTML = '';
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            targetEl.innerHTML += '<option value="'+result.data[i].kode_neraca+'">'+result.data[i].nama+'</option>';
+                        }
+                    }
+                }
+            }
+            // control.setValue('');
+        }
+    });
+})();
+//end of filter kontribusi
+
+$('#kode_neraca').change(function(){
+    $filter_kontribusi = $(this).val();
+    var bidang = ($('#kode_neraca option:selected').text() != "Semua Bidang" ? $('#kode_neraca option:selected').text() : "")
+    $('#bidang-title').text(bidang);
+    $('#pp-title').text('Project Solution ');
+    var sort = ( $('#sort-top').hasClass('sort-asc') ? 'asc' : 'desc'); 
+    $filter_kode_pp = "";
+    timeoutID = null;
+    timeoutID = setTimeout(getKontribusi.bind(undefined,{
+        "periode[0]": "=", 
+        "periode[1]": $month,
+        "tahun": $tahun,
+        "jenis": $filter1_kode,
+        "kode_neraca": $filter_kontribusi,
+    }), 500);
+    timeoutID = null;
+    if(bidang != ""){
+        showNotification(`Menampilkan dashboard `+bidang);
+    }
 });
-//end revenue
 
 //chart revenue contribusi
-Highcharts.chart('chart-contribusi', {
-    chart: {
-        
-        type: 'pie'
-    },
-    title: {
-        text: ''
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    credits: {
-            enabled: false
+function getKontribusi(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-kontribusi') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi,
+            "kode_neraca": $filter_kontribusi,
         },
-    accessibility: {
-        point: {
-            valueSuffix: '%'
-        }
-    },
-    plotOptions: {
-        pie: {
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
-                distance: -40,
-                filter: {
-                    property: 'percentage',
-                    operator: '>',
-                    value: 4
+        dataType: 'json',
+        async: true,
+        success:function(result){
+            var data = result.data;
+            console.log(data)
+            Highcharts.chart('chart-contribusi', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            credits: {
+                enabled: false
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
                 }
             },
-            showInLegend: false
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{point.percentage:.1f} % <br>',
+                        distance: -40,
+                    },
+                    showInLegend: false
+                }
+            },
+            series: [
+                {
+                    name: 'Share',
+                    colorByPoint: true,
+                    data: data
+                }
+            ]
+        });
         }
-    },
-    series: [{
-        name: 'Share',
-        colorByPoint: true,
-        data: [
-            { name: 'TS', y: 39.30 },
-            { name: 'BAD', y: 42.20 },
-            { name: 'BS', y: 11.20 },
-            { name: 'BSC', y: 7.30 }
-        ]
-    }]
-});
+    })
+}
 
+//Get Margin
+
+function getMargin(){
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-margin') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            $('#margin tbody').html('');
+            var html = '';
+            if(result.data.length > 0){
+                for(var i=0; i < result.data.length; i++){
+                    var line = result.data[i];
+                        var select = "";
+                        var display = 'none';
+                    html+=`
+                    <tr ${select}>
+                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
+                            <span class="nama-lokasi">${line.kode_klp}</span></td>
+                        <td class='text-right'>${number_format(line.nilai,2)}%</td>
+                        
+                    </tr>`;
+                }
+            }
+            $('#margin tbody').html(html);
+        }
+    })
+}
+
+//End of Get Margin
+
+// TABLE TOP EVET
+$('#margin tbody').on('click', 'tr td', function() {
+    var table = $(this).parents('table').attr('id')
+    var tr = $(this).parent()
+    var icon = $(this).closest('tr').find('td:first').find('.check-row')
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
+    var check = $(tr).attr('class')
+    var lokasi = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
+    $filter_kode_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    if(check == 'selected-row') {
+        return;
+    }
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+
+    $(tr).addClass('selected-row')
+    $(icon).show()
+    setTimeout(function() {
+        getDataBox();
+        getFPBulan();
+        getKontribusi();
+        getMargin();
+    }, 200)
+    $('#lokasi-title').text(lokasi)
+    showNotification(`Menampilkan dashboard ${lokasi}`);
+})
+
+$('#margin tbody').on('click', 'tr.selected-row', function() {
+    var table = $(this).parents('table').attr('id')
+    $filter_kode_lokasi="";
+    $(`#${table} tbody tr`).removeClass('selected-row')
+    $(`#${table} tbody tr td .check-row`).hide()
+    $('#lokasi-title').text('YPT')
+    getDataBox();
+    getFPBulan();
+    getKontribusi();
+    getMargin();
+    showNotification(`Menampilkan dashboard YPT`);
+})
+// END TABLE TOP EVENT
 
 setTimeout (function(){
     getDataBox();
+    getFPBulan();
+    getKontribusi();
+    getMargin();
 },200)
 </script>
 
 <script type="text/javascript">
 // FILTER EVENT
-    // KURANG TAHUN FILTER
-    $('#kurang-tahun').click(function(event) {
-        event.stopPropagation();
-        $tahun = parseInt($tahun) - 1;
-        $('#year-filter').text($tahun);
-    })
+// KURANG TAHUN FILTER
+$('#kurang-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun - 1;
+    $('#year-filter').text($tahun);
+})
 
-    // TAMBAH TAHUN FILTER
-    $('#tambah-tahun').click(function(event) {
-        event.stopPropagation();
-        $tahun = parseInt($tahun) + 1;
-        $('#year-filter').text($tahun);
-    })
+// TAMBAH TAHUN FILTER
+$('#tambah-tahun').click(function(event) {
+    event.stopPropagation();
+    $tahun = $tahun + 1;
+    $('#year-filter').text($tahun);
+})
 
-    // MENAMPILKAN FILTER
-    $('#custom-row').click(function(event) {
-        event.stopPropagation();
-        $('#filter-box').removeClass('hidden avoid-run')
+// MENAMPILKAN FILTER
+$('#custom-row').click(function(event) {
+    event.stopPropagation();
+    $('#filter-box').removeClass('hidden avoid-run')
+})
+
+// MENTRIGGER FILTER 1
+$('#list-filter-1 ul li').click(function(event) {
+    event.stopPropagation();
+    var html = '';
+    var filter = $(this).text()
+    $filter1 = filter
+    $filter1_kode = $(this).data('filter1')
+    $('#list-filter-1 ul li').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#list-filter-2').empty()
+    if($filter1 == 'Triwulan') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
+                Triwulan I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
+                Triwulan II
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
+                Triwulan III
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
+                Triwulan IV
+            </div>
+        `;
+    } else if($filter1 == 'Semester') {
+        html += `
+            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
+                Semester I
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
+                Semester II
+            </div>
+        `;
+    } else if($filter1 == 'Periode') {
+        html += `
+            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
+                Januari
+            </div>
+            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
+                Februari
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
+                Maret
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
+                April
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
+                Mei
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
+                Juni
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
+                Juli
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
+                Agustus
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
+                September
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
+                Oktober
+            </div>
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
+                November
+            </div>
+            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
+                Desember
+            </div>
+        `;
+    }
+    $('#list-filter-2').append(html)
+
+    if($filter1 == 'Periode') {
         $('#list-filter-2').find('.list').each(function() {
-            if($filter1_kode == 'PRD'){
-                if(parseInt($(this).data('bulan')) == parseInt($month)) {
-                    $(this).addClass('selected')
-                }
-            }else{
-                if(parseInt($(this).data('bulan')) <= parseInt($month)) {
-                    $(this).addClass('selected')
-                }
+            if($(this).data('bulan').toString() == $month) {
+                $(this).addClass('selected')
+                $month = $(this).data('bulan').toString();
+                return false;
             }
         })
-    })
+    }
+})
 
-    // MENTRIGGER FILTER 1
-    $('#list-filter-1 ul li').click(function(event) {
-        event.stopPropagation();
-        var html = '';
-        var filter = $(this).text()
-        $filter1 = filter
-        $filter1_kode = $(this).data('filter1')
-        $('#list-filter-1 ul li').not(this).removeClass('selected')
-        $(this).addClass('selected')
-        $('#list-filter-2').empty()
-        var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
-        for(i=0; i < bln.length; i++){
-            if($filter1_kode == 'PRD'){
-                if(parseInt(bln[i]) == parseInt($month)){
-                    var selected = 'selected';
-                }else{
-                    var selected = '';
-                }
-            }else{
-                if(parseInt(bln[i]) <= parseInt($month)){
-                    var selected = 'selected';
-                }else{
-                    var selected = '';
-                }
-            }
-            html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
-                <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
-            </div>`;
-        }
-        $('#list-filter-2').append(html)
-        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-    })
+// MENTRIGGER FILTER 2
+$('#list-filter-2').on('click', 'div', function(event) {
+    event.stopPropagation();
+    var filter = $(this).text()
+    if($(this).data('bulan')) {
+        filter = $(this).data('bulan') 
+    }
+    $filter2 = filter
+    $filter2_kode = $(this).data('filter2')
+    $('#list-filter-2 div').not(this).removeClass('selected')
+    $(this).addClass('selected')
+    $('#filter-box').addClass('hidden')
 
-    // MENTRIGGER FILTER 2
-    $('#list-filter-2').on('click', 'div', function(event) {
-        event.stopPropagation();
-        var filter = $(this).text()
-        if($(this).data('bulan')) {
-            filter = $(this).data('bulan') 
-        }
-        $month = $(this).data('bulan') 
-        $filter2 = filter
-        $filter2_kode = $(this).data('filter2')
-        $('#list-filter-2 div').not(this).removeClass('selected')
-        $(this).addClass('selected')
-        $('#filter-box').addClass('hidden')
+    if($filter2.length == 2) {
+        $filter2 = getNamaBulan($filter2)
+    }
 
-        if($month.toString().length == 2) {
-            $filter2 = getNamaBulan($filter2)
-        }
-        
-        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-        updateAllChart()
-        showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
-        $('#detail-dash').hide()
-        $('#main-dash').show()
-        $('body').addClass('scroll-hide');
-    })
+    $('#select-text-fp').text(`${$filter2.toUpperCase()} ${$tahun}`)
+    updateAllChart()
+    showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+    $('#detail-dash').hide()
+    $('#main-dash').show()
+})
 // END FILTER EVENT
 </script>
 
@@ -338,7 +772,7 @@ setTimeout (function(){
             </div>
         </div>
         <div class="col-3 pl-1 pr-0" style="padding-top: 1em;">
-            <div class="row">
+            <div class="row" style="padding-left: 1.5rem;">
                 <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:0.5em; padding-top:1em;">
                 <div class="col-12">
                     <div class="select-custom row cursor-pointer border-r-0" id="custom-row">
@@ -441,8 +875,7 @@ setTimeout (function(){
 
     <div class="row body-dash row-box" style="position: relative;">
         <div class='col-md-2dot4 col-12 px-1' >
-            <div class="card card-dash rounded-lg link-detail md-1"  data-box="revenue">
-                <p hidden class="link-tujuan">fDetailFinance</p>
+            <div class="card card-dash rounded-lg md-1" >
                     <div class="card-body pt-2 ">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Revenue</span></div>
@@ -469,8 +902,7 @@ setTimeout (function(){
         </div>
 
         <div class='col-md-2dot4 col-12 px-1'>
-        <div class="card card-dash rounded-lg link-detail" data-box="cogs">
-        <p hidden class="link-tujuan">fDetailFinance</p>
+        <div class="card card-dash rounded-lg " data-box="cogs">
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">COGS</span></div>
@@ -496,8 +928,7 @@ setTimeout (function(){
                 </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-        <div class="card card-dash rounded-lg link-detail" data-box="profit">
-        <p hidden class="link-tujuan">fDetailFinance</p>
+        <div class="card card-dash rounded-lg " data-box="profit">
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Gross Profit</span></div>
@@ -523,8 +954,7 @@ setTimeout (function(){
                 </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-        <div class="card card-dash rounded-lg link-detail" data-box="opex">
-        <p hidden class="link-tujuan">fDetailFinance</p>
+        <div class="card card-dash rounded-lg " data-box="opex">
                     <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">OPEX</span></div>
@@ -550,8 +980,7 @@ setTimeout (function(){
                 </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-        <div class="card card-dash rounded-lg link-detail" data-box="income">
-        <p hidden class="link-tujuan">fDetailFinance</p>
+        <div class="card card-dash rounded-lg " data-box="income">
         <div class="card-body pt-2">
                         <div class="row">
                             <div class="col-12"><span style="font-size: 1rem;">Net Income</span></div>
@@ -578,7 +1007,6 @@ setTimeout (function(){
         </div>
     </div>
 
-
 <div class="row mb-2">
     <div class="col-lg-6 col-md-12 px-1" >
                 {{-- REVENUE--}}
@@ -594,13 +1022,7 @@ setTimeout (function(){
                         <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;width:121%; height: calc(83.5vh - 180px)">
                             <div class="row"> 
                                 <div style="padding-left: 1em;">
-                                    <select name="revenue" id="revenue">
-                                        <option value="Revenue Contribution">Revenue Contribution</option>
-                                        <option value="COGS">COGS</option>
-                                        <option value="Gross Profit">Gross Profit</option>
-                                        <option value="OPEX">OPEX</option>
-                                        <option value="Net Income">Net Income</option>
-                                    </select>
+                                    <select name="nama" id="kode_neraca"></select>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -619,48 +1041,30 @@ setTimeout (function(){
                             <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
                             <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
                         </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="font-weight-bold mb-1  " style="font-size: 1.5rem; padding-top:1em;" ></div>
-                                <span class="link-detail">Total</span>
-                                <div class="font-weight-bold mb-1 " style="font-size: 1.5rem;" ></div>
-                                <span class="link-detail" style="padding-bottom: 1em;">Bisnis AD</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span class="link-detail">Telco Solution</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span class="link-detail">BS Cabang</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem;" ></div>
-                                <span class="link-detail">Business Solution</span>
-                                
-                            </div>
-                            <div class="col-6" >
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:1em;" id="ver_dok_nilai"></div>
-                                <span ></span>46.37%</span>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" id="ver_dok_jml"></div>
-                                <div >20,32%</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" ></div>
-                                <div >47,14%</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.6em;" ></div>
-                                <div >39,02%</div>
-                                <div class="font-weight-bold mb-1" style="font-size: 1.5rem; padding-top:0.1em;" ></div>
-                                <div >61,26%</div>
-
-                            </div>
-                        </div>
+                        <div class="table-responsive mt-2" id="div-selisih-cf" style="height:calc(100vh - 180px);position:relative">
+                    <style>
+                        #margin th
+                        {
+                            padding: 2px !important;
+                            color: #d7d7d7;
+                            font-weight:100;
+                        }
+                        #margin td
+                        {
+                            padding: 2px !important;
+                            font-weight:100;
+                        }
+                    </style>
+                    <table class="table table-borderless" id="margin" style="width:100%;">
+                        
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
                         </div>
                     </div>
                 </div>
                 {{-- END PENGAJUAN --}}
             </div>
-        
-        <script>
-    $('.row-box').on('click','.link-detail',function(e){
-        e.preventDefault();
-        var link = $(this).closest('div').find('p.link-tujuan').html();
-        if(link != "#"){
-            var url = "{{ url('/siaga-auth/form/fDetailFinancial') }}";
-            loadForm(url);
-        }
-    });
 </script>
-</script>
+

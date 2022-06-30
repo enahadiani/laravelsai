@@ -467,7 +467,7 @@ Highcharts.chart('chart-yoy', {
                             <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
                             </div>
                     </div>
-                    <div class="col-6" style="padding-left: 6.5em;" >
+                    <div class="col-6" style="padding-left: 4.5em;padding-top:1em;" >
                     <i style='font-size:15px;color:green;' class='fas' >&#xf062;</i>
                                 <span class="text-success" >3,24%</span>
                             </div>
@@ -484,7 +484,7 @@ Highcharts.chart('chart-yoy', {
                         <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
                         </div>
                         </div>
-                        <div class="col-6" style="padding-left: 6.5em;" >
+                        <div class="col-6" style="padding-left: 4.5em;padding-top:1em;" >
                     <i style='font-size:15px;color:green;' class='fas' >&#xf062;</i>
                                 <span class="text-success" >1,07%</span>
                             </div>
@@ -501,7 +501,7 @@ Highcharts.chart('chart-yoy', {
                         <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
                         </div>
                         </div>
-                        <div class="col-6" style="padding-left: 6.5em;" >
+                        <div class="col-6" style="padding-left: 4.5em;padding-top:1em;" >
                     <i style='font-size:15px;color:red;' class='fas' >&#xf063;</i>
                                 <span class="text-success" >5,23%</span>
                             </div>
@@ -517,7 +517,7 @@ Highcharts.chart('chart-yoy', {
                         <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" ></div>
                         </div>
                         </div>
-                        <div class="col-6" style="padding-left: 6.5em;" >
+                        <div class="col-6" style="padding-left: 4.5em;padding-top:1em;" >
                     <i style='font-size:15px;color:green;' class='fas' >&#xf062;</i>
                                 <span class="text-success" >0,01%</span>
                             </div>
