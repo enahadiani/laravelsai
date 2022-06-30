@@ -248,9 +248,7 @@ class DashboardPendController extends Controller {
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'tahun' => $tahun
-                ]
+                'query' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

@@ -2,6 +2,11 @@
 <link href="{{ asset('dash-siaga.css?version=_').time() }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
+<style>
+    .highcharts-color-0{
+        stroke: inherit !important;
+    }
+</style>
 
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -40,7 +45,8 @@
         getKontribusi();
         getPortofolio();
         getRKAvsReal();
-}
+        getYTDvsYoY();
+    }
 
     //Get Data Revenue
     function getDataBox() {
@@ -58,8 +64,8 @@
             async: true,
             success: function(result) {
                 var data = result.data;
-                var capai_rka = 0;
-                var capai_yoy = 0;
+                var capai_rka = data.revenue.capai_rka;
+                var capai_yoy = data.revenue.capai_yoy;
                 var nilai = 0;
                 if (capai_rka < 100) {
                     $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
@@ -77,8 +83,8 @@
                     iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
                 }
 
-                $('#capai_rka-revenue').text(capai_rka.toFixed(2) + '%');
-                $('#capai_yoy-revenue').text(capai_yoy.toFixed(2) + '%');
+                $('#capai_rka-revenue').text(number_format(capai_rka.toFixed(2),2) + '%');
+                $('#capai_yoy-revenue').text(number_format(capai_yoy.toFixed(2),2) + '%');
                 $('#nilai-revenue').text(toMilyar(data.revenue.nilai, 1));
                 $('#rka-revenue').text(toMilyar(data.revenue.rka, 1));
                 $('#yoy-revenue').text(toMilyar(data.revenue.yoy, 1));
@@ -115,7 +121,7 @@
                         enabled: false
                     },
                     xAxis: {
-                        categories: result.data
+                        categories: result.kategori
                     },
                     yAxis: [{
                         min: 0,
@@ -153,21 +159,13 @@
                         name: 'RKA FY',
                         color: '#F0E68C',
                         data: result.rka_fy,
-                        tooltip: {
-                            valuePrefix: '$',
-                            valueSuffix: ' M'
-                        },
                         pointPadding: 0.3,
                         pointPlacement: 0.2,
 
                     }, {
-                        name: 'Real YTD',
+                        name: 'Real FY',
                         color: '#FF0000',
                         data: result.real_fy,
-                        tooltip: {
-                            valuePrefix: '$',
-                            valueSuffix: ' M'
-                        },
                         pointPadding: 0.4,
                         pointPlacement: 0.2,
 
@@ -338,70 +336,97 @@
             dataType: 'json',
             async: true,
             success: function(result){
-                var data=result.data;
-                console.log(data);
-                Highcharts.chart('chart-pendapatan', {
-        chart: {
-            type: 'bar'
-        },
-        exporting:{
-                enabled: false,
-        },
-        credits:{
-                enabled: false,
-        },
-        title: {
-            text: ''
-        },
-        xAxis: {
-                visible: false,
-            categories: ['YOY','YTD'],
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-                visible: false,
-            min: 0,
-            title: {
-                text: 'Population (millions)',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' millions'
-        },
-        plotOptions: {
-            series:{
-                groupPadding: 0,
-            borderRadius: 6
-            },
-            bar: {
-                dataLabels: {
-                    enabled: false
-                }
-            }
-        },
-        legend: {
-                enabled:false
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-                        name: 'AD',
-                        data: [{
-                            y: data.yoy,
-                        color: '#d7d7d7',
-                        },{ 
-                            y: data.ytd,
-                        color : '#900604'
+                var html = '';
+                $('#progress-ytdyoy').html(html);
+                var chartprog = [];
+                for(var i=0; i < result.data.length; i++){
+                    var line = result.data[i];
+                    if(line.persen < 0){
+                        var icon = `<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">`;
+                        var text_color = 'red-text';
+                    }else{
+                        
+                        var icon = `<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">`;
+                        var text_color = 'green-text';
+                    }
+                    html =`
+                    <div class='row'>
+                        <p>${line.nama}</p>
+                        <div class='col-8 px-0'>
+                            <div id='chart-${line.kode_klp}' style='height:100px !important;'></div>
+                        </div>
+                        <div class='col-4 px-0 text-center'>
+                            ${icon}
+                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(line.persen,2)}%</span>
+                        </div>
+                    </div>
+                    `;
+                    $('#progress-ytdyoy').append(html);
+                    chartprog[i] = Highcharts.chart(`chart-${line.kode_klp}`, {
+                        chart: {
+                            type: 'bar',
+                            marginTop: 0
+                        },
+                        exporting:{
+                                enabled: false,
+                        },
+                        credits:{
+                                enabled: false,
+                        },
+                        title: {
+                            text: ''
+                        },
+                        xAxis: {
+                            visible: false,
+                            categories: ['YOY','YTD'],
+                            title: {
+                                text: null
+                            }
+                        },
+                        yAxis: {
+                            visible: false
+                        },
+                        plotOptions: {
+                            series:{
+                                groupPadding: 0,
+                            borderRadius: 6
+                            },
+                            bar: {
+                                dataLabels: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        legend: {
+                                enabled:false
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'Nilai',
+                            data: [{
+                                y: Math.abs(parseFloat(line.yoy)),
+                                color: '#d7d7d7',
+                            },{ 
+                                y: Math.abs(parseFloat(line.ytd)),
+                                color : '#900604'
+                            }]
                         }]
-                    }]
-                });
+                    },
+                    function() {
+                        var series = this.series;
+                        var colors = ['#d7d7d7','#900604']
+                        for(var i=0;i<series.length;i++) {
+                            var point = series[i].data
+                            for(var j=0;j<point.length;j++) {
+                                if(point[j].graphic) {
+                                    point[j].graphic.element.style.fill = colors[j]
+                                }
+                            }
+                        }
+                    });
+                }
             }
         })
     }
@@ -415,14 +440,14 @@
     // KURANG TAHUN FILTER
     $('#kurang-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun - 1;
+        $tahun = parseInt($tahun) - 1;
         $('#year-filter').text($tahun);
     })
 
     // TAMBAH TAHUN FILTER
     $('#tambah-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = $tahun + 1;
+        $tahun = parseInt($tahun) + 1;
         $('#year-filter').text($tahun);
     })
 
@@ -430,6 +455,17 @@
     $('#custom-row').click(function(event) {
         event.stopPropagation();
         $('#filter-box').removeClass('hidden avoid-run')
+        $('#list-filter-2').find('.list').each(function() {
+            if($filter1_kode == 'PRD'){
+                if(parseInt($(this).data('bulan')) == parseInt($month)) {
+                    $(this).addClass('selected')
+                }
+            }else{
+                if(parseInt($(this).data('bulan')) <= parseInt($month)) {
+                    $(this).addClass('selected')
+                }
+            }
+        })
     })
 
     // MENTRIGGER FILTER 1
@@ -442,113 +478,57 @@
         $('#list-filter-1 ul li').not(this).removeClass('selected')
         $(this).addClass('selected')
         $('#list-filter-2').empty()
-        if ($filter1 == 'Triwulan') {
-            html += `
-            <div class="col-5 py-3 selected cursor-pointer" data-filter2="TRW1">
-                Triwulan I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="TRW2">
-                Triwulan II
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer" data-filter2="TRW3">
-                Triwulan III
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer" data-filter2="TRW4">
-                Triwulan IV
-            </div>
-        `;
-        } else if ($filter1 == 'Semester') {
-            html += `
-            <div class="col-5 py-3 selected cursor-pointer" data-filter2="SMT1">
-                Semester I
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer" data-filter2="SMT2">
-                Semester II
-            </div>
-        `;
-        } else if ($filter1 == 'Periode') {
-            html += `
-            <div class="col-5 py-3 cursor-pointer list" data-bulan="01" data-filter2="01">
-                Januari
-            </div>
-            <div class="col-5 ml-8 py-3 cursor-pointer list" data-bulan="02" data-filter2="02">
-                Februari
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="03" data-filter2="03">
-                Maret
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="04" data-filter2="04">
-                April
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="05" data-filter2="05">
-                Mei
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="06" data-filter2="06">
-                Juni
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="07" data-filter2="07">
-                Juli
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="08" data-filter2="08">
-                Agustus
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="09" data-filter2="09">
-                September
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="10" data-filter2="10">
-                Oktober
-            </div>
-            <div class="w-100 d-none d-md-block"></div>
-            <div class="col-5 mt-8 py-3 cursor-pointer list" data-bulan="11" data-filter2="11">
-                November
-            </div>
-            <div class="col-5 mt-8 ml-8 py-3 cursor-pointer list" data-bulan="12" data-filter2="12">
-                Desember
-            </div>
-        `;
+        var bln = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        for(i=0; i < bln.length; i++){
+            if($filter1_kode == 'PRD'){
+                if(parseInt(bln[i]) == parseInt($month)){
+                    var selected = 'selected';
+                }else{
+                    var selected = '';
+                }
+            }else{
+                if(parseInt(bln[i]) <= parseInt($month)){
+                    var selected = 'selected';
+                }else{
+                    var selected = '';
+                }
+            }
+            html+=`<div class="col-4 py-2 px-3 cursor-pointer list text-center ${selected}" data-bulan="${bln[i]}" data-filter2="${bln[i]}">
+                <span class="py-2 px-3 d-block">${getNamaBulan(bln[i])}</span>
+            </div>`;
         }
         $('#list-filter-2').append(html)
-
-        if ($filter1 == 'Periode') {
-            $('#list-filter-2').find('.list').each(function() {
-                if ($(this).data('bulan').toString() == $month) {
-                    $(this).addClass('selected')
-                    $month = $(this).data('bulan').toString();
-                    return false;
-                }
-            })
-        }
+        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
     })
 
     // MENTRIGGER FILTER 2
     $('#list-filter-2').on('click', 'div', function(event) {
         event.stopPropagation();
         var filter = $(this).text()
-        if ($(this).data('bulan')) {
-            filter = $(this).data('bulan')
+        if($(this).data('bulan')) {
+            filter = $(this).data('bulan') 
         }
+        $month = $(this).data('bulan') 
         $filter2 = filter
         $filter2_kode = $(this).data('filter2')
         $('#list-filter-2 div').not(this).removeClass('selected')
         $(this).addClass('selected')
         $('#filter-box').addClass('hidden')
 
-        if ($filter2.length == 2) {
+        if($month.toString().length == 2) {
             $filter2 = getNamaBulan($filter2)
         }
-
-        $('#select-text-fp').text(`${$filter2.toUpperCase()} ${$tahun}`)
+        
+        var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+        $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
         updateAllChart()
-        showNotification(`Menampilkan dashboard periode ${$filter2.toUpperCase()} ${$tahun}`);
+        showNotification(`Menampilkan dashboard ${nama_filter} ${$filter2} ${$tahun}`);
         $('#detail-dash').hide()
         $('#main-dash').show()
+        $('body').addClass('scroll-hide');
     })
-    // END FILTER EVENT
+// END FILTER EVENT
 </script>
 <script>
     setTimeout(function() {
@@ -713,30 +693,30 @@
         <div class="card card-dash rounded-lg">
             <div class="card-body" style="padding-left: 0.5em;">
                 <div style="padding-top:0.5em; font-size:1em">Pendapatan YoY</div>
-                <div class="row ">
-                    <div class="col-1 d-inline">
-                        <div style="width: 1em;height:1em; border-radius: 100%; background-color: #A52A2A">
-                        </div>
-                    </div>
-                    <div class="col-4 d-inline">
-                        <span>pdpt YTD</span>
-                    </div>
-
-                    <!-- <div class="col-6 d inline" > -->
-                    <div class="col-1 d-inline">
-                        <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
-                    </div>
-                    <div class="col-4 di-inline">
-                        <span>pdpt Tahun Lalu</span>
-                    </div>
-                    <!-- </div> -->
-                </div>
-                    <div class="card-body">
-                        <div id="chart-pendapatan" style="width:100%; height:17.5rem;"></div>
-                    </div>
+                    <div class="row ">
+                        <div class="col-1 d-inline">
+                            <div style="width: 1em;height:1em; border-radius: 100%; background-color: #A52A2A">
                             </div>
-            <div class="p-2" style="width:100%; height:15.2em;">
+                        </div>
+                        <div class="col-4 d-inline">
+                            <span>pdpt YTD</span>
+                        </div>
+                        <!-- <div class="col-6 d inline" > -->
+                        <div class="col-1 d-inline">
+                            <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
+                        </div>
+                        <div class="col-4 di-inline">
+                            <span>pdpt Tahun Lalu</span>
+                        </div>
+                        <!-- </div> -->
+                    </div>
+                    <div class="card-body">
+                        <div id="progress-ytdyoy" style="width:100%; height:17.5rem;"></div>
+                    </div>
+                </div>
+                <div class="p-2 mt-2" style="width:100%; height:15.2em;">
 
+                </div>
             </div>
         </div>
         {{-- END PENGAJUAN --}}
@@ -751,5 +731,4 @@
         var url = "{{ url('/siaga-auth/form/fFinancialPerformance') }}";
         loadForm(url);
     })
-</script>
 </script>
