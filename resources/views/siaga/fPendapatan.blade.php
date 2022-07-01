@@ -26,20 +26,6 @@
     var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
     var nilai = "";
 
-    if ($filter1 == 'Periode') {
-        $('#list-filter-2').find('.list').each(function() {
-            if ($(this).data('bulan').toString() == $month) {
-                $(this).addClass('selected')
-                $month = $(this).data('bulan').toString();
-                return false;
-            }
-        });
-    }
-
-    $('#year-filter').text($tahun)
-    var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-    $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-
     function updateAllChart() {
         getDataBox();
         getKontribusi();
@@ -430,9 +416,52 @@
             }
         })
     }
-        
-
     //End Pendapatan
+
+    //filter default
+    (function () {
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('siaga-dash/data-fp-default-filter') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result) {
+                $filter_lokasi = "";
+                $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
+                $filter1 = "Periode";
+                $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
+                $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                $judulChart = null;
+                $filter1_kode = "PRD";
+                $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                nilai = "";
+
+                $('#year-filter').text($tahun)
+                var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+                $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
+
+    
+                if ($filter1 == 'Periode') {
+                    $('#list-filter-2').find('.list').each(function() {
+                        if ($(this).data('bulan').toString() == $month) {
+                            $(this).addClass('selected')
+                            $month = $(this).data('bulan').toString();
+                            return false;
+                        }
+                    });
+                }
+
+                setTimeout (function(){
+                    getDataBox();
+                    getKontribusi();
+                    getPortofolio();
+                    getRKAvsReal();
+                    getYTDvsYoY();
+                },100)
+            }
+        });
+    })();
+    //end of filter default
 </script>
 
 <script type="text/javascript">
@@ -530,16 +559,6 @@
     })
 // END FILTER EVENT
 </script>
-<script>
-    setTimeout(function() {
-        getDataBox();
-        getKontribusi();
-        getPortofolio();
-        getRKAvsReal();
-        getYTDvsYoY();
-    }, 200)
-</script>
-
 <section id="header" class="header">
     <div class="row">
         <div class="col-9 pl-12 pr-0">

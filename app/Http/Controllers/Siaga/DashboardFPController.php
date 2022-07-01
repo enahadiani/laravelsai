@@ -84,15 +84,19 @@ class DashboardFPController extends Controller {
 
     public function getFPBulan(Request $r) {
         try {
+            $req = $r->all();
+            $tahun = $r->query('tahun');
+            $fields = [
+                'tahun' => $tahun,
+                'jenis' => $req['jenis']
+            ];
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'siaga-dash/data-fp-per-bulan',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
                 ],
-                'query' => [
-                    'tahun' => substr(Session::get('periode'), 0, 4)
-                ]
+                'query' => $fields
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
@@ -110,12 +114,37 @@ class DashboardFPController extends Controller {
 
     public function getFilterKontribusi(Request $r) {
         try {
+
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'siaga-dash/data-fp-kontribusi-filter',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ],
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getDefaultFilter(Request $r) {
+        try {
+
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'siaga-dash/data-fp-default-filter',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
             ]);
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();

@@ -20,6 +20,7 @@ Route::get('dataof-modul','Siaga\DashboardController@getDataOfModul');
 Route::get('data-other','Siaga\DashboardController@getDataOther');
 
 //Financial Performance
+Route::get('data-fp-default-filter', 'Siaga\DashboardFPController@getDefaultFilter');
 Route::get('data-fp-box', 'Siaga\DashboardFPController@getDataBox');
 Route::get('data-fp-margin', 'Siaga\DashboardFPController@getMargin');
 Route::get('data-fp-per-bulan', 'Siaga\DashboardFPController@getFPBulan');

@@ -27,20 +27,6 @@ $(window).click(function() {
     $('.menu-chart-custom').addClass('hidden');
 });
 
-if($filter1 == 'Periode') {
-    $('#list-filter-2').find('.list').each(function() {
-        if($(this).data('bulan').toString() == $month) {
-            $(this).addClass('selected')
-            $month = $(this).data('bulan').toString();
-            return false;
-        }
-    });
-}
-
-$('#year-filter').text($tahun)
-var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-$('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)
-
 function updateAllChart() {
     getDataBox();
     getFPBulan();
@@ -316,6 +302,49 @@ function getFPBulan(){
 })();
 //end of filter kontribusi
 
+//filter default
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-default-filter') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            $filter_lokasi = "";
+            $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
+            $filter1 = "Periode";
+            $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
+            $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+            $judulChart = null;
+            $filter1_kode = "PRD";
+            $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+            $filter_kontribusi = "41";
+
+            $('#year-filter').text($tahun)
+            var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+            $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)            
+
+            if($filter1 == 'Periode') {
+                $('#list-filter-2').find('.list').each(function() {
+                    if($(this).data('bulan').toString() == $month) {
+                        $(this).addClass('selected')
+                        $month = $(this).data('bulan').toString();
+                        return false;
+                    }
+                });
+            }
+
+            setTimeout (function(){
+                getDataBox();
+                getFPBulan();
+                getKontribusi();
+                getMargin();
+            },100)
+        }
+    });
+})();
+//end of filter default
+
 $('#kode_neraca').change(function(){
     $filter_kontribusi = $(this).val();
     var bidang = ($('#kode_neraca option:selected').text() != "Semua Bidang" ? $('#kode_neraca option:selected').text() : "")
@@ -354,7 +383,6 @@ function getKontribusi(){
         async: true,
         success:function(result){
             var data = result.data;
-            console.log(data)
             Highcharts.chart('chart-contribusi', {
             chart: {
                 type: 'pie'
@@ -477,13 +505,6 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
     showNotification(`Menampilkan dashboard YPT`);
 })
 // END TABLE TOP EVENT
-
-setTimeout (function(){
-    getDataBox();
-    getFPBulan();
-    getKontribusi();
-    getMargin();
-},200)
 </script>
 
 
