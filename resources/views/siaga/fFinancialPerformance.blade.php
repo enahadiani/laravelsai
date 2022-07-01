@@ -79,8 +79,6 @@ $('.card-klik').click(function() {
                 $filter1_kode = "PRD";
                 $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
                 $filter_kontribusi = "41";
-            }else{
-                $back_dash = false;
             }
 
             $('#year-filter').text($tahun)
