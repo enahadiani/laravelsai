@@ -21,6 +21,8 @@ $judulChart = null;
 $filter1_kode = "PRD";
 $filter2_kode = "";
 $filter_kontribusi = "41";
+$filter_kode_klp = "";
+$filter_kode_neraca = "";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -32,6 +34,79 @@ $('.card-klik').click(function() {
     $filter_kode_neraca = kode;
     loadForm("{{ url('/siaga-auth/form/fDetailFinancialPerformance') }}")
 });
+
+
+//filter kontribusi
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-kontribusi-filter') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            var targetEl = document.getElementById('kode_neraca');
+            if(targetEl) {
+                if(result.status){
+                    targetEl.innerHTML = '';
+                    if(typeof result.data !== 'undefined' && result.data.length>0){
+                        for(i=0;i<result.data.length;i++){
+                            targetEl.innerHTML += '<option value="'+result.data[i].kode_neraca+'">'+result.data[i].nama+'</option>';
+                        }
+                    }
+                }
+            }
+            // control.setValue('');
+        }
+    });
+})();
+//end of filter kontribusi
+
+//filter default
+(function () {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('siaga-dash/data-fp-default-filter') }}",
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            if(typeof $back_dash != 'undefined' && $back_dash == false){
+                $filter_lokasi = "";
+                $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
+                $filter1 = "Periode";
+                $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
+                $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                $judulChart = null;
+                $filter1_kode = "PRD";
+                $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                $filter_kontribusi = "41";
+            }else{
+                $back_dash = false;
+            }
+
+            $('#year-filter').text($tahun)
+            var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
+            $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)            
+
+            if($filter1 == 'Periode') {
+                $('#list-filter-2').find('.list').each(function() {
+                    if($(this).data('bulan').toString() == $month) {
+                        $(this).addClass('selected')
+                        $month = $(this).data('bulan').toString();
+                        return false;
+                    }
+                });
+            }
+
+            setTimeout (function(){
+                getDataBox();
+                getFPBulan();
+                getKontribusi();
+                getMargin();
+            },100)
+        }
+    });
+})();
+//end of filter default
 
 function updateAllChart() {
     getDataBox();
@@ -287,78 +362,6 @@ function getFPBulan(){
     })
 }
 //end of monthly performance
-
-//filter kontribusi
-(function () {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('siaga-dash/data-fp-kontribusi-filter') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            var targetEl = document.getElementById('kode_neraca');
-            if(targetEl) {
-                if(result.status){
-                    targetEl.innerHTML = '';
-                    if(typeof result.data !== 'undefined' && result.data.length>0){
-                        for(i=0;i<result.data.length;i++){
-                            targetEl.innerHTML += '<option value="'+result.data[i].kode_neraca+'">'+result.data[i].nama+'</option>';
-                        }
-                    }
-                }
-            }
-            // control.setValue('');
-        }
-    });
-})();
-//end of filter kontribusi
-
-//filter default
-(function () {
-    $.ajax({
-        type: 'GET',
-        url: "{{ url('siaga-dash/data-fp-default-filter') }}",
-        dataType: 'json',
-        async: true,
-        success:function(result) {
-            if(typeof $back_dash != 'undefined' && $back_dash == false){
-                $filter_lokasi = "";
-                $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
-                $filter1 = "Periode";
-                $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
-                $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
-                $judulChart = null;
-                $filter1_kode = "PRD";
-                $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
-                $filter_kontribusi = "41";
-            }else{
-                $back_dash = false;
-            }
-
-            $('#year-filter').text($tahun)
-            var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
-            $('#select-text-fp').text(`${nama_filter} ${$filter2} ${$tahun}`)            
-
-            if($filter1 == 'Periode') {
-                $('#list-filter-2').find('.list').each(function() {
-                    if($(this).data('bulan').toString() == $month) {
-                        $(this).addClass('selected')
-                        $month = $(this).data('bulan').toString();
-                        return false;
-                    }
-                });
-            }
-
-            setTimeout (function(){
-                getDataBox();
-                getFPBulan();
-                getKontribusi();
-                getMargin();
-            },100)
-        }
-    });
-})();
-//end of filter default
 
 $('#kode_neraca').change(function(){
     $filter_kontribusi = $(this).val();
