@@ -13,6 +13,7 @@
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
 $filter_kode_neraca = "";
+$filter_kode_klp = "";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
