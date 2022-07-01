@@ -69,7 +69,7 @@ $('.card-klik').click(function() {
         dataType: 'json',
         async: true,
         success:function(result) {
-            if(typeof $back_dash != 'undefined' && $back_dash == false){
+            if(typeof $back_dash == 'undefined' && $back_dash == false){
                 $filter_lokasi = "";
                 $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
                 $filter1 = "Periode";
