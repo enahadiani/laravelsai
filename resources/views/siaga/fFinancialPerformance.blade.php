@@ -53,17 +53,17 @@ function getDataBox() {
             var data = result.data;
             //Reveneu
 
-            var capai_rka=data.revenue.capai_rka;
-            var capai_yoy=data.revenue.capai_yoy;
-            if(capai_rka < 100) {
+            var capai_rka=Math.abs(data.revenue.capai_rka);
+            var capai_yoy=Math.abs(data.revenue.capai_yoy);
+            if(data.revenue.nilai < data.revenue.rka) {
                 $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '&nbsp;'
+                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '&nbsp;'
+                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(capai_yoy < 0) {
+            if(data.revenue.nilai < data.revenue.yoy) {
                 $('#capai_yoy-revenue').removeClass('green-text').addClass('red-text')
                 iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
@@ -71,108 +71,111 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-revenue').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-revenue').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,2) + '%')
+            $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,2) + '%')
             $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
             $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
             $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
 
             //COGS
-            var capai_rka=data.cogs.capai_rka;
-            var capai_yoy=data.cogs.capai_yoy;
-            if(capai_rka < 100) {
+            var capai_rka=Math.abs(data.cogs.capai_rka);
+            var capai_yoy=Math.abs(data.cogs.capai_yoy);
+            if(data.cogs.nilai > data.cogs.rka) {
                 $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '&nbsp;'
+                iconCogsAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_rka-cogs').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '&nbsp;'
+                iconCogsAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(capai_yoy < 0) {
+
+            if(data.cogs.nilai > data.cogs.yoy) {
                 $('#capai_yoy-cogs').removeClass('green-text').addClass('red-text')
-                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+                iconCogsYoy = '<img alt="up-icon"  src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_yoy-cogs').removeClass('red-text').addClass('green-text')
-                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconCogsYoy = '<img alt="down-icon"  src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-cogs').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-cogs').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-cogs').html(iconCogsAch+' '+number_format(capai_rka,2) + '%')
+            $('#capai_yoy-cogs').html(iconCogsYoy+' '+number_format(capai_yoy,2) + '%')
             $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
             $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
             $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1));
 
             //Gross Profit
-            var capai_rka=data.gross_profit.capai_rka;
-            var capai_yoy=data.gross_profit.capai_yoy;
-            if(capai_rka < 100) {
+            var capai_rka=Math.abs(data.gross_profit.capai_rka);
+            var capai_yoy=Math.abs(data.gross_profit.capai_yoy);
+            if(data.gross_profit.nilai < data.gross_profit.rka) {
                 $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '&nbsp;'
+                iconGrossAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_rka-gross_profit').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '&nbsp;'
+                iconGrossAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(capai_yoy < 0) {
+
+            if(data.gross_profit.nilai < data.gross_profit.yoy) {
                 $('#capai_yoy-gross_profit').removeClass('green-text').addClass('red-text')
-                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+                iconGrossYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_yoy-gross_profit').removeClass('red-text').addClass('green-text')
-                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconGrossYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-gross_profit').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-gross_profit').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-gross_profit').html(iconGrossAch+' '+number_format(capai_rka,2) + '%')
+            $('#capai_yoy-gross_profit').html(iconGrossYoy+' '+number_format(capai_yoy,2) + '%')
             $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
             $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
             $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1));
             
             //OPEX
-            var capai_rka=data.opex.capai_rka;
-            var capai_yoy=data.opex.capai_yoy;
-            if(capai_rka < 100) {
+            var capai_rka=Math.abs(data.opex.capai_rka);
+            var capai_yoy=Math.abs(data.opex.capai_yoy);
+            if(data.opex.nilai > data.opex.rka) {
                 $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '&nbsp;'
+                iconOpexAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_rka-opex').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '&nbsp;'
+                iconOpexAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(capai_yoy < 0) {
+            if(data.opex.nilai > data.opex.yoy) {
                 $('#capai_yoy-opex').removeClass('green-text').addClass('red-text')
-                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+                iconOpexYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
                 $('#capai_yoy-opex').removeClass('red-text').addClass('green-text')
-                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                iconOpexYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-opex').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-opex').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-opex').html(iconOpexAch+' '+number_format(capai_rka,2) + '%')
+            $('#capai_yoy-opex').html(iconOpexYoy+' '+number_format(capai_yoy,2) + '%')
             $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
             $('#rka-opex').text(toMilyar(data.opex.rka,1));
             $('#yoy-opex').text(toMilyar(data.opex.yoy,1));
 
             //Net Income
-            var capai_rka=data.net_income.capai_rka;
-            var capai_yoy=data.net_income.capai_yoy;
-            if(capai_rka < 100) {
-                $('#capai_rka-net-income').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '&nbsp;'
+            var capai_rka=Math.abs(data.net_income.capai_rka);
+            var capai_yoy=Math.abs(data.net_income.capai_yoy);
+            if(data.net_income.nilai < data.net_income.rka) {
+                $('#capai_rka-net_income').removeClass('green-text').addClass('red-text')
+                iconNetAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
-                $('#capai_rka-net-income').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '&nbsp;'
+                $('#capai_rka-net_income').removeClass('red-text').addClass('green-text')
+                iconNetAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            if(capai_yoy < 0) {
-                $('#capai_yoy-net-income').removeClass('green-text').addClass('red-text')
-                iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+
+            if(data.net_income.nilai < data.net_income.yoy) {
+                $('#capai_yoy-net_income').removeClass('green-text').addClass('red-text')
+                iconNetYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
             } else {
-                $('#capai_yoy-net-income').removeClass('red-text').addClass('green-text')
-                iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+                $('#capai_yoy-net_income').removeClass('red-text').addClass('green-text')
+                iconNetYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-net_income').text(number_format(capai_rka,2) + '%')
-            $('#capai_yoy-net_income').text(number_format(capai_yoy,2) + '%')
+            $('#capai_rka-net_income').html(iconNetAch+' '+number_format(capai_rka,2) + '%')
+            $('#capai_yoy-net_income').html(iconNetYoy+' '+number_format(capai_yoy,2) + '%')
             $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
             $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
             $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1));
@@ -737,8 +740,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-revenue" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-revenue" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_yoy-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -764,8 +767,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-cogs" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-cogs" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-cogs" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_yoy-cogs" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -790,8 +793,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-gross_profit" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-gross_profit" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-gross_profit" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_yoy-gross_profit" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -816,8 +819,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-opex" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-opex" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-opex" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_yoy-opex" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                         </div>
                     </div>
                 </div>
@@ -842,8 +845,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-net_income" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-net_income" class="text-success text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-net_income" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_yoy-net_income" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                         </div>
                     </div>
                 </div>

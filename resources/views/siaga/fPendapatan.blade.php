@@ -50,18 +50,18 @@
             async: true,
             success: function(result) {
                 var data = result.data;
-                var capai_rka = data.revenue.capai_rka;
-                var capai_yoy = data.revenue.capai_yoy;
-                var nilai = 0;
-                if (capai_rka < 100) {
+
+                var capai_rka=Math.abs(data.revenue.capai_rka);
+                var capai_yoy=Math.abs(data.revenue.capai_yoy);
+                if(data.revenue.nilai < data.revenue.rka) {
                     $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
-                    iconPdptAch = '&nbsp;'
+                    iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
                 } else {
                     $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
-                    iconPdptAch = '&nbsp;'
+                    iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
                 }
 
-                if (capai_yoy < 0) {
+                if(data.revenue.nilai < data.revenue.yoy) {
                     $('#capai_yoy-revenue').removeClass('green-text').addClass('red-text')
                     iconPdptYoy = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
                 } else {
@@ -69,11 +69,11 @@
                     iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
                 }
 
-                $('#capai_rka-revenue').text(number_format(capai_rka.toFixed(2),2) + '%');
-                $('#capai_yoy-revenue').text(number_format(capai_yoy.toFixed(2),2) + '%');
-                $('#nilai-revenue').text(toMilyar(data.revenue.nilai, 1));
-                $('#rka-revenue').text(toMilyar(data.revenue.rka, 1));
-                $('#yoy-revenue').text(toMilyar(data.revenue.yoy, 1));
+                $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,2) + '%')
+                $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,2) + '%')
+                $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
+                $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
+                $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
             }
         });
     }
@@ -343,7 +343,7 @@
                         </div>
                         <div class='col-4 px-0 text-center'>
                             ${icon}
-                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(line.persen,2)}%</span>
+                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(Math.abs(line.persen),2)}%</span>
                         </div>
                     </div>
                     `;
@@ -681,8 +681,8 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        <div id="capai_rka-revenue" class="text-success" style="padding-bottom: 0.5rem;padding-left:3rem"></div>
-                        <div id="capai_yoy-revenue" class="text-success" style="padding-bottom: 0.5rem;padding-left:3rem"></div>
+                        <div id="capai_rka-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                        <div id="capai_yoy-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
                     </div>
                 </div>
             </div>
