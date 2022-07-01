@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/global.dekstop.css?version=_').time() }}" />
 <link rel="stylesheet" href="{{ asset('dash-asset/dash-telu/dash-pembendaharaan.dekstop.css?version=_').time() }}" />
 <style>
-    .link-detail {
+    .card-klik,.link-detail {
         cursor: pointer;
     }
 </style>
@@ -12,20 +12,17 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
-var $filter_lokasi = "";
-var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
-var $filter1 = "Periode";
-var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
-var $month = "{{ substr(Session::get('periode'),4,2) }}";
-var $judulChart = null;
-var $filter1_kode = "PRD";
-var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
-var $filter_kontribusi = "41";
-var $filter_kode_klp = "";
+$filter_kode_neraca = "";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
     $('.menu-chart-custom').addClass('hidden');
+});
+
+$('.card-klik').click(function() {
+    var kode = $(this).data('box');
+    $filter_kode_neraca = kode;
+    loadForm("{{ url('/siaga-auth/form/fDetailFinancialPerformance') }}")
 });
 
 function updateAllChart() {
@@ -316,15 +313,19 @@ function getFPBulan(){
         dataType: 'json',
         async: true,
         success:function(result) {
-            $filter_lokasi = "";
-            $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
-            $filter1 = "Periode";
-            $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
-            $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
-            $judulChart = null;
-            $filter1_kode = "PRD";
-            $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
-            $filter_kontribusi = "41";
+            if(typeof $back_dash != 'undefined' && $back_dash == false){
+                $filter_lokasi = "";
+                $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
+                $filter1 = "Periode";
+                $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
+                $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                $judulChart = null;
+                $filter1_kode = "PRD";
+                $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
+                $filter_kontribusi = "41";
+            }else{
+                $back_dash = false;
+            }
 
             $('#year-filter').text($tahun)
             var nama_filter = ($filter1_kode == 'PRD' ? 'Bulan' : $filter1_kode);
@@ -722,7 +723,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
 <section id="body" class="body">
     <div class="row body-dash row-box" style="position: relative;">
         <div class='col-md-2dot4 col-12 px-1' >
-            <div class="card card-dash rounded-lg md-1" >
+            <div class="card card-dash card-klik rounded-lg md-1" data-box="41">
                 <div class="card-body pt-2 ">
                     <div class="row">
                         <div class="col-12"><span style="font-size: 1rem;">Revenue</span></div>
@@ -749,7 +750,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
         </div>
     
         <div class='col-md-2dot4 col-12 px-1'>
-            <div class="card card-dash rounded-lg " data-box="cogs">
+            <div class="card card-dash rounded-lg card-klik" data-box="42">
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col-12"><span style="font-size: 1rem;">COGS</span></div>
@@ -775,7 +776,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
             </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-            <div class="card card-dash rounded-lg " data-box="profit">
+            <div class="card card-dash rounded-lg card-klik" data-box="4T">
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col-12"><span style="font-size: 1rem;">Gross Profit</span></div>
@@ -801,7 +802,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
             </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-            <div class="card card-dash rounded-lg " data-box="opex">
+            <div class="card card-dash rounded-lg card-klik" data-box="59">
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col-12"><span style="font-size: 1rem;">OPEX</span></div>
@@ -827,7 +828,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
             </div>
         </div>
         <div class='col-md-2dot4 px-1'>
-            <div class="card card-dash rounded-lg " data-box="income">
+            <div class="card card-dash rounded-lg card-klik" data-box="74">
                 <div class="card-body pt-2">
                     <div class="row">
                         <div class="col-12"><span style="font-size: 1rem;">Net Income</span></div>

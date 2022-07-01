@@ -28,6 +28,12 @@ Route::get('data-fp-kontribusi-filter', 'Siaga\DashboardFPController@getFilterKo
 Route::get('data-fp-kontribusi', 'Siaga\DashboardFPController@getKontribusi');
 Route::get('data-fp-margin', 'Siaga\DashboardFPController@getMargin');
 
+Route::get('data-fp-detail-box', 'Siaga\DashboardFPDetailController@getDataBox');
+Route::get('data-fp-detail-kontribusi', 'Siaga\DashboardFPDetailController@getKontribusi');
+Route::get('data-fp-detail-portofolio', 'Siaga\DashboardFPDetailController@getPortofolio');
+Route::get('data-fp-detail-ytdvsyoy', 'Siaga\DashboardFPDetailController@getYTDvsYoY');
+Route::get('data-fp-detail-rkavsreal', 'Siaga\DashboardFPDetailController@getRKAvsReal');
+
 
 //Detail Financial Performance
 Route::get('data-pend-box', 'Siaga\DashboardPendController@getDataBox');
