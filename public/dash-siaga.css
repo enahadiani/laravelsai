@@ -351,3 +351,7 @@ th{
     padding-top: 0.5rem;
 }
 /* END FILTER BOX */
+
+#margin.table tbody tr {
+    cursor: pointer;
+}

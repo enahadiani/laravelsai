@@ -21,6 +21,7 @@ var $judulChart = null;
 var $filter1_kode = "PRD";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
 var $filter_kontribusi = "41";
+var $filter_kode_klp = "";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -43,7 +44,8 @@ function getDataBox() {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_klp": $filter_kode_klp
         },
         dataType: 'json',
         async: true,
@@ -188,7 +190,8 @@ function getFPBulan(){
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_klp": $filter_kode_klp
         },
         dataType: 'json',
         async: true,
@@ -359,6 +362,7 @@ $('#kode_neraca').change(function(){
         "tahun": $tahun,
         "jenis": $filter1_kode,
         "kode_neraca": $filter_kontribusi,
+        "kode_klp": $filter_kode_klp
     }), 500);
     timeoutID = null;
     if(bidang != ""){
@@ -378,6 +382,7 @@ function getKontribusi(){
             "jenis": $filter1_kode,
             "kode_lokasi": $filter_lokasi,
             "kode_neraca": $filter_kontribusi,
+            "kode_klp": $filter_kode_klp
         },
         dataType: 'json',
         async: true,
@@ -446,13 +451,18 @@ function getMargin(){
             if(result.data.length > 0){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
+                    if(line.kode_klp == $filter_kode_klp){
+                        var select = "selected";
+                        var display = 'inline';
+                    }else{
                         var select = "";
                         var display = 'none';
+                    }
                     html+=`
                     <tr ${select}>
-                        <td ><p class="kode hidden">${line.kode_lokasi}</p>
+                        <td ><p class="kode hidden">${line.kode_klp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
-                            <span class="nama-lokasi">${line.kode_klp}</span></td>
+                            <span class="nama-klp">${line.kode_klp}</span></td>
                         <td class='text-right'>${number_format(line.persen,2)}%</td>
                         
                     </tr>`;
@@ -472,8 +482,8 @@ $('#margin tbody').on('click', 'tr td', function() {
     var icon = $(this).closest('tr').find('td:first').find('.check-row')
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
-    var lokasi = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
-    $filter_kode_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+    var nama_klp = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
+    $filter_kode_klp = $(this).closest('tr').find('td:first').find('.kode').text()
     if(check == 'selected-row') {
         return;
     }
@@ -488,8 +498,8 @@ $('#margin tbody').on('click', 'tr td', function() {
         getKontribusi();
         getMargin();
     }, 200)
-    $('#lokasi-title').text(lokasi)
-    showNotification(`Menampilkan dashboard ${lokasi}`);
+    // $('#lokasi-title').text(lokasi)
+    showNotification(`Menampilkan dashboard ${nama_klp}`);
 })
 
 $('#margin tbody').on('click', 'tr.selected-row', function() {
@@ -497,7 +507,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
     $filter_kode_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#lokasi-title').text('YPT')
+    // $('#lokasi-title').text('YPT')
     getDataBox();
     getFPBulan();
     getKontribusi();
@@ -873,7 +883,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                             <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
                             <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
                         </div>
-                        <div class="table-responsive mt-2" id="div-selisih-cf" style="height:calc(100vh - 180px);position:relative">
+                        <div class="table-responsive mt-2" id="div-margin" style="height:calc(100vh - 180px);position:relative">
                             <style>
                                 #margin th
                                 {

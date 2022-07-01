@@ -50,7 +50,8 @@ class DashboardFPController extends Controller {
             $fields = [
                 // 'periode' => $req['periode'],
                 'periode' => $tahun . $req['periode'][1],
-                'jenis' => $req['jenis']
+                'jenis' => $req['jenis'],
+                'kode_klp' => $req['kode_klp']
             ];
 
             if(isset($req['kode_lokasi'])){
@@ -88,7 +89,8 @@ class DashboardFPController extends Controller {
             $tahun = $r->query('tahun');
             $fields = [
                 'tahun' => $tahun,
-                'jenis' => $req['jenis']
+                'jenis' => $req['jenis'],
+                'kode_klp' => $req['kode_klp']
             ];
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'siaga-dash/data-fp-per-bulan',[
@@ -191,6 +193,7 @@ class DashboardFPController extends Controller {
                 'periode' => $tahun . $req['periode'][1],
                 'jenis' => $req['jenis'],
                 'kode_neraca' => $req['kode_neraca'],
+                'kode_klp' => $req['kode_klp']
             ];
 
             if(isset($req['kode_lokasi'])){
