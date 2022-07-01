@@ -467,7 +467,7 @@ function getMargin(){
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_klp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
-                            <span class="nama-klp">${line.kode_klp}</span></td>
+                            <span class="nama-klp">${line.nama}</span></td>
                         <td class='text-right'>${number_format(line.persen,2)}%</td>
                         
                     </tr>`;
