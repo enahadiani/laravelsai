@@ -23,6 +23,7 @@ $filter2_kode = "";
 $filter_kontribusi = "41";
 $filter_kode_klp = "";
 $filter_kode_neraca = "";
+$back_dash = false;
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
