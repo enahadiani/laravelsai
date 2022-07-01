@@ -12,9 +12,15 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
-$filter_kode_neraca = "";
-$filter_kode_klp = "";
+$filter_lokasi = "";
 $tahun = "";
+$filter1 = "Periode";
+$filter2 = "";
+$month = "";
+$judulChart = null;
+$filter1_kode = "PRD";
+$filter2_kode = "";
+$filter_kontribusi = "41";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
