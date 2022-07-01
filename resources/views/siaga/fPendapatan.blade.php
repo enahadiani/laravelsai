@@ -392,10 +392,10 @@
                         series: [{
                             name: 'Nilai',
                             data: [{
-                                y: Math.abs(parseFloat(line.yoy)),
+                                y: parseFloat(line.yoy),
                                 color: '#d7d7d7',
                             },{ 
-                                y: Math.abs(parseFloat(line.ytd)),
+                                y: parseFloat(line.ytd),
                                 color : '#900604'
                             }]
                         }]
