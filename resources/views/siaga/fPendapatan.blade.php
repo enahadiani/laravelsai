@@ -336,8 +336,8 @@
                         var text_color = 'green-text';
                     }
                     html =`
-                    <div class='row'>
-                        <p>${line.nama}</p>
+                    <div class='row px-2'>
+                        <div class='col-12'>${line.nama}</div>
                         <div class='col-8 px-0'>
                             <div id='chart-${line.kode_klp}' style='height:100px !important;'></div>
                         </div>
@@ -712,7 +712,7 @@
         <div class="card card-dash rounded-lg">
             <div class="card-body" style="padding-left: 0.5em;">
                 <div style="padding-top:0.5em; font-size:1em">Pendapatan YoY</div>
-                    <div class="row ">
+                    <div class="row mb-3">
                         <div class="col-1 d-inline">
                             <div style="width: 1em;height:1em; border-radius: 100%; background-color: #A52A2A">
                             </div>
@@ -729,12 +729,7 @@
                         </div>
                         <!-- </div> -->
                     </div>
-                    <div class="card-body">
-                        <div id="progress-ytdyoy" style="width:100%; height:17.5rem;"></div>
-                    </div>
-                </div>
-                <div class="p-2 mt-2" style="width:100%; height:15.2em;">
-
+                    <div id="progress-ytdyoy" style="width:100%; height:calc(100vh - 90px);overflow-y:scroll;overflow-x:hidden"></div>
                 </div>
             </div>
         </div>
