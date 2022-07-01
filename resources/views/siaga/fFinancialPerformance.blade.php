@@ -14,6 +14,7 @@ $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
 $filter_kode_neraca = "";
 $filter_kode_klp = "";
+$tahun = "";
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
