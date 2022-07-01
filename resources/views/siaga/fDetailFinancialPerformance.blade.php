@@ -40,7 +40,8 @@
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_neraca": $filter_kode_neraca
+                "kode_neraca": $filter_kode_neraca,
+                "kode_klp": $filter_kode_klp
             },
             dataType: 'json',
             async: true,
@@ -85,7 +86,8 @@
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_neraca": $filter_kode_neraca
+                "kode_neraca": $filter_kode_neraca,
+                "kode_klp": $filter_kode_klp
             },
             dataType: 'json',
             async: true,
@@ -168,7 +170,8 @@
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_neraca": $filter_kode_neraca
+                "kode_neraca": $filter_kode_neraca,
+                "kode_klp": $filter_kode_klp
             },
             dataType: 'json',
             async: true,
@@ -231,7 +234,8 @@
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_neraca": $filter_kode_neraca
+                "kode_neraca": $filter_kode_neraca,
+                "kode_klp": $filter_kode_klp
             },
             dataType: 'json',
             async: true,
@@ -271,31 +275,7 @@
                             }
                         }
                     },
-                    series: [{
-                        name: 'Bisnis AD',
-                        marker: {
-                            symbol: 'square'
-                        },
-                        data: data[0].data
-                    }, {
-                        name: 'Telco Solution',
-                        marker: {
-                            symbol: 'diamond'
-                        },
-                        data: data[1].data
-                    }, {
-                        name: 'BS Cabang',
-                        marker: {
-                            symbol: 'square'
-                        },
-                        data: data[2].data
-                    }, {
-                        name: 'Business Solution',
-                        marker: {
-                            symbol: 'diamond'
-                        },
-                        data: data[3].data
-                    }]
+                    series: result.data
                 });
             }
         })
@@ -313,7 +293,8 @@
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_neraca": $filter_kode_neraca
+                "kode_neraca": $filter_kode_neraca,
+                "kode_klp": $filter_kode_klp
             },
             dataType: 'json',
             async: true,

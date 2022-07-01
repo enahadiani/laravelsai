@@ -53,9 +53,9 @@ class DashboardFPDetailController extends Controller {
                 'jenis' => $req['jenis'],
                 'kode_neraca' => $req['kode_neraca']
             ];
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_klp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_klp' => $req['kode_klp']
                 ]);
             }
 
@@ -116,9 +116,9 @@ class DashboardFPDetailController extends Controller {
                 'kode_neraca' => $req['kode_neraca']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_klp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_klp' => $req['kode_klp']
                 ]);
             }
 
@@ -177,9 +177,9 @@ class DashboardFPDetailController extends Controller {
                 'kode_neraca' => $req['kode_neraca']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_klp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_klp' => $req['kode_klp']
                 ]);
             }
 
@@ -238,9 +238,9 @@ class DashboardFPDetailController extends Controller {
                 'kode_neraca' => $req['kode_neraca']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_klp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_klp' => $req['kode_klp']
                 ]);
             }
 
@@ -299,9 +299,9 @@ class DashboardFPDetailController extends Controller {
                 'kode_neraca' => $req['kode_neraca']
             ];
 
-            if(isset($req['kode_lokasi'])){
+            if(isset($req['kode_klp'])){
                 $fields = array_merge($fields,[
-                    'kode_lokasi' => $req['kode_lokasi']
+                    'kode_klp' => $req['kode_klp']
                 ]);
             }
 

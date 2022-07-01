@@ -12,18 +12,20 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
-$filter_lokasi = "";
-$tahun = "";
-$filter1 = "Periode";
-$filter2 = "";
-$month = "";
-$judulChart = null;
-$filter1_kode = "PRD";
-$filter2_kode = "";
+if(typeof $back_dash == 'undefined'){
+    $filter_lokasi = "";
+    $tahun = "";
+    $filter1 = "Periode";
+    $filter2 = "";
+    $month = "";
+    $judulChart = null;
+    $filter1_kode = "PRD";
+    $filter2_kode = "";
+    $filter_kode_klp = "";
+    $filter_kode_neraca = "";
+}
 $filter_kontribusi = "41";
-$filter_kode_klp = "";
-$filter_kode_neraca = "";
-$back_dash = false;
+
 
 $(window).click(function() {
     $('#filter-box').addClass('hidden')
@@ -70,7 +72,7 @@ $('.card-klik').click(function() {
         dataType: 'json',
         async: true,
         success:function(result) {
-            if(typeof $back_dash != 'undefined' && $back_dash == false){
+            if(typeof $back_dash == 'undefined'){
                 $filter_lokasi = "";
                 $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
                 $filter1 = "Periode";
@@ -472,12 +474,13 @@ function getMargin(){
                         var select = "";
                         var display = 'none';
                     }
+                    var persen = parseFloat(line.revenue) != 0 ? (1 - (parseFloat(line.cogs)/parseFloat(line.revenue)))*100 : 0;
                     html+=`
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_klp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-klp">${line.nama}</span></td>
-                        <td class='text-right'>${number_format(line.persen,2)}%</td>
+                        <td class='text-right'>${number_format(persen,2)}%</td>
                         
                     </tr>`;
                 }
