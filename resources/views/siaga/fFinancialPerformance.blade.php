@@ -452,7 +452,7 @@ function getMargin(){
                 for(var i=0; i < result.data.length; i++){
                     var line = result.data[i];
                     if(line.kode_klp == $filter_kode_klp){
-                        var select = "selected";
+                        var select = "class='selected-row'";
                         var display = 'inline';
                     }else{
                         var select = "";
@@ -504,7 +504,7 @@ $('#margin tbody').on('click', 'tr td', function() {
 
 $('#margin tbody').on('click', 'tr.selected-row', function() {
     var table = $(this).parents('table').attr('id')
-    $filter_kode_lokasi="";
+    $filter_kode_klp="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
     // $('#lokasi-title').text('YPT')
