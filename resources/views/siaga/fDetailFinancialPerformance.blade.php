@@ -111,14 +111,29 @@
                         min: 0,
                         title: {
                             text: ''
+                        },
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
                         }
                     }],
                     legend: {
                         shadow: false
                     },
                     tooltip: {
-                        shared: true
-
+                        shared: true,
+                        useHTML: true,
+                        formatter: function() {
+                            var s = '<b>'+ this.x +'</b>';
+                            
+                            $.each(this.points, function(i, point) {
+                                s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
+                                    number_format(point.y,2) +'';
+                            });
+                            
+                            return s;
+                        },
                     },
                     plotOptions: {
                         column: {
@@ -193,6 +208,12 @@
                             valueSuffix: '%'
                         }
                     },
+                    tooltip: {
+                        useHTML: true,
+                        formatter:function(){
+                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
+                        }
+                    },
                     plotOptions: {
                         pie: {
                             allowPointSelect: false,
@@ -260,11 +281,26 @@
                     yAxis: {
                         title: {
                             text: 'Nilai'
+                        },
+                        labels: {
+                            formatter: function() {
+                                return singkatNilai(this.value);
+                            }
                         }
                     },
                     tooltip: {
-                        crosshairs: true,
-                        shared: true
+                        shared: true,
+                        useHTML: true,
+                        formatter: function() {
+                            var s = '<b>'+ this.x +'</b>';
+                            
+                            $.each(this.points, function(i, point) {
+                                s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
+                                    number_format(point.y,2) +'';
+                            });
+                            
+                            return s;
+                        },
                     },
                     plotOptions: {
                         spline: {
@@ -348,6 +384,20 @@
                         },
                         yAxis: {
                             visible: false
+                        },
+                        tooltip: {
+                            shared: true,
+                            useHTML: true,
+                            formatter: function() {
+                                var s = '<b>'+ this.x +'</b>';
+                                
+                                $.each(this.points, function(i, point) {
+                                    s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
+                                        number_format(point.y,2) +'';
+                                });
+                                
+                                return s;
+                            },
                         },
                         plotOptions: {
                             series:{

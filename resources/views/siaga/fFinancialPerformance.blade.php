@@ -275,7 +275,7 @@ function getFPBulan(){
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_lokasi": $filter_lokasi,
-            "kode_klp": $filter_kode_klp
+            "kode_klp": $filter_kode_klp,
         },
         dataType: 'json',
         async: true,
@@ -316,18 +316,27 @@ function getFPBulan(){
                     min: 0,
                     title: {
                         text: 'Nilai'
+                    },
+                    labels: {
+                        formatter: function() {
+                            return singkatNilai(this.value);
+                        }
                     }
                 },
-
                 tooltip: {
-                    headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                    pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                        '<td style="padding:0"><b>{point.y:.2f} M</b></td></tr>',
-                    footerFormat: '</table>',
                     shared: true,
-                    useHTML: true
+                    useHTML: true,
+                    formatter: function() {
+                        var s = '<b>'+ this.x +'</b>';
+                        
+                        $.each(this.points, function(i, point) {
+                            s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
+                                number_format(point.y,2) +'';
+                        });
+                        
+                        return s;
+                    },
                 },
-
                 plotOptions: {
                     column: {
                         stacking: 'normal'
@@ -336,22 +345,22 @@ function getFPBulan(){
                 series: [
                     {
                         name: 'Pendapatan',
-                        data: data.pendapatan.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        data: data.pendapatan,
                         color: '#80b7be',
                     }, {
                         name: 'Beban',
-                        data: data.beban.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        data: data.beban,
                         stack: 'beban+hpp',
                         color: '#fbe697',
                     }, {
                         name: 'HPP',
-                        data: data.hpp.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        data: data.hpp,
                         stack: 'beban+hpp',
                         color: '#f49b4f',
                     }, {
                         type: 'spline',
                         name: 'NI',
-                        data: data.net_income.map(item => item < 0 ? parseFloat(((item * -1) / 1000000000).toFixed(2)) : parseFloat((item / 1000000000).toFixed(2))),
+                        data: data.net_income,
                         color: '#7e0200',
                         marker: {
                             lineWidth: 1,
@@ -412,7 +421,10 @@ function getKontribusi(){
                 text: ''
             },
             tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                useHTML: true,
+                formatter:function(){
+                    return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
+                }
             },
             credits: {
                 enabled: false
@@ -428,8 +440,16 @@ function getKontribusi(){
                     cursor: 'pointer',
                     dataLabels: {
                         enabled: true,
-                        format: '<b>{point.name}</b><br>{point.percentage:.1f} % <br>',
-                        distance: -40,
+                        distance: -30,
+                        useHTML: true,
+                        align: 'left',
+                        formatter: function () {
+                            return $('<div/>').css({
+                                'padding': '0 3px',
+                                'font-size': '9px',
+                                'borderColor': 'white'
+                            }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
+                        }
                     },
                     showInLegend: false
                 }
@@ -438,6 +458,9 @@ function getKontribusi(){
                 {
                     name: 'Share',
                     colorByPoint: true,
+                    minPointSize: 90,
+                    innerSize: '30%',
+                    zMin: 0,
                     data: data
                 }
             ]
