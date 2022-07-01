@@ -851,7 +851,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
         </div>
     </div>
     <div class="row mb-2">
-        <div class="col-lg-6 col-md-12 px-1" >
+        <div class="col-md-5dot4 px-1" >
             {{-- REVENUE--}}
             <div class="card card-dash rounded-lg">
                 <div class="card-body">
@@ -860,7 +860,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
             </div>
             {{-- END REVENUE --}}
         </div>
-        <div class="col-lg-3 col-md-6 px-1">
+        <div class="col-md-3dot4 px-1">
             {{-- REVENUE--}}
             <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;height: calc(83.5vh - 180px)">
                 <div class="row"> 
@@ -874,7 +874,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
             </div>
             {{-- END REVENUE --}}
         </div>
-        <div class="col-lg-3 col-md-6 px-1">
+        <div class="col-md-2dot4 px-1">
             {{-- PENGAJUAN--}}
             <div class="card card-dash rounded-lg" style="height: calc(83.5vh - 180px)">
                 <div class="card-body ">
