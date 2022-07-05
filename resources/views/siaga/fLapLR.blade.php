@@ -182,7 +182,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('siaga-auth/form/rptlabaRugiAgg') }}";
+            xurl = "{{ url('siaga-auth/form/rptLabaRugiAgg') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
@@ -201,7 +201,7 @@
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
             $('#saku-report').removeClass('hidden');
-            xurl = "{{ url('siaga-auth/form/rptlabaRugiAgg') }}";
+            xurl = "{{ url('siaga-auth/form/rptLabaRugiAgg') }}";
             $('#saku-report #canvasPreview').load(xurl);
         });
 
