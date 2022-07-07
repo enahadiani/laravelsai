@@ -86,6 +86,11 @@
             #table-report thead th{
                 padding: 0px 8px !important;
             }
+            @media print {
+                .dataTables_scrollBody{
+                    overflow: unset !important;
+                }
+            }
             </style>`;
             html+=judul_lap("LAPORAN LABA RUGI ANGGARAN DIREKTORAT <br><span class='sbjudul'>"+$kode_bidang.fromname+"</span>",lokasi,'Periode '+$periode.fromname)+`
             <table class='table table-bordered table-striped' width='100%' id="table-report">

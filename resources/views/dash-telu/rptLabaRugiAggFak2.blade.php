@@ -87,6 +87,11 @@
             #table-report thead th{
                 padding: 0px 8px !important;
             }
+            @media print {
+                .dataTables_scrollBody{
+                    overflow: unset !important;
+                }
+            }
             </style>`;
             for(var j=0; j < data.length; j++){
                 var linex = data[j];

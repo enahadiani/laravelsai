@@ -84,6 +84,11 @@
             #table-report thead th{
                 padding: 0px 8px !important;
             }
+            @media print {
+                .dataTables_scrollBody{
+                    overflow: unset !important;
+                }
+            }
             </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN",lokasi,'Periode '+$periode.fromname)+`
             <table  class='table table-bordered table-striped' id="table-report" width='100%'>
                 <thead>
