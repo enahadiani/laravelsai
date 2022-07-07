@@ -87,6 +87,7 @@
             @media print {
                 .dataTables_scrollBody{
                     overflow: unset !important;
+                    height: unset !important;
                 }
             }
             </style>`+judul_lap("LAPORAN LABA RUGI ANGGARAN",lokasi,'Periode '+$periode.fromname)+`

@@ -90,6 +90,7 @@
             @media print {
                 .dataTables_scrollBody{
                     overflow: unset !important;
+                    height: unset !important;
                 }
             }
             </style>`;
