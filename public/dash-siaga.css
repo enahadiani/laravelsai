@@ -426,3 +426,17 @@ th{
 #margin.table tbody tr {
     cursor: pointer;
 }
+#margin tbody td {
+    padding: 6px 8px !important;
+}
+#margin tbody tr.selected-row td:first-child{
+    background: #80000026;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#margin tbody tr.selected-row td:last-child{
+    background: #80000026;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

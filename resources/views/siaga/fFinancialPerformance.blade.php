@@ -15,11 +15,11 @@ window.scrollTo(0, 0);
 if(typeof $back_dash == 'undefined'){
     $filter_lokasi = "";
     $tahun = "";
-    $filter1 = "Periode";
+    $filter1 = "YTM";
     $filter2 = "";
     $month = "";
     $judulChart = null;
-    $filter1_kode = "PRD";
+    $filter1_kode = "YTM";
     $filter2_kode = "";
     $filter_kode_klp = "";
     $filter_kode_neraca = "";
@@ -75,11 +75,11 @@ $('.card-klik').click(function() {
             if(typeof $back_dash == 'undefined'){
                 $filter_lokasi = "";
                 $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
-                $filter1 = "Periode";
+                $filter1 = "YTM";
                 $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
                 $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
                 $judulChart = null;
-                $filter1_kode = "PRD";
+                $filter1_kode = "YTM";
                 $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
                 $filter_kontribusi = "41";
             }
@@ -313,7 +313,6 @@ function getFPBulan(){
                     crosshair: true,
                 },
                 yAxis: {
-                    min: 0,
                     title: {
                         text: 'Nilai'
                     },
@@ -494,14 +493,18 @@ function getMargin(){
                         var select = "class='selected-row'";
                         var display = 'inline';
                     }else{
-                        var select = "";
-                        var display = 'none';
+                        if($filter_kode_klp == "" && line.kode_klp == "TOTAL"){
+                            var select = "class='selected-row'";
+                            var display = 'inline';
+                        }else{
+                            var select = "";
+                            var display = 'none';
+                        }
                     }
-                    var persen = parseFloat(line.revenue) != 0 ? (1 - (parseFloat(line.cogs)/parseFloat(line.revenue)))*100 : 0;
+                    var persen = parseFloat(line.revenue) != 0 ? ((parseFloat(line.revenue)-parseFloat(line.cogs))/parseFloat(line.revenue))*100 : 0;
                     html+=`
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_klp}</p>
-                            <div class="glyph-icon simple-icon-check check-row" style="display:${display}"></div>
                             <span class="nama-klp">${line.nama}</span></td>
                         <td class='text-right'>${number_format(persen,2)}%</td>
                         
@@ -523,7 +526,12 @@ $('#margin tbody').on('click', 'tr td', function() {
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
     var nama_klp = $(this).closest('tr').find('td:first').find('.nama-lokasi').text()
-    $filter_kode_klp = $(this).closest('tr').find('td:first').find('.kode').text()
+    if(kode == 'TOTAL'){
+        $filter_kode_klp = "";
+    }else{
+
+        $filter_kode_klp = $(this).closest('tr').find('td:first').find('.kode').text()
+    }
     if(check == 'selected-row') {
         return;
     }
@@ -709,8 +717,8 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
         <div class="row filter-box-periode px-3">
             <div class="col-3 border-right list-filter-1" id="list-filter-1">
                 <ul>
-                    <li class="py-2" data-filter1="YTM">Year To Month</li>
-                    <li class="selected py-2" data-filter1="PRD">Bulan</li>
+                    <li class="selected py-2" data-filter1="YTM">Year To Month</li>
+                    <li class="py-2" data-filter1="PRD">Bulan</li>
                 </ul>
             </div>
             <div class="col-9 mt-4 mb-6">

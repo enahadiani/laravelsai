@@ -18,11 +18,11 @@
     window.scrollTo(0, 0);
     var $filter_lokasi = "";
     var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
-    var $filter1 = "Periode";
+    var $filter1 = "YTM";
     var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
     var $month = "{{ substr(Session::get('periode'),4,2) }}";
     var $judulChart = null;
-    var $filter1_kode = "PRD";
+    var $filter1_kode = "YTM";
     var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
     var nilai = "";
 
@@ -478,11 +478,11 @@
             success:function(result) {
                 $filter_lokasi = "";
                 $tahun = result.periode != "-" ? result.periode.substr(0,4) : "{{ substr(Session::get('periode'),0,4) }}";
-                $filter1 = "Periode";
+                $filter1 = "YTM";
                 $filter2 = namaPeriodeBulan(result.periode != "-" ? result.periode : "{{ Session::get('periode') }}");
                 $month = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
                 $judulChart = null;
-                $filter1_kode = "PRD";
+                $filter1_kode = "YTM";
                 $filter2_kode = result.periode != "-" ? result.periode.substr(4,2) : "{{ substr(Session::get('periode'),4,2) }}";
                 nilai = "";
 
@@ -660,8 +660,8 @@
             <div class="row filter-box-periode px-3">
                 <div class="col-3 border-right list-filter-1" id="list-filter-1">
                     <ul>
-                        <li class="py-2" data-filter1="YTM">Year To Month</li>
-                        <li class="selected py-2" data-filter1="PRD">Bulan</li>
+                        <li class="selected py-2" data-filter1="YTM">Year To Month</li>
+                        <li class="py-2" data-filter1="PRD">Bulan</li>
                     </ul>
                 </div>
                 <div class="col-9 mt-4 mb-6">
