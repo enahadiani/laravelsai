@@ -12,6 +12,9 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
+var $height = $(window).height();
+var chartBulan = null;
+var chartContribution = null;
 if(typeof $back_dash == 'undefined'){
     $filter_lokasi = "";
     $tahun = "";
@@ -281,9 +284,10 @@ function getFPBulan(){
         async: true,
         success:function(result) {
             var data = result.data;
-            Highcharts.chart('chart-revenue', {
+            chartBulan = Highcharts.chart('chart-revenue', {
                 chart: {
-                    type: 'column'
+                    type: 'column',
+                    height: ($height - 300)
                 },
                 title: {
                     text: 'Monthly Perfomance',
@@ -412,58 +416,88 @@ function getKontribusi(){
         async: true,
         success:function(result){
             var data = result.data;
-            Highcharts.chart('chart-contribusi', {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: ''
-            },
-            tooltip: {
-                useHTML: true,
-                formatter:function(){
-                    return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        distance: -30,
-                        useHTML: true,
-                        align: 'left',
-                        formatter: function () {
-                            return $('<div/>').css({
-                                'padding': '0 3px',
-                                'font-size': '9px',
-                                'borderColor': 'white'
-                            }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
+            chartContribution = Highcharts.chart('chart-contribusi', {
+                chart: {
+                    type: 'pie',
+                    height: ($height - 390)
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    useHTML: true,
+                    formatter:function(){
+                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            useHTML: true,
+                            align: 'left',
+                            formatter: function () {
+                                return $('<div/>').css({
+                                    'padding': '0 3px',
+                                    'font-size': '9px',
+                                    'borderColor': 'white'
+                                }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
+                            }
+                        },
+                        showInLegend: false
+                    }
+                },
+                series: [
+                    {
+                        name: 'Share',
+                        colorByPoint: true,
+                        minPointSize: 90,
+                        innerSize: '30%',
+                        zMin: 0,
+                        data: data
+                    }
+                ]
+            },function() {
+                var series = this.series;
+                $('.contribution-legend').html('');
+                var html = "";
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    console.log(point);
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        var negative = point[j].negative;
+                        // if(point[j].key == $filter_kode_lokasi){
+                        //     var select = 'selected-row';
+                        //     var display = 'unset';
+                        // }else{
+                        // }
+                        var select = "";
+                        var display = 'none';
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            point[j].connector.element.style.stroke = 'black'
+                            point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                        }else{
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
                         }
-                    },
-                    showInLegend: false
+                    }
                 }
-            },
-            series: [
-                {
-                    name: 'Share',
-                    colorByPoint: true,
-                    minPointSize: 90,
-                    innerSize: '30%',
-                    zMin: 0,
-                    data: data
-                }
-            ]
-        });
+                $('.contribution-legend').html(html);
+            });
         }
     })
 }
@@ -563,6 +597,23 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
     showNotification(`Menampilkan dashboard YPT`);
 })
 // END TABLE TOP EVENT
+
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    var $height = win.height();
+
+    chartBulan.update({
+        chart: {
+            height: ($height - 300),
+        }
+    })
+
+    chartContribution.update({
+        chart: {
+            height: ($height - 390),
+        }
+    })
+});
 </script>
 
 
@@ -776,17 +827,17 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                                <div id="rka-revenue" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> RKA</div>
+                                <div id="rka-revenue" style="padding-left:0.2rem;"> M</div>
                             </div>
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                                <div id="yoy-revenue" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> YoY</div>
+                                <div id="yoy-revenue" style="padding-left:0.2rem;"> M</div>
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-revenue" class="green-text text-right" style=""></div>
+                            <div id="capai_yoy-revenue" class="green-text text-right" style=""></div>
                         </div>
                     </div>
                 </div>
@@ -803,17 +854,17 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                                <div id="rka-cogs" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> RKA</div>
+                                <div id="rka-cogs" style="padding-left:0.2rem;"> M</div>
                             </div>
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                                <div id="yoy-cogs" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> YoY</div>
+                                <div id="yoy-cogs" style="padding-left:0.2rem;"> M</div>
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-cogs" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-cogs" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-cogs" class="green-text text-right" style=""></div>
+                            <div id="capai_yoy-cogs" class="green-text text-right" style=""></div>
                         </div>
                     </div>
                 </div>
@@ -829,17 +880,17 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                                <div id="rka-gross_profit" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> RKA</div>
+                                <div id="rka-gross_profit" style="padding-left:0.2rem;"> M</div>
                             </div>
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                                <div id="yoy-gross_profit" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> YoY</div>
+                                <div id="yoy-gross_profit" style="padding-left:0.2rem;"> M</div>
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-gross_profit" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-gross_profit" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-gross_profit" class="green-text text-right" style=""></div>
+                            <div id="capai_yoy-gross_profit" class="green-text text-right" style=""></div>
                         </div>
                     </div>
                 </div>
@@ -855,17 +906,17 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                                <div id="rka-opex" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> RKA</div>
+                                <div id="rka-opex" style="padding-left:0.2rem;"> M</div>
                             </div>
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                                <div id="yoy-opex" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> YoY</div>
+                                <div id="yoy-opex" style="padding-left:0.2rem;"> M</div>
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-opex" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-opex" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-opex" class="green-text text-right" style=""></div>
+                            <div id="capai_yoy-opex" class="green-text text-right" style=""></div>
                         </div>
                     </div>
                 </div>
@@ -881,17 +932,17 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                     <div class="row">
                         <div class="col-6">
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                                <div id="rka-net_income" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> RKA</div>
+                                <div id="rka-net_income" style="padding-left:0.2rem;"> M</div>
                             </div>
                             <div class="row">
-                                <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                                <div id="yoy-net_income" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                                <div style=" padding-left:1rem;"> YoY</div>
+                                <div id="yoy-net_income" style="padding-left:0.2rem;"> M</div>
                             </div>
                         </div>
                         <div class="col-6" >
-                            <div id="capai_rka-net_income" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                            <div id="capai_yoy-net_income" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                            <div id="capai_rka-net_income" class="green-text text-right" style=""></div>
+                            <div id="capai_yoy-net_income" class="green-text text-right" style=""></div>
                         </div>
                     </div>
                 </div>
@@ -901,37 +952,41 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
     <div class="row mb-2">
         <div class="col-md-5dot4 px-1" >
             {{-- REVENUE--}}
-            <div class="card card-dash rounded-lg">
+            <div class="card card-dash rounded-lg mb-0">
                 <div class="card-body">
-                    <div id="chart-revenue" style="width:100%; height: calc(82.2vh - 180px); padding-bottom:15px;"></div>
+                    <div id="chart-revenue" style="width:100%; height: calc(100vh - 290px);"></div>
                 </div>
             </div>
             {{-- END REVENUE --}}
         </div>
         <div class="col-md-3dot4 px-1">
             {{-- REVENUE--}}
-            <div class="card card-dash rounded-lg" style="padding-left: 1.5em; padding-right:1.5em; padding-top:1em;height: calc(83.5vh - 180px)">
+            <div class="card card-dash rounded-lg px-3 py-2 mb-0" style="height: calc(100vh - 280px)">
                 <div class="row"> 
                     <div style="padding-left: 1em;">
                         <select name="nama" id="kode_neraca"></select>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="chart-contribusi" style="width:100%; height: calc(73vh - 180px)"></div>
+                    <div id="chart-contribusi" style="width:100%; height: calc(100vh - 390px)"></div>
+                    <div class="contribution-legend" style="height: 70px">
+
+                    </div>
                 </div>
             </div>
             {{-- END REVENUE --}}
         </div>
+        
         <div class="col-md-2dot4 px-1">
             {{-- PENGAJUAN--}}
-            <div class="card card-dash rounded-lg" style="height: calc(83.5vh - 180px)">
+            <div class="card card-dash rounded-lg mb-0" style="height: calc(100vh - 280px)">
                 <div class="card-body ">
-                    <div class="p-1" style="width:100%; height: calc(78vh - 180px)">
+                    <div class="p-1" style="width:100%;">
                         <div class="row">
                             <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
                             <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
                         </div>
-                        <div class="table-responsive mt-2" id="div-margin" style="height:calc(100vh - 180px);position:relative">
+                        <div class="table-responsive mt-2" id="div-margin" style="height:calc(100vh - 370px);position:relative">
                             <style>
                                 #margin th
                                 {
@@ -954,7 +1009,7 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
                 </div>
             </div>
             {{-- END PENGAJUAN --}}
-        </div>
+        </div> 
     </div>
 </section>
 

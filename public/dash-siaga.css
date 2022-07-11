@@ -440,3 +440,13 @@ th{
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
+
+.symbol {
+    width:10px;
+    height:10px;
+    margin-right:10px;
+    margin-top:5px;
+    float:left;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}

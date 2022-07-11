@@ -21,6 +21,9 @@
     window.scrollTo(0, 0);
     var nama_chart = "";
     $back_dash = true;
+    var chartContributionDet = null
+    var chartCapaiDet = null
+    var chartBulanDet = null
 
     function updateAllChart() {
         getDataBox();
@@ -92,10 +95,10 @@
             dataType: 'json',
             async: true,
             success: function(result) {
-                Highcharts.chart('chart-capai', {
-
+                chartCapaiDet = Highcharts.chart('chart-capai', {
                     chart: {
-                        type: 'column'
+                        type: 'column',
+                        height: (($height - 192)/2)
                     },
                     title: {
                         text: 'Pencapaian Realisasi Anggaran Portofolio',
@@ -154,21 +157,23 @@
                         data: result.real_ytd,
                         pointPadding: 0.4,
                         pointPlacement: -0.2
-                    }, {
-                        name: 'RKA FY',
-                        color: '#F0E68C',
-                        data: result.rka_fy,
-                        pointPadding: 0.3,
-                        pointPlacement: 0.2,
+                    },
+                    // {
+                    //     name: 'RKA FY',
+                    //     color: '#F0E68C',
+                    //     data: result.rka_fy,
+                    //     pointPadding: 0.3,
+                    //     pointPlacement: 0.2,
 
-                    }, {
-                        name: 'Real FY',
-                        color: '#FF0000',
-                        data: result.real_fy,
-                        pointPadding: 0.4,
-                        pointPlacement: 0.2,
+                    // }, {
+                    //     name: 'Real FY',
+                    //     color: '#FF0000',
+                    //     data: result.real_fy,
+                    //     pointPadding: 0.4,
+                    //     pointPlacement: 0.2,
 
-                    }]
+                    // }
+                    ]
                 });
             }
         })
@@ -192,10 +197,10 @@
             async: true,
             success: function(result) {
                 var data = result.data;
-                Highcharts.chart('chart-contribusi', {
+                chartContributionDet = Highcharts.chart('chart-contribusi', {
                     chart: {
-
-                        type: 'pie'
+                        type: 'pie',
+                        height: ($height - 383)
                     },
                     title: {
                         text: ''
@@ -239,6 +244,35 @@
                         zMin: 0,
                         data: data
                     }]
+                },function() {
+                    var series = this.series;
+                    $('.contribution-det-legend').html('');
+                    var html = "";
+                    for(var i=0;i<series.length;i++) {
+                        var point = series[i].data;
+                        console.log(point);
+                        for(var j=0;j<point.length;j++) {
+                            var color = point[j].color;
+                            var negative = point[j].negative;
+                            // if(point[j].key == $filter_kode_lokasi){
+                            //     var select = 'selected-row';
+                            //     var display = 'unset';
+                            // }else{
+                            // }
+                            var select = "";
+                            var display = 'none';
+                            if(negative) {
+                                point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                                point[j].color = 'url(#custom-pattern)'  
+                                point[j].connector.element.style.stroke = 'black'
+                                point[j].connector.element.style.strokeDasharray = '4, 4'        
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                            }else{
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            }
+                        }
+                    }
+                    $('.contribution-det-legend').html(html);
                 });
             }
         })
@@ -262,9 +296,10 @@
             async: true,
             success: function(result) {
                 var data = result.data;
-                Highcharts.chart('chart-PP', {
+                chartBulanDet = Highcharts.chart('chart-PP', {
                     chart: {
-                        type: 'spline'
+                        type: 'spline',
+                        height: (($height - 192)/2)
                     },
                     title: {
                         text: nama_chart+' Portofolio Perbulan',
@@ -352,7 +387,7 @@
                     <div class='row px-2'>
                         <div class='col-12'>${line.nama}</div>
                         <div class='col-8 px-0'>
-                            <div id='chart-${line.kode_klp}' style='height:100px !important;'></div>
+                            <div id='chart-${line.kode_klp}' style='height:60px !important;'></div>
                         </div>
                         <div class='col-4 px-0 text-center'>
                             ${icon}
@@ -367,7 +402,7 @@
                             marginTop: 0
                         },
                         exporting:{
-                                enabled: false,
+                            enabled: false,
                         },
                         credits:{
                                 enabled: false,
@@ -402,7 +437,7 @@
                         plotOptions: {
                             series:{
                                 groupPadding: 0,
-                            borderRadius: 6
+                                borderRadius: 0
                             },
                             bar: {
                                 dataLabels: {
@@ -592,6 +627,28 @@
         $('body').addClass('scroll-hide');
     })
 // END FILTER EVENT
+
+$(window).on('resize', function(){
+    var win = $(this); //this = window
+    var $height = win.height();
+
+    chartBulanDet.update({
+        chart: {
+            height: (($height - 192)/2),
+        }
+    })
+    chartCapaiDet.update({
+        chart: {
+            height: (($height - 192)/2),
+        }
+    })
+    chartContributionDet.update({
+        chart: {
+            height: ($height - 383),
+        }
+    })
+});
+
 </script>
 <section id="header" class="header mb-3">
     <div class="row">
@@ -694,9 +751,9 @@
 
 
 <div class="row mb-2" style="padding-left: 1.5em;">
-    <div class="col-lg-3 col-md-6 px-1">
+    <div class="col-lg-3 col-md-6 px-1" style="height: calc(100vh - 165px)">
         {{-- REVENUE--}}
-        <div class="card card-dash rounded-lg" style="padding-left: 1em; padding-right:1.5em; ">
+        <div class="card card-dash rounded-lg mb-0" style="padding-left: 1em; padding-right:1.5em; ">
             <div class="card-body pt-2 ">
                 <div class="row">
                     <div class="col-12"><span style="font-size: 1rem;" id="box-nama"></span></div>
@@ -705,24 +762,26 @@
                 <div class="row">
                     <div class="col-6">
                         <div class="row">
-                            <div style="padding-bottom: 0.5rem; padding-left:1rem;"> RKA</div>
-                            <div id="rka-revenue" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                            <div style=" padding-left:1rem;"> RKA</div>
+                            <div id="rka-revenue" style="padding-left:0.2rem;"> M</div>
                         </div>
                         <div class="row">
-                            <div style="padding-bottom: 0.5rem; padding-left:1rem;"> YoY</div>
-                            <div id="yoy-revenue" style="padding-bottom: 0.5rem;padding-left:0.2rem;"> M</div>
+                            <div style=" padding-left:1rem;"> YoY</div>
+                            <div id="yoy-revenue" style="padding-left:0.2rem;"> M</div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div id="capai_rka-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
-                        <div id="capai_yoy-revenue" class="green-text text-right" style="padding-bottom: 0.5rem;"></div>
+                        <div id="capai_rka-revenue" class="green-text text-right" style=""></div>
+                        <div id="capai_yoy-revenue" class="green-text text-right" style=""></div>
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <b style="font-size: 1.2em;padding-top:10em;" id="kontribusi-nama"></b>
-                <div id="chart-contribusi" style="width:110%; height:36.5em;"></div>
+                <div id="chart-contribusi" style="width:110%; height:calc(100vh - 383px)"></div>
+                <div class="contribution-det-legend" style="height: 70px">
 
+                </div>
             </div>
         </div>
         {{-- END REVENUE --}}
@@ -730,17 +789,16 @@
     <div class="col-lg-6 col-md-12 px-1">
         <div class="card card-dash rounded-lg">
             <div class="card-body">
-                <div id="chart-capai" style="width:100%; height:17.5rem;"></div>
+                <div id="chart-capai" style="width:100%; height:calc((100vh - 192px)/2)"></div>
             </div>
         </div>
-        <div class="card card-dash rounded-lg">
+        <div class="card card-dash rounded-lg mb-0">
             <div class="card-body">
-                <div id="chart-PP" style="width:100%; height:17.5rem;"></div>
+                <div id="chart-PP" style="width:100%; height:calc((100vh - 192px)/2)"></div>
             </div>
         </div>
     </div>
-
-    <div class="col-lg-3 col-md-4 col-sm-6 px-1">
+    <div class="col-lg-3 col-md-4 col-sm-6 px-1" style="height: calc(100vh - 165px)">
         {{-- PENGAJUAN--}}
         <div class="card card-dash rounded-lg">
             <div class="card-body" style="padding-left: 0.5em;">
@@ -753,21 +811,21 @@
                         <div class="col-4 d-inline">
                             <span>pdpt YTD</span>
                         </div>
-                        <!-- <div class="col-6 d inline" > -->
+                        {{-- <div class="col-6 d inline" > --}}
                         <div class="col-1 d-inline">
                             <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
                         </div>
                         <div class="col-4 di-inline">
                             <span>pdpt Tahun Lalu</span>
                         </div>
-                        <!-- </div> -->
+                        {{-- </div --}}
                     </div>
-                    <div id="progress-ytdyoy" style="width:100%; height:calc(100vh - 90px);overflow-y:scroll;overflow-x:hidden"></div>
+                    <div id="progress-ytdyoy" style="width:100%; height:calc(100vh - 253px);overflow-y:scroll;overflow-x:hidden"></div>
                 </div>
             </div>
         </div>
         {{-- END PENGAJUAN --}}
-    </div>
+    </div> 
 </div>
 <script>
     $('#btnBack,#btn-filter').removeClass('btn-outline-light');
