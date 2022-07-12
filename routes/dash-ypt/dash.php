@@ -16,6 +16,10 @@ Route::get('v2/data-fp-or', 'DashYpt\DashboardFPV2Controller@getDataOR');
 Route::get('data-fp-lr', 'DashYpt\DashboardFPController@getDataBoxLabaRugi');
 Route::get('data-fp-pl', 'DashYpt\DashboardFPController@getDataBoxPerformLembaga');
 
+Route::get('data-fp-unit-box', 'DashYpt\DashboardFPUnitController@getDataBoxFirst');
+Route::get('data-fp-unit-lr', 'DashYpt\DashboardFPUnitController@getLabaRugi');
+Route::get('data-fp-unit-kas', 'DashYpt\DashboardFPUnitController@getSaldoKasBank');
+
 Route::get('data-fp-detail-perform', 'DashYpt\DashboardFPController@getDataPerformansiLembaga');
 Route::get('data-fp-detail-lembaga', 'DashYpt\DashboardFPController@getDataPerLembaga');
 Route::get('data-fp-detail-kelompok', 'DashYpt\DashboardFPController@getDataPerKelompok');

@@ -14,10 +14,8 @@ var $month = "{{ substr(Session::get('periode'),4,2) }}";
 var $judulChart = null;
 var $filter1_kode = "YTM";
 var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
-var pdptChart = null;
-var bebanChart = null;
-var shuChart = null;
-var orChart = null;
+var $filter_kode_pp = "{{ Session::get('kodePP') }}";
+var $filter_kode_bidang = "{{ Session::get('kodeBidang') }}" == "4" || "{{ Session::get('kodeBidang') }}" == 5 ? "GB" : "{{ Session::get('kodeBidang') }}";
 var lrChart = null;
 var $render = 0;
 
@@ -46,11 +44,13 @@ var $height = $(window).height();
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-unit-box') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
+            "kode_bidang": $filter_kode_bidang,
+            "kode_pp": $filter_kode_pp,
             "jenis": $filter1_kode
         },
         dataType: 'json',
@@ -257,12 +257,14 @@ var $height = $(window).height();
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-unit-lr') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_bidang": $filter_kode_bidang,
+            "kode_pp": $filter_kode_pp,
         },
         dataType: 'json',
         async: false,
@@ -304,7 +306,7 @@ var $height = $(window).height();
                         dataLabels: {
                             // padding:10,
                             allowOverlap:true,
-                            enabled: true,
+                            enabled: false,
                             crop: false,
                             overflow: 'justify',
                             useHTML: true,
@@ -320,120 +322,50 @@ var $height = $(window).height();
                         },
                     }
                 },
-                series: [
-                    {
-                        name: 'Pendapatan',
-                        color: '#b91c1c',
-                        data: data.data_pdpt
-                    },
-                    {
-                        name: 'Beban',
-                        color: '#064E3B',
-                        data: data.data_beban
-                    },
-                    {
-                        name: 'SHU',
-                        color: '#FBBF24',
-                        data: data.data_shu
-                    }
-                ]
+                series: data.series
             });
         }
     });
 })();
 // END CHART LABA RUGI
 
-// TABEL PERFORMASI LEMBAGA
+// TABEL SALDO KAS BANK
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-unit-kas') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_bidang": $filter_kode_bidang,
+            "kode_pp": $filter_kode_pp,
         },
         dataType: 'json',
         async: false,
         success:function(result) {
             var data = result.data;
-            if($filter1_kode == 'PRD'){
-                $('.yoy2-label').html('MoM')
-            }else{
-                $('.yoy2-label').html('YoY')
-            }
             if(data.length > 0) {
-                $('#table-lembaga tbody').empty()
+                $('#table-kas tbody').empty()
                 var html = "";
+                var tot = 0;
                 for(var i=0;i<data.length;i++) {
                     var row = data[i];
-                    var classTd1 = "";
-                    var classTd2 = "";
-                    var classTd3 = "";
-                    var classTd4 = "";
-                    var classTd5 = "";
-                    var classTd6 = "";
-                    var classTd7 = "";
-                    var classTd8 = "";
-                    if(row.pdpt_ach > 100) {
-                        classTd1 = "green-text"
-                    }else{
-                        classTd1 = "red-text"
-                    }
-                    if(row.pdpt_yoy < 0) {
-                        classTd2 = "red-text"
-                    }else{
-                        classTd2 = "green-text"
-                    }
-                    if(row.beban_ach < 100) {
-                        classTd3 = "green-text"
-                    }else{
-                        classTd3 = "red-text"
-                    }
-                    if(row.beban_yoy > 0) {
-                        classTd4 = "red-text"
-                    }else{
-                        classTd4 = "green-text"
-                    }
-                    if(row.shu_ach > 100) {
-                        classTd5 = "green-text"
-                    }else{
-                        classTd5 = "red-text"
-                    }
-                    if(row.shu_yoy < 0) {
-                        classTd6 = "red-text"
-                    }else{
-                        classTd6 = "green-text"
-                    }
-                    if(row.or_ach > 100) {
-                        classTd7 = "red-text"
-                    }else{
-                        classTd7 = "green-text"
-                    }
-                    if(row.or_yoy > 0) {
-                        classTd8 = "red-text"
-                    }else{
-                        classTd8 = "green-text"
-                    }
-
+                    tot+= parseFloat(row.so_akhir);
                     html += `<tr>
-                        <td>
-                            <p class="kode hidden">${row.kode_lokasi}</p>
+                        <td style='width:70%'>
+                            <p class="kode hidden">${row.kode_akun}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
-                        <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
-                        <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
-                        <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
-                        <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
-                        <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
-                        <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
-                        <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
-                        <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
+                        <td style='width:1%'></td>
+                        <td style='width:29%' class="text-right">${number_format(row.so_akhir)}</td>
                     </tr>`;
                 }
-                $('#table-lembaga tbody').append(html)
+                $('#table-kas tbody').append(html)
+                $('#total-saldo').addClass('text-primary').html(number_format(tot))
+                $('#periode-saldo').html(namaPeriode($tahun+''+$month));
             }
         }
     });
@@ -632,128 +564,19 @@ function updateAllChart() {
 }
 
 function updateChart(table = false) {
-    // // PENDAPATAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         pdptChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         pdptChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         pdptChart.redraw()
-    //     }
-    // });
-    // // END PENDAPATAN
-    // // BEBAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         bebanChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         bebanChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         bebanChart.redraw()
-    //     }
-    // });
-    // // END BEBAN
-    // // SHU
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         shuChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         shuChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         shuChart.redraw()
-    //     }
-    // });
-    // // END SHU
-    // // OR
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         orChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         orChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         orChart.redraw()
-    //     }
-    // });
-    // // // END OR
+    
     // LR
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-unit-lr') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_pp": $filter_kode_pp,
+            "kode_bidang": $filter_kode_bidang
         },
         dataType: 'json',
         async: true,
@@ -762,17 +585,9 @@ function updateChart(table = false) {
             lrChart.xAxis[0].update({
                 categories: data.kategori
             });
-            lrChart.series[0].update({
-                data: data.data_pdpt
-            }, false) // true untuk redraw
-
-            lrChart.series[1].update({
-                data: data.data_beban
-            }, false) // true untuk redraw
-
-            lrChart.series[2].update({
-                data: data.data_shu
-            }, false) // true untuk redraw
+            lrChart.series[0].update(data.series[0], false) // true untuk redraw
+            lrChart.series[1].update(data.series[1], false) // true untuk redraw
+            lrChart.series[2].update(data.series[2], false) // true untuk redraw
 
             // re render chart
             lrChart.redraw()
@@ -783,99 +598,41 @@ function updateChart(table = false) {
         // PL TABLE
         $.ajax({
             type: 'GET',
-            url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+            url: "{{ url('dash-ypt-dash/data-fp-unit-kas') }}",
             data: {
                 "periode[0]": "=", 
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
-                "jenis": $filter1_kode
+                "jenis": $filter1_kode,
+                "kode_pp": $filter_kode_pp,
+                "kode_bidang": $filter_kode_bidang
             },
             dataType: 'json',
             async: true,
             success:function(result) {
-                if($filter1_kode == 'PRD'){
-                    $('.yoy2-label').html('MoM')
-                }else{
-                    $('.yoy2-label').html('YoY')
-                }
                 var data = result.data;
                 if(data.length > 0) {
-                    $('#table-lembaga tbody').empty()
-                    var html = "";
-                    for(var i=0;i<data.length;i++) {
-                        var row = data[i];
-                        var classTd1 = "";
-                        var classTd2 = "";
-                        var classTd3 = "";
-                        var classTd4 = "";
-                        var classTd5 = "";
-                        var classTd6 = "";
-                        var classTd7 = "";
-                        var classTd8 = "";
-                        if(row.pdpt_ach > 100) {
-                            classTd1 = "green-text"
-                        }else{
-                            classTd1 = "red-text"
+                    if(data.length > 0) {
+                        $('#table-kas tbody').empty()
+                        var html = "";
+                        var tot = 0;
+                        for(var i=0;i<data.length;i++) {
+                            var row = data[i];
+                            tot+= parseFloat(row.so_akhir);
+                            html += `<tr>
+                                <td style='width:70%'>
+                                    <p class="kode hidden">${row.kode_akun}</p>
+                                    <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
+                                    <span class="name-lembaga">${row.nama}</span>
+                                </td>
+                                <td style='width:1%'></td>
+                                <td style='width:29%' class="text-right">${number_format(row.so_akhir)}</td>
+                            </tr>`;
                         }
-                        if(row.pdpt_yoy < 0) {
-                            classTd2 = "red-text"
-                        }else{
-                            classTd2 = "green-text"
-                        }
-                        if(row.beban_ach < 100) {
-                            classTd3 = "green-text"
-                        }else{
-                            classTd3 = "red-text"
-                        }
-                        if(row.beban_yoy > 0) {
-                            classTd4 = "red-text"
-                        }else{
-                            classTd4 = "green-text"
-                        }
-                        if(row.shu_ach > 100) {
-                            classTd5 = "green-text"
-                        }else{
-                            classTd5 = "red-text"
-                        }
-                        if(row.shu_yoy < 0) {
-                            classTd6 = "red-text"
-                        }else{
-                            classTd6 = "green-text"
-                        }
-                        if(row.or_ach > 100) {
-                            classTd7 = "red-text"
-                        }else{
-                            classTd7 = "green-text"
-                        }
-                        if(row.or_yoy > 0) {
-                            classTd8 = "red-text"
-                        }else{
-                            classTd8 = "green-text"
-                        }
-                        if(row.kode_lokasi == $filter_lokasi){
-                            var select = 'class="selected-row"';
-                            var display = 'unset';
-                        }else{
-                            var select = "";
-                            var display = 'none';
-                        }
-                        html += `<tr ${select}>
-                            <td>
-                                <p class="kode hidden">${row.kode_lokasi}</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
-                                <span class="name-lembaga">${row.nama}</span>
-                            </td>
-                            <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
-                            <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
-                            <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
-                            <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
-                            <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
-                            <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
-                            <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
-                            <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
-                        </tr>`;
+                        $('#table-kas tbody').append(html)
+                        $('#total-saldo').addClass('text-primary').html(number_format(tot))
+                        $('#periode-saldo').html(namaPeriode($tahun+''+$month));
                     }
-                    $('#table-lembaga tbody').append(html)
                 }
             }
         });
@@ -886,13 +643,15 @@ function updateChart(table = false) {
 function updateBox() {
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-unit-box') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_bidang": $filter_kode_bidang,
+            "kode_pp": $filter_kode_pp,
         },
         dataType: 'json',
         async: true,
@@ -1164,13 +923,13 @@ function setHeightPage() {
                 $('#title-dash').text('Beban')
                 $('.title-chart').text('Beban')
             }else if(id == 'shu-box') {
-                $judulChart = "Sisa Hasil Usaha"
-                $('#title-dash').text('Sisa Hasil Usaha')
-                $('.title-chart').text('Sisa Hasil Usaha')
+                $judulChart = "SHU"
+                $('#title-dash').text('SHU')
+                $('.title-chart').text('SHU')
             }else if(id == 'or-box') {
-                $judulChart = "Rasio Operasional"
-                $('#title-dash').text('Rasio Operasional')
-                $('.title-chart').text('Rasio Operasional')
+                $judulChart = "OR"
+                $('#title-dash').text('OR')
+                $('.title-chart').text('OR')
             }
             $('#back-div').removeClass('hidden')
             $('#dash-title-div').removeClass('pl-8').addClass('pl-0')
@@ -1194,7 +953,8 @@ $('#back').click(function() {
 </script>
 <script type="text/javascript">
 // TABLE LEMBAGA EVET
-$('#table-lembaga tbody').on('click', 'tr td', function() {
+$('#table-kas tbody').on('click', 'tr td', function() {
+    return false;
     var table = $(this).parents('table').attr('id')
     var tr = $(this).parent()
     var icon = $(this).closest('tr').find('td:first').find('.check-row')
@@ -1219,7 +979,8 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
 })
 
-$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+$('#table-kas tbody').on('click', 'tr.selected-row', function() {
+    return false;
     var table = $(this).parents('table').attr('id')
     $filter_lokasi="";
     $(`#${table} tbody tr`).removeClass('selected-row')
@@ -1469,7 +1230,7 @@ $('.icon-menu').click(function(event) {
         if(jenis == 'View in full screen') {
             shuChart.update({
                 title: {
-                    text: 'Sisa Hasil Usaha Lembaga',
+                    text: 'SHU Lembaga',
                     floating: true,
                     x: 40,
                     y: 90
@@ -1484,7 +1245,7 @@ $('.icon-menu').click(function(event) {
                 filename: 'chart-png'
             }, {
                 title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
+                    text: 'SHU Lembaga'
                 },
                 subtitle: {
                     text: ''
@@ -1496,7 +1257,7 @@ $('.icon-menu').click(function(event) {
                 filename: 'chart-jpg'
             }, {
                 title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
+                    text: 'SHU Lembaga'
                 },
                 subtitle: {
                     text: ''
@@ -1508,7 +1269,7 @@ $('.icon-menu').click(function(event) {
                 filename: 'chart-pdf'
             }, {
                 title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
+                    text: 'SHU Lembaga'
                 },
                 subtitle: {
                     text: ''
@@ -1520,7 +1281,7 @@ $('.icon-menu').click(function(event) {
                 filename: 'chart-svg'
             }, {
                 title: {
-                    text: 'Sisa Hasil Usaha Lembaga'
+                    text: 'SHU Lembaga'
                 },
                 subtitle: {
                 text: ''
@@ -1978,7 +1739,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             <div class="card card-dash border-r-0 click-card cursor-pointer" id="shu-box" data-grafik="">
                 <div class="row">
                     <div class="col-12">
-                        <h4 class="header-card">Sisa Hasil Usaha</h4>
+                        <h4 class="header-card">SHU</h4>
                         <div class="row">
                             <div class="col-12">
                                 <p id="shu-value" class="main-nominal">0</p>
@@ -2130,30 +1891,20 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
             <div class="card card-dash border-r-0 card-r-2" style='height:calc(100vh - 280px)'>
                 <div class="row header-div">
                     <div class="col-9">
-                        <h4 class="header-card">Performansi Lembaga</h4>
+                        <h4 class="header-card">Posisi Saldo Akhir Kas</h4>
+                    </div>
+                    <div class="col-3">
+                        <p class="text-right" id="periode-saldo"></p>
+                    </div>
+                </div>
+                <div class="row header-div">
+                    <div class="col-12">
+                        <h4 id="total-saldo"></h4>
                     </div>
                 </div>
                 <div id="scrollTable" class='scrollTable' style='height: calc(100vh - 320px)'>
-                    <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
-                        <thead>
-                            <tr>
-                                <th rowspan="2">&nbsp;</th>
-                                <th colspan="2" class="text-center">Pendapatan</th>
-                                <th colspan="2" class="text-center">Beban</th>
-                                <th colspan="2" class="text-center">SHU</th>
-                                <th colspan="2" class="text-center">OR</th>
-                            </tr>
-                            <tr>
-                                <th class="text-center">Ach.</th>
-                                <th class="text-center yoy2-label">YoY</th>
-                                <th class="text-center">Ach.</th>
-                                <th class="text-center yoy2-label">YoY</th>
-                                <th class="text-center">Ach.</th>
-                                <th class="text-center yoy2-label">YoY</th>
-                                <th class="text-center">Ach.</th>
-                                <th class="text-center yoy2-label">YoY</th>
-                            </tr>
-                        </thead>
+                    <table id="table-kas" class="table table-striped table-th-red mt-8">
+                        <thead></thead>
                         <tbody></tbody>
                     </table>
                 </div>

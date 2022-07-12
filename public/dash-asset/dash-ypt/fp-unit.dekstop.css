@@ -134,16 +134,16 @@
     }
     /* .table.table-th-red thead tr th, */
     .table.table-th-red tbody tr td {
-        padding: 10px 8px;
-        /* border:1px solid #3a3a3a !important; */
+        padding: 6px 8px;
+        border:1px solid white !important;
     }
-    #table-lembaga.table tbody tr {
+    #table-kas.table tbody tr {
         cursor: pointer;
     }
-    #table-lembaga.table tbody tr:hover {
+    #table-kas.table tbody tr:hover {
         background-color: #e5e7eb;
     }
-    #table-lembaga.table tbody tr td:first-child {
+    #table-kas.table tbody tr td:first-child {
         cursor: pointer;
     }
     .table tbody tr td .check-row {
