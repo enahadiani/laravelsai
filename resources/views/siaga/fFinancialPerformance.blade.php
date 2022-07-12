@@ -1002,8 +1002,8 @@ $(window).on('resize', function(){
                 <div class="card-body ">
                     <div class="p-1" style="width:100%;">
                         <div class="row">
-                            <div class="col-12"><b style="font-size: 1rem;">Margin Per Diraktorat</b></div>
-                            <div class="col-12"><span style="color: grey;">Pilih Direktorat Untuk Menampilkan</span></div>
+                            <div class="col-12"><b style="font-size: 1rem;">Margin Per Portofolio</b></div>
+                            <div class="col-12"><span style="color: grey;">Pilih Portofolio Untuk Menampilkan</span></div>
                         </div>
                         <div class="table-responsive mt-2" id="div-margin" style="height:calc(100vh - 370px);position:relative">
                             <style>
