@@ -226,16 +226,18 @@
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
                                 distance: -30,
-                                filter: {
-                                    property: 'percentage',
-                                    operator: '>',
-                                    value: 4
+                                useHTML: true,
+                                align: 'left',
+                                formatter: function () {
+                                    return $('<div/>').css({
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        'borderColor': 'white'
+                                    }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
                                 }
                             },
                             showInLegend: false
-                        }
                     },
                     series: [{
                         name: 'Share',
