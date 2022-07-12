@@ -72,11 +72,11 @@
                     iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
                 }
 
-                $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,2) + '%')
-                $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,2) + '%')
-                $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
-                $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
-                $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
+                $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,1,1) + '%')
+                $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,1,1) + '%')
+                $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1,1));
+                $('#rka-revenue').text(toMilyar(data.revenue.rka,1,1));
+                $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1,1));
             }
         });
     }
@@ -113,7 +113,6 @@
                         categories: result.kategori
                     },
                     yAxis: [{
-                        min: 0,
                         title: {
                             text: ''
                         },
@@ -134,7 +133,7 @@
                             
                             $.each(this.points, function(i, point) {
                                 s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                    number_format(point.y,2) +'';
+                                    number_format(point.y,2,2) +'';
                             });
                             
                             return s;
@@ -142,23 +141,39 @@
                     },
                     plotOptions: {
                         column: {
-                            grouping: false,
-                            shadow: false,
-                            borderWidth: 0
+                            // grouping: false,
+                            // shadow: false,
+                            // borderWidth: 0
+                            dataLabels: {
+                                enabled: true,
+                                overflow: 'justify',
+                                allowOverlap:true,
+                                crop: false,
+                                useHTML: true,
+                                formatter: function () {
+                                    // return toMilyar(this.y,2);
+                                    return $('<div/>').css({
+                                        // 'color' : 'white', // work
+                                        'padding': '0 3px',
+                                        'font-size': '8px',
+                                        // 'backgroundColor' : this.point.color  // just white in my case
+                                    }).text(toMilyar(this.point.y,1,1))[0].outerHTML;
+                                }
+                            }
                         }
                     },
                     series: [{
                         name: 'RKA YTD',
                         color: '#DCDCDC',
                         data: result.rka_ytd,
-                        pointPadding: 0.3,
-                        pointPlacement: -0.2
+                        // pointPadding: 0.3,
+                        // pointPlacement: -0.2
                     }, {
                         name: 'Real YTD',
                         color: '#228B22',
                         data: result.real_ytd,
-                        pointPadding: 0.4,
-                        pointPlacement: -0.2
+                        // pointPaddiZg: 0.4,
+                        // pointPlacement: -0.2
                     }, 
                     // {
                     //     name: 'RKA FY',
@@ -217,12 +232,22 @@
                     tooltip: {
                         useHTML: true,
                         formatter:function(){
-                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2)+'%</b>';
+                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
                         }
+                    },
+                    defs: {
+                        patterns: [{
+                            'id': 'custom-pattern',
+                            'path': {
+                                d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                                stroke: Highcharts.getOptions().colors[1],
+                                strokeWidth: 2
+                            }
+                        }]
                     },
                     plotOptions: {
                         pie: {
-                            allowPointSelect: false,
+                            allowPointSelect: true,
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
@@ -234,10 +259,11 @@
                                         'padding': '0 3px',
                                         'font-size': '9px',
                                         'borderColor': 'white'
-                                    }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
+                                    }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2,2)+' %')[0].outerHTML
                                 }
                             },
                             showInLegend: false
+                        }
                     },
                     series: [{
                         name: 'Share',
@@ -267,11 +293,12 @@
                             if(negative) {
                                 point[j].graphic.element.style.fill = 'url(#custom-pattern)'
                                 point[j].color = 'url(#custom-pattern)'  
-                                point[j].connector.element.style.stroke = 'black'
-                                point[j].connector.element.style.strokeDasharray = '4, 4'        
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                                // point[j].connector.element.style.stroke = 'black'
+                                // point[j].connector.element.style.strokeDasharray = '4, 4'        
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
                             }else{
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                                point[j].graphic.element.style.fill = color;
+                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
                             }
                         }
                     }
@@ -283,6 +310,42 @@
     //end revenue contribusi
 
     //chart portfolio
+    (function (H) {
+        H.addEvent(H.Axis, 'afterInit', function () {
+            const logarithmic = this.logarithmic;
+
+            if (logarithmic && typeof this.options.custom == 'object') {
+
+                // Avoid errors on negative numbers on a log axis
+                this.positiveValuesOnly = false;
+
+                // Override the converter functions
+                logarithmic.log2lin = num => {
+                    const isNegative = num < 0;
+
+                    let adjustedNum = Math.abs(num);
+
+                    if (adjustedNum < 10) {
+                        adjustedNum += (10 - adjustedNum) / 10;
+                    }
+
+                    const result = Math.log(adjustedNum) / Math.LN10;
+                    return isNegative ? -result : result;
+                };
+
+                logarithmic.lin2log = num => {
+                    const isNegative = num < 0;
+
+                    let result = Math.pow(10, Math.abs(num));
+                    if (result < 10) {
+                        result = (10 * (result - 1)) / (10 - 1);
+                    }
+                    return isNegative ? -result : result;
+                };
+            }
+        });
+    }(Highcharts));
+
     function getPortofolio() {
         $.ajax({
             url: "{{ url('siaga-dash/data-pend-portofolio') }}",
@@ -319,6 +382,11 @@
                         title: {
                             text: 'Nilai'
                         },
+                        type: 'logarithmic',
+                        custom: {
+                            allowNegativeLog: true
+                        },
+                        minorTickInterval: 'auto',
                         labels: {
                             formatter: function() {
                                 return singkatNilai(this.value);
@@ -333,7 +401,7 @@
                             
                             $.each(this.points, function(i, point) {
                                 s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                    number_format(point.y,2) +'';
+                                    number_format(point.y,2,2) +'';
                             });
                             
                             return s;
@@ -416,7 +484,7 @@
                         </div>
                         <div class='col-4 px-0 text-center'>
                             ${icon}
-                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(Math.abs(line.persen),2)}%</span>
+                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(Math.abs(line.persen),2,2)}%</span>
                         </div>
                     </div>
                     `;
@@ -443,7 +511,7 @@
                                 
                                 $.each(this.points, function(i, point) {
                                     s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                        number_format(point.y,2) +'';
+                                        number_format(point.y,2,2) +'';
                                 });
                                 
                                 return s;
@@ -827,18 +895,18 @@ $(window).on('resize', function(){
                             </div>
                         </div>
                         <div class="col-4 d-inline">
-                            <span>pdpt YTD</span>
+                            <span>YTD</span>
                         </div>
                         {{-- <div class="col-6 d inline" > --}}
                         <div class="col-1 d-inline">
                             <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
                         </div>
                         <div class="col-4 di-inline">
-                            <span>pdpt Tahun Lalu</span>
+                            <span>Tahun Lalu</span>
                         </div>
                         {{-- </div --}}
                     </div>
-                    <div id="progress-ytdyoy" style="width:100%; height:calc(100vh - 233px);overflow-y:scroll;overflow-x:hidden"></div>
+                    <div id="progress-ytdyoy" style="width:100%; height:calc(100vh - 213px);overflow-y:scroll;overflow-x:hidden"></div>
                 </div>
             </div>
         </div>

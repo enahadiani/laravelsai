@@ -268,6 +268,7 @@ function getDataBox() {
 }
 
 //Monthly Performance
+
 function getFPBulan(){
     $.ajax({
         type: 'GET',
@@ -418,6 +419,9 @@ function getKontribusi(){
             var data = result.data;
             chartContribution = Highcharts.chart('chart-contribusi', {
                 chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
                     type: 'pie',
                     height: ($height - 390)
                 },
@@ -437,6 +441,16 @@ function getKontribusi(){
                     point: {
                         valueSuffix: '%'
                     }
+                },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
+                        }
+                    }]
                 },
                 plotOptions: {
                     pie: {
@@ -474,7 +488,6 @@ function getKontribusi(){
                 var html = "";
                 for(var i=0;i<series.length;i++) {
                     var point = series[i].data;
-                    console.log(point);
                     for(var j=0;j<point.length;j++) {
                         var color = point[j].color;
                         var negative = point[j].negative;
@@ -488,11 +501,13 @@ function getKontribusi(){
                         if(negative) {
                             point[j].graphic.element.style.fill = 'url(#custom-pattern)'
                             point[j].color = 'url(#custom-pattern)'  
-                            point[j].connector.element.style.stroke = 'black'
-                            point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2)+'</div></div></div>';                  
+                            // point[j].connector.element.style.stroke = 'black'
+                            // point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
                         }else{
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2)+'</div></div></div>';
+                            point[j].graphic.element.style.fill = color;
+                            // point[j].connector.element.style.stroke = color;
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
                         }
                     }
                 }
@@ -602,17 +617,21 @@ $(window).on('resize', function(){
     var win = $(this); //this = window
     var $height = win.height();
 
-    chartBulan.update({
-        chart: {
-            height: ($height - 300),
-        }
-    })
-
-    chartContribution.update({
-        chart: {
-            height: ($height - 390),
-        }
-    })
+    if(chartBulan != null ){
+        chartBulan.update({
+            chart: {
+                height: ($height - 300),
+            }
+        })
+    }
+    
+    if(chartContribution != null ){
+        chartContribution.update({
+            chart: {
+                height: ($height - 390),
+            }
+        })
+    }
 });
 </script>
 

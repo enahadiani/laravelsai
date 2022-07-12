@@ -285,6 +285,7 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/funnel.js"></script>
     <script src="http://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="https://highcharts.github.io/pattern-fill/pattern-fill-v2.js"></script>
     
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
@@ -1530,7 +1531,7 @@
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '100px',
-            'height':'80px',
+            'height':'35px',
             
         });
         $('.logo2').css({
@@ -1551,7 +1552,7 @@
         $('.logo').css({
             'background': "url('"+url_logo+"') no-repeat",
             'background-size': '120px',
-            'height':'45px',
+            'height':'35px',
         });
         $('.logo2').css({
             'background': "url('"+url_logo2+"') no-repeat",
