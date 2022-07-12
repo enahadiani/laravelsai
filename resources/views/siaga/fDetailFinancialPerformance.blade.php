@@ -139,39 +139,40 @@
                     },
                     plotOptions: {
                         column: {
-                            // grouping: false,
-                            // shadow: false,
-                            // borderWidth: 0
-                            dataLabels: {
-                                enabled: true,
-                                overflow: 'justify',
-                                allowOverlap:true,
-                                crop: false,
-                                useHTML: true,
-                                formatter: function () {
-                                    // return toMilyar(this.y,2);
-                                    return $('<div/>').css({
-                                        // 'color' : 'white', // work
-                                        'padding': '0 3px',
-                                        'font-size': '8px',
-                                        // 'backgroundColor' : this.point.color  // just white in my case
-                                    }).text(toMilyar(this.point.y,1,1))[0].outerHTML;
-                                }
-                            }
+                            grouping: false,
+                            shadow: false,
+                            borderWidth: 0
                         }
                     },
                     series: [{
                         name: 'RKA YTD',
                         color: '#DCDCDC',
                         data: result.rka_ytd,
-                        // pointPadding: 0.3,
-                        // pointPlacement: -0.2
+                        pointPadding: 0.3,
+                        pointPlacement: -0.2
                     }, {
                         name: 'Real YTD',
                         color: '#228B22',
                         data: result.real_ytd,
-                        // pointPadding: 0.4,
-                        // pointPlacement: -0.2
+                        pointPadding: 0.4,
+                        pointPlacement: -0.2,
+                        dataLabels: {
+                            enabled: true,
+                            overflow: 'justify',
+                            allowOverlap:true,
+                            crop: false,
+                            useHTML: true,
+                            formatter: function () {
+                                var index = result.kategori.indexOf(this.x);
+                                var capai = result.rka_ytd[index] != 0 ? (result.real_ytd[index]/result.rka_ytd[index])*100 : 0;
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '8px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(number_format(capai,2,2)+'%')[0].outerHTML;
+                            }
+                        }
                     },
                     // {
                     //     name: 'RKA FY',
