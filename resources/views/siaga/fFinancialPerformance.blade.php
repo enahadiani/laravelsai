@@ -423,7 +423,7 @@ function getKontribusi(){
                     plotBorderWidth: null,
                     plotShadow: false,
                     type: 'pie',
-                    height: ($height - 390)
+                    height: ($height - 400)
                 },
                 title: {
                     text: ''
@@ -628,7 +628,7 @@ $(window).on('resize', function(){
     if(chartContribution != null ){
         chartContribution.update({
             chart: {
-                height: ($height - 390),
+                height: ($height - 400),
             }
         })
     }
@@ -987,8 +987,8 @@ $(window).on('resize', function(){
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="chart-contribusi" style="width:100%; height: calc(100vh - 390px)"></div>
-                    <div class="contribution-legend" style="height: 70px">
+                    <div id="chart-contribusi" style="width:100%; height: calc(100vh - 400px)"></div>
+                    <div class="contribution-legend" style="height: 80px;overflow-y:scroll;overflow-x:hidden">
 
                     </div>
                 </div>

@@ -216,7 +216,7 @@
                 chartContributionDet = Highcharts.chart('chart-contribusi', {
                     chart: {
                         type: 'pie',
-                        height: ($height - 383)
+                        height: ($height - 393)
                     },
                     title: {
                         text: ''
@@ -717,7 +717,7 @@ $(window).on('resize', function(){
     })
     chartContributionDet.update({
         chart: {
-            height: ($height - 383),
+            height: ($height - 393),
         }
     })
 });
@@ -851,8 +851,8 @@ $(window).on('resize', function(){
             </div>
             <div class="card-body">
                 <b style="font-size: 1.2em;padding-top:10em;" id="kontribusi-nama"></b>
-                <div id="chart-contribusi" style="width:110%; height:calc(100vh - 383px)"></div>
-                <div class="contribution-det-legend" style="height: 70px">
+                <div id="chart-contribusi" style="width:110%; height:calc(100vh - 393px)"></div>
+                <div class="contribution-det-legend" style="height: 80px;overflow-y:scroll;overflow-x:hidden">
 
                 </div>
             </div>
