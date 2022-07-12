@@ -394,7 +394,7 @@
                         </div>
                         <div class='col-4 px-0 text-center'>
                             ${icon}
-                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(Math.abs(line.persen),2)}%</span>
+                            <span id='persen-${line.kode_klp}' class='${text_color}'>${number_format(Math.abs(line.persen),2,2)}%</span>
                         </div>
                     </div>
                     `;
@@ -431,7 +431,7 @@
                                 
                                 $.each(this.points, function(i, point) {
                                     s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                        number_format(point.y,2) +'';
+                                        number_format(point.y,2,2) +'';
                                 });
                                 
                                 return s;
@@ -512,6 +512,8 @@
 
         $('#title-dash').text(nama_chart);
         $('#box-nama').text(nama_chart);
+        $('#ytd-nama').text(nama_chart+' YTD');
+        $('#lalu-nama').text(nama_chart+' Tahun Lalu');
         $('#kontribusi-nama').text('Kontribusi '+nama_chart);
         $('#yoy-nama').text(nama_chart+' YoY');
         if ($filter1 == 'Periode') {
@@ -812,14 +814,14 @@ $(window).on('resize', function(){
                             </div>
                         </div>
                         <div class="col-4 d-inline">
-                            <span>pdpt YTD</span>
+                            <span id="ytd-nama"></span>
                         </div>
                         {{-- <div class="col-6 d inline" > --}}
                         <div class="col-1 d-inline">
                             <div style="width: 1em;height:1em; border-radius: 100%; background-color: #DCDCDC"></div>
                         </div>
                         <div class="col-4 di-inline">
-                            <span>pdpt Tahun Lalu</span>
+                            <span id="lalu-nama"></span>
                         </div>
                         {{-- </div --}}
                     </div>

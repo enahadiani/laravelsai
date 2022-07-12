@@ -155,11 +155,11 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,2) + '%')
-            $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,2) + '%')
-            $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1));
-            $('#rka-revenue').text(toMilyar(data.revenue.rka,1));
-            $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1));
+            $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,1,1) + '%')
+            $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1,1));
+            $('#rka-revenue').text(toMilyar(data.revenue.rka,1,1));
+            $('#yoy-revenue').text(toMilyar(data.revenue.yoy,1,1));
 
             //COGS
             var capai_rka=Math.abs(data.cogs.capai_rka);
@@ -181,11 +181,11 @@ function getDataBox() {
                 iconCogsYoy = '<img alt="down-icon"  src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-cogs').html(iconCogsAch+' '+number_format(capai_rka,2) + '%')
-            $('#capai_yoy-cogs').html(iconCogsYoy+' '+number_format(capai_yoy,2) + '%')
-            $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1));
-            $('#rka-cogs').text(toMilyar(data.cogs.rka,1));
-            $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1));
+            $('#capai_rka-cogs').html(iconCogsAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_yoy-cogs').html(iconCogsYoy+' '+number_format(capai_yoy,1,1) + '%')
+            $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1,1));
+            $('#rka-cogs').text(toMilyar(data.cogs.rka,1,1));
+            $('#yoy-cogs').text(toMilyar(data.cogs.yoy,1,1));
 
             //Gross Profit
             var capai_rka=Math.abs(data.gross_profit.capai_rka);
@@ -207,11 +207,11 @@ function getDataBox() {
                 iconGrossYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-gross_profit').html(iconGrossAch+' '+number_format(capai_rka,2) + '%')
-            $('#capai_yoy-gross_profit').html(iconGrossYoy+' '+number_format(capai_yoy,2) + '%')
-            $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1));
-            $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1));
-            $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1));
+            $('#capai_rka-gross_profit').html(iconGrossAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_yoy-gross_profit').html(iconGrossYoy+' '+number_format(capai_yoy,1,1) + '%')
+            $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1,1));
+            $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1,1));
+            $('#yoy-gross_profit').text(toMilyar(data.gross_profit.yoy,1,1));
             
             //OPEX
             var capai_rka=Math.abs(data.opex.capai_rka);
@@ -232,11 +232,11 @@ function getDataBox() {
                 iconOpexYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-opex').html(iconOpexAch+' '+number_format(capai_rka,2) + '%')
-            $('#capai_yoy-opex').html(iconOpexYoy+' '+number_format(capai_yoy,2) + '%')
-            $('#nilai-opex').text(toMilyar(data.opex.nilai,1));
-            $('#rka-opex').text(toMilyar(data.opex.rka,1));
-            $('#yoy-opex').text(toMilyar(data.opex.yoy,1));
+            $('#capai_rka-opex').html(iconOpexAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_yoy-opex').html(iconOpexYoy+' '+number_format(capai_yoy,1,1) + '%')
+            $('#nilai-opex').text(toMilyar(data.opex.nilai,1,1));
+            $('#rka-opex').text(toMilyar(data.opex.rka,1,1));
+            $('#yoy-opex').text(toMilyar(data.opex.yoy,1,1));
 
             //Net Income
             var capai_rka=Math.abs(data.net_income.capai_rka);
@@ -258,11 +258,11 @@ function getDataBox() {
                 iconNetYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-net_income').html(iconNetAch+' '+number_format(capai_rka,2) + '%')
-            $('#capai_yoy-net_income').html(iconNetYoy+' '+number_format(capai_yoy,2) + '%')
-            $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1));
-            $('#rka-net_income').text(toMilyar(data.net_income.rka,1));
-            $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1));
+            $('#capai_rka-net_income').html(iconNetAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_yoy-net_income').html(iconNetYoy+' '+number_format(capai_yoy,1,1) + '%')
+            $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1,1));
+            $('#rka-net_income').text(toMilyar(data.net_income.rka,1,1));
+            $('#yoy-net_income').text(toMilyar(data.net_income.yoy,1,1));
         }
     });
 }
@@ -334,7 +334,7 @@ function getFPBulan(){
                         
                         $.each(this.points, function(i, point) {
                             s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                number_format(point.y,2) +'';
+                                number_format(point.y,2,2) +'';
                         });
                         
                         return s;
@@ -427,7 +427,7 @@ function getKontribusi(){
                 tooltip: {
                     useHTML: true,
                     formatter:function(){
-                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2)+'%</b>';
+                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
                     }
                 },
                 credits: {
@@ -452,7 +452,7 @@ function getKontribusi(){
                                     'padding': '0 3px',
                                     'font-size': '9px',
                                     'borderColor': 'white'
-                                }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2)+' %')[0].outerHTML
+                                }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2,2)+' %')[0].outerHTML
                             }
                         },
                         showInLegend: false

@@ -702,17 +702,17 @@ function clearInputFilter(par) {
     $("#" + par).trigger("change");
 }
 
-function toMilyar(x,decimal=0) {
+function toMilyar(x,decimal=0,decimalmin=0) {
     if(x.toString().length <= 9){
         var nil = x / 1000000;
-        return number_format(nil,decimal) + " Jt";
+        return number_format(nil,decimal,decimalmin) + " Jt";
     }else{
         var nil = x / 1000000000;
-        return number_format(nil,decimal) + " M";
+        return number_format(nil,decimal,decimalmin) + " M";
     }
 }
 
-function toJuta(x,decimal=0) {
+function toJuta(x,decimal=0,decimalmin=0) {
     var nil = x / 1000000;
-    return number_format(nil,decimal) + " Jt";
+    return number_format(nil,decimal,decimalmin) + " Jt";
 }
