@@ -217,7 +217,7 @@
                     tooltip: {
                         useHTML: true,
                         formatter:function(){
-                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
+                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2)+'%</b>';
                         }
                     },
                     plotOptions: {

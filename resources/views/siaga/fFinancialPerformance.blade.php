@@ -427,7 +427,7 @@ function getKontribusi(){
                 tooltip: {
                     useHTML: true,
                     formatter:function(){
-                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'</b>';
+                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2)+'%</b>';
                     }
                 },
                 credits: {
@@ -540,7 +540,7 @@ function getMargin(){
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_klp}</p>
                             <span class="nama-klp">${line.nama}</span></td>
-                        <td class='text-right'>${number_format(persen,2)}%</td>
+                        <td class='text-right'>${number_format(persen,2,2)}%</td>
                         
                     </tr>`;
                 }

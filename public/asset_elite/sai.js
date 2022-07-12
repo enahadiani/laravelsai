@@ -37,12 +37,12 @@ function DelDecimal(x){
     return Math.round(x);
 }
 
-function number_format(number,decimal=0){
+function number_format(number,decimal=0,decimalmin=0){
     number = parseFloat(number).toFixed(decimal);
-    formatter = new Intl.NumberFormat(['ban', 'id']);
-    return formatter.format(number,{
-        maximumFractionDigits: decimal 
-    });
+    return formatter = new Intl.NumberFormat(['ban','id'],{
+        minimumFractionDigits: decimalmin, 
+        maximumFractionDigits: decimal
+    }).format(number);
 }
 
 function format_milyar(number, decimal=1,simbol = ' M'){
