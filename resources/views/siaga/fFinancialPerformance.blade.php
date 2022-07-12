@@ -462,11 +462,19 @@ function getKontribusi(){
                             useHTML: true,
                             align: 'left',
                             formatter: function () {
-                                return $('<div/>').css({
-                                    'padding': '0 3px',
-                                    'font-size': '9px',
-                                    'borderColor': 'white'
-                                }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2,2)+' %')[0].outerHTML
+                                if($filter_kontribusi == "59"){
+                                    return $('<div/>').css({
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        'borderColor': 'white'
+                                    }).html(number_format(this.point.percentage,2,2)+' %')[0].outerHTML
+                                }else{
+                                    return $('<div/>').css({
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        'borderColor': 'white'
+                                    }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2,2)+' %')[0].outerHTML
+                                }
                             }
                         },
                         showInLegend: false
@@ -503,11 +511,11 @@ function getKontribusi(){
                             point[j].color = 'url(#custom-pattern)'  
                             // point[j].connector.element.style.stroke = 'black'
                             // point[j].connector.element.style.strokeDasharray = '4, 4'        
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-7"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,20) + ' : </div><div class="col-5 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
                         }else{
                             point[j].graphic.element.style.fill = color;
                             // point[j].connector.element.style.stroke = color;
-                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-7"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,20) + ' : </div><div class="col-5 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
                         }
                     }
                 }

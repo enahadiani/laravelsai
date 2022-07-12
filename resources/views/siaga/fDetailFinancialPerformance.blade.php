@@ -214,96 +214,109 @@
             success: function(result) {
                 var data = result.data;
                 chartContributionDet = Highcharts.chart('chart-contribusi', {
-                    chart: {
-                        type: 'pie',
-                        height: ($height - 393)
-                    },
-                    title: {
-                        text: ''
-                    },
-                    credits: {
-                        enabled: false
-                    },
-                    accessibility: {
-                        point: {
-                            valueSuffix: '%'
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie',
+                    height: ($height - 400)
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    useHTML: true,
+                    formatter:function(){
+                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                accessibility: {
+                    point: {
+                        valueSuffix: '%'
+                    }
+                },
+                defs: {
+                    patterns: [{
+                        'id': 'custom-pattern',
+                        'path': {
+                            d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
+                            stroke: Highcharts.getOptions().colors[1],
+                            strokeWidth: 2
                         }
-                    },
-                    tooltip: {
-                        useHTML: true,
-                        formatter:function(){
-                            return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
-                        }
-                    },
-                    defs: {
-                        patterns: [{
-                            'id': 'custom-pattern',
-                            'path': {
-                                d: 'M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9',
-                                stroke: Highcharts.getOptions().colors[1],
-                                strokeWidth: 2
-                            }
-                        }]
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            dataLabels: {
-                                enabled: true,
-                                distance: -30,
-                                useHTML: true,
-                                align: 'left',
-                                formatter: function () {
+                    }]
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            useHTML: true,
+                            align: 'left',
+                            formatter: function () {
+                                if($filter_kode_neraca == "59"){
+                                    return $('<div/>').css({
+                                        'padding': '0 3px',
+                                        'font-size': '9px',
+                                        'borderColor': 'white'
+                                    }).html(number_format(this.point.percentage,2,2)+' %')[0].outerHTML
+                                }else{
                                     return $('<div/>').css({
                                         'padding': '0 3px',
                                         'font-size': '9px',
                                         'borderColor': 'white'
                                     }).html('<b>'+this.point.name+'</b><br>'+number_format(this.point.percentage,2,2)+' %')[0].outerHTML
                                 }
-                            },
-                            showInLegend: false
-                        }
-                    },
-                    series: [{
+                            }
+                        },
+                        showInLegend: false
+                    }
+                },
+                series: [
+                    {
                         name: 'Share',
                         colorByPoint: true,
                         minPointSize: 90,
                         innerSize: '30%',
                         zMin: 0,
                         data: data
-                    }]
-                },function() {
-                    var series = this.series;
-                    $('.contribution-det-legend').html('');
-                    var html = "";
-                    for(var i=0;i<series.length;i++) {
-                        var point = series[i].data;
-                        console.log(point);
-                        for(var j=0;j<point.length;j++) {
-                            var color = point[j].color;
-                            var negative = point[j].negative;
-                            // if(point[j].key == $filter_kode_lokasi){
-                            //     var select = 'selected-row';
-                            //     var display = 'unset';
-                            // }else{
-                            // }
-                            var select = "";
-                            var display = 'none';
-                            if(negative) {
-                                point[j].graphic.element.style.fill = 'url(#custom-pattern)'
-                                point[j].color = 'url(#custom-pattern)'  
-                                // point[j].connector.element.style.stroke = 'black'
-                                // point[j].connector.element.style.strokeDasharray = '4, 4'        
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
-                            }else{
-                                point[j].graphic.element.style.fill = color;
-                                html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-5"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-7 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
-                            }
+                    }
+                ]
+            },function() {
+                var series = this.series;
+                $('.contribution-det-legend').html('');
+                var html = "";
+                for(var i=0;i<series.length;i++) {
+                    var point = series[i].data;
+                    for(var j=0;j<point.length;j++) {
+                        var color = point[j].color;
+                        var negative = point[j].negative;
+                        // if(point[j].key == $filter_kode_lokasi){
+                        //     var select = 'selected-row';
+                        //     var display = 'unset';
+                        // }else{
+                        // }
+                        var select = "";
+                        var display = 'none';
+                        if(negative) {
+                            point[j].graphic.element.style.fill = 'url(#custom-pattern)'
+                            point[j].color = 'url(#custom-pattern)'  
+                            // point[j].connector.element.style.stroke = 'black'
+                            // point[j].connector.element.style.strokeDasharray = '4, 4'        
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol"><svg style="height: 50px;"><circle fill="url(#pattern-1)" stroke="black" stroke-width="1" cx="5" cy="5" r="4"></circle><pattern id="pattern-1" patternUnits="userSpaceOnUse" width="10" height="10"><path d="M 0 10 L 10 0 M -1 1 L 1 -1 M 9 11 L 11 9" stroke="#434348" stroke-width="2"></path></pattern>Sorry, your browser does not support inline SVG.</svg> </div><div class="serieName truncate row" style=""><div class="col-7"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div>' + point[j].name.substring(0,10) + ' : </div><div class="col-5 text-right bold" style="color:#830000">'+toMilyar(point[j].y,2,2)+'</div></div></div>';                  
+                        }else{
+                            point[j].graphic.element.style.fill = color;
+                            // point[j].connector.element.style.stroke = color;
+                            html+= '<div class="item td-klik '+select+'"><p hidden class="td-kode">'+point[j].key+'</p><div class="symbol" style="background-color:'+color+'"></div><div class="serieName truncate row" style=""><div class="col-7"><div class="glyph-icon simple-icon-check check-row" style="display:'+display+'"></div> ' + point[j].name.substring(0,10) + ' : </div><div class="col-5 text-right bold">'+toMilyar(point[j].y,2,2)+'</div></div></div>';
                         }
                     }
-                    $('.contribution-det-legend').html(html);
-                });
+                }
+                $('.contribution-det-legend').html(html);
+            });
             }
         })
     }
