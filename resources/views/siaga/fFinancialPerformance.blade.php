@@ -351,7 +351,7 @@ function getFPBulan(){
                         data: data.pendapatan,
                         color: '#80b7be',
                     }, {
-                        name: 'Beban',
+                        name: 'OPEX',
                         data: data.beban,
                         stack: 'beban+hpp',
                         color: '#fbe697',
