@@ -27,7 +27,12 @@ Route::get('data-ccr-top', 'DashYpt\DashboardCCRController@getTopCCR');
 Route::get('data-ccr-bidang', 'DashYpt\DashboardCCRController@getBidang');
 Route::get('data-ccr-trend','DashYpt\DashboardCCRController@getTrendCCR');  
 Route::get('data-ccr-trend-saldo','DashYpt\DashboardCCRController@getTrendSaldoPiutang');  
-Route::get('data-ccr-umur-piutang','DashYpt\DashboardCCRController@getUmurPiutang');  
+Route::get('data-ccr-umur-piutang','DashYpt\DashboardCCRController@getUmurPiutang'); 
+
+Route::get('data-ccr-unit-box', 'DashYpt\DashboardCCRUnitController@getDataBox');
+Route::get('data-ccr-unit-trend','DashYpt\DashboardCCRUnitController@getTrendCCR');  
+Route::get('data-ccr-unit-trend-saldo','DashYpt\DashboardCCRUnitController@getTrendSaldoPiutang');  
+Route::get('data-ccr-unit-umur-piutang','DashYpt\DashboardCCRUnitController@getUmurPiutang'); 
 
 Route::get('data-cf-box', 'DashYpt\DashboardCFController@getDataBox');
 Route::get('data-cf-chart-bulanan', 'DashYpt\DashboardCFController@getDataChartBulanan');
@@ -57,5 +62,10 @@ Route::get('data-piutang-bidang', 'DashYpt\DashboardPiutangController@getBidang'
 Route::get('data-piutang-komposisi', 'DashYpt\DashboardPiutangController@getKomposisiPiutang');
 Route::get('data-piutang-umur', 'DashYpt\DashboardPiutangController@getUmurPiutang');
 Route::get('data-piutang-saldo', 'DashYpt\DashboardPiutangController@getTrendSaldoPiutang');
+
+Route::get('data-piutang-unit-box', 'DashYpt\DashboardPiutangUnitController@getDataBox');
+Route::get('data-piutang-unit-komposisi', 'DashYpt\DashboardPiutangUnitController@getKomposisiPiutang');
+Route::get('data-piutang-unit-umur', 'DashYpt\DashboardPiutangUnitController@getUmurPiutang');
+Route::get('data-piutang-unit-saldo', 'DashYpt\DashboardPiutangUnitController@getTrendSaldoPiutang');
 
 ?>
