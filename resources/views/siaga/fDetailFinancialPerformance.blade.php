@@ -95,16 +95,19 @@
             dataType: 'json',
             async: true,
             success: function(result) {
-                chartCapaiDet = Highcharts.chart('chart-capai', {
+                chartCapaiDet = Highcharts.chart('chart-capai-det', {
                     chart: {
                         type: 'column',
-                        height: (($height - 192)/2)
+                        height: (($height - 232)/2)
                     },
                     title: {
-                        text: 'Pencapaian Realisasi Anggaran Portofolio',
+                        text: '',
                         align: 'left'
                     },
                     credits: {
+                        enabled: false
+                    },
+                    exporting: {
                         enabled: false
                     },
                     xAxis: {
@@ -231,6 +234,9 @@
                     }
                 },
                 credits: {
+                    enabled: false
+                },
+                exporting:{
                     enabled: false
                 },
                 accessibility: {
@@ -375,13 +381,13 @@
             async: true,
             success: function(result) {
                 var data = result.data;
-                chartBulanDet = Highcharts.chart('chart-PP', {
+                chartBulanDet = Highcharts.chart('chart-bulan-det', {
                     chart: {
                         type: 'spline',
-                        height: (($height - 192)/2)
+                        height: (($height - 232)/2)
                     },
                     title: {
-                        text: nama_chart+' Portofolio Perbulan',
+                        text: '',
                         align: 'left'
                     },
                     xAxis: {
@@ -390,6 +396,9 @@
                         ]
                     },
                     credits: {
+                        enabled: false
+                    },
+                    exporting: {
                         enabled: false
                     },
                     yAxis: {
@@ -596,6 +605,8 @@
         $('#ytd-nama').text('YTD');
         $('#lalu-nama').text('Tahun Lalu');
         $('#kontribusi-nama').text('Kontribusi '+nama_chart);
+        $('#portofolio-nama').text(nama_chart+' Portofolio Perbulan');
+        
         $('#yoy-nama').text(nama_chart+' YoY');
         if ($filter1 == 'Periode') {
             $('#list-filter-2').find('.list').each(function() {
@@ -716,24 +727,323 @@
 
 $(window).on('resize', function(){
     var win = $(this); //this = window
-    var $height = win.height();
+    if($full == '2'){
+        // console.log('this fullscreen mode');
+        var chartBulanDetheight = screen.height;
+        var chartCapaiDetheight = screen.height;
+        var chartContributionDetheight = screen.height;
+    }else{
+        
+        // console.log('this browser mode');
+        var win = $(this); //this = window
+        var chartBulanDetheight = ((win.height() - 232)/2);
+        var chartCapaiDetheight = ((win.height() - 232)/2);
+        var chartContributionDetheight = (win.height() - 393);
+    }
 
     chartBulanDet.update({
         chart: {
-            height: (($height - 192)/2),
+            height: chartBulanDetheight,
         }
     })
     chartCapaiDet.update({
         chart: {
-            height: (($height - 192)/2),
+            height: chartCapaiDetheight,
         }
     })
     chartContributionDet.update({
         chart: {
-            height: ($height - 393),
+            height: chartContributionDetheight,
         }
     })
 });
+
+// CUSTOM EXPORT HIGHCHART
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.card-dash').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+})
+
+// CONTRIBUTION
+$('#export-kontribusi-det.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-kontribusi-det').attr('id')
+    var jenis = $(this).text()
+    var nama_kontribusi = $('#kontribusi-nama').text();
+    
+    if(jenis == 'View in full screen') {
+        $full = '2';
+        chartContributionDet.update({
+            title: {
+                text: nama_kontribusi,
+                // floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        chartContributionDet.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        chartContributionDet.print()
+    } else if(jenis == 'Download PNG image') {
+        chartContributionDet.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        chartContributionDet.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        chartContributionDet.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        chartContributionDet.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        chartContributionDet.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END CONTRIBUTION
+
+// CAPAI
+$('#export-capai-det.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-capai-det').attr('id')
+    var jenis = $(this).text()
+    var nama_capai = 'Pencapaian Realisasi Anggaran Portofolio';
+    
+    if(jenis == 'View in full screen') {
+        $full = '2';
+        chartCapaiDet.update({
+            title: {
+                text: nama_capai,
+                // floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        chartCapaiDet.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        chartCapaiDet.print()
+    } else if(jenis == 'Download PNG image') {
+        chartCapaiDet.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: nama_capai,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        chartCapaiDet.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: nama_capai,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        chartCapaiDet.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: nama_capai,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        chartCapaiDet.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: nama_capai,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        chartCapaiDet.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END CAPAI
+
+// BULANAN
+$('#export-bulan-det.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-bulan-det').attr('id')
+    var jenis = $(this).text()
+    var nama_bulan = $('#portofolio-nama').text();
+    
+    if(jenis == 'View in full screen') {
+        $full = '2';
+        chartBulanDet.update({
+            title: {
+                text: nama_bulan,
+                // floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        chartBulanDet.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        chartBulanDet.print()
+    } else if(jenis == 'Download PNG image') {
+        chartBulanDet.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: nama_bulan,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        chartBulanDet.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: nama_bulan,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        chartBulanDet.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: nama_bulan,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        chartBulanDet.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: nama_bulan,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        chartBulanDet.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END BULANAN
+// END CUSTOM EXPORT HIGHCHART
+
+// FULLSCREEN HIGHCHART
+document.addEventListener('fullscreenchange', (event) => {
+    if (document.fullscreenElement) {
+        console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+    } else {
+        $full = '0';
+
+        chartContributionDet.update({
+            title: {
+                text: ''
+            }
+        })
+        chartBulanDet.update({
+            title: {
+                text: ''
+            }
+        })
+        chartCapaiDet.update({
+            title: {
+                text: ''
+            }
+        })
+        console.log('Leaving full-screen mode.');
+    }
+});
+// END FULLSCREEN HIGHCHART
 
 </script>
 <section id="header" class="header mb-3">
@@ -839,7 +1149,7 @@ $(window).on('resize', function(){
 <div class="row mb-2" style="padding-left: 1.5em;">
     <div class="col-lg-3 col-md-6 px-1" style="height: calc(100vh - 165px)">
         {{-- REVENUE--}}
-        <div class="card card-dash rounded-lg mb-0" style="padding-left: 1em; padding-right:1.5em; ">
+        <div class="card card-dash rounded-lg mb-0" style="padding-left: 1em; padding-right:1.5em; " id="dash-kontribusi-det">
             <div class="card-body pt-2 ">
                 <div class="row">
                     <div class="col-12"><span style="font-size: 1rem;" id="box-nama"></span></div>
@@ -863,8 +1173,26 @@ $(window).on('resize', function(){
                 </div>
             </div>
             <div class="card-body">
-                <b style="font-size: 1.2em;padding-top:10em;" id="kontribusi-nama"></b>
-                <div id="chart-contribusi" style="width:110%; height:calc(100vh - 393px)"></div>
+                <div class="row header-div py-2" id="card-kontribusi-det">
+                    <div class="col-9 pr-0">
+                        <b style="font-size: 1.2em;padding-top:10em;" id="kontribusi-nama"></b>
+                    </div>
+                    <div class="col-2 pl-0 text-right">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-kontribusi-det">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="chart-contribusi" style="width:110%; height:calc(100vh - 406px)"></div>
                 <div class="contribution-det-legend" style="height: 80px;overflow-y:scroll;overflow-x:hidden">
 
                 </div>
@@ -873,14 +1201,52 @@ $(window).on('resize', function(){
         {{-- END REVENUE --}}
     </div>
     <div class="col-lg-6 col-md-12 px-1">
-        <div class="card card-dash rounded-lg">
+        <div class="card card-dash rounded-lg" id="dash-capai-det">
+            <div class="row header-div py-2 px-3" id="card-capai-det">
+                <div class="col-9">
+                    <b style="font-size: 1.2em;padding-top:10em;">Pencapaian Realisasi Anggaran Portofolio</b>
+                </div>
+                <div class="col-3 text-right">
+                    <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                </div>
+                <div class="menu-chart-custom hidden" id="export-capai-det">
+                    <ul>
+                        <li class="menu-chart-item fullscreen">View in full screen</li>
+                        <li class="menu-chart-item print">Print chart</li>
+                        <hr>
+                        <li class="menu-chart-item print png">Download PNG image</li>
+                        <li class="menu-chart-item print jpg">Download JPEG image</li>
+                        <li class="menu-chart-item print pdf">Download PDF document</li>
+                        <li class="menu-chart-item print svg">Download SVG vector image</li>
+                    </ul>
+                </div>
+            </div>
             <div class="card-body">
-                <div id="chart-capai" style="width:100%; height:calc((100vh - 192px)/2)"></div>
+                <div id="chart-capai-det" style="width:100%; height:calc((100vh - 270px)/2)"></div>
             </div>
         </div>
-        <div class="card card-dash rounded-lg mb-0">
+        <div class="card card-dash rounded-lg mb-0" id="dash-bulan-det">
+            <div class="row header-div py-2 px-3" id="card-bulan-det">
+                <div class="col-9">
+                    <b style="font-size: 1.2em;padding-top:10em;" id="portofolio-nama"></b>
+                </div>
+                <div class="col-3 text-right">
+                    <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                </div>
+                <div class="menu-chart-custom hidden" id="export-bulan-det">
+                    <ul>
+                        <li class="menu-chart-item fullscreen">View in full screen</li>
+                        <li class="menu-chart-item print">Print chart</li>
+                        <hr>
+                        <li class="menu-chart-item print png">Download PNG image</li>
+                        <li class="menu-chart-item print jpg">Download JPEG image</li>
+                        <li class="menu-chart-item print pdf">Download PDF document</li>
+                        <li class="menu-chart-item print svg">Download SVG vector image</li>
+                    </ul>
+                </div>
+            </div>
             <div class="card-body">
-                <div id="chart-PP" style="width:100%; height:calc((100vh - 192px)/2)"></div>
+                <div id="chart-bulan-det" style="width:100%; height:calc((100vh - 270px)/2)"></div>
             </div>
         </div>
     </div>

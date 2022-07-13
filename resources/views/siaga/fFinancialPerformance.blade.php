@@ -440,6 +440,9 @@ function getKontribusi(){
                 credits: {
                     enabled: false
                 },
+                exporting: {
+                    enabled: false
+                },
                 accessibility: {
                     point: {
                         valueSuffix: '%'
@@ -627,11 +630,22 @@ $('#margin tbody').on('click', 'tr.selected-row', function() {
 $(window).on('resize', function(){
     var win = $(this); //this = window
     var $height = win.height();
+    if($full == '2'){
+        // console.log('this fullscreen mode');
+        var chartBulanheight = screen.height;
+        var chartContributionheight = screen.height;
+    }else{
+        
+        // console.log('this browser mode');
+        var win = $(this); //this = window
+        var chartBulanheight = win.height() - 330;
+        var chartContributionheight = win.height() - 400;
+    }
 
     if(typeof chartBulan == 'object' && chartBulan != null ){
         chartBulan.update({
             chart: {
-                height: ($height - 330),
+                height:chartBulanheight,
             }
         })
     }
@@ -639,7 +653,7 @@ $(window).on('resize', function(){
     if(typeof chartContribution == 'object' && chartContribution != null ){
         chartContribution.update({
             chart: {
-                height: ($height - 400),
+                height:chartContributionheight,
             }
         })
     }
@@ -732,7 +746,91 @@ $('#export-monthly.menu-chart-custom ul li').click(function(event) {
         $("body").css("overflow", "hidden");
     }
 })
-// END PER AKUN
+// END MONTHLY PERFORMANCE
+
+// CONTRIBUTION
+$('#export-kontribusi.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-kontribusi').attr('id')
+    var jenis = $(this).text()
+    var nama_kontribusi = $('#kode_neraca option:selected').text();
+    
+    if(jenis == 'View in full screen') {
+        $full = '2';
+        chartContribution.update({
+            title: {
+                text: nama_kontribusi,
+                // floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        chartContribution.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        chartContribution.print()
+    } else if(jenis == 'Download PNG image') {
+        chartContribution.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        chartContribution.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        chartContribution.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        chartContribution.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: nama_kontribusi,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        chartContribution.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END CONTRIBUTION
 // END CUSTOM EXPORT HIGHCHART
 
 // FULLSCREEN HIGHCHART
@@ -1122,14 +1220,30 @@ document.addEventListener('fullscreenchange', (event) => {
         </div>
         <div class="col-md-3dot4 px-1">
             {{-- REVENUE--}}
-            <div class="card card-dash rounded-lg px-3 py-2 mb-0" style="height: calc(100vh - 280px)">
-                <div class="row"> 
-                    <div style="padding-left: 1em;">
-                        <select name="nama" id="kode_neraca"></select>
+            <div class="card card-dash rounded-lg px-3 py-2 mb-0" style="height: calc(100vh - 280px)" id="dash-kontribusi">
+                <div class="row header-div py-2" id="card-kontribusi">
+                    <div class="col-9">
+                        <div style="padding-left: 1em;">
+                            <select name="nama" id="kode_neraca"></select>
+                        </div>
+                    </div>
+                    <div class="col-3 text-right">
+                        <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                    </div>
+                    <div class="menu-chart-custom hidden" id="export-kontribusi">
+                        <ul>
+                            <li class="menu-chart-item fullscreen">View in full screen</li>
+                            <li class="menu-chart-item print">Print chart</li>
+                            <hr>
+                            <li class="menu-chart-item print png">Download PNG image</li>
+                            <li class="menu-chart-item print jpg">Download JPEG image</li>
+                            <li class="menu-chart-item print pdf">Download PDF document</li>
+                            <li class="menu-chart-item print svg">Download SVG vector image</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="chart-contribusi" style="width:100%; height: calc(100vh - 400px)"></div>
+                    <div id="chart-contribusi" style="width:100%; height: calc(100vh - 410px)"></div>
                     <div class="contribution-legend" style="height: 80px;overflow-y:scroll;overflow-x:hidden">
 
                     </div>
