@@ -1155,7 +1155,7 @@ document.addEventListener('fullscreenchange', (event) => {
 <div class="row mb-2" style="padding-left: 1.5em;">
     <div class="col-lg-3 col-md-6 px-1" style="height: calc(100vh - 165px)">
         {{-- REVENUE--}}
-        <div class="card card-dash rounded-lg" style="padding-left: 1em; padding-right:1.5em; ">
+        <div class="card card-dash rounded-lg" style="padding-left: 1em; padding-right:1.5em; " id="dash-kontribusi-det">
             <div class="card-body pt-2 ">
                 <div class="row">
                     <div class="col-12"><span style="font-size: 1rem;" id="box-nama"></span></div>
@@ -1207,7 +1207,7 @@ document.addEventListener('fullscreenchange', (event) => {
         {{-- END REVENUE --}}
     </div>
     <div class="col-lg-6 col-md-12 px-1">
-        <div class="card card-dash rounded-lg">
+        <div class="card card-dash rounded-lg" id="dash-capai-det">
             <div class="row header-div py-2 px-3" id="card-capai-det">
                 <div class="col-9">
                     <b style="font-size: 1.2em;padding-top:10em;">Pencapaian Realisasi Anggaran Portofolio</b>
@@ -1231,7 +1231,7 @@ document.addEventListener('fullscreenchange', (event) => {
                 <div id="chart-capai-det" style="width:100%; height:calc((100vh - 270px)/2)"></div>
             </div>
         </div>
-        <div class="card card-dash rounded-lg mb-0">
+        <div class="card card-dash rounded-lg mb-0" id="dash-bulan-det">
             <div class="row header-div py-2 px-3" id="card-bulan-det">
                 <div class="col-9">
                     <b style="font-size: 1.2em;padding-top:10em;" id="portofolio-nama"></b>
