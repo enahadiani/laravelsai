@@ -7,7 +7,7 @@
         cursor: pointer;
     }
 </style>
-<script src="{{ asset('main.js') }}"></script>
+<script src="{{ asset('main.js?version=_').time() }}"></script>
 
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
