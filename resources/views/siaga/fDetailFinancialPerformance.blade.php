@@ -134,7 +134,7 @@
                             
                             $.each(this.points, function(i, point) {
                                 s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                    number_format(point.y,2,2) +'';
+                                    toMilyar(point.y,2,2) +'';
                             });
                             
                             return s;
@@ -230,7 +230,7 @@
                 tooltip: {
                     useHTML: true,
                     formatter:function(){
-                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+number_format(this.y)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
+                        return '<span>'+this.series.name+'</span><br>'+this.point.name+' : <b>'+toMilyar(this.y,2,2)+'<br/>'+number_format(this.percentage,2,2)+'%</b>';
                     }
                 },
                 credits: {
@@ -424,7 +424,7 @@
                             
                             $.each(this.points, function(i, point) {
                                 s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                    number_format(point.y,2,2) +'';
+                                    toMilyar(point.y,2,2) +'';
                             });
                             
                             return s;
@@ -521,7 +521,7 @@
                                 
                                 $.each(this.points, function(i, point) {
                                     s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                        number_format(point.y,2,2) +'';
+                                        toMilyar(point.y,2,2) +'';
                                 });
                                 
                                 return s;
