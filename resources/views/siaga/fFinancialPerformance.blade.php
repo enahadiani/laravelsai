@@ -155,7 +155,7 @@ function getDataBox() {
                 iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_rka-revenue').html(number_format(capai_rka,1,1) + '%')
             $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,1,1) + '%')
             $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1,1));
             $('#rka-revenue').text(toMilyar(data.revenue.rka,1,1));
@@ -181,7 +181,7 @@ function getDataBox() {
                 iconCogsYoy = '<img alt="down-icon"  src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-cogs').html(iconCogsAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_rka-cogs').html(number_format(capai_rka,1,1) + '%')
             $('#capai_yoy-cogs').html(iconCogsYoy+' '+number_format(capai_yoy,1,1) + '%')
             $('#nilai-cogs').text(toMilyar(data.cogs.nilai,1,1));
             $('#rka-cogs').text(toMilyar(data.cogs.rka,1,1));
@@ -207,7 +207,7 @@ function getDataBox() {
                 iconGrossYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-gross_profit').html(iconGrossAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_rka-gross_profit').html(number_format(capai_rka,1,1) + '%')
             $('#capai_yoy-gross_profit').html(iconGrossYoy+' '+number_format(capai_yoy,1,1) + '%')
             $('#nilai-gross_profit').text(toMilyar(data.gross_profit.nilai,1,1));
             $('#rka-gross_profit').text(toMilyar(data.gross_profit.rka,1,1));
@@ -232,7 +232,7 @@ function getDataBox() {
                 iconOpexYoy = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-opex').html(iconOpexAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_rka-opex').html(number_format(capai_rka,1,1) + '%')
             $('#capai_yoy-opex').html(iconOpexYoy+' '+number_format(capai_yoy,1,1) + '%')
             $('#nilai-opex').text(toMilyar(data.opex.nilai,1,1));
             $('#rka-opex').text(toMilyar(data.opex.rka,1,1));
@@ -258,7 +258,7 @@ function getDataBox() {
                 iconNetYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
             }
 
-            $('#capai_rka-net_income').html(iconNetAch+' '+number_format(capai_rka,1,1) + '%')
+            $('#capai_rka-net_income').html(number_format(capai_rka,1,1) + '%')
             $('#capai_yoy-net_income').html(iconNetYoy+' '+number_format(capai_yoy,1,1) + '%')
             $('#nilai-net_income').text(toMilyar(data.net_income.nilai,1,1));
             $('#rka-net_income').text(toMilyar(data.net_income.rka,1,1));
@@ -285,21 +285,24 @@ function getFPBulan(){
         async: true,
         success:function(result) {
             var data = result.data;
-            chartBulan = Highcharts.chart('chart-revenue', {
+            chartBulan = Highcharts.chart('chart-monthly', {
                 chart: {
                     type: 'column',
-                    height: ($height - 300)
+                    height: ($height - 330)
                 },
                 title: {
-                    text: 'Monthly Perfomance',
+                    text: '',
                     align: 'left'
                 },
                 labels: {
                     enabled: false
                 },
                 credits: {
-                        enabled: false
-                    },
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
                 xAxis: {
                     categories: [
                         'Jan',
@@ -625,15 +628,15 @@ $(window).on('resize', function(){
     var win = $(this); //this = window
     var $height = win.height();
 
-    if(chartBulan != null ){
+    if(typeof chartBulan == 'object' && chartBulan != null ){
         chartBulan.update({
             chart: {
-                height: ($height - 300),
+                height: ($height - 330),
             }
         })
     }
     
-    if(chartContribution != null ){
+    if(typeof chartContribution == 'object' && chartContribution != null ){
         chartContribution.update({
             chart: {
                 height: ($height - 400),
@@ -641,6 +644,118 @@ $(window).on('resize', function(){
         })
     }
 });
+
+// CUSTOM EXPORT HIGHCHART
+$('.icon-menu').click(function(event) {
+    event.stopPropagation()
+    var parentID = $(this).parents('.card-dash').attr('id')
+    $('#'+parentID).find('.menu-chart-custom').removeClass('hidden')
+})
+// MONTHLY PERFORMANCE
+$('#export-monthly.menu-chart-custom ul li').click(function(event) {
+    event.stopPropagation()
+    var idParent = $(this).parent('#dash-monthly').attr('id')
+    var jenis = $(this).text()
+    
+    if(jenis == 'View in full screen') {
+        $full = '2';
+        chartBulan.update({
+            title: {
+                text: `Monthly Performance`,
+                // floating: true,
+                x: 40,
+                y: 20
+            }
+        })
+        chartBulan.fullscreen.toggle();
+    } else if(jenis == 'Print chart') {
+        chartBulan.print()
+    } else if(jenis == 'Download PNG image') {
+        chartBulan.exportChart({
+            type: 'image/png',
+            filename: 'chart-png'
+        }, {
+            title: {
+                text: `Monthly Performance`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download JPEG image') {
+        chartBulan.exportChart({
+            type: 'image/jpeg',
+            filename: 'chart-jpg'
+        }, {
+            title: {
+                text: `Monthly Performance`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download PDF document') {
+        chartBulan.exportChart({
+            type: 'application/pdf',
+            filename: 'chart-pdf'
+        }, {
+            title: {
+                text: `Monthly Performance`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'Download SVG vector image') {
+        chartBulan.exportChart({
+            type: 'image/svg+xml',
+            filename: 'chart-svg'
+        }, {
+            title: {
+                text: `Monthly Performance`,
+            },
+            subtitle: {
+                text: ''
+            }
+        });
+    } else if(jenis == 'View table data') {
+        $(this).text('Hide table data')
+        chartBulan.viewData()
+        var cek = $('#'+idParent+'.highcharts-data-table table').hasClass('table table-bordered table-no-padding')
+        if(!cek) {
+            $('.highcharts-data-table table').addClass('table table-bordered table-no-padding')
+        }
+        $("body").css("overflow", "scroll");
+    } else if(jenis == 'Hide table data') {
+        $(this).text('View table data')
+        $('.highcharts-data-table').hide()
+        $("body").css("overflow", "hidden");
+    }
+})
+// END PER AKUN
+// END CUSTOM EXPORT HIGHCHART
+
+// FULLSCREEN HIGHCHART
+document.addEventListener('fullscreenchange', (event) => {
+    if (document.fullscreenElement) {
+        console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+    } else {
+        $full = '0';
+        chartBulan.update({
+            title: {
+                text: ''
+            }
+        })
+
+        chartContribution.update({
+            title: {
+                text: ''
+            }
+        })
+        console.log('Leaving full-screen mode.');
+    }
+});
+// END FULLSCREEN HIGHCHART
 </script>
 
 
@@ -979,9 +1094,28 @@ $(window).on('resize', function(){
     <div class="row mb-2">
         <div class="col-md-5dot4 px-1" >
             {{-- REVENUE--}}
-            <div class="card card-dash rounded-lg mb-0">
+            <div class="card card-dash rounded-lg mb-0" id="dash-monthly">
                 <div class="card-body">
-                    <div id="chart-revenue" style="width:100%; height: calc(100vh - 290px);"></div>
+                    <div class="row header-div py-2" id="card-monthly">
+                        <div class="col-9">
+                            <h6 class="header-card mb-0">Monthly Performance</h6>
+                        </div>
+                        <div class="col-3 text-right">
+                            <div class="glyph-icon simple-icon-menu icon-menu"></div>
+                        </div>
+                        <div class="menu-chart-custom hidden" id="export-monthly">
+                            <ul>
+                                <li class="menu-chart-item fullscreen">View in full screen</li>
+                                <li class="menu-chart-item print">Print chart</li>
+                                <hr>
+                                <li class="menu-chart-item print png">Download PNG image</li>
+                                <li class="menu-chart-item print jpg">Download JPEG image</li>
+                                <li class="menu-chart-item print pdf">Download PDF document</li>
+                                <li class="menu-chart-item print svg">Download SVG vector image</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="chart-monthly" style="width:100%; height: calc(100vh - 327px);"></div>
                 </div>
             </div>
             {{-- END REVENUE --}}

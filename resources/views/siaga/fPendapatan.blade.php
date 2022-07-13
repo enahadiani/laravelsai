@@ -72,7 +72,7 @@
                     iconPdptYoy = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
                 }
 
-                $('#capai_rka-revenue').html(iconPdptAch+' '+number_format(capai_rka,1,1) + '%')
+                $('#capai_rka-revenue').html(number_format(capai_rka,1,1) + '%')
                 $('#capai_yoy-revenue').html(iconPdptYoy+' '+number_format(capai_yoy,1,1) + '%')
                 $('#nilai-revenue').text(toMilyar(data.revenue.nilai,1,1));
                 $('#rka-revenue').text(toMilyar(data.revenue.rka,1,1));
