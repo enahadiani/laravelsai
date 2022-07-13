@@ -377,9 +377,10 @@ function toNilai(str_num) {
     return +number;
 }
 
-function singkatNilai(num) {
-    if (num < 0) {
-        num = num * -1;
+function singkatNilai(number) {
+    var num = number;
+    if (number < 0) {
+        num = number * -1;
     }
 
     if (num >= 1000 && num < 1000000) {
@@ -396,7 +397,7 @@ function singkatNilai(num) {
         var pembagi = 1000000000000;
     }
 
-    if (num < 0) {
+    if (number < 0) {
         return parseFloat(num / pembagi).toFixed(0) * -1 + " " + str;
     } else if (num > 0 && num >= 1000) {
         return parseFloat(num / pembagi).toFixed(0) + " " + str;

@@ -218,35 +218,37 @@ function toSatuan(num, satuan, pembagi, dec_places){
     return parseFloat(num/pembagi).toFixed(dec_places) + ' ' +satuan;
 }
 
-function singkatNilai(num){
-    if(num < 0){
-        num = num * -1;
+function singkatNilai(number) {
+    var num = number;
+    if (number < 0) {
+        num = number * -1;
     }
 
-    if(num >= 1000 && num < 1000000){
-        var str = 'Rb';
+    if (num >= 1000 && num < 1000000) {
+        var str = "Rb";
         var pembagi = 1000;
-    }else if(num >= 1000000 && num < 1000000000){
-        var str = 'Jt';
+    } else if (num >= 1000000 && num < 1000000000) {
+        var str = "Jt";
         var pembagi = 1000000;
-    }else if(num >= 1000000000 && num < 1000000000000){
-        var str = 'M';
+    } else if (num >= 1000000000 && num < 1000000000000) {
+        var str = "M";
         var pembagi = 1000000000;
-    }else if(num >= 1000000000000){
-        var str = 'T';
+    } else if (num >= 1000000000000) {
+        var str = "T";
         var pembagi = 1000000000000;
     }
 
-    if(num < 0){
-        return (parseFloat(num/pembagi).toFixed(2) * -1) + ' ' +str;
-    }else if (num > 0 && num >= 1000){
-        return parseFloat(num/pembagi).toFixed(2) + ' ' +str;
-    }else if(num > 0 && num < 1000){
+    if (number < 0) {
+        return parseFloat(num / pembagi).toFixed(0) * -1 + " " + str;
+    } else if (num > 0 && num >= 1000) {
+        return parseFloat(num / pembagi).toFixed(0) + " " + str;
+    } else if (num > 0 && num < 1000) {
         return num;
-    }else{
+    } else {
         return num;
     }
 }
+
 
 function toRp(num){
     if(num < 0){
