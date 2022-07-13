@@ -1174,7 +1174,7 @@ document.addEventListener('fullscreenchange', (event) => {
             </div>
             <div class="card-body">
                 <div class="row header-div py-2" id="card-kontribusi-det">
-                    <div class="col-9 pr-0">
+                    <div class="col-10 pr-0">
                         <b style="font-size: 1.2em;padding-top:10em;" id="kontribusi-nama"></b>
                     </div>
                     <div class="col-2 pl-0 text-right">
