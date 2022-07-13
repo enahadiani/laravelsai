@@ -132,10 +132,24 @@
                         useHTML: true,
                         formatter: function() {
                             var s = '<b>'+ this.x +'</b>';
-                            
+                            var index = result.kategori.indexOf(this.x);
                             $.each(this.points, function(i, point) {
+                                switch(i){
+                                    case 0:
+                                        var nilai = result.rka_ytd[index]; 
+                                    break;
+                                    case 1:
+                                        var nilai = result.real_ytd[index]; 
+                                    break;
+                                    case 2:
+                                        var nilai = result.rka_fy[index]; 
+                                    break;
+                                    case 3:
+                                        var nilai = result.real_fy[index]; 
+                                    break;
+                                }
                                 s += '<br/><span style="color:'+point.series.color+'">'+ point.series.name +': </span> '+
-                                    toMilyar(point.y,2,2) +'';
+                                    toMilyar(nilai,2,2) +'';
                             });
                             
                             return s;
@@ -151,13 +165,13 @@
                     series: [{
                         name: 'RKA YTD',
                         color: '#DCDCDC',
-                        data: result.rka_ytd,
+                        data: result.prka_ytd,
                         pointPadding: 0.3,
                         pointPlacement: -0.2
                     }, {
                         name: 'Real YTD',
                         color: '#228B22',
-                        data: result.real_ytd,
+                        data: result.preal_ytd,
                         pointPadding: 0.4,
                         pointPlacement: -0.2,
                         dataLabels: {
@@ -167,28 +181,28 @@
                             crop: false,
                             useHTML: true,
                             formatter: function () {
-                                var index = result.kategori.indexOf(this.x);
-                                var capai = result.rka_ytd[index] != 0 ? (result.real_ytd[index]/result.rka_ytd[index])*100 : 0;
+                                // var index = result.kategori.indexOf(this.x);
+                                // var capai = result.rka_ytd[index] != 0 ? (result.real_ytd[index]/result.rka_ytd[index])*100 : 0;
                                 return $('<div/>').css({
                                     // 'color' : 'white', // work
                                     'padding': '0 3px',
                                     'font-size': '8px',
                                     // 'backgroundColor' : this.point.color  // just white in my case
-                                }).text(number_format(capai,2,2)+'%')[0].outerHTML;
+                                }).text(number_format(this.y,2,2)+'%')[0].outerHTML;
                             }
                         }
                     },
                     {
                         name: 'RKA FY',
                         color: '#F0E68C',
-                        data: result.rka_fy,
+                        data: result.prka_fy,
                         pointPadding: 0.3,
                         pointPlacement: 0.2,
 
                     }, {
                         name: 'Real FY',
                         color: '#FF0000',
-                        data: result.real_fy,
+                        data: result.preal_fy,
                         pointPadding: 0.4,
                         pointPlacement: 0.2,
                         dataLabels: {
@@ -198,14 +212,14 @@
                             crop: false,
                             useHTML: true,
                             formatter: function () {
-                                var index = result.kategori.indexOf(this.x);
-                                var capai = result.rka_fy[index] != 0 ? (result.real_fy[index]/result.rka_fy[index])*100 : 0;
+                                // var index = result.kategori.indexOf(this.x);
+                                // var capai = result.rka_fy[index] != 0 ? (result.real_fy[index]/result.rka_fy[index])*100 : 0;
                                 return $('<div/>').css({
                                     // 'color' : 'white', // work
                                     'padding': '0 3px',
                                     'font-size': '8px',
                                     // 'backgroundColor' : this.point.color  // just white in my case
-                                }).text(number_format(capai,2,2)+'%')[0].outerHTML;
+                                }).text(number_format(this.y,2,2)+'%')[0].outerHTML;
                             }
                         }
 
