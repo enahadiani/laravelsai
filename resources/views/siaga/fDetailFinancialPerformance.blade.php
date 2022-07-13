@@ -21,6 +21,7 @@
     window.scrollTo(0, 0);
     var nama_chart = "";
     $back_dash = true;
+    $full = '0';
     var chartContributionDet = null
     var chartCapaiDet = null
     var chartBulanDet = null
@@ -177,23 +178,43 @@
                             }
                         }
                     },
-                    // {
-                    //     name: 'RKA FY',
-                    //     color: '#F0E68C',
-                    //     data: result.rka_fy,
-                    //     pointPadding: 0.3,
-                    //     pointPlacement: 0.2,
+                    {
+                        name: 'RKA FY',
+                        color: '#F0E68C',
+                        data: result.rka_fy,
+                        pointPadding: 0.3,
+                        pointPlacement: 0.2,
 
-                    // }, {
-                    //     name: 'Real FY',
-                    //     color: '#FF0000',
-                    //     data: result.real_fy,
-                    //     pointPadding: 0.4,
-                    //     pointPlacement: 0.2,
+                    }, {
+                        name: 'Real FY',
+                        color: '#FF0000',
+                        data: result.real_fy,
+                        pointPadding: 0.4,
+                        pointPlacement: 0.2,
+                        dataLabels: {
+                            enabled: true,
+                            overflow: 'justify',
+                            allowOverlap:true,
+                            crop: false,
+                            useHTML: true,
+                            formatter: function () {
+                                var index = result.kategori.indexOf(this.x);
+                                var capai = result.rka_fy[index] != 0 ? (result.real_fy[index]/result.rka_fy[index])*100 : 0;
+                                return $('<div/>').css({
+                                    // 'color' : 'white', // work
+                                    'padding': '0 3px',
+                                    'font-size': '8px',
+                                    // 'backgroundColor' : this.point.color  // just white in my case
+                                }).text(number_format(capai,2,2)+'%')[0].outerHTML;
+                            }
+                        }
 
-                    // }
-                    ]
+                    }]
                 });
+                chartCapaiDet.series[2].update({ showInLegend: false });
+                chartCapaiDet.series[3].update({ showInLegend: false });
+                chartCapaiDet.series[2].hide();
+                chartCapaiDet.series[3].hide();
             }
         })
     }
@@ -725,6 +746,29 @@
     })
 // END FILTER EVENT
 
+$('#kode_capai').change(function(){
+    var jenis = $('#kode_capai').val();
+    if(jenis == "FY"){
+        chartCapaiDet.series[0].update({ showInLegend: false });
+        chartCapaiDet.series[1].update({ showInLegend: false });
+        chartCapaiDet.series[0].hide();
+        chartCapaiDet.series[1].hide();
+        chartCapaiDet.series[2].update({ showInLegend: true });
+        chartCapaiDet.series[3].update({ showInLegend: true });
+        chartCapaiDet.series[2].show();
+        chartCapaiDet.series[3].show();
+    }else{  
+        chartCapaiDet.series[2].update({ showInLegend: false });
+        chartCapaiDet.series[3].update({ showInLegend: false });
+        chartCapaiDet.series[2].hide();
+        chartCapaiDet.series[3].hide();
+        chartCapaiDet.series[0].update({ showInLegend: true });
+        chartCapaiDet.series[1].update({ showInLegend: true });
+        chartCapaiDet.series[0].show();
+        chartCapaiDet.series[1].show();
+    }
+});
+
 $(window).on('resize', function(){
     var win = $(this); //this = window
     if($full == '2'){
@@ -1203,10 +1247,18 @@ document.addEventListener('fullscreenchange', (event) => {
     <div class="col-lg-6 col-md-12 px-1">
         <div class="card card-dash rounded-lg" id="dash-capai-det">
             <div class="row header-div py-2 px-3" id="card-capai-det">
-                <div class="col-9">
+                <div class="col-9 pr-0">
                     <b style="font-size: 1.2em;padding-top:10em;">Pencapaian Realisasi Anggaran Portofolio</b>
                 </div>
-                <div class="col-3 text-right">
+                <div class="col-2 text-right">
+                    <div style="padding-left: 1em;">
+                        <select name="kode_capai" id="kode_capai">
+                            <option value="YTD">YTD</option>
+                            <option value="FY">FY</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1 pl-0 text-right">
                     <div class="glyph-icon simple-icon-menu icon-menu"></div>
                 </div>
                 <div class="menu-chart-custom hidden" id="export-capai-det">
