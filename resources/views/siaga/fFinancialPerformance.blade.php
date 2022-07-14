@@ -139,13 +139,14 @@ function getDataBox() {
 
             var capai_rka=Math.abs(data.revenue.capai_rka);
             var capai_yoy=Math.abs(data.revenue.capai_yoy);
-            if(data.revenue.nilai < data.revenue.rka) {
-                $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
-                iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
-                $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
-                iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
-            }
+            // if(data.revenue.nilai < data.revenue.rka) {
+            //     $('#capai_rka-revenue').removeClass('green-text').addClass('red-text')
+            //     iconPdptAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            // } else {
+            //     $('#capai_rka-revenue').removeClass('red-text').addClass('green-text')
+            //     iconPdptAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            // }
+            $('#capai_rka-revenue').removeClass('green-text');
 
             if(data.revenue.nilai < data.revenue.yoy) {
                 $('#capai_yoy-revenue').removeClass('green-text').addClass('red-text')
@@ -164,13 +165,14 @@ function getDataBox() {
             //COGS
             var capai_rka=Math.abs(data.cogs.capai_rka);
             var capai_yoy=Math.abs(data.cogs.capai_yoy);
-            if(data.cogs.nilai > data.cogs.rka) {
-                $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
-                iconCogsAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
-                $('#capai_rka-cogs').removeClass('red-text').addClass('green-text')
-                iconCogsAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
-            }
+            $('#capai_rka-cogs').removeClass('green-text')
+            // if(data.cogs.nilai > data.cogs.rka) {
+            //     $('#capai_rka-cogs').removeClass('green-text').addClass('red-text')
+            //     iconCogsAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            // } else {
+            //     $('#capai_rka-cogs').removeClass('red-text').addClass('green-text')
+            //     iconCogsAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            // }
 
 
             if(data.cogs.nilai > data.cogs.yoy) {
@@ -190,13 +192,14 @@ function getDataBox() {
             //Gross Profit
             var capai_rka=Math.abs(data.gross_profit.capai_rka);
             var capai_yoy=Math.abs(data.gross_profit.capai_yoy);
-            if(data.gross_profit.nilai < data.gross_profit.rka) {
-                $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
-                iconGrossAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
-                $('#capai_rka-gross_profit').removeClass('red-text').addClass('green-text')
-                iconGrossAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
-            }
+            $('#capai_rka-gross_profit').removeClass('green-text');
+            // if(data.gross_profit.nilai < data.gross_profit.rka) {
+            //     $('#capai_rka-gross_profit').removeClass('green-text').addClass('red-text')
+            //     iconGrossAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            // } else {
+            //     $('#capai_rka-gross_profit').removeClass('red-text').addClass('green-text')
+            //     iconGrossAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            // }
 
 
             if(data.gross_profit.nilai < data.gross_profit.yoy) {
@@ -216,14 +219,14 @@ function getDataBox() {
             //OPEX
             var capai_rka=Math.abs(data.opex.capai_rka);
             var capai_yoy=Math.abs(data.opex.capai_yoy);
-            if(data.opex.nilai > data.opex.rka) {
-                $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
-                iconOpexAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
-                $('#capai_rka-opex').removeClass('red-text').addClass('green-text')
-                iconOpexAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
-            }
-
+            // if(data.opex.nilai > data.opex.rka) {
+            //     $('#capai_rka-opex').removeClass('green-text').addClass('red-text')
+            //     iconOpexAch = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            // } else {
+            //     $('#capai_rka-opex').removeClass('red-text').addClass('green-text')
+            //     iconOpexAch = '<img alt="down-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            // }
+            $('#capai_rka-opex').removeClass('green-text')
             if(data.opex.nilai > data.opex.yoy) {
                 $('#capai_yoy-opex').removeClass('green-text').addClass('red-text')
                 iconOpexYoy = '<img alt="up-icon" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
@@ -241,14 +244,14 @@ function getDataBox() {
             //Net Income
             var capai_rka=Math.abs(data.net_income.capai_rka);
             var capai_yoy=Math.abs(data.net_income.capai_yoy);
-            if(data.net_income.nilai < data.net_income.rka) {
-                $('#capai_rka-net_income').removeClass('green-text').addClass('red-text')
-                iconNetAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
-            } else {
-                $('#capai_rka-net_income').removeClass('red-text').addClass('green-text')
-                iconNetAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
-            }
-
+            // if(data.net_income.nilai < data.net_income.rka) {
+            //     $('#capai_rka-net_income').removeClass('green-text').addClass('red-text')
+            //     iconNetAch = '<img alt="up-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-red.png") }}">'
+            // } else {
+            //     $('#capai_rka-net_income').removeClass('red-text').addClass('green-text')
+            //     iconNetAch = '<img alt="down-icon" class="rotate-360" src="{{ asset("dash-asset/dash-ypt/icon/fi-rr-arrow-small-up-green.png") }}">'
+            // }
+            $('#capai_rka-net_income').removeClass('green-text');
 
             if(data.net_income.nilai < data.net_income.yoy) {
                 $('#capai_yoy-net_income').removeClass('green-text').addClass('red-text')
