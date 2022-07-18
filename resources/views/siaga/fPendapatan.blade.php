@@ -294,7 +294,7 @@
                             cursor: 'pointer',
                             dataLabels: {
                                 enabled: true,
-                                distance: -30,
+                                // distance: -30,
                                 useHTML: true,
                                 align: 'left',
                                 formatter: function () {
@@ -311,8 +311,9 @@
                     series: [{
                         name: 'Share',
                         colorByPoint: true,
-                        minPointSize: 90,
-                        innerSize: '30%',
+                        size: '65%',
+                        // minPointSize: 90,
+                        // innerSize: '30%',
                         zMin: 0,
                         data: data
                     }]

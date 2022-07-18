@@ -467,7 +467,7 @@ function getKontribusi(){
                         cursor: 'pointer',
                         dataLabels: {
                             enabled: true,
-                            distance: -30,
+                            // distance: -30,
                             useHTML: true,
                             align: 'left',
                             formatter: function () {
@@ -493,8 +493,9 @@ function getKontribusi(){
                     {
                         name: 'Share',
                         colorByPoint: true,
-                        minPointSize: 90,
-                        innerSize: '30%',
+                        size: '70%',
+                        // minPointSize: 90,
+                        // innerSize: '30%',
                         zMin: 0,
                         data: data
                     }
@@ -571,7 +572,7 @@ function getMargin(){
                     html+=`
                     <tr ${select}>
                         <td ><p class="kode hidden">${line.kode_klp}</p>
-                            <span class="nama-klp">${line.nama}</span></td>
+                            <span class="nama-klp">${line.nama == 'Total' ? 'Total GPM' : line.nama}</span></td>
                         <td class='text-right'>${number_format(persen,2,2)}%</td>
                         
                     </tr>`;
