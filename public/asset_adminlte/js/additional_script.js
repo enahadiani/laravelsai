@@ -101,9 +101,9 @@ function singkatNilai(number) {
     }
 
     if (number < 0) {
-        return number_format(parseFloat((num*-1) / pembagi),1) + " " + str;
+        return number_format(parseFloat((num*-1) / pembagi),2) + " " + str;
     } else if (num > 0 && num >= 1000) {
-        return number_format(parseFloat(num / pembagi),1) + " " + str;
+        return number_format(parseFloat(num / pembagi),2) + " " + str;
     } else if (num > 0 && num < 1000) {
         return number_format(num);
     } else {
