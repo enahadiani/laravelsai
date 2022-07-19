@@ -358,15 +358,15 @@ function getFPBulan(){
                         data: data.pendapatan,
                         color: '#80b7be',
                     }, {
-                        name: 'OPEX',
-                        data: data.beban,
-                        stack: 'beban+hpp',
-                        color: '#fbe697',
-                    }, {
                         name: 'COGS',
                         data: data.hpp,
                         stack: 'beban+hpp',
                         color: '#f49b4f',
+                    }, {
+                        name: 'OPEX',
+                        data: data.beban,
+                        stack: 'beban+hpp',
+                        color: '#fbe697',
                     }, {
                         type: 'spline',
                         name: 'NI',
