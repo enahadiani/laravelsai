@@ -354,7 +354,7 @@ function getFPBulan(){
                 },
                 series: [
                     {
-                        name: 'Pendapatan',
+                        name: 'Revenue',
                         data: data.pendapatan,
                         color: '#80b7be',
                     }, {
@@ -363,7 +363,7 @@ function getFPBulan(){
                         stack: 'beban+hpp',
                         color: '#fbe697',
                     }, {
-                        name: 'HPP',
+                        name: 'COGS',
                         data: data.hpp,
                         stack: 'beban+hpp',
                         color: '#f49b4f',

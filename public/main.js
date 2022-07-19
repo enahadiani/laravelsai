@@ -395,16 +395,19 @@ function singkatNilai(number) {
     } else if (num >= 1000000000000) {
         var str = "T";
         var pembagi = 1000000000000;
+    }else{
+        var pembagi = 1;
+        var str = "";
     }
 
     if (number < 0) {
-        return parseFloat(num / pembagi).toFixed(0) * -1 + " " + str;
+        return number_format(parseFloat((num*-1) / pembagi)) + " " + str;
     } else if (num > 0 && num >= 1000) {
-        return parseFloat(num / pembagi).toFixed(0) + " " + str;
+        return number_format(parseFloat(num / pembagi),1) + " " + str;
     } else if (num > 0 && num < 1000) {
-        return num;
+        return number_format(num);
     } else {
-        return num;
+        return number_format(num);
     }
 }
 

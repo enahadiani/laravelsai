@@ -433,12 +433,16 @@
                         custom: {
                             allowNegativeLog: true
                         },
+                        max: 100000000000,
                         minorTickInterval: 'auto',
                         labels: {
                             formatter: function() {
                                 return singkatNilai(this.value);
                             }
-                        }
+                        },
+                        endOnTick:false,
+                        // maxPadding:0,
+                        // tickInterval:0.1,
                     },
                     tooltip: {
                         shared: true,
