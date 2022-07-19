@@ -429,10 +429,10 @@
                         title: {
                             text: 'Nilai'
                         },
-                        type: 'logarithmic',
-                        custom: {
-                            allowNegativeLog: true
-                        },
+                        // type: 'logarithmic',
+                        // custom: {
+                        //     allowNegativeLog: true
+                        // },
                         max: 100000000000,
                         minorTickInterval: 'auto',
                         labels: {
@@ -440,7 +440,8 @@
                                 return singkatNilai(this.value);
                             }
                         },
-                        endOnTick:false,
+                        tickPixelInterval: 25,
+                        // endOnTick:false,
                         // maxPadding:0,
                         // tickInterval:0.1,
                     },
