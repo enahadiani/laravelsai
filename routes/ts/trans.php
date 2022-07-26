@@ -33,3 +33,4 @@ Route::put('cancel-mandiri-bill', 'Ts\BayarMandiriController@update');
 Route::get('hash-pass-pp', 'Ts\HashPasswordController@index');
 Route::get('hash-pass-pp-batch', 'Ts\HashPasswordController@getBatch');
 Route::post('hash-pass-pp', 'Ts\HashPasswordController@hashPass');
+Route::get('hash-pass-pp-lokasi', 'Ts\HashPasswordController@getLokasi');

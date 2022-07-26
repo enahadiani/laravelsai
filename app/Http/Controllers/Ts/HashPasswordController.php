@@ -19,7 +19,7 @@ class HashPasswordController extends Controller
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('dash-ypt/login');
+            return redirect('ts/login');
         }
     }
 
@@ -29,14 +29,15 @@ class HashPasswordController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(){
+    public function index(Request $r){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'ts/hash-pass-pp',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
-                ]
+                ],
+                'query' => $r->query()
             ]);
 
             if ($response->getStatusCode() == 200) { // 200 OK
@@ -81,7 +82,7 @@ class HashPasswordController extends Controller
     public function hashPass(Request $r){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'ts/hash-pass-costum-top/sqlsrvyptkug/sis_hakakses/'.$r->input('kode_pp').'/500',[
+            $response = $client->request('GET',  config('api.url').'ts/hash-pass-costum-top/sqlsrvyptkug/sis_hakakses/'.$r->input('kode_pp').'/100',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -92,6 +93,31 @@ class HashPasswordController extends Controller
                 $response_data = $response->getBody()->getContents();
                 
                 $data = json_decode($response_data,true);
+            }
+            return response()->json($data, 200); 
+
+        } catch (BadResponseException $ex) {
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            return response()->json(['message' => $res["message"], 'status'=>false], 200);
+        }
+    }
+
+    public function getLokasi(){
+        try {
+            $client = new Client();
+            $response = $client->request('GET',  config('api.url').'ts/hash-pass-pp-lokasi',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                $data['daftar'] = $data['data'];
             }
             return response()->json($data, 200); 
 
