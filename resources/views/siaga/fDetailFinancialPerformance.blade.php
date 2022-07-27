@@ -446,14 +446,14 @@
                         // custom: {
                         //     allowNegativeLog: true
                         // },
-                        max: $filter_kode_neraca == "41" ? 100000000000 : this.dataMax,
+                        // max: $filter_kode_neraca == "41" ? 100000000000 : this.dataMax,
                         minorTickInterval: 'auto',
                         labels: {
                             formatter: function() {
                                 return singkatNilai(this.value);
                             }
                         },
-                        tickPixelInterval: $filter_kode_neraca == "41" ? 25 : 5,
+                        // tickPixelInterval: $filter_kode_neraca == "41" ? 25 : 5,
                         // endOnTick:false,
                         // maxPadding:0,
                         // tickInterval:0.1,

@@ -433,14 +433,14 @@
                         // custom: {
                         //     allowNegativeLog: true
                         // },
-                        max: 100000000000,
+                        // max: 100000000000,
                         minorTickInterval: 'auto',
                         labels: {
                             formatter: function() {
                                 return singkatNilai(this.value);
                             }
                         },
-                        tickPixelInterval: 25,
+                        // tickPixelInterval: 25,
                         // endOnTick:false,
                         // maxPadding:0,
                         // tickInterval:0.1,
