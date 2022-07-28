@@ -42,10 +42,10 @@ class BarangController extends Controller
             if ($response->getStatusCode() == 200) { // 200 OK
                 $response_data = $response->getBody()->getContents();
                 
-                $data = json_decode($response_data,true);
-                $data = $data["data"];
+                $res = json_decode($response_data,true);
+                $data = $res["data"];
             }
-            return response()->json(['daftar' => $data, 'status'=>true], 200); 
+            return response()->json(['daftar' => $data, 'res'=>$res, 'status'=>true], 200); 
 
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
@@ -111,11 +111,6 @@ class BarangController extends Controller
                     $fields_data[$i] = array(
                         'name' => $name[$i],
                         'contents' => 0 
-                    );
-                } else if($name[$i] == 'kode_gudang') {
-                    $fields_data[$i] = array(
-                        'name' => $name[$i],
-                        'contents' => '-' 
                     );
                 } else if($name[$i] == 'hna') {
                     $fields_data[$i] = array(
@@ -279,11 +274,6 @@ class BarangController extends Controller
                     $fields_data[$i] = array(
                         'name' => $name[$i],
                         'contents' => 0 
-                    );
-                } else if($name[$i] == 'kode_gudang') {
-                    $fields_data[$i] = array(
-                        'name' => $name[$i],
-                        'contents' => '-' 
                     );
                 } else if($name[$i] == 'hna') {
                     $fields_data[$i] = array(

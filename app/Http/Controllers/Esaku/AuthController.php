@@ -78,6 +78,7 @@ class AuthController extends Controller
                             Session::put('email',$res[0]["email"]);
                             Session::put('no_telp',$res[0]["no_telp"]);
                             Session::put('no_hp',$res[0]["no_hp"]);
+                            Session::put('pabrik',$res[0]["pabrik"]);
                             Session::put('nikUser',$res[0]["nik"].'_'.time());
                             // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
                             $tmp = explode("_",$res[0]["path_view"]);
