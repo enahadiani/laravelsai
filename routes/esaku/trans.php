@@ -53,11 +53,16 @@ Route::post('close-kasir', 'Esaku\Inventori\CloseKasirController@store');
 Route::get('pembelian', 'Esaku\Inventori\PembelianController@index');
 Route::get('pembelian-barang', 'Esaku\Inventori\PembelianController@getBarang');
 Route::post('pembelian', 'Esaku\Inventori\PembelianController@store');
+Route::post('pembelian-detail', 'Esaku\Inventori\PembelianController@storeDetail');
+Route::get('pembelian-detail-tmp', 'Esaku\Inventori\PembelianController@showDetail');
 Route::put('pembelian-update', 'Esaku\Inventori\PembelianController@update');
+Route::post('pembelian-detail-ubah', 'Esaku\Inventori\PembelianController@updateDetail');
 Route::delete('pembelian/{no_bukti1}/{no_bukti2}/{no_bukti3}', 'Esaku\Inventori\PembelianController@delete');
 Route::get('pembelian-detail', 'Esaku\Inventori\PembelianController@show');
 Route::get('pembelian-nota', 'Esaku\Inventori\PembelianController@printNota');
 Route::get('pembelian-data-nota', 'Esaku\Inventori\PembelianController@getDataNota');
+Route::delete('pembelian-detail-tmp', 'Esaku\Inventori\PembelianController@clearTmp');
+Route::delete('pembelian-detail', 'Esaku\Inventori\PembelianController@destroyDetail');
 
 // Pembelian 3 Routes //
 Route::get('pembelian3', 'Esaku\Inventori\Pembelian3Controller@index');
