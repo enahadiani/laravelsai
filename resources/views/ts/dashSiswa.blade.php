@@ -278,7 +278,7 @@
                         //             nilai=sepNumPas(line3.bayar);
                         //             icon="iconsminds-up";
                         //             if(line3.modul == "PDD"){
-                        //                 ket="Auto Bayar";
+                        //                 ket="Pembayaran Otomatis";
                         //             }else{
                         //                 ket="Pembayaran";
                         //             }
@@ -378,7 +378,7 @@
                                 nilai=sepNumPas(line3.total);
                                 icon="iconsminds-up";
                                 if(line3.modul == "PDD"){
-                                    ket="Auto Bayar";
+                                    ket="Pembayaran Otomatis";
                                 }else{
                                     ket="Pembayaran";
                                 }
