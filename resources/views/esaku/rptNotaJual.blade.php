@@ -35,6 +35,14 @@
                 .bold {
                     font-weight:bold;
                 }
+                @media print{
+                    @page  
+                    { 
+                        size: auto;   /* auto is the initial value */ 
+                        /* this affects the margin in the printer settings */ 
+                        margin: 0mm 5mm 0mm 5mm !important;  
+                    } 
+                }   
             </style>
             `;
             periode = $periode;
@@ -45,10 +53,10 @@
             html+=`
             <table class="mx-auto" width='35%' border='0' cellspacing='0' cellpadding='0'>
                 <tr>
-                <td colspan='2' align='center' class='size_judul'>TJ Mart</td>
+                <td colspan='2' align='center' class='size_judul'>${line2.nama}</td>
                 </tr>
                 <tr>
-                <td colspan='2' align='center' class='size_judul'>Jl.Sumur Bandung No. 12</td>
+                <td colspan='2' align='center' class='size_judul'>${line2.alamat}</td>
                 </tr>
                 <tr>
                 <td>&nbsp;</td>
@@ -120,8 +128,7 @@
                 <tr>
                 <td colspan='2' align='center' class='size_judul'>Terima Kasih </td>
                 </tr>
-            </table>
-            <div style="height:50px;border-bottom:1px dashed black;">&nbsp;</div>`;
+            </table>`;
             }  
             html+="</div>"; 
         }
