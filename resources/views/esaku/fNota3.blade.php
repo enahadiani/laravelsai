@@ -26,10 +26,10 @@
     <body onload="window.print()">
     <table width='100%' border='0' cellspacing='0' cellpadding='0'>
         <tr>
-          <td colspan='2' align='center' class='size_judul'>TJ Mart</td>
+          <td colspan='2' align='center' class='size_judul'>{{ $nama }}</td>
         </tr>
         <tr>
-          <td colspan='2' align='center' class='size_judul'>Jl.Sumur Bandung No. 12 </td>
+          <td colspan='2' align='center' class='size_judul'>{{ $alamat }}</td>
         </tr>
         <tr>
           <td>&nbsp;</td>
