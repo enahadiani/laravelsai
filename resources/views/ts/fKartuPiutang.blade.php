@@ -428,7 +428,7 @@
                                 break;
                             }
 
-                            tosaldo += (line.jenis == "BILL" ? nilai : nilai*-1 );
+                            tosaldo += (line.jenis == "BILL" || line.jenis == "L-BILL" ? nilai : nilai*-1 );
                             var nil = (line.jenis == "BILL" ? "" : "("+sepNumPas(nilai)+")" );
                             detail +=`<tr class="bold" id="`+line.no_bill+`">
                             <td colspan="2">`+ket+`</td>
