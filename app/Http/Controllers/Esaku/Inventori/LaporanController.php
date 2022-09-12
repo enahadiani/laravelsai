@@ -1830,9 +1830,9 @@
                                 $printer -> setJustification(Printer::JUSTIFY_CENTER);
                                 /* Name of shop */
                                 $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-                                $printer -> text("TJ Mart.\n");
+                                $printer -> text($row['nama']."\n");
                                 $printer -> selectPrintMode();
-                                $printer -> text("Jl. Sumur Bandung No. 12\n");
+                                $printer -> text($row['alamat']."\n");
                                 $printer -> feed(1);
                                 $printer -> text("--------------------------------");
                         
