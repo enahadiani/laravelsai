@@ -418,7 +418,10 @@
                             var ket3 = "Pembayaran || ";
                             switch(line.modul){
                                 case "PIUSIS":
-                                    var ket = ket1+line.tgl+" || "+line.no_bill;
+                                    var ket = ket1+line.tgl+" || "+line.no_bill;                                    
+                                break;
+                                case "L-PIUSIS":
+                                    var ket = ket1+line.tgl+" || "+line.no_bill;                                    
                                 break;
                                 case "LOADCD":
                                     var ket = ket2+line.tgl+" || "+line.no_bill;
@@ -428,8 +431,8 @@
                                 break;
                             }
 
-                            tosaldo += (line.jenis == "BILL" ? nilai : nilai*-1 );
-                            var nil = (line.jenis == "BILL" ? "" : "("+sepNumPas(nilai)+")" );
+                            tosaldo += (line.jenis == "BILL" || line.jenis == "L-BILL" ? nilai : nilai*-1 );
+                            var nil = (line.jenis == "BILL" || line.jenis == "L-BILL" ? "" : "("+sepNumPas(nilai)+")" );
                             detail +=`<tr class="bold" id="`+line.no_bill+`">
                             <td colspan="2">`+ket+`</td>
                             <td class="text-right bold">`+nil+`</td>
@@ -458,7 +461,7 @@
                                     <tr>
                                     <td>`+ket2+`</td>
                                     <td>`+line2.kode_param+`</td>
-                                    <td class='text-right'>`+(line.jenis == "BILL" ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
+                                    <td class='text-right'>`+(line.jenis == "BILL" || line.jenis == "L-BILL" ? sepNumPas(line2.nilai) : "("+sepNumPas(line2.nilai)+")" )+`</td>
                                     </tr>`;
                                     x++;
                                 }else{
