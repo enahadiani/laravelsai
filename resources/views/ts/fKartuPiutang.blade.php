@@ -418,7 +418,10 @@
                             var ket3 = "Pembayaran || ";
                             switch(line.modul){
                                 case "PIUSIS":
-                                    var ket = ket1+line.tgl+" || "+line.no_bill;
+                                    var ket = ket1+line.tgl+" || "+line.no_bill;                                    
+                                break;
+                                case "L-PIUSIS":
+                                    var ket = ket1+line.tgl+" || "+line.no_bill;                                    
                                 break;
                                 case "LOADCD":
                                     var ket = ket2+line.tgl+" || "+line.no_bill;
