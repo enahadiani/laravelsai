@@ -1818,7 +1818,7 @@
 
                         try {
                             // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
-                            $printer = "POS58"; // Nama Printer yang di sharing
+                            $printer = "TM-T82X"; // Nama Printer yang di sharing
                             // $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
                             $connector = new WindowsPrintConnector($printer);
                             // $connector = new NetworkPrintConnector("10.79.241.85", 9100);
