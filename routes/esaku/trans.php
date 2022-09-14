@@ -36,6 +36,7 @@ Route::get('penjualan-bonus/{kd_barang}/{tanggal}/{jumlah}/{harga}', 'Esaku\Inve
 Route::post('penjualan', 'Esaku\Inventori\PenjualanController@store');
 Route::post('penjualan-ubah', 'Esaku\Inventori\PenjualanController@update');
 Route::get('nota', 'Esaku\Inventori\PenjualanController@printNota');
+Route::get('nota-tes', 'Esaku\Inventori\PenjualanController@printNotaJualBaru');
 
 //Open Kasir //
 Route::get('open-kasir', 'Esaku\Inventori\OpenKasirController@index');

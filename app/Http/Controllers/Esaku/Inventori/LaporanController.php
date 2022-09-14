@@ -1834,16 +1834,16 @@
                                 $printer -> selectPrintMode();
                                 $printer -> text($row['alamat']."\n");
                                 $printer -> feed(1);
-                                $printer -> text("--------------------------------");
+                                $printer -> text("--------------------------------\n");
                         
-                                $printer -> setJustification(Printer::JUSTIFY_LEFT);
+                                $printer -> setJustification(Printer::JUSTIFY_CENTER);
                                 /* Title of receipt */
                                 $printer -> setEmphasis(true);
                                 
                                 $printer -> text("No Bukti: ".$row['no_jual']."\n");
                                 $printer -> text("Kasir: ".$row['nik_user']."\n");
                                 $printer -> text($row['tanggal']."\n");
-                                $printer -> text("--------------------------------");
+                                $printer -> text("--------------------------------\n");
                                 $printer -> setEmphasis(false);
                         
                                 /* Items */
@@ -1853,7 +1853,7 @@
                                     $printer->text($this->buatBaris3Kolom(number_format($item['jumlah'],0,",",".")."x", number_format($item['harga'],0,",","."), number_format($item['total'],0,",",".")));
                                 }
                                 $printer -> setEmphasis(true);
-                                $printer -> text("--------------------------------");
+                                $printer -> text("--------------------------------\n");
                                 
                                 $total_trans=$row['nilai'];
                                 $total_disk=$row['diskon'];
@@ -1861,8 +1861,8 @@
                                 $total_byr=$row['tobyr'];
                                 $kembalian=$row['tobyr']-($total_stlh);
         
-                                $printer->text($this->buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
                                 $printer -> setEmphasis(false);
+                                $printer->text($this->buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Total Diskon", "", number_format($total_disk,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Total Set. Disk.", "", number_format($total_stlh,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Total Bayar", "", number_format($total_byr,0,",",".")));
