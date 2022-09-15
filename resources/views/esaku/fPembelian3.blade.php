@@ -70,8 +70,8 @@
                                             <th style='width:10%'>Harga Jual</th>
                                             <th style='width:10%'>Harga</th>
                                             <th style='width:5%'>Satuan</th>
-                                            <th style='width:5%'>Qty</th>
-                                            <th style='width:10%'>Disc</th>
+                                            <th style='width:10%'>Qty</th>
+                                            <th style='width:5%'>Disc</th>
                                             <th style='width:15%'>Subtotal</th>
                                             <th style='width:8%'></th>
                                         </tr>
