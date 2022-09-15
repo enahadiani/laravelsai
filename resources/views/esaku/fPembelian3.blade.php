@@ -15,7 +15,7 @@
                                     </div>
                                     <div class="col-8">
                                         <div class="label-header">
-                                            <p>{{ date("Y-m-d H:i:s") }}</p>
+                                        <p>{{$new_time = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime(date("Y-m-d H:i:s"))))}}</p>
                                             <p style="color:#007AFF"><i class="fa fa-user"></i> {{ Session::get('userLog') }}</p>
                                         </div>
                                     </div>

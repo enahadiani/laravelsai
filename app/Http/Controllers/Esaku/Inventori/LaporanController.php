@@ -23,7 +23,7 @@
 
         function buatBaris3Kolom($kolom1, $kolom2, $kolom3) {
             // Mengatur lebar setiap kolom (dalam satuan karakter)
-            $lebar_kolom_1 = 12;
+            $lebar_kolom_1 = 20;
             $lebar_kolom_2 = 8;
             $lebar_kolom_3 = 8;
         
@@ -1826,7 +1826,6 @@
                             $printer = new Printer($connector);
                             foreach($data['data'] as $row){
                                 
-                                $printer -> feed(1);
                                 $printer -> setJustification(Printer::JUSTIFY_CENTER);
                                 /* Name of shop */
                                 $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
@@ -1834,26 +1833,27 @@
                                 $printer -> selectPrintMode();
                                 $printer -> text($row['alamat']."\n");
                                 $printer -> feed(1);
-                                $printer -> text("--------------------------------\n");
+                                $printer -> text("--------------------------------------\n");
                         
                                 $printer -> setJustification(Printer::JUSTIFY_CENTER);
                                 /* Title of receipt */
-                                $printer -> setEmphasis(true);
+                                $printer -> setEmphasis(false);
                                 
                                 $printer -> text("No Bukti: ".$row['no_jual']."\n");
                                 $printer -> text("Kasir: ".$row['nik_user']."\n");
-                                $printer -> text($row['tanggal']."\n");
-                                $printer -> text("--------------------------------\n");
+                                $new_time = date("Y-m-d H:i:s", strtotime('+7 hours', strtotime(date("Y-m-d H:i:s"))));
+                                $printer -> text($new_time."\n");
+                                $printer -> text("--------------------------------------\n");
                                 $printer -> setEmphasis(false);
                         
                                 /* Items */
                                 $printer -> setEmphasis(true);
                                 foreach ($row['detail'] as $item) {
-                                    $printer->text($item['nama']."\n");
+                                    $printer->text($this->buatBaris3Kolom($item['nama'],"",""));
                                     $printer->text($this->buatBaris3Kolom(number_format($item['jumlah'],0,",",".")."x", number_format($item['harga'],0,",","."), number_format($item['total'],0,",",".")));
                                 }
                                 $printer -> setEmphasis(true);
-                                $printer -> text("--------------------------------\n");
+                                $printer -> text("--------------------------------------\n");
                                 
                                 $total_trans=$row['nilai'];
                                 $total_disk=$row['diskon'];
@@ -1861,13 +1861,14 @@
                                 $total_byr=$row['tobyr'];
                                 $kembalian=$row['tobyr']-($total_stlh);
         
-                                $printer -> setEmphasis(false);
+                                $printer -> setEmphasis(true);
                                 $printer->text($this->buatBaris3Kolom("Total Transaksi", "", number_format($total_trans,0,",",".")));
+                                $printer -> setEmphasis(false);
                                 $printer->text($this->buatBaris3Kolom("Total Diskon", "", number_format($total_disk,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Total Set. Disk.", "", number_format($total_stlh,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Total Bayar", "", number_format($total_byr,0,",",".")));
                                 $printer->text($this->buatBaris3Kolom("Kembalian", "", number_format($kembalian,0,",",".")));
-                                $printer -> text("--------------------------------");
+                                $printer -> text("--------------------------------------");
                                 $printer -> feed();
                         
                                 /* Tax and total */
@@ -1879,7 +1880,7 @@
                                 /* Footer */
                                 $printer -> feed(1);
                                 $printer -> text("Terima Kasih \n telah berbelanja \n di TJMart\n");
-                                $printer -> feed(2);
+                                $printer -> feed(1);
                         
                             }
                             /* Cut the receipt and open the cash drawer */
