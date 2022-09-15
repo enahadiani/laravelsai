@@ -79,14 +79,14 @@
                                 </div>
                                 <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                         <label for="judul" class="col-1 col-form-label" >Keterangan</label>
-                                         <div class="col-11">
+                                         <label for="judul" class="col-2 col-form-label" >Keterangan</label>
+                                         <div class="col-10">
                                             <input type="text" name="keterangan" class='form-control' id='keterangan' required >
                                          </div>
                                     </div>
                                     <div class="form-group row">
-                                         <label for="judul" class="col-1 col-form-label" >Disc</label>
-                                         <div class="col-2">
+                                         <label for="judul" class="col-2 col-form-label" >Disc</label>
+                                         <div class="col-1">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
                                          </div>
                                          <!-- <label for="judul" class="col-1 col-form-label" >PPN</label>
