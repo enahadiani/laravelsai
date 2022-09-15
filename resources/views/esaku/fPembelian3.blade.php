@@ -79,8 +79,8 @@
                                 </div>
                                 <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                         <label for="judul" class="col-2 col-form-label" >Keterangan</label>
-                                         <div class="col-2">
+                                         <label for="judul" class="col-1 col-form-label" >Keterangan</label>
+                                         <div class="col-11">
                                             <input type="text" name="keterangan" class='form-control' id='keterangan' required >
                                          </div>
                                     </div>
