@@ -98,11 +98,11 @@
                                                 </div>
                                             </div>
                                          </div> -->
-                                         <label for="judul" class="col-2 col-form-label" >No Faktur</label>
+                                         <label for="judul" class="col-1 col-form-label" >No Faktur</label>
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
                                          </div>
-                                         <div class="col-4">
+                                         <div class="col-6">
                                             <button class="btn btn-info float-right" type="submit" id="btnBayar">Simpan</button>
                                          </div>
                                     </div>
