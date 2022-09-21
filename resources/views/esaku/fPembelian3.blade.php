@@ -93,7 +93,7 @@
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
                                          </div>
-                                         <div class="col-6">
+                                         <div class="col-5">
                                             <button class="btn btn-info float-right" type="submit" id="btnBayar">Simpan</button>
                                          </div>
                                     </div>
