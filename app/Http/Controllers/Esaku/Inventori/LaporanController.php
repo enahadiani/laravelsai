@@ -11,7 +11,8 @@
     
     use Mike42\Escpos\Printer;
     use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
-
+    use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
+    
     class LaporanController extends Controller {
 
 
@@ -1817,9 +1818,10 @@
                     if(isset($data['data']) && count($data['data']) > 0){
 
                         try {
-                            // $ip = ''; // IP Komputer kita atau printer lain yang masih satu jaringan
+                            // $ip = '192.168.31.231'; // IP Komputer kita atau printer lain yang masih satu jaringan
                             $printer = "TM-T82X"; // Nama Printer yang di sharing
                             // $connector = new WindowsPrintConnector("smb://" . $ip . "/" . $printer);
+                            // $connector = new NetworkPrintConnector($ip, 9100);
                             $connector = new WindowsPrintConnector($printer);
                             // $connector = new NetworkPrintConnector("10.79.241.85", 9100);
                             /* Start the printer */
@@ -1879,7 +1881,8 @@
                         
                                 /* Footer */
                                 $printer -> feed(1);
-                                $printer -> text("Terima Kasih \n telah berbelanja \n di TJMart\n");
+                                $printer -> text("Harap periksa barang belanjaan anda\nBarang yang telah dibeli\ntidak dapat ditukarkan\n");
+                                $printer -> text("\nTerima Kasih telah berbelanja di ".$row['nama']);
                                 $printer -> feed(1);
                         
                             }
@@ -1890,7 +1893,7 @@
                             $printer -> close();
                     
                     
-                            $response = ['success'=>true,'message'=>'Berhasil!'];
+                            $response = ['success'=>true,'message'=>'Berhasil!','ip'=>$ip];
                         } catch (Exception $e) {
                             $response = ['success'=>false,'message'=>$e->getMessage()];
                         }
