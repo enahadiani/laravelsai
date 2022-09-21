@@ -685,7 +685,7 @@
         $('#totrans').val(number_format(total_brg));
 
         var total_disk= removeFormat($('#todisk').val());
-        var total_stlh = +total_brg - +total_disk;
+        var total_stlh = +total_brg + +total_disk;
         // var total_ppn = removeFormat($('#toppn').val());
         // var total = total_stlh + total_ppn; 
         var total = total_stlh;
