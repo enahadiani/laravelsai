@@ -85,7 +85,7 @@
                                          </div>
                                     </div>
                                     <div class="form-group row">
-                                         <label for="judul" class="col-2 col-form-label" >Biaya+</label>
+                                         <label for="judul" class="col-2 col-form-label" >Biaya Tambahan</label>
                                          <div class="col-1">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
                                          </div>
