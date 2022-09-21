@@ -653,7 +653,7 @@
     function hitungDisc(){
         var total_trans = removeFormat($('#totrans').val());
         var total_disk= removeFormat($('#todisk').val());
-        var total_stlh = +total_trans +total_disk;
+        var total_stlh = +total_trans + +total_disk;
         $('#tostlh').val(toRp(total_stlh));   
     }
 
