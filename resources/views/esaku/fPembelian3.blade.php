@@ -84,8 +84,8 @@
                                             <input type="text" name="keterangan" class='form-control' id='keterangan' required >
                                          </div>
 
-                                         <label for="judul" class="col-2 col-form-label" >Jenis Bayar</label>
-                                         <div class="col-2">
+                                         <label for="judul" class="col-1 col-form-label" >Jenis Bayar</label>
+                                         <div class="col-3">
                                             <input type="text" name="jenis_bayar" class='form-control' id='jenis_bayar' required >
                                          </div>
 
