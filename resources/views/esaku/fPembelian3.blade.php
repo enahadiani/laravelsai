@@ -85,7 +85,7 @@
                                          </div>
                                     </div>
                                     <div class="form-group row">
-                                         <label for="judul" class="col-2 col-form-label" >Disc</label>
+                                         <label for="judul" class="col-2 col-form-label" >Biaya+</label>
                                          <div class="col-1">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
                                          </div>
@@ -653,7 +653,7 @@
     function hitungDisc(){
         var total_trans = removeFormat($('#totrans').val());
         var total_disk= removeFormat($('#todisk').val());
-        var total_stlh = +total_trans - +total_disk;
+        var total_stlh = +total_trans +total_disk;
         $('#tostlh').val(toRp(total_stlh));   
     }
 
