@@ -86,18 +86,9 @@
                                     </div>
                                     <div class="form-group row">
                                          <label for="judul" class="col-2 col-form-label" >Biaya Tambahan</label>
-                                         <div class="col-1">
+                                         <div class="col-2">
                                             <input type="text" name="total_disk" class='form-control currency' id='todisk' required value="0">
-                                         </div>
-                                         <!-- <label for="judul" class="col-1 col-form-label" >PPN</label>
-                                         <div class="col-3">
-                                            <div class="input-group mb-3">
-                                                <input type="text" name="total_ppn" class='form-control currency' id='toppn' required value="0" style="border-bottom-right-radius: 0 !important;border-top-right-radius: 0 !important;">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-info" id="getPPN" type="button" style="border-bottom-left-radius: 0 !important;border-top-left-radius: 0 !important;padding: 0.1rem 0.85rem;"><i class="simple-icon-refresh" style="font-size:18px !important"></i></button>
-                                                </div>
-                                            </div>
-                                         </div> -->
+                                         </div>                                         
                                          <label for="judul" class="col-1 col-form-label" >No Faktur</label>
                                          <div class="col-2">
                                             <input type="text" name="no_faktur" class='form-control ' id='no_faktur' required>
