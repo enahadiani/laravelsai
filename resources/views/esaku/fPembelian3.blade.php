@@ -80,21 +80,9 @@
                                 <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
                                          <label for="judul" class="col-2 col-form-label" >Keterangan</label>
-                                         <div class="col-6">
+                                         <div class="col-10">
                                             <input type="text" name="keterangan" class='form-control' id='keterangan' required >
                                          </div>
-                                        
-                                         <label for="judul" class="col-2 col-form-label" >Jenis Bayar</label>
-                                         <div class="col-2">
-                                            <!-- <input type="text" name="jenis_bayar" class='form-control' id='jenis_bayar' required > -->
-                                            <select name="Jenis Bayar" id="jenis_bayar">
-                                                <option value="CASH">CASH</option>
-                                                <option value="QR">QR</option>                                            
-                                            </select>
-                                         </div>
-
-                                         
-
                                     </div>
                                     <div class="form-group row">
                                          <label for="judul" class="col-2 col-form-label" >Biaya Tambahan</label>
