@@ -1,4 +1,13 @@
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
+<style>
+    .modal{
+        pointer-events: none;
+    }
+
+    .modal-dialog{
+        pointer-events: all;
+    }
+</style>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">

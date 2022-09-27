@@ -9,6 +9,13 @@
 {
     cursor:pointer;
 }
+.modal{
+    pointer-events: none;
+}
+
+.modal-dialog{
+    pointer-events: all;
+ }
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
@@ -270,6 +277,11 @@
     $('#area_print').hide();
     
     setHeightFormPOS();
+
+    $("#modal-bayar2").modal({
+        show: false,
+        backdrop: 'static'
+    });
 
     document.onkeyup = function(e) {
         if (e.ctrlKey && e.which == 66) {

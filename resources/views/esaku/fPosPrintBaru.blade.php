@@ -9,6 +9,13 @@
 {
     cursor:pointer;
 }
+.modal{
+    pointer-events: none;
+}
+
+.modal-dialog{
+    pointer-events: all;
+ }
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
