@@ -110,13 +110,16 @@ class ApprovalController extends Controller
         return $num;
     }
 
-    public function index(){
+    public function index(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'siaga-trans/app',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'jenis' => 'Beban'
                 ]
             ]);
 
@@ -135,13 +138,16 @@ class ApprovalController extends Controller
         }
     }
 
-    public function getPengajuan(){
+    public function getPengajuan(Request $request){
         try {
             $client = new Client();
             $response = $client->request('GET',  config('api.url').'siaga-trans/app-aju',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'jenis' => 'Beban'
                 ]
             ]);
 
@@ -190,7 +196,8 @@ class ApprovalController extends Controller
                     'no_aju' => $request->no_aju,
                     'status' => $request->status,
                     'keterangan' => $request->keterangan,
-                    'no_urut' => $request->nu
+                    'no_urut' => $request->nu,
+                    'modul' => 'Beban'
                 ]
             ]);
             
