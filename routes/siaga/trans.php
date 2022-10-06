@@ -31,3 +31,7 @@ Route::get('app-spb-preview','Siaga\ApprovalSpbController@getPreview');
 Route::get('aju-spb-preview','Siaga\ApprovalSpbController@getPreviewAju');
 
 Route::post('send-email','Siaga\ApprovalController@sendEmail');
+
+Route::get('periode', 'Siaga\GenerateDataController@getPeriode');
+Route::get('fs', 'Siaga\GenerateDataController@getFS');
+Route::post('generate-data', 'Siaga\GenerateDataController@store');
