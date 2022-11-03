@@ -107,6 +107,20 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-12">
+                                <label for="hna">*Harga Jual</label>
+                                <input class="form-control currency"  value="0" type="text" id="hna" name="hna" required>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="flag_aktif">*Status Aktif</label>
+                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
+                                    <option value='' disabled selected>--- Pilih Status Aktif ---</option>
+                                    <option value='1'>AKTIF</option>
+                                    <option value='0'>NON-AKTIF</option>
+                                </select>     
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6 col-sm-12">
                                 <label for="sm">Slow Moving</label>
                                 <input class="form-control currency" type="text" id="sm1" name="sm1" required value="0">
                             </div>
@@ -133,20 +147,6 @@
                             <div class="form-group col-md-6 col-sm-12">
                                 <label for="mm2">&nbsp;</label>
                                 <input class="form-control currency" type="text" id="mm2" name="mm2" required value="0">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="hna">Harga Jual</label>
-                                <input class="form-control currency"  value="0" type="text" id="hna" name="hna" required>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="flag_aktif">Status Aktif</label>
-                                <select class='form-control selectize' id="flag_aktif" name="flag_aktif">
-                                    <option value='' disabled selected>--- Pilih Status Aktif ---</option>
-                                    <option value='1'>AKTIF</option>
-                                    <option value='0'>NON-AKTIF</option>
-                                </select>     
                             </div>
                         </div>
                         <div class="form-row">
