@@ -73,6 +73,9 @@
                                         <th>Cabang</th>
                                         <th>No Rekk</th>
                                         <th>Nama Rek</th>
+                                        <th>Kode Status</th>
+                                        <th>Kode</th>
+                                        <th>Jabatan</th>
                                     </thead>
                                     <tbody></tbody>
                                 </table>
@@ -153,7 +156,10 @@ var dataTable = generateTableWithoutAjax(
         { data : 'kode_bank'},
         { data : 'cabang'},
         { data : 'no_rek'},
-        { data : 'nama_rek'}
+        { data : 'nama_rek'},
+        { data : 'kode_status'},
+        { data : 'kode'},
+        { data : 'jabatan'},
     ],
     []
 );
@@ -431,7 +437,7 @@ $('#process-upload').click(function(e){
 
 // EXPORT EXCEL
 $('#download-template').click(function(){
-    alert('test')
+    // alert('test')
     var kode_lokasi = "{{ Session::get('lokasi') }}";
     var nik_user = "{{ Session::get('nikUser') }}";
     var nik = "{{ Session::get('userLog') }}";
