@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body form-header" style="padding-top:0.5rem;padding-bottom:0.5rem;min-height:48px">
-                    <h6 id="judul-form" style="position:absolute;top:15px">Transfer Data</h6>
+                    <h6 id="judul-form" style="position:absolute;top:15px">Generate Data</h6>
                 </div>
                 <div class="separator mb-2"></div>
                 <div class="card-body pt-3 form-body">
@@ -27,7 +27,7 @@
                                     <label for="kode_fs">Kode FS</label>
                                     <select name="kode_fs" id="kode_fs" class="form-control" required></select>
                                 </div>
-                                <div class="col-md-3 col-sm-12" style="min-height:64px;">
+                                <div class="col-md-4 col-sm-12" style="min-height:64px;">
                                     <button type="submit" class="btn btn-primary" style="position:relative;top:25px" id="btn-save" ><i class="fa fa-save"></i> Proses</button>
                                 </div>
                             </div>
@@ -215,16 +215,24 @@
             for(var pair of formData.entries()) {
                 console.log(pair[0]+ ', '+ pair[1]); 
             }
-            
+
             $.ajax({
                 type: 'POST',
                 url: "{{ url('dash-tarbak-trans/transfer-data') }}",
                 dataType: 'json',
                 data: formData,
-                async:false,
+                // async:false,
                 contentType: false,
                 cache: false,
                 processData: false, 
+                beforeSend: function(){
+                    $('#btn-save').text("Please Wait...").prop('disabled',true);
+                    $('#btn-save').addClass('disabled');
+                },
+                complete: function(){
+                    $('#btn-save').text("Please Wait...").prop('disabled',false);
+                    $('#btn-save').removeClass('disabled');
+                },
                 success:function(result){
                     if(result.data.status){
                         msgDialog({
