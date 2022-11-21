@@ -19,7 +19,7 @@ class TransferDataController extends Controller
 
     public function __contruct(){
         if(!Session::get('login')){
-            return redirect('dash-dash-tarbak/login');
+            return redirect('dash-tarbak/login');
         }
     }
 
@@ -32,7 +32,7 @@ class TransferDataController extends Controller
     public function getPeriode(){
         try {
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'dash-ypt-trans/periode',[
+            $response = $client->request('GET',  config('api.url').'dash-tarbak-trans/periode',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
@@ -68,7 +68,7 @@ class TransferDataController extends Controller
                 'periode' => $request->periode,
                 'kode_fs' => $request->kode_fs
             );
-            $response = $client->request('POST',  config('api.url').'dash-ypt-trans/transfer-data',[
+            $response = $client->request('POST',  config('api.url').'dash-tarbak-trans/transfer-data',[
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Content-Type'  => 'application/json',
