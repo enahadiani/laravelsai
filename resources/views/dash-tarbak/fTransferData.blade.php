@@ -230,7 +230,7 @@
                     $('#btn-save').addClass('disabled');
                 },
                 complete: function(){
-                    $('#btn-save').text("Please Wait...").prop('disabled',false);
+                    $('#btn-save').text("Simpan").prop('disabled',false);
                     $('#btn-save').removeClass('disabled');
                 },
                 success:function(result){
