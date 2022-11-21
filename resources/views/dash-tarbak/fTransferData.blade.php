@@ -101,7 +101,7 @@
                     }
                 } 
                 else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-tarbak/sesi-habis') }}";
+                    // window.location.href = "{{ url('dash-tarbak/sesi-habis') }}";
                 } else{
                     alert(result.message);
                 }
@@ -112,8 +112,8 @@
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/dash-tarbak/sesi-habis') }}";
+                    // var msg = "Unauthorized";
+                    // window.location="{{ url('/dash-tarbak/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
@@ -143,7 +143,7 @@
                     }
                 } 
                 else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-tarbak/sesi-habis') }}";
+                    // window.location.href = "{{ url('dash-tarbak/sesi-habis') }}";
                 } else{
                     alert(result.message);
                 }
@@ -154,8 +154,8 @@
                 }else if(jqXHR.status == 500) {
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
-                    var msg = "Unauthorized";
-                    window.location="{{ url('/dash-tarbak/sesi-habis') }}";
+                    // var msg = "Unauthorized";
+                    // window.location="{{ url('/dash-tarbak/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
