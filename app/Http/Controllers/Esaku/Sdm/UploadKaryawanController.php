@@ -89,6 +89,9 @@ class UploadKaryawanController extends Controller
         $this->validate($request, [
             'file' => 'required'
         ]);
+        
+        set_time_limit(300);
+        ini_set('max_execution_time', 300);
 
         try {
 

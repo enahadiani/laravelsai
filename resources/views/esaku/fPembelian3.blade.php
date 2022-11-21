@@ -340,7 +340,7 @@
         digits: 2,
         autoGroup: true,
         rightAlign: true,
-        oncleared: function () { self.Value(''); }
+        // oncleared: function () { self.Value(''); }
     });
 
     $('#kd-barang').selectize({
@@ -831,7 +831,7 @@
                 digits: 2,
                 autoGroup: true,
                 rightAlign: true,
-                oncleared: function () { self.Value(''); }
+                // oncleared: function () { self.Value(''); }
             });
             
             hitungTotal();
