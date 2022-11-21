@@ -47,9 +47,9 @@ Route::put('unit/{id}', 'DashTarbak\UnitController@update');
 Route::delete('unit/{id}', 'DashTarbak\UnitController@delete');
 
 // Setting Menu Form //
-Route::get('fs', 'DashTelu\FSController@index');
-Route::get('fs/{id}', 'DashTelu\FSController@show');
-Route::post('fs', 'DashTelu\FSController@store');
-Route::put('fs/{id}', 'DashTelu\FSController@update');
-Route::delete('fs/{id}', 'DashTelu\FSController@delete');
+Route::get('fs', 'DashTarbak\FSController@index');
+Route::get('fs/{id}', 'DashTarbak\FSController@show');
+Route::post('fs', 'DashTarbak\FSController@store');
+Route::put('fs/{id}', 'DashTarbak\FSController@update');
+Route::delete('fs/{id}', 'DashTarbak\FSController@delete');
 
