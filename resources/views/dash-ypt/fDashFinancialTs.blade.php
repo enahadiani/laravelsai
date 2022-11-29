@@ -1206,82 +1206,101 @@ $('#back').click(function() {
 <script type="text/javascript">
 // TABLE LEMBAGA EVET
 $('#table-lembaga tbody').on('click', 'td', function() {
-    if($(this).index() != 1){
-        var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
-        if(tipe == "PP"){
-            return false;
+    if(!$(this).closest('tr').hasClass('selected-row')){
+        if($(this).index() != 1){
+            var tipe = $(this).closest('tr').find('.tipe').text()
+            if(tipe == "PP"){
+                return false;
+            }
+            var idx = $(this).closest('tr').index();
+            var table = $(this).parents('table').attr('id')
+            var tr = $(this).parent();
+            var icon = $(this).closest('tr').find('.check-row')
+            var kode = $(this).closest('tr').find('.kode').text()
+            var check = $(tr).attr('class')
+            $filter_bidang = $(this).closest('tr').find('.kode').text()
+            var lembaga = $(this).closest('tr').find('.name-lembaga').text()
+    
+            if(check == 'selected-row') {
+                return;
+            }
+    
+            $(`#${table} tbody tr`).removeClass('selected-row')
+            $(`#${table} tbody tr td .check-row`).hide()
+    
+            $(tr).addClass('selected-row')
+            $(icon).show()
+            setTimeout(function() {
+                updateChart(true);
+                updateBox();
+            }, 200)
+            $('#lembaga-title').text(lembaga)
+            showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
+        }else{
+            var tipe = $(this).closest('tr').find('.tipe').text()
+            var idx = $(this).closest('tr').index();
+            $filter_bidang = $(this).closest('tr').find('.kode').text()
+            
+            console.log(tipe)
+            if(tipe == "PP"){
+                return false;
+            }
+    
+            if(!$(this).parents('tr').hasClass('load')){
+                $(this).parents('tr').addClass('load');
+                getPerformanceLembagaPP($(this).closest('table'),idx,$filter_bidang);
+            }
+    
+            if(!$(this).parents('tr').hasClass('collapsed')){
+                $(this).parents('tr').addClass('collapsed');
+                $(this).find('i').removeClass('simple-icon-arrow-down');
+                $(this).find('i').addClass('simple-icon-arrow-right');
+                $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').show();
+            }else{
+                $(this).parents('tr').removeClass('collapsed');
+                $(this).find('i').removeClass('simple-icon-arrow-right');
+                $(this).find('i').addClass('simple-icon-arrow-down');
+                $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').hide();
+            }
         }
-        var idx = $(this).closest('tr').index();
-        var table = $(this).parents('table').attr('id')
-        var tr = $(this).parent();
-        var icon = $(this).closest('tr').find('td:first').find('.check-row')
-        var kode = $(this).closest('tr').find('td:first').find('.kode').text()
-        var check = $(tr).attr('class')
-        $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
-        var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
+    }else{
 
-        if(check == 'selected-row') {
-            return;
-        }
-
-        $(`#${table} tbody tr`).removeClass('selected-row')
-        $(`#${table} tbody tr td .check-row`).hide()
-
-        $(tr).addClass('selected-row')
-        $(icon).show()
-        setTimeout(function() {
+        if($(this).index() != 1){
+            var table = $(this).parents('table').attr('id')
+            $filter_bidang="";
+            $(`#${table} tbody tr`).removeClass('selected-row')
+            $(`#${table} tbody tr td .check-row`).hide()
+            showNotification(`Menampilkan dashboard `);
+            // // updateAllChart();
             updateChart(true);
             updateBox();
-        }, 200)
-        $('#lembaga-title').text(lembaga)
-        showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
+        }else{
+            var tipe = $(this).closest('tr').find('.tipe').text()
+            var idx = $(this).closest('tr').index();
+            $filter_bidang = $(this).closest('tr').find('.kode').text()
+            console.log(tipe)
+            if(tipe == "PP"){
+                return false;
+            }
+        
+            if(!$(this).parents('tr').hasClass('load')){
+                $(this).parents('tr').addClass('load');
+                getPerformanceLembagaPP($(this).closest('table'),idx,$filter_bidang);
+            }
+        
+            if(!$(this).parents('tr').hasClass('collapsed')){
+                $(this).parents('tr').addClass('collapsed');
+                $(this).find('i').removeClass('simple-icon-arrow-down');
+                $(this).find('i').addClass('simple-icon-arrow-right');
+                $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').show();
+            }else{
+                $(this).parents('tr').removeClass('collapsed');
+                $(this).find('i').removeClass('simple-icon-arrow-right');
+                $(this).find('i').addClass('simple-icon-arrow-down');
+                $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').hide();
+            }
+        }
     }
-})
-
-$('#table-lembaga tbody').on('click', '.btn-detail', function() {
-    var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
-    var idx = $(this).closest('tr').index();
-    $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
-    if(tipe == "PP"){
-        return false;
-    }
-
-    if(!$(this).parents('tr').hasClass('load')){
-        $(this).parents('tr').addClass('load');
-        getPerformanceLembagaPP($(this).closest('table'),idx,$filter_bidang);
-    }
-
-    if(!$(this).parents('tr').hasClass('collapsed')){
-        $(this).parents('tr').addClass('collapsed');
-        $(this).find('i').removeClass('simple-icon-arrow-down');
-        $(this).find('i').addClass('simple-icon-arrow-right');
-        $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').show();
-    }else{
-        $(this).parents('tr').removeClass('collapsed');
-        $(this).find('i').removeClass('simple-icon-arrow-right');
-        $(this).find('i').addClass('simple-icon-arrow-down');
-        $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').hide();
-    }
-})
-
-$('#table-lembaga tbody').on('click', 'tr.selected-row > td:not(:eq(1))', function() {
-    
-    // var kode = $(this).closest('tr').find('td:first').find('.kode').text()
-    // $(this).parents('table').find('tbody tr[data-parent="'+kode+'"]').remove();
-
-    var table = $(this).parents('table').attr('id')
-    $filter_bidang="";
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
-    showNotification(`Menampilkan dashboard `);
-    // // updateAllChart();
-    updateChart(true);
-    updateBox();
-})
-
-$('#table-lembaga tbody').on('click', 'tr.selected-row td:eq(1)', function() {
-    var kode = $(this).closest('tr').find('td:first').find('.kode').text();
-    $(this).parents('table').find('tbody tr[data-parent="'+kode+'"]').hide();
 })
 // END TABLE LEMBAGA EVENT
 </script>
