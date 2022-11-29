@@ -432,7 +432,7 @@ var $height = $(window).height();
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
-                        <td><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
+                        <td class='text-center'><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
                         <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
                         <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
                         <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
@@ -766,7 +766,7 @@ function updateChart(table = false) {
                                 <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
-                            <td><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
+                            <td class='text-center'><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
                             <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
                             <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
                             <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
@@ -867,9 +867,7 @@ function getPerformanceLembagaPP(table, idx, kode_bidang){
                         var display = 'none';
                     }
                     html += `<tr ${select} data-parent='${kode_bidang}'>
-                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        </td>
-                        <td>
+                        <td colspan='2'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <p class="tipe hidden">PP</p>
                             <p class="kode hidden">${row.kode_pp}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
@@ -1206,36 +1204,37 @@ $('#back').click(function() {
 </script>
 <script type="text/javascript">
 // TABLE LEMBAGA EVET
-$('#table-lembaga tbody').on('click', 'tr > td:not(:eq(1))', function() {
-    
-    var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
-    if(tipe == "PP"){
-        return false;
+$('#table-lembaga tbody').on('click', 'td', function() {
+    if($(this).index() != 1){
+        var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
+        if(tipe == "PP"){
+            return false;
+        }
+        var idx = $(this).closest('tr').index();
+        var table = $(this).parents('table').attr('id')
+        var tr = $(this).parent();
+        var icon = $(this).closest('tr').find('td:first').find('.check-row')
+        var kode = $(this).closest('tr').find('td:first').find('.kode').text()
+        var check = $(tr).attr('class')
+        $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
+        var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
+
+        if(check == 'selected-row') {
+            return;
+        }
+
+        $(`#${table} tbody tr`).removeClass('selected-row')
+        $(`#${table} tbody tr td .check-row`).hide()
+
+        $(tr).addClass('selected-row')
+        $(icon).show()
+        setTimeout(function() {
+            updateChart(true);
+            updateBox();
+        }, 200)
+        $('#lembaga-title').text(lembaga)
+        showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
     }
-    var idx = $(this).closest('tr').index();
-    var table = $(this).parents('table').attr('id')
-    var tr = $(this).parent();
-    var icon = $(this).closest('tr').find('td:first').find('.check-row')
-    var kode = $(this).closest('tr').find('td:first').find('.kode').text()
-    var check = $(tr).attr('class')
-    $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
-    var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
-
-    if(check == 'selected-row') {
-        return;
-    }
-
-    $(`#${table} tbody tr`).removeClass('selected-row')
-    $(`#${table} tbody tr td .check-row`).hide()
-
-    $(tr).addClass('selected-row')
-    $(icon).show()
-    setTimeout(function() {
-        updateChart(true);
-        updateBox();
-    }, 200)
-    $('#lembaga-title').text(lembaga)
-    showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
 })
 
 $('#table-lembaga tbody').on('click', '.btn-detail', function() {
@@ -1253,9 +1252,13 @@ $('#table-lembaga tbody').on('click', '.btn-detail', function() {
 
     if(!$(this).parents('tr').hasClass('collapsed')){
         $(this).parents('tr').addClass('collapsed');
+        $(this).find('i').removeClass('simple-icon-arrow-down');
+        $(this).find('i').addClass('simple-icon-arrow-right');
         $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').show();
     }else{
         $(this).parents('tr').removeClass('collapsed');
+        $(this).find('i').removeClass('simple-icon-arrow-right');
+        $(this).find('i').addClass('simple-icon-arrow-down');
         $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').hide();
     }
 })
@@ -2185,14 +2188,14 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                     </div>
                 </div>
                 <div id="scrollTable" class='scrollTable' style='height: calc(100vh - 320px)'>
-                    <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
+                    <table id="table-lembaga" class="table table-bordered table-th-red mt-8" style="width: 100%">
                         <thead>
                             <tr>
-                                <th rowspan="2" colspan="2">&nbsp;</th>
-                                <th colspan="2" class="text-center">Pendapatan</th>
-                                <th colspan="2" class="text-center">Beban</th>
-                                <th colspan="2" class="text-center">SHU</th>
-                                <th colspan="2" class="text-center">OR</th>
+                                <th style="min-width:200px !important"rowspan="2" colspan="2">&nbsp;</th>
+                                <th style="min-width:200px !important"colspan="2" class="text-center">Pendapatan</th>
+                                <th style="min-width:200px !important"colspan="2" class="text-center">Beban</th>
+                                <th style="min-width:200px !important"colspan="2" class="text-center">SHU</th>
+                                <th style="min-width:200px !important"colspan="2" class="text-center">OR</th>
                             </tr>
                             <tr>
                                 <th class="text-center">Ach.</th>
