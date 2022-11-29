@@ -72,4 +72,16 @@ Route::get('data-piutang-unit-komposisi', 'DashYpt\DashboardPiutangUnitControlle
 Route::get('data-piutang-unit-umur', 'DashYpt\DashboardPiutangUnitController@getUmurPiutang');
 Route::get('data-piutang-unit-saldo', 'DashYpt\DashboardPiutangUnitController@getTrendSaldoPiutang');
 
+// DASH FINANCIAL TS
+Route::get('data-fp-ts-box', 'DashYpt\DashboardFPTsController@getDataBoxFirst');
+Route::get('data-fp-ts-lr', 'DashYpt\DashboardFPTsController@getDataBoxLabaRugi');
+Route::get('data-fp-ts-pl', 'DashYpt\DashboardFPTsController@getDataBoxPerformLembaga');
+Route::get('data-fp-ts-pl-pp', 'DashYpt\DashboardFPTsController@getDataBoxPerformLembagaPP');
+
+Route::get('data-fp-ts-detail-perform', 'DashYpt\DashboardFPTsController@getDataPerformansiLembaga');
+Route::get('data-fp-ts-detail-lembaga', 'DashYpt\DashboardFPTsController@getDataPerLembaga');
+Route::get('data-fp-ts-detail-kelompok', 'DashYpt\DashboardFPTsController@getDataPerKelompok');
+Route::get('data-fp-ts-detail-akun', 'DashYpt\DashboardFPTsController@getDataPerAkun');
+Route::get('data-fp-ts-detail-or-5tahun', 'DashYpt\DashboardFPTsController@getDataOR5Tahun');
+
 ?>

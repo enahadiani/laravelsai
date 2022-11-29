@@ -6,20 +6,25 @@
 <script type="text/javascript">
 $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
-var $filter_lokasi = "";
-var $tahun = "{{ substr(Session::get('periode'),0,4) }}";
+var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
+var $filter_bidang = "";
+if(typeof $filter_lokasi != "string"){
+    var $filter_lokasi = "12";
+}
+var $tahun = $periode_aktif.substr(0,4);
 var $filter1 = "Periode";
-var $filter2 = namaPeriodeBulan("{{ Session::get('periode') }}");
-var $month = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2 = namaPeriodeBulan($periode_aktif);
+var $month = $periode_aktif.substr(4,2);
 var $judulChart = null;
 var $filter1_kode = "YTM";
-var $filter2_kode = "{{ substr(Session::get('periode'),4,2) }}";
+var $filter2_kode = $periode_aktif.substr(4,2);
 var pdptChart = null;
 var bebanChart = null;
 var shuChart = null;
 var orChart = null;
 var lrChart = null;
 var $render = 0;
+var back_status = 1;
 
 if($filter1 == 'Periode') {
     $('#list-filter-2').find('.list').each(function() {
@@ -46,12 +51,13 @@ var $height = $(window).height();
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-ts-box') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: false,
@@ -257,12 +263,13 @@ var $height = $(window).height();
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-ts-lr') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: false,
@@ -347,12 +354,13 @@ var $height = $(window).height();
 (function(){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-ts-pl') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
-            "jenis": $filter1_kode
+            "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
         async: false,
@@ -419,10 +427,12 @@ var $height = $(window).height();
 
                     html += `<tr>
                         <td>
-                            <p class="kode hidden">${row.kode_lokasi}</p>
+                            <p class="tipe hidden">Bidang</p>
+                            <p class="kode hidden">${row.kode_bidang}</p>
                             <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                             <span class="name-lembaga">${row.nama}</span>
                         </td>
+                        <td><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
                         <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
                         <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
                         <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
@@ -632,127 +642,16 @@ function updateAllChart() {
 }
 
 function updateChart(table = false) {
-    // // PENDAPATAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-pdpt') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         pdptChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         pdptChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         pdptChart.redraw()
-    //     }
-    // });
-    // // END PENDAPATAN
-    // // BEBAN
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-beban') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         bebanChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         bebanChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         bebanChart.redraw()
-    //     }
-    // });
-    // // END BEBAN
-    // // SHU
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-shu') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         shuChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         shuChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         shuChart.redraw()
-    //     }
-    // });
-    // // END SHU
-    // // OR
-    // $.ajax({
-    //     type: 'GET',
-    //     url: "{{ url('dash-ypt-dash/v2/data-fp-or') }}",
-    //     data: {
-    //         "periode[0]": "=", 
-    //         "periode[1]": $filter2_kode,
-    //         "tahun": $tahun,
-    //         "jenis": $filter1_kode,
-    //         "kode_lokasi": $filter_lokasi
-    //     },
-    //     dataType: 'json',
-    //     async: true,
-    //     success:function(result) {
-    //         var data = result.data;
-    //         orChart.series[0].update({
-    //             data: data.anggaran
-    //         }, false) // true untuk redraw
-
-    //         orChart.series[1].update({
-    //             data: data.realisasi
-    //         }, false) // true untuk redraw
-
-    //         // re render chart
-    //         orChart.redraw()
-    //     }
-    // });
-    // // // END OR
     // LR
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/data-fp-lr') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-ts-lr') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
+            "kode_bidang": $filter_bidang,
             "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
@@ -783,12 +682,13 @@ function updateChart(table = false) {
         // PL TABLE
         $.ajax({
             type: 'GET',
-            url: "{{ url('dash-ypt-dash/data-fp-pl') }}",
+            url: "{{ url('dash-ypt-dash/data-fp-ts-pl') }}",
             data: {
                 "periode[0]": "=", 
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
-                "jenis": $filter1_kode
+                "jenis": $filter1_kode,
+                "kode_lokasi": $filter_lokasi
             },
             dataType: 'json',
             async: true,
@@ -852,7 +752,7 @@ function updateChart(table = false) {
                         }else{
                             classTd8 = "green-text"
                         }
-                        if(row.kode_lokasi == $filter_lokasi){
+                        if(row.kode_bidang == $filter_bidang){
                             var select = 'class="selected-row"';
                             var display = 'unset';
                         }else{
@@ -861,10 +761,12 @@ function updateChart(table = false) {
                         }
                         html += `<tr ${select}>
                             <td>
-                                <p class="kode hidden">${row.kode_lokasi}</p>
-                                <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
+                                <p class="tipe hidden">Bidang</p>
+                                <p class="kode hidden">${row.kode_bidang}</p>
+                                <div class="glyph-icon simple-icon-check check-row" style="display: none"></div>
                                 <span class="name-lembaga">${row.nama}</span>
                             </td>
+                            <td><a class='btn-detail'><i class='simple-icon-arrow-down'></i></a></td>
                             <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
                             <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
                             <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
@@ -883,15 +785,122 @@ function updateChart(table = false) {
     }
 }
 
-function updateBox() {
+function getPerformanceLembagaPP(table, idx, kode_bidang){
     $.ajax({
         type: 'GET',
-        url: "{{ url('dash-ypt-dash/v2/data-fp-box') }}",
+        url: "{{ url('dash-ypt-dash/data-fp-ts-pl-pp') }}",
         data: {
             "periode[0]": "=", 
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
+            "kode_lokasi": $filter_lokasi,
+            "kode_bidang": kode_bidang
+        },
+        dataType: 'json',
+        async: true,
+        success:function(result) {
+            if($filter1_kode == 'PRD'){
+                $('.yoy2-label').html('MoM')
+            }else{
+                $('.yoy2-label').html('YoY')
+            }
+            var data = result.data;
+            if(data.length > 0) {
+                var html = "";
+                table.find('tbody tr[data-parent="'+kode_bidang+'"]').remove();
+                for(var i=0;i<data.length;i++) {
+                    var row = data[i];
+                    var classTd1 = "";
+                    var classTd2 = "";
+                    var classTd3 = "";
+                    var classTd4 = "";
+                    var classTd5 = "";
+                    var classTd6 = "";
+                    var classTd7 = "";
+                    var classTd8 = "";
+                    if(row.pdpt_ach > 100) {
+                        classTd1 = "green-text"
+                    }else{
+                        classTd1 = "red-text"
+                    }
+                    if(row.pdpt_yoy < 0) {
+                        classTd2 = "red-text"
+                    }else{
+                        classTd2 = "green-text"
+                    }
+                    if(row.beban_ach < 100) {
+                        classTd3 = "green-text"
+                    }else{
+                        classTd3 = "red-text"
+                    }
+                    if(row.beban_yoy > 0) {
+                        classTd4 = "red-text"
+                    }else{
+                        classTd4 = "green-text"
+                    }
+                    if(row.shu_ach > 100) {
+                        classTd5 = "green-text"
+                    }else{
+                        classTd5 = "red-text"
+                    }
+                    if(row.shu_yoy < 0) {
+                        classTd6 = "red-text"
+                    }else{
+                        classTd6 = "green-text"
+                    }
+                    if(row.or_ach > 100) {
+                        classTd7 = "red-text"
+                    }else{
+                        classTd7 = "green-text"
+                    }
+                    if(row.or_yoy > 0) {
+                        classTd8 = "red-text"
+                    }else{
+                        classTd8 = "green-text"
+                    }
+                    if(row.kode_pp == $filter_pp){
+                        var select = 'class="selected-row"';
+                        var display = 'unset';
+                    }else{
+                        var select = "";
+                        var display = 'none';
+                    }
+                    html += `<tr ${select} data-parent='${kode_bidang}'>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>
+                            <p class="tipe hidden">PP</p>
+                            <p class="kode hidden">${row.kode_pp}</p>
+                            <div class="glyph-icon simple-icon-check check-row" style="display: ${display}"></div>
+                            <span class="name-lembaga">${row.nama}</span>
+                        </td>
+                        <td class="${classTd1}">${number_format(row.pdpt_ach,2)}%</td>
+                        <td class="${classTd2}">${number_format(row.pdpt_yoy,2)}%</td>
+                        <td class="${classTd3}">${number_format(row.beban_ach,2)}%</td>
+                        <td class="${classTd4}">${number_format(row.beban_yoy,2)}%</td>
+                        <td class="${classTd5}">${number_format(row.shu_ach,2)}%</td>
+                        <td class="${classTd6}">${number_format(row.shu_yoy,2)}%</td>
+                        <td class="${classTd7}">${number_format(row.or_ach,2)}%</td>
+                        <td class="${classTd8}">${number_format(row.or_yoy,2)}%</td>
+                    </tr>`;
+                }
+                $(html).insertAfter(table.find('tbody tr:eq('+idx+')'));
+            }
+        }
+    });
+}
+
+function updateBox() {
+    $.ajax({
+        type: 'GET',
+        url: "{{ url('dash-ypt-dash/data-fp-ts-box') }}",
+        data: {
+            "periode[0]": "=", 
+            "periode[1]": $filter2_kode,
+            "tahun": $tahun,
+            "jenis": $filter1_kode,
+            "kode_bidang": $filter_bidang,
             "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
@@ -1139,7 +1148,7 @@ function setHeightPage() {
             console.log('enabled detail');
             var kode = $(this).data('grafik');
             var id = $(this).attr('id');
-    
+            back_status = 2;
             if($render == 0) {
                 createChartPerform(kode)
                 createChartLembaga(kode)
@@ -1170,7 +1179,7 @@ function setHeightPage() {
                 $('#title-dash').text('Rasio Operasional')
                 $('.title-chart').text('Rasio Operasional')
             }
-            $('#back-div').removeClass('hidden')
+            // $('#back-div').removeClass('hidden')
             $('#dash-title-div').removeClass('pl-8').addClass('pl-0')
             $('#main-dash').hide()
             $('#detail-dash').show()
@@ -1180,26 +1189,38 @@ function setHeightPage() {
 // EVENT CARD DASH
 // KEMBALI
 $('#back').click(function() {
-    $('#title-dash').text('Financial Performance YPT')
-    $('#back-div').addClass('hidden')
-    $('#dash-title-div').removeClass('pl-0')
-    $('#dash-title-div').addClass('pl-8')
-    $('#detail-dash').hide()
-    $('#main-dash').show()
-    $('body').addClass('scroll-hide');
+    if(back_status == 1){
+        loadForm("{{ url('dash-ypt/form/fDashFinancialv2') }}");
+    }else{
+        back_status = 1;
+        $('#title-dash').text('Financial Performance TS')
+        // $('#back-div').addClass('hidden')
+        $('#dash-title-div').removeClass('pl-0')
+        $('#dash-title-div').addClass('pl-8')
+        $('#detail-dash').hide()
+        $('#main-dash').show()
+        $('body').addClass('scroll-hide');
+    }
 });
 // END KEMBALI
 </script>
 <script type="text/javascript">
 // TABLE LEMBAGA EVET
-$('#table-lembaga tbody').on('click', 'tr td', function() {
+$('#table-lembaga tbody').on('click', 'tr > td:not(:eq(1))', function() {
+    
+    var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
+    if(tipe == "PP"){
+        return false;
+    }
+    var idx = $(this).closest('tr').index();
     var table = $(this).parents('table').attr('id')
-    var tr = $(this).parent()
+    var tr = $(this).parent();
     var icon = $(this).closest('tr').find('td:first').find('.check-row')
     var kode = $(this).closest('tr').find('td:first').find('.kode').text()
     var check = $(tr).attr('class')
+    $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
     var lembaga = $(this).closest('tr').find('td:first').find('.name-lembaga').text()
-    $filter_lokasi = $(this).closest('tr').find('td:first').find('.kode').text()
+
     if(check == 'selected-row') {
         return;
     }
@@ -1209,26 +1230,54 @@ $('#table-lembaga tbody').on('click', 'tr td', function() {
 
     $(tr).addClass('selected-row')
     $(icon).show()
-    if($filter_lokasi == 12){
-        loadForm("{{ url('dash-ypt/form/fDashFinancialTs') }}");
-    }else{
-        setTimeout(function() {
-            updateChart(true);
-            updateBox();
-        }, 200)
-    }
+    setTimeout(function() {
+        updateChart(true);
+        updateBox();
+    }, 200)
     $('#lembaga-title').text(lembaga)
     showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
 })
 
-$('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
+$('#table-lembaga tbody').on('click', '.btn-detail', function() {
+    var tipe = $(this).closest('tr').find('td:first').find('.tipe').text()
+    var idx = $(this).closest('tr').index();
+    $filter_bidang = $(this).closest('tr').find('td:first').find('.kode').text()
+    if(tipe == "PP"){
+        return false;
+    }
+
+    if(!$(this).parents('tr').hasClass('load')){
+        $(this).parents('tr').addClass('load');
+        getPerformanceLembagaPP($(this).closest('table'),idx,$filter_bidang);
+    }
+
+    if(!$(this).parents('tr').hasClass('collapsed')){
+        $(this).parents('tr').addClass('collapsed');
+        $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').show();
+    }else{
+        $(this).parents('tr').removeClass('collapsed');
+        $(this).parents('table').find('tbody tr[data-parent="'+$filter_bidang+'"]').hide();
+    }
+})
+
+$('#table-lembaga tbody').on('click', 'tr.selected-row > td:not(:eq(1))', function() {
+    
+    // var kode = $(this).closest('tr').find('td:first').find('.kode').text()
+    // $(this).parents('table').find('tbody tr[data-parent="'+kode+'"]').remove();
+
     var table = $(this).parents('table').attr('id')
-    $filter_lokasi="";
+    $filter_bidang="";
     $(`#${table} tbody tr`).removeClass('selected-row')
     $(`#${table} tbody tr td .check-row`).hide()
-    $('#lembaga-title').text('YPT')
-    showNotification(`Menampilkan dashboard lembaga YPT`);
-    updateAllChart();
+    showNotification(`Menampilkan dashboard `);
+    // // updateAllChart();
+    updateChart(true);
+    updateBox();
+})
+
+$('#table-lembaga tbody').on('click', 'tr.selected-row td:eq(1)', function() {
+    var kode = $(this).closest('tr').find('td:first').find('.kode').text();
+    $(this).parents('table').find('tbody tr[data-parent="'+kode+'"]').hide();
 })
 // END TABLE LEMBAGA EVENT
 </script>
@@ -1287,14 +1336,14 @@ $('#table-lembaga tbody').on('click', 'tr.selected-row', function() {
     // KURANG TAHUN FILTER
     $('#kurang-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = parseInt($tahun) - 1;
+        $tahun = $tahun - 1;
         $('#year-filter').text($tahun);
     })
 
     // TAMBAH TAHUN FILTER
     $('#tambah-tahun').click(function(event) {
         event.stopPropagation();
-        $tahun = parseInt($tahun) + 1;
+        $tahun = $tahun + 1;
         $('#year-filter').text($tahun);
     })
 
@@ -1738,11 +1787,11 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
     <div class="row">
         <div class="col-9 pl-12 pr-0">
             <div class="row">
-                <div id="back-div" class="col-1 pr-0 hidden">
+                <div id="back-div" class="col-1 pr-0">
                     <div id="back" class="glyph-icon iconsminds-left header"></div>
                 </div>
                 <div id="dash-title-div" class="col-11 pr-0">
-                    <h2 class="title-dash" id="title-dash">Financial Performance <span id="lembaga-title">YPT</span></h2>
+                    <h2 class="title-dash" id="title-dash">Financial Performance TS <span id="lembaga-title"></span></h2>
                 </div>
             </div>
         </div>
@@ -2139,7 +2188,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
                     <table id="table-lembaga" class="table table-bordered table-th-red mt-8">
                         <thead>
                             <tr>
-                                <th rowspan="2">&nbsp;</th>
+                                <th rowspan="2" colspan="2">&nbsp;</th>
                                 <th colspan="2" class="text-center">Pendapatan</th>
                                 <th colspan="2" class="text-center">Beban</th>
                                 <th colspan="2" class="text-center">SHU</th>
@@ -2165,7 +2214,7 @@ $('.card-dash .table tbody tr td').on('click', '.hide-chart', function() {
 {{-- END ROW 2 --}}
 </section>
 {{-- END DESKTOP --}}
-@include('dash-ypt.components.detail_fpv2')
+@include('dash-ypt.components.detail_fpv_ts')
 
 {{-- WINDOW DRAGABLE --}}
 <div class="window-drag hidden" id="window-drag">
