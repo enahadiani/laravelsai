@@ -8,6 +8,7 @@ $('body').addClass('scroll-hide');
 window.scrollTo(0, 0);
 var $periode_aktif = "{{ intval(substr(Session::get('periode'),4,2)) > 12 ?  substr(Session::get('periode'),0,4).'12' : Session::get('periode') }}"; 
 var $filter_bidang = "";
+var $filter_pp = "";
 if(typeof $filter_lokasi != "string"){
     var $filter_lokasi = "12";
 }
