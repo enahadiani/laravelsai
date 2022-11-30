@@ -1287,7 +1287,9 @@ $('#table-lembaga tbody').on('click', 'td', function() {
             var table = $(this).parents('table').attr('id')
             $(`#${table} tbody tr`).removeClass('selected-row')
             $(`#${table} tbody tr td .check-row`).hide()
+            $('#lembaga-title').text('');
             showNotification(`Menampilkan dashboard `);
+            
             // // updateAllChart();
             updateChart(true);
             updateBox();
