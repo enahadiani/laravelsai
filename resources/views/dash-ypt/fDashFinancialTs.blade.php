@@ -1277,13 +1277,13 @@ $('#table-lembaga tbody').on('click', 'td', function() {
     }else{
 
         if($(this).index() != 1){
-            if(tipe == "PP"){
-                $filter_pp = $(this).closest('tr').find('.kode').text();
-                $filter_bidang = $(this).closest('tr').data('parent');
-            }else{
+            // if(tipe == "PP"){
+            //     $filter_pp = $(this).closest('tr').find('.kode').text();
+            //     $filter_bidang = $(this).closest('tr').data('parent');
+            // }else{
                 $filter_bidang = "";
                 $filter_pp = "";
-            }
+            // }
             var table = $(this).parents('table').attr('id')
             $(`#${table} tbody tr`).removeClass('selected-row')
             $(`#${table} tbody tr td .check-row`).hide()
