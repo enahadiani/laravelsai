@@ -58,6 +58,11 @@ class DashboardFPTsController extends Controller
                     'kode_bidang' => $req['kode_bidang']
                 ]);
             }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
+                ]);
+            }
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
                     'kode_lokasi' => $req['kode_lokasi']
@@ -120,6 +125,11 @@ class DashboardFPTsController extends Controller
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
+                ]);
+            }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_lokasi'])){
@@ -185,6 +195,11 @@ class DashboardFPTsController extends Controller
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
                 ]);
+            } 
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
+                ]);
             }
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
@@ -249,6 +264,11 @@ class DashboardFPTsController extends Controller
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
+                ]);
+            }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_lokasi'])){
@@ -317,6 +337,11 @@ class DashboardFPTsController extends Controller
                     'kode_bidang' => $req['kode_bidang']
                 ]);
             }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
+                ]);
+            }
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
                     'kode_lokasi' => $req['kode_lokasi']
@@ -381,6 +406,11 @@ class DashboardFPTsController extends Controller
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
+                ]);
+            }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_lokasi'])){
@@ -449,6 +479,11 @@ class DashboardFPTsController extends Controller
                     'kode_bidang' => $req['kode_bidang']
                 ]);
             }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
+                ]);
+            }
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
                     'kode_lokasi' => $req['kode_lokasi']
@@ -514,6 +549,11 @@ class DashboardFPTsController extends Controller
                     'kode_bidang' => $req['kode_bidang']
                 ]);
             }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
+                ]);
+            }
             if(isset($req['kode_lokasi'])){
                 $fields = array_merge($fields,[
                     'kode_lokasi' => $req['kode_lokasi']
@@ -577,6 +617,11 @@ class DashboardFPTsController extends Controller
             if(isset($req['kode_bidang'])){
                 $fields = array_merge($fields,[
                     'kode_bidang' => $req['kode_bidang']
+                ]);
+            }
+            if(isset($req['kode_pp'])){
+                $fields = array_merge($fields,[
+                    'kode_pp' => $req['kode_pp']
                 ]);
             }
             if(isset($req['kode_lokasi'])){

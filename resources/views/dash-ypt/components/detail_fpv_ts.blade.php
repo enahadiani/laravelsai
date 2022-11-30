@@ -18,6 +18,8 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_lokasi": $filter_lokasi
+                "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
             },
             dataType: 'json',
             async: true,
@@ -52,6 +54,8 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_lokasi": $filter_lokasi
+                "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
             },
             dataType: 'json',
             async: true,
@@ -74,6 +78,8 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_lokasi": $filter_lokasi
+                "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
             },
             dataType: 'json',
             async: true,
@@ -153,6 +159,7 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
                 "kode_lokasi": $filter_lokasi
             },
             dataType: 'json',
@@ -317,6 +324,7 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
                 "kode_lokasi": $filter_lokasi
             },
             dataType: 'json',
@@ -481,6 +489,7 @@
                     "tahun": $tahun,
                     "jenis": $filter1_kode,
                     "kode_bidang": $filter_bidang,
+                    "kode_pp": $filter_pp,
                     "kode_lokasi": $filter_lokasi
                 },
                 dataType: 'json',
@@ -605,6 +614,7 @@
                     "tahun": $tahun,
                     "jenis": $filter1_kode,
                     "kode_bidang": $filter_bidang,
+                    "kode_pp": $filter_pp,
                     "kode_lokasi": $filter_lokasi
                 },
                 dataType: 'json',
@@ -738,6 +748,7 @@
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
                 "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
                 "kode_lokasi": $filter_lokasi
             },
             dataType: 'json',

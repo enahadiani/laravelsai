@@ -58,7 +58,9 @@ var $height = $(window).height();
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_bidang": $filter_bidang,
+            "kode_pp": $filter_pp,
         },
         dataType: 'json',
         async: false,
@@ -270,7 +272,9 @@ var $height = $(window).height();
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_bidang": $filter_bidang,
+            "kode_pp": $filter_pp,
         },
         dataType: 'json',
         async: false,
@@ -361,7 +365,9 @@ var $height = $(window).height();
             "periode[1]": $filter2_kode,
             "tahun": $tahun,
             "jenis": $filter1_kode,
-            "kode_lokasi": $filter_lokasi
+            "kode_lokasi": $filter_lokasi,
+            "kode_bidang": $filter_bidang,
+            "kode_pp": $filter_pp,
         },
         dataType: 'json',
         async: false,
@@ -653,6 +659,7 @@ function updateChart(table = false) {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_bidang": $filter_bidang,
+            "kode_pp": $filter_pp,
             "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
@@ -689,7 +696,9 @@ function updateChart(table = false) {
                 "periode[1]": $filter2_kode,
                 "tahun": $tahun,
                 "jenis": $filter1_kode,
-                "kode_lokasi": $filter_lokasi
+                "kode_lokasi": $filter_lokasi,
+                "kode_bidang": $filter_bidang,
+                "kode_pp": $filter_pp,
             },
             dataType: 'json',
             async: true,
@@ -900,6 +909,7 @@ function updateBox() {
             "tahun": $tahun,
             "jenis": $filter1_kode,
             "kode_bidang": $filter_bidang,
+            "kode_pp": $filter_pp,
             "kode_lokasi": $filter_lokasi
         },
         dataType: 'json',
@@ -1206,20 +1216,24 @@ $('#back').click(function() {
 <script type="text/javascript">
 // TABLE LEMBAGA EVET
 $('#table-lembaga tbody').on('click', 'td', function() {
+    var tipe = $(this).closest('tr').find('.tipe').text();
     if(!$(this).closest('tr').hasClass('selected-row')){
         if($(this).index() != 1){
-            var tipe = $(this).closest('tr').find('.tipe').text()
-            if(tipe == "PP"){
-                return false;
-            }
             var idx = $(this).closest('tr').index();
             var table = $(this).parents('table').attr('id')
             var tr = $(this).parent();
             var icon = $(this).closest('tr').find('.check-row')
             var kode = $(this).closest('tr').find('.kode').text()
             var check = $(tr).attr('class')
-            $filter_bidang = $(this).closest('tr').find('.kode').text()
             var lembaga = $(this).closest('tr').find('.name-lembaga').text()
+
+            if(tipe == "PP"){
+                $filter_bidang = $(this).closest('tr').data('parent');
+                $filter_pp = kode;
+            }else{
+                $filter_bidang = kode;
+                $filter_pp = '';
+            }
     
             if(check == 'selected-row') {
                 return;
@@ -1237,11 +1251,8 @@ $('#table-lembaga tbody').on('click', 'td', function() {
             $('#lembaga-title').text(lembaga)
             showNotification(`Menampilkan dashboard lembaga ${lembaga}`);
         }else{
-            var tipe = $(this).closest('tr').find('.tipe').text()
             var idx = $(this).closest('tr').index();
             $filter_bidang = $(this).closest('tr').find('.kode').text()
-            
-            console.log(tipe)
             if(tipe == "PP"){
                 return false;
             }
@@ -1266,8 +1277,14 @@ $('#table-lembaga tbody').on('click', 'td', function() {
     }else{
 
         if($(this).index() != 1){
+            if(tipe == "PP"){
+                $filter_pp = $(this).closest('tr').find('.kode').text();
+                $filter_bidang = $(this).closest('tr').data('parent');
+            }else{
+                $filter_bidang = "";
+                $filter_pp = "";
+            }
             var table = $(this).parents('table').attr('id')
-            $filter_bidang="";
             $(`#${table} tbody tr`).removeClass('selected-row')
             $(`#${table} tbody tr td .check-row`).hide()
             showNotification(`Menampilkan dashboard `);
@@ -1275,10 +1292,8 @@ $('#table-lembaga tbody').on('click', 'td', function() {
             updateChart(true);
             updateBox();
         }else{
-            var tipe = $(this).closest('tr').find('.tipe').text()
             var idx = $(this).closest('tr').index();
             $filter_bidang = $(this).closest('tr').find('.kode').text()
-            console.log(tipe)
             if(tipe == "PP"){
                 return false;
             }
