@@ -1010,10 +1010,11 @@
     }
 
     var $dtForm = new Array();
+
     function getFormList() {
         $.ajax({
             type:'GET',
-            url:"{{url('dash-ypt/search-form-list2')}}",
+            url:"{{ url('dash-ypt/search-form-list') }}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -1026,7 +1027,7 @@
                 }else if(!result.status && result.message == "Unauthorized"){
                     window.location.href = "{{ url('dash-ypt/sesi-habis') }}";
                 } else{
-                    alert(result.message);
+                    // alert(result.message);
                 }
             },
             error: function(jqXHR, textStatus, errorThrown) {       
@@ -1036,7 +1037,7 @@
                     var msg = "Internal server error";
                 }else if(jqXHR.status == 401){
                     var msg = "Unauthorized";
-                    window.location="{{ url('/dash-ypt/sesi-habis') }}";
+                    // window.location="{{ url('/dash-ypt/sesi-habis') }}";
                 }else if(jqXHR.status == 405){
                     var msg = "Route not valid. Page not found";
                 }
