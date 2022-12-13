@@ -1014,7 +1014,7 @@
     function getFormList() {
         $.ajax({
             type:'GET',
-            url:"{{ url('dash-ypt/search-form-list') }}",
+            url:"{{ url('dash-ypt/search-form-list2') }}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -1025,7 +1025,7 @@
                     }
 
                 }else if(!result.status && result.message == "Unauthorized"){
-                    window.location.href = "{{ url('dash-ypt/sesi-habis') }}";
+                    // window.location.href = "{{ url('dash-ypt/sesi-habis') }}";
                 } else{
                     // alert(result.message);
                 }
