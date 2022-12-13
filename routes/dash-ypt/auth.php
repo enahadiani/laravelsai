@@ -23,7 +23,10 @@ Route::get('/form/{id}', function ($id) {
 });
 
 Route::get('cek-sesi', function () {
-    // return Session::all();
+    return Session::all();
+});
+
+Route::get('main2', function () {
     return view('dash-ypt.main2');
 });
 
