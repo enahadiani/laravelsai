@@ -23,7 +23,13 @@ Route::get('/form/{id}', function ($id) {
 });
 
 Route::get('cek-sesi', function () {
-    return Session::all();
+    $sesi =  Session::all();
+    if(!Session::get('login')){
+        return response()->json(['status'=>false, 'session' => $sesi], 200);
+    }
+    else{
+        return response()->json(['status'=>true, 'session' => $sesi], 200);
+    }
 });
 
 Route::get('main2', function () {
