@@ -197,8 +197,6 @@
         }
     </script>
     <script src="{{ asset('asset_dore/js/vendor/jquery-3.3.1.min.js') }}"></script>
-    <!-- <script src="{{ asset('asset_elite/highcharts2.js') }}"></script>
-    <script src="{{ asset('asset_elite/highcharts-more.js') }}"></script> -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/variable-pie.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -208,7 +206,6 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://highcharts.github.io/pattern-fill/pattern-fill-v2.js"></script>
-    <!-- <script src="https://code.highcharts.com/modules/exporting.js"></script> -->
     <script src="{{ asset('dash-asset/dash-ypt/circle/circle-progress.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/typeahead.bundle.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap.bundle.min.js') }}"></script>
@@ -233,14 +230,12 @@
     <script src="{{ asset('asset_elite/dist/js/swal/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('asset_elite/standalone/selectize.min.js') }}"></script>
     <script src="{{ asset('asset_elite/printThis/printThis.js') }}"></script>
-    <!-- <script src="{{ asset('asset_elite/jquery.tableToExcel.js') }}"></script> -->
     <script src="{{ asset('asset_dore/js/jquery.table2excel.js') }}"></script>
     <script src="{{ asset('asset_elite/jquery.twbsPagination.min.js') }}"></script>
     <script src="{{ asset('asset_elite/sai.js') }}"></script>
     <script src="{{ asset('asset_elite/inputmask.js') }}"></script>
     <script src="{{ asset('asset_dore/js/vendor/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('asset_dore/js/pptxgen.bundle.js') }}"></script>
-    <!-- <script src="{{ asset('asset_dore/js/html2canvas.min.js') }}"></script> -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script>
         var $google = google;
@@ -395,7 +390,9 @@
 
     <main>
         <div class="container-fluid">
-            <div class="body-content"></div>
+            <div class="body-content">
+                {{ dump(Session::all()) }}
+            </div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
