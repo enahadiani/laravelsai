@@ -391,7 +391,7 @@
     <main>
         <div class="container-fluid">
             <div class="body-content">
-                {{ dump(Session::all()) }}
+                {{ var_dump(Session::all()) }}
             </div>
         </div>
         <div class="modal fade" id="modal-pesan" tabindex="-1" role="dialog" aria-labelledby="modal-pesantitle" aria-hidden="true">
