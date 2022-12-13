@@ -18,7 +18,12 @@
             else{
                 return view('dash-ypt.main');
             }            
-        }         
+        }     
+        
+        public function cekdata()
+        {
+            return Session::all();       
+        }     
 
         function buildMenu($menu_array, $is_sub=FALSE) {
 

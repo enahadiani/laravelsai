@@ -32,6 +32,9 @@ Route::get('cek-sesi', function () {
     }
 });
 
+
+Route::get('/cek-data', 'DashYpt\AuthController@cekdata');
+
 Route::get('main2', function () {
     return view('dash-ypt.main2');
 });
