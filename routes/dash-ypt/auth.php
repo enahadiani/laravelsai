@@ -22,6 +22,10 @@ Route::get('/form/{id}', function ($id) {
     }
 });
 
+Route::get('cek-sesi', function () {
+    return Session::all();
+});
+
 Route::get('/sesi-habis', function () {
     return view('dash-ypt.sesi');
 });
