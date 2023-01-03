@@ -31,8 +31,8 @@ date_default_timezone_set('Asia/Jakarta');
                             <div class="col-4">
                                 <div class="row">
                                     <div class="col-4">
-                                        <div class="logo2 text-center"><img src="{{ url('asset_dore/images/sai_icon/logo.png') }}" width="40px" alt="homepage" class="light-logo" /><br/>
-                                            <img src="{{ url('asset_dore/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
+                                        <div class="logo2 text-center"><img src="{{ url('asset_elite/images/sai_icon/logo.png') }}" width="40px" alt="homepage" class="light-logo" /><br/>
+                                            <img src="{{ url('asset_elite/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
                                         </div>
                                     </div>
                                     <div class="col-8">
@@ -47,12 +47,12 @@ date_default_timezone_set('Asia/Jakarta');
                                 <h6>Nilai Transaksi</h6>
                                 <div class="row float-right">
                                     <div class="text-left" id="edit-qty" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px">
-                                        <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_dore/img/edit.png') }}">
+                                        <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center">Edit Qty</p>
                                         <p style="line-height:1.5;font-size: 9px !important;padding-left: 35px;text-align:center">F7</p>
                                     </div>
                                     <div class="text-left" id="pbyr" style="width: 120px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;">
-                                        <img style="width:30px;height:30px;position:absolute" src="{{url('asset_dore/img/debit-card.png')}}">
+                                        <img style="width:30px;height:30px;position:absolute" src="{{url('asset_elite/img/debit-card.png')}}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center !important;">Pembayaran</p>
                                         <p style="line-height:1.5;font-size: 9px !important;padding-left: 35px;text-align:center !important;">F8</p>
                                     </div>
@@ -288,9 +288,9 @@ date_default_timezone_set('Asia/Jakarta');
     </div>
 </div>
 
-<script src="{{url('asset_dore/js/inputmask.js')}}"></script>
-<script src="{{url('asset_dore/js/jquery.scannerdetection.js')}}"></script>
-<script src="{{url('asset_dore/js/jquery.formnavigation.js')}}"></script>
+<script src="{{url('asset_elite/inputmask.js')}}"></script>
+<script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
+<script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
 
 <script type="text/javascript">
     var $dtBrg = new Array();
