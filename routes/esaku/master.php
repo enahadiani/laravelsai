@@ -154,6 +154,13 @@ Route::post('cust-ol', 'Esaku\Inventori\CustomerOLController@store');
 Route::put('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@update');
 Route::delete('cust-ol/{id}', 'Esaku\Inventori\CustomerOLController@delete');
 
+//Jenis Bayar
+Route::get('jenis-bayar', 'Esaku\Inventori\JenisBayarController@index');
+Route::get('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@getData');
+Route::post('jenis-bayar', 'Esaku\Inventori\JenisBayarController@store');
+Route::put('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@update');
+Route::delete('jenis-bayar/{id}', 'Esaku\Inventori\JenisBayarController@delete');
+
 //Format Laporan
 Route::get('format-laporan', 'Esaku\Keuangan\FormatLaporanController@show');
 Route::post('format-laporan', 'Esaku\Keuangan\FormatLaporanController@store');

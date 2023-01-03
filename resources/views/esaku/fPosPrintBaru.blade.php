@@ -1,5 +1,9 @@
+<?php
+date_default_timezone_set('Asia/Jakarta');
+?>
 <link rel="stylesheet" href="{{ asset('trans.css') }}" />
 <style>
+
 #edit-qty
 {
     cursor:pointer;
@@ -15,20 +19,20 @@
 
 .modal-dialog{
     pointer-events: all;
- }
+}
 </style>
 <div class="container-fluid mt-3">
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <div class="card-body form-pos-body" id="pos-body">
-                    <form class="form" id="web-form-pos" method="POST">
+                <div class="card-body form-pos-body">
+                    <form class="form form-beli-ket" id="web-form-pos" method="POST">
                         <div class="row">
                             <div class="col-4">
                                 <div class="row">
                                     <div class="col-4">
-                                        <div class="logo2 text-center"><img src="{{ url('asset_elite/images/sai_icon/logo.png') }}" width="40px" alt="homepage" class="light-logo" /><br/>
-                                            <img src="{{ url('asset_elite/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
+                                        <div class="logo2 text-center"><img src="{{ url('asset_dore/images/sai_icon/logo.png') }}" width="40px" alt="homepage" class="light-logo" /><br/>
+                                            <img src="{{ url('asset_dore/images/sai_icon/logo-text.png') }}" class="light-logo" alt="homepage" width="40px"/>
                                         </div>
                                     </div>
                                     <div class="col-8">
@@ -43,12 +47,12 @@
                                 <h6>Nilai Transaksi</h6>
                                 <div class="row float-right">
                                     <div class="text-left" id="edit-qty" style="width: 90px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;margin-right:5px">
-                                        <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_elite/img/edit.png') }}">
+                                        <img style="width:30px;height:30px;position:absolute" src="{{ url('asset_dore/img/edit.png') }}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center">Edit Qty</p>
                                         <p style="line-height:1.5;font-size: 9px !important;padding-left: 35px;text-align:center">F7</p>
                                     </div>
                                     <div class="text-left" id="pbyr" style="width: 120px;height:42px;padding: 5px;border: 1px solid #d0cfcf;background: white;border-radius: 5px;vertical-align: middle;">
-                                        <img style="width:30px;height:30px;position:absolute" src="{{url('asset_elite/img/debit-card.png')}}">
+                                        <img style="width:30px;height:30px;position:absolute" src="{{url('asset_dore/img/debit-card.png')}}">
                                         <p style="line-height:1.5;font-size: 10px !important;padding-left: 35px;margin-bottom: 0 !important;text-align:center !important;">Pembayaran</p>
                                         <p style="line-height:1.5;font-size: 9px !important;padding-left: 35px;text-align:center !important;">F8</p>
                                     </div>
@@ -94,15 +98,31 @@
                                         </tr>
                                     </table>
                                 </div>
-                                <div class="col-6 mt-2 float-right">
+                                <div class="col-12 mt-2 float-right">
                                     <div class="form-group row">
-                                         <label for="judul" class="col-4 col-form-label" style="font-size:16px">Pembayaran</label>
-                                         <div class="col-6">
-                                             <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
-                                             <input type="hidden" style="" name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
-                                         </div>
+                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Metode</label>
                                          <div class="col-2">
-                                            <button class="btn btn-info" type="submit" id="btnBayar">Bayar</button>
+                                         <select class='form-control' id="kode_jenis" name="kode_jenis">
+                                                <option value=''>--CTRL+V--</option>
+                                            </select>
+                                         </div>
+                                    </div>
+                                    <div class="form-group row">
+                                    <label for="judul" class="col-1  col-form-label float-right " style="font-size:16px" >Bayar</label>
+                                            <div class="col-4 " >
+                                                <h3><input type="text" style="font-size: 30px !important;height:unset !important;"  name="total_bayar" min="1" class="form-control currency " id="tobyr" required value="0"></h3>
+                                        </div>
+                                         <!-- <label for="judul" class="col-2  col-form-label float-right " style="font-size:16px" >Pembayaran</label>
+                                         <div class="col-2" >
+                                             <input type="text" name="total_bayar" min="1" class="form-control currency" id="tobyr" required value="0">
+                                             <input type="hidden"  name="kembalian" min="1" class="form-control currency" id="kembalian" required readonly>
+                                         </div> -->
+                                         <label for="judul" class="col-1 pr-0 col-form-label float-right " style="font-size:16px">Kembalian</label>
+                                        <div class="col-4 " >
+                                            <h3><input type="text" style="font-size: 30px !important;height:unset !important;"  name="kembalian" min="1" class="form-control currency " id="kembalian" required value="0" readonly></h3>
+                                        </div>
+                                         <div class="col-2">
+                                            <button class="btn btn-info btn-block" type="submit" id="btnBayar">Bayar</button>
                                          </div>
                                     </div>
                                 </div>
@@ -259,15 +279,18 @@
                 </div>
             </div>
             <div class="modal-footer" style="padding: 0;">
-            <button id="cetakBtn" type="button" class="btn btn-info btn-block" style="border-bottom-left-radius: 15px;border-bottom-right-radius: 15px;">Cetak</button>
+                <div class="btn-group btn-block" role="group">
+                    <button id="closeBtn" type="button" class="btn btn-light" style="border-bottom-left-radius: 15px;">Close</button>
+                    <button id="cetakBtn" type="button" class="btn btn-info" style="border-bottom-right-radius: 15px;">Cetak</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<script src="{{url('asset_elite/inputmask.js')}}"></script>
-<script src="{{url('asset_elite/jquery.scannerdetection.js')}}"></script>
-<script src="{{url('asset_elite/jquery.formnavigation.js')}}"></script>
+<script src="{{url('asset_dore/js/inputmask.js')}}"></script>
+<script src="{{url('asset_dore/js/jquery.scannerdetection.js')}}"></script>
+<script src="{{url('asset_dore/js/jquery.formnavigation.js')}}"></script>
 
 <script type="text/javascript">
     var $dtBrg = new Array();
@@ -290,12 +313,15 @@
             $('.inp-qtyb').prop('readonly', false);
             $('.inp-qtyb').first().focus();
             $('.inp-qtyb').first().select();
-        }
+        }   
         if (e.which == 112) {
             $('#kd-barang2').focus();
         }
         if (e.which == 119) {
             $('#tobyr').focus();
+        }
+        if(e.ctrlKey && e.which == 86){
+            $('#kode_jenis-selectized').focus();
         }
     };
 
@@ -344,10 +370,32 @@
         }
     });
 
+    // $('#kode_jenis').selectize({
+    //     selectOnTab:true,
+    //     maxItems: 1,
+    //     valueField: 'kode_jenis',
+    //     labelField: 'nama',
+    //     searchField: ['kode_jenis','nama'],
+    //     options: [
+    //         {kode_jenis: 123456, nama: 'test'},
+    //     ],
+    //     render: {
+    //         option: function(data, escape) {
+    //             return '<div class="option">' +
+    //             '<span class="nama">' + escape(data.nama) + '</span>' +
+    //             '</div>';
+    //         },
+    //         item: function(data, escape) {
+    //             return '<div class="item"><a href="#">' + escape(data.nama) + '</a></div>';
+    //         }
+    //     },
+    //     create:false
+    // });
+
     function getBarang() {
         $.ajax({
             type:'GET',
-            url:"{{url('toko-master/barang')}}",
+            url:"{{url('esaku-master/barang')}}",
             dataType: 'json',
             async: false,
             success: function(result) {
@@ -382,6 +430,36 @@
         });
     }
 
+    function getJenisBayar() {
+        $.ajax({
+            type:'GET',
+            url:"{{url('esaku-master/jenis-bayar')}}",
+            dataType: 'json',
+            async: false,
+            success: function(result) {
+                var select2 = $('#kode_jenis').selectize();
+                select2 = select2[0];
+                var control2 = select2.selectize;
+                control2.clearOptions();
+                if(result.status) {
+                    for(i=0;i<result.daftar.length;i++){
+                        control2.addOption([{value:result.daftar[i].kode_jenis, text:result.daftar[i].nama}]);
+                    }
+
+                }else if(!result.data.status && result.data.message == "Unauthorized"){
+                    window.location.href = "{{ url('esaku-auth/sesi-habis') }}";
+                } else{
+                    msgDialog({
+                        id: '',
+                        type:'sukses',
+                        title: 'Error',
+                        text: result.data.message
+                    });
+                }
+            }
+        });
+    }
+
     function getNoOpen() {
         $.ajax({
             type:'GET',
@@ -398,6 +476,7 @@
     }
     getNoOpen();
     getBarang();
+    getJenisBayar();
 
     function hitungKembali(){
         var total_stlh = toNilai($('#tostlh').val());
@@ -479,7 +558,7 @@
             $('#hrg-barang').val('');
         }else{
             $.ajax({
-                url: "{{ url('toko-master/barang') }}/"+id,
+                url: "{{ url('esaku-master/barang') }}/"+id,
                 type: "GET",
                 dataType: "json",
                 async: false,
@@ -773,7 +852,7 @@
                     input += "<td width='15%' style='text-align:right'><input type='text' name='sub_barang[]' class='change-validation inp-subb form-control'  value='"+toRp(sub)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right'><input type='text' name='disc_barang[]' class='change-validation inp-disc form-control'  value='"+toRp(disc)+"' readonly required></td>";
                     input += "<td width='10%' style='text-align:right;display:none'><input type='text' name='ppn_barang[]' class='change-validation inp-ppn form-control'  value='"+toRp(ppn)+"' readonly required></td>";
-                    input += "<td width='10%'></a><a class='btn btn-primary btn-sm ubah-barang' style='font-size:18px !important'><i class='fas fa-pencil-alt fa-1'></i></a>&nbsp;<a class='btn btn-danger btn-sm hapus-item' style='font-size:18px !important'><i class='fa fa-times fa-1'></i></td>";
+                    input += "<td width='10%' class='text-center'></a><a href='#' class='btn btn-sm ubah-barang' style='font-size:18px !important;padding:0'><i class='simple-icon-pencil'></i></a>&nbsp;<a href='#' class='btn btn-sm hapus-item' style='font-size:18px !important;margin-left:10px;padding:0'><i class='simple-icon-trash'></i></td>";
                     input += "</tr>";
                     
                     $('.set-selected').closest('tr').remove();
@@ -835,14 +914,34 @@
         $('#kembalian').val(0);
         $('#inp-byr').val(0);
         $('#param').val('');
+        $('#kode_jenis').val('');
+        
     }
 
     $('#cetakBtn').click(function(){
         var no_jual = $('#modal-no_jual').text();
-        window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=");
+        let myWindow;
+        myWindow = window.open("{{ url('esaku-report/lap-nota-jual-print-baru') }}/?periode[]=all&periode[]=&periode[]=&no_bukti[]==&no_bukti[]="+no_jual+"&no_bukti[]=","","width=200,height=100");
+        
+        setTimeout(function (){
+  
+          myWindow.close();
+                    
+        }, 2000);
+        resetForm();
+        $('#modal-bayar2').modal('hide');
+    });
+    
+    $('#closeBtn').click(function(){
         resetForm();
         $('#modal-bayar2').modal('hide');
     }); 
+    // $('#cetakBtn').click(function(){
+    //     var no_jual = $('#modal-no_jual').text();
+    //     printPage("{{ url('esaku-trans/nota') }}/?no_jual="+no_jual);
+    //     resetForm();
+    //     $('#modal-bayar2').modal('hide');
+    // }); 
 
     $('#input-grid2').on('keydown', '.inp-qtyb', function(e){
         if (e.which == 9 || e.which == 40 || e.which == 38) {
@@ -864,6 +963,10 @@
     });
 
     $('#tobyr').change(function(){
+        hitungKembali();
+    });
+
+    $('#tobyr').on('input', function(){
         hitungKembali();
     });
 
@@ -967,6 +1070,7 @@
                             $('#modal-kembalian').text(sepNum(kembalian));
                             // $('#modal-ppn').text(sepNum(ppn));
                             $('#modal-no_jual').text(result.data.no_jual);
+                            $('#kode_jenis').text(result.data.kode_jenis);
                             $('#modal-bayar2').modal('show');
                         } else if(!result.data.status && result.data.message === "Unauthorized"){
                             window.location.href = "{{ url('/esaku-auth/sesi-habis') }}";
