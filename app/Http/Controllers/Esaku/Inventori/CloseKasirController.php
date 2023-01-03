@@ -119,7 +119,7 @@ class CloseKasirController extends Controller
                 'no_open'=>$request->no_open,
                 'total_pnj'=>intval(str_replace('.','', $request->total_pnj)),
                 'total_diskon'=>intval(str_replace('.','', $request->total_disk)),
-                // 'total_ppn'=>intval(str_replace('.','', $request->total_ppn)),
+                'saldo_awal'=>intval(str_replace('.','', $request->saldo_awal)),
                 'no_jual'=>$request->no_jual,
                 'kode_pp'=>Session::get('kodePP'),
                 'tanggal'=>date('Y-m-d')
