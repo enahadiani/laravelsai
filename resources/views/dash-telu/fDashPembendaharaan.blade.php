@@ -12,11 +12,145 @@
     var chartCapai = null
     var chartKas = null
     var tahun = "{{ substr(Session::get('periode'),0,4) }}";
+    var periode = "{{ Session::get('periode') }}";
     var kode_bidang = "";
     var kode_pp = "";
     var nama_bidang = "";
     var nama_pp = "";
-    function getDataBox(param = {tahun: tahun}){
+    var $dash_periode = {
+        type : "=",
+        from : "",
+        to : ""
+    }
+
+    function getPeriode(){
+        $.ajax({
+            type:"GET",
+            url:"{{ url('/telu-dash/data-pbh-periode') }}",
+            dataType: "JSON",
+            success: function(result){
+                $('#periode_type').selectize();
+                var select = $("#periode_from").selectize();
+                select = select[0];
+                var control = select.selectize;
+
+                var select2 = $("#periode_to").selectize();
+                select2 = select2[0];
+                var control2 = select2.selectize;
+                if(result.data.status){
+                    if(typeof result.data.data !== 'undefined' && result.data.data.length>0){
+                        for(i=0;i<result.data.data.length;i++){
+                            control.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                            control2.addOption([{text:result.data.data[i].nama, value:result.data.data[i].periode}]);
+                        }
+                    }
+
+                    $('.dash-filter-typediv').hide();
+                    $('#periode_to').closest('div.dash-filter-to').hide();
+                    $('#periode_from').closest('div.dash-filter-from').removeClass('col-md-4').addClass('col-md-8');
+
+                    if($dash_periode.type == ""){
+                        $dash_periode.type = "=";
+                    }
+                    
+                    $('#periode_type')[0].selectize.setValue($dash_periode.type);
+
+                    switch($dash_periode.type){
+                        case '=':
+                            var label = 'Periode '+namaPeriode($dash_periode.from);
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            control2.setValue('');
+                        break;
+                        case '<=':
+                            
+                            var label = 'Periode s.d '+namaPeriode($dash_periode.from);
+                        break;
+                        case 'range':
+                            
+                            var label = 'Periode '+namaPeriode($dash_periode.from)+' s.d '+namaPeriode($dash_periode.to);
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            control2.setValue('');
+
+                        break;
+                        default:
+                            if($dash_periode.from == ""){
+                                if(result.data.periode_max != ""){
+                                    control.setValue(result.data.periode_max);
+                                    $dash_periode.from = result.data.periode_max;
+                                }
+                            }else{
+                                control.setValue($dash_periode.from);
+                            }
+                            control2.setValue('');
+                            break;
+                    }
+                    $('.label-periode-filter').html(label);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {       
+                if(jqXHR.status == 422){
+                    var msg = jqXHR.responseText;
+                }else if(jqXHR.status == 500) {
+                    var msg = "Internal server error";
+                }else if(jqXHR.status == 401){
+                    var msg = "Unauthorized";
+                    window.location="{{ url('/dash-telu/sesi-habis') }}";
+                }else if(jqXHR.status == 405){
+                    var msg = "Route not valid. Page not found";
+                }
+                
+            }
+        });
+    }
+
+    $('.dash-filter').on('change', '.dash-filter-type', function(){
+        var type = $(this).val();
+        var kunci = $(this).closest('div.dash-filter').find('.dash-kunci').text();
+        var tmp = kunci.split("_");
+        var kunci2 = tmp[1];
+        var field = eval('$'+kunci);
+        console.log(type,kunci,kunci2);
+        switch(type){
+            case "=": 
+            case "<=":
+                $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-4');
+                $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-8');
+                $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+                $(this).closest('div.dash-filter').find('.dash-filter-to').hide();
+                field.type = type;
+                field.from = field.from;
+                field.to = "";
+            break;
+            case "range":
+                
+                field.type = type;
+                field.from = field.from;
+                field.to = field.to;
+                
+                $(this).closest('div.dash-filter').find('.dash-filter-from').removeClass('col-md-8');
+                $(this).closest('div.dash-filter').find('.dash-filter-from').addClass('col-md-4');
+                $(this).closest('div.dash-filter').find('.dash-filter-from #'+kunci2+"_from")[0].selectize.setValue(field.from);
+                $(this).closest('div.dash-filter').find('.dash-filter-to #'+kunci2+"_to")[0].selectize.setValue(field.to);
+                $(this).closest('div.dash-filter').find('.dash-filter-to').show();
+            break;
+        }
+    });
+
+    function getDataBox(param = {periode: periode}){
         $.ajax({
             type: 'GET',
             url: "{{ url('telu-dash/data-pbh-box') }}",
@@ -66,7 +200,7 @@
         });
     }
     
-    function getJenisPengajuan(param = {tahun: tahun}){
+    function getJenisPengajuan(param = {periode: periode}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jenis-aju') }}",
@@ -145,7 +279,7 @@
         })
     }
 
-    function getNilaiKas(param = {tahun: tahun}){
+    function getNilaiKas(param = {periode: periode}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-kas') }}",
@@ -237,7 +371,7 @@
         });
     }
 
-    function getRata2Hari(param = {tahun: tahun}){
+    function getRata2Hari(param = {periode: periode}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-rata2-hari') }}",
@@ -312,7 +446,7 @@
         });
     }
 
-    function getJmlSelesai(param = {tahun: tahun}){
+    function getJmlSelesai(param = {periode: periode}){
         $.ajax({
             type:"GET",
             url:"{{ url('telu-dash/data-pbh-jml-selesai') }}",
@@ -399,11 +533,55 @@
             } 
         });
     }
-    getDataBox();
-    getJenisPengajuan();
-    getNilaiKas();
-    getRata2Hari();
-    getJmlSelesai();
+
+    function getFilterDefaultDash(){
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('telu-dash/dash-filter-default') }}",
+            dataType: 'json',
+            async: true,
+            success:function(result) { 
+                tahun = result.tahun;
+                periode = result.periode;
+                $dash_periode.from = periode;
+                getPeriode();
+
+                getDataBox({
+                    periode: periode,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getJenisPengajuan({
+                    periode: periode,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getNilaiKas({
+                    periode: periode,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getRata2Hari({
+                    periode: periode,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                })
+                getJmlSelesai({
+                    periode: periode,
+                    kode_pp: kode_pp,
+                    kode_bidang: kode_bidang
+                }) 
+                
+            } 
+        })
+    }
+
+    getFilterDefaultDash();
+    // getDataBox();
+    // getJenisPengajuan();
+    // getNilaiKas();
+    // getRata2Hari();
+    // getJmlSelesai();
 
     // CIRCLE
     $('#circle-agenda').circleProgress({
@@ -963,27 +1141,27 @@
     // test lagi
     $('#dash-refresh').click(function(){
         getDataBox({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         });
         getJenisPengajuan({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         });
         getNilaiKas({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         });
         getJmlSelesai({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         });
         getRata2Hari({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         });
@@ -993,32 +1171,33 @@
      
     $('#form-filter').submit(function(e){
         e.preventDefault();
+        periode = $('#periode_from')[0].selectize.getValue();
         kode_pp = $('#kode_pp').val();
         nama_pp = kode_pp != "" ? trim($('.info-name_kode_pp').text()) : "";
         kode_bidang = $('#kode_bidang').val();
         nama_bidang = kode_bidang != "" ? trim($('.info-name_kode_bidang').text()) : "";
         getDataBox({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         })
         getJenisPengajuan({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         })
         getNilaiKas({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         })
         getRata2Hari({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         })
         getJmlSelesai({
-            tahun: tahun,
+            periode: periode,
             kode_bidang: kode_bidang,
             kode_pp: kode_pp
         })
@@ -1026,12 +1205,14 @@
     });
 
     $('#btn-reset').click(function(e){
-        e.preventDefault();
+        e.preventDefault(); 
+        $('#periode_from')[0].selectize.setValue('');
         removeInfoField('kode_bidang');
         removeInfoField('kode_pp');
     });
     
     $('#dash-filter').click(function(){
+        $("#periode_from")[0].selectize.setValue(periode);
         if(kode_bidang != ""){
             showInfoField('kode_bidang',kode_bidang,nama_bidang)
         }else{
@@ -1334,6 +1515,28 @@ aria-labelledby="modalFilter" aria-hidden="true">
                     </button>
                 </div>
                 <div class="modal-body" style="border:none">
+                    <div class="form-group row dash-filter">
+                        <p class="dash-kunci" hidden>dash_periode</p> 
+                        <label class="col-md-12">Periode</label>
+                        <div class="col-md-4 dash-filter-typediv">
+                            <select class="form-control dash-filter-type" data-width="100%" name="periode[]" id="periode_type">
+                                <option value='' disabled>Pilih</option>
+                                <option value='='>=</option>
+                                <option value='<='><=</option>
+                                <option value='range'>Range</option>
+                            </select>
+                        </div>
+                        <div class="col-md-12 dash-filter-from">
+                            <select class="form-control" data-width="100%" name="periode[]" id="periode_from">
+                                <option value='' disabled>Pilih</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 dash-filter-to">
+                            <select class="form-control" data-width="100%" name="periode[]" id="periode_to">
+                                <option value='' disabled>Pilih</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="form-group row inp-filter">
                         <label class="col-md-12">Bidang</label>
                         <div class="input-group col-12">

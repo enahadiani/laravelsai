@@ -150,6 +150,7 @@ Route::get('video-list','DashTelu\DashboardController@getVideoList');
 Route::get('financial-target','DashTelu\DashboardController@getTarget');
 Route::post('note','DashTelu\DashboardController@updateNoteTarget');
 
+Route::get('data-pbh-periode','DashTelu\DashboardPBHController@getPeriode');
 Route::get('data-pbh-box','DashTelu\DashboardPBHController@getDataBox');
 Route::get('data-pbh-jenis-aju','DashTelu\DashboardPBHController@getJenisPengajuan');
 Route::get('data-pbh-kas','DashTelu\DashboardPBHController@getNilaiKas');
