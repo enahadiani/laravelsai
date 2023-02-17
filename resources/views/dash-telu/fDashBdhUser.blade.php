@@ -1259,6 +1259,27 @@
     $('#modalFilter').on('click', '.search-item2', function(){
         var id = $(this).closest('div').find('input').attr('name');
         switch(id){
+            case 'kode_bidang':
+                var options = {
+                    id : id,
+                    header : ['Kode', 'Nama'],
+                    url : "{{ url('telu-dash/bidang-karyawan') }}",
+                    columns : [
+                        { data: 'kode_bidang' },
+                        { data: 'nama' }
+                    ],
+                    judul : "Daftar Bidang",
+                    pilih : "kode_bidang",
+                    jTarget1 : "text",
+                    jTarget2 : "text",
+                    target1 : ".info-code_"+id,
+                    target2 : ".info-name_"+id,
+                    parameter : {periode : $('#periode_from')[0].selectize.getValue()},
+                    target3 : "",
+                    target4 : "",
+                    width : ["30%","70%"]
+                }
+            break;
             case 'kode_pp':
                 var options = {
                     id : id,
@@ -1277,28 +1298,9 @@
                     target3 : "",
                     target4 : "",
                     parameter: {
-                        kode_bidang: $('#kode_bidang').val()
+                        kode_bidang: $('#kode_bidang').val(),
+                        periode : $('#periode_from')[0].selectize.getValue()
                     },
-                    width : ["30%","70%"]
-                }
-            break;
-            case 'kode_bidang':
-                var options = {
-                    id : id,
-                    header : ['Kode', 'Nama'],
-                    url : "{{ url('telu-dash/bidang-karyawan') }}",
-                    columns : [
-                        { data: 'kode_bidang' },
-                        { data: 'nama' }
-                    ],
-                    judul : "Daftar Bidang",
-                    pilih : "kode_bidang",
-                    jTarget1 : "text",
-                    jTarget2 : "text",
-                    target1 : ".info-code_"+id,
-                    target2 : ".info-name_"+id,
-                    target3 : "",
-                    target4 : "",
                     width : ["30%","70%"]
                 }
             break;
