@@ -946,10 +946,11 @@
     function custTarget(target,tr){
         var kode_barang = $(target).parents("tr").find(".inp-kode").val();
         var kode_gudang = $('#asal').val();
+        var periode = reverseDate2($('#tanggal').val(),'/','').substr(0,6);
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
-            data:{'kode_barang':kode_barang, 'kode_gudang':kode_gudang},
+            data:{'kode_barang':kode_barang, 'kode_gudang':kode_gudang,'periode':periode},
             dataType: 'json',
             success:function(response){
                 var result = response.result.data[0];
@@ -1035,10 +1036,12 @@
             return;
         }
 
+        
+        var periode = reverseDate2($('#tanggal').val(),'/','').substr(0,6);
         $.ajax({
             type: 'GET',
             url: "{{ url('esaku-trans/barang-mutasi-detail') }}",
-            data:{'kode_barang':kode, 'kode_gudang':kode_gudang},
+            data:{'kode_barang':kode, 'kode_gudang':kode_gudang,periode: periode},
             dataType: 'json',
             success:function(response){
                 var result = response.result.data[0];
@@ -1113,7 +1116,7 @@
                     stok = toNilai(stok);
                     isi = toNilai(isi);
                     if(isi === 0 || isi > stok || isNaN(isi)) {
-                        alert('Jumlah yang dimasukkan tidak valid (0) atau melebihi stok yang ada')
+                        alert('Jumlah ('+isi+') yang dimasukkan tidak valid atau melebihi stok ('+stok+') yang ada')
                     } else {
                         $("#input-grid td").removeClass("px-0 py-0 aktif");
                         $(this).closest('tr').find(nxt[idx]).val(isi);

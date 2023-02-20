@@ -333,6 +333,7 @@ class MutasiController extends Controller {
             $this->validate($request, [
                 'kode_barang' => 'required',
                 'kode_gudang' => 'required',
+                'periode' => 'required'
             ]);
             $barang = $request->kode_barang;
             $gudang = $request->kode_gudang;
@@ -345,7 +346,8 @@ class MutasiController extends Controller {
                 ],
                 'query' => [
                     'kode_barang' => $barang,
-                    'kode_gudang' => $gudang
+                    'kode_gudang' => $gudang,
+                    'periode' => $request->periode
                 ]
             ]);
 
