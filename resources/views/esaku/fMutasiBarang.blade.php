@@ -26,7 +26,7 @@
         color:black;
     }
     #input-grid input:hover,#input-grid .selectize-input:hover {
-        width:inherit;
+        /* width:inherit; */
     }
     #input-grid ul.typeahead.dropdown-menu {
         width:max-content !important;
