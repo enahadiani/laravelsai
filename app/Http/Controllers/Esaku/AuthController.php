@@ -79,20 +79,25 @@ class AuthController extends Controller
                             Session::put('no_telp',$res[0]["no_telp"]);
                             Session::put('no_hp',$res[0]["no_hp"]);
                             Session::put('pabrik',$res[0]["pabrik"]);
-                            Session::put('nikUser',$res[0]["nik"].'_'.time());
-                            // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
-                            $tmp = explode("_",$res[0]["path_view"]);
-                            if(isset($tmp[2])){
-                                $dash = $tmp[2];
+                            if($res[0]['pabrik'] == "G02"){
+                                return redirect('esaku-auth/login')->with('alert','Akses Anda telah ditutup!');
                             }else{
-                                $dash = "-";
+
+                                Session::put('nikUser',$res[0]["nik"].'_'.time());
+                                // Session::put('kode_lokkonsol',$res[0]["kode_lokkonsol"]);
+                                $tmp = explode("_",$res[0]["path_view"]);
+                                if(isset($tmp[2])){
+                                    $dash = $tmp[2];
+                                }else{
+                                    $dash = "-";
+                                }
+                                
+                                Session::put('dash',$dash);
+                                Session::put('foto',$res[0]["foto"]);
+                                Session::put('logo',$res[0]["logo"]);
+                                Session::put('periode',$data2["periode"][0]["periode"]);
+                                Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                             }
-                            
-                            Session::put('dash',$dash);
-                            Session::put('foto',$res[0]["foto"]);
-                            Session::put('logo',$res[0]["logo"]);
-                            Session::put('periode',$data2["periode"][0]["periode"]);
-                            Session::put('kode_fs',(isset($data2["kode_fs"][0]["kode_fs"]) ? $data2["kode_fs"][0]["kode_fs"] : ""));
                         }
                     }
                     
