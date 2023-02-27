@@ -79,7 +79,7 @@ class AuthController extends Controller
                             Session::put('no_telp',$res[0]["no_telp"]);
                             Session::put('no_hp',$res[0]["no_hp"]);
                             Session::put('pabrik',$res[0]["pabrik"]);
-                            if($res[0]['pabrik'] == "G02"){
+                            if($res[0]['pabrik'] == "G02" && $res[0]["nik"] != "ASR"){
                                 return redirect('esaku-auth/login')->with('alert','Akses Anda telah ditutup!');
                             }else{
 
