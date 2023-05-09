@@ -200,15 +200,15 @@
             data: param,
             async:true,
             success:function(result){    
-                $('#gross-profit').text(0+'%');
-                $('#operating-rasio').text(0+'%');
+                $('#operating-ratio').text(0+'%');
+                $('#current-rasio').text(0+'%');
                 $('#net-profit').text(0+'%');
                 if(result.status){
                     if(typeof result.data !== 'undefined'){
                         var line = result.data;
-                        $('#gross-profit').text(number_format(line.DB02.hasil,2)+'%');
-                        $('#operating-rasio').text(number_format(line.DB01.hasil,2)+'%');
-                        $('#net-profit').text(number_format(line.DB03.hasil,2)+'%');
+                        $('#operating-ratio').text(number_format(line.DB01.hasil,2)+'%');
+                        $('#current-rasio').text(number_format(line.DB04.hasil,2)+'%');
+                        $('#net-profit').text(number_format(line.DB02.hasil,2)+'%');
                     }
                 }
                 else if(!result.status && result.message == 'Unauthorized'){
@@ -375,16 +375,16 @@
                 <div class="col-md-4 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-body p-3" style="height: calc((100vh - 190px)/5);">
-                            <h6 class="text-muted">Gross Profit Margin</h6>
-                            <div class="nilai-box" id="gross-profit"></div>
+                            <h6 class="text-muted">Operating Ratio</h6>
+                            <div class="nilai-box" id="operating-ratio"></div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-body p-3" style="height: calc((100vh - 190px)/5);">
-                            <h6 class="text-muted">Operating Ratio</h6>
-                            <div class="nilai-box" id="operating-rasio"></div>
+                            <h6 class="text-muted">Current Ratio</h6>
+                            <div class="nilai-box" id="current-rasio"></div>
                         </div>
                     </div>
                 </div>
