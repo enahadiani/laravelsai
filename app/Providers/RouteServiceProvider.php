@@ -117,6 +117,8 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapSdm2Routes();
         
         $this->mapSukkaRoutes();
+
+        $this->mapDashItplnRoutes();
     }
 
     /**
@@ -816,6 +818,34 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('web')
             ->namespace($this->namespace)
             ->group(base_path('routes/dash-tarbak/report.php'));
+    }
+
+    protected function mapDashItplnRoutes()
+    {
+        Route::prefix('dash-itpln')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-itpln/auth.php'));
+
+        Route::prefix('dash-itpln-dash')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-itpln/dash.php'));
+
+        Route::prefix('dash-itpln-master')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-itpln/master.php'));
+
+        Route::prefix('dash-itpln-trans')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-itpln/trans.php'));
+
+        Route::prefix('dash-itpln-report')
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/dash-itpln/report.php'));
     }
 
     protected function mapSdm2Routes()

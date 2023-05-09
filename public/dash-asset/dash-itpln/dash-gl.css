@@ -1,0 +1,101 @@
+.table-box td, .table-box th{
+    padding: 0px !important;
+}
+.nilai-box{
+    font-size: 1.25rem !important;
+    font-weight: bold !important;
+}
+.display-table{
+    display: table;
+}
+.display-table-cell{
+    display: table-cell;
+    vertical-align: middle;
+}
+@media screen and (min-height:700px){
+    
+    .nilai-box{
+        font-size: 1.65rem !important;
+        font-weight: bold !important;
+    }
+    .vertical-middle{
+        margin-top: 0rem;
+    }
+}
+
+@media screen and (min-height:900px){
+    
+    .nilai-box{
+        font-size: 1.8rem !important;
+        font-weight: bold !important;
+    }
+    .vertical-middle{
+        margin-top: 0rem;
+    }
+    .pemisah-box{
+        font-size: 1.75rem !important;
+    }
+}
+
+.vertical-middle{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: calc((((100vh - 180px)/5)*3) - 35px);
+    margin-top: 1rem;
+}
+
+
+.label-grafik .legend-text {
+    font-size: 0.7rem !important;
+}
+.label-grafik .legend-symbol-3 {
+    margin-top: 0.3rem;
+    margin-right: 0.2rem;
+    height: 8px;
+    width: 20px;
+    background-color: #ffb703;
+}
+.label-grafik .legend-symbol-2 {
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #9fc4ff;
+}
+.label-grafik .legend-symbol-1 {
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #0058e4;
+}
+.label-grafik {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0.5rem;
+}
+.keterangan-grafik {
+    display: flex;
+    justify-content: center;
+}
+
+#header-dash h6, #main-dash h6{
+    font-size: 1.2rem !important;
+}
+
+#modalFilterDash .modal-dialog{
+    width: 250px !important;
+}
+
+.red-text {
+    color: #ff0000 !important;
+}
+.green-text {
+    color: #006400 !important;
+}
+main{
+    margin-top: 80px !important;
+}
