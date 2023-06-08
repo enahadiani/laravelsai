@@ -392,13 +392,14 @@
                 dataType: 'JSON',
                 success: function(result) {
                     console.log(result)
+                    var url = "{{ config('api.url') }}";
                     if(result.status) {
                         var j = 1;
                         for(var i=0;i<result.daftar.length;i++) {
                             if(result.daftar[i].file_gambar != null || result.daftar[i].file_gambar != undefined || result.daftar[i].file_gambar != '') {
                                 $('#span-banner-web-'+j).hide();
                                 $('#banner-web-'+j+'-preview').show();
-                                $('#banner-web-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[i].file_gambar);
+                                $('#banner-web-'+j+'-preview').attr('src', url+'admginas-auth/storage/'+result.daftar[i].file_gambar);
                             } else {
                                 $('#banner-web-'+j+'-preview').hide();
                                 $('#span-banner-web-'+j).show();
@@ -410,7 +411,7 @@
                             if(result.mobile[i].file_gambar != null || result.mobile[i].file_gambar != undefined || result.mobile[i].file_gambar != '') {
                                 $('#span-banner-mobile-'+j).hide();
                                 $('#banner-mobile-'+j+'-preview').show();
-                                $('#banner-mobile-'+j+'-preview').attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.mobile[i].file_gambar);
+                                $('#banner-mobile-'+j+'-preview').attr('src', url+'admginas-auth/storage/'+result.mobile[i].file_gambar);
                             } else {
                                 $('#banner-mobile-'+j+'-preview').hide();
                                 $('#span-banner-mobile-'+j).show();

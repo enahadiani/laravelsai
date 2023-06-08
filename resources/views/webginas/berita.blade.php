@@ -161,7 +161,7 @@
                             <div class="post-item-wrap">
                                 <div class="post-image">
                                     <a href="{{url('webginas2/berita/'.$item['id_info'])}}">
-                                        <img alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}">
+                                        <img alt="" src="{{ config('api.url') }}admginas-auth/storage/{{$item['file_gambar']}}">
                                     </a>
                                 </div>
                                 <div class="post-item-description">

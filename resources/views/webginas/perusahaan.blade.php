@@ -255,7 +255,7 @@
                         <div class="carousel testimonial testimonial-box" data-items="{{count($sertifikat)}}" data-margin="30" data-arrows="false">
                             @foreach ($sertifikat as $item)
                             <div style="height: 250px;">
-                                <img height="250" src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}"/>
+                                <img height="250" src="{{ config('api.url') }}admginas-auth/storage/{{$item['file_gambar']}}"/>
                             </div>    
                             @endforeach
                         </div>

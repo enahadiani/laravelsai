@@ -360,7 +360,7 @@
                             
                             @foreach ($review as $item)
                                 <div class="testimonial-item">
-                                    <img src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}" alt="">
+                                    <img src="{{ config('api.url') }}admginas-auth/storage/{{$item['file_gambar']}}" alt="">
                                     <p>{{ $item['deskripsi']}} </p>
                                     <span>{{ $item['nama_client'] }}</span>
                                     <span>{{ $item['jabatan'] }} {{ $item['nama_perusahaan'] }}</span>
@@ -405,7 +405,7 @@
                         <div class="post-item-wrap" style="height: 437px !important;">
                             <div class="post-image">
                                 <a href="{{url('webginas2/berita/'.$item['id_info'])}}">
-                                    <img alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$item['file_gambar']}}">
+                                    <img alt="" src="{{ config('api.url') }}admginas-auth/storage/{{$item['file_gambar']}}">
                                 </a>
                             </div>
                             <div class="post-item-description">
@@ -544,6 +544,7 @@
             dataType: 'JSON',
             success: function(result) {
                 if(result.status) {
+                    var url = "{{ config('api.url') }}";
                     for(var i=0;i<result.daftar.length;i++) {
                         web.push(result.daftar[i].file_gambar);
                     }
@@ -552,12 +553,12 @@
                     }
                     if($(window).width() > 768) {
                         for(var i=0;i<result.daftar.length;i++) {
-                            $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.daftar[i].file_gambar}')`);
+                            $('.slide-'+i).css('background-image', `url('`+url+`admginas-auth/storage/${result.daftar[i].file_gambar}')`);
                         }
 
                     } else {
                         for(var i=0;i<result.mobile.length;i++) {
-                            $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${result.mobile[i].file_gambar}')`);
+                            $('.slide-'+i).css('background-image', `url('`+url+`admginas-auth/storage/${result.mobile[i].file_gambar}')`);
                         }
                     }
                 }
@@ -641,10 +642,11 @@
             success: function(result) {
                 if(result.status) {
                     var html = "";
+                    var url = "{{ config('api.url') }}";
                     for(var i=0;i<result.daftar.length;i++ ) {
                         html += "<li>";
                         html += "<a href='#'>";
-                        html += "<img height='90' src='https://api.simkug.com/api/admginas-auth/storage/"+result.daftar[i].file_gambar+"' alt=''/>";
+                        html += "<img height='90' src='"+url+"admginas-auth/storage/"+result.daftar[i].file_gambar+"' alt=''/>";
                         html += "</a>";
                         html += "</li>";
                     }
@@ -671,14 +673,15 @@
 
         $(function() {
             $(window).resize(function() {
+                var url = "{{ config('api.url') }}";
                 if ($(window).width() < 768) {
                     for(var i=0;i<mobile.length;i++) {
-                        $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${mobile[i]}')`);
+                        $('.slide-'+i).css('background-image', `url('`+url+`admginas-auth/storage/${mobile[i]}')`);
                     }
                 }
                 else {
                     for(var i=0;i<web.length;i++) {
-                        $('.slide-'+i).css('background-image', `url('https://api.simkug.com/api/admginas-auth/storage/${web[i]}')`);
+                        $('.slide-'+i).css('background-image', `url('`+url+`admginas-auth/storage/${web[i]}')`);
                     }
                 }
             });

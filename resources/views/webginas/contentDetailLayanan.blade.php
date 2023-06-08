@@ -178,7 +178,7 @@
                         </div>
                         <div class="post-image">
                             <a href="#">
-                                <img height="486" width="650" alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$content['file_gambar']}}">
+                                <img height="486" width="650" alt="" src="{{ config('api.url') }}admginas-auth/storage/{{$content['file_gambar']}}">
                             </a>
                         </div>
                         <div class="post-item-description" style="margin-top: 25px;">

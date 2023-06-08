@@ -181,7 +181,7 @@
 
                                 <div class="post-image">
                                     <a href="#">
-                                        <img alt="" src="https://api.simkug.com/api/admginas-auth/storage/{{$content['file_gambar']}}">
+                                        <img alt="" src="{{ config('api.url') }}admginas-auth/storage/{{$content['file_gambar']}}">
                                     </a>
                                 </div>
 

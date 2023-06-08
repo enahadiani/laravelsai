@@ -948,6 +948,7 @@
                     url: "{{ url('admginas-master/sublayanan') }}/" + id,
                     dataType:"JSON",
                     success: function(result) {
+                        var url = "{{ config('api.url') }}";
                         var html = `<tr>
                             <td style='border:none'>ID Sublayanan</td>
                             <td style='border:none'>`+id+`</td>
@@ -967,7 +968,7 @@
                         <tr>
                             <td>Logo</td>
                             <td>
-                                <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.data[0].file_gambar} />
+                                <img height='90' width='200' src=${url+'admginas-auth/storage/'+result.data[0].file_gambar} />
                             </td>
                         </tr>   
                     `;
@@ -995,6 +996,7 @@
                                 console.log(result);
                 console.log(res);
                 if(res.status){
+                    var url = "{{ config('api.url') }}";
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id_sublayanan').val(id);
@@ -1006,7 +1008,7 @@
                     editor2.setData(result[0].deskripsi); 
                     $('#banner-preview').show();
                     $('#span-banner').hide();     
-                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $("#banner-preview").attr('src', url+'admginas-auth/storage/'+result[0].file_gambar)                              
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     showInfoField('id_layanan', result[0].id_layanan, result[0].nama_layanan);
@@ -1034,6 +1036,7 @@
                 console.log(result);
                 console.log(res);
                 if(res.status){
+                    var url = "{{ config('api.url') }}";
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id_sublayanan').val(id);
@@ -1043,7 +1046,7 @@
                     $('#nama_klien').val(result[0].nama_klien); 
                     $('#banner-preview').show();
                     $('#span-banner').hide();     
-                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $("#banner-preview").attr('src', url+'admginas-auth/storage/'+result[0].file_gambar)                              
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

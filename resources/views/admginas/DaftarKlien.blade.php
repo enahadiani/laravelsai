@@ -672,6 +672,7 @@
                     url: "{{ url('admginas-master/klien') }}/" + id,
                     dataType:"JSON",
                     success: function(result) {
+                        var url = "{{ config('api.url') }}";
                         var html = `<tr>
                             <td style='border:none'>ID Klien</td>
                             <td style='border:none'>`+id+`</td>
@@ -683,7 +684,7 @@
                         <tr>
                             <td>Logo</td>
                             <td>
-                                <img height='90' width='200' src=${'https://api.simkug.com/api/admginas-auth/storage/'+result.data[0].file_gambar} />
+                                <img height='90' width='200' src=${url+'admginas-auth/storage/'+result.data[0].file_gambar} />
                             </td>
                         </tr>   
                     `;
@@ -709,6 +710,7 @@
             success:function(res){
                 var result= res.data;
                 if(res.status){
+                    var url = "{{ config('api.url') }}";
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id_klien').val(id);
@@ -716,7 +718,7 @@
                     $('#nama_klien').val(result[0].nama_klien); 
                     $('#banner-preview').show();
                     $('#span-banner').hide();     
-                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $("#banner-preview").attr('src', url+'admginas-auth/storage/'+result[0].file_gambar)                              
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                 }
@@ -741,6 +743,7 @@
             success:function(res){
                 var result= res.data;
                 if(res.status){
+                    var url = "{{ config('api.url') }}";
                     $('#id_edit').val('edit');
                     $('#method').val('post');
                     $('#id_klien').val(id);
@@ -748,7 +751,7 @@
                     $('#nama_klien').val(result[0].nama_klien); 
                     $('#banner-preview').show();
                     $('#span-banner').hide();     
-                    $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result[0].file_gambar)                              
+                    $("#banner-preview").attr('src', url+'admginas-auth/storage/'+result[0].file_gambar)                              
                     $('#saku-datatable').hide();
                     $('#saku-form').show();
                     $('#modal-preview').modal('hide');

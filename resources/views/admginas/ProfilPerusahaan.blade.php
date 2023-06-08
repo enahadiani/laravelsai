@@ -577,11 +577,11 @@
                         $('#alamat').val(result.daftar[0].alamat);
                         
                         editor.setData(result.daftar[0].deskripsi);
-
+                        var url = "{{ config('api.url') }}";
                         if(result.daftar[0].file_gambar != null || result.daftar[0].file_gambar != undefined || result.daftar[0].file_gambar != '') {
                             $('#span-banner').hide();
                             $('#banner-preview').show();
-                            $("#banner-preview").attr('src', 'https://api.simkug.com/api/admginas-auth/storage/'+result.daftar[0].file_gambar)
+                            $("#banner-preview").attr('src', url+'admginas-auth/storage/'+result.daftar[0].file_gambar)
                         } else {
                             $('#banner-preview').hide();
                             $('#span-banner').show();
