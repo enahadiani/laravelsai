@@ -100,7 +100,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="{{url('/webginas2/')}}">
-                            <span class="watch-class white judul logo-default" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> PT. Trengginas Jaya</span>
+                            <span class="watch-class white judul logo-default" style="font-size: 32px;"><img src="{{ asset('asset_web/img/LOGO TJ baru.png') }}" width="40px" class="mr-2"> PT. Trengginas Jaya</span>
                         </a>
                     </div>
                     <!--End: Logo-->

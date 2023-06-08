@@ -193,7 +193,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="{{url('/webginas2/')}}">
-                            <span class="logo-default"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> PT. Trengginas Jaya</span>
+                            <span class="logo-default"><img src="{{ asset('asset_web/img/LOGO TJ baru.png') }}" width="40px" class="mr-2"> PT. Trengginas Jaya</span>
                             <span class="logo-dark">PT. Trengginas Jaya</span>
                         </a>
                     </div>

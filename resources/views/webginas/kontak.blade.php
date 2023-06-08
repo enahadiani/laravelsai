@@ -86,7 +86,7 @@
                     <!--Logo-->
                     <div id="logo">
                         <a href="{{url('/webginas2/')}}">
-                            <span class="watch-class white judul" style="font-size: 32px;"><img src="{{ asset('asset_web/img/Trengginas@2x.png') }}" class="mr-2"> Trengginas</span>
+                            <span class="watch-class white judul" style="font-size: 32px;"><img src="{{ asset('asset_web/img/LOGO TJ baru.png') }}" width="40px" class="mr-2"> Trengginas</span>
                         </a>
                     </div>
                     <!--End: Logo-->
