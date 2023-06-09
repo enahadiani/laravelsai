@@ -587,14 +587,17 @@
                             $('#span-banner').show();
                         }
 
+                        $('#input-grid tbody').empty();
                         if(result.detail.length > 0) {
                             var html = "";
+                            var no = 1;
                             for(var i=0;i<result.detail.length;i++) {
                                 html += "<tr class='row-grid'>";
-                                html += "<td class='no-grid text-center'><span class='no-grid'>"+result.detail[i].no_urut+"</span><input type='hidden' value="+result.detail[i].no_urut+" name='no_urut[]'></td>";
+                                html += "<td class='no-grid text-center'><span class='no-grid'>"+no+"</span><input type='hidden' value="+result.detail[i].no_urut+" name='no_urut[]'></td>";
                                 html += "<td class='text-center'><a class=' hapus-item' style='font-size:12px'><i class='simple-icon-trash'></i></a>&nbsp;</td>";
                                 html += "<td><span class='td-misi tdmisike"+result.detail[i].no_urut+" tooltip-span'>"+result.detail[i].misi+"</span><textarea autocomplete='off' name='misi[]' class='form-control inp-misi misike"+result.detail[i].no_urut+" hidden'>"+result.detail[i].misi+"</textarea></td>";
                                 html += "</tr>";
+                                no++;
                             }
                             $('#input-grid tbody').append(html);
                             hitungTotalRow();
