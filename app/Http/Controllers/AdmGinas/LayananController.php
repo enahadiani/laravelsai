@@ -61,41 +61,44 @@ class LayananController extends Controller
         ]);
 
         try {   
-                $client = new Client();
-                $response = $client->request('POST',  config('api.url').'admginas-master/layanan',[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'id_layanan' => $request->id_layanan,
-                        'nama_layanan' => $request->nama_layanan                        
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $client = new Client();
+            $response = $client->request('POST',  config('api.url').'admginas-master/layanan',[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'id_layanan' => $request->id_layanan,
+                    'nama_layanan' => $request->nama_layanan                        
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res;
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res;
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     public function getData($id) {
         try{
             $client = new Client();
-            $response = $client->request('GET',  config('api.url').'admginas-master/layanan/'.$id,
+            $response = $client->request('GET',  config('api.url').'admginas-master/layanan-detail',
             [
                 'headers' => [
                     'Authorization' => 'Bearer '.Session::get('token'),
                     'Accept'     => 'application/json',
+                ],
+                'query' => [
+                    'id_layanan' => $id
                 ]
             ]);
     
@@ -108,7 +111,7 @@ class LayananController extends Controller
         } catch (BadResponseException $ex) {
             $response = $ex->getResponse();
             $res = json_decode($response->getBody(),true);
-            $data['message'] = $res['message'];
+            $data['message'] = $res;
             $data['status'] = false;
             return response()->json(['data' => $data], 200);
         }
@@ -121,31 +124,31 @@ class LayananController extends Controller
         ]);
 
         try {
-                $client = new Client();
-                $response = $client->request('PUT',  config('api.url').'admginas-master/layanan?id_layanan='.$id,[
-                    'headers' => [
-                        'Authorization' => 'Bearer '.Session::get('token'),
-                        'Accept'     => 'application/json',
-                    ],
-                    'form_params' => [
-                        'id_layanan' => $request->id_layanan,
-                        'nama_layanan' => $request->nama_layanan
-                    ]
-                ]);
-                if ($response->getStatusCode() == 200) { // 200 OK
-                    $response_data = $response->getBody()->getContents();
-                    
-                    $data = json_decode($response_data,true);
-                    return response()->json(['data' => $data], 200);  
-                }
+            $client = new Client();
+            $response = $client->request('PUT',  config('api.url').'admginas-master/layanan?id_layanan='.$id,[
+                'headers' => [
+                    'Authorization' => 'Bearer '.Session::get('token'),
+                    'Accept'     => 'application/json',
+                ],
+                'form_params' => [
+                    'id_layanan' => $request->id_layanan,
+                    'nama_layanan' => $request->nama_layanan
+                ]
+            ]);
+            if ($response->getStatusCode() == 200) { // 200 OK
+                $response_data = $response->getBody()->getContents();
+                
+                $data = json_decode($response_data,true);
+                return response()->json(['data' => $data], 200);  
+            }
 
         } catch (BadResponseException $ex) {
-                $response = $ex->getResponse();
-                $res = json_decode($response->getBody(),true);
-                $data['message'] = $res['message'];
-                $data['status'] = false;
-                return response()->json(['data' => $data], 500);
-            }
+            $response = $ex->getResponse();
+            $res = json_decode($response->getBody(),true);
+            $data['message'] = $res['message'];
+            $data['status'] = false;
+            return response()->json(['data' => $data], 500);
+        }
     }
 
     // public function delete($id) {
