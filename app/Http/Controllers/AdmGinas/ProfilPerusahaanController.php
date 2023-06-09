@@ -70,7 +70,7 @@ class ProfilPerusahaanController extends Controller {
 
         try {
             $fields_urut = array();
-            if(count($request->no_urut) > 0) {
+            if(isset($request->no_urut) && count($request->no_urut) > 0) {
                 for($i=0;$i<count($request->no_urut);$i++){
                     $fields_urut[$i] = array(
                         'name' => 'no_urut[]',
