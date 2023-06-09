@@ -51,7 +51,7 @@
         }
         .misi-box{
             background-color: #DD1F1A;
-            height:400px;
+            min-height:400px;
         }
         .pg-2{
             margin-top: 50px;
@@ -77,7 +77,7 @@
         }
         @media (max-width: 768px) {
             .misi-box {
-                height: 500px;
+                min-height: 500px;
             }
             p.list-submenu-text {
                 color: black !important;
@@ -100,6 +100,9 @@
             #organisasi {
                 display: none;
             }
+        }
+        .col-grid{
+            display: grid;
         }
     </style>
 </head>
@@ -205,7 +208,7 @@
         <!-- Visi Misi -->
         <section>
             <div class="row" style="padding: 0 !important; margin: 0 !impotant;">
-                <div class="col-lg-6" style="background-color: #ff0000;height:400px;" data-animate="fadeInUp" data-animate-delay="300">
+                <div class="col-lg-6 col-grid" style="background-color: #ff0000;" data-animate="fadeInUp" data-animate-delay="300">
                     <div class="container">
                         <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Visi</h2>
                         <p class="white" style="padding:10px 40px 40px 100px;">
@@ -213,7 +216,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="col-lg-6 misi-box" data-animate="fadeInUp" data-animate-delay="300">
+                <div class="col-lg-6 col-grid misi-box" data-animate="fadeInUp" data-animate-delay="300">
                     <h2 class="white" style="font-weight: bold;padding:40px 40px 0 100px;">Misi</h2>
                         @foreach ($misi as $item)
                         <p class="white" style="padding:0 40px 40px 100px;">
