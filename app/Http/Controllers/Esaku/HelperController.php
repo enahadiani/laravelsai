@@ -1081,6 +1081,15 @@
             return response()->json(['daftar' => $data, 'status' => true], 200);
         }
 
+        public function getFilterJenisSaldo() {
+            $data = array(
+                0 => array(
+                    'kode' => 'Saldo'
+                )
+            );
+            return response()->json(['daftar' => $data, 'status' => true], 200);
+        }
+
 
     }
 ?>
