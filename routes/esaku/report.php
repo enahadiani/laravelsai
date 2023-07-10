@@ -44,6 +44,7 @@ Route::get('filter-mode-print', 'Esaku\HelperController@getFilterModePrint');
 Route::get('filter-lokasi', 'Esaku\HelperController@getFilterLokasi');
 Route::get('filter-default', 'Esaku\HelperController@getFilterDefault');
 Route::get('filter-jenis-saldo', 'Esaku\HelperController@getFilterJenisSaldo');
+Route::get('filter-vendor', 'Esaku\HelperController@getFilterVendor');
 
 //AKTAP//
 Route::get('filter-periode-perolehan', 'Esaku\Aktap\FilterAktapController@getPeriodePerolehan');
