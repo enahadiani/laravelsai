@@ -227,7 +227,7 @@
                     <div class="row">
                         <div class="col-12 col-md-10 mx-auto my-auto">
                             <div class="row" style="margin:0 auto;">
-                                <div class="col-12 col-sm-12 text-center"><span style="font-size: 9px !important;">&copy;2020 PT Samudra Aplikasi Indonesia</span></div>
+                                <div class="col-12 col-sm-12 text-center"><span style="font-size: 9px !important;">&copy;2020 Telkom University</span></div>
                             </div>
                         </div>                
                     </div>
