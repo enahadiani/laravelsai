@@ -45,6 +45,7 @@ Route::get('/', function () {
         break;
         case 'ts.simkug.com' :
             case 'www.ts.simkug.com' : 
+                case 'ts.ypt.or.id' :
                 // echo $domain;
                 return redirect('ts-auth/login');
             break;
