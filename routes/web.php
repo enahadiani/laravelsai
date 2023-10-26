@@ -64,6 +64,9 @@ Route::get('/', function () {
         case 'devapp.simkug.com' : 
             return redirect('siaga-auth/login');
         break;
+        case 'saku.siaga.co.id' : 
+            return redirect('siaga-auth/login');
+        break;
         default : 
             return view('welcome');
         break;
