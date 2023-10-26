@@ -109,6 +109,7 @@ var bottomSheet = new BottomSheet("country-selector");
     document.getElementById("trigger-bottom-sheet").addEventListener("click", bottomSheet.activate);
     window.bottomSheet = bottomSheet;
 
+showInfoField('kode_lokasi',"{{ Session::get('lokasi') }}","{{ Session::get('namaLokasi') }}");
 
 var tablepphash = $("#table-data").DataTable({
         destroy: true,
