@@ -925,6 +925,25 @@
                             })
                         }
                     },
+                    error: function(xhr, status, error) {
+                        var error = JSON.parse(xhr.responseText);
+                        var detail = Object.values(error.errors);
+                        if(xhr.status == 422){
+                            var keys = Object.keys(error.errors);
+                            var tab =  $('#'+keys[0]).parents('.tab-pane').attr('id');
+                            $('a[href="#'+tab+'"]').click();
+                            $('#'+keys[0]).addClass('error');
+                            $('#'+keys[0]).parent('.input-group').addClass('input-group-error');
+                            $("label[for='"+keys[0]+"']").append("<br/>");
+                            $("label[for='"+keys[0]+"']").append('<label id="'+keys[0]+'-error" class="error" for="'+keys[0]+'">'+detail[0]+'</label>');
+                            $('#'+keys[0]).focus();
+                        }
+                        Swal.fire({
+                            type: 'error',
+                            title: error.message,
+                            text: detail[0]
+                        })
+                    },
                     fail: function(xhr, textStatus, errorThrown){
                         alert('request failed:'+textStatus);
                     }
