@@ -786,10 +786,10 @@
     // }
     var $form_aktif = "";
     // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('d428ef5138920b411264', {
-        cluster: 'ap1',
+    Pusher.logToConsole = false;
+    
+    var pusher = new Pusher("{{ config('broadcasting.connections.pusher.key') }}", {
+        cluster: "{{ config('broadcasting.connections.pusher.options.cluster') }}",
         encrypted: true
     });
 
